@@ -19,6 +19,7 @@ java -Xmx2g -jar -Dspring.profiles.active=uberon ols-solr/target/ols-solr-3.0-SN
 
 The config for application-uberon.properties would include:
 
+```
 # The ontology URI
 ontology_uri  http://purl.obolibrary.org/obo/uberon.owl
 
@@ -57,4 +58,4 @@ classify false
 
 # True if the ontology contains OBO style slim annotations
 oboSlims true
-
+```
