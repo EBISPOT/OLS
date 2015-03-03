@@ -27,18 +27,13 @@ public class OntologyApplication implements CommandLineRunner {
    	public void run(String... args) throws Exception {
 
         System.setProperty("entityExpansionLimit", "10000000");
-//        DocumentLoadingService loadingService = new PropertyBasedLoadingService();
         OntologyLoader loader = propertyBasedLoadingService.getLoader();
-        for (TermDocument td :solrIndexingService.getOntologySolrRepository().findByOntologyName("EFO")) {
-            System.out.println(td.getUri());
-
-        }
 //        if (args != null) {
 //            if (args[0].equals("dropall")) {
 //                solrIndexingService.dropIndex(loader);
 //            }
 //        }
-//        solrIndexingService.createIndex(loader);
+        solrIndexingService.createIndex(loader);
    	}
 
    	public static void main(String[] args) throws Exception {
