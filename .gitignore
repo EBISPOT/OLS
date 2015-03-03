@@ -1,0 +1,9 @@
+target/
+*.iml
+*.DS_store
+.idea
+*~
+ols-loader/src/main/resources/data
+ols-loader/src/test/resources/tmp
+ols-solr/src/main/resources/solr-conf/ontology/data
+ols-mongo/src/main/resources/mongodb
