@@ -6,11 +6,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import uk.ac.ebi.spot.config.OntologyResourceConfig;
-import uk.ac.ebi.spot.config.PropertyBasedLoadingService;
-import uk.ac.ebi.spot.loader.OntologyLoader;
-import uk.ac.ebi.spot.ols.model.OntologyDocument;
-import uk.ac.ebi.spot.ols.model.Status;
 import uk.ac.ebi.spot.ols.repository.MongoOntologyRepository;
+import uk.ac.ebi.spot.config.PropertyBasedLoadingService;
+import uk.ac.ebi.spot.ols.model.OntologyDocument;
 
 /**
  * @author Simon Jupp

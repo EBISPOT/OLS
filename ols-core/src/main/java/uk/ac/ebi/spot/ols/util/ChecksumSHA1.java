@@ -1,8 +1,9 @@
-package uk.ac.ebi.spot;
+package uk.ac.ebi.spot.ols.util;
+
+import uk.ac.ebi.spot.ols.exception.FileUpdateServiceException;
 
 import java.io.*;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 /**
  * @author Simon Jupp

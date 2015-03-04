@@ -1,7 +1,6 @@
 package uk.ac.ebi.spot.model;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class TermDocumentBuilder {
     private String id;

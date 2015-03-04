@@ -1,4 +1,4 @@
-package uk.ac.ebi.spot;
+package uk.ac.ebi.spot.ols.exception;
 
 /**
  * @author Simon Jupp

@@ -1,16 +1,14 @@
 package uk.ac.ebi.spot;
 
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import uk.ac.ebi.spot.loader.OntologyLoader;
 import uk.ac.ebi.spot.config.OntologyResourceConfig;
 import uk.ac.ebi.spot.exception.OntologyLoadingException;
 import uk.ac.ebi.spot.loader.HermitOWLOntologyLoader;
-import uk.ac.ebi.spot.loader.OntologyLoader;
 
 import java.net.URI;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Set;
 
 /**
  * @author Simon Jupp

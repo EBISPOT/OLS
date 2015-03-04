@@ -1,7 +1,5 @@
 package uk.ac.ebi.spot.util;
 
-import org.omg.CORBA.UNKNOWN;
-
 /**
  * @author Simon Jupp
  * @date 29/01/2015

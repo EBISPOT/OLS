@@ -1,7 +1,6 @@
 package uk.ac.ebi.spot.loader;
 
 import uk.ac.ebi.spot.exception.OntologyLoadingException;
-import uk.ac.ebi.spot.loader.OntologyLoader;
 
 /**
  * @author Simon Jupp

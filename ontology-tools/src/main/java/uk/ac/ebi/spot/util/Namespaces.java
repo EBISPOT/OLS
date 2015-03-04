@@ -2,8 +2,6 @@ package uk.ac.ebi.spot.util;
 
 import org.semanticweb.owlapi.model.IRI;
 
-import java.net.URI;
-
 /**
  * @author Simon Jupp
  * @date 04/02/2015

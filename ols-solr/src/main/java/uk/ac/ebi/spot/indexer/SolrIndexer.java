@@ -10,7 +10,7 @@ import uk.ac.ebi.spot.loader.OntologyLoader;
 import uk.ac.ebi.spot.model.TermDocument;
 import uk.ac.ebi.spot.model.TermDocumentBuilder;
 import uk.ac.ebi.spot.util.TermType;
-import uk.ac.ebi.spot.ols.service.OntologyIndexer;
+import uk.ac.ebi.spot.ols.model.OntologyIndexer;
 
 import java.util.*;
 import java.util.stream.Collectors;

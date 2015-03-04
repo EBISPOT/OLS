@@ -7,13 +7,10 @@ package uk.ac.ebi.spot.loader;
  */
 
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntology;
 import org.springframework.core.io.Resource;
 
-import java.net.URI;
 import java.util.Collection;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * An ontology loader that provides some abstraction around core concepts in ontologies.  We essentially

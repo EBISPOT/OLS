@@ -5,8 +5,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.core.env.Environment;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import uk.ac.ebi.spot.ols.exception.FileUpdateServiceException;
+import uk.ac.ebi.spot.ols.util.FileUpdater;
 
 import java.net.URI;
 

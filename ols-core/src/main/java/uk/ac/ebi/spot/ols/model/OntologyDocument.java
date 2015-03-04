@@ -28,15 +28,18 @@ public class OntologyDocument {
 
     private String message;
 
+    private String localPath;
+
     private int numberOfTerms;
 
     private OntologyResourceConfig config;
 
-    public OntologyDocument(String ontologyId, Date updated, Status status, String message, int numberOfTerms, OntologyResourceConfig config) {
+    public OntologyDocument(String ontologyId, Date updated, Status status, String message, String localPath, int numberOfTerms, OntologyResourceConfig config) {
         this.ontologyId = ontologyId;
         this.updated = updated;
         this.status = status;
         this.message = message;
+        this.localPath = localPath;
         this.numberOfTerms = numberOfTerms;
         this.config = config;
     }
@@ -49,6 +52,7 @@ public class OntologyDocument {
         this.config = config;
         this.status = Status.NOTLOADED;
         this.message = "No ontology loaded";
+        this.localPath = null;
         this.updated = new Date();
         this.numberOfTerms = 0;
     }
@@ -99,5 +103,13 @@ public class OntologyDocument {
 
     public void setConfig(OntologyResourceConfig config) {
         this.config = config;
+    }
+
+    public String getLocalPath() {
+        return localPath;
+    }
+
+    public void setLocalPath(String localPath) {
+        this.localPath = localPath;
     }
 }

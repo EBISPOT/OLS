@@ -37,7 +37,7 @@
 
     <properties>
    		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-   		<start-class>uk.ac.ebi.spot.goci.SearchApplication</start-class>
+   		<start-class>uk.ac.ebi.spot.spot.goci.SearchApplication</start-class>
    		<java.version>1.8</java.version>
    	</properties>
 

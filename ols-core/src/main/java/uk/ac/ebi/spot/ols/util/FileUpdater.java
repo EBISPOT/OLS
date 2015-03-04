@@ -1,10 +1,11 @@
-package uk.ac.ebi.spot;
+package uk.ac.ebi.spot.ols.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
+import uk.ac.ebi.spot.ols.exception.FileUpdateServiceException;
 
 import java.io.*;
 import java.net.URI;
@@ -33,23 +34,23 @@ public class FileUpdater {
         this.path = path;
     }
 
-    @Value("${ols.loader.filedir}")
+    @Value("${ols.loader.filedir:}")
     private String path;
 
     public FileUpdater() {
     }
 
-    public FileStatus getFile(String name, URI file) throws FileUpdateServiceException{
+    public FileStatus getFile(String name, URI file) throws FileUpdateServiceException {
 
         getLog().info("Downloading " + name + " from " + file.toString());
         File pathFile = new File(path);
-        if (!pathFile.exists()) {
-                if (pathFile.mkdir()) {
+        if (!Files.exists(pathFile.toPath())) {
+             try {
+                 pathFile.mkdir();
+             } catch (Exception e) {
+                 throw new FileUpdateServiceException("Can't create path to file download:" + e.getMessage());
+             }
 
-                }
-                else {
-                    throw new FileUpdateServiceException("Can't create tmp directory at " + path);
-                }
         }
 
         String checkName = name + ".chk";
@@ -104,7 +105,7 @@ public class FileUpdater {
             }
 
         } catch (Exception e) {
-            throw new FileUpdateServiceException("Failed to check " + name + " for updates from" + file.toString(), e);
+            throw new FileUpdateServiceException("Failed to download file: " + e.getMessage(), e);
         }
     }
 

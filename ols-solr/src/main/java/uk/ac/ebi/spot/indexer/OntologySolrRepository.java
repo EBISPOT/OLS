@@ -1,9 +1,7 @@
 package uk.ac.ebi.spot.indexer;
 
 import org.springframework.data.solr.repository.SolrCrudRepository;
-import org.springframework.stereotype.Repository;
 import uk.ac.ebi.spot.model.TermDocument;
-import uk.ac.ebi.spot.ols.service.OntologyRepositoryService;
 
 import java.util.List;
 

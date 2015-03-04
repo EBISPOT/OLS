@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class OLSApplication {
     public static void main(String[] args) {
-        SpringApplication.run(uk.ac.ebi.spot.OLSApplication.class, args);
+        SpringApplication.run(OLSApplication.class, args);
     }
 
 }

@@ -14,10 +14,8 @@ import uk.ac.ebi.spot.exception.OntologyLoadingException;
 import uk.ac.ebi.spot.util.Initializable;
 import uk.ac.ebi.spot.util.Namespaces;
 import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxOWLObjectRendererImpl;
-import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxRenderer;
 
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.regex.Matcher;
