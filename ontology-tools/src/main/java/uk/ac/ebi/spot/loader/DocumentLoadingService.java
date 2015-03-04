@@ -1,5 +1,6 @@
 package uk.ac.ebi.spot.loader;
 
+import uk.ac.ebi.spot.exception.OntologyLoadingException;
 import uk.ac.ebi.spot.loader.OntologyLoader;
 
 /**
@@ -14,5 +15,5 @@ import uk.ac.ebi.spot.loader.OntologyLoader;
  */
 public interface DocumentLoadingService {
 
-    OntologyLoader getLoader();
+    OntologyLoader getLoader()  throws OntologyLoadingException;
 }

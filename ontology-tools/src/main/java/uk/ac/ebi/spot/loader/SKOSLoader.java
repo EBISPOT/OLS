@@ -5,6 +5,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import uk.ac.ebi.spot.config.OntologyResourceConfig;
+import uk.ac.ebi.spot.exception.OntologyLoadingException;
 import uk.ac.ebi.spot.loader.AbstractOWLOntologyLoader;
 
 /**
@@ -13,7 +14,7 @@ import uk.ac.ebi.spot.loader.AbstractOWLOntologyLoader;
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
 public class SKOSLoader extends AbstractOWLOntologyLoader {
-    public SKOSLoader(OntologyResourceConfig config) {
+    public SKOSLoader(OntologyResourceConfig config) throws OntologyLoadingException {
         super(config);
     }
 

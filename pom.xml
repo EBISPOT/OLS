@@ -15,6 +15,7 @@
         <module>ols-mongo</module>
         <module>ols-web</module>
         <module>ols-loader</module>
+        <module>ols-apps</module>
     </modules>
 
     <properties>

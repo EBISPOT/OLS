@@ -5,6 +5,7 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.*;
 import org.slf4j.Logger;
 import uk.ac.ebi.spot.config.OntologyResourceConfig;
+import uk.ac.ebi.spot.exception.OntologyLoadingException;
 
 
 /**
@@ -19,7 +20,7 @@ import uk.ac.ebi.spot.config.OntologyResourceConfig;
 public class ELKOWLOntologyLoader extends AbstractOWLOntologyLoader {
 
     OWLReasoner reasoner = null;
-    public ELKOWLOntologyLoader(OntologyResourceConfig config) {
+    public ELKOWLOntologyLoader(OntologyResourceConfig config)  throws OntologyLoadingException {
         super(config);
     }
 

@@ -20,6 +20,7 @@ import java.util.concurrent.CountDownLatch;
 public class FileUpdatingService {
 
     private Collection<OntologyDocument> updatedOntologies;
+    private Collection<OntologyDocument> failedOntologies;
 
     private CountDownLatch latch;
 
@@ -33,10 +34,12 @@ public class FileUpdatingService {
         return log;
     }
 
-    public FileUpdatingService(TaskExecutor taskExecutor) {
+    public FileUpdatingService(TaskExecutor taskExecutor, CountDownLatch latch) {
         this.taskExecutor = taskExecutor;
-        localFileMap = new HashMap<>();
-        updatedOntologies = new HashSet<>();
+        this.localFileMap = new HashMap<>();
+        this.updatedOntologies = new HashSet<>();
+        this.failedOntologies = new HashSet<>();
+        this.latch = latch;
     }
     private class FileUpdatingTask implements Runnable {
 
@@ -56,13 +59,14 @@ public class FileUpdatingService {
 
             FileUpdater.FileStatus status = null;
             try {
-                status = fileUpdateService.getFile(config.getTitle(), config.getFileLocation());
+                status = fileUpdateService.getFile(config.getNamespace(), config.getFileLocation());
                 if (status.isNew()) {
                     updatedOntologies.add(document);
                     localFileMap.put(document.getOntologyId(), status.getFile());
                 }
             } catch (FileUpdateServiceException e) {
-                e.printStackTrace();
+                log.error("Error checking: " + config.getTitle(), e);
+                failedOntologies.add(document);
             }
             finally {
                 latch.countDown();
@@ -78,18 +82,16 @@ public class FileUpdatingService {
 
 
     public void checkForUpdates(List<OntologyDocument> documents, FileUpdater fileUpdateService) {
-        latch = new CountDownLatch(documents.size());
         for(OntologyDocument document : documents) {
             getLog().info("Starting file update check for " + document.getOntologyId());
             taskExecutor.execute(new FileUpdatingTask(document, fileUpdateService));
         }
     }
 
-    public CountDownLatch getCountdownLatch() {
-        return latch;
-    }
-
     public Collection<OntologyDocument> getUpdatedOntologies() {
         return updatedOntologies;
+    }
+    public Collection<OntologyDocument> getFailedOntologies() {
+        return failedOntologies;
     }
 }

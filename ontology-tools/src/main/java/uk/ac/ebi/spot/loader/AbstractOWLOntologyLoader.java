@@ -90,7 +90,7 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
     private Map<IRI, Collection<String>> equivalentClassExpressionsAsString = new HashMap<>();
     private Map<IRI, Collection<String>> superclassExpressionsAsString = new HashMap<>();
 
-    public AbstractOWLOntologyLoader(OntologyResourceConfig config) {
+    public AbstractOWLOntologyLoader(OntologyResourceConfig config) throws OntologyLoadingException {
         // read from config
         setOntologyIRI(IRI.create(config.getId()));
         setOntologyName(config.getNamespace());

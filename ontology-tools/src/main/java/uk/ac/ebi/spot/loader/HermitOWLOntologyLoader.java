@@ -5,6 +5,7 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.*;
 import org.slf4j.Logger;
 import uk.ac.ebi.spot.config.OntologyResourceConfig;
+import uk.ac.ebi.spot.exception.OntologyLoadingException;
 
 /**
  * Loads an ontology using the OWLAPI and a HermiT reasoner to classify the ontology.  This allows for richer typing
@@ -16,7 +17,7 @@ import uk.ac.ebi.spot.config.OntologyResourceConfig;
  */
 public class HermitOWLOntologyLoader extends AbstractOWLOntologyLoader {
     OWLReasoner reasoner = null;
-    public HermitOWLOntologyLoader(OntologyResourceConfig config) {
+    public HermitOWLOntologyLoader(OntologyResourceConfig config) throws OntologyLoadingException {
         super(config);
     }
 

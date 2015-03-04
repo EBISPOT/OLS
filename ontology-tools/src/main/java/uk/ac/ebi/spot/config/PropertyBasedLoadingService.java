@@ -8,6 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
+import uk.ac.ebi.spot.exception.OntologyLoadingException;
 import uk.ac.ebi.spot.loader.*;
 import uk.ac.ebi.spot.util.TermType;
 
@@ -49,23 +50,23 @@ public class PropertyBasedLoadingService implements DocumentLoadingService {
     }
 
     @Override
-    public OntologyLoader getLoader() {
+    public OntologyLoader getLoader() throws OntologyLoadingException {
 
         config = getConfiguration();
 
         System.out.println("Starting up with " + id + " - " + title);
 
-        if (config.isClassify()) {
-            this.loader = new HermitOWLOntologyLoader(config);
-        }
-        else if (config.isSkos()) {
-            this.loader = new SKOSLoader(config);
-        }
-        else {
-            this.loader = new ELKOWLOntologyLoader(config);
-        }
+            if (config.isClassify()) {
+                this.loader = new HermitOWLOntologyLoader(config);
+            }
+            else if (config.isSkos()) {
+                this.loader = new SKOSLoader(config);
+            }
+            else {
+                this.loader = new ELKOWLOntologyLoader(config);
+            }
 
-        return loader;
+            return loader;
     }
 
     public OntologyResourceConfig getConfiguration() {

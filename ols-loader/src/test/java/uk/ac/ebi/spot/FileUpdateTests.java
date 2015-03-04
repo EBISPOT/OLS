@@ -31,7 +31,12 @@ public class FileUpdateTests {
 
         updater.setPath("/Users/jupp/Dropbox/dev/ols/ols-loader/src/test/resources/tmp");
 
-        FileUpdater.FileStatus status = updater.getFile("ORDO", URI.create("http://www.orphadata.org/data/ORDO/ordo_orphanet.owl.zip"));
+        FileUpdater.FileStatus status = null;
+        try {
+            status = updater.getFile("ORDO", URI.create("http://www.orphadata.org/data/ORDO/ordo_orphanet.owl.zip"));
+        } catch (FileUpdateServiceException e) {
+            e.printStackTrace();
+        }
 
         System.out.println(status.isNew());
 

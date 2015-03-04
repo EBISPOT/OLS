@@ -2,6 +2,7 @@ package uk.ac.ebi.spot;
 
 import org.semanticweb.owlapi.model.IRI;
 import uk.ac.ebi.spot.config.OntologyResourceConfig;
+import uk.ac.ebi.spot.exception.OntologyLoadingException;
 import uk.ac.ebi.spot.loader.HermitOWLOntologyLoader;
 import uk.ac.ebi.spot.loader.OntologyLoader;
 
@@ -36,7 +37,12 @@ public class OWLOntologyLoaderEFOTest {
         OntologyResourceConfig config= builder.build();
 
         OntologyLoader loader = null;
-        loader = new HermitOWLOntologyLoader(config);
+        try {
+            loader = new HermitOWLOntologyLoader(config);
+        } catch (OntologyLoadingException e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
         Collection<IRI> terms = loader.getAllClasses();
 
         terms.addAll(loader.getAllObjectPropertyIRIs());

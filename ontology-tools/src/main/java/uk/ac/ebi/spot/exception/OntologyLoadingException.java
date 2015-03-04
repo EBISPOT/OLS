@@ -5,7 +5,7 @@ package uk.ac.ebi.spot.exception;
  * @date 03/02/2015
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
-public class OntologyLoadingException extends RuntimeException {
+public class OntologyLoadingException extends Exception {
     public OntologyLoadingException() {
     }
 
