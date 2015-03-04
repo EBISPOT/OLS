@@ -3,13 +3,13 @@ This module is a spring boot application for creating a SOLR index from a given 
 
 You need a local version of SOLR running, we are currently testing with version 4.10.3. 
 
-Start SOLR with the config supplied by this module 
+Start SOLR in the example directory with the config supplied by this module 
 
 e.g. 
 
 java -Dsolr.solr.home=<PATH TO HERE>/ols/ols-solr/src/main/resources/solr-conf -jar start.jar
 
-Once the SOLR service is running you can create a new index as follows:
+Once the SOLR service is running (by default at http://localhost:8983/solr) you can create a new index as follows:
 
 1. Create an ontology configuration file. There are some examples in src/main/resources/*.properties
 2. Build the application jar: mvn clean package
