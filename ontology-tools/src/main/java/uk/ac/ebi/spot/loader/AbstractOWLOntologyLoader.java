@@ -526,9 +526,7 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
                         }
 
                         if (!termAnnotations.get(owlEntityIRI).containsKey(propertyIRI)) {
-                            HashMap<IRI, Collection<String>> newMap = new HashMap<>();
-                            newMap.put(propertyIRI, new HashSet<>());
-                            termAnnotations.put(owlEntityIRI, newMap);
+                            termAnnotations.get(owlEntityIRI).put(propertyIRI, new HashSet<>());
                         }
 
                         termAnnotations.get(owlEntityIRI).get(propertyIRI).add(getOWLAnnotationValueAsString(annotation.getValue()).get());

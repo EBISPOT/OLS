@@ -47,6 +47,7 @@ public class OWLOntologyLoaderEFOTest {
 
         terms.addAll(loader.getAllObjectPropertyIRIs());
         for (IRI iri: terms) {
+
             System.out.println(iri + " -> label: " + loader.getTermLabels().get(iri));
 
             for (String acc : loader.getAccessions(iri)) {
@@ -87,6 +88,7 @@ public class OWLOntologyLoaderEFOTest {
                     System.out.println(iri + " -> " + desc);
                 }
             }
+
 
         }
     }

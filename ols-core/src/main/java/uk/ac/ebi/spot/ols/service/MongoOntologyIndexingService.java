@@ -71,6 +71,7 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             document.setStatus(status);
             document.setUpdated(new Date());
             document.setMessage(message);
+            ontologyRepositoryService.update(document);
         }
     }
 }
