@@ -100,8 +100,13 @@ public interface OntologyLoader {
     Map<IRI, Collection<String>> getTermDefinitions();
 
     Map<IRI, Collection<IRI>> getDirectParentTerms();
+    Collection<IRI> getDirectParentTerms(IRI iri);
     Map<IRI, Collection<IRI>> getAllParentTerms();
+
+
+
     Map<IRI, Collection<IRI>> getDirectChildTerms();
+    Collection<IRI> getDirectChildTerms(IRI iri);
     Map<IRI, Collection<IRI>> getAllChildTerms();
 
     Map<IRI, Collection<String>> getLogicalSuperClassDescriptions();
@@ -119,6 +124,7 @@ public interface OntologyLoader {
      * @return the relationship IRI and the set of related terms
      */
     Map<IRI, Collection<IRI>> getAllRelatedTerms(IRI entityIRI);
+
     Map<IRI, Collection<IRI>> getRelatedTerms(IRI entityIRI);
 
 

@@ -14,6 +14,7 @@
     <modules>
         <module>ols-solr-app</module>
         <module>ols-loading-app</module>
+        <module>ols-sibling-graph-creator</module>
     </modules>
 
 
