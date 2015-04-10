@@ -1,0 +1,38 @@
+= Related resources
+
+=== GWAS Webinar
+On Thursday, July 18th, 2013, the Division of Genomic Medicine held http://www.genome.gov/27554296[a webinar] to highlight current uses and explore  priorities and future directions for the GWAS catalog.
+
+=== Various resources & projects
+http://www.ensembl.org[Ensembl Genome Browser]
+
+http://www.gen2phen.org/[GEN2PHEN Project]
+
+http://geneticassociationdb.nih.gov/[Genetic Association Database]
+
+http://www.geneticsofgeneexpression.org/network/[Human Gene Coexpression Database]
+
+http://www.hapmap.org/[International HapMap Project]
+
+http://www.phenxtoolkit.org[PhenX Toolkit (consensus measures of Phenotypes and eXposures)]
+
+http://genome.ucsc.edu/cgi-bin/hgGateway[Genome Browser Gateway]
+
+=== HuGE Navigator (Centers for Disease Control and Prevention)
+http://hugenavigator.net/HuGENavigator/gWAHitStartPage.do[GWAS Integrator]
+
+http://www.hugenavigator.net/HuGENavigator/startPagePubLit.do[HuGE Literature Finder]
+
+http://www.hugenavigator.net/HuGENavigator/startPageMapper.do[Variant Name Mapper]
+
+
+=== National Center for Biotechnology Information (NCBI) Links
+http://www.ncbi.nlm.nih.gov/projects/SNP/[dbSNP]
+
+http://www.ncbi.nlm.nih.gov/sites/entrez?db=gene[Entrez Gene]
+
+http://www.ncbi.nlm.nih.gov/Genbank/[GenBank]
+
+http://www.ncbi.nlm.nih.gov/sites/entrez/[PubMed]
+
+http://www.ncbi.nlm.nih.gov/gap/PheGenIUCSC[Phenotype-Genotype Integrator]

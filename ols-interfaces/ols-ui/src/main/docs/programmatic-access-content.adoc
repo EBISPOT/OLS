@@ -1,0 +1,50 @@
+= Programmatic access
+
+== Programmatic access
+
+The full REST API for the GWAS Catalog is still under development so please check this page regularly for updates or contact the GWAS Catalog team at gwas-info@ebi.ac.uk. You can however link into the Catalog and build bookmarks using the guide below.
+
+
+
+=== Bookmarking your searches
+
+You can bookmark all queries for main search terms, eg http://www.ebi.ac.uk/gwas/search?query=diabetes[diabetes] as well as for individual search facets, eg http://www.ebi.ac.uk/gwas/search?query=diabetes#association[only associations (not studies or traits) for the term diabetes]. It is currently not possible to bookmark filters, so if you are only interested in associations with a certain p-value cut-off or studies published after a certain date, you will still need to reapply these filters every time you return to the search.
+
+
+=== Bookmarking help documents
+
+You can bookmark any part of the GWAS Catalog page, including individual questions in the FAQ document. Please note that if you use Chrome as your web browser, jumping directly to a question may not always work. This is a browser bug outside our control.
+
+
+=== Linking into the Catalog
+
+Any concept that can be searched in the Catalog can also be linked to via a structured URL.
+Links should be structured using the GWAS catalog domain (normally `www.ebi.ac.uk/gwas`), and individual resources can be linked to using the paths as defined below.
+
+==== Traits
+
+Link to a trait using a catalog trait name:
+
+ GET search?query=breast%20cancer
+
+Link to a trait using an ontology ID:
+
+ GET search?query=EFO_0004541
+
+==== SNPs
+
+Link to a SNP using an rsID:
+
+ GET search?query=rs7329174
+
+==== Genes
+
+Link to a Gene by HGNC gene name:
+
+ GET search?query=HBS1L
+
+==== Studies
+
+Link to a publication by Pubmed ID:
+
+ GET search?query=23043469

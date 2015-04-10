@@ -1,0 +1,112 @@
+= Methods
+
+== Curation process
+
+The GWAS Catalog data is extracted from the literature. Extracted information includes publication information, study cohort information such as cohort size, country of recruitment and subject ethnicity, and SNP-disease association information including SNP identifier (i.e. RSID), p-value, gene and risk allele.
+Each study is also assigned a trait that best represents the phenotype under investigation.
+When multiple traits are analysed in the same study either multiple entries are created, or individual SNPs are annotated with their specific traits.
+Traits are used both to query and visualise the data in the Catalog's web form and diagram-based query interfaces.
+
+Data extraction and curation for the GWAS Catalog is an expert activity; each step is performed by scientists supported by a web-based tracking and data entry system which allows multiple curators to search, annotate, verify and publish the Catalog data.
+Papers that qualify for inclusion in the Catalog are identified through weekly PubMed searches.
+They then undergo two levels of curation.
+First all data, including association information for SNPs, traits and general information about the study, are extracted by one curator.
+A second curator then performs an additional round of curation to double-check the accuracy and consistency of all the information.
+Finally, an automated pipeline run at the NCBI performs checks for missing information, such as SNP identifiers, resolution of the citation in PubMed, existence of SNPs in dbSNP, confirmation of gene names vs. NCBI's Gene database, confirmation that the reported SNP and gene are in the same chromosomal region, as well as adding additional information such as the SNP's base pair and cytogenetic location in the current human genome reference assembly.
+This information is then used for queries and in the production of the karyotype diagram.
+
+
+== Full Description of Methods
+
+=== Identification of studies
+
+Published GWAS studies are identified through a weekly PubMed search.
+The search terms are "genome-wide" OR "genome AND identification" OR "genome AND association", with limits on the current year and human status.
+
+=== Eligibility criteria
+
+Studies and associations are eligible for inclusion in the NHGRI GWAS catalog if they meet the following criteria:
+
+* Include a primary GWAS analysis, defined as array-based genotyping and analysis of 100,000+ pre-QC SNPs selected to tag variation across the genome and without regard to gene content.
+* GWAS data from published studies which are incorporated into new GWAS analyses are eligible, provided they meet the other criteria.
+* Studies imputing sequencing data to genotyping arrays are eligible as long as the arrays include sufficient genome-wide coverage so that the post-imputation analysis meets the definition of a GWAS analysis, as described above.
+
+Studies and associations are excluded if:
+
+* The study was published in a language other than English.
+* SNPs assayed or analysed were limited to those in candidate genes.
+* The study uses customized gene-based arrays without a clearly described GWAS backbone, including those selected to replicate published GWAS findings (e.g., Metabochip, Immunochip, etc.).
+* Samples were assayed to measure somatic variation (e.g., in tumor samples).
+* The study does not include any new GWAS data.
+
+Individual SNP-trait associations identified in eligible studies are included in the Catalog if they meet the following criteria:
+
+* Statistical significance (SNP-trait p-value <1.0 x 10-5) in the overall (initial GWAS + replication) population.
+* If a study does not report a combined p-value, the p-value and effect size from the largest sample size will be reported as long as the initial and replication samples each show an association of p < 1.0 x 10-5.
+* If a study does not include a replication stage, significant SNPs from the discovery stage will be reported.
+* SNP-trait associations that are described as previously known at the time of publication and are statistically significant in the GWAS sample, but are not attempted for replication, are reported.
+* The most significant SNP from each independent locus is extracted.
+
+=== Data extraction
+
+GWAS Catalog data are manually extracted from the literature (either the main text or supporting information) by expert scientists.
+Following initial extraction all data is double-checked for accuracy and consistency by an independent curator.
+
+In general the GWAS Catalog contains one entry for each publication.
+However when a publication includes multiple GWAS analyses, for example on different traits or distinct sample cohorts, these may be split into multiple entries.
+In cases where studies containing multiple GWAS analyses are not split, generally because <5 associations are identified for each analysis, individual SNP associations are annotated with the specific trait, sample population or analysis method.
+
+Information on the following study-level fields is extracted. Capitalised titles correspond to column headings in tab delimited file:
+
+* DATE ADDED TO CATALOG: Date added to catalog
+* PUBMEDID: PubMed identification number
+* FIRST AUTHOR: Last name and initials of first author
+* DATE: Publication date, (online (epub) date if available)
+* JOURNAL: Abbreviated journal name
+* LINK: PubMed URL
+* STUDY: Title of paper
+* DISEASE/TRAIT: Description of disease/trait examined in the study
+* INITIAL SAMPLE DESCRIPTION: Sample size and ancestry description for stage 1 of GWAS (summing across multiple Stage 1 populations, if applicable)
+* REPLICATION SAMPLE DESCRIPTION: Sample size and ancestry description for subsequent replication(s) (summing across multiple populations, if applicable)
+* PLATFORM (SNPS PASSING QC): Manufacturer of genotyping array used in GWAS stage; Number of SNPs passing quality control metrics and included in the GWAS analysis; also includes notation of “imputed” if imputation is used and "pooled" to denote studies of pooled DNA.
+* CNV: Study of copy number variation (yes/no).
+
+For each identified SNP, we extract:
+
+* REPORTED GENE: Gene(s) reported by the author; "Intergenic" is used to denote a reported intergenic location (or lack of gene if it appeared that gene information was sought); “NR” is used to denote that no gene location information was reported.
+* STRONGEST SNP-RISK ALLELE: SNP(s) most strongly associated with trait + risk/effect allele (? for unknown risk allele). May also refer to a haplotype.
+* SNPS: Strongest SNP; If a haplotype is reported above, this field may include more than one rs number (multiple SNPs comprising the haplotype). Multiple SNPs may also be included if proxy SNPs are reported.
+* RISK ALLELE FREQUENCY: Reported risk/effect allele frequency associated with strongest SNP in controls (if not available among all controls, among the control group with the largest sample size). If the associated locus is a haplotype the haplotype frequency will be extracted.
+* P-VALUE: Reported p-value for strongest SNP risk allele. Note that p-values are rounded to 1 significant digit (for example, a published p- value of 4.8 x 10-7 is rounded to 5 x 10-7).
+* PVALUE_MLOG: -log(p-value)
+* P-VALUE (TEXT): Information describing context of p-value (e.g. females, smokers).
+* OR or BETA: Reported odds ratio or beta-coefficient associated with strongest SNP risk allele. Note that if an OR <1 is reported this is inverted, along with the reported allele, so that all ORs included in the Catalog are >1. Appropriate unit and increase/decrease are included for beta coefficients.
+* 95% CI (TEXT): Reported 95% confidence interval associated with strongest SNP risk allele, along with unit in the case of beta-coefficients. If 95% CIs are not published, we estimate these using the standard error, where available.
+
+==== Quality control and SNP mapping
+
+An automated pipeline, run at the NCBI, adds additional SNP specific information associated with the rsID extracted. This information includes the SNP's base pair and cytogenetic location in the current human genome reference assembly, mapped genes and SNP function. This information is then used for queries of the search interface and in the production of the karyotype diagram. The pipeline also performs checks for consistency and missing information, such as SNP identifiers, resolution of the citation in PubMed, existence of SNPs in dbSNP, confirmation of gene names vs. NCBI's Gene database and confirmation that the reported SNP and gene are in the same chromosomal region.
+
+Additional information added by NCBI pipeline. Capitalised titles correspond to column headings in tab delimited file:
+
+* REGION: Cytogenetic region associated with rs number.
+* CHR_ID: Chromosome number associated with rs number.
+* CHR_POS: Chromosomal position, in base pairs, associated with rs number.
+* MAPPED GENE(S): Gene(s) mapped to the strongest SNP. If the SNP is located within a gene, that gene is listed, with multiple overlapping genes separated by “;”. If the SNP is intergenic, the upstream and downstream genes are listed, separated by “-”.
+* UPSTREAM_GENE_ID: Entrez Gene ID for nearest upstream gene to rs number, if not within gene.
+* DOWNSTREAM_GENE_ID: Entrez Gene ID for nearest downstream gene to rs number, if not within gene.
+* SNP_GENE_IDS: Entrez Gene ID, if rs number within gene; multiple IDs denote overlapping genes. 
+* UPSTREAM_GENE_DISTANCE: Distance in kb for nearest upstream gene to rs number, if not within gene.
+* DOWNSTREAM_GENE_DISTANCE: Distance in kb for nearest downstream gene to rs number, if not within gene.
+* MERGED: Denotes whether the SNP has been merged into a subsequent rs record (0 = no; 1 = yes).
+* SNP_ID_CURRENT: Current rs number (will differ from strongest SNP when merged = 1).
+* CONTEXT: SNP functional class. 
+* INTERGENIC: Denotes whether SNP is in intergenic region (0 = no; 1 = yes).
+
+=== Additional guidelines for data extraction and interpretation
+
+* Missing or not applicable fields are denoted as follows: ?, allele not reported; NS, not significant (no associations at p<1.0 x 10-5 identified); NR, not reported.
+* Where multiple genetic models are available, effect sizes (OR's or beta-coefficients) are prioritized as follows: 1) genotypic model, per-allele estimate; 2) genotypic model, heterozygote estimate, 3) allelic model, allelic estimate.
+* If more than one SNP within a gene, or within a genomic region of 100kb upstream and downstream, meets the above extraction criteria, we report one SNP, unless there was evidence for an independent association.
+* Associations attributed to a combination of one or more genetic variants are denoted as such in the “Strongest SNP-Risk Allele” (e.g."3-SNP haplotype 1"). If available, rs numbers for SNPs comprising the haplotype are included in the “SNPs” field so that they are indexed and searchable using the SNP search features.
+* If the p-value, OR, and 95% CI fields are not available for the combined population, we extract estimates from the population group with the largest sample size.

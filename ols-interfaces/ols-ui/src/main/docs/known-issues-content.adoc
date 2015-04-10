@@ -1,0 +1,23 @@
+= Known issues
+
+== Data release issues
+
+==== p-value issues
+
+Due to a number precision issue, some p-values smaller than 10^-45^ and all p-values smaller than 10^-130^ were rounded to 0 instead of being represented in their proper scientific notation. This issue should be resolved by our next data release. In the mean time, the correct values are available in the link:../api/search/downloads/full[downloadable spreadsheet].
+
+
+==== OR/beta issues
+
+There is a known bug in our search index that incorrectly replaces null values for odd ratios or beta values with 0. This issue should be resolved by our next data release. In the mean time, the correct values are available in the link:../api/search/downloads/full[downloadable spreadsheet].
+
+
+
+
+'''
+
+Please refer to https://www.ebi.ac.uk/panda/jira/browse/GOCI/component/11750[our bug tracker] for the status any of these issues.
+
+If you find an issue not documented here, please submit a bug report to gwas-info@ebi.ac.uk.
+
+Updated: 17 March 2015

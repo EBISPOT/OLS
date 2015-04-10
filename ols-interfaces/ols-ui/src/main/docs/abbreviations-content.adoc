@@ -1,0 +1,1227 @@
+= Abbreviations
+
+== Full Description of Abbreviations used in the Catalog
+
+<<Special Characters>>, <<A>>, <<B>>, <<C>>, <<D>>, <<E>>, <<F>>, <<G>>, <<H>>, <<I>>, <<K>>, <<L>>, <<M>>, <<N>> ,<<O>>, <<P>>, <<Q>>, <<R>>, <<S>>, <<T>>, <<U>>, <<V>>, <<W>>, <<XYZ>>
+
+=== Special Characters
+
+?: A risk allele not reported
+
+
+5-HIAA: 5-hydroxyindoleacetic acid
+
+=== A
+
+AA: African-American
+
+
+AAM-BR: Age at menarche and buckling ratio
+
+
+AAM-CT: Age at menarche and cortical thickness
+
+
+AAM-W: Age at menarche and periosteal diameter
+
+
+AAT: alanine aminotransferase
+
+
+AAC: abdominal aortic calcium
+
+
+A action: Aggregatibacter actinomycetemcomitans
+
+
+Ab: Amyloid-beta
+
+
+ABI: ankle brachial index
+
+
+ACE: Angiotensin-converting enzyme
+
+
+ACPA: antibodies to citrullinated peptide antigens
+
+
+ACVn: normalised agkistrodon contortrix venom ratio
+
+
+AD: Alzheimer's Disease
+
+
+ADM: Adrenomedullin
+
+
+AF: atrial fibrillation
+
+
+AFBV: Frontal Brain volume
+
+
+AFP: ? fetoprotein
+
+
+AFVB: multivariable-adjusted frontal brain volume
+
+
+AIMS: Abnormal Involuntary Movements Scale
+
+
+Ala: Alaine
+
+
+ALB: albumin
+
+
+ALB/GLB: serum albumin:globulin ratio
+
+
+ALL: all ancestries
+
+
+ALLV: adjusted log lateral ventricular volume
+
+
+ALP: alkaline phosphatase
+
+
+Alpha-TOH: alpha-tocopherol
+
+
+ALT: alanine aminotransferase
+
+
+ALTHBV: multivariable-adjusted temporal horn volume
+
+
+AlkPhos: Alkaline phosphatase
+
+
+AMD: Age-related macular degeneration
+
+
+ANP6: N-terminal pro-atrial natriuretic peptide
+
+
+AngCAD: angiographic coronary disease
+
+
+AOI: age of smoking initiation
+
+
+apoA-1: apolipoprotein A-1
+
+
+aPTT: activated partial thromboplastin time
+
+
+ASD: Ostium secundum atrial septal defect
+
+
+AST: aspartate aminotransferase
+
+
+At: antithrombin
+
+
+ATBV: temporal brain volume
+
+
+ATCBV: total cerebral brain volume
+
+
+ATVB: multivariable-adjusted temporal brain volume
+
+=== B
+
+BABF: baseline brachial artery flow velocity
+
+
+BARS: Barnes Akathisia Scale
+
+
+BD: bipolar disorder
+
+
+BD-RT: bone density estimated by T score at distal radius
+
+
+BD-TT: bone density estimated by T score at midshaft tibia
+
+
+BMD: bone mineral density
+
+
+BMI: body mass index
+
+
+BMR: basal metabolic rate
+
+
+BMR RQ: respiratory quotient during basal metabolic rate measurement
+
+
+BPV: brain parenchymal volume
+
+
+BRCA1/2: breast cancer 1 gene and breast cancer 2 gene
+
+
+BUA: Broadband ultrasound attenuation
+
+
+BUN: blood urea nitrogen
+
+=== C
+
+C: cholesterol
+
+
+C3: Propionylcarnitine
+
+
+C4: Butyrylcarnitine
+
+
+C9: Nonaylcarnitine
+
+
+C10: Decanoylcarnitine
+
+
+C10:2: Decadienylcarnitine
+
+
+C12: Dodecanoylcarnitine
+
+
+C14:1-OH: Hydroxytetradecenoylcarnitine
+
+
+CA19-9: cancer antigen 19-9
+
+
+CAC: coronary artery calcification
+
+
+CAL:coronary artery lesions
+
+
+CB-PWV: carotid brachial pulse wave velocity
+
+
+CBT: Cortical thickness of the tibia
+
+
+CC16: Clara cell secretory protein
+
+
+CCA: common carotid artery
+
+
+CCA IMT: common carotid artery intimal medial thickness
+
+
+CCT: central corneal thickness
+
+
+CD40L: Ligand, serum & plasma
+
+
+cDAS28: Disease Activity Score
+
+
+CE: cholesterol ester
+
+
+CEA: carcinoembryonic antigen
+
+
+Cer: ceramide
+
+
+CEU: CEPH (Centre d'Etude du Polymorphisme Humain) from Utah
+
+
+CF-PWVLTA: carotid-femoral pulse wave velocity, long-term average
+
+
+CHS1: 1st principal component on transformed hue and saturation values
+
+
+CK: creatinine kinase
+
+
+CKD: chronic kidney disease
+
+
+cHAQ: health assessment questionnaire score
+
+
+cHL: Classical Hodgkin lymphoma
+
+
+CIGSTAT: former/current smokers
+
+
+cIMT: carotid intima media thickness
+
+
+CL: cleft lip without cleft palate
+
+
+CL/P: cleft lip with or without cleft palate
+
+
+COWA: total number of correct words across three letters
+
+
+CP: cleft palate
+
+
+CPd: Chronic periodontitis
+
+
+CPD: cigarettes per day
+
+
+CPDBI: 10 or more cigarettes per day
+
+
+CRP: C-reactive protein
+
+
+CRP average 2,6,7: C-reactive protein (CRP) averaged from 3 examinations (over about 20 years)
+
+
+CRP2: C-reactive protein, offspring exam 2
+
+
+CRP average 2,6,7: C-reactive protein average exam 2,6,7
+
+
+CRP6: C-reactive protein exam 6
+
+
+CS: cardioembolic stroke
+
+
+cSJC: Swollen joint count
+
+
+cTJC: Tender joint count
+
+
+CVD: cardiovascular disease
+
+=== D
+
+D: particle diameter
+
+
+DBP: diastolic blood pressure
+
+
+DBPLTA: diastolic blood pressure, long-term average
+
+
+D.f.: Dermatophagoides farina
+
+
+DG: Desialylated 2AB-labelled human plasma N-glycans groups
+
+
+DGI+FUSION+WTCCC: combined results from the DGI, FUSION, WTCCC analyses
+
+
+DHEA-S: dehydroisoandrosterone sulfate
+
+
+DM: diabetes mellitus
+
+
+D.p.: Dermatophagoides pteronyssinus
+
+
+DXA: dual energy X-ray absorptiometry
+
+=== E
+
+EA: European Ancestry
+
+
+EBV: Epstein-Barr virus
+
+
+EDS: excessive daytime sleepiness
+
+
+EER: estimated energy requirement
+
+
+eGFR: glomerular filtration rate
+
+
+eGFRcrea: estimated glomerular filtration rate based on serum creatinine
+
+
+eGFRcys: serum cystatin C
+
+
+EM: Elated mania
+
+
+ET-1: Endothelin-1
+
+
+ESCC: esophageal squamous cell carcinoma
+
+
+ESRD: end-stage renal disease
+
+
+ESS: Epworth Sleepiness Scale
+
+
+Est-C: esterified cholesterol
+
+
+EVNV: ever smokers, never smokers
+
+=== F
+
+F2: Factor 2 (visual memory and organization)
+
+
+F3: Factor 3 (measure of attention and executive function - Trails A and B)
+
+
+FC: free cholesterol
+
+
+FEF: forced expiratory flow
+
+
+FEV1: forced expiratory volume in 1 second
+
+
+fev1slope: longitudinal slope of forced expiratory volume in one second
+
+
+FG: fibrinogen
+
+
+FI: fasting insulin
+
+
+FN: femoral neck
+
+
+FNBMDm: femoral bone mineral density in males
+
+
+FPG: fasting plasma glucose
+
+
+fPS: free Protein S
+
+
+Free T3: fasting serum free triiodothyronine
+
+
+FS: female-only stroke
+
+
+FSD: female sexual dysfunction
+
+
+FSG: fasting serum glucose
+
+
+FSH: follicle-stimulating hormone
+
+
+Ft3: free thyroxine 3
+
+
+Ft4: free thyroxine
+
+
+FUC-A: Antennary fucosylated glycans
+
+
+funcPS: functional Protein S
+
+
+FVC:  forced vital capacity
+
+
+FVII: Coagulation factors VII
+
+
+FWLTA: forward wave amplitude, long-term average
+
+=== G
+
+G3D: grade 3 diarrhea
+
+
+GGT: glutamyltranspeptidase
+
+
+Glc: Glucose
+
+
+Gln: Glutamine
+
+
+GLU: glucose
+
+
+GluCer: glucosylceramide
+
+
+GOT (AST): Glutamyl oxaloacetic transaminase, Aspartate aminotransferase
+
+
+GPT (ALT): glutamate pyruvate transaminase, alanine aminotransferase
+
+
+GP130: glycoprotein 130
+
+
+GSE: general side effect burden
+
+=== H
+
+HbA1C: hemoglobin A1c
+
+
+HbF: fetal hemoglobin
+
+
+Hcy:  homocysteine
+
+
+HDL-C:  Total cholesterol in HDL
+
+
+Hgb: Hemoglobin
+
+
+His: Histidine
+
+
+HOMA-IR: homeostasis model insulin resistance
+
+
+HIV: human immunodeficiency virus
+
+
+HDL: high density lipoprotein
+
+
+HOMA-B: beta-cell function
+
+
+HRmax: maximum heart rate during treadmill fitness test
+
+
+Ht: hematocrit
+
+
+HU: Hounsfield units
+
+
+HVA: homovanillic acid
+
+=== I
+
+ICAIMT: internal cartotid artery internal and common carotid intimal medial thickness
+
+
+ICAM: Intercellular adhesion molecule
+
+
+IED: intra-extradimensional set shifting
+
+
+IGF1: insulin-like growth factor I precursor
+
+
+IGFBP-1: fasting serum insulin-like growth factor binding protein-1
+
+
+IGFBP-3: fasting serum insulin-like growth factor binding protein-3
+
+
+IL6: Interleukin-6 precursor
+
+
+IL8: Interleukin-8 precursor
+
+
+IL10: Interleukin-10 precursor
+
+
+IL12: interleukin-12 precursor
+
+
+IL18: Interleukin-18 precursor
+
+
+IL1B: Interleukin-1, beta
+
+
+IL1RA: interleukin-1 receptor antagonist protein precursor
+
+
+IM: irritable mania
+
+
+IMT: Carotid intimal medial thickness
+
+
+INS: insulin
+
+
+int: interaction
+
+
+IR: insulin resistance
+
+
+IS: all ischemic stroke
+
+
+ISI_0-120: 0-120 min insulin sensitivity index
+
+=== K
+
+KD: Kawasaki disease
+
+=== L
+
+LA: linoleic acid
+
+
+LAA: large artery atherosclerosis
+
+
+LAD: left atrial diameter
+
+
+LC: lung cancer
+
+
+LDL: low density lipoprotein
+
+
+LDL-C: Total cholesterol in LDL
+
+
+LF/HF: ratio of low frequency to high frequency power
+
+
+L-LDL-FC: The free cholesterol content of large LDL
+
+
+L-HDL-L: Total lipids in large HDL
+
+
+LS: lumbar spine
+
+
+LTG: lamotrigine-induced hypersensitivity
+
+
+LTL: leukocyte telomere length
+
+
+LVD: large-vessel disease
+
+
+LVDD: left ventricular diastolic diameter
+
+
+LVFS: left ventricular fractional shortening
+
+
+LVM: left ventricular mass
+
+
+LVMI: left ventricular mass index
+
+
+LVSD: left ventricular systolic dimension
+
+
+LYM: Lymphoma subtypes
+
+=== M
+
+MAP: mean arterial pressure
+
+
+MAPLTA: mean arterial pressure, long-term average
+
+
+maxL*: maximum L* (reflectance)
+
+
+MC: mother's criticism
+
+
+MCH: mean corpuscular hemoglobin
+
+
+MCHC: mean corpuscular hemoglobin concentra­tion
+
+
+MCI: mild cognitive impairment
+
+
+MCS: Mental Component Summary
+
+
+MCV: mean corpuscular volume
+
+
+MCP1: monocyte chemoattractant protein-1
+
+
+meanFVC: mean forced vital capacity from 2 exams
+
+
+meanratio: mean FEV1/FVC from 2 exams
+
+
+METH: Methamphetamine
+
+
+M-HDL-L: Total lipids in medium HDL
+
+
+MHPG: 3-methoxy-4-hydroxyphenlglycol
+
+
+MI: myocardial infarction
+
+
+MIP-1b: macrophage inflammatory protein beta
+
+
+M-LDL-C: Total cholesterol in medium LDL
+
+
+M-LDL-PL: Phospholipids in medium LDL
+
+
+MobCH: double-bond protons of mobile lipids
+
+
+MMnb: mismatch negativity (300-710 ms)
+
+
+MMSE: Mini-mental state examination
+
+
+MSSS: Multiple Sclerosis Severity Scale
+
+
+M-VLDL-PL: Phospholipids in medium VLDL
+
+
+MW: mother's warmth
+
+=== N
+
+NA: not applicable
+
+
+NAP: non-albumin protein
+
+
+Nam: Boston Naming Test
+
+
+NCI: neurocognitive impairment
+
+
+NeckZ1: Neck section modulus
+
+
+NeckZ1rf: neck section modulus in females
+
+
+NeckW1rf: neck width in females
+
+
+NeckZ1rm: neck section modulus in males
+
+
+NEFA: fasting serum nonesterified fatty acids
+
+
+NFT: neurofibrillary tangles
+
+
+NHL: Non-Hodgkin's Lymphoma
+
+
+NL: neck length
+
+
+NPC: nasopharyngeal carcinoma
+
+
+NPG: normal-pressure glaucoma
+
+
+NR: not reported
+
+
+NS: none significant
+
+
+NSA: neck shaft angle
+
+
+NSAm: neck-shaft angle in males
+
+
+NSCL/P: nonsyndromic cleft lip with or without cleft palate
+
+
+NW: neck width
+
+
+Nvrb: Non Verbal
+
+=== O
+
+OCPD: Childhood Obsessive-Compulsive Personality Disorder
+
+
+OR: odds ratio
+
+=== P
+
+P: particle concentration
+
+
+P3MRSBP: post exercise 3 minute recovery systolic blood pressure
+
+
+PAD: peripheral artery disease
+
+
+PAI-1: plasminogen activator inhibitor
+
+
+PAL: paired associates learning
+
+
+PC: Protein C
+
+
+PC1: principal component axis 1, CANTAB measures
+
+
+PC2: principal component analysis 2
+
+
+PC3: principal component analysis 3
+
+
+PC aa C36:3: Phosphatidylcholine diacyl C36:3
+
+
+PC aa C36:4: Phosphatidylcholine diacyl C34:4
+
+
+PCS: Physical Component Summary
+
+
+PCV: packed cell volume
+
+
+P gingi: Porphyromonas gingivalis
+
+
+Phe: Phenylalanine
+
+
+PHT: phenytoin-induced hypersensitivity
+
+
+PKYRS: pack-years
+
+
+PL: phospholipid
+
+
+PLT: platelets
+
+
+pltadp: platelet aggregation (ADP-induced)
+
+
+pltcoll: platelet aggregation (collagen-induced)
+
+
+PP: pulse pressure
+
+
+ppfef: percent predicted FEF25-75­ for latest exam
+
+
+ppfefrat: percent predicted FEF25-75­/FVC for latest exam
+
+
+ppfvc: percent predicted FVC for latest exam
+
+
+ppfev1: percent predicted FEV1 for latest exam
+
+
+ppFEV1/FEC/FEE: percent predicted FEV1/FVC/FEF
+
+
+ppratio: percent predicted FEV1/FVC for latest exam
+
+
+PRM: pattern recognition memory
+
+
+PROP: propylthiouracil solution
+
+
+PS: protein S
+
+
+PSC: primary sclerosing cholangitis
+
+
+PT: prothrombin time
+
+
+PUFA: polyunsaturated fatty acids
+
+=== Q
+
+QC: quality control
+
+
+QUICKI: fasting serum quantitative insulin sensitivity check index
+
+=== R
+
+RA: Rheumatoid arthritis
+
+
+RANTES: fasting serum regulated upon activation, normal T-cell expressed and secreted
+
+
+RBC: red blood cell
+
+
+RBCC: red blood cell count
+
+
+RDW: red cell distribution width
+
+
+RQmax: maximum respiratory quotient during treadmill fitness test
+
+
+RVP: rapid visual processing
+
+
+RW: reflected wave amplitude
+
+
+RWLTA: reflected wave amplitude, long-term average
+
+=== S
+
+S2EHR: Stage 2 exercise heart rate
+
+
+S2ESBP: stage 2 exercise systolic blood pressure
+
+
+serum TG: serum total triglyceride content
+
+
+SAS: Simpson-Angus Scale
+
+
+SBP: systolic blood pressure
+
+
+SBPLTA: systolic blood pressure, long-term average
+
+
+sCR: serum creatinine
+
+
+SCZ and BD: Schizophrenia and Bipolar disorder
+
+
+s.d.: standard deviation
+
+
+SE: sleep efficiency
+
+
+ShaftW1: Shaft width combined
+
+
+ShaftW1f: shaft width in females
+
+
+ShaftZ1rf: shaft section modulus in females
+
+
+ShaftZ1R: shaft section modulus
+
+
+SHBG: sex hormone binding globulin
+
+
+sICAM-1: fasting serum soluble intercellular adhesion molecule-1
+
+
+sIL-6R: soluble interleukin
+
+
+Sim: Similarities
+
+
+Sleep RQ: respiratory quotient during sleep
+
+
+SLE: systemic lupus erythematosus
+
+
+SM-1: butyrylcarnitine / propionylcarnitine
+
+
+SM-2: N-acetylornithine
+
+
+SM-3: 1-arachidonoylglycero phosphoethanolamine / 1-linoleoylglycerophospho-ethanolamine
+
+
+SM-4: bilirubin (E,E) / oleoylcarnitine
+
+
+SM-5: hexanoylcarnitine / oleate (18:1n9)
+
+
+SM-6: myristate (14:0) / myristoleate (14:1n5)
+
+
+SM-7: 1-methylxanthine / 4-acetamidobutanoate
+
+
+SM-8: ADpSGEGDFXAEGGGVR / ADSGEGDFXAEGGGVR
+
+
+
+SM-9: 10-nonadecenoate (19:1n9) / 10-undecenoate (11:1n1)
+
+
+SM-10: eicosenoate (20:1n9 or 11) / tetradecanedioate
+
+
+SM-11: ADpSGEGDFXAEGGGVR / ADSGEGDFXAEGGGVR
+
+
+SM-12: ADSGEGDFXAEGGGVR / DSGEGDFXAEGGGVR
+
+
+SM-13: androsterone sulfate / epiandrosterone sulfate
+
+
+SM-14: ADpSGEGDFXAEGGGVR / DSGEGDFXAEGGGVR
+
+
+SM-15: 1-eicosatrienoylglycero-phosphocholine / 1-linoleoylglycero phosphocholine
+
+
+SM-16: docosahexaenoate (DHA; 22:6n3) / eicosapentaenoate (EPA; 20:5n3)
+
+
+SM-17: 3-(4-hydroxyphenyl)lactate / isovalerylcarnitine
+
+
+SMKAGE: age of initiation (years)
+
+
+SMKDU: duration (years)
+
+
+SM: sphingomyelin
+
+
+Spc: spectrum
+
+
+SP-D: surfactant protein D
+
+
+SPEED: processing speed
+
+
+SRM: spatial recognition memory
+
+
+SSP: spatial span
+
+
+sTfR: Soluble Transferrin Receptor
+
+
+Str: strict
+
+
+SVD: small-vessel disease
+
+
+SWM: spatial working memory
+
+=== T
+
+TAT: Total adipose tissue area
+
+
+TC: total cholesterol
+
+
+TEE: 24-h total energy expenditure
+
+
+tFPG: 28 year time averaged fasting plasma glucose (FPG)
+
+
+TG: triglycerides
+
+
+TGF-b1: transforming growth factor
+
+
+TG/HDLC: fasting serum triglycerides/high density lipoprotein cholesterol
+
+
+TIDN: Type 1 diabetes diabetic nephropathy
+
+
+Total PS: Total Protein S
+
+
+Total T3: fasting serum triiodothyronine
+
+
+Total T4: fasting serum thyroxine
+
+
+TP: total protein
+
+
+tPA: tissue plasminogen activator
+
+
+TNFA: tumor necrosis factor alpha
+
+
+TRBMD: Trochanter bone mineral density
+
+
+TRBMDm: Trochanter bone mineral density males
+
+
+TSH: thyroid stimulating hormone
+
+
+Tyr: Tyrosine
+
+=== U
+
+UAE: urinary albumin excretion
+
+=== V
+
+Val: Valine
+
+
+vBMD: volumetric bone mineral density
+
+
+VitD250H: Vitamin D plasma 25(OH)-D
+
+
+VitkPhylloq: Vitamin K plasma phylloquinone
+
+
+VLDL: very-low-density lipoprotein
+
+
+VLDL-D: Mean diameter for VLDL particles
+
+
+VO2max: maximum oxygen consumption during treadmill fitness test
+
+
+VOS: velocity of sound
+
+
+Vrb: verbal
+
+
+VRM: verbal recall
+
+
+vWF: Willebrand factor
+
+=== W
+
+WBC: white blood cell
+
+
+WC: waist circumference
+
+
+WCadjBMI: WC adjustment for BMI
+
+
+WF: weight fluctuation
+
+
+WGHS: Women's Genome Health Study
+
+
+WHR: waist hip ratio
+
+
+WHRadjBMI: WHR adjustment for BMI
+
+
+WRAT: Wide-Range Achievement Test
+
+=== XYZ
+
+XL-HDL-CE: The cholesterol ester content of extra large HD
+
+
+XL-HDL-TG: Triglycerides in very large HDL
+
+
+XXL-VLDL-P: extremely large VLDL particles
+
+
+YKL-40: (Chitinase 3-like 1) protein levels
