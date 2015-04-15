@@ -14,10 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
+import uk.ac.ebi.spot.ols.model.Greeting;
 import uk.ac.ebi.spot.ols.ui.SearchConfiguration;
 import uk.ac.ebi.spot.ols.ui.exception.IllegalParameterCombinationException;
 import uk.ac.ebi.spot.ols.ui.service.JsonProcessingService;
@@ -28,6 +26,7 @@ import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicLong;
 
 
 /**
@@ -40,6 +39,8 @@ import java.util.Date;
 public class SolrSearchController {
     private SearchConfiguration searchConfiguration;
 
+    //http://localhost:8983/solr/ontology/select?q=label%3Aliver&fl=label&wt=json&indent=true
+
     private Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
@@ -49,6 +50,27 @@ public class SolrSearchController {
 
     protected Logger getLog() {
         return log;
+    }
+
+    private static final String template = "Hello, %s!";
+    private final AtomicLong counter = new AtomicLong();
+
+    @RequestMapping("/greeting")
+    public @ResponseBody
+    Greeting greeting(
+            @RequestParam(value="name", required=false, defaultValue="World") String name) {
+        System.out.println("==== in greeting ====");
+        return new Greeting(counter.incrementAndGet(),
+                String.format(template, name));
+    }
+
+    @RequestMapping("/test")
+    public @ResponseBody
+    Greeting testGreeting(
+            @RequestParam(value="name", required=false, defaultValue="World") String name) {
+        System.out.println("==== in greeting ====");
+        return new Greeting(counter.incrementAndGet(),
+                String.format(template, name));
     }
 
     @RequestMapping(value = "api/search", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -64,138 +86,16 @@ public class SolrSearchController {
             HttpServletResponse response) throws IOException {
         StringBuilder solrSearchBuilder = buildBaseSearchRequest();
 
-        addFacet(solrSearchBuilder, searchConfiguration.getDefaultFacet());
-        if (useJsonp) {
-            addJsonpCallback(solrSearchBuilder, callbackFunction);
-        }
-        if (useGroups) {
-            addGrouping(solrSearchBuilder, groupBy, groupLimit);
-        }
-        else {
-            addRowsAndPage(solrSearchBuilder, maxResults, page);
-        }
-        addQuery(solrSearchBuilder, query);
-
-        // dispatch search
-        dispatchSearch(solrSearchBuilder.toString(), response.getOutputStream());
-    }
-
-    @RequestMapping(value = "api/search/study", produces = MediaType.APPLICATION_JSON_VALUE)
-    public void doStudySolrSearch(
-            @RequestParam("q") String query,
-            @RequestParam(value = "jsonp", required = false, defaultValue = "false") boolean useJsonp,
-            @RequestParam(value = "callback", required = false) String callbackFunction,
-            @RequestParam(value = "max", required = false, defaultValue = "10") int maxResults,
-            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            HttpServletResponse response) throws IOException {
-        StringBuilder solrSearchBuilder = buildBaseSearchRequest();
-
-        if (useJsonp) {
-            addJsonpCallback(solrSearchBuilder, callbackFunction);
-        }
-        addRowsAndPage(solrSearchBuilder, maxResults, page);
-        addFilterQuery(solrSearchBuilder, searchConfiguration.getDefaultFacet(), "Study");
-        addQuery(solrSearchBuilder, query);
-
-        // dispatch search
-        dispatchSearch(solrSearchBuilder.toString(), response.getOutputStream());
-    }
-
-    @RequestMapping(value = "api/search/singlenucleotidepolymorphism", produces = MediaType.APPLICATION_JSON_VALUE)
-    public void doSnpSolrSearch(
-            @RequestParam("q") String query,
-            @RequestParam(value = "jsonp", required = false, defaultValue = "false") boolean useJsonp,
-            @RequestParam(value = "callback", required = false) String callbackFunction,
-            @RequestParam(value = "max", required = false, defaultValue = "10") int maxResults,
-            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            HttpServletResponse response) throws IOException {
-        StringBuilder solrSearchBuilder = buildBaseSearchRequest();
-
-        if (useJsonp) {
-            addJsonpCallback(solrSearchBuilder, callbackFunction);
-        }
-        addRowsAndPage(solrSearchBuilder, maxResults, page);
-        addFilterQuery(solrSearchBuilder,
-                       searchConfiguration.getDefaultFacet(),
-                       "SingleNucleotidePolymorphism");
-        addQuery(solrSearchBuilder, query);
-
-        // dispatch search
-        dispatchSearch(solrSearchBuilder.toString(), response.getOutputStream());
-    }
-
-    @RequestMapping(value = "api/search/association", produces = MediaType.APPLICATION_JSON_VALUE)
-    public void doAssociationSolrSearch(
-            @RequestParam("q") String query,
-            @RequestParam(value = "jsonp", required = false, defaultValue = "false") boolean useJsonp,
-            @RequestParam(value = "callback", required = false) String callbackFunction,
-            @RequestParam(value = "max", required = false, defaultValue = "10") int maxResults,
-            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            HttpServletResponse response) throws IOException {
-        StringBuilder solrSearchBuilder = buildBaseSearchRequest();
-
-        if (useJsonp) {
-            addJsonpCallback(solrSearchBuilder, callbackFunction);
-        }
-        addRowsAndPage(solrSearchBuilder, maxResults, page);
-        addFilterQuery(solrSearchBuilder, searchConfiguration.getDefaultFacet(), "Association");
-        addQuery(solrSearchBuilder, query);
-
-        // dispatch search
-        dispatchSearch(solrSearchBuilder.toString(), response.getOutputStream());
-    }
-
-    @RequestMapping(value = "api/search/diseasetrait", produces = MediaType.APPLICATION_JSON_VALUE)
-    public void doTraitSolrSearch(
-            @RequestParam("q") String query,
-            @RequestParam(value = "jsonp", required = false, defaultValue = "false") boolean useJsonp,
-            @RequestParam(value = "callback", required = false) String callbackFunction,
-            @RequestParam(value = "max", required = false, defaultValue = "10") int maxResults,
-            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            HttpServletResponse response) throws IOException {
-        StringBuilder solrSearchBuilder = buildBaseSearchRequest();
-
-        if (useJsonp) {
-            addJsonpCallback(solrSearchBuilder, callbackFunction);
-        }
-        addRowsAndPage(solrSearchBuilder, maxResults, page);
-        addFilterQuery(solrSearchBuilder, searchConfiguration.getDefaultFacet(), "DiseaseTrait");
-        addQuery(solrSearchBuilder, query);
-
-        // dispatch search
-        dispatchSearch(solrSearchBuilder.toString(), response.getOutputStream());
-    }
-
-    @RequestMapping(value = "api/search/traitcount", produces = MediaType.APPLICATION_JSON_VALUE)
-    public void doTraitCountSolrSearch(
-            @RequestParam("q") String query,
-            @RequestParam(value = "jsonp", required = false, defaultValue = "false") boolean useJsonp,
-            @RequestParam(value = "callback", required = false) String callbackFunction,
-            @RequestParam(value = "max", required = false, defaultValue = "10") int maxResults,
-            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            @RequestParam(value = "facet.mincount", required = false, defaultValue = "1") int mincount,
-            @RequestParam(value = "facet.limit", required = false, defaultValue = "1000") int limit,
-            @RequestParam(value = "traitfilter[]", required = false) String[] traits,
-            @RequestParam(value = "dateFilter", required = false) String dateRange,
-            HttpServletResponse response) throws IOException {
-        StringBuilder solrSearchBuilder = buildBaseSearchRequest();
-
-        if (useJsonp) {
-            addJsonpCallback(solrSearchBuilder, callbackFunction);
-        }
-        addRowsAndPage(solrSearchBuilder, maxResults, page);
-        addFacet(solrSearchBuilder, "traitName_s");
-        addFacetMincount(solrSearchBuilder, mincount);
-        addFacetLimit(solrSearchBuilder, limit);
-        addFilterQuery(solrSearchBuilder, "resourcename", "study");
-        if (traits != null && traits.length != 0) {
-            System.out.println(String.valueOf(traits));
-            addFilterQuery(solrSearchBuilder, "traitName_s", traits);
-        }
-
-        if(dateRange != "") {
-            addFilterQuery(solrSearchBuilder, "catalogAddedDate", "study_catalogAddedDate", dateRange);
-        }
+//        addFacet(solrSearchBuilder, searchConfiguration.getDefaultFacet());
+//        if (useJsonp) {
+//            addJsonpCallback(solrSearchBuilder, callbackFunction);
+//        }
+//        if (useGroups) {
+//            addGrouping(solrSearchBuilder, groupBy, groupLimit);
+//        }
+//        else {
+//            addRowsAndPage(solrSearchBuilder, maxResults, page);
+//        }
         addQuery(solrSearchBuilder, query);
 
         // dispatch search
@@ -211,320 +111,7 @@ public class SolrSearchController {
         return solrSearchBuilder;
     }
 
-    @RequestMapping(value = "api/search/filter", produces = MediaType.APPLICATION_JSON_VALUE)
-    public void doFilterSolrSearch(
-            @RequestParam("q") String query,
-            @RequestParam(value = "jsonp", required = false, defaultValue = "false") boolean useJsonp,
-            @RequestParam(value = "callback", required = false) String callbackFunction,
-            @RequestParam(value = "max", required = false, defaultValue = "10") int maxResults,
-            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            @RequestParam(value = "group", required = false, defaultValue = "false") boolean useGroups,
-            @RequestParam(value = "group.by", required = false) String groupBy,
-            @RequestParam(value = "group.limit", required = false, defaultValue = "10") int groupLimit,
-            @RequestParam(value = "pvalfilter", required = false) String pvalRange,
-            @RequestParam(value = "orfilter", required = false) String orRange,
-            @RequestParam(value = "betafilter", required = false) String betaRange,
-            @RequestParam(value = "datefilter", required = false) String dateRange,
-            @RequestParam(value = "traitfilter[]", required = false) String[] traits,
-            @RequestParam(value = "dateaddedfilter", required = false) String addedDateRange,
-            HttpServletResponse response) throws IOException {
-        StringBuilder solrSearchBuilder = buildBaseSearchRequest();
 
-        addFacet(solrSearchBuilder, searchConfiguration.getDefaultFacet());
-        if (useJsonp) {
-            addJsonpCallback(solrSearchBuilder, callbackFunction);
-        }
-        if (useGroups) {
-            addGrouping(solrSearchBuilder, groupBy, groupLimit);
-        }
-        else {
-            addRowsAndPage(solrSearchBuilder, maxResults, page);
-        }
-
-        if (pvalRange != "") {
-            getLog().debug(pvalRange);
-            addFilterQuery(solrSearchBuilder, "pValue", pvalRange);
-        }
-        /**TO DO - when we split OR and beta, modify this controller to reflect that change!!***/
-        if (orRange != "") {
-            getLog().debug(orRange);
-
-            addFilterQuery(solrSearchBuilder, "orPerCopyNum", orRange);
-            addFilterQuery(solrSearchBuilder, "orType", "true");
-        }
-        if (betaRange != "") {
-            getLog().debug(betaRange);
-
-            addFilterQuery(solrSearchBuilder, "orPerCopyNum", betaRange);
-            addFilterQuery(solrSearchBuilder, "orType", "false");
-        }
-        if (dateRange != "") {
-            getLog().debug(dateRange);
-
-            addFilterQuery(solrSearchBuilder, "publicationDate", "study_publicationDate", dateRange);
-
-        }
-        if (addedDateRange != "") {
-            getLog().debug(addedDateRange);
-
-            addFilterQuery(solrSearchBuilder, "catalogAddedDate", "study_catalogAddedDate", addedDateRange);
-
-        }
-        if (traits != null && traits.length != 0) {
-            System.out.println(String.valueOf(traits));
-
-            addFilterQuery(solrSearchBuilder, "traitName_s", traits);
-        }
-
-        addQuery(solrSearchBuilder, query);
-
-        // dispatch search
-        dispatchSearch(solrSearchBuilder.toString(), response.getOutputStream());
-    }
-
-
-    @RequestMapping(value = "api/search/traits", produces = MediaType.APPLICATION_JSON_VALUE)
-    public void doTraitsOnlySolrSearch(
-            @RequestParam("q") String query,
-            @RequestParam(value = "jsonp", required = false, defaultValue = "false") boolean useJsonp,
-            @RequestParam(value = "callback", required = false) String callbackFunction,
-            @RequestParam(value = "max", required = false, defaultValue = "10") int maxResults,
-            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            @RequestParam(value = "group", required = false, defaultValue = "false") boolean useGroups,
-            @RequestParam(value = "group.by", required = false) String groupBy,
-            @RequestParam(value = "group.limit", required = false, defaultValue = "10") int groupLimit,
-            @RequestParam(value = "traitfilter[]", required = false) String[] traits,
-            HttpServletResponse response) throws IOException {
-        StringBuilder solrSearchBuilder = buildBaseSearchRequest();
-
-        addFacet(solrSearchBuilder, searchConfiguration.getDefaultFacet());
-        if (useJsonp) {
-            addJsonpCallback(solrSearchBuilder, callbackFunction);
-        }
-        if (useGroups) {
-            addGrouping(solrSearchBuilder, groupBy, groupLimit);
-        }
-        else {
-            addRowsAndPage(solrSearchBuilder, maxResults, page);
-        }
-
-        if (traits != null && traits.length != 0) {
-            System.out.println(String.valueOf(traits));
-
-            addFilterQuery(solrSearchBuilder, "traitName_s", traits);
-        }
-
-        addQuery(solrSearchBuilder, query);
-
-        // dispatch search
-        dispatchSearch(solrSearchBuilder.toString(), response.getOutputStream());
-    }
-
-    @RequestMapping(value = "api/search/sort", produces = MediaType.APPLICATION_JSON_VALUE)
-    public void doSortSolrSearch(
-            @RequestParam("q") String query,
-            @RequestParam(value = "jsonp", required = false, defaultValue = "false") boolean useJsonp,
-            @RequestParam(value = "callback", required = false) String callbackFunction,
-            @RequestParam(value = "max", required = false, defaultValue = "10") int maxResults,
-            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            @RequestParam(value = "facet", required = false) String facet,
-            @RequestParam(value = "group", required = false, defaultValue = "false") boolean useGroups,
-            @RequestParam(value = "group.by", required = false) String groupBy,
-            @RequestParam(value = "group.limit", required = false, defaultValue = "10") int groupLimit,
-            @RequestParam(value = "pvalfilter", required = false) String pvalRange,
-            @RequestParam(value = "orfilter", required = false) String orRange,
-            @RequestParam(value = "betafilter", required = false) String betaRange,
-            @RequestParam(value = "datefilter", required = false) String dateRange,
-            @RequestParam(value = "traitfilter[]", required = false) String[] traits,
-            @RequestParam(value = "sort", required = false) String sort,
-            HttpServletResponse response) throws IOException {
-        StringBuilder solrSearchBuilder = buildBaseSearchRequest();
-
-        addFacet(solrSearchBuilder, searchConfiguration.getDefaultFacet());
-        addFilterQuery(solrSearchBuilder, "resourcename", facet);
-        if (useJsonp) {
-            addJsonpCallback(solrSearchBuilder, callbackFunction);
-        }
-        if (useGroups) {
-            addGrouping(solrSearchBuilder, groupBy, groupLimit);
-        }
-        else {
-            addRowsAndPage(solrSearchBuilder, maxResults, page);
-        }
-
-        if (pvalRange != "") {
-            getLog().debug(pvalRange);
-            addFilterQuery(solrSearchBuilder, "pValue", pvalRange);
-        }
-        /**TO DO - when we split OR and beta, modify this controller to reflect that change!!***/
-        if (orRange != "") {
-            getLog().debug(orRange);
-
-            addFilterQuery(solrSearchBuilder, "orPerCopyNum", orRange);
-            addFilterQuery(solrSearchBuilder, "orType", "true");
-        }
-        if (betaRange != "") {
-            getLog().debug(betaRange);
-
-            addFilterQuery(solrSearchBuilder, "orPerCopyNum", betaRange);
-            addFilterQuery(solrSearchBuilder, "orType", "false");
-        }
-        if (dateRange != "") {
-            getLog().debug(dateRange);
-
-            addFilterQuery(solrSearchBuilder, "publicationDate", dateRange);
-        }
-        if (traits != null && traits.length != 0) {
-            System.out.println(String.valueOf(traits));
-
-            addFilterQuery(solrSearchBuilder, "traitName_s", traits);
-        }
-        if(sort != ""){
-            addSortQuery(solrSearchBuilder, sort);
-        }
-
-        addQuery(solrSearchBuilder, query);
-
-        // dispatch search
-        dispatchSearch(solrSearchBuilder.toString(), response.getOutputStream());
-    }
-
-    @RequestMapping(value = "api/search/latest", produces = MediaType.APPLICATION_JSON_VALUE)
-    public void doLatestSolrSearch(@RequestParam("q") String query,
-                                   @RequestParam(value = "jsonp", required = false, defaultValue = "false") boolean useJsonp,
-                                   @RequestParam(value = "callback", required = false) String callbackFunction,
-                                   @RequestParam(value = "max", required = false, defaultValue = "10") int maxResults,
-                                   @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-                                   @RequestParam(value = "group", required = false, defaultValue = "false") boolean useGroups,
-                                   @RequestParam(value = "group.by", required = false) String groupBy,
-                                   @RequestParam(value = "group.limit", required = false, defaultValue = "10") int groupLimit,
-                                   @RequestParam(value = "dateFilter", required = false) String dateRange,
-                                   @RequestParam(value = "sort", required = false) String sort,
-                                   HttpServletResponse response) throws IOException {
-
-        StringBuilder solrSearchBuilder = buildBaseSearchRequest();
-        if (useJsonp) {
-            addJsonpCallback(solrSearchBuilder, callbackFunction);
-        }
-        addFacet(solrSearchBuilder, searchConfiguration.getDefaultFacet());
-        if (useJsonp) {
-            addJsonpCallback(solrSearchBuilder, callbackFunction);
-        }
-        if (useGroups) {
-            addGrouping(solrSearchBuilder, groupBy, groupLimit);
-        }
-        else {
-            addRowsAndPage(solrSearchBuilder, maxResults, page);
-        }
-
-        addFilterQuery(solrSearchBuilder, "catalogAddedDate", "study_catalogAddedDate", dateRange);
-
-        addSortQuery(solrSearchBuilder, sort);
-
-        addQuery(solrSearchBuilder, query);
-
-        // dispatch search
-        dispatchSearch(solrSearchBuilder.toString(), response.getOutputStream());
-    }
-
-    @RequestMapping(value = "api/search/alltraits", produces = MediaType.APPLICATION_JSON_VALUE)
-    public void doAllTraitsSolrSearch(
-            @RequestParam("q") String query,
-            @RequestParam(value = "jsonp", required = false, defaultValue = "false") boolean useJsonp,
-            @RequestParam(value = "callback", required = false) String callbackFunction,
-            @RequestParam(value = "max", required = false, defaultValue = "10") int maxResults,
-            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            @RequestParam(value = "facet", required = false) String facet,
-            @RequestParam(value = "facet.sort", required = false, defaultValue = "count") String sort,
-            @RequestParam(value = "facet.limit", required = false, defaultValue = "1000") int limit,
-            HttpServletResponse response) throws IOException {
-        StringBuilder solrSearchBuilder = buildBaseSearchRequest();
-
-        if (useJsonp) {
-            addJsonpCallback(solrSearchBuilder, callbackFunction);
-        }
-        addRowsAndPage(solrSearchBuilder, maxResults, page);
-        addFacet(solrSearchBuilder, "traitName_s");
-        addFacetLimit(solrSearchBuilder, limit);
-        addFacetSort(solrSearchBuilder, sort);
-        addFilterQuery(solrSearchBuilder, "resourcename", "study");
-        addQuery(solrSearchBuilder, query);
-
-        // dispatch search
-        dispatchSearch(solrSearchBuilder.toString(), response.getOutputStream());
-    }
-
-    @RequestMapping(value = "api/search/moreresults", produces = MediaType.APPLICATION_JSON_VALUE)
-    public void doMoreResultsSolrSearch(
-            @RequestParam("q") String query,
-            @RequestParam(value = "jsonp", required = false, defaultValue = "false") boolean useJsonp,
-            @RequestParam(value = "callback", required = false) String callbackFunction,
-            @RequestParam(value = "max", required = false, defaultValue = "10") int maxResults,
-            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            @RequestParam(value = "facet", required = false) String facet,
-            @RequestParam(value = "pvalfilter", required = false) String pvalRange,
-            @RequestParam(value = "orfilter", required = false) String orRange,
-            @RequestParam(value = "betafilter", required = false) String betaRange,
-            @RequestParam(value = "datefilter", required = false) String dateRange,
-            @RequestParam(value = "traitfilter[]", required = false) String[] traits,
-            @RequestParam(value = "sort", required = false) String sort,
-            HttpServletResponse response) throws IOException {
-        StringBuilder solrSearchBuilder = buildBaseSearchRequest();
-
-        if (useJsonp) {
-            addJsonpCallback(solrSearchBuilder, callbackFunction);
-        }
-        addFilterQuery(solrSearchBuilder, "resourcename", facet);
-         addRowsAndPage(solrSearchBuilder, maxResults, page);
-
-
-        if (pvalRange != "") {
-            getLog().debug(pvalRange);
-            addFilterQuery(solrSearchBuilder, "pValue", pvalRange);
-        }
-        /**TO DO - when we split OR and beta, modify this controller to reflect that change!!***/
-        if (orRange != "") {
-            getLog().debug(orRange);
-
-            addFilterQuery(solrSearchBuilder, "orPerCopyNum", orRange);
-            addFilterQuery(solrSearchBuilder, "orType", "true");
-        }
-        if (betaRange != "") {
-            getLog().debug(betaRange);
-
-            addFilterQuery(solrSearchBuilder, "orPerCopyNum", betaRange);
-            addFilterQuery(solrSearchBuilder, "orType", "false");
-        }
-        if (dateRange != "") {
-            getLog().debug(dateRange);
-
-            if(dateRange.contains("NOW")){
-                if(facet.equals("diseasetrait")){
-                    addFilterQuery(solrSearchBuilder, "study_catalogAddedDate", dateRange);
-                }
-                else {
-                    addFilterQuery(solrSearchBuilder, "catalogAddedDate", dateRange);
-                }
-            }
-            else {
-                addFilterQuery(solrSearchBuilder, "publicationDate", dateRange);
-            }
-        }
-        if (traits != null && traits.length != 0) {
-            System.out.println(String.valueOf(traits));
-
-            addFilterQuery(solrSearchBuilder, "traitName_s", traits);
-        }
-
-        if(sort != ""){
-            addSortQuery(solrSearchBuilder, sort);
-        }
-
-        addQuery(solrSearchBuilder, query);
-
-        // dispatch search
-        dispatchSearch(solrSearchBuilder.toString(), response.getOutputStream());
-    }
 
     private void addSortQuery(StringBuilder solrSearchBuilder, String sort) {
         solrSearchBuilder.append("&sort=").append(sort);
@@ -663,7 +250,7 @@ public class SolrSearchController {
         int maxResults = 10000;
         int page = 1;
         String facet = "association";
-        addFilterQuery(solrSearchBuilder, "resourcename", facet);
+//        addFilterQuery(solrSearchBuilder, "resourcename", facet);
         addRowsAndPage(solrSearchBuilder, maxResults, page);
 
 

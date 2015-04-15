@@ -12,8 +12,9 @@ java -Dsolr.solr.home=<PATH TO HERE>/ols/ols-solr/src/main/resources/solr-conf -
 Once the SOLR service is running (by default at http://localhost:8983/solr) you can create a new index as follows:
 
 1. Create an ontology configuration file. There are some examples in src/main/resources/*.properties
-2. Build the application jar: mvn clean package
-3. Assuming a properties file called application-uberon.properties you can run the application to build the index with: 
+2. Navigate to the root of the ols repository eg. <PATH TO HERE>/ols/
+3. Build the application jar: mvn clean package
+4. Assuming a properties file called application-uberon.properties you can run the application to build the index with:
 
 java -Xmx2g -jar -Dspring.profiles.active=uberon ols-solr/target/ols-solr-3.0-SNAPSHOT.jar
 

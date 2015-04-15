@@ -44,7 +44,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
+            <!--<scope>provided</scope>-->
         </dependency>
 	</dependencies>
 
@@ -73,7 +73,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <sourceDirectory>../ols-interfaces/src/main/docs</sourceDirectory>
+                    <sourceDirectory>src/main/docs</sourceDirectory>
                     <outputDirectory>${project.build.directory}/classes/static/docs/content/</outputDirectory>
                     <backend>html</backend>
                     <doctype>book</doctype>

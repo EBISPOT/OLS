@@ -24,17 +24,17 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/search/traits").setViewName("traitlist");
 
         // dynamically generated docs pages
-        registry.addViewController("/docs").setViewName("docs");
-        registry.addViewController("/docs/about").setViewName("docs-template");
-        registry.addViewController("/docs/downloads").setViewName("docs-template");
-        registry.addViewController("/docs/faq").setViewName("docs-template");
-        registry.addViewController("/docs/methods").setViewName("docs-template");
-        registry.addViewController("/docs/ontology").setViewName("docs-template");
-        registry.addViewController("/docs/abbreviations").setViewName("docs-template");
-        registry.addViewController("/docs/fileheaders").setViewName("docs-template");
-        registry.addViewController("/docs/related-resources").setViewName("docs-template");
-        registry.addViewController("/docs/programmatic-access").setViewName("docs-template");
-        registry.addViewController("/docs/known-issues").setViewName("docs-template");
+//        registry.addViewController("/docs").setViewName("docs");
+//        registry.addViewController("/docs/about").setViewName("docs-template");
+//        registry.addViewController("/docs/downloads").setViewName("docs-template");
+//        registry.addViewController("/docs/faq").setViewName("docs-template");
+//        registry.addViewController("/docs/methods").setViewName("docs-template");
+//        registry.addViewController("/docs/ontology").setViewName("docs-template");
+//        registry.addViewController("/docs/abbreviations").setViewName("docs-template");
+//        registry.addViewController("/docs/fileheaders").setViewName("docs-template");
+//        registry.addViewController("/docs/related-resources").setViewName("docs-template");
+//        registry.addViewController("/docs/programmatic-access").setViewName("docs-template");
+//        registry.addViewController("/docs/known-issues").setViewName("docs-template");
 
     }
 }

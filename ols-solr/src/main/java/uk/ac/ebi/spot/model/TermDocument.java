@@ -83,6 +83,10 @@ public class TermDocument {
     @Field("*_related")
    	private Map<String, List<String>> related;
 
+    //Added to enable faceting in future at level of term, parent ontology, annotation, etc.
+    @Field("resourcename")
+    private static final String resourcename = "term";
+
     public TermDocument() {
 
     }
@@ -319,5 +323,9 @@ public class TermDocument {
 
     public void setRelated(Map<String, List<String>> related) {
         this.related = related;
+    }
+
+    public String getResourcename() {
+        return resourcename;
     }
 }

@@ -16,14 +16,14 @@ import java.net.URL;
 public class SearchConfiguration {
     @NotNull @Value("${search.server}")
     private URL server;
-    @Value("${search.defaultFacet}")
-    private String defaultFacet;
+//    @Value("${search.defaultFacet}")
+//    private String defaultFacet;
 
     public URL getOlsSearchServer() {
         return server;
     }
 
-    public String getDefaultFacet() {
-        return defaultFacet;
-    }
+//    public String getDefaultFacet() {
+//        return defaultFacet;
+//    }
 }
