@@ -102,6 +102,14 @@ function on_data(json) {
     var all_children;
     var all_parent = [];
 
+    // The bbop_sibling_graph_json which is stored in the solR index is composed of 2 part :
+    //   the node part where all the node composing the tree are described
+    //   the edge part where the tree is described
+    // From the node part we get all the term IRI and label and build and iri2label array associating
+    // the iri with their label as follow :
+    //      IRI[\t]label
+    // This array will be used later on when building the tree to display the the node label in the nodes rather then
+    // the node IRI.
     var iri2label = [];
     for (var i = 0; i<bbop_sibling_graph_json.nodes.length; i++){
         var iri =bbop_sibling_graph_json.nodes[i].IRI;
@@ -110,8 +118,12 @@ function on_data(json) {
         iri2label[iri2label.length] = iri + "\t" + label;
     }
 
-    console.log("iri2label.length = " + iri2label.length + "\n");
 
+    //Walking through the bbob_sibling_graph_json.edges description of the tree to build the treeData object.
+    //There I have used the javascript object treeData as a 'dictionnary', 'hash' or 'map' to associate a nodes with
+    // an array of their children.
+    // treeData[http://ebi.ac.uk/efo/EFO_000001] woulr return and array containing the IRI of the direct children of that
+    // node.
     for (var i = 0; i < bbop_sibling_graph_json.edges.length; i++) {
 
 
@@ -139,7 +151,6 @@ function on_data(json) {
         if (all_children.indexOf(parent) == -1) {
             root = parent;
         }
-
     }
 
     //Get the html description of the tree
@@ -241,10 +252,12 @@ function readTreeData(treeData, root, iri2label, requestedTermLabel){
         }
     }
 
-    var color = "#4D4D4D";
+    //Right the node label in orange if the node is the node for which the user requested the tree or in  dark grey
+    // otherwise.
+    var color = "#4D4D4D"; //dark grey
     console.log(requestedTermLabel + ", " + root + ", " + label + "\n");
     if(requestedTermLabel == label){
-        color = "#FFC36E";
+        color = "#FFC36E";//orange
     }
 
     string = string + "<li>";
