@@ -81,21 +81,83 @@ var ontology_name;
             // $.getJSON(full_path);
             // is called it should build the json object from the given full_path parameter and send it to the on_data function.
             full_path = full_path + "&wt=json&json.wrf=on_data&callback=?"
-
+            console.log("FULL_PAHT = " + full_path);
             $.getJSON(full_path);//,function(json){
         }
     }
 
 }(jQuery));
 
+function solr_has_children(json){
+    var hasChildren = json.response.docs[0].has_children;
+    if(hasChildren){
+        var label = json.response.docs[0].label;
+        var uri = json.response.docs[0].uri;
+        var bbop_sibling_graph_json_string = json.response.docs[0].bbop_direct_children_json;
+        console.log("label = " + label);
+        jQuery('#' + label).addClass('solrCollapsibleListClosed');
+        jQuery('#' + label).unbind('click').click(function(event) {
+            console.log("BOnjour\n\n");
+            console.log("jQuery('#' + label).attr(class) = " + jQuery('#' + label).attr("class") + "\n\n");
+
+            event.stopPropagation();
+
+            //jQuery('#' + label).attr("class", "solrCollapsibleListOpen");
+            //jQuery('#' + label).addClass('solrCollapsibleListOpen').removeClass('solrCollapsibleListClosed');
+            var elmtClass = jQuery(this).attr("class");
+            console.log("elmtClass = " + elmtClass+ " index of : " +  elmtClass.indexOf("solrCollapsibleListClosed") + "_\n");
+            if (elmtClass.indexOf("solrCollapsibleListClosed") == 0){
+                jQuery(this).removeClass("solrCollapsibleListClosed");
+                jQuery(this).addClass(' solrCollapsibleListOpen');
+                console.log("id = " + jQuery(this).attr('id'));
+                var toInject = buildAndInjectTree(json, uri, true);
+                toInject = toInject.substring(toInject.indexOf("</font>") + 7, toInject.lastIndexOf("</li>"));
+                jQuery(this).append(toInject);
+            }else if (elmtClass.indexOf("solrCollapsibleListOpen") == 0){
+                jQuery(this).find( "ul").empty();
+                jQuery(this).removeClass("solrCollapsibleListOpen");
+                jQuery(this).addClass("solrCollapsibleListClosed");
+            }
+
+        });
+        console.log("\n\n\n");
+
+
+    }
+}
 
 function on_data(json) {
 
-    var bbop_sibling_graph_json_string = json.response.docs[0].bbop_sibling_graph_json;
 
-    var bbop_sibling_graph_json = JSON.parse(bbop_sibling_graph_json_string);
+    //Get the html description of the tree
+    var collapsibleHtml =  "<ul class=\"collapsibleList\">"
+        + buildAndInjectTree(json, undefined, false);
+        +"</ul>";
+
+    //Inject the html description of the tree in the element with id "myid"
+    var element = document.getElementById("myid");
+    element.innerHTML = collapsibleHtml ;
+
+    // make ul element with class="collapsibleList" collapsible
+    CollapsibleLists.apply();
+    console.log("\n\n");
+}
+
+
+function buildAndInjectTree(json,root,childrenRequired){
+
+    var bbop_graph_json_string;
+    if(childrenRequired){
+        var bbop_graph_json_string = json.response.docs[0].bbop_direct_children_json;
+
+    }else {
+        var bbop_graph_json_string = json.response.docs[0].bbop_sibling_graph_json;
+    }
+    console.log("bbop_graph_json_string = " + bbop_graph_json_string);
+    var bbop_graph_json = JSON.parse(bbop_graph_json_string);
 
     var requestedTermLabel = json.response.docs[0].label;
+    console.log("requestedTermLabel = " + requestedTermLabel);
 
     var treeData = new Object();
 
@@ -111,9 +173,9 @@ function on_data(json) {
     // This array will be used later on when building the tree to display the the node label in the nodes rather then
     // the node IRI.
     var iri2label = [];
-    for (var i = 0; i<bbop_sibling_graph_json.nodes.length; i++){
-        var iri =bbop_sibling_graph_json.nodes[i].IRI;
-        var label = bbop_sibling_graph_json.nodes[i].LABEL;
+    for (var i = 0; i<bbop_graph_json.nodes.length; i++){
+        var iri =bbop_graph_json.nodes[i].IRI;
+        var label = bbop_graph_json.nodes[i].LABEL;
         console.log(iri + " = " + label + "\n");
         iri2label[iri2label.length] = iri + "\t" + label;
     }
@@ -124,11 +186,11 @@ function on_data(json) {
     // an array of their children.
     // treeData[http://ebi.ac.uk/efo/EFO_000001] woulr return and array containing the IRI of the direct children of that
     // node.
-    for (var i = 0; i < bbop_sibling_graph_json.edges.length; i++) {
+    for (var i = 0; i < bbop_graph_json.edges.length; i++) {
 
 
-        var obj = bbop_sibling_graph_json.edges[i].obj;
-        var sub = bbop_sibling_graph_json.edges[i].sub;
+        var obj = bbop_graph_json.edges[i].obj;
+        var sub = bbop_graph_json.edges[i].sub;
 
         all_children = all_children + "\t" + obj;
         all_parent[all_parent.length] = sub;
@@ -145,25 +207,18 @@ function on_data(json) {
     }
 
     //Search for the tree root (i.e. : the one element which has no parent).
-    var root;
-    for (var i = 0; i < all_parent.length; i++) {
-        var parent = all_parent[i];
-        if (all_children.indexOf(parent) == -1) {
-            root = parent;
+    if(!root) {
+        for (var i = 0; i < all_parent.length; i++) {
+            var parent = all_parent[i];
+            if (all_children.indexOf(parent) == -1) {
+                root = parent;
+            }
         }
     }
+    console.log("ROOT = " + root + "\n");
 
-    //Get the html description of the tree
-    var collapsibleHtml =  "<ul class=\"collapsibleList\">"
-        + readTreeData(treeData, root, iri2label, requestedTermLabel,"")
-        +"</ul>";
+    return readTreeData(treeData, root, iri2label, requestedTermLabel,childrenRequired);
 
-    //Inject the html description of the tree in the element with id "myid"
-    var element = document.getElementById("myid");
-    element.innerHTML = collapsibleHtml ;
-
-    // make ul element with class="collapsibleList" collapsible
-    CollapsibleLists.apply();
 }
 
 
@@ -239,9 +294,39 @@ function hasChildren(treeData, iri){
 //                  </li>
 //                  </ul>
 //
-function readTreeData(treeData, root, iri2label, requestedTermLabel){
+function readTreeData(treeData, root, iri2label, requestedTermLabel, childrenRequired){
 
+    //console.log("json path = " + json_path + "\n");
+    //short_form
     var string = "";
+
+    //Getting the short form of the IRI to search in solr with short_form.
+    //
+    // ex : IRI = http://purl.obolibrary.org/obo/IAO_0000030
+    //      short_form = IAO_0000030
+    //
+    //      IRI = http://www.ifomis.org/bfo/1.1/span#ProcessualEntity
+    //      short_form = ProcessualEntity
+    //
+    //      IRI = http://www.ebi.ac.uk/efo/EFO_0000684
+    //      short_form = EFO_0000684
+    //
+    short_form = root.substr(root.lastIndexOf("/")+1, root.length).replace("span#", "").replace("snap#","");
+    console.log("short_form = " + short_form);
+
+
+    if(! treeData[root]) {
+        var subTerm_solrPath = json_path;
+        subTerm_solrPath = subTerm_solrPath.replace("LABEL_TO_REPLACE", short_form);
+        subTerm_solrPath = subTerm_solrPath.replace("ONTOLOGY_NAME_TO_REPLACE", ontology_name);
+        subTerm_solrPath = subTerm_solrPath.replace("label", "short_form");
+        subTerm_solrPath = subTerm_solrPath + "&wt=json&json.wrf=solr_has_children&callback=?"
+
+        jQuery.getJSON(subTerm_solrPath);//,function(json){
+
+
+        console.log("subTerm_solrPath =  " + subTerm_solrPath);
+    }
 
     var label;
     for(var k=0;k<iri2label.length; k++){
@@ -255,15 +340,20 @@ function readTreeData(treeData, root, iri2label, requestedTermLabel){
     //Right the node label in orange if the node is the node for which the user requested the tree or in  dark grey
     // otherwise.
     var color = "#4D4D4D"; //dark grey
-    console.log(requestedTermLabel + ", " + root + ", " + label + "\n");
-    if(requestedTermLabel == label){
+    console.log( "Bip " + requestedTermLabel + ", " + root + ", " + label + "\n");
+    if(requestedTermLabel == label && !childrenRequired){
         color = "#FFC36E";//orange
     }
 
-    string = string + "<li>";
+    string = string + "<li id=\"" + label+ "\">";
     string = string + "<font color=" +color + "> " + label + "</font>";
     if(hasChildren(treeData, root)) {
-        string = string +  "<ul class=\"collapsibleList\">";
+        if(childrenRequired){
+            string = string + "<ul class=\"solrCollapsibleList\">";
+
+        }else {
+            string = string + "<ul class=\"collapsibleList\">";
+        }
     }
 
     var rootChildren = treeData[root];
@@ -273,7 +363,7 @@ function readTreeData(treeData, root, iri2label, requestedTermLabel){
 
             for (var i = 0; i < rootChildren.length; i++) {
 
-                string = string + readTreeData(treeData, rootChildren[i], iri2label,requestedTermLabel);
+                string = string + readTreeData(treeData, rootChildren[i], iri2label,requestedTermLabel,childrenRequired);
 
             }
 

@@ -21,6 +21,7 @@ var CollapsibleLists =
        * doNotRecurse - true if sub-lists should not be made collapsible
        */
       this.apply = function(doNotRecurse){
+        console.log("ALERT  apply: !!!!!!!!! \n\n");
 
         // loop over the unordered lists
         var uls = document.getElementsByTagName('ul');
@@ -54,6 +55,7 @@ var CollapsibleLists =
        * doNotRecurse - true if sub-lists should not be made collapsible
        */
       this.applyTo = function(node, doNotRecurse){
+        console.log("ALERT  applyTo: !!!!!!!!! \n\n");
 
         // loop over the list items within this node
         var lis = node.getElementsByTagName('li');
@@ -73,11 +75,12 @@ var CollapsibleLists =
 
             // add the click listener
             if (lis[index].addEventListener){
-              lis[index].addEventListener(
-                  'click', createClickListener(lis[index]), false);
-            }else{
-              lis[index].attachEvent(
-                  'onclick', createClickListener(lis[index]));
+                  lis[index].addEventListener(
+                      'click', createClickListener(lis[index]), false);
+            }else {
+
+                lis[index].attachEvent(
+                    'onclick', createClickListener(lis[index]));
             }
 
             // close the unordered lists within this list item
@@ -95,6 +98,7 @@ var CollapsibleLists =
        * node - the node containing the unordered list elements
        */
       function createClickListener(node){
+        console.log("ALERT  createClickListener: !!!!!!!!! \n\n");
 
         // return the function
         return function(e){
@@ -115,18 +119,18 @@ var CollapsibleLists =
 
 
       function openAll(node){
+        console.log("ALERT  openAll: !!!!!!!!! \n\n");
 
-        // determine whether to open or close the unordered lists
-        var open = node.className.match(/(^| )collapsibleList( |$)/);
+          // determine whether to open or close the unordered lists
+          var open = node.className.match(/(^| )collapsibleList( |$)/);
 
-        // loop over the unordered list elements with the node
-        var uls = node.getElementsByTagName('ul');
+          // loop over the unordered list elements with the node
+          var uls = node.getElementsByTagName('ul');
 
-        // if the node contains unordered lists, set its class
-        if (uls.length > 0){
-          node.className += ' collapsibleListOpen';
-        }
-
+          // if the node contains unordered lists, set its class
+          if (uls.length > 0) {
+            node.className += ' collapsibleListOpen';
+          }
       }
 
 
@@ -135,17 +139,23 @@ var CollapsibleLists =
        *
        * node - the node containing the unordered list elements
        */
-      function toggle(node){
-
+      function toggle(node) {
+        console.log("ALERT  toggle: !!!!!!!!! \n\n");
         // determine whether to open or close the unordered lists
         var open = node.className.match(/(^| )collapsibleListClosed( |$)/);
 
         // loop over the unordered list elements with the node
         var uls = node.getElementsByTagName('ul');
-        for (var index = 0; index < uls.length; index ++){
+
+        for (var index = 0; index < uls.length; index++) {
 
           // find the parent list item of this unordered list
           var li = uls[index];
+
+          var liClass = li.className;
+          console.log("ALERT li.className = " + liClass + " !!!!!!!!\n\n");
+
+          console.log("li.nodeName = " + li.nodeName);
           while (li.nodeName != 'LI') li = li.parentNode;
 
           // style the unordered list if it is directly within this node
@@ -154,15 +164,20 @@ var CollapsibleLists =
         }
 
         // remove the current class from the node
-        node.className =
-            node.className.replace(
-                /(^| )collapsibleList(Open|Closed)( |$)/, '');
+        console.log("ALERT node.className = " + node.className + " !!!!!!!!\n\n");
+        console.log("ALERT node.id = " + node.id + " !!!!!!!!\n\n");
+        if (node.className.indexOf('solrCollapsibleListOpen') == -1 && node.className.indexOf('solrCollapsibleListClosed')){
+          node.className =
+              node.className.replace(
+                  /(^| )collapsibleList(Open|Closed)( |$)/, '');
 
         // if the node contains unordered lists, set its class
-        if (uls.length > 0){
+        if (uls.length > 0) {
           node.className += ' collapsibleList' + (open ? 'Open' : 'Closed');
         }
-
       }
+
+        }
+
 
     }();
