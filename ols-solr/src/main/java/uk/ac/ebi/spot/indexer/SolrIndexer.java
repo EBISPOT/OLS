@@ -95,13 +95,10 @@ public class SolrIndexer implements OntologyIndexer {
 
     @Override
     public void dropIndex(OntologyLoader loader) {
-
-        getLog().info("Dropping all indexes for " + loader.getOntologyName());
-
-//        List<TermDocument> documents = ontologySolrRepository.findByOntologyName(loader.getOntologyName());
-//        ontologySolrRepository.delete(documents);
-        ontologySolrRepository.deleteAll();
-
+        TermDocument documents = ontologySolrRepository.findByOntologyName(loader.getOntologyName());
+        if (documents != null) {
+            ontologySolrRepository.delete(documents);
+        }
     }
 
     private TermDocumentBuilder extractFeatures(OntologyLoader loader, IRI termIRI) {

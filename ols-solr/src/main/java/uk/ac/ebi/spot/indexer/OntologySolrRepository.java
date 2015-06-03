@@ -12,5 +12,5 @@ import java.util.List;
  */
 public interface OntologySolrRepository extends SolrCrudRepository<TermDocument, String> {
 
-    public List<TermDocument> findByOntologyName(String ontologyName);
+    public TermDocument findByOntologyName(String ontologyName);
 }

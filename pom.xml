@@ -12,8 +12,8 @@
         <module>ols-core</module>
         <module>ols-solr</module>
         <module>ontology-tools</module>
-        <module>ols-mongo</module>
-        <module>ols-neo4j</module>
+        <!--<module>ols-mongo</module>-->
+        <!--<module>ols-neo4j</module>-->
         <module>ols-web</module>
         <module>ols-apps</module>
         <module>ols-dependencies</module>
