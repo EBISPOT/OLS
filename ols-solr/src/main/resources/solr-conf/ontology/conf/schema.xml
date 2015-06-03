@@ -61,6 +61,8 @@
     <field name="synonym" type="text_general" indexed="true" stored="true" multiValued="true" />
     <field name="description" type="text_general" indexed="true" stored="true" multiValued="true" />
 
+    <field name="bbop_sibling_graph_json" type="string" stored="true" indexed="false" required="true" multiValued="false"/>
+
     <field name="ontology_name" type="string" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="ontology_uri" type="string" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="type" type="string" indexed="true" stored="true" multiValued="false" />
@@ -168,6 +170,8 @@
             <filter class="solr.DoubleMetaphoneFilterFactory" inject="false"/>
         </analyzer>
     </fieldType>
+
+    <fieldType name="json" class="solr.PreAnalyzedField" sortMissingLast="true"></fieldType>
 
 
     <!-- Field to use to determine and enforce document uniqueness. Unless this field is marked with required="false", it will be a required field -->

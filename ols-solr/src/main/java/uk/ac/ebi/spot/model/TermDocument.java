@@ -2,7 +2,13 @@ package uk.ac.ebi.spot.model;
 
 import org.apache.solr.client.solrj.beans.Field;
 import org.springframework.data.solr.core.mapping.SolrDocument;
+import sun.misc.IOUtils;
 
+import javax.mail.Session;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
@@ -83,6 +89,37 @@ public class TermDocument {
     @Field("*_related")
    	private Map<String, List<String>> related;
 
+    /**
+     * A json string describing the tree to wich the given term belong with all siblings, parents, parents sibling until
+     * the root of the ontology.
+     * <br>
+     * This is an example of a bbpop graph : <br>
+     * <br>
+     * {<br>
+     * "nodes": [<br>
+     * {<br>
+     * "id": "GO:0043474",<br>
+     * "lbl": "pigment metabolic process involved in pigmentation"<br>
+     * },<br>
+     *  {<br>
+     * "id": "GO:0043475",<br>
+     * "lbl": "pigment metabolic process involved in pigment accumulation"<br>
+     *  }<br>
+     * ],<br>
+     * "edges": [<br>
+     *  {<br>
+     * "sub": "GO:0043475",<br>
+     * "obj": "GO:0043474",<br>
+     * "pred": "is_a"<br>
+     * }<br>
+     * ]<br>
+     * }<br>
+     *<br>
+     */
+    @Field("bbop_sibling_graph_json")
+    private String bbopSiblingGraph;
+
+
     public TermDocument() {
 
     }
@@ -110,7 +147,8 @@ public class TermDocument {
             List<String> ancestors,
             List<String> children,
             List<String> descendants,
-            Map<String, List<String>> related
+            Map<String, List<String>> related,
+            String bbopSiblingGraph
            ) {
         this.id = id;
         this.uri = uri;
@@ -135,6 +173,7 @@ public class TermDocument {
         this.children = children;
         this.descendants = descendants;
         this.related = related;
+        this.bbopSiblingGraph = bbopSiblingGraph;
     }
 
     public String getId() {
@@ -320,4 +359,8 @@ public class TermDocument {
     public void setRelated(Map<String, List<String>> related) {
         this.related = related;
     }
+
+    public void setBbopSiblingGraph(String bbopSiblingGraph){ this.bbopSiblingGraph=bbopSiblingGraph; }
+
+    public String getBbopSiblingGraph() throws IOException { return this.bbopSiblingGraph; }
 }
