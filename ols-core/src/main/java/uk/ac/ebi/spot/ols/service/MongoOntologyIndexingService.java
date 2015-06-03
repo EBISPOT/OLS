@@ -5,12 +5,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Component;
-import uk.ac.ebi.spot.loader.OntologyLoader;
-import uk.ac.ebi.spot.loader.OntologyLoaderFactory;
 import uk.ac.ebi.spot.ols.exception.OntologyIndexingException;
+import uk.ac.ebi.spot.ols.loader.OntologyLoader;
+import uk.ac.ebi.spot.ols.loader.OntologyLoaderFactory;
+import uk.ac.ebi.spot.ols.model.Status;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
 import uk.ac.ebi.spot.ols.model.OntologyIndexer;
-import uk.ac.ebi.spot.ols.model.Status;
 
 import java.util.Date;
 import java.util.List;

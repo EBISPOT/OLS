@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import uk.ac.ebi.spot.ols.exception.OntologyRepositoryException;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
 import uk.ac.ebi.spot.ols.model.Status;
-import uk.ac.ebi.spot.ols.repository.MongoOntologyRepository;
+import uk.ac.ebi.spot.ols.repository.mongo.MongoOntologyRepository;
 
 import java.util.List;
 

@@ -4,10 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.core.task.TaskExecutor;
-import uk.ac.ebi.spot.config.OntologyResourceConfig;
+import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
+import uk.ac.ebi.spot.ols.model.Status;
 import uk.ac.ebi.spot.ols.exception.FileUpdateServiceException;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
-import uk.ac.ebi.spot.ols.model.Status;
 import uk.ac.ebi.spot.ols.util.FileUpdater;
 
 import java.io.IOException;

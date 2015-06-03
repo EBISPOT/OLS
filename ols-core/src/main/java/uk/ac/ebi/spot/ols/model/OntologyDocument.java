@@ -2,7 +2,7 @@ package uk.ac.ebi.spot.ols.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import uk.ac.ebi.spot.config.OntologyResourceConfig;
+import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
 
 import java.util.Date;
 

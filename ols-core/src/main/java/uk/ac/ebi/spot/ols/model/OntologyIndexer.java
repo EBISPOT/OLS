@@ -1,8 +1,7 @@
 package uk.ac.ebi.spot.ols.model;
 
-import uk.ac.ebi.spot.loader.OntologyLoader;
 import uk.ac.ebi.spot.ols.exception.IndexingException;
-import uk.ac.ebi.spot.ols.exception.OntologyIndexingException;
+import uk.ac.ebi.spot.ols.loader.OntologyLoader;
 
 import java.util.Collection;
 
