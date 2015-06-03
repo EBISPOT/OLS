@@ -7,6 +7,9 @@ import org.slf4j.Logger;
 import uk.ac.ebi.spot.config.OntologyResourceConfig;
 import uk.ac.ebi.spot.exception.OntologyLoadingException;
 
+import java.util.Collection;
+import java.util.Map;
+
 /**
  * Loads an ontology using the OWLAPI and a HermiT reasoner to classify the ontology.  This allows for richer typing
  * information on each class to be provided
@@ -48,7 +51,6 @@ public class HermitOWLOntologyLoader extends AbstractOWLOntologyLoader {
 
         return reasoner;
     }
-
 
     protected class LoggingReasonerProgressMonitor implements ReasonerProgressMonitor {
         private final Logger log;

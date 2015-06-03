@@ -1,14 +1,11 @@
 # OLS
 Ontology Lookup Service from SPOT at EBI. 
 
+ols-apps - Spring boot applications for creating ontology indexes
+  - ols-solr-app - Spring boot application for creating a SOLR index from an ontology
+
 ols-core	- Core interfaces for the API
 
-ols-loader	- Spring Boot application for checking for ontology updates and indexing new ontologies
-
-ols-mongo	- Spring Boot application for creating a mongo-db ontology index
-
-ols-solr  - Spring Boot application for creating a SOLR ontology index
-
-ols-web	 - Spring Boot application for the OLS web services and website
+ols-solr  - SOLR ontology indexing module
 
 ontology-tools - Abstract API for parsing and working with ontologies 

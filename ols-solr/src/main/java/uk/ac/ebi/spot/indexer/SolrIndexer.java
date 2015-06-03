@@ -1,5 +1,7 @@
 package uk.ac.ebi.spot.indexer;
 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonGenerator;
 import org.semanticweb.owlapi.model.IRI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +13,9 @@ import uk.ac.ebi.spot.neo4j.model.TermDocument;
 import uk.ac.ebi.spot.neo4j.model.TermDocumentBuilder;
 import uk.ac.ebi.spot.util.TermType;
 import uk.ac.ebi.spot.ols.model.OntologyIndexer;
+import uk.ac.ebi.spot.SiblingGraphCreator;
 
+import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -47,15 +51,32 @@ public class SolrIndexer implements OntologyIndexer {
 
             Collection<TermDocument> documents = new HashSet<TermDocument>();
 
-
+            //To avoid an out of Memory exception we save to the index every 200 documents created.
+            // We only do it when we loop over all the classes (for (IRI classTerm : loader.getAllClasses())) as it
+            //was the only place where the out of memory was coming up.
+            int documentCount = 0;
+            Collection<TermDocument> allClassesDocument = new HashSet<TermDocument>();
             for (IRI classTerm : loader.getAllClasses()) {
 
                 TermDocumentBuilder builder = extractFeatures(loader, classTerm);
                 builder.setType(TermType.CLASS.toString().toLowerCase());
-                documents.add(builder.createTermDocument());
+                allClassesDocument.add(builder.createTermDocument());
+                documentCount++;
+                //If on the last loop there is less then 200 document left to be created then they won't be saved below
+                //but will'save them later just outside the for loop.
+                if(documentCount == 200){
+                    documentCount = 0;
+                    ontologySolrRepository.save(allClassesDocument);
+                    allClassesDocument = new HashSet<TermDocument>();
+                }
+            }
+            //Saving the document created in the last for loop incase there were less then 200.
+            if(!allClassesDocument.isEmpty()){
+                ontologySolrRepository.save(allClassesDocument);
             }
 
             for (IRI classTerm : loader.getAllObjectPropertyIRIs()) {
+                System.out.println(classTerm);
                 TermDocumentBuilder builder = extractFeatures(loader, classTerm);
                 builder.setType(TermType.PROPERTY.toString().toLowerCase());
                 documents.add(builder.createTermDocument());
@@ -80,6 +101,7 @@ public class SolrIndexer implements OntologyIndexer {
 
             getLog().info("Preparing to save documents...");
             ontologySolrRepository.save(documents);
+
             getLog().info("Indexing " +loader.getOntologyName()+ " complete!");
 
         }
@@ -116,6 +138,34 @@ public class SolrIndexer implements OntologyIndexer {
                 .setHasChildren(loader.getDirectChildTerms().containsKey(termIRI))
                 .setSubsets(new ArrayList<>(loader.getSubsets(termIRI)))
                 .setLabel(loader.getTermLabels().get(termIRI));
+
+        try {
+
+
+            //Set json bbop sibling graph string directly (the json graph is not saved to a file it is in memory
+            // in the ByteArrayOutputStream object).
+            ByteArrayOutputStream outStream=new ByteArrayOutputStream();
+            SiblingGraphCreator siblingGraphCreator = new SiblingGraphCreator();
+            //Get the jsonGenerator object for this termIRI
+            siblingGraphCreator.buildBpopGraph(loader, termIRI, outStream);
+            //Set the builder bbobSiblingGraph document.
+            builder.setBbopSibblingGraph(outStream.toString().intern());
+
+//            //Set path to file containing json bbop sibling graph.
+//            String termId = termIRI.toString().substring(termIRI.toString().lastIndexOf('/') + 1, termIRI.toString().length());
+//            String filePath = "/Users/catherineleroy/Documents/json-graphs/" + termId + ".json";
+//            File file = new File(filePath);
+//            OutputStream outputStream = new FileOutputStream(file);
+//            SiblingGraphCreator siblingGraphCreator = new SiblingGraphCreator();
+//            siblingGraphCreator.buildBpopGraph(loader, termIRI, outputStream);
+//            builder.setBbopSibblingGraph(filePath);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
         // index all annotations
         if (!loader.getAnnotations(termIRI).isEmpty()) {

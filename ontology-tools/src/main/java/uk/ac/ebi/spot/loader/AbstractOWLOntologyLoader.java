@@ -598,6 +598,8 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
     protected void addAllRelatedTerms(IRI termIRI, Map<IRI, Collection<IRI>> relatedTerms) {
         this.allRelatedTerms.put(termIRI, relatedTerms);
     }
+
+
     protected void addSuperClassDescriptions(IRI termIRI, Set<String> relatedSuperDescriptions) {
         this.superclassExpressionsAsString.put(termIRI, relatedSuperDescriptions);
     }
@@ -624,6 +626,15 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
     }
 
     @Override
+    public Collection<IRI> getDirectParentTerms(IRI iri) {
+        Collection<IRI> parentTerms = directParentTerms.get(iri);
+        if(parentTerms == null){
+            return new ArrayList<IRI>();
+        }
+        return parentTerms;
+    }
+
+    @Override
     public Map<IRI, Collection<IRI>> getAllParentTerms() {
         return allParentTerms;
     }
@@ -631,6 +642,15 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
     @Override
     public Map<IRI, Collection<IRI>> getDirectChildTerms() {
         return directChildTerms;
+    }
+
+    @Override
+    public Collection<IRI> getDirectChildTerms(IRI iri) {
+        Collection<IRI> childTerms = directChildTerms.get(iri);
+        if(childTerms == null){
+            return new ArrayList<IRI>();
+        }
+        return directChildTerms.get(iri);
     }
 
     @Override
