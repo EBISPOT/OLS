@@ -4,57 +4,60 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>uk.ac.ebi.ols</groupId>
+    <groupId>uk.ac.ebi.spot</groupId>
     <artifactId>ols-ebi</artifactId>
     <packaging>pom</packaging>
-    <version>3.0-SNAPSHOT</version>
+    <version>3.0.0-SNAPSHOT</version>
     <modules>
         <module>ols-core</module>
         <module>ols-solr</module>
         <module>ontology-tools</module>
         <module>ols-mongo</module>
+        <module>ols-neo4j</module>
         <module>ols-web</module>
         <module>ols-apps</module>
+        <module>ols-dependencies</module>
+        <module>ols-parent</module>
     </modules>
 
-    <properties>
-        <org.slf4j.version>1.7.7</org.slf4j.version>
-    </properties>
+    <!--<properties>-->
+        <!--<org.slf4j.version>1.7.7</org.slf4j.version>-->
+    <!--</properties>-->
 
-    <dependencies>
+    <!--<dependencies>-->
 
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${org.slf4j.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.slf4j</groupId>-->
+            <!--<artifactId>slf4j-api</artifactId>-->
+            <!--<version>${org.slf4j.version}</version>-->
+        <!--</dependency>-->
 
-        <dependency>
-        	<groupId>org.slf4j</groupId>
-        	<artifactId>slf4j-log4j12</artifactId>
-        	<version>${org.slf4j.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-        	<groupId>log4j</groupId>
-        	<artifactId>log4j</artifactId>
-        	<version>1.2.16</version>
-        	<scope>test</scope>
-        </dependency>
+        <!--<dependency>-->
+        	<!--<groupId>org.slf4j</groupId>-->
+        	<!--<artifactId>slf4j-log4j12</artifactId>-->
+        	<!--<version>${org.slf4j.version}</version>-->
+            <!--<scope>test</scope>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+        	<!--<groupId>log4j</groupId>-->
+        	<!--<artifactId>log4j</artifactId>-->
+        	<!--<version>1.2.16</version>-->
+        	<!--<scope>test</scope>-->
+        <!--</dependency>-->
 
-    </dependencies>
+    <!--</dependencies>-->
 
-    <build>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.2</version>
-          <configuration>
-            <source>1.8</source>
-            <target>1.8</target>
-          </configuration>
-        </plugin>
-      </plugins>
-    </build>
+    <!--<build>-->
+      <!--<plugins>-->
+        <!--<plugin>-->
+          <!--<groupId>org.apache.maven.plugins</groupId>-->
+          <!--<artifactId>maven-compiler-plugin</artifactId>-->
+          <!--<version>3.2</version>-->
+          <!--<configuration>-->
+            <!--<source>1.8</source>-->
+            <!--<target>1.8</target>-->
+          <!--</configuration>-->
+        <!--</plugin>-->
+      <!--</plugins>-->
+    <!--</build>-->
 </project>

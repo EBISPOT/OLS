@@ -6,8 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import uk.ac.ebi.spot.loader.OntologyLoader;
-import uk.ac.ebi.spot.model.TreeDocument;
-import uk.ac.ebi.spot.model.TreeNode;
+import uk.ac.ebi.spot.neo4j.model.TreeDocument;
+import uk.ac.ebi.spot.neo4j.model.TreeNode;
 import uk.ac.ebi.spot.ols.exception.IndexingException;
 import uk.ac.ebi.spot.ols.model.OntologyIndexer;
 

@@ -16,18 +16,18 @@ import java.net.URI;
  * @date 16/02/2015
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = FileUpdater.class)
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@SpringApplicationConfiguration(classes = FileUpdater.class)
 public class FileUpdateTests {
 
-    @Autowired
+//    @Autowired
     FileUpdater updater;
 
-    @Autowired
+//    @Autowired
     private Environment environment;
 
 
-    @Test
+//    @Test
     public void testFileUpdater () {
 
         updater.setPath("/Users/jupp/Dropbox/dev/ols/ols-loader/src/test/resources/tmp");

@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.DigestUtils;
 import uk.ac.ebi.spot.loader.OntologyLoader;
-import uk.ac.ebi.spot.model.TermDocument;
-import uk.ac.ebi.spot.model.TermDocumentBuilder;
+import uk.ac.ebi.spot.neo4j.model.TermDocument;
+import uk.ac.ebi.spot.neo4j.model.TermDocumentBuilder;
 import uk.ac.ebi.spot.util.TermType;
 import uk.ac.ebi.spot.ols.model.OntologyIndexer;
 
@@ -49,6 +49,7 @@ public class SolrIndexer implements OntologyIndexer {
 
 
             for (IRI classTerm : loader.getAllClasses()) {
+
                 TermDocumentBuilder builder = extractFeatures(loader, classTerm);
                 builder.setType(TermType.CLASS.toString().toLowerCase());
                 documents.add(builder.createTermDocument());
