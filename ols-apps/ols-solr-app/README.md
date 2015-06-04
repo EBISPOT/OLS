@@ -7,7 +7,7 @@ Start SOLR in the example directory with the config supplied by this module
 
 e.g. 
 
-java -Dsolr.solr.home=<PATH TO HERE>/ols/ols-solr/src/main/resources/solr-conf -jar start.jar
+java -Dsolr.solr.home=<PATH TO HERE>/ols/ols-solr/src/main/solr-conf -jar start.jar
 
 Once the SOLR service is running (by default at http://localhost:8983/solr) you can create a new index as follows:
 

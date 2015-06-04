@@ -3,7 +3,6 @@ package uk.ac.ebi.spot.ols.util;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
 import org.semanticweb.owlapi.model.IRI;
-import org.springframework.boot.SpringApplication;
 import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
 import uk.ac.ebi.spot.ols.loader.OntologyLoader;
 
@@ -247,7 +246,4 @@ public class SiblingGraphCreator  {
         return jsonGenerator;
     }
 
-    public static void main(String[] args) throws OntologyLoadingException {
-        SpringApplication.run(SiblingGraphCreator.class, args);
-    }
 }

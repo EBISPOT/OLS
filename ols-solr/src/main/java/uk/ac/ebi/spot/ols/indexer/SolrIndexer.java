@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
 public class SolrIndexer implements OntologyIndexer {
 
     private Logger log = LoggerFactory.getLogger(getClass());
+    private int batchSize = 1000;
 
     public Logger getLog() {
         return log;
@@ -45,39 +46,19 @@ public class SolrIndexer implements OntologyIndexer {
 
         for (OntologyLoader loader : loaders) {
 
-            dropIndex(loader);
-
             getLog().info("Creating new index for " + loader.getOntologyName());
-            long startTime = System.nanoTime();
+            long startTime = System.currentTimeMillis();
 
-            Collection<TermDocument> documents = new HashSet<TermDocument>();
+            List<TermDocument> documents = new ArrayList<TermDocument>();
 
-            //To avoid an out of Memory exception we save to the index every 200 documents created.
-            // We only do it when we loop over all the classes (for (IRI classTerm : loader.getAllClasses())) as it
-            //was the only place where the out of memory was coming up.
-            int documentCount = 0;
-            Collection<TermDocument> allClassesDocument = new HashSet<TermDocument>();
             for (IRI classTerm : loader.getAllClasses()) {
 
                 TermDocumentBuilder builder = extractFeatures(loader, classTerm);
                 builder.setType(TermType.CLASS.toString().toLowerCase());
-                allClassesDocument.add(builder.createTermDocument());
-                documentCount++;
-                //If on the last loop there is less then 200 document left to be created then they won't be saved below
-                //but will'save them later just outside the for loop.
-                if(documentCount == 200){
-                    documentCount = 0;
-                    ontologySolrRepository.save(allClassesDocument);
-                    allClassesDocument = new HashSet<TermDocument>();
-                }
-            }
-            //Saving the document created in the last for loop incase there were less then 200.
-            if(!allClassesDocument.isEmpty()){
-                ontologySolrRepository.save(allClassesDocument);
+                documents.add(builder.createTermDocument());
             }
 
             for (IRI classTerm : loader.getAllObjectPropertyIRIs()) {
-                System.out.println(classTerm);
                 TermDocumentBuilder builder = extractFeatures(loader, classTerm);
                 builder.setType(TermType.PROPERTY.toString().toLowerCase());
                 documents.add(builder.createTermDocument());
@@ -101,10 +82,33 @@ public class SolrIndexer implements OntologyIndexer {
             getLog().info("Number of individuals to index: " + loader.getAllIndividualIRIs().size());
 
             getLog().info("Preparing to save documents...");
-            ontologySolrRepository.save(documents);
-            long endTime = System.nanoTime();
-            long duration = (endTime - startTime); // time in milliseconds
-            getLog().info("Indexing " +loader.getOntologyName()+ " completed in " + duration + " ms");
+            long endTime = System.currentTimeMillis();
+            long duration = (endTime - startTime) / 1000; // time in seconds
+            getLog().info("Reading " + loader.getOntologyName() + " completed in " + duration + " seconds");
+
+            dropIndex(loader);
+
+            startTime = System.currentTimeMillis();
+
+            int numDocuments = documents.size();
+            getLog().debug("Extracted {} documents", numDocuments);
+
+            // Index documents in batches
+            int count = 0;
+            while (count < numDocuments) {
+                int end = count + getBatchSize();
+                if (end > numDocuments) {
+                    end = numDocuments;
+                }
+
+                ontologySolrRepository.save(documents.subList(count, end));
+
+                count = end;
+                getLog().info("Indexed {} / {} entries", count, numDocuments);
+            }
+            endTime = System.currentTimeMillis();
+            duration = (endTime - startTime) / 1000; // time in seconds
+            getLog().info("Saving indexing " +loader.getOntologyName()+ " completed in " + duration + " seconds");
         }
 
 
@@ -121,11 +125,11 @@ public class SolrIndexer implements OntologyIndexer {
         TermDocument documents = ontologySolrRepository.findByOntologyName(loader.getOntologyName());
         if (documents != null) {
             getLog().info("Deleting solr index for " + loader.getOntologyName());
-            long startTime = System.nanoTime();
+            long startTime = System.currentTimeMillis();
             ontologySolrRepository.delete(documents);
-            long endTime = System.nanoTime();
-            long duration = (endTime - startTime); // time in milliseconds
-            getLog().info(loader.getOntologyName() + " removed from solr in " + duration + " ms");
+            long endTime = System.currentTimeMillis();
+            long duration = (endTime - startTime) / 1000; // time in seconds
+            getLog().info(loader.getOntologyName() + " removed from solr in " + duration + " seconds");
         }
     }
 
@@ -145,32 +149,32 @@ public class SolrIndexer implements OntologyIndexer {
                 .setSubsets(new ArrayList<>(loader.getSubsets(termIRI)))
                 .setLabel(loader.getTermLabels().get(termIRI));
 
-        try {
-
-
-            //Set json bbop sibling graph string directly (the json graph is not saved to a file it is in memory
-            // in the ByteArrayOutputStream object).
-            ByteArrayOutputStream outStream=new ByteArrayOutputStream();
-            SiblingGraphCreator siblingGraphCreator = new SiblingGraphCreator();
-            //Get the jsonGenerator object for this termIRI
-            siblingGraphCreator.buildBpopGraph(loader, termIRI, outStream);
-            //Set the builder bbobSiblingGraph document.
-            builder.setBbopSibblingGraph(outStream.toString().intern());
-
-//            //Set path to file containing json bbop sibling graph.
-//            String termId = termIRI.toString().substring(termIRI.toString().lastIndexOf('/') + 1, termIRI.toString().length());
-//            String filePath = "/Users/catherineleroy/Documents/json-graphs/" + termId + ".json";
-//            File file = new File(filePath);
-//            OutputStream outputStream = new FileOutputStream(file);
+//        try {
+//
+//
+//            //Set json bbop sibling graph string directly (the json graph is not saved to a file it is in memory
+//            // in the ByteArrayOutputStream object).
+//            ByteArrayOutputStream outStream=new ByteArrayOutputStream();
 //            SiblingGraphCreator siblingGraphCreator = new SiblingGraphCreator();
-//            siblingGraphCreator.buildBpopGraph(loader, termIRI, outputStream);
-//            builder.setBbopSibblingGraph(filePath);
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//            //Get the jsonGenerator object for this termIRI
+//            siblingGraphCreator.buildBpopGraph(loader, termIRI, outStream);
+//            //Set the builder bbobSiblingGraph document.
+//            builder.setBbopSibblingGraph(outStream.toString().intern());
+//
+////            //Set path to file containing json bbop sibling graph.
+////            String termId = termIRI.toString().substring(termIRI.toString().lastIndexOf('/') + 1, termIRI.toString().length());
+////            String filePath = "/Users/catherineleroy/Documents/json-graphs/" + termId + ".json";
+////            File file = new File(filePath);
+////            OutputStream outputStream = new FileOutputStream(file);
+////            SiblingGraphCreator siblingGraphCreator = new SiblingGraphCreator();
+////            siblingGraphCreator.buildBpopGraph(loader, termIRI, outputStream);
+////            builder.setBbopSibblingGraph(filePath);
+//
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
 
         // index all annotations
@@ -252,10 +256,14 @@ public class SolrIndexer implements OntologyIndexer {
     }
 
     private String generateAnnotationId(String uri) {
-    	return DigestUtils.md5DigestAsHex(uri.getBytes());
+        return DigestUtils.md5DigestAsHex(uri.getBytes());
     }
 
     private String generateId(String ontologyName, String iri) {
         return ontologyName.toLowerCase() + ":" + iri;
+    }
+
+    public int getBatchSize() {
+        return batchSize;
     }
 }

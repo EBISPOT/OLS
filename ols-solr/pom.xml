@@ -22,11 +22,6 @@
             <groupId>uk.ac.ebi.spot</groupId>
             <artifactId>ols-core</artifactId>
         </dependency>
-        <dependency>
-            <groupId>uk.ac.ebi.ols</groupId>
-            <artifactId>ols-sibling-graph-creator</artifactId>
-            <version>3.0-SNAPSHOT</version>
-        </dependency>
 
     </dependencies>
 
