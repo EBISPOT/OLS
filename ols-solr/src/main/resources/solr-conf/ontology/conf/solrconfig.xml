@@ -960,6 +960,7 @@
             <str name="fl">label</str>
             <str name="qf">label^80 textnge^50 label_suggest^40 textng^40 uri^50 synonym^10 synonym_suggest^5</str>
             <str name="group.field">label</str>
+            <str name="wt">json</str>
             <str name="group">true</str>
             <str name="group.main">true</str>
         </lst>
@@ -973,6 +974,7 @@
             <str name="fl">label,short_form,ontology_name,is_defining_ontology,score</str>
             <str name="qf">label^50 label_suggest^30  synonym^10 synonym_suggest^5 extrasearch^20 short_form^20 logical_description^20 phonetic^5 uri^20</str>
             <str name="bq">is_defining_ontology:true</str>
+            <str name="wt">json</str>
             <str name="facet.field">ontology_name</str>
             <str name="facet.field">type</str>
             <str name="group.field">label</str>
