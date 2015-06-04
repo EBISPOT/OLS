@@ -76,15 +76,15 @@ public class SolrSearchController {
     @RequestMapping(value = "api/search", produces = MediaType.APPLICATION_JSON_VALUE)
     public void doSolrSearch(
             @RequestParam("q") String query,
-            @RequestParam(value = "jsonp", required = false, defaultValue = "false") boolean useJsonp,
-            @RequestParam(value = "callback", required = false) String callbackFunction,
-            @RequestParam(value = "max", required = false, defaultValue = "10") int maxResults,
-            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            @RequestParam(value = "group", required = false, defaultValue = "false") boolean useGroups,
-            @RequestParam(value = "group.by", required = false) String groupBy,
-            @RequestParam(value = "group.limit", required = false, defaultValue = "10") int groupLimit,
+//            @RequestParam(value = "jsonp", required = false, defaultValue = "false") boolean useJsonp,
+//            @RequestParam(value = "callback", required = false) String callbackFunction,
+//            @RequestParam(value = "max", required = false, defaultValue = "10") int maxResults,
+//            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+//            @RequestParam(value = "group", required = false, defaultValue = "false") boolean useGroups,
+//            @RequestParam(value = "group.by", required = false) String groupBy,
+//            @RequestParam(value = "group.limit", required = false, defaultValue = "10") int groupLimit,
             HttpServletResponse response) throws IOException {
-        StringBuilder solrSearchBuilder = buildBaseSearchRequest();
+        StringBuilder solrSearchBuilder = buildBaseSearchRequest("ontologySearch");
 
 //        addFacet(solrSearchBuilder, searchConfiguration.getDefaultFacet());
 //        if (useJsonp) {
@@ -102,12 +102,36 @@ public class SolrSearchController {
         dispatchSearch(solrSearchBuilder.toString(), response.getOutputStream());
     }
 
-    private StringBuilder buildBaseSearchRequest() {
+    @RequestMapping(value = "api/suggest", produces = MediaType.APPLICATION_JSON_VALUE)
+    public void doSolrSuggest(
+            @RequestParam("q") String query,
+            HttpServletResponse response) throws IOException {
+        StringBuilder solrSearchBuilder = buildBaseSearchRequest("ontologySuggest");
+
+        addQuery(solrSearchBuilder, query);
+
+        // dispatch search
+        dispatchSearch(solrSearchBuilder.toString(), response.getOutputStream());
+    }
+
+    @RequestMapping(value = "api/select", produces = MediaType.APPLICATION_JSON_VALUE)
+    public void doSolrSelect(
+            @RequestParam("q") String query,
+            HttpServletResponse response) throws IOException {
+        StringBuilder solrSearchBuilder = buildBaseSearchRequest("ontologySelect");
+
+        addQuery(solrSearchBuilder, query);
+
+        // dispatch search
+        dispatchSearch(solrSearchBuilder.toString(), response.getOutputStream());
+    }
+
+    private StringBuilder buildBaseSearchRequest(String queryPath) {
         // build base request
         StringBuilder solrSearchBuilder = new StringBuilder();
         solrSearchBuilder.append(searchConfiguration.getOlsSearchServer().toString())
-                .append("/select?")
-                .append("wt=json");
+                .append("/"+queryPath+"?")
+                .append("wt=json");  // even though solr returns results as json, we have to specify that the api will do the same
         return solrSearchBuilder;
     }
 
@@ -234,144 +258,144 @@ public class SolrSearchController {
 //    @RequestMapping(value = "api/search/downloads", produces = MediaType.TEXT_PLAIN_VALUE)
 //    public @ResponseBody String getSearchResults(
 
-    @RequestMapping(value = "api/search/downloads")
-    public void getSearchResults(
-            @RequestParam("q") String query,
-            @RequestParam(value = "pvalfilter", required = false) String pvalRange,
-            @RequestParam(value = "orfilter", required = false) String orRange,
-            @RequestParam(value = "betafilter", required = false) String betaRange,
-            @RequestParam(value = "datefilter", required = false) String dateRange,
-            @RequestParam(value = "traitfilter[]", required = false) String[] traits,
-            @RequestParam(value = "dateaddedfilter", required = false) String addedDateRange,
-            HttpServletResponse response) throws IOException {
+//    @RequestMapping(value = "api/search/downloads")
+//    public void getSearchResults(
+//            @RequestParam("q") String query,
+//            @RequestParam(value = "pvalfilter", required = false) String pvalRange,
+//            @RequestParam(value = "orfilter", required = false) String orRange,
+//            @RequestParam(value = "betafilter", required = false) String betaRange,
+//            @RequestParam(value = "datefilter", required = false) String dateRange,
+//            @RequestParam(value = "traitfilter[]", required = false) String[] traits,
+//            @RequestParam(value = "dateaddedfilter", required = false) String addedDateRange,
+//            HttpServletResponse response) throws IOException {
+//
+//        StringBuilder solrSearchBuilder = buildBaseSearchRequest();
+//
+//        int maxResults = 10000;
+//        int page = 1;
+//        String facet = "association";
+////        addFilterQuery(solrSearchBuilder, "resourcename", facet);
+//        addRowsAndPage(solrSearchBuilder, maxResults, page);
+//
+//
+//        if (pvalRange != "") {
+//            getLog().debug(pvalRange);
+//            addFilterQuery(solrSearchBuilder, "pValue", pvalRange);
+//        }
+//        /**TO DO - when we split OR and beta, modify this controller to reflect that change!!***/
+//        if (orRange != "") {
+//            getLog().debug(orRange);
+//
+//            addFilterQuery(solrSearchBuilder, "orPerCopyNum", orRange);
+//            addFilterQuery(solrSearchBuilder, "orType", "true");
+//        }
+//        if (betaRange != "") {
+//            getLog().debug(betaRange);
+//
+//            addFilterQuery(solrSearchBuilder, "orPerCopyNum", betaRange);
+//            addFilterQuery(solrSearchBuilder, "orType", "false");
+//        }
+//        if (dateRange != "") {
+//            getLog().debug(dateRange);
+//            addFilterQuery(solrSearchBuilder, "publicationDate", dateRange);
+//        }
+//        if (traits != null && traits.length != 0) {
+//            System.out.println(String.valueOf(traits));
+//
+//            addFilterQuery(solrSearchBuilder, "traitName_s", traits);
+//        }
+//        if(addedDateRange != ""){
+//            getLog().debug(addedDateRange);
+//            addFilterQuery(solrSearchBuilder, "catalogAddedDate", addedDateRange);
+//
+//        }
+//
+//        addQuery(solrSearchBuilder, query);
+//
+//        String searchString = solrSearchBuilder.toString();
+//
+//        /*this step is necessary as something about calling the URL directly rather than through $.getJSON messes
+//        up the URL encoding but explicitly URL encoding causes other interference
+//        */
+//        searchString = searchString.replace(" ", "+");
+//
+//        // dispatch search
+////        return dispatchSearch(searchString);
+//        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        Date date = new Date();
+//        String now = dateFormat.format(date);
+//        String fileName;
+//
+//        if(query.contains("*")){
+//            if(addedDateRange != "") {
+//                fileName = "gwas-downloaded_".concat(now).concat("-recentStudies.tsv");
+//            }
+//            else{
+//                fileName = "gwas-downloaded_".concat(now).concat("-selectedTraits.tsv");
+//            }
+//        }
+//        else{
+//            fileName = "gwas-downloaded_".concat(now).concat("-").concat(query.substring(6, query.length() - 1)).concat(".tsv");
+//        }
+//        response.setContentType("text/tsv");
+//        response.setHeader("Content-Disposition", "attachement; filename=" + fileName);
+//
+//        dispatchDownloadSearch(searchString, response.getOutputStream());
+//
+//
+//    }
 
-        StringBuilder solrSearchBuilder = buildBaseSearchRequest();
-
-        int maxResults = 10000;
-        int page = 1;
-        String facet = "association";
-//        addFilterQuery(solrSearchBuilder, "resourcename", facet);
-        addRowsAndPage(solrSearchBuilder, maxResults, page);
-
-
-        if (pvalRange != "") {
-            getLog().debug(pvalRange);
-            addFilterQuery(solrSearchBuilder, "pValue", pvalRange);
-        }
-        /**TO DO - when we split OR and beta, modify this controller to reflect that change!!***/
-        if (orRange != "") {
-            getLog().debug(orRange);
-
-            addFilterQuery(solrSearchBuilder, "orPerCopyNum", orRange);
-            addFilterQuery(solrSearchBuilder, "orType", "true");
-        }
-        if (betaRange != "") {
-            getLog().debug(betaRange);
-
-            addFilterQuery(solrSearchBuilder, "orPerCopyNum", betaRange);
-            addFilterQuery(solrSearchBuilder, "orType", "false");
-        }
-        if (dateRange != "") {
-            getLog().debug(dateRange);
-            addFilterQuery(solrSearchBuilder, "publicationDate", dateRange);
-        }
-        if (traits != null && traits.length != 0) {
-            System.out.println(String.valueOf(traits));
-
-            addFilterQuery(solrSearchBuilder, "traitName_s", traits);
-        }
-        if(addedDateRange != ""){
-            getLog().debug(addedDateRange);
-            addFilterQuery(solrSearchBuilder, "catalogAddedDate", addedDateRange);
-
-        }
-
-        addQuery(solrSearchBuilder, query);
-
-        String searchString = solrSearchBuilder.toString();
-
-        /*this step is necessary as something about calling the URL directly rather than through $.getJSON messes
-        up the URL encoding but explicitly URL encoding causes other interference
-        */
-        searchString = searchString.replace(" ", "+");
-
-        // dispatch search
-//        return dispatchSearch(searchString);
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = new Date();
-        String now = dateFormat.format(date);
-        String fileName;
-
-        if(query.contains("*")){
-            if(addedDateRange != "") {
-                fileName = "gwas-downloaded_".concat(now).concat("-recentStudies.tsv");
-            }
-            else{
-                fileName = "gwas-downloaded_".concat(now).concat("-selectedTraits.tsv");
-            }
-        }
-        else{
-            fileName = "gwas-downloaded_".concat(now).concat("-").concat(query.substring(6, query.length() - 1)).concat(".tsv");
-        }
-        response.setContentType("text/tsv");
-        response.setHeader("Content-Disposition", "attachement; filename=" + fileName);
-
-        dispatchDownloadSearch(searchString, response.getOutputStream());
-
-
-    }
-
-
-    private void dispatchDownloadSearch(String searchString, OutputStream outputStream) throws IOException {
-        System.out.println(searchString);
-        CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet(searchString);
-        if (System.getProperty("http.proxyHost") != null) {
-            HttpHost proxy;
-            if (System.getProperty("http.proxyPort") != null) {
-                proxy = new HttpHost(System.getProperty("http.proxyHost"), Integer.parseInt(System.getProperty
-                        ("http.proxyPort")));
-            }
-            else {
-                proxy = new HttpHost(System.getProperty("http.proxyHost"));
-            }
-            httpGet.setConfig(RequestConfig.custom().setProxy(proxy).build());
-        }
-
-        String file = null;
-        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
-            getLog().debug("Received HTTP response: " + response.getStatusLine().toString());
-            HttpEntity entity = response.getEntity();
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(entity.getContent()));
-
-            String output;
-            while ((output = br.readLine()) != null) {
-
-                JsonProcessingService jsonProcessor = new JsonProcessingService(output);
-                file = jsonProcessor.processJson();
-
-            }
-
-            EntityUtils.consume(entity);
-        }
-        if(file == null){
-
-            //TO DO throw exception here and add error handler
-            file = "Some error occurred during your request. Please try again or contact the GWAS Catalog team for assistance";
-        }
-
-        InputStream in = new ByteArrayInputStream(file.getBytes("UTF-8"));
-
-        byte[] outputByte = new byte[4096];
-//copy binary contect to output stream
-        while(in.read(outputByte, 0, 4096) != -1)
-        {
-            outputStream.write(outputByte, 0, 4096);
-        }
-        in.close();
-        outputStream.flush();
-
-    }
+//
+//    private void dispatchDownloadSearch(String searchString, OutputStream outputStream) throws IOException {
+//        System.out.println(searchString);
+//        CloseableHttpClient httpclient = HttpClients.createDefault();
+//        HttpGet httpGet = new HttpGet(searchString);
+//        if (System.getProperty("http.proxyHost") != null) {
+//            HttpHost proxy;
+//            if (System.getProperty("http.proxyPort") != null) {
+//                proxy = new HttpHost(System.getProperty("http.proxyHost"), Integer.parseInt(System.getProperty
+//                        ("http.proxyPort")));
+//            }
+//            else {
+//                proxy = new HttpHost(System.getProperty("http.proxyHost"));
+//            }
+//            httpGet.setConfig(RequestConfig.custom().setProxy(proxy).build());
+//        }
+//
+//        String file = null;
+//        try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
+//            getLog().debug("Received HTTP response: " + response.getStatusLine().toString());
+//            HttpEntity entity = response.getEntity();
+//
+//            BufferedReader br = new BufferedReader(new InputStreamReader(entity.getContent()));
+//
+//            String output;
+//            while ((output = br.readLine()) != null) {
+//
+//                JsonProcessingService jsonProcessor = new JsonProcessingService(output);
+//                file = jsonProcessor.processJson();
+//
+//            }
+//
+//            EntityUtils.consume(entity);
+//        }
+//        if(file == null){
+//
+//            //TO DO throw exception here and add error handler
+//            file = "Some error occurred during your request. Please try again or contact the GWAS Catalog team for assistance";
+//        }
+//
+//        InputStream in = new ByteArrayInputStream(file.getBytes("UTF-8"));
+//
+//        byte[] outputByte = new byte[4096];
+////copy binary contect to output stream
+//        while(in.read(outputByte, 0, 4096) != -1)
+//        {
+//            outputStream.write(outputByte, 0, 4096);
+//        }
+//        in.close();
+//        outputStream.flush();
+//
+//    }
 
 }
