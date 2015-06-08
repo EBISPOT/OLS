@@ -3,28 +3,30 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>ols-ebi</artifactId>
-        <groupId>uk.ac.ebi.ols</groupId>
-        <version>3.0-SNAPSHOT</version>
+        <groupId>uk.ac.ebi.spot</groupId>
+        <artifactId>ols-parent</artifactId>
+        <version>3.0.0-SNAPSHOT</version>
+        <relativePath>../ols-parent/pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>ontology-tools</artifactId>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>net.sourceforge.owlapi</groupId>
             <artifactId>owlapi-distribution</artifactId>
-            <!--todo: inherit version from ols dependencies-->
-            <version>3.4.10</version>
         </dependency>
 
         <dependency>
           <groupId>com.hermit-reasoner</groupId>
           <artifactId>org.semanticweb.hermit</artifactId>
-            <!--todo: inherit version from ols dependencies-->
-
-            <version>1.3.8.4</version>
         </dependency>
 
         <dependency>
@@ -34,10 +36,20 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot</artifactId>
-            <version>1.2.0.RELEASE</version>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>

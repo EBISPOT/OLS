@@ -8,8 +8,9 @@ package uk.ac.ebi.spot.ols.model;
 public enum Status {
 
     NOTLOADED,
+    TOLOAD,
     LOADED,
     LOADING,
-    FAILED
+    DOWNLOADING, FAILED
 
 }
