@@ -11,6 +11,7 @@
     <modules>
         <module>ols-solr-app</module>
         <module>ols-loading-app</module>
+        <module>ols-ontology-library-synchronizer</module>
     </modules>
 
 
