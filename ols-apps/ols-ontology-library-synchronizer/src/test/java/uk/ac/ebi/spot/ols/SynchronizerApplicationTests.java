@@ -37,17 +37,15 @@ public class SynchronizerApplicationTests {
 
 
     @Test
+    // Test that all the Ontology Configuration extracted from the test repository-test1.yaml file get created in the
+    //mongo db if it was previously empty.
     public void synchronize() throws Exception {
-//
-//        OntologyRepositoryService ontologyRepositoryService = new MongoOntologyRepositoryService();
-//
-// SynchronizerApplication synchronizerApplication = new SynchronizerApplication();
 
-
+        //Start by deleting all the document in mongo to start a fresh test.
         for(OntologyDocument ontologyDocument : ontologyRepositoryService.getAllDocuments()){
             ontologyRepositoryService.delete(ontologyDocument);
         }
-
+        
         Properties properties = System.getProperties();
         properties.setProperty("ols.ontology.synchroniser.yaml_path", "/Users/catherineleroy/Documents/github_project/OLS/ols-apps/ols-ontology-library-synchronizer/src/main/resources/repository-test1.yaml");
         properties.setProperty("spring.data.mongodb.database","ols");
@@ -85,6 +83,8 @@ public class SynchronizerApplicationTests {
 
 
     @Test
+    //By switching to a different test yaml file, make sure that if something change in the ontology it is reflected
+    // in the mongo database by a TOLOAD status on the ontology document.
     public void synchronizeBis() throws Exception {
 
         Properties properties = System.getProperties();
