@@ -1,5 +1,6 @@
 package uk.ac.ebi.spot.ols.synchroniser;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.yaml.snakeyaml.Yaml;
 import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
@@ -23,11 +24,8 @@ import java.util.*;
 @Component
 public class CmungallOntologyResourceConfigsGetter implements OntologyRessourceConfigsGetter {
 
-    private String yamlPath;
-
     /**
-     * Constructor.
-     * @param yamlPath, file containing the ontologies information. <br>
+     * Path to file containing the ontologies information. <br>
      * Example of yaml file : <br>
      *                 ex of valid yaml file:<br>
      *                 "@context":<br>
@@ -42,13 +40,30 @@ public class CmungallOntologyResourceConfigsGetter implements OntologyRessourceC
      *                     products:<br>
      *                      - id: go.owl<br>
      */
-    public CmungallOntologyResourceConfigsGetter(String yamlPath){
-        this.yamlPath = yamlPath;
-    }
+    @Value("${ols.ontology.synchroniser.yaml_path}")
+//    private String yamlPath;
+    private String yamlPath;
+
+    /**
+     * Path to file containing the ontologies information. <br>
+     * Example of yaml file : <br>
+     *                 ex of valid yaml file:<br>
+     *                 "@context":<br>
+     *                  "@base": http://purl.obolibrary.org/obo/<br>
+     *                 ontologies:<br>
+     *                   - id: uberon<br>
+     *                     label: Uberon<br>
+     *                     products:<br>
+     *                      - id: uberon.owl<br>
+     *                   - id: go<br>
+     *                     label: GO<br>
+     *                     products:<br>
+     *                      - id: go.owl<br>
+     */
+
     public static void main(String[] args) throws IOException {
 
-        String yamlPath = "/Users/catherineleroy/Documents/github_project/OLS/ols-apps/ols-ontology-library-synchronizer/repository.yaml";
-        CmungallOntologyResourceConfigsGetter cmungallOntologyResourceConfigsGetter = new CmungallOntologyResourceConfigsGetter(yamlPath);
+        CmungallOntologyResourceConfigsGetter cmungallOntologyResourceConfigsGetter = new CmungallOntologyResourceConfigsGetter();
         cmungallOntologyResourceConfigsGetter.getOntologyResourceConfigs();
 
     }

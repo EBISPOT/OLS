@@ -1,20 +1,14 @@
 package uk.ac.ebi.spot.ols;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.boot.test.SpringApplicationContextLoader;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.util.ReflectionTestUtils;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
 import uk.ac.ebi.spot.ols.model.Status;
-import uk.ac.ebi.spot.ols.service.MongoOntologyRepositoryService;
 import uk.ac.ebi.spot.ols.service.OntologyRepositoryService;
 
 import java.util.Properties;
@@ -45,7 +39,7 @@ public class SynchronizerApplicationTests {
         for(OntologyDocument ontologyDocument : ontologyRepositoryService.getAllDocuments()){
             ontologyRepositoryService.delete(ontologyDocument);
         }
-        
+
         Properties properties = System.getProperties();
         properties.setProperty("ols.ontology.synchroniser.yaml_path", "/Users/catherineleroy/Documents/github_project/OLS/ols-apps/ols-ontology-library-synchronizer/src/main/resources/repository-test1.yaml");
         properties.setProperty("spring.data.mongodb.database","ols");

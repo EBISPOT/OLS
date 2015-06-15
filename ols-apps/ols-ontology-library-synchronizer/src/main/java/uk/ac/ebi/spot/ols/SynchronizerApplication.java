@@ -26,14 +26,14 @@ public class SynchronizerApplication implements CommandLineRunner {
     OntologyRepositoryService ontologyRepositoryService;
 
 
-    @Value("${ols.ontology.synchroniser.yaml_path}")
-    private String yamlPath;
+//    @Value("${ols.ontology.synchroniser.yaml_path}")
+//    private String yamlPath;
 
     @Override
     public void run(String... args) throws Exception {
 
         //Get the Collection of OntologyResourceConfig to update/save into the mongo database.
-        Collection<OntologyResourceConfig> ontologyResourceConfigs = ontologyResourceConfigsGetter.getOntologyResourceConfigs(yamlPath);
+        Collection<OntologyResourceConfig> ontologyResourceConfigs = ontologyResourceConfigsGetter.getOntologyResourceConfigs();
 
         //Get all the OntologyDocument (and therefore ontology configuration) already in the Mongo database.
         List<OntologyDocument> documents = ontologyRepositoryService.getAllDocuments();
@@ -43,7 +43,7 @@ public class SynchronizerApplication implements CommandLineRunner {
         //If they are and the information from the Collection is the same then the information in Mongo db, don't do anything
         //If they are and the information from the Collection is different then the one in Mondo db, update the OntologyDocument
         //in Mongo db and update the OntologyDocument status to TOLOAD.
-        //If they are not then add them.
+        //If they are not, add them.
         for(OntologyResourceConfig ontologyResourceConfig : ontologyResourceConfigs) {
             boolean found = false;
             for (OntologyDocument mongoOntologyDocument : documents) {
