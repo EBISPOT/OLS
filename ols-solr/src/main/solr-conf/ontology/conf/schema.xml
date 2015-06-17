@@ -117,6 +117,9 @@
     <field name="textnge" type="autocomplete_edge" indexed="true" stored="false" multiValued="true"/>
     <field name="textng" type="autocomplete_ngram" indexed="true" stored="false" multiValued="true"/>
 
+
+
+
     <!-- autocomplete_ngram : Matches any word in the input field, with implicit right truncation.
   		     This means that the field "A brown fox" will be matched by query "bro".
   		     We use this to get partial matches, but these whould be boosted lower than exact and left-anchored

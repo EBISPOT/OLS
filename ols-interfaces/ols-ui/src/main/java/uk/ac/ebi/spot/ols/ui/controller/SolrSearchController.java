@@ -14,8 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import uk.ac.ebi.spot.ols.model.Greeting;
 import uk.ac.ebi.spot.ols.ui.SearchConfiguration;
 import uk.ac.ebi.spot.ols.ui.exception.IllegalParameterCombinationException;
 import uk.ac.ebi.spot.ols.ui.service.JsonProcessingService;
@@ -55,22 +55,11 @@ public class SolrSearchController {
     private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
 
-    @RequestMapping("/greeting")
-    public @ResponseBody
-    Greeting greeting(
-            @RequestParam(value="name", required=false, defaultValue="World") String name) {
-        System.out.println("==== in greeting ====");
-        return new Greeting(counter.incrementAndGet(),
-                String.format(template, name));
-    }
 
-    @RequestMapping("/test")
-    public @ResponseBody
-    Greeting testGreeting(
-            @RequestParam(value="name", required=false, defaultValue="World") String name) {
-        System.out.println("==== in greeting ====");
-        return new Greeting(counter.incrementAndGet(),
-                String.format(template, name));
+
+    @RequestMapping(value = "demo", produces = MediaType.TEXT_HTML_VALUE, method = RequestMethod.GET)
+    public String showDataRuns(Model model) {
+        return "platoSuggestDemo";
     }
 
     @RequestMapping(value = "api/search", produces = MediaType.APPLICATION_JSON_VALUE)

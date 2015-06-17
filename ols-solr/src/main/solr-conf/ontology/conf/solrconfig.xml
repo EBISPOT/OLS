@@ -980,6 +980,7 @@
             <str name="group.field">label</str>
             <str name="group">true</str>
             <str name="group.main">true</str>
+            <str name="hl">true</str>
         </lst>
 
     </requestHandler>

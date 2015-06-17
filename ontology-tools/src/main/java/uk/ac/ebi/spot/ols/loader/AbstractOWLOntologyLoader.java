@@ -232,9 +232,6 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
 
         for (OWLEntity entity: entities) {
 
-            if (entity.getIRI().toString().contains(Namespaces.OWL.toString())) {
-                continue;
-            }
             // get all the annotation properties
             evaluateAllAnnotationsValues(entity);
 
@@ -242,12 +239,11 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
             Optional<String> shortForm = getShortForm(entity.getIRI());
             if (shortForm.isPresent()) {
                 addClassAccession(entity.getIRI(), shortForm.get());
-                // of no label, create one form shortform
+                // if no label, create one form shortform
                 if (ontologyLabels.get(entity.getIRI()) == null) {
                     addClassLabel(entity.getIRI(), shortForm.get() );
 
                 }
-
             }
             // find out if this term is local to the ontology based on the base URIs
             for (String base : getBaseIRI()) {
@@ -260,9 +256,11 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
                 @Override
                 public void visit(OWLClass cls) {
                     try {
-                        classes.add(cls.getIRI());
-                        indexSubclassRelations(cls);
-                        indexEquivalentRelations(cls);
+                        if (!cls.getIRI().toString().contains(Namespaces.OWL.toString())) {
+                            classes.add(cls.getIRI());
+                            indexSubclassRelations(cls);
+                            indexEquivalentRelations(cls);
+                        }
 
                     } catch (OWLOntologyCreationException e) {
                         getLog().error("unable to index classes, unable to create reasoner");
@@ -338,7 +336,7 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
                 reasoner.getSubClasses(owlClass, true).getFlattened().stream()
                         .map(OWLNamedObject::getIRI)
                         .collect(Collectors.toSet()),
-                        owlVocabulary);
+                owlVocabulary);
         if (ct.size() >0) addDirectChildren(owlClass.getIRI(), ct) ;
 
         // get all children

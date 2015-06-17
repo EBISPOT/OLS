@@ -11,6 +11,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>ols-solr-app</artifactId>
+    <packaging>jar</packaging>
 
 
     <dependencies>
@@ -21,17 +22,28 @@
     </dependencies>
 
     <build>
+        <finalName>
+            ols-solr-app
+         </finalName>
    		<plugins>
    			<plugin>
    				<groupId>org.springframework.boot</groupId>
    				<artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <configuration>
+
+                </configuration>
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<goals>-->
+                            <!--<goal>repackage</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<finalName>-->
+                                <!--build-ols-solr-index-->
+                            <!--</finalName>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+                <!--</executions>-->
    			</plugin>
    		</plugins>
    	</build>
