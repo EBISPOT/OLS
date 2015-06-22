@@ -42,7 +42,7 @@ public class BatchOntologyLoader implements OntologyIndexer {
 
         if (!nodeMap.containsKey(classIri)) {
             Map<String, Object> properties = new HashMap<>();
-            properties.put("ols_id", loader.getOntologyName().toLowerCase() + ":" + classIri.toString());
+            properties.put("olsId", loader.getOntologyName().toLowerCase() + ":" + classIri.toString());
             properties.put("iri", classIri.toString());
             if (classIri.toString().equals("http://www.w3.org/2002/07/owl#Thing")) {
                 properties.put("label", "Thing");
@@ -142,7 +142,7 @@ public class BatchOntologyLoader implements OntologyIndexer {
                     new DefaultFileSystemAbstraction());
 
             // this represents a unique term
-            Label mergedClassLabel = DynamicLabel.label("MergedClass");
+            Label mergedClassLabel = DynamicLabel.label("Resource");
             inserter.createDeferredSchemaIndex( mergedClassLabel ).on( "iri" ).create();
 
             // index for looking up merged classes
@@ -151,7 +151,7 @@ public class BatchOntologyLoader implements OntologyIndexer {
 
 
             BatchInserterIndex entites =
-                    indexProvider.nodeIndex("MergedClass", MapUtil.stringMap("type", "exact") );
+                    indexProvider.nodeIndex("Resource", MapUtil.stringMap("type", "exact") );
             entites.setCacheCapacity( "iri", 1000000 );
 
             // store a local cache of new local term nodes
@@ -163,27 +163,25 @@ public class BatchOntologyLoader implements OntologyIndexer {
             // define a node label for ontology terms
             Label nodeLabel = DynamicLabel.label("Class");
             Label _nodeLabel = DynamicLabel.label("_Class");
-            inserter.createDeferredSchemaIndex( nodeLabel ).on( "ols_id" ).create();
+            inserter.createDeferredSchemaIndex( nodeLabel ).on( "olsId" ).create();
 //            inserter.createDeferredSchemaIndex( nodeLabel ).on( "iri" ).create();
 //            inserter.createDeferredSchemaIndex( nodeLabel ).on( "label" ).create();
 
-            RelationshipType refersTo = DynamicRelationshipType.withName("REFERS_TO");
-            RelationshipType isa = DynamicRelationshipType.withName("Parent");
-            RelationshipType childOf = DynamicRelationshipType.withName("CHILD");
-            RelationshipType related = DynamicRelationshipType.withName("RELATED");
+            RelationshipType refersTo = DynamicRelationshipType.withName("REFERSTO");
+            RelationshipType isa = DynamicRelationshipType.withName("SUBCLASSOF");
+            RelationshipType childOf = DynamicRelationshipType.withName("SUPERCLASSOF");
+            RelationshipType related = DynamicRelationshipType.withName("Related");
 
             Map<String, Object> isaProperties = new HashMap<>();
             isaProperties.put("uri", "http://www.w3.org/2000/01/rdf-schema#subClassOf");
             isaProperties.put("label", "is a");
-            isaProperties.put("ontology_name", loader.getOntologyName());
-            isaProperties.put("__type__", "Parent");
-            isaProperties.put("type", "Parent");
+            isaProperties.put("ontologyName", loader.getOntologyName());
+            isaProperties.put("__type__", "SubClassOf");
 
             Map<String, Object> childOfProperties = new HashMap<>();
             childOfProperties.put("label", "superclass of");
-            childOfProperties.put("ontology_name", loader.getOntologyName());
-            childOfProperties.put("__type__", "CHILD");
-            childOfProperties.put("__rel_types__", "CHILD");
+            childOfProperties.put("ontologyName", loader.getOntologyName());
+            childOfProperties.put("__type__", "SuperClassOf");
 
             for (IRI classIri : loader.getAllClasses()) {
 
@@ -214,13 +212,13 @@ public class BatchOntologyLoader implements OntologyIndexer {
                 }
 
                 // add child nodes
-                if (!loader.getDirectChildTerms(classIri).isEmpty()) {
-                    for (IRI parent : loader.getDirectChildTerms().get(classIri)) {
-                        Long childNode =  getOrCreateNode(inserter, nodeMap,loader, parent, nodeLabel, _nodeLabel);
-                        // create local relationship
-                        inserter.createRelationship( node, childNode, childOf, childOfProperties);
-                    }
-                }
+//                if (!loader.getDirectChildTerms(classIri).isEmpty()) {
+//                    for (IRI parent : loader.getDirectChildTerms().get(classIri)) {
+//                        Long childNode =  getOrCreateNode(inserter, nodeMap,loader, parent, nodeLabel, _nodeLabel);
+//                        // create local relationship
+//                        inserter.createRelationship( node, childNode, childOf, childOfProperties);
+//                    }
+//                }
 
 
                 // add related nodes
@@ -230,8 +228,8 @@ public class BatchOntologyLoader implements OntologyIndexer {
                     Map<String, Object> relatedProperties = new HashMap<>();
                     relatedProperties.put("uri", relation.toString());
                     relatedProperties.put("label", loader.getTermLabels().get(relation));
-                    relatedProperties.put("ontology_name", loader.getOntologyName());
-                    relatedProperties.put("__type__", "RELATED");
+                    relatedProperties.put("ontologyName", loader.getOntologyName());
+                    relatedProperties.put("__type__", "Related");
 
                     for (IRI relatedTerm : relatedterms.get(relation)) {
                         Long relatedNode =  getOrCreateNode(inserter, nodeMap,loader, relatedTerm, nodeLabel, _nodeLabel);

@@ -1,12 +1,19 @@
 package uk.ac.ebi.spot.ols.neo4j.model;
 
+import org.aspectj.lang.annotation.Aspect;
 import org.neo4j.graphdb.Direction;
+import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.Relationship;
+import org.neo4j.graphdb.traversal.TraversalDescription;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.neo4j.annotation.*;
+import org.springframework.data.neo4j.core.EntityPath;
+import org.springframework.data.neo4j.core.EntityState;
 import org.springframework.data.neo4j.fieldaccess.DynamicProperties;
 import org.springframework.data.neo4j.fieldaccess.DynamicPropertiesContainer;
+import org.springframework.data.neo4j.support.Neo4jTemplate;
 
-import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -16,13 +23,13 @@ import java.util.*;
  */
 @NodeEntity
 @TypeAlias(value = "Class")
-public class TermNode {
+public class Term {
 
     @GraphId
     Long id;
 
-    @Indexed(fieldName = "ols_id")
-    private String ols_id;
+    @Indexed(fieldName = "olsId")
+    private String olsId;
     private String iri;
     private String label;
     private Set<String> synonyms;
@@ -36,29 +43,55 @@ public class TermNode {
 
     private DynamicProperties annotation = new DynamicPropertiesContainer();
 
-//    @RelatedTo(type = "PARENT")
-//    private @Fetch Set<TermNode> parents;
+    @RelatedTo(direction = Direction.OUTGOING, type = "SUBCLASSOF")
+    private Set<Term> subclassOf;
 
+    @RelatedTo(direction = Direction.INCOMING, type = "SUBCLASSOF")
+    private Set<Term> superclassOf = new HashSet<>();
+
+
+    public Set<Term> getSubclassOf() {
+        return subclassOf;
+    }
+
+    public void setSubclassOf(Set<Term> subclassOf) {
+        this.subclassOf = subclassOf;
+    }
+
+//    public Set<Term> getSuperclassOf() {
+//        return superclassOf;
+//    }
+//
+//    public void setSuperclassOf(Set<Term> superclassOf) {
+//        this.superclassOf = superclassOf;
+//    }
+
+//    @RelatedToVia
+//    @Fetch Set<Related> related;
 
     public Long getId() {
         return id;
     }
 
-    @RelatedToVia (type = "Parent")
-    @Fetch Set<Parent> parents = new HashSet<Parent>();
-
-//    @RelatedToVia (direction= Direction.INCOMING, type = "CHILD")
-//    Set<Child> children = new HashSet<Child>();
-//
-//    @RelatedToVia (direction= Direction.OUTGOING, type = "RELATED")
-//    Set<Related> related = new HashSet<Related>();
-
     public void setLabel(String label) {
         this.label = label;
     }
 
-    public TermNode() {
+//    public Set<Term> getSubclassOf() {
+//        return subclassOf;
+//    }
+//
+//    public void setSubclassOf(Set<Term> subclassOf) {
+//        this.subclassOf = subclassOf;
+//    }
+
+    public Term() {
     }
+
+    public void setIri(String iri) {
+        this.iri = iri;
+    }
+
 
     public String getIri() {
         return iri;
@@ -66,6 +99,10 @@ public class TermNode {
 
     public String getLabel() {
         return label;
+    }
+
+    public String getOlsId() {
+        return olsId;
     }
 
     public Set<String> getSynonyms() {
@@ -92,19 +129,6 @@ public class TermNode {
         return annotation.asMap();
     }
 
-//    public void setParents(Set<Parent> parents) {
-//        this.parents = parents;
-//    }
 
-//    public Set<Parent> getParents() {
-//        return parents;
-//    }
 
-//    public Set<Child> getChildren() {
-//        return children;
-//    }
-//
-//    public Set<Related> getRelated() {
-//        return related;
-//    }
 }

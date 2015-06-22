@@ -1,9 +1,8 @@
 package uk.ac.ebi.spot.ols.neo4j.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.rest.webmvc.spi.BackendIdConverter;
-import uk.ac.ebi.spot.ols.neo4j.model.TermNode;
+import uk.ac.ebi.spot.ols.neo4j.model.Term;
 import uk.ac.ebi.spot.ols.neo4j.repository.OntologyTermRepository;
 
 import java.io.Serializable;
@@ -22,37 +21,37 @@ public class CustomBackendIdConverter implements BackendIdConverter {
     OntologyTermRepository ontologyTermRepository;
 
     @Override
-    public Serializable fromRequestId(String id, Class<?> entityType) {
-        if(entityType.equals(TermNode.class)) {
-            try {
-                TermNode node = ontologyTermRepository.findBySchemaPropertyValue("ols_id", URLDecoder.decode(id, "utf-8"));
-                return node.getId();
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-        }
+    public Serializable fromRequestId(String id, java.lang.Class entityType) {
+//        if(entityType.equals(Term.class)) {
+//            try {
+//                Term node = ontologyTermRepository.findBySchemaPropertyValue("olsId", URLDecoder.decode(id, "utf-8"));
+//                return node.getId();
+//            } catch (UnsupportedEncodingException e) {
+//                e.printStackTrace();
+//            }
+//        }
 
         return id;
     }
 
     @Override
-    public String toRequestId(Serializable id, Class<?> entityType) {
-        if(entityType.equals(TermNode.class)) {
-            TermNode c = ontologyTermRepository.findOne(Long.decode(id.toString()));
-
-            try {
-                String uri = c.getOntologyName().toLowerCase() + ":" + c.getIri();
-                return URLEncoder.encode(uri, "utf-8");
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-        }
+    public String toRequestId(Serializable id, java.lang.Class entityType) {
+//        if(entityType.equals(Term.class)) {
+//            Term c = ontologyTermRepository.findOne(Long.decode(id.toString()));
+//
+//            try {
+//                String uri = c.getOntologyName().toLowerCase() + ":" + c.getIri();
+//                return URLEncoder.encode(uri, "utf-8");
+//            } catch (UnsupportedEncodingException e) {
+//                e.printStackTrace();
+//            }
+//        }
         return id.toString();
 
     }
 
     @Override
-    public boolean supports(Class<?> delimiter) {
+    public boolean supports(java.lang.Class delimiter) {
         return true;
     }
 }
