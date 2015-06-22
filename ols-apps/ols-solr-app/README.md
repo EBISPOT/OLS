@@ -15,7 +15,7 @@ Once the SOLR service is running (by default at http://localhost:8983/solr) you 
 2. In the project root build the OLS application jars using: mvn clean package
 3. Assuming a properties file called application-uberon.properties you can run the application to build the index with: 
 
-java -Xmx2g -jar -Dspring.profiles.active=uberon ols-apps/ols-solr-app/target/ols-solr-app-3.0-SNAPSHOT.jar
+java -Xmx2g -jar -Dspring.profiles.active=uberon ols-apps/ols-solr-app/target/ols-solr-app-3.0.0-SNAPSHOT.jar
 
 The config for application-uberon.properties would include:
 
