@@ -57,6 +57,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${springboot.maven}</version>
 			</plugin>
             <plugin>
                 <groupId>org.asciidoctor</groupId>

@@ -61,9 +61,6 @@
     <field name="label" type="text_general" indexed="true" stored="true" multiValued="false" />
     <field name="synonym" type="text_general" indexed="true" stored="true" multiValued="true" />
     <field name="description" type="text_general" indexed="true" stored="true" multiValued="true" />
-
-    <field name="bbop_sibling_graph_json" type="string" stored="true" indexed="false" required="true" multiValued="false"/>
-
     <field name="ontology_name" type="string" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="ontology_uri" type="string" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="type" type="string" indexed="true" stored="true" multiValued="false" />
