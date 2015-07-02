@@ -6,9 +6,11 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleIRIMapper;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.util.StringUtils;
+import uk.ac.ebi.spot.ols.config.OntologyDefaults;
 import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
 import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
 import uk.ac.ebi.spot.ols.util.Namespaces;
@@ -65,6 +67,7 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
     private Collection<String> baseIRIs = new HashSet<>();
 
     private Map<IRI, String> ontologyAccessions = new HashMap<>();
+    private Map<IRI, String> oboIds = new HashMap<>();
     private Map<IRI, String> ontologyLabels = new HashMap<>();
     private Map<IRI, Collection<String>> ontologySynonyms = new HashMap<>();
     private Map<IRI, Collection<String>> ontologyDefinitions = new HashMap<>();
@@ -80,7 +83,11 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
     private Map<IRI, Collection<IRI>> allChildTerms = new HashMap<>();
     private Map<IRI, Collection<IRI>> equivalentTerms = new HashMap<>();
     private Map<IRI, Map<IRI,Collection<IRI>>> relatedTerms = new HashMap<>();
+    private Map<IRI, Map<IRI,Collection<IRI>>> relatedParentTerms = new HashMap<>();
+    private Map<IRI, Collection<IRI>> relatedChildTerms = new HashMap<>();
     private Map<IRI, Map<IRI,Collection<IRI>>> allRelatedTerms = new HashMap<>();
+
+    private Collection<IRI> hierarchicalRels = new HashSet<>();
 
     private ShortFormProvider provider;
     private ManchesterOWLSyntaxOWLObjectRendererImpl manSyntaxRenderer;
@@ -110,6 +117,10 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
                         collect(Collectors.toSet()));
         setBaseIRI(config.getBaseUris());
 
+        setHierarchicalIRIs(config.getHierarchicalProperties()
+                                        .stream()
+                                        .map(IRI::create)
+                                        .collect(Collectors.toSet()));
         try {
             setOntologyResource(new UrlResource(config.getFileLocation()));
         }
@@ -119,15 +130,20 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
     }
 
 
-    @Override public Collection<String> getAccessions(IRI ontologyTermIRI) {
-        Set<String> accessions = new HashSet<>();
-        accessions.add(getOntologyTermAccessions().get(ontologyTermIRI));
+    @Override public String getShortForm(IRI ontologyTermIRI) {
 
-        Optional<String> oboId = getOBOid(getOntologyTermAccessions().get(ontologyTermIRI));
-        if (oboId.isPresent()) {
-            accessions.add(oboId.get());
+        if (getOntologyTermAccessions().containsKey(ontologyTermIRI)) {
+            getOntologyTermAccessions().get(ontologyTermIRI);
         }
-        return accessions;
+        return  extractShortForm(ontologyTermIRI).get();
+    }
+
+    @Override public String getOboId(IRI ontologyTermIRI) {
+
+        if (getOntologyTermOboId().containsKey(ontologyTermIRI)) {
+            return  getOntologyTermOboId().get(ontologyTermIRI);
+        }
+        return  null;
     }
 
     private <G> G lazyGet(Callable<G> callable) {
@@ -193,7 +209,7 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
             IRI ontologyIRI = ontology.getOntologyID().getOntologyIRI();
 
             if (getOntologyName() == null) {
-                String name = getShortForm(ontologyIRI).get();
+                String name = extractShortForm(ontologyIRI).get();
                 if (name == null) {
                     getLog().warn("Can't shorten the name for " + ontologyIRI.toString());
                     name = ontologyIRI.toString();
@@ -236,15 +252,22 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
             evaluateAllAnnotationsValues(entity);
 
             // add the class accession for this entity
-            Optional<String> shortForm = getShortForm(entity.getIRI());
+            Optional<String> shortForm = extractShortForm(entity.getIRI());
             if (shortForm.isPresent()) {
                 addClassAccession(entity.getIRI(), shortForm.get());
                 // if no label, create one form shortform
                 if (ontologyLabels.get(entity.getIRI()) == null) {
                     addClassLabel(entity.getIRI(), shortForm.get() );
-
                 }
+
+                Optional<String> oboForm = getOBOid(shortForm.get());
+
+                if (oboForm.isPresent()) {
+                    addOboId(entity.getIRI(), oboForm.get());
+                }
+
             }
+
             // find out if this term is local to the ontology based on the base URIs
             for (String base : getBaseIRI()) {
                 if (entity.getIRI().toString().startsWith(base)) {
@@ -304,17 +327,13 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
 
     private void indexSubPropertyRelations(OWLObjectProperty property) throws OWLOntologyCreationException {
 
-        // todo this didn't work with Elk, need to think about it
-//        OWLReasoner reasoner = getOWLReasoner(ontology);
-
-//        Set<IRI> superProperties = new HashSet<>();
-//        // get direct children
-//        for (OWLObjectPropertyExpression exp : reasoner.getSubperObjectProperties(property, true).getFlattened()) {
-//            if (!exp.isAnonymous()) {
-//                superProperties.add(exp.asOWLObjectProperty().getIRI());
-//            }
-//        }
-//        addDirectParents(property.getIRI(), superProperties);
+        Set<IRI> superProperties = new HashSet<>();
+        for (OWLObjectPropertyExpression owlProperty : property.getSuperProperties(ontology)) {
+            if (!owlProperty.isAnonymous()) {
+                superProperties.add(owlProperty.asOWLObjectProperty().getIRI());
+            }
+        }
+        addDirectParents(property.getIRI(), superProperties);
     }
 
     protected  void indexSubclassRelations(OWLClass owlClass) throws OWLOntologyCreationException {
@@ -365,9 +384,16 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
                         owlVocabulary);
         if (ap.size()>0) addAllParents(owlClass.getIRI(), ap);
 
+        // put all parents (is a) in the relatedParentTerms collection
+        // we will also add any additional hierarchical relations to this map
+        Map<IRI, Collection<IRI>> relatedParentTerms = new HashMap<>();
+
+        //
+//        relatedParentTerms.put(OWLRDFVocabulary.RDFS_SUBCLASS_OF.getIRI(), getDirectParentTerms(owlClass.getIRI()));
 
         // find direct related terms
         Map<IRI, Collection<IRI>> relatedTerms = new HashMap<>();
+
         Set<String> relatedDescriptions = new HashSet<>();
         for (OWLClassExpression expression : owlClass.getSuperClasses(getManager().getOntologies())) {
             // only want existential with named class as filler
@@ -384,6 +410,16 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
                             relatedTerms.put(propertyIRI, new HashSet<>());
                         }
                         relatedTerms.get(propertyIRI).add(relatedTerm);
+
+                        // check if hierarchical
+                        if (hierarchicalRels.contains(propertyIRI)) {
+                            if (!relatedParentTerms.containsKey(propertyIRI)) {
+                                relatedParentTerms.put(propertyIRI, new HashSet<>());
+                            }
+                            relatedParentTerms.get(propertyIRI).add(relatedTerm);
+                            addRelatedChildTerm(relatedTerm, owlClass.getIRI());
+                        }
+
                     }
                 }
 
@@ -395,12 +431,21 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
             addRelatedTerms(owlClass.getIRI(), relatedTerms );
         }
 
+        addRelatedParentTerms(owlClass.getIRI(), relatedParentTerms);
+
         if (!relatedDescriptions.isEmpty()) {
 
             addSuperClassDescriptions(owlClass.getIRI(), relatedDescriptions);
 
         }
         // todo find transitive closure of related terms
+    }
+
+    private void addRelatedChildTerm(IRI parent, IRI child) {
+        if (!relatedChildTerms.containsKey(parent)) {
+            relatedChildTerms.put(parent, new HashSet<>());
+        }
+        relatedChildTerms.get(parent).add(child);
     }
 
     private void indexEquivalentRelations(OWLClass owlClass) throws OWLOntologyCreationException {
@@ -427,7 +472,7 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
     }
 
 
-    protected Optional<String> getShortForm(IRI entityIRI) {
+    protected Optional<String> extractShortForm(IRI entityIRI) {
 
         getLog().trace("Attempting to extract fragment name of URI '" + entityIRI + "'");
         String termURI = entityIRI.toString();
@@ -473,7 +518,7 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
         Optional<String> label = getOWLAnnotationValueAsString(value);
         if (!label.isPresent()) {
             // try and get the URI fragment and use that as label
-            Optional<String> fragment = getShortForm(entity.getIRI());
+            Optional<String> fragment = extractShortForm(entity.getIRI());
             if (fragment.isPresent()) {
                 return Optional.of(fragment.get());
             }
@@ -550,7 +595,7 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
     private Optional<String> getOWLAnnotationValueAsString (OWLAnnotationValue value) {
 
         if (value instanceof IRI) {
-            Optional<String> shortForm= getShortForm((IRI) value);
+            Optional<String> shortForm= extractShortForm((IRI) value);
             if ( shortForm.isPresent()) {
                 return Optional.of(shortForm.get());
             }
@@ -594,6 +639,9 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
     protected void addRelatedTerms(IRI termIRI, Map<IRI, Collection<IRI>> relatedTerms) {
         this.relatedTerms.put(termIRI, relatedTerms);
     }
+    protected void addRelatedParentTerms(IRI termIRI, Map<IRI, Collection<IRI>> relatedTerms) {
+        this.relatedParentTerms.put(termIRI, relatedTerms);
+    }
     protected void addAllRelatedTerms(IRI termIRI, Map<IRI, Collection<IRI>> relatedTerms) {
         this.allRelatedTerms.put(termIRI, relatedTerms);
     }
@@ -609,9 +657,6 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
         return baseIRIs;
     }
 
-    public Map<IRI, Collection<IRI>> getAllRelatedTerms(IRI entityIRI) {
-        return allRelatedTerms.get(entityIRI);
-    }
 
     public Map<IRI, Collection<IRI>> getRelatedTerms(IRI entityIRI) {
         if (relatedTerms.containsKey(entityIRI)) {
@@ -619,6 +664,21 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
         }
         return Collections.emptyMap();
     }
+
+    public Map<IRI, Collection<IRI>> getRelatedParentTerms(IRI entityIRI) {
+        if (relatedParentTerms.containsKey(entityIRI)) {
+            return relatedParentTerms.get(entityIRI);
+        }
+        return Collections.emptyMap();
+    }
+
+    public Collection<IRI> getRelatedChildTerms(IRI entityIRI) {
+        if (relatedChildTerms.containsKey(entityIRI)) {
+            return relatedChildTerms.get(entityIRI);
+        }
+        return Collections.emptySet();
+    }
+
     @Override
     public Map<IRI, Collection<IRI>> getDirectParentTerms() {
         return directParentTerms;
@@ -812,6 +872,10 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
         this.hiddenIRIs = hiddenIRIs;
     }
 
+    public void setHierarchicalIRIs(Collection<IRI> hierarchicalIRIs) {
+        this.hierarchicalRels = hierarchicalIRIs;
+    }
+
     /**
      * Gets the IRI used to denote a class which represents the superclass of all classes to exclude in this ontology.
      * When this ontology is loaded, all subclasses of the class with this IRI will be excluded.  This is to support the
@@ -855,6 +919,10 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
         return lazyGet(() -> ontologyAccessions);
     }
 
+    public Map<IRI, String> getOntologyTermOboId() {
+        return lazyGet(() -> oboIds);
+    }
+
     @Override public Map<IRI, String> getTermLabels() {
         return lazyGet(() -> ontologyLabels);
     }
@@ -881,6 +949,10 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
 
     protected void addClassAccession(IRI clsIri, String accession) {
         this.ontologyAccessions.put(clsIri, accession);
+    }
+
+    protected void addOboId(IRI clsIri, String oboId) {
+        this.oboIds.put(clsIri, oboId);
     }
 
     protected void addClassLabel(IRI clsIri, String label) {

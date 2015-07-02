@@ -6,4 +6,7 @@ package uk.ac.ebi.spot.ols.exception;
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
 public class IndexingException extends RuntimeException {
+    public IndexingException(String s, Exception e) {
+        throw new RuntimeException(s, e);
+    }
 }

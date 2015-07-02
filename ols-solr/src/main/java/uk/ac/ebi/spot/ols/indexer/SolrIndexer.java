@@ -11,9 +11,7 @@ import uk.ac.ebi.spot.ols.model.TermDocument;
 import uk.ac.ebi.spot.ols.model.TermDocumentBuilder;
 import uk.ac.ebi.spot.ols.util.TermType;
 import uk.ac.ebi.spot.ols.model.OntologyIndexer;
-import uk.ac.ebi.spot.ols.util.SiblingGraphCreator;
 
-import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -144,7 +142,8 @@ public class SolrIndexer implements OntologyIndexer {
                 .setUri_key(generateAnnotationId(loader.getOntologyName() + termIRI.toString()).hashCode())
                 .setIsDefiningOntology(loader.isLocalTerm(termIRI))
                 .setIsObsolete(loader.isObsoleteTerm(termIRI))
-                .setShortForm(loader.getAccessions(termIRI))
+                .setShortForm(loader.getShortForm(termIRI))
+                .setOboId(loader.getOboId(termIRI))
                 .setHasChildren(loader.getDirectChildTerms().containsKey(termIRI))
                 .setSubsets(new ArrayList<>(loader.getSubsets(termIRI)))
                 .setLabel(loader.getTermLabels().get(termIRI));

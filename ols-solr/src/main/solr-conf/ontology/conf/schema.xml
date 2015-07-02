@@ -56,7 +56,8 @@
 
     <field name="uri" type="string" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="uri_key" type="int" indexed="true" stored="false" multiValued="false" />
-    <field name="short_form" type="string" indexed="true" stored="true" required="true" multiValued="true" />
+    <field name="short_form" type="string" indexed="true" stored="true" required="true" multiValued="false" />
+    <field name="obo_id" type="string" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="label" type="text_general" indexed="true" stored="true" multiValued="false" />
     <field name="synonym" type="text_general" indexed="true" stored="true" multiValued="true" />
     <field name="description" type="text_general" indexed="true" stored="true" multiValued="true" />

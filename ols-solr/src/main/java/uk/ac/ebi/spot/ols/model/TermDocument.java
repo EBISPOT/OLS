@@ -25,7 +25,10 @@ public class TermDocument {
     private int uri_key;
 
     @Field("short_form")
-    private List<String> shortForm;
+    private String shortForm;
+
+    @Field("obo_id")
+    private String oboId;
 
     @Field("label")
     private String label;
@@ -125,7 +128,8 @@ public class TermDocument {
             String label,
             List<String> synonym,
             List<String> description,
-            List<String> shortForm,
+            String shortForm,
+            String oboId,
             String ontologyName,
             String ontologyUri,
             String type,
@@ -151,6 +155,7 @@ public class TermDocument {
         this.synonym = synonym;
         this.description = description;
         this.shortForm = shortForm;
+        this.oboId = oboId;
         this.ontologyName = ontologyName;
         this.ontologyUri = ontologyUri;
         this.type = type;
@@ -194,12 +199,32 @@ public class TermDocument {
         this.uri_key = uri_key;
     }
 
-    public List<String> getShortForm() {
+    public String getShortForm() {
         return shortForm;
     }
 
-    public void setShortForm(List<String> shortForm) {
+    public void setShortForm(String shortForm) {
         this.shortForm = shortForm;
+    }
+
+    public String getOboId() {
+        return oboId;
+    }
+
+    public void setOboId(String oboId) {
+        this.oboId = oboId;
+    }
+
+    public void setIsDefiningOntology(boolean isDefiningOntology) {
+        this.isDefiningOntology = isDefiningOntology;
+    }
+
+    public void setIsObsolete(boolean isObsolete) {
+        this.isObsolete = isObsolete;
+    }
+
+    public void setIsRoot(boolean isRoot) {
+        this.isRoot = isRoot;
     }
 
     public String getLabel() {

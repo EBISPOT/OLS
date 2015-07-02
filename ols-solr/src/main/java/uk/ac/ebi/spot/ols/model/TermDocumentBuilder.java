@@ -10,7 +10,8 @@ public class TermDocumentBuilder {
     private String label;
     private List<String> synonyms = new ArrayList<>();
     private List<String> description = new ArrayList<>();
-    private List<String> shortForm = new ArrayList<>();
+    private String shortForm;
+    private String oboId;
     private String ontologyName;
     private String ontologyUri;
     private String type;
@@ -88,8 +89,13 @@ public class TermDocumentBuilder {
         return this;
     }
 
-    public TermDocumentBuilder setShortForm(Collection<String> shortForm) {
-        this.shortForm = new ArrayList<>(shortForm);
+    public TermDocumentBuilder setShortForm(String shortForm) {
+        this.shortForm = shortForm;
+        return this;
+    }
+
+    public TermDocumentBuilder setOboId(String oboId) {
+        this.oboId = oboId;
         return this;
     }
 
@@ -187,6 +193,7 @@ public class TermDocumentBuilder {
                 synonyms,
                 description,
                 shortForm,
+                oboId,
                 ontologyName,
                 ontologyUri,
                 type,

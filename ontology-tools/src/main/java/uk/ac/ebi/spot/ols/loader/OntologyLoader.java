@@ -84,11 +84,21 @@ public interface OntologyLoader {
 
     /**
      * Returns the class "accession" - or a user friendly 'short name' or identifier.  This will normally be the IRI
-     * fragment or path part of a full IRI. This will also include an OBO style accession if the fragment matches s/(([A-Za-z_]*)_(\d+))/$1:$2/
+     * fragment or path part of a full IRI.
      *
      * @return a user friendly representation of the class IRI
      */
-    Collection<String> getAccessions(IRI ontologyTermIRI);
+    String getShortForm(IRI ontologyTermIRI);
+
+    /**
+     * Returns the OBO style identifier.  This will normally be the IRI
+     * fragment or path that matches s/(([A-Za-z_]*)_(\d+))/$1:$2/
+     *
+     * @return a OBO accession for the class IRI
+     */
+
+    String getOboId(IRI ontologyTermIRI);
+
     Collection<String> getSubsets(IRI ontologyTermIRI);
 
     Map<IRI, Collection<String>> getAnnotations(IRI entityIRI);
@@ -123,9 +133,25 @@ public interface OntologyLoader {
      *
      * @return the relationship IRI and the set of related terms
      */
-    Map<IRI, Collection<IRI>> getAllRelatedTerms(IRI entityIRI);
-
     Map<IRI, Collection<IRI>> getRelatedTerms(IRI entityIRI);
+
+    /**
+     * Returns all related terms that can be considered parents. Any relations that are considered hierarchical in nature (e.g. part-of, develops-from etc..)
+     *
+     * @return the relationship IRI and the set of related terms
+     */
+    Map<IRI, Collection<IRI>> getRelatedParentTerms(IRI entityIRI);
+
+    /**
+     * Returns all related terms that can be considered children. Any relations that are considered hierarchical in nature (e.g. part-of, develops-from etc..)
+     *
+     * @return the relationship IRI and the set of related terms
+     */
+    Collection<IRI> getRelatedChildTerms(IRI entityIRI);
+
+
+//    Map<IRI, Collection<IRI>> getAllRelatedTerms(IRI entityIRI);
+
 
 
 }

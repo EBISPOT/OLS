@@ -18,10 +18,10 @@ public class Related {
     String ontologyName;
 
     @StartNode
-    private @Fetch Term relatedFrom;
+    private Term relatedFrom;
 
     @EndNode
-    private @Fetch Term relatedTo;
+    private Term relatedTo;
 
     public String getUri() {
         return uri;

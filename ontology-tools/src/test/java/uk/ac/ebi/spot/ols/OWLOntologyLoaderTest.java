@@ -47,9 +47,14 @@ public class OWLOntologyLoaderTest {
         terms.addAll(loader.getAllObjectPropertyIRIs());
         for (IRI iri: terms) {
             System.out.println(iri + " -> label: " + loader.getTermLabels().get(iri));
-            for (String acc : loader.getAccessions(iri)) {
-                System.out.println(iri + " -> accession: " + acc);
+            String acc = loader.getShortForm(iri);
+            System.out.println(iri + " -> accession: " + acc);
+
+            String oboId = loader.getOboId(iri);
+            if (oboId != null) {
+                System.out.println(iri + " -> oboId: " + oboId);
             }
+
 
             if (loader.getTermSynonyms().containsKey(iri)) {
                 for (String syns : loader.getTermSynonyms().get(iri)) {

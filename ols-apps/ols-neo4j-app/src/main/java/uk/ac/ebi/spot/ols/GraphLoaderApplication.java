@@ -35,6 +35,7 @@ public class GraphLoaderApplication implements CommandLineRunner {
 
         // get the ontology loader
         OntologyLoader loader = propertyBasedLoadingService.getLoader();
+        batchOntologyLoader.dropIndex(loader);
         batchOntologyLoader.createIndex(loader);
 
 

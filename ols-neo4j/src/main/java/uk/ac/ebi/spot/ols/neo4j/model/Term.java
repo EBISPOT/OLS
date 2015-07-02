@@ -1,5 +1,6 @@
 package uk.ac.ebi.spot.ols.neo4j.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.aspectj.lang.annotation.Aspect;
 import org.neo4j.graphdb.Direction;
 import org.neo4j.graphdb.Node;
@@ -26,10 +27,13 @@ import java.util.*;
 public class Term {
 
     @GraphId
+    @JsonIgnore
     Long id;
 
+    @JsonIgnore
     @Indexed(fieldName = "olsId")
     private String olsId;
+
     private String iri;
     private String label;
     private Set<String> synonyms;
@@ -38,36 +42,24 @@ public class Term {
     private String ontologyIri;
     private boolean isObsolete;
 
+    private boolean isLocal;
+    private boolean isLeafNode;
+    private boolean isRoot;
+
+    private Set<String> shortForm;
 //    private List<String> subsets;
-//    private Set<String> shortForm;
 
     private DynamicProperties annotation = new DynamicPropertiesContainer();
 
-    @RelatedTo(direction = Direction.OUTGOING, type = "SUBCLASSOF")
-    private Set<Term> subclassOf;
+    @RelatedToVia
+    @Fetch Set<Related> related;
 
-    @RelatedTo(direction = Direction.INCOMING, type = "SUBCLASSOF")
-    private Set<Term> superclassOf = new HashSet<>();
-
-
-    public Set<Term> getSubclassOf() {
-        return subclassOf;
+    public Term() {
     }
 
-    public void setSubclassOf(Set<Term> subclassOf) {
-        this.subclassOf = subclassOf;
+    public Set<Related> getRelated() {
+        return related;
     }
-
-//    public Set<Term> getSuperclassOf() {
-//        return superclassOf;
-//    }
-//
-//    public void setSuperclassOf(Set<Term> superclassOf) {
-//        this.superclassOf = superclassOf;
-//    }
-
-//    @RelatedToVia
-//    @Fetch Set<Related> related;
 
     public Long getId() {
         return id;
@@ -77,21 +69,9 @@ public class Term {
         this.label = label;
     }
 
-//    public Set<Term> getSubclassOf() {
-//        return subclassOf;
-//    }
-//
-//    public void setSubclassOf(Set<Term> subclassOf) {
-//        this.subclassOf = subclassOf;
-//    }
-
-    public Term() {
-    }
-
     public void setIri(String iri) {
         this.iri = iri;
     }
-
 
     public String getIri() {
         return iri;
@@ -129,6 +109,15 @@ public class Term {
         return annotation.asMap();
     }
 
+    public boolean isLocal() {
+        return isLocal;
+    }
 
+    public boolean isRoot() {
+        return isRoot;
+    }
 
+    public boolean isLeafNode() {
+        return isLeafNode;
+    }
 }

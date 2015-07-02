@@ -25,7 +25,7 @@ public class OWLOntologyLoaderEFOTest {
                         "http://www.ebi.ac.uk/efo",
                         "Experimental Factor Ontology",
                         "EFO",
-                        URI.create("file:/Users/jupp/dev/ontology_dev/efo/svn/ExFactorInOWL/releasecandidate/efo_merged.owl")
+                        URI.create("file:/Users/jupp/dev/ontologies/efo/efo.owl")
 
                 );
 
@@ -50,9 +50,8 @@ public class OWLOntologyLoaderEFOTest {
 
             System.out.println(iri + " -> label: " + loader.getTermLabels().get(iri));
 
-            for (String acc : loader.getAccessions(iri)) {
-                System.out.println(iri + " -> accession: " + acc);
-            }
+            System.out.println(iri + " -> accession: " + loader.getShortForm(iri));
+            System.out.println(iri + " -> oboid: " + loader.getOboId(iri));
 
             if (loader.getTermSynonyms().containsKey(iri)) {
                 for (String syns : loader.getTermSynonyms().get(iri)) {
