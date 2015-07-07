@@ -146,12 +146,6 @@ public class BatchOntologyLoader implements OntologyIndexer {
             System.out.println("executing delete: " + cypherDelete);
             Result result = db.execute(cypherDelete);
             System.out.println(result.resultAsString());
-//            while (result.hasNext()) {
-//                Map<String, Object> row = result.next();
-//                for (Map.Entry<String, Object> column : row.entrySet()) {
-//                    System.out.println(column.getKey() + ": " + column.getValue() + "; ");
-//                }
-//            }
             tx.success();
         }
         catch (Exception e) {
@@ -195,17 +189,12 @@ public class BatchOntologyLoader implements OntologyIndexer {
                     file.getAbsolutePath(),
                     new DefaultFileSystemAbstraction());
 
-            try {
-                inserter.createDeferredSchemaIndex( mergedClassLabel ).on( "iri" ).create();
-                inserter.createDeferredSchemaIndex( nodeLabel ).on( "olsId" ).create();
-                inserter.createDeferredSchemaIndex( nodeLabel ).on( "iri" ).create();
-                inserter.createDeferredSchemaIndex( nodeLabel ).on( "shortForm" ).create();
-                inserter.createDeferredSchemaIndex( nodeLabel ).on( "oboId" ).create();
-                inserter.createDeferredSchemaIndex( nodeLabel ).on( "ontologyName" ).create();
-            } catch (Exception e) {
-                System.out.println("Couldn't create indexes as they already exists, continuing...");
-            }
-
+            createSchemaIndexIfNotExists(inserter, mergedClassLabel, "iri");
+            createSchemaIndexIfNotExists(inserter, nodeLabel, "olsId");
+            createSchemaIndexIfNotExists(inserter, nodeLabel, "iri");
+            createSchemaIndexIfNotExists(inserter, nodeLabel, "shortForm");
+            createSchemaIndexIfNotExists(inserter, nodeLabel, "oboId");
+            createSchemaIndexIfNotExists(inserter, nodeLabel, "ontologyName");
 
             // index for looking up merged classes
             BatchInserterIndexProvider indexProvider =
@@ -289,5 +278,15 @@ public class BatchOntologyLoader implements OntologyIndexer {
                 inserter.shutdown();
             }
         }
+    }
+
+    private boolean createSchemaIndexIfNotExists(BatchInserter inserter, Label label, String name) {
+        try {
+            inserter.createDeferredSchemaIndex( label ).on(name).create();
+            return true;
+        } catch (ConstraintViolationException e) {
+            System.out.println("Couldn't create index for " + name + " as it already exists, continuing...");
+        }
+        return false;
     }
 }

@@ -1,5 +1,6 @@
 package uk.ac.ebi.spot.ols.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.solr.client.solrj.beans.Field;
 import org.springframework.data.solr.core.mapping.SolrDocument;
 
@@ -21,6 +22,7 @@ public class TermDocument {
     @Field("uri")
     private String uri;
 
+    @JsonIgnore
     @Field("uri_key")
     private int uri_key;
 
@@ -63,60 +65,39 @@ public class TermDocument {
     @Field("is_root")
     private boolean isRoot;
 
+    @JsonIgnore
     @Field("equivalent_uri")
    	private List<String> equivalentUris;
 
+    @JsonIgnore
     @Field("logical_description")
    	private List<String> logicalDescription;
 
+    @JsonIgnore
     @Field("*_annotation")
    	private Map<String, List<String>> annotation;
 
+    @JsonIgnore
     @Field("parent_uri")
    	private List<String> parents;
 
+    @JsonIgnore
     @Field("ancestor_uri")
    	private List<String> ancestors;
 
+    @JsonIgnore
     @Field("child_uri")
    	private List<String> children;
 
+    @JsonIgnore
     @Field("descendant_uri")
    	private List<String> descendants;
 
+    @JsonIgnore
     @Field("*_related")
    	private Map<String, List<String>> related;
 
-    /**
-     * A json string describing the tree to wich the given term belong with all siblings, parents, parents sibling until
-     * the root of the ontology.
-     * <br>
-     * This is an example of a bbpop graph : <br>
-     * <br>
-     * {<br>
-     * "nodes": [<br>
-     * {<br>
-     * "id": "GO:0043474",<br>
-     * "lbl": "pigment metabolic process involved in pigmentation"<br>
-     * },<br>
-     *  {<br>
-     * "id": "GO:0043475",<br>
-     * "lbl": "pigment metabolic process involved in pigment accumulation"<br>
-     *  }<br>
-     * ],<br>
-     * "edges": [<br>
-     *  {<br>
-     * "sub": "GO:0043475",<br>
-     * "obj": "GO:0043474",<br>
-     * "pred": "is_a"<br>
-     * }<br>
-     * ]<br>
-     * }<br>
-     *<br>
-     */
-    @Field("bbop_sibling_graph_json")
-    private String bbopSiblingGraph;
-    
+
     public TermDocument() {
 
     }
@@ -145,8 +126,7 @@ public class TermDocument {
             List<String> ancestors,
             List<String> children,
             List<String> descendants,
-            Map<String, List<String>> related,
-            String bbopSiblingGraph
+            Map<String, List<String>> related
            ) {
         this.id = id;
         this.uri = uri;
@@ -172,7 +152,6 @@ public class TermDocument {
         this.children = children;
         this.descendants = descendants;
         this.related = related;
-        this.bbopSiblingGraph = bbopSiblingGraph;
     }
 
     public String getId() {
@@ -379,7 +358,4 @@ public class TermDocument {
         this.related = related;
     }
 
-    public void setBbopSiblingGraph(String bbopSiblingGraph){ this.bbopSiblingGraph=bbopSiblingGraph; }
-
-    public String getBbopSiblingGraph() throws IOException { return this.bbopSiblingGraph; }
 }

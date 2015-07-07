@@ -38,8 +38,8 @@ public interface OntologyTermRepository extends GraphRepository<Term> {
                 value = "MATCH (n:Class)-[:SUBCLASSOF*]->(parent) WHERE n.ontologyName = {0} AND n.iri = {1} RETURN parent")
     Page<Term> getAncestors(String ontologyName, String iri, Pageable pageable);
 
-    @Query(countQuery = "MATCH (n:Class)-[r:Related]->(related) WHERE n.ontologyName = {0} AND n.iri = {1} AND r.label = {2} RETURN count(related)",
-                value = "MATCH (n:Class)-[r:Related]->(related) WHERE n.ontologyName = {0} AND n.iri = {1} AND r.label = {2} RETURN related")
+    @Query(countQuery = "MATCH (n:Class)-[r:Related]->(related) WHERE n.ontologyName = {0} AND n.iri = {1} AND r.uri = {2} RETURN count(related)",
+                value = "MATCH (n:Class)-[r:Related]->(related) WHERE n.ontologyName = {0} AND n.iri = {1} AND r.uri = {2} RETURN related")
     Page<Term> getRelated(String ontologyName, String iri, String relation, Pageable pageable);
 
     @Query (value = "MATCH (n:Class) WHERE n.ontologyName = {0} AND n.iri = {1} RETURN n")

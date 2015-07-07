@@ -28,35 +28,6 @@ public class TermDocumentBuilder {
     private List<String> children = new ArrayList<>();
     private List<String> descendants = new ArrayList<>();
     private Map<String, List<String>> relatedTerms = new HashMap<>();
-    private String bbopSiblingGraph = new String();
-
-    public TermDocumentBuilder setBbopSibblingGraph(String bbopSiblingGraph) throws IOException {
-
-        //Set string directly
-        this.bbopSiblingGraph = bbopSiblingGraph;
-
-
-//        //Read string from file
-//        String termId = this.uri.toString().substring(this.uri.toString().lastIndexOf('/') + 1, this.uri.toString().length());
-//
-//        String filePath = "/Users/catherineleroy/Documents/json-graphs/" + termId + ".json";
-//        System.out.println("filePath = " + filePath);
-//        BufferedReader br = new BufferedReader(new FileReader(filePath));
-//        StringBuilder sb = new StringBuilder();
-//        String line = br.readLine();
-//        while (line != null) {
-//            sb.append(line);
-//            sb.append("\n");
-//            line = br.readLine();
-//        }
-//        System.out.println("this.bbopSiblingGraph = " + this.bbopSiblingGraph);
-//        this.bbopSiblingGraph = sb.toString().intern();
-//        br.close();
-
-
-        return this;
-    }
-
 
     public TermDocumentBuilder setId(String id) {
         this.id = id;
@@ -209,7 +180,7 @@ public class TermDocumentBuilder {
                 ancestors,
                 children,
                 descendants,
-                relatedTerms,
-                bbopSiblingGraph);
+                relatedTerms
+                );
     }
 }

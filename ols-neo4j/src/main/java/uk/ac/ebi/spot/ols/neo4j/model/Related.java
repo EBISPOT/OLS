@@ -34,4 +34,7 @@ public class Related {
     public String getOntologyName() {
         return ontologyName;
     }
+
+
+
 }

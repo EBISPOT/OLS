@@ -51,6 +51,7 @@ public class Term {
 
     private DynamicProperties annotation = new DynamicPropertiesContainer();
 
+    @JsonIgnore
     @RelatedToVia
     @Fetch Set<Related> related;
 
@@ -58,7 +59,15 @@ public class Term {
     }
 
     public Set<Related> getRelated() {
-        return related;
+        Set<Related> unique = new HashSet<>();
+        Set<String> seen = new HashSet<>();
+        for (Related related1 : related) {
+            if (seen.contains(related1.getLabel())){
+                unique.add(related1);
+            }
+            seen.add(related1.getLabel());
+        }
+        return unique;
     }
 
     public Long getId() {

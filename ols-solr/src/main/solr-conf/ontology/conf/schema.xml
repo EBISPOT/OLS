@@ -56,10 +56,10 @@
 
     <field name="uri" type="string" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="uri_key" type="int" indexed="true" stored="false" multiValued="false" />
+    <field name="obo_id" type="string" indexed="true" stored="true" required="false" multiValued="false" />
     <field name="short_form" type="string" indexed="true" stored="true" required="true" multiValued="false" />
-    <field name="obo_id" type="string" indexed="true" stored="true" required="true" multiValued="false" />
-    <field name="label" type="text_general" indexed="true" stored="true" multiValued="false" />
-    <field name="synonym" type="text_general" indexed="true" stored="true" multiValued="true" />
+    <field name="label" type="string" indexed="true" stored="true" multiValued="false" />
+    <field name="synonym" type="string" indexed="true" stored="true" multiValued="true" />
     <field name="description" type="text_general" indexed="true" stored="true" multiValued="true" />
     <field name="ontology_name" type="string" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="ontology_uri" type="string" indexed="true" stored="true" required="true" multiValued="false" />
@@ -85,92 +85,164 @@
 
 
     <!-- catchall field, containing all other searchable text fields (implemented via copyField further on in this schema -->
-   	<field name="text" type="text_general" indexed="true" stored="false" multiValued="true" />
+    <field name="text" type="text_general" indexed="true" stored="false" multiValued="true" />
     <!-- catchall text field that indexes tokens both normally and in reverse for efficient leading wildcard queries. -->
     <field name="text_rev" type="text_general_rev" indexed="true" stored="false" multiValued="true" />
 
 
     <!-- catchall field, containing all other searchable text fields (implemented via copyField further on in this schema -->
-    <field name="extrasearch" type="text_general" indexed="true" stored="false" multiValued="true" />
-    <copyField source="description" dest="extrasearch" maxChars="10000" />
-    <copyField source="logical_description" dest="extrasearch" maxChars="3000" />
-    <copyField source="*_annotation" dest="extrasearch" maxChars="3000" />
+    <!--<field name="extrasearch" type="text_general" indexed="true" stored="false" multiValued="true" />-->
+    <!--<copyField source="description" dest="extrasearch" maxChars="10000" />-->
+    <!--<copyField source="logical_description" dest="extrasearch" maxChars="3000" />-->
+    <!--<copyField source="*_annotation" dest="extrasearch" maxChars="3000" />-->
 
     <!-- Used for boosting exact matches -->
-    <dynamicField name="*_suggest" type="string" indexed="true" stored="true" multiValued="true" />
-    <copyField source="label" dest="label_suggest"/>
-    <copyField source="synonym" dest="label_suggest"/>
+    <!--<dynamicField name="*_suggest" type="string" indexed="true" stored="true" multiValued="true" />-->
+    <!--<copyField source="label" dest="label_suggest"/>-->
+    <!--<copyField source="synonym" dest="label_suggest"/>-->
 
-    <!-- phonetic field for partial string matches -->
-    <field name="phonetic" type="text_phonetic_do" indexed="true" stored="false" omitNorms="true" multiValued="true" />
-    <copyField source="label_suggest" dest="phonetic"/>
-    <copyField source="synonym_suggest" dest="phonetic"/>
+    <!--&lt;!&ndash; phonetic field for partial string matches &ndash;&gt;-->
+    <!--<field name="phonetic" type="text_phonetic_do" indexed="true" stored="false" omitNorms="true" multiValued="true" />-->
+    <!--<copyField source="label" dest="phonetic"/>-->
+    <!--<copyField source="synonym" dest="phonetic"/>-->
 
 
+    <!--&lt;!&ndash;<copyField source="label" dest="textnge"/>&ndash;&gt;-->
     <!--<copyField source="label" dest="textnge"/>-->
-    <copyField source="label" dest="textnge"/>
-    <copyField source="short_form" dest="textnge"/>
-    <copyField source="label" dest="textng"/>
-    <copyField source="short_form" dest="textng"/>
-    <field name="textnge" type="autocomplete_edge" indexed="true" stored="false" multiValued="true"/>
-    <field name="textng" type="autocomplete_ngram" indexed="true" stored="false" multiValued="true"/>
+    <!--<copyField source="short_form" dest="textnge"/>-->
+    <!--<copyField source="label" dest="textng"/>-->
+    <!--<copyField source="short_form" dest="textng"/>-->
+    <!--<field name="textnge" type="autocomplete_edge" indexed="true" stored="false" multiValued="true"/>-->
+    <!--<field name="textng" type="autocomplete_ngram" indexed="true" stored="false" multiValued="true"/>-->
 
 
+    <!-- field types from Ilinca -->
+
+    <copyField source="label" dest="label_autosuggest"/>;
+    <copyField source="label" dest="label_autosuggest_ws"/>;
+    <copyField source="label" dest="label_autosuggest_e"/>;
+
+    <copyField source="synonym" dest="synonym_autosuggest"/>;
+    <copyField source="synonym" dest="synonym_autosuggest_ws"/>;
+    <copyField source="synonym" dest="synonym_autosuggest_e"/>;
+
+    <copyField source="obo_id" dest="shortform_autosuggest"/>
+    <copyField source="short_form" dest="shortform_autosuggest"/>
+
+    <field name="label_autosuggest_ws" type="textWhitespace" indexed="true" stored="true" multiValued="false"/>
+    <field name="label_autosuggest_e" type="textEdge" indexed="true" stored="true" multiValued="false" />
+    <field name="label_autosuggest" type="textWhitespaceEdge" indexed="true" stored="true" multiValued="false" />
+
+    <field name="synonym_autosuggest_ws" type="textWhitespace" indexed="true" stored="true" multiValued="true"/>
+    <field name="synonym_autosuggest_e" type="textEdge" indexed="true" stored="true" multiValued="true" />
+    <field name="synonym_autosuggest" type="textWhitespaceEdge" indexed="true" stored="true" multiValued="true" />
+
+    <field name="shortform_autosuggest" type="textEdge" indexed="true" stored="true" multiValued="true" />
+
+    <copyField source="label" dest="exact"/>;
+    <copyField source="synonym" dest="exact"/>;
+    <copyField source="shortform_autosuggest" dest="exact"/>;
+    <copyField source="uri" dest="exact"/>;
+
+    <field name="exact" type="string" indexed="true" stored="true" multiValued="true" />
+
+
+    <fieldType name="textWhitespaceEdge" class="solr.TextField">
+        <analyzer type="index">
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+            <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            <filter class="solr.EdgeNGramFilterFactory" minGramSize="1" maxGramSize="35" side="front" />
+        </analyzer>
+        <analyzer type="query">
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+            <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            <!-- filter class="solr.EdgeNGramFilterFactory" minGramSize="1" maxGramSize="35" side="front" /-->
+        </analyzer>
+    </fieldType>
+    <fieldType name="textEdge" class="solr.TextField">
+        <analyzer type="index">
+            <tokenizer class="solr.PatternTokenizerFactory" pattern="______" />
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            <filter class="solr.EdgeNGramFilterFactory" minGramSize="1" maxGramSize="35" side="front" />
+        </analyzer>
+        <analyzer type="query">
+            <tokenizer class="solr.PatternTokenizerFactory" pattern="_______" />
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            <!-- filter class="solr.EdgeNGramFilterFactory" minGramSize="1" maxGramSize="35" side="front" /-->
+        </analyzer>
+    </fieldType>
+    <fieldType name="textWhitespace" class="solr.TextField">
+        <analyzer type="index">
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+            <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+        </analyzer>
+        <analyzer type="query">
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+            <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            <!-- filter class="solr.EdgeNGramFilterFactory" minGramSize="1" maxGramSize="35" side="front" /-->
+        </analyzer>
+    </fieldType>
 
 
     <!-- autocomplete_ngram : Matches any word in the input field, with implicit right truncation.
   		     This means that the field "A brown fox" will be matched by query "bro".
   		     We use this to get partial matches, but these whould be boosted lower than exact and left-anchored
   		-->
-  		<fieldType name="autocomplete_ngram" class="solr.TextField">
-  			<analyzer type="index">
-  				<charFilter class="solr.MappingCharFilterFactory" mapping="mapping-ISOLatin1Accent.txt"/>
-  				<tokenizer class="solr.StandardTokenizerFactory"/>
-  				<filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="0" catenateNumbers="0" catenateAll="0" splitOnCaseChange="1"/>
-  				<filter class="solr.LowerCaseFilterFactory"/>
-  				<filter class="solr.EdgeNGramFilterFactory" maxGramSize="20" minGramSize="1"/>
-  				<filter class="solr.PatternReplaceFilterFactory" pattern="([^\w\d\*æøåÆØÅ ])" replacement="" replace="all"/>
-  			</analyzer>
-  			<analyzer type="query">
-  				<charFilter class="solr.MappingCharFilterFactory" mapping="mapping-ISOLatin1Accent.txt"/>
-  				<tokenizer class="solr.StandardTokenizerFactory"/>
-  				<filter class="solr.WordDelimiterFilterFactory" generateWordParts="0" generateNumberParts="0" catenateWords="0" catenateNumbers="0" catenateAll="0" splitOnCaseChange="0"/>
-  				<filter class="solr.LowerCaseFilterFactory"/>
-  				<filter class="solr.PatternReplaceFilterFactory" pattern="([^\w\d\*æøåÆØÅ ])" replacement="" replace="all"/>
-  				<filter class="solr.PatternReplaceFilterFactory" pattern="^(.{20})(.*)?" replacement="$1" replace="all"/>
-  			</analyzer>
-  		</fieldType>
+    <!--<fieldType name="autocomplete_ngram" class="solr.TextField">-->
+        <!--<analyzer type="index">-->
+            <!--<charFilter class="solr.MappingCharFilterFactory" mapping="mapping-ISOLatin1Accent.txt"/>-->
+            <!--<tokenizer class="solr.StandardTokenizerFactory"/>-->
+            <!--<filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="0" catenateNumbers="0" catenateAll="0" splitOnCaseChange="1"/>-->
+            <!--<filter class="solr.LowerCaseFilterFactory"/>-->
+            <!--<filter class="solr.EdgeNGramFilterFactory" maxGramSize="20" minGramSize="1"/>-->
+            <!--<filter class="solr.PatternReplaceFilterFactory" pattern="([^\w\d\*æøåÆØÅ ])" replacement="" replace="all"/>-->
+        <!--</analyzer>-->
+        <!--<analyzer type="query">-->
+            <!--<charFilter class="solr.MappingCharFilterFactory" mapping="mapping-ISOLatin1Accent.txt"/>-->
+            <!--<tokenizer class="solr.StandardTokenizerFactory"/>-->
+            <!--<filter class="solr.WordDelimiterFilterFactory" generateWordParts="0" generateNumberParts="0" catenateWords="0" catenateNumbers="0" catenateAll="0" splitOnCaseChange="0"/>-->
+            <!--<filter class="solr.LowerCaseFilterFactory"/>-->
+            <!--<filter class="solr.PatternReplaceFilterFactory" pattern="([^\w\d\*æøåÆØÅ ])" replacement="" replace="all"/>-->
+            <!--<filter class="solr.PatternReplaceFilterFactory" pattern="^(.{20})(.*)?" replacement="$1" replace="all"/>-->
+        <!--</analyzer>-->
+    <!--</fieldType>-->
     <!-- autocomplete_edge : Will match from the left of the field, e.g. if the document field
   		     is "A brown fox" and the query is "A bro", it will match, but not "brown"
   		-->
-  		<fieldType name="autocomplete_edge" class="solr.TextField">
-  			<analyzer type="index">
-  				<charFilter class="solr.MappingCharFilterFactory" mapping="mapping-ISOLatin1Accent.txt"/>
-  				<tokenizer class="solr.KeywordTokenizerFactory"/>
-  				<filter class="solr.LowerCaseFilterFactory"/>
-  				<filter class="solr.PatternReplaceFilterFactory" pattern="([\.,;:-_])" replacement=" " replace="all"/>
-  				<filter class="solr.EdgeNGramFilterFactory" maxGramSize="30" minGramSize="1"/>
-  				<filter class="solr.PatternReplaceFilterFactory" pattern="([^\w\d\*æøåÆØÅ ])" replacement="" replace="all"/>
-  			</analyzer>
-  			<analyzer type="query">
-  				<charFilter class="solr.MappingCharFilterFactory" mapping="mapping-ISOLatin1Accent.txt"/>
-  				<tokenizer class="solr.KeywordTokenizerFactory"/>
-  				<filter class="solr.LowerCaseFilterFactory"/>
-  				<filter class="solr.PatternReplaceFilterFactory" pattern="([\.,;:-_])" replacement=" " replace="all"/>
-  				<filter class="solr.PatternReplaceFilterFactory" pattern="([^\w\d\*æøåÆØÅ ])" replacement="" replace="all"/>
-  				<filter class="solr.PatternReplaceFilterFactory" pattern="^(.{30})(.*)?" replacement="$1" replace="all"/>
-  			</analyzer>
-  		</fieldType>
+    <!--<fieldType name="autocomplete_edge" class="solr.TextField">-->
+        <!--<analyzer type="index">-->
+            <!--<charFilter class="solr.MappingCharFilterFactory" mapping="mapping-ISOLatin1Accent.txt"/>-->
+            <!--<tokenizer class="solr.KeywordTokenizerFactory"/>-->
+            <!--<filter class="solr.LowerCaseFilterFactory"/>-->
+            <!--<filter class="solr.PatternReplaceFilterFactory" pattern="([\.,;:-_])" replacement=" " replace="all"/>-->
+            <!--<filter class="solr.EdgeNGramFilterFactory" maxGramSize="30" minGramSize="1"/>-->
+            <!--<filter class="solr.PatternReplaceFilterFactory" pattern="([^\w\d\*æøåÆØÅ ])" replacement="" replace="all"/>-->
+        <!--</analyzer>-->
+        <!--<analyzer type="query">-->
+            <!--<charFilter class="solr.MappingCharFilterFactory" mapping="mapping-ISOLatin1Accent.txt"/>-->
+            <!--<tokenizer class="solr.KeywordTokenizerFactory"/>-->
+            <!--<filter class="solr.LowerCaseFilterFactory"/>-->
+            <!--<filter class="solr.PatternReplaceFilterFactory" pattern="([\.,;:-_])" replacement=" " replace="all"/>-->
+            <!--<filter class="solr.PatternReplaceFilterFactory" pattern="([^\w\d\*æøåÆØÅ ])" replacement="" replace="all"/>-->
+            <!--<filter class="solr.PatternReplaceFilterFactory" pattern="^(.{30})(.*)?" replacement="$1" replace="all"/>-->
+        <!--</analyzer>-->
+    <!--</fieldType>-->
 
     <!-- text_phonetic_do : Matches a phonetic version of the suggest text, for a fuzzy effect
          Note that there are other phonetic algorithms as well, but this works pretty well
     -->
-    <fieldType name="text_phonetic_do" class="solr.TextField" positionIncrementGap="100">
-        <analyzer>
-            <tokenizer class="solr.StandardTokenizerFactory"/>
-            <filter class="solr.DoubleMetaphoneFilterFactory" inject="false"/>
-        </analyzer>
-    </fieldType>
+    <!--<fieldType name="text_phonetic_do" class="solr.TextField" positionIncrementGap="100">-->
+        <!--<analyzer>-->
+            <!--<tokenizer class="solr.StandardTokenizerFactory"/>-->
+            <!--<filter class="solr.DoubleMetaphoneFilterFactory" inject="false"/>-->
+        <!--</analyzer>-->
+    <!--</fieldType>-->
 
 
     <!-- Field to use to determine and enforce document uniqueness. Unless this field is marked with required="false", it will be a required field -->

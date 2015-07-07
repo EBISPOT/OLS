@@ -11,6 +11,8 @@ import uk.ac.ebi.spot.ols.neo4j.model.Related;
 import uk.ac.ebi.spot.ols.neo4j.model.Term;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Collection;
+import java.util.HashSet;
 
 /**
  * @author Simon Jupp
@@ -44,8 +46,14 @@ public class TermAssembler implements ResourceAssembler<Term, Resource<Term>> {
                 resource.add(lb.slash("descendants").withRel("descendants"));
             }
 
+            Collection<String> relation = new HashSet<>();
             for (Related related : term.getRelated()) {
-                resource.add(lb.slash(related.getLabel()).withRel(related.getLabel()));
+                if (!relation.contains(related.getLabel())) {
+                    String relationId = UriUtils.encode(related.getUri(), "UTF-8");
+
+                    resource.add(lb.slash(relationId).withRel(related.getLabel()));
+                }
+                relation.add(related.getLabel());
             }
 
 //        resource.add(lb.slash("related").withRel("related"));

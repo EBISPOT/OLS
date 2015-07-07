@@ -132,8 +132,9 @@ public class TermController {
     HttpEntity<PagedResources<Term>> related(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId, @PathVariable("relation") String relation, Pageable pageable,
                                              PagedResourcesAssembler assembler) {
         try {
-            String decoded = UriUtils.decode(termId, "UTF-8");
-            Page<Term> related = ontologyGraphService.getRelated(ontologyId, decoded, relation, pageable);
+            String decodedTerm = UriUtils.decode(termId, "UTF-8");
+            String decodedRelation = UriUtils.decode(relation, "UTF-8");
+            Page<Term> related = ontologyGraphService.getRelated(ontologyId, decodedTerm, decodedRelation, pageable);
 
             return new ResponseEntity<>( assembler.toResource(related, termAssembler), HttpStatus.OK);
         }
