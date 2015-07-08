@@ -1,5 +1,7 @@
 package uk.ac.ebi.spot.ols.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import uk.ac.ebi.spot.ols.exception.OntologyRepositoryException;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
 import uk.ac.ebi.spot.ols.model.Status;
@@ -15,6 +17,8 @@ public interface OntologyRepositoryService {
 
 
     List<OntologyDocument> getAllDocuments();
+
+    Page<OntologyDocument> getAllDocuments(Pageable pageable);
 
     List<OntologyDocument> getAllDocumentsByStatus(Status status);
 

@@ -18,6 +18,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class WebConfig extends WebMvcConfigurerAdapter {
 
 
+    /**
+     * This config stops the rest api from using suffix pattern matching on URLs to determine content type
+     * e.g. .json for .xml in URL to get data back in specific formats
+     *
+     * @param configurer
+     */
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
         configurer

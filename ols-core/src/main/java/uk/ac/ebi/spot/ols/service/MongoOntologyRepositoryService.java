@@ -1,6 +1,8 @@
 package uk.ac.ebi.spot.ols.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import uk.ac.ebi.spot.ols.exception.OntologyRepositoryException;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
@@ -23,6 +25,11 @@ public class MongoOntologyRepositoryService implements OntologyRepositoryService
     @Override
     public List<OntologyDocument> getAllDocuments() {
         return repositoryService.findAll();
+    }
+
+    @Override
+    public Page<OntologyDocument> getAllDocuments(Pageable pageable) {
+        return repositoryService.findAll(pageable);
     }
 
     @Override

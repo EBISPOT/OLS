@@ -1,4 +1,4 @@
-package uk.ac.ebi.spot.ols.controller;
+package uk.ac.ebi.spot.ols.controller.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,8 +23,6 @@ import uk.ac.ebi.spot.ols.neo4j.model.Term;
 import uk.ac.ebi.spot.ols.neo4j.service.OntologyGraphService;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Map;
-import java.util.Objects;
 
 /**
  * @author Simon Jupp
@@ -32,7 +30,7 @@ import java.util.Objects;
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
 @Controller
-@RequestMapping("/ontology")
+@RequestMapping("/api/ontology")
 //@ExposesResourceFor(Term.class)
 public class TermController {
 

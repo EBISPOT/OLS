@@ -1,4 +1,4 @@
-package uk.ac.ebi.spot.ols.controller;
+package uk.ac.ebi.spot.ols.controller.api;
 
 /**
  * @author Simon Jupp

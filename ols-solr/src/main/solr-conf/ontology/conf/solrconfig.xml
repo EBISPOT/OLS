@@ -958,7 +958,8 @@
         <lst name="defaults">
             <str name="defType">edismax</str>
             <str name="fl">label</str>
-            <str name="qf">label^80 textnge^50 label_suggest^40 textng^40 uri^50 synonym^10 synonym_suggest^5</str>
+            <str name="qf">label^2 synonym label_autosuggest_ws^2 label_autosuggest_e^2 label_autosuggest^2 synonym_autosuggest_ws synonym_autosuggest_e synonym_autosuggest shortform_autosuggest</str>
+            <str name="pf">label^2 label_autosuggest^2 synonym^2 synonym_autosuggest^2</str>
             <str name="group.field">label</str>
             <str name="wt">json</str>
             <str name="group">true</str>

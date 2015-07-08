@@ -14,54 +14,60 @@
 
 	<dependencies>
 		<!--<dependency>-->
-			<!--<groupId>org.springframework.boot</groupId>-->
-			<!--<artifactId>spring-boot-starter-web</artifactId>-->
+		<!--<groupId>org.springframework.boot</groupId>-->
+		<!--<artifactId>spring-boot-starter-web</artifactId>-->
 		<!--</dependency>-->
 
 		<!--<dependency>-->
-			<!--<groupId>org.springframework.boot</groupId>-->
-			<!--<artifactId>spring-boot-starter-thymeleaf</artifactId>-->
+		<!--<groupId>org.springframework.boot</groupId>-->
+		<!--<artifactId>spring-boot-starter-thymeleaf</artifactId>-->
 		<!--</dependency>-->
 		<!--<dependency>-->
-			<!--<groupId>org.springframework.boot</groupId>-->
-			<!--<artifactId>spring-boot-starter-actuator</artifactId>-->
+		<!--<groupId>org.springframework.boot</groupId>-->
+		<!--<artifactId>spring-boot-starter-actuator</artifactId>-->
 		<!--</dependency>-->
 		<!--<dependency>-->
-			<!--<groupId>org.springframework.boot</groupId>-->
-			<!--<artifactId>spring-boot-starter-test</artifactId>-->
-			<!--<scope>test</scope>-->
+		<!--<groupId>org.springframework.boot</groupId>-->
+		<!--<artifactId>spring-boot-starter-test</artifactId>-->
+		<!--<scope>test</scope>-->
 		<!--</dependency>-->
 
 		<!--<dependency>-->
-			<!--<groupId>org.springframework</groupId>-->
-			<!--<artifactId>spring-context</artifactId>-->
+		<!--<groupId>org.springframework</groupId>-->
+		<!--<artifactId>spring-context</artifactId>-->
 		<!--</dependency>-->
 
 		<dependency>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-data-rest</artifactId>
-      </dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
+		</dependency>
 
 		<!--<dependency>-->
-			<!--<groupId>org.springframework.data</groupId>-->
-			<!--<artifactId>spring-data-rest-webmvc</artifactId>-->
+		<!--<groupId>org.springframework.data</groupId>-->
+		<!--<artifactId>spring-data-rest-webmvc</artifactId>-->
 		<!--</dependency>-->
 
 		<!--<dependency>-->
-		    <!--<groupId>org.springframework.data</groupId>-->
-		    <!--<artifactId>spring-data-neo4j-aspects</artifactId>-->
+		<!--<groupId>org.springframework.data</groupId>-->
+		<!--<artifactId>spring-data-neo4j-aspects</artifactId>-->
 		<!--</dependency>-->
 
 		<!--<dependency>-->
-			<!--<groupId>org.springframework.data</groupId>-->
-			<!--<artifactId>spring-data-neo4j-rest</artifactId>-->
-			<!--<version>3.3.0.RELEASE</version>-->
+		<!--<groupId>org.springframework.data</groupId>-->
+		<!--<artifactId>spring-data-neo4j-rest</artifactId>-->
+		<!--<version>3.3.0.RELEASE</version>-->
 		<!--</dependency>-->
 
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-solr</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+
 
 		<dependency>
 			<groupId>uk.ac.ebi.spot</groupId>

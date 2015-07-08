@@ -1,4 +1,4 @@
-package uk.ac.ebi.spot.ols.controller;
+package uk.ac.ebi.spot.ols.controller.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityLinks;
