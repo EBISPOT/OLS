@@ -14,6 +14,7 @@ import java.util.Collections;
  */
 public class OntologyResourceConfig  {
 
+    // ontology URI
     private  String id;
     private  String title;
     private  String namespace;
@@ -132,6 +133,10 @@ public class OntologyResourceConfig  {
     public void setSkos(boolean isSkos) {
 
         this.isSkos = isSkos;
+    }
+
+    public void setFileLocation(URI fileLocation) {
+        this.fileLocation = fileLocation;
     }
 
     public static class OntologyResourceConfigBuilder {

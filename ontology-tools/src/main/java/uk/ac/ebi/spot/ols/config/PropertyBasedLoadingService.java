@@ -18,7 +18,7 @@ import java.util.HashSet;
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
 @Component
-public class PropertyBasedLoadingService implements DocumentLoadingService {
+public class PropertyBasedLoadingService extends AbstractLoadingService {
 
     @Value("${ontology_uri:}")
     String id;
@@ -32,8 +32,6 @@ public class PropertyBasedLoadingService implements DocumentLoadingService {
     @Value("${location:}")
     String location;
 
-    private OntologyLoader loader = null;
-
     @Autowired
     Environment environment;
 
@@ -42,26 +40,6 @@ public class PropertyBasedLoadingService implements DocumentLoadingService {
 
     public PropertyBasedLoadingService() {
 
-    }
-
-    @Override
-    public OntologyLoader getLoader() throws OntologyLoadingException {
-
-        config = getConfiguration();
-
-        System.out.println("Starting up with " + id + " - " + title);
-
-            if (config.isClassify()) {
-                this.loader = new HermitOWLOntologyLoader(config);
-            }
-            else if (config.isSkos()) {
-                this.loader = new SKOSLoader(config);
-            }
-            else {
-                this.loader = new ELKOWLOntologyLoader(config);
-            }
-
-            return loader;
     }
 
     public OntologyResourceConfig getConfiguration() {

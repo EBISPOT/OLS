@@ -50,6 +50,12 @@
             <artifactId>spring-context</artifactId>
         </dependency>
 
+        <dependency>
+             <groupId>org.yaml</groupId>
+             <artifactId>snakeyaml</artifactId>
+             <version>1.15</version>
+         </dependency>
+
     </dependencies>
 
 </project>

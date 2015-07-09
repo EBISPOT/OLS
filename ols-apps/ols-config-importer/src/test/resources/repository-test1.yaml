@@ -1,0 +1,36 @@
+"@context":
+  "@base": http://purl.obolibrary.org/obo/
+
+ontologies:
+
+## UBERON
+
+  - id: uberon
+    label: Uberon
+    products:
+     - id: uberon.owl
+       type: owl:Ontology
+       title: Uberon
+       is_canonical: true
+
+## GO
+ 
+  - id: go
+    label: GO
+    products:
+     - id: go.owl
+
+## CL
+ 
+  - id: cl
+    label: Cell Ontology
+    products:
+     - id: cl.owl
+
+## RO
+ 
+  - id: ro
+    title: Relations Ontology
+    products:
+     - id: ro.owl
+

@@ -1,0 +1,51 @@
+"@context":
+
+ontologies:
+
+## EFO
+
+  - id: efo
+    label: EFO
+    title: Experimental Factor Ontology
+    uri: http://www.ebi.ac.uk/efo
+    definition_property:
+      - http://www.ebi.ac.uk/efo/definition
+    synonym_property:
+      - http://www.ebi.ac.uk/efo/alternative_term
+    hierarchical_property:
+      - http://purl.obolibrary.org/obo/BFO_0000050
+      - http://purl.obolibrary.org/obo/RO_0002202
+    hidden_property:
+      - http://www.ebi.ac.uk/efo/has_flag
+    base_uri:
+      - http://www.ebi.ac.uk/efo/EFO_
+    isInferred: false
+    classify: true
+    oboSlims: false
+    products:
+     - id: file:///Users/jupp/dev/ontologies/efo/efo.owl
+       type: owl:Ontology
+
+
+## ORDO
+
+  - id: ordo
+    label: ORDO
+    title: Orphanet Rare Disease Ontolog
+    uri: http://www.orpha.net/ontology/orphanet.owl
+    definition_property:
+      - http://www.ebi.ac.uk/efo/definition
+    synonym_property:
+      - http://www.ebi.ac.uk/efo/alternative_term
+    hidden_property:
+      - http://www.ebi.ac.uk/efo/has_flag
+    hierarchical_property:
+      - http://purl.obolibrary.org/obo/BFO_0000050
+    base_uri:
+      - http://www.orpha.net/ORDO/Orphanet_
+    isInferred: false
+    classify: true
+    oboSlims: false
+    products:
+     - id: file:/Users/jupp/Downloads/orpha/orphadata1.5.owl
+       type: owl:Ontology

@@ -102,7 +102,7 @@
             <!-- NB: for additional title style patterns, see http://frontier.ebi.ac.uk/web/style/patterns -->
 
             <div id="local-title" class="grid_12 alpha logo-title">
-                <a href="index" title="Back to OLS homepage"><img style="width: 80px" th:src="@{img/ols-logo.png}" src="../static/img/ols-logo.png" alt="OLS logo"/></a>
+                <a href="index" title="Back to OLS homepage"><img style="width: 80px" th:src="@{img/ols-logo.jpg}" src="../static/img/ols-logo.jpg" alt="OLS logo"/></a>
                 <span><h1>Ontology Lookup Service (Beta)</h1></span>
             </div>
 
@@ -115,8 +115,8 @@
                     <li class="first"><a href="templates">Home</a></li>
                     <li><a href="restrictions">API</a></li>
                     <li><a href="restrictions">SPARQL</a></li>
-                    <li class="last"><a href="docs">Documentation</a></li>
-                    <li><a href="submissions">About</a></li>
+                    <li><a href="docs">Documentation</a></li>
+                    <li class="last" ><a href="submissions">About</a></li>
                     <li class="functional last"><a href="contact" class="icon icon-generic" data-icon="C">Contact Us</a></li>
                 </ul>
             </nav>
@@ -156,14 +156,13 @@
                             </thead>
                             <tbody>
                             <tr th:each="onto : ${all_ontologies}">
-                                <!--@thymesVar id="onto" type="OntologyDocument"-->
 
                                 <td>
-                                    <!--@thymesVar id="getConfig" type="OntologyResourceConfig"-->
+                                    <!--@thymesVar id="onto" type="OntologyDocument"-->
                                     <a th:href="@{/ontology/__${onto.getConfig().getNamespace()}__}" th:text="${{onto.getConfig().getTitle()}}">Ontology name</a>
                                 </td>
                                 <td th:text="${{onto.getConfig().getNamespace()}}">0</td>
-                                <td th:text="${{onto.getLastUpdated()}}">0</td>
+                                <td th:text="${{onto.getUpdated()}}">0</td>
                                 <td >
                                     <a href="">Browse</a><br/>
                                     <a href="">Download</a><br/>
