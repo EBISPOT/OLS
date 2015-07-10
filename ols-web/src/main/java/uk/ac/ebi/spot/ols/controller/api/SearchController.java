@@ -68,6 +68,7 @@ public class SearchController {
         if (fieldList.isEmpty()) {
             fieldList.add("label");
             fieldList.add("uri");
+            fieldList.add("id");
             fieldList.add("short_form");
             fieldList.add("ontology_name");
         }
@@ -93,7 +94,12 @@ public class SearchController {
         solrQuery.setStart(start);
         solrQuery.setRows(rows);
         solrQuery.setHighlight(true);
-        solrQuery.set("hl.fl", "synonym_autosuggest");
+        solrQuery.add("hl.simple.pre", "<b>");
+        solrQuery.add("hl.simple.post", "</b>");
+        solrQuery.addHighlightField("label_autosuggest");
+        solrQuery.addHighlightField("label");
+        solrQuery.addHighlightField("synonym_autosuggest");
+        solrQuery.addHighlightField("synonym");
 
         StringBuilder solrSearchBuilder = buildBaseSearchRequest(solrQuery.toString());
         dispatchSearch(solrSearchBuilder.toString(), response.getOutputStream());
@@ -128,7 +134,7 @@ public class SearchController {
     }
 
     private void dispatchSearch(String searchString, OutputStream out) throws IOException {
-        System.out.println(searchString);
+//        System.out.println(searchString);
 
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet(searchString);

@@ -62,16 +62,19 @@ public class LoadingApplication implements CommandLineRunner {
         Map<OntologyDocument, Exception> failedOntologies = new HashMap<>();
 
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(5);
-        executor.setMaxPoolSize(10);
-        executor.setQueueCapacity(25);
+        executor.setCorePoolSize(10);
+        executor.setMaxPoolSize(20);
+        executor.setQueueCapacity(200);
         executor.initialize();
 
         List<OntologyDocument> allDocuments = new ArrayList<OntologyDocument>();
 
         if (ontologies.length > 0) {
             for (String ontologyName : ontologies) {
-                allDocuments.add(ontologyRepositoryService.get(ontologyName));
+                OntologyDocument document = ontologyRepositoryService.get(ontologyName);
+                if (document != null) {
+                    allDocuments.add(ontologyRepositoryService.get(ontologyName));
+                }
             }
         }
         else {

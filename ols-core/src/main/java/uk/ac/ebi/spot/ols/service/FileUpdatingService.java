@@ -78,15 +78,17 @@ public class FileUpdatingService {
             } catch (FileUpdateServiceException e) {
                 document.setStatus(Status.FAILED);
                 document.setMessage(e.getMessage());
-                log.error("Error checking: " + config.getTitle(), e);
+                log.error("Error checking: " + config.getTitle() + e.getMessage());
             } catch (IOException e) {
                 document.setStatus(Status.FAILED);
                 document.setMessage(e.getMessage());
                 log.error("Can't get canonical path for: " + status.getFile().getPath(), e);
             }
-            document.setUpdated(new Date());
-            ontologyRepositoryService.update(document);
-            latch.countDown();
+            finally {
+                document.setUpdated(new Date());
+                ontologyRepositoryService.update(document);
+                latch.countDown();
+            }
 
         }
     }

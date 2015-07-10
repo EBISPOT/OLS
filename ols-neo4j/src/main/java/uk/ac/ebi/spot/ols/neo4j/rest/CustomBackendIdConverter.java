@@ -19,7 +19,7 @@ import java.net.URLEncoder;
 @Component
 public class CustomBackendIdConverter {
 
-    @Autowired
+    @Autowired(required = false)
     OntologyTermRepository ontologyTermRepository;
 
     public Serializable fromRequestId(String id, java.lang.Class entityType) {

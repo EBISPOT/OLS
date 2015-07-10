@@ -36,7 +36,7 @@ public class HomeController {
     }
 
 
-    @RequestMapping({"", "index"})
+    @RequestMapping({"", "/index"})
     public String showHome(Model model) {
         return "index";
     }

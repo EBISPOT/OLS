@@ -238,9 +238,13 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
             indexTerms(allEntities);
             return ontology;
         }
+        catch (OWLOntologyCreationException e) {
+            getLog().error("Failed to parse " + getOntologyName());
+            return null;
+        }
         finally {
             setReady(true);
-            getLog().debug("Done loading/indexing");
+            getLog().info("Done loading/indexing");
         }
     }
 

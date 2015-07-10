@@ -1,0 +1,77 @@
+h3 {
+  color: #BFA070;
+}
+
+th {
+  color: white;
+}
+
+.alert-info {
+color: #3a87ad;
+background-color: #d9edf7;
+border-color: #bce8f1;
+}
+
+.bootstrap-alert {
+padding: 8px 35px 8px 14px;
+margin-bottom: 18px;
+color: #c09853;
+text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+background-color: #fcf8e3;
+border: 1px solid #fbeed5;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
+}
+
+.alert-heading {
+color: inherit;
+}
+
+.bootstrap-alert .close {
+position: relative;
+top: -2px;
+right: -21px;
+line-height: 18px;
+}
+
+/**
+  * autocomplete css
+*/
+
+.autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
+.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+.autocomplete-selected { background: #F0F0F0; }
+.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
+.autocomplete-group { padding: 2px 5px; }
+.autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
+
+.ontology-source{
+  background-color: #5FBDCE;
+  padding:4px;
+  padding-right:6px;
+  color: white;
+  font-size: larger;
+  border-radius: 3px;
+  display: inline-block;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+.ontology-suggest{
+  padding:2px;
+  font-size: larger;
+  font-weight: bold;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.suggestion-value {
+  text-overflow: ellipsis;
+}
+
+.sub-text {
+    color: #999;
+    font-size: x-small;
+    font-weight: normal;
+}

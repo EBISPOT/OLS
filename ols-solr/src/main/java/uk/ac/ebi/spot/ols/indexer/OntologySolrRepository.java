@@ -1,7 +1,11 @@
 package uk.ac.ebi.spot.ols.indexer;
 
+import org.springframework.data.solr.repository.Query;
 import org.springframework.data.solr.repository.SolrCrudRepository;
 import uk.ac.ebi.spot.ols.model.TermDocument;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Simon Jupp
@@ -10,5 +14,7 @@ import uk.ac.ebi.spot.ols.model.TermDocument;
  */
 public interface OntologySolrRepository extends SolrCrudRepository<TermDocument, String> {
 
-    public TermDocument findByOntologyName(String ontologyName);
+
+    @Query("ontology_name:?0")
+    List<TermDocument> findByOntologyName(String ontologyName);
 }

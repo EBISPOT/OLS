@@ -52,15 +52,21 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
                 loader.setOntologyResource(new FileSystemResource(document.getLocalPath()));
             }
 
-            // get all the available indexers
-            for (OntologyIndexer indexer : indexers) {
-                // create the new index
-                indexer.createIndex(loader);
+            if (loader.getAllClasses().size() + loader.getAllObjectPropertyIRIs().size() == 0) {
+                getLog().warn("No classes or properties found in latest version of " + loader.getOntologyName() + ": Won't index!");
+                message = "Last updated had no classes or properties so was ignored";
+            } else  {
+                // get all the available indexers
+                for (OntologyIndexer indexer : indexers) {
+                    // create the new index
+                    indexer.dropIndex(loader);
+                    indexer.createIndex(loader);
+                }
+                document.setNumberOfTerms(loader.getAllClasses().size());
             }
-
             status = Status.LOADED;
-            document.setNumberOfTerms(loader.getAllClasses().size());
             ontologyRepositoryService.update(document);
+
 
         } catch (Exception e) {
             status = Status.FAILED;

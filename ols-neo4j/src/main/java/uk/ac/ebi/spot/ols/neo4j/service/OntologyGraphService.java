@@ -22,10 +22,10 @@ import java.util.*;
 @Service
 public class OntologyGraphService {
 
-    @Autowired
+    @Autowired(required = false)
     OntologyTermRepository termRepository;
 
-    @Autowired
+    @Autowired(required = false)
     GraphDatabaseService graphDatabaseService;
 
 

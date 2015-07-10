@@ -1,6 +1,7 @@
 package uk.ac.ebi.spot.ols;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
@@ -9,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
 @SpringBootApplication
+@EnableAutoConfiguration
 public class OlsWebApp {
 
 //    @Import(RepositoryRestMvcConfiguration.class)

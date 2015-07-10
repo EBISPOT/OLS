@@ -23,22 +23,11 @@
             <artifactId>spring-boot-autoconfigure</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>uk.ac.ebi.spot</groupId>
-            <artifactId>ontology-tools</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>uk.ac.ebi.spot</groupId>
-            <artifactId>ols-core</artifactId>
+            <artifactId>ols-neo4j</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>org.neo4j</groupId>
-            <artifactId>neo4j</artifactId>
-            <version>2.2.2</version>
-        </dependency>
-
 
     </dependencies>
 

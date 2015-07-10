@@ -84,8 +84,6 @@ public class SolrIndexer implements OntologyIndexer {
             long duration = (endTime - startTime) / 1000; // time in seconds
             getLog().info("Reading " + loader.getOntologyName() + " completed in " + duration + " seconds");
 
-            dropIndex(loader);
-
             startTime = System.currentTimeMillis();
 
             int numDocuments = documents.size();
@@ -120,8 +118,9 @@ public class SolrIndexer implements OntologyIndexer {
 
     @Override
     public void dropIndex(OntologyLoader loader) {
-        TermDocument documents = ontologySolrRepository.findByOntologyName(loader.getOntologyName());
-        if (documents != null) {
+        List<TermDocument> documents = ontologySolrRepository.findByOntologyName(loader.getOntologyName());
+
+        if (!documents.isEmpty()) {
             getLog().info("Deleting solr index for " + loader.getOntologyName());
             long startTime = System.currentTimeMillis();
             ontologySolrRepository.delete(documents);

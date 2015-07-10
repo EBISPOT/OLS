@@ -23,7 +23,7 @@ ontologies:
     classify: true
     oboSlims: false
     products:
-     - id: file:///Users/jupp/dev/ontologies/efo/efo.owl
+     - id: http://www.ebi.ac.uk/efo/efo.owl
        type: owl:Ontology
 
 
@@ -47,5 +47,5 @@ ontologies:
     classify: true
     oboSlims: false
     products:
-     - id: file:/Users/jupp/Downloads/orpha/orphadata1.5.owl
+     - id: http://www.orphadata.org/data/ORDO/ordo_orphanet.owl
        type: owl:Ontology
