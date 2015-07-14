@@ -118,8 +118,11 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
             }
             builder.setBaseUris(baseUris);
         }
+        else if (isObo) {
+            builder.setBaseUris(Collections.singleton(base + namespace + "_"));
+        }
         else {
-            builder.setBaseUris(Collections.singleton(uri + namespace));
+            builder.setBaseUris(Collections.singleton(uri));
         }
 
         if (ontology.containsKey("isInferred")) {

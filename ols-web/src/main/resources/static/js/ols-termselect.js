@@ -52,10 +52,4 @@ $(document).ready(function() {
         });
 
     });
-
-
-
-
-
-
 });

@@ -31,12 +31,129 @@ import java.util.HashSet;
 @Controller
 public class SearchController {
 
+    private static String COLON = ":";
+    private static String QUOTUE = "\"";
+    private static String SPACE = " ";
+    private static String OR = "OR";
+
     @Autowired
     private SearchConfiguration searchConfiguration;
 
     @Autowired
     private SolrTemplate solrTemplate;
 
+    @RequestMapping(path = "/api/search", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
+    public void search(
+            @RequestParam("q") String query,
+            @RequestParam(value = "ontology", required = false) Collection<String> ontologies,
+            @RequestParam(value = "type", required = false) Collection<String> types,
+            @RequestParam(value= "slim", required = false) Collection<String> slims,
+            @RequestParam(value = "fieldList", required = false) Collection<String> fieldList,
+            @RequestParam(value = "queryFields", required = false) Collection<String> queryFields,
+            @RequestParam(value = "exact", required = false) boolean exact,
+            @RequestParam(value = "groupField", required = false) String groupField,
+            @RequestParam(value = "obsoletes", defaultValue = "false") boolean queryObsoletes,
+            @RequestParam(value = "local", defaultValue = "false") boolean isLocal,
+            @RequestParam(value = "childrenOf", required = false) Collection<String> childrenOf,
+            @RequestParam(value = "rows", defaultValue = "10") Integer rows,
+            @RequestParam(value = "start", defaultValue = "0") Integer start,
+            HttpServletResponse response
+    ) throws IOException {
+
+        final SolrQuery solrQuery = new SolrQuery(); // 1
+
+        solrQuery.set("wt", "json");
+
+        if (queryFields == null) {
+            // if exact just search the supplied fields for exact matches
+            if (exact) {
+                solrQuery.setQuery( createUnionQuery(query, "label_s", "synonym_s", "shortform_s", "obo_id_s", "uri_s", "annotations_s"));
+            }
+            else {
+                solrQuery.set("defType", "edismax");
+                solrQuery.setQuery(query);
+                solrQuery.set("qf", "label^5 synonym^3 description short_form^2 obo_id^2 annotations logical_description uri");
+                solrQuery.set("bq", "is_defining_ontology:true^2 label_s:\"" + query + "\"^5 synonym_s:\"" + query + "\"^3 annotations_s:\"" + query + "\"");
+            }
+        }
+        else {
+            if (exact) {
+                solrQuery.setQuery( createUnionQuery(query, queryFields.toArray(new String [queryFields.size()])));
+            }
+            else {
+                solrQuery.set("defType", "edismax");
+                solrQuery.setQuery(query);
+                solrQuery.set("qf", String.join(" ", queryFields));
+            }
+        }
+
+        if (fieldList == null) {
+            fieldList = new HashSet<>();
+            fieldList.add("id");
+            fieldList.add("uri");
+            fieldList.add("label");
+            fieldList.add("short_form");
+            fieldList.add("obo_id");
+            fieldList.add("ontology_name");
+            fieldList.add("description");
+            fieldList.add("type");
+        }
+        solrQuery.setFields( fieldList.toArray(new String[fieldList.size()]));
+
+        if (ontologies != null) {
+            solrQuery.addFilterQuery("ontology_name:" + String.join(" OR ", ontologies));
+        }
+
+        if (slims != null) {
+            solrQuery.addFilterQuery("subset:" + String.join(" OR ", slims));
+        }
+
+        if (isLocal) {
+            solrQuery.addFilterQuery("is_defining_ontology:true");
+        }
+
+        if (types != null) {
+            solrQuery.addFilterQuery("type:" + String.join(" OR ", types));
+        }
+
+        if (groupField != null) {
+            solrQuery.addFilterQuery("{!collapse field=uri}");
+            solrQuery.add("expand=true", "true");
+        }
+
+        solrQuery.addFilterQuery("is_obsolete:" + queryObsoletes);
+        solrQuery.setStart(start);
+        solrQuery.setRows(rows);
+        solrQuery.setHighlight(true);
+        solrQuery.add("hl.simple.pre", "<b>");
+        solrQuery.add("hl.simple.post", "</b>");
+        solrQuery.addHighlightField("label");
+        solrQuery.addHighlightField("synonym");
+        solrQuery.addHighlightField("definition");
+
+        solrQuery.addFacetField("ontology_name", "type", "subset", "is_defining_ontology", "is_obsolete");
+
+        StringBuilder solrSearchBuilder = buildBaseSearchRequest(solrQuery.toString());
+        dispatchSearch(solrSearchBuilder.toString(), response.getOutputStream());
+    }
+
+
+    private String createUnionQuery (String query, String ... fields) {
+        StringBuilder builder = new StringBuilder();
+        for (int x = 0; x< fields.length; x++) {
+            builder.append(fields[x]);
+            builder.append(COLON);
+            builder.append(QUOTUE);
+            builder.append(query);
+            builder.append(QUOTUE);
+            builder.append(SPACE);
+
+            if (x+1 < fields.length) {
+                builder.append(OR);
+            }
+        }
+        return builder.toString();
+    }
 
     @RequestMapping(path = "/api/select", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     public void select(
@@ -58,7 +175,7 @@ public class SearchController {
         solrQuery.setQuery(query);
         solrQuery.set("defType", "edismax");
         solrQuery.set("qf", "label synonym label_autosuggest_ws label_autosuggest_e label_autosuggest synonym_autosuggest_ws synonym_autosuggest_e synonym_autosuggest shortform_autosuggest");
-        solrQuery.set("bq", "is_defining_ontology:true label:\"" + query + "\"^2 synonym:\"" + query + "\"");
+        solrQuery.set("bq", "is_defining_ontology:true label_s:\"" + query + "\"^2 synonym_s:\"" + query + "\"");
         solrQuery.set("wt", "json");
 
         if (fieldList == null) {
@@ -104,33 +221,6 @@ public class SearchController {
         StringBuilder solrSearchBuilder = buildBaseSearchRequest(solrQuery.toString());
         dispatchSearch(solrSearchBuilder.toString(), response.getOutputStream());
 
-
-//        try {
-//            final QueryResponse resp = solrTemplate.getSolrServer().query(solrQuery);
-//
-//
-//            SolrDocumentList list =  new SolrDocumentList();
-//            list=resp.getResults();
-//            JSONArray jArray =new JSONArray( );
-//
-//            for (int i = 0; i < list.size(); i++) {
-//                 JSONObject json = new JSONObject(list.get(i));
-//                 jArray.put(json);
-//            }
-//
-//            ‘
-//            JSONArray jsonObject = JSONArray.fromObject(resp.getResults());
-//
-//            JSONObject returnObj = new JSONObject();
-//            List<TermDocument> documentList = solrTemplate.convertQueryResponseToBeans(resp, TermDocument.class);
-//            Page<TermDocument> documentPage =  new SolrResultPage<TermDocument>(documentList, page, resp.getResults().getNumFound(), 100f);
-//            return new ResponseEntity<>( assembler.toResource(documentPage, searchResultAssembler), HttpStatus.OK);
-//
-//
-//        } catch (SolrServerException e) {
-//            e.printStackTrace();
-//        }
-//        throw new ResourceNotFoundException();
     }
 
     private void dispatchSearch(String searchString, OutputStream out) throws IOException {

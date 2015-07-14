@@ -58,8 +58,8 @@
     <field name="uri_key" type="int" indexed="true" stored="false" multiValued="false" />
     <field name="obo_id" type="string" indexed="true" stored="true" required="false" multiValued="false" />
     <field name="short_form" type="string" indexed="true" stored="true" required="true" multiValued="false" />
-    <field name="label" type="string" indexed="true" stored="true" multiValued="false" />
-    <field name="synonym" type="string" indexed="true" stored="true" multiValued="true" />
+    <field name="label" type="text_general" indexed="true" stored="true" multiValued="false" />
+    <field name="synonym" type="text_general" indexed="true" stored="true" multiValued="true" />
     <field name="description" type="text_general" indexed="true" stored="true" multiValued="true" />
     <field name="ontology_name" type="string" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="ontology_uri" type="string" indexed="true" stored="true" required="true" multiValued="false" />
@@ -82,13 +82,24 @@
     <dynamicField name="*_annotation" type="text_general" indexed="true" stored="true" multiValued="true" />
     <dynamicField name="*_related" type="string" indexed="true" stored="false" multiValued="true" />
 
-    <field name="annotations"  type="string" indexed="true"  stored="true" multiValued="true"/>
-    <copyField source="*_annotation"    dest="annotations"/>
 
     <!-- catchall field, containing all other searchable text fields (implemented via copyField further on in this schema -->
     <field name="text" type="text_general" indexed="true" stored="false" multiValued="true" />
     <!-- catchall text field that indexes tokens both normally and in reverse for efficient leading wildcard queries. -->
-    <field name="text_rev" type="text_general_rev" indexed="true" stored="false" multiValued="true" />
+    <!--<field name="text_rev" type="text_general_rev" indexed="true" stored="false" multiValued="true" />-->
+
+    <!-- dynamic string firlds for exact match searches-->
+    <dynamicField name="*_s" type="string" indexed="true" stored="false" multiValued="true"/>
+    <copyField source="label" dest="label_s"/>;
+    <copyField source="synonym" dest="synonym_s"/>;
+    <copyField source="short_form" dest="shortform_s"/>;
+    <copyField source="obo_id" dest="obo_id_s"/>;
+    <copyField source="uri" dest="uri_s"/>;
+    <copyField source="*_annotation" dest="annotations_s"/>
+
+    <!-- catch all for annotations-->
+    <field name="annotations" type="text_general" indexed="true" stored="false" multiValued="true" />
+    <copyField source="*_annotation" dest="annotations"/>
 
 
     <!-- catchall field, containing all other searchable text fields (implemented via copyField further on in this schema -->
@@ -140,12 +151,6 @@
 
     <field name="shortform_autosuggest" type="textEdge" indexed="true" stored="true" multiValued="true" />
 
-    <copyField source="label" dest="exact"/>;
-    <copyField source="synonym" dest="exact"/>;
-    <copyField source="shortform_autosuggest" dest="exact"/>;
-    <copyField source="uri" dest="exact"/>;
-
-    <field name="exact" type="string" indexed="true" stored="true" multiValued="true" />
 
 
     <fieldType name="textWhitespaceEdge" class="solr.TextField">
