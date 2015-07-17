@@ -44,7 +44,12 @@ public interface OntologyTermRepository extends GraphRepository<Term> {
     @Query (value = "MATCH (n:Class) WHERE n.ontologyName = {0} AND n.iri = {1} RETURN n")
     Term findByOntologyAndIri(String ontologyName, String iri);
 
-    @Query (value = "MATCH (n:Class)  WHERE n.ontologyName = {0} RETURN n")
+    @Query (value = "MATCH (n:Class {ontologyName : {0}}) RETURN n")
     Page<Term> findAllByOntology(String ontologyName, Pageable pageable);
 
+    @Query (value = "MATCH (n:Class) WHERE n.ontologyName = {0} AND n.shortForm = {1} RETURN n")
+    Term findByOntologyAndShortForm(String ontologyId, String shortForm);
+
+    @Query (value = "MATCH (n:Class) WHERE n.ontologyName = {0} AND n.oboId = {1} RETURN n")
+    Term findByOntologyAndOboId(String ontologyId, String oboId);
 }

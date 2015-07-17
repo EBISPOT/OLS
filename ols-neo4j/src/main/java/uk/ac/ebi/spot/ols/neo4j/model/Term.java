@@ -36,17 +36,23 @@ public class Term {
 
     private String iri;
     private String label;
-    private Set<String> synonyms;
+    private Set<String> synonym;
     private Set<String> description;
     private String ontologyName;
     private String ontologyIri;
+
+
+    private Set<String> superClassDescription;
+    private Set<String> equivalentClassDescription;
+
     private boolean isObsolete;
 
     private boolean isLocal;
     private boolean isLeafNode;
     private boolean isRoot;
 
-    private Set<String> shortForm;
+    private String shortForm;
+    private String oboId;
 //    private List<String> subsets;
 
     private DynamicProperties annotation = new DynamicPropertiesContainer();
@@ -95,7 +101,7 @@ public class Term {
     }
 
     public Set<String> getSynonyms() {
-        return synonyms;
+        return synonym;
     }
 
     public Set<String> getDescription() {
@@ -110,12 +116,28 @@ public class Term {
         return ontologyIri;
     }
 
+    public void setDescription(Set<String> description) {
+        this.description = description;
+    }
+
+    public void setSynonyms(Set<String> synonyms) {
+        this.synonym = synonyms;
+    }
+
+    public void setOntologyName(String ontologyName) {
+        this.ontologyName = ontologyName;
+    }
+
+    public void setAnnotation(DynamicProperties annotation) {
+        this.annotation = annotation;
+    }
+
     public boolean isObsolete() {
         return isObsolete;
     }
 
     public Map getAnnotation() {
-        return annotation.asMap();
+        return new TreeMap<String, Object>(annotation.asMap());
     }
 
     public boolean isLocal() {
@@ -128,5 +150,38 @@ public class Term {
 
     public boolean isLeafNode() {
         return isLeafNode;
+    }
+
+    public String getShortForm() {
+        return shortForm;
+    }
+
+    public void setShortForm(String shortForm) {
+        this.shortForm = shortForm;
+    }
+
+    public String getOboId() {
+        return oboId;
+    }
+
+    public void setOboId(String oboId) {
+        this.oboId = oboId;
+    }
+
+
+    public Set<String> getSuperClassDescription() {
+        return superClassDescription;
+    }
+
+    public void setSuperClassDescription(Set<String> superClassDescription) {
+        this.superClassDescription = superClassDescription;
+    }
+
+    public Set<String> getEquivalentClassDescription() {
+        return equivalentClassDescription;
+    }
+
+    public void setEquivalentClassDescription(Set<String> equivalentClassDescription) {
+        this.equivalentClassDescription = equivalentClassDescription;
     }
 }

@@ -47,6 +47,11 @@ public class SolrIndexer implements OntologyIndexer {
             getLog().info("Creating new index for " + loader.getOntologyName());
             long startTime = System.currentTimeMillis();
 
+            getLog().info("Number of classes to index: " + loader.getAllClasses().size());
+            getLog().info("Number of object properties to index: " + loader.getAllObjectPropertyIRIs().size());
+            getLog().info("Number of annotation properties to index: " + loader.getAllAnnotationPropertyIRIs().size());
+            getLog().info("Number of individuals to index: " + loader.getAllIndividualIRIs().size());
+
             List<TermDocument> documents = new ArrayList<TermDocument>();
 
             for (IRI classTerm : loader.getAllClasses()) {
@@ -54,6 +59,12 @@ public class SolrIndexer implements OntologyIndexer {
                 TermDocumentBuilder builder = extractFeatures(loader, classTerm);
                 builder.setType(TermType.CLASS.toString().toLowerCase());
                 documents.add(builder.createTermDocument());
+
+                if (documents.size() == 10000) {
+                    getLog().info("Max reached - indexing terms");
+                    index(documents);
+                    documents = new ArrayList<>();
+                }
             }
 
             for (IRI classTerm : loader.getAllObjectPropertyIRIs()) {
@@ -74,41 +85,41 @@ public class SolrIndexer implements OntologyIndexer {
                 documents.add(builder.createTermDocument());
             }
 
-            getLog().info("Number of classes to index: " + loader.getAllClasses().size());
-            getLog().info("Number of object properties to index: " + loader.getAllObjectPropertyIRIs().size());
-            getLog().info("Number of annotation properties to index: " + loader.getAllAnnotationPropertyIRIs().size());
-            getLog().info("Number of individuals to index: " + loader.getAllIndividualIRIs().size());
 
-            getLog().info("Preparing to save documents...");
             long endTime = System.currentTimeMillis();
             long duration = (endTime - startTime) / 1000; // time in seconds
             getLog().info("Reading " + loader.getOntologyName() + " completed in " + duration + " seconds");
 
-            startTime = System.currentTimeMillis();
+            index(documents);
+            getLog().info("Saving indexing " +loader.getOntologyName()+ " completed");
 
-            int numDocuments = documents.size();
-            getLog().debug("Extracted {} documents", numDocuments);
-
-            // Index documents in batches
-            int count = 0;
-            while (count < numDocuments) {
-                int end = count + getBatchSize();
-                if (end > numDocuments) {
-                    end = numDocuments;
-                }
-
-                ontologySolrRepository.save(documents.subList(count, end));
-
-                count = end;
-                getLog().info("Indexed {} / {} entries", count, numDocuments);
-            }
-            endTime = System.currentTimeMillis();
-            duration = (endTime - startTime) / 1000; // time in seconds
-            getLog().info("Saving indexing " +loader.getOntologyName()+ " completed in " + duration + " seconds");
         }
 
 
 
+    }
+
+    private void index (List<TermDocument> documents) {
+        long startTime = System.currentTimeMillis();
+
+        int numDocuments = documents.size();
+        getLog().debug("Extracted {} documents", numDocuments);
+
+        // Index documents in batches
+        int count = 0;
+        while (count < numDocuments) {
+            int end = count + getBatchSize();
+            if (end > numDocuments) {
+                end = numDocuments;
+            }
+
+            ontologySolrRepository.save(documents.subList(count, end));
+
+            count = end;
+            getLog().info("Indexed {} / {} entries", count, numDocuments);
+        }
+        long endTime = System.currentTimeMillis();
+        long duration = (endTime - startTime) / 1000; // time in seconds
     }
 
     @Override
@@ -118,9 +129,9 @@ public class SolrIndexer implements OntologyIndexer {
 
     @Override
     public void dropIndex(OntologyLoader loader) {
-        List<TermDocument> documents = ontologySolrRepository.findByOntologyName(loader.getOntologyName());
+        Iterable<TermDocument> documents = ontologySolrRepository.findByOntologyName(loader.getOntologyName());
 
-        if (!documents.isEmpty()) {
+        if (documents.iterator().hasNext()) {
             getLog().info("Deleting solr index for " + loader.getOntologyName());
             long startTime = System.currentTimeMillis();
             ontologySolrRepository.delete(documents);

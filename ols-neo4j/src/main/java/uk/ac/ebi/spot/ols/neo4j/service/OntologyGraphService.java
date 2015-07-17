@@ -153,6 +153,12 @@ public class OntologyGraphService {
         return termRepository.getRelated(ontologyId, iri, relation, pageable);
     }
 
+    public Term findByOntologyAndShortForm(String ontologyId, String shortForm) {
+        return termRepository.findByOntologyAndShortForm(ontologyId, shortForm);
+    }
+    public Term findByOntologyAndOboId(String ontologyId, String oboId) {
+        return termRepository.findByOntologyAndOboId(ontologyId, oboId);
+    }
 
     private class JsTreeObject {
 

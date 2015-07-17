@@ -13,10 +13,13 @@ import org.springframework.util.StringUtils;
 import uk.ac.ebi.spot.ols.config.OntologyDefaults;
 import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
 import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
+import uk.ac.ebi.spot.ols.renderer.OWLHTMLVisitor;
 import uk.ac.ebi.spot.ols.util.Namespaces;
 import uk.ac.ebi.spot.ols.util.Initializable;
 import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxOWLObjectRendererImpl;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.util.*;
 import java.util.concurrent.Callable;
@@ -118,9 +121,9 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
         setBaseIRI(config.getBaseUris());
 
         setHierarchicalIRIs(config.getHierarchicalProperties()
-                                        .stream()
-                                        .map(IRI::create)
-                                        .collect(Collectors.toSet()));
+                .stream()
+                .map(IRI::create)
+                .collect(Collectors.toSet()));
         try {
             setOntologyResource(new UrlResource(config.getFileLocation()));
         }
@@ -244,14 +247,25 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
         }
         finally {
             setReady(true);
+            discardReasoner(ontology);
             getLog().info("Done loading/indexing");
         }
     }
 
     protected void indexTerms(Collection<OWLEntity> entities) {
 
+        System.out.println("Starting to index "+ entities.size() + " entities");
+        int x = 0;
+        int y = 0;
         for (OWLEntity entity: entities) {
-
+            if (x == 1000) {
+                System.out.println(y);
+                x = 0;
+            }
+            else {
+                x++;
+            }
+            y++;
             // get all the annotation properties
             evaluateAllAnnotationsValues(entity);
 
@@ -415,20 +429,22 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
                         }
                         relatedTerms.get(propertyIRI).add(relatedTerm);
 
-                        // check if hierarchical
-                        if (hierarchicalRels.contains(propertyIRI)) {
-                            if (!relatedParentTerms.containsKey(propertyIRI)) {
-                                relatedParentTerms.put(propertyIRI, new HashSet<>());
-                            }
-                            relatedParentTerms.get(propertyIRI).add(relatedTerm);
-                            addRelatedChildTerm(relatedTerm, owlClass.getIRI());
-                        }
+//                        // check if hierarchical
+//                        if (hierarchicalRels.contains(propertyIRI)) {
+//                            if (!relatedParentTerms.containsKey(propertyIRI)) {
+//                                relatedParentTerms.put(propertyIRI, new HashSet<>());
+//                            }
+//                            relatedParentTerms.get(propertyIRI).add(relatedTerm);
+//                            addRelatedChildTerm(relatedTerm, owlClass.getIRI());
+//                        }
 
                     }
                 }
 
+
                 // store stringified form of class description
-                relatedDescriptions.add(manSyntaxRenderer.render(expression));
+//                relatedDescriptions.add(manSyntaxRenderer.render(expression));
+                relatedDescriptions.add(renderHtml(expression));
             }
         }
         if (!relatedTerms.isEmpty()) {
@@ -444,6 +460,16 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
         }
         // todo find transitive closure of related terms
     }
+
+    private String renderHtml (OWLObject owlObject) {
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter printWriter = new PrintWriter(stringWriter);
+        OWLHTMLVisitor owlhtmlVisitor = new OWLHTMLVisitor(provider, printWriter);
+        owlhtmlVisitor.setActiveOntology(ontology);
+        owlObject.accept(owlhtmlVisitor);
+        return stringWriter.toString();
+    }
+
 
     private void addRelatedChildTerm(IRI parent, IRI child) {
         if (!relatedChildTerms.containsKey(parent)) {
@@ -465,7 +491,8 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
 
         for (OWLClassExpression expression : owlClass.getEquivalentClasses(getManager().getOntologies())) {
             if (expression.isAnonymous()) {
-                relatedDescriptions.add(manSyntaxRenderer.render(expression));
+//                relatedDescriptions.add(manSyntaxRenderer.render(expression));
+                relatedDescriptions.add(renderHtml(expression));
             }
         }
 
@@ -612,6 +639,7 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
     }
 
     protected abstract OWLReasoner getOWLReasoner(OWLOntology ontology) throws OWLOntologyCreationException;
+    protected abstract void discardReasoner(OWLOntology ontology) throws OWLOntologyCreationException;
 
     // bunch of getters and setters
 
@@ -756,7 +784,7 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
 
     @Override
     public Collection<IRI> getAllObjectPropertyIRIs() {
-        return objectProperties;
+        return  lazyGet(() -> objectProperties);
     }
 
     @Override

@@ -52,6 +52,8 @@ public class LoadingApplication implements CommandLineRunner {
 
     private static String [] ontologies = {};
 
+    private static boolean offline = false;
+
     @Override
     public void run(String... args) throws Exception {
 
@@ -70,14 +72,24 @@ public class LoadingApplication implements CommandLineRunner {
         List<OntologyDocument> allDocuments = new ArrayList<OntologyDocument>();
 
         if (ontologies.length > 0) {
+            // get the ontologies forced to update
             for (String ontologyName : ontologies) {
                 OntologyDocument document = ontologyRepositoryService.get(ontologyName);
                 if (document != null) {
-                    allDocuments.add(ontologyRepositoryService.get(ontologyName));
+                    if (!offline) {
+                        // check these documents for updates
+                        allDocuments.add(ontologyRepositoryService.get(ontologyName));
+                    }
+                    else  {
+                        // if forced, set to load anyway
+                        document.setStatus(Status.TOLOAD);
+                        ontologyRepositoryService.update(document);
+                    }
                 }
             }
         }
-        else {
+        else if (!offline){
+            // get all documents and check for updates
             allDocuments = ontologyRepositoryService.getAllDocuments();
         }
 
@@ -122,6 +134,8 @@ public class LoadingApplication implements CommandLineRunner {
                 if (cl.hasOption("f") ) {
                     ontologies = cl.getOptionValues("f");
                 }
+
+                offline = cl.hasOption("off");
             }
         }
         catch (ParseException e) {
@@ -139,12 +153,18 @@ public class LoadingApplication implements CommandLineRunner {
         Option helpOption = new Option("h", "help", false, "Print the help");
         options.addOption(helpOption);
 
-        // add output file arguments
+        // force update
         Option force = new Option("f", "force", true,
                 "List the ontologies to force update");
         force.setRequired(false);
         force.setArgs(Option.UNLIMITED_VALUES);
         options.addOption(force);
+
+        Option nodownload = new Option("off", "offline", false,
+                        "Run offline - doesn't download new versions");
+        nodownload.setRequired(false);
+        options.addOption(nodownload);
+
 
         return options;
     }

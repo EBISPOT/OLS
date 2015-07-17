@@ -7,6 +7,7 @@ import org.springframework.web.servlet.config.annotation.ContentNegotiationConfi
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.util.UrlPathHelper;
 
 /**
  * @author Simon Jupp
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class WebConfig extends WebMvcConfigurerAdapter {
 
 
+
     /**
      * This config stops the rest api from using suffix pattern matching on URLs to determine content type
      * e.g. .json for .xml in URL to get data back in specific formats
@@ -25,8 +27,13 @@ public class WebConfig extends WebMvcConfigurerAdapter {
      */
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
+//        UrlPathHelper urlPathHelper = new UrlPathHelper();
+//               urlPathHelper.setUrlDecode(false);
+//               configurer.setUrlPathHelper(urlPathHelper);
         configurer
             .setUseSuffixPatternMatch(false);
     }
+
+
 
 }

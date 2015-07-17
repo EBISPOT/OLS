@@ -17,7 +17,6 @@ public abstract class AbstractLoadingService implements DocumentLoadingService {
     public Logger getLog() {
         return log;
     }
-    private OntologyLoader loader;
 
     @Override
     public OntologyLoader getLoader() throws OntologyLoadingException {
@@ -25,17 +24,7 @@ public abstract class AbstractLoadingService implements DocumentLoadingService {
 
         getLog().info("Starting up with " + config.getId() + " - " + config.getTitle());
 
-        if (config.isClassify()) {
-            this.loader = new HermitOWLOntologyLoader(config);
-        }
-        else if (config.isSkos()) {
-            this.loader = new SKOSLoader(config);
-        }
-        else {
-            this.loader = new ELKOWLOntologyLoader(config);
-        }
-
-        return loader;
+        return  OntologyLoaderFactory.getLoader(config);
     }
 
 

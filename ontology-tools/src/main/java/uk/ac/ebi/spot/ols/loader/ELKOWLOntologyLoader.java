@@ -25,6 +25,8 @@ public class ELKOWLOntologyLoader extends AbstractOWLOntologyLoader {
     }
 
     protected OWLReasoner getOWLReasoner(OWLOntology ontology) throws OWLOntologyCreationException {
+
+
         if (reasoner == null) {
             getLog().debug("Trying to create a reasoner over ontology '" + getOntologyIRI() + "'");
             OWLReasonerFactory factory = new ElkReasonerFactory();
@@ -50,7 +52,11 @@ public class ELKOWLOntologyLoader extends AbstractOWLOntologyLoader {
 
          return reasoner;
      }
-
+    @Override
+    protected void discardReasoner(OWLOntology ontology) throws OWLOntologyCreationException {
+        reasoner = null;
+        System.gc();
+    }
 
      protected class LoggingReasonerProgressMonitor implements ReasonerProgressMonitor {
          private final Logger log;

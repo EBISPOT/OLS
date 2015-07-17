@@ -4,7 +4,7 @@ $(document).ready(function() {
     $( "input[data-olswidget='select']" ).each(function() {
 
         $(this).devbridgeAutocomplete({
-            serviceUrl: 'api/select',
+            serviceUrl: '/api/select',
             minChars: 3,
             dataType : 'json',
             paramName: 'q',

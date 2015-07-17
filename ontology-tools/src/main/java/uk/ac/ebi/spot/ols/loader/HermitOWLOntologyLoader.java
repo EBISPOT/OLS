@@ -48,7 +48,11 @@ public class HermitOWLOntologyLoader extends AbstractOWLOntologyLoader {
 
         return reasoner;
     }
-
+    @Override
+    protected void discardReasoner(OWLOntology ontology) throws OWLOntologyCreationException {
+        reasoner = null;
+        System.gc();
+    }
     protected class LoggingReasonerProgressMonitor implements ReasonerProgressMonitor {
         private final Logger log;
         private int lastPercent = 0;

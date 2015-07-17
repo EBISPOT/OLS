@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.data.web.PagedResourcesAssembler;
@@ -18,11 +19,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.UriUtils;
 import uk.ac.ebi.spot.ols.neo4j.model.Term;
 import uk.ac.ebi.spot.ols.neo4j.service.OntologyGraphService;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * @author Simon Jupp
@@ -40,10 +46,38 @@ public class TermController {
     @Autowired TermAssembler termAssembler;
 
     @RequestMapping(path = "{onto}/terms", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
-    HttpEntity<PagedResources<Term>> terms(@PathVariable("onto") String ontologyId, Pageable pageable,
-                                           PagedResourcesAssembler assembler) {
+    HttpEntity<PagedResources<Term>> terms(
+            @PathVariable("onto") String ontologyId,
+            @RequestParam(value = "iri", required = false) String iri,
+            @RequestParam(value = "shortForm", required = false) String shortForm,
+            @RequestParam(value = "oboId", required = false) String oboId,
+            Pageable pageable,
+            PagedResourcesAssembler assembler) {
 
-        Page<Term> terms = ontologyGraphService.findAllByOntology(ontologyId, pageable);
+        Page<Term> terms = null;
+
+        if (iri != null) {
+            Term term = ontologyGraphService.findByOntologyAndIri(ontologyId, iri);
+            if (term != null) {
+                terms =  new PageImpl<Term>(Arrays.asList(term));
+            }
+        }
+        else if (shortForm != null) {
+            Term term = ontologyGraphService.findByOntologyAndShortForm(ontologyId, shortForm);
+            if (term != null) {
+                terms =  new PageImpl<Term>(Arrays.asList(term));
+            }
+        }
+        else if (oboId != null) {
+            Term term = ontologyGraphService.findByOntologyAndOboId(ontologyId, oboId);
+            if (term != null) {
+                terms =  new PageImpl<Term>(Arrays.asList(term));
+            }
+        }
+        else {
+          terms = ontologyGraphService.findAllByOntology(ontologyId, pageable);
+        }
+
         return new ResponseEntity<>( assembler.toResource(terms, termAssembler), HttpStatus.OK);
     }
 

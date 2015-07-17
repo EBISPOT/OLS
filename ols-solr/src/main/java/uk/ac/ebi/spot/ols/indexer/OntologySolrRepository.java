@@ -16,5 +16,5 @@ public interface OntologySolrRepository extends SolrCrudRepository<TermDocument,
 
 
     @Query("ontology_name:?0")
-    List<TermDocument> findByOntologyName(String ontologyName);
+    Iterable<TermDocument> findByOntologyName(String ontologyName);
 }

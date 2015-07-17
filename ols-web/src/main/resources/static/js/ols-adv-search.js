@@ -1,14 +1,15 @@
 $(document).ready(function() {
 
 
+    $('.ontology-select').select2();
+    $('.type-select').select2();
+
     try {
         loadResults();
     } catch (err) {
 
     }
 
-    $('.ontology-select').select2();
-    $('.type-select').select2();
 
 
 });
@@ -78,12 +79,12 @@ function processData(data) {
     // render search results
     var searchResult = $('#search-results');
     $.each(docs, function(index, row) {
-        var encodedUri = encodeURIComponent(row.uri);
+        //var encodedUri = encodeURIComponent(row.uri);
         var link = $('<a>',{
             class: 'search-results-label',
             text: row.label,
             title: row.label,
-            href: 'ontologies/' + row.ontology_name + "/term/" + encodedUri
+            href: 'ontology/' + row.ontology_name + "/terms?iri=" + row.uri
         });
 
         var description = row.description;

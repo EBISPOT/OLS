@@ -75,7 +75,17 @@ public class BatchOntologyLoader implements OntologyIndexer {
             // add definitions
             if (loader.getTermDefinitions().containsKey(classIri)) {
                 String [] definition = loader.getTermDefinitions().get(classIri).toArray(new String [loader.getTermDefinitions().get(classIri).size()]);
-                properties.put("definition", definition);
+                properties.put("description", definition);
+            }
+
+            if (loader.getLogicalSuperClassDescriptions().containsKey(classIri)) {
+                String [] descriptions = loader.getLogicalSuperClassDescriptions().get(classIri).toArray(new String [loader.getLogicalSuperClassDescriptions().get(classIri).size()]);
+                properties.put("superClassDescription", descriptions);
+            }
+
+            if (loader.getLogicalEquivalentClassDescriptions().containsKey(classIri)) {
+                String [] descriptions = loader.getLogicalEquivalentClassDescriptions().get(classIri).toArray(new String [loader.getLogicalEquivalentClassDescriptions().get(classIri).size()]);
+                properties.put("equivalentClassDescription", descriptions);
             }
 
             // add annotations

@@ -1,5 +1,6 @@
 package uk.ac.ebi.spot.ols.service;
 
+import org.semanticweb.owlapi.model.IRI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import uk.ac.ebi.spot.ols.model.Status;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
 import uk.ac.ebi.spot.ols.model.OntologyIndexer;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -52,9 +54,10 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
                 loader.setOntologyResource(new FileSystemResource(document.getLocalPath()));
             }
 
-            if (loader.getAllClasses().size() + loader.getAllObjectPropertyIRIs().size() == 0) {
+            Collection<IRI> classes = loader.getAllClasses();
+            if (classes.size() + loader.getAllObjectPropertyIRIs().size() == 0) {
                 getLog().warn("No classes or properties found in latest version of " + loader.getOntologyName() + ": Won't index!");
-                message = "Last updated had no classes or properties so was ignored";
+                message = "Last update had no classes or properties so was ignored";
             } else  {
                 // get all the available indexers
                 for (OntologyIndexer indexer : indexers) {
@@ -62,7 +65,7 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
                     indexer.dropIndex(loader);
                     indexer.createIndex(loader);
                 }
-                document.setNumberOfTerms(loader.getAllClasses().size());
+                document.setNumberOfTerms(classes.size());
             }
             status = Status.LOADED;
             ontologyRepositoryService.update(document);

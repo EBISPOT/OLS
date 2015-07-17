@@ -48,8 +48,8 @@ th {
 
 .ontology-source{
   background-color: #5FBDCE;
-  padding:4px;
-  padding-right:6px;
+  padding:2px;
+  padding-right:4px;
   color: white;
   font-size: larger;
   border-radius: 3px;
@@ -117,3 +117,13 @@ th {
   font-size: x-small;
   font-weight: normal;
 }
+
+/* keywords - default cyan */
+.keyword {color: #007777;}
+.comment {color: green;}
+.some {color: #770077;}
+.only {color: #770077;}
+.value {color: #770077;}
+.min {color: #770077;}
+.max {color: #770077;}
+.exactly {color: #770077;}
