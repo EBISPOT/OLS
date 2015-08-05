@@ -79,12 +79,14 @@ function processData(data) {
     // render search results
     var searchResult = $('#search-results');
     $.each(docs, function(index, row) {
-        //var encodedUri = encodeURIComponent(row.uri);
+        var encodedUri = encodeURIComponent(row.uri);
+        var type = getUrlType(row.type);
+
         var link = $('<a>',{
             class: 'search-results-label',
             text: row.label,
             title: row.label,
-            href: 'ontology/' + row.ontology_name + "/terms?iri=" + row.uri
+            href: 'ontology/' + row.ontology_name + "/" + type + "?iri=" + encodedUri
         });
 
         var description = row.description;

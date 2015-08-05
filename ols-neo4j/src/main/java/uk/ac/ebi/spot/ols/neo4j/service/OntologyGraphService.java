@@ -41,6 +41,12 @@ public class OntologyGraphService {
             "UNWIND rels(path) as r1\n" +
             "RETURN distinct id(startNode(r1)) as startId, startNode(r1).iri as startIri, startNode(r1).label as startLabel, startNode(r1).isLeafNode as isLeaf, collect( distinct id(endNode(r1)) ) as parents";
 
+    String parentSiblingTreeQuery = "MATCH path = (n:Class)-[r:SUBCLASSOF*]->(parent)<-[r2:SUBCLASSOF]-(n1:Class)\n"+
+            "USING INDEX n:Class(iri)\n" +
+            "WHERE n.ontologyName = {0} AND n.iri = {1}\n"+
+            "UNWIND rels(path) as r1\n" +
+            "RETURN distinct id(startNode(r1)) as startId, startNode(r1).iri as startIri, startNode(r1).label as startLabel, startNode(r1).isLeafNode as isLeaf, collect( distinct id(endNode(r1)) ) as parents";
+
     @Transactional
     public Object getJsTree(String ontologyName, String iri) {
         Map<String, Object> paramt = new HashMap<>();
@@ -56,29 +62,49 @@ public class OntologyGraphService {
         }
 
         Map<String, Collection<JsTreeObject>> jsTreeObjectMap = new HashMap<>();
+        Collection<String> parentIds = new HashSet<>();
 
         for (String id : resultsMap.keySet()) {
-            generateJsTreeObject(id, ontologyName, jsTreeObjectMap, resultsMap);
+            generateJsTreeObject(id, ontologyName, jsTreeObjectMap, resultsMap, parentIds);
 
         }
 
+        // find all the nodes that are parents (i.e. should be expanded)
+        // any nodes that aren't parents are leaves in the tree, we need to check these leaf nodes to see if they have further children
+
         Collection<JsTreeObject> jsTreeObjects = new HashSet<>();
         for (String key : jsTreeObjectMap.keySet()) {
+            for (JsTreeObject jsTreeObject : jsTreeObjectMap.get(key)) {
+
+                if (jsTreeObject.getIri().equals(iri)) {
+                    jsTreeObject.getState().put("selected", true);
+                }
+
+                if (!parentIds.contains(jsTreeObject.getId())) {
+                    // this is a leaf node
+
+                    if (!jsTreeObject.isLeaf()) {
+                        jsTreeObject.setChildren(true);
+                        jsTreeObject.getState().put("opened", false);
+                    }
+                }
+            }
+
             jsTreeObjects.addAll(jsTreeObjectMap.get(key));
         }
 
         return jsTreeObjects;
     }
 
-    private void generateJsTreeObject(String nodeId, String ontologyName, Map<String, Collection<JsTreeObject>> jsTreeObjectMap, Map<String, Map<String, Object>> resultsMap) {
+    private void generateJsTreeObject(String nodeId, String ontologyName, Map<String, Collection<JsTreeObject>> jsTreeObjectMap, Map<String, Map<String, Object>> resultsMap, Collection<String> parentIdCollector) {
         try {
-            Collection<JsTreeObject> objectVersions = getJsObjectTree(nodeId, ontologyName, resultsMap, jsTreeObjectMap);
+            Collection<JsTreeObject> objectVersions = getJsObjectTree(nodeId, ontologyName, resultsMap, jsTreeObjectMap, parentIdCollector);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private Collection<JsTreeObject> getJsObjectTree(String nodeId, String ontologyName, Map<String, Map<String, Object>> resultsMap, Map<String, Collection<JsTreeObject>> jsTreeObjectMap) throws IOException {
+    private Collection<JsTreeObject> getJsObjectTree(String nodeId, String ontologyName, Map<String, Map<String, Object>> resultsMap, Map<String, Collection<JsTreeObject>> jsTreeObjectMap, Collection<String> parentIdCollector) throws IOException {
         if (jsTreeObjectMap.containsKey(nodeId)) {
             return jsTreeObjectMap.get(nodeId);
         }
@@ -97,13 +123,14 @@ public class OntologyGraphService {
 
             String parentId = pid.toString();
 
-            for (JsTreeObject parentObject : getJsObjectTree(parentId, ontologyName, resultsMap, jsTreeObjectMap)) {
+            for (JsTreeObject parentObject : getJsObjectTree(parentId, ontologyName, resultsMap, jsTreeObjectMap, parentIdCollector)) {
 
                 String startIri = row.get("startIri").toString();
                 String startLabel = row.get("startLabel").toString();
                 boolean isLeafNode = Boolean.parseBoolean(row.get("isLeaf").toString());
 
                 String startNode = nodeId + "_" + x;
+
 
                 JsTreeObject jsTreeObject = new JsTreeObject(
                         startNode,
@@ -118,6 +145,7 @@ public class OntologyGraphService {
                     jsTreeObjectMap.put(nodeId, new HashSet<>());
                 }
                 jsTreeObjectMap.get(nodeId).add(jsTreeObject);
+                parentIdCollector.add(parentObject.getId());
                 x++;
             }
         }
@@ -166,17 +194,40 @@ public class OntologyGraphService {
         private String parent;
         private String iri;
         private String ontologyName;
-        private String label;
+        private String text;
         private boolean isLeaf;
+                private Map<String, Boolean> state;
+        private boolean children;
 
-        public JsTreeObject(String id, String iri, String ontologyName, String label, boolean isLeaf, String parent) {
+
+        public JsTreeObject(String id, String iri, String ontologyName, String text, boolean isLeaf, String parent) {
             this.id = id;
             this.iri = iri;
             this.ontologyName = ontologyName;
-            this.label = label;
+            this.text = text;
             this.isLeaf = isLeaf;
             this.parent = parent;
+            this.state = new HashMap<>();
+            state.put("opened", true);
+            this.children = false;
 
+        }
+
+        public boolean isChildren() {
+            return children;
+        }
+
+        public void setChildren(boolean children) {
+            this.children = children;
+        }
+
+
+        public void setState(Map<String, Boolean> state) {
+            this.state = state;
+        }
+
+        public Map<String, Boolean> getState() {
+            return state;
         }
 
         public String getParent() {
@@ -211,12 +262,12 @@ public class OntologyGraphService {
             this.ontologyName = ontologyName;
         }
 
-        public String getLabel() {
-            return label;
+        public String getText() {
+            return text;
         }
 
-        public void setLabel(String label) {
-            this.label = label;
+        public void setText(String text) {
+            this.text = text;
         }
 
         public boolean isLeaf() {

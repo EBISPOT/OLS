@@ -40,6 +40,8 @@
     <link rel="stylesheet" href="../static/css/ols.css" th:href="@{../../../css/ols.css}" type="text/css" media="screen"/>
     <link rel="stylesheet" href="../static/css/ols-colors.css" th:href="@{../../../css/ols-colors.css}" type="text/css" media="screen"/>
 
+    <link rel="stylesheet" href="../static/js/jstree/themes/default/style.min.css" th:href="@{../../../js/jstree/themes/default/style.min.css}" type="text/css" media="screen" />
+
     <!-- for production the above can be replaced with -->
     <!--
     <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/mini/ebi-fluid-embl.css">
@@ -132,7 +134,7 @@
                             <input type="submit" value="Search" class="submit">
                             </input>
                             <span class="adv">
-                                <a href="search" id="adv-search" title="Advanced">Advanced</a>
+                                <a href="../../../search" id="adv-search" title="Advanced">Advanced</a>
                             </span>
                         </div>
                     </fieldset>
@@ -209,7 +211,7 @@
                                     <b>Parents</b>
                                     <br/>
                                     <div th:each="parentTerm : ${parentTerms}">
-                                        <a href="#" th:href="@{terms?iri=__${parentTerm.getIri()}__}" th:text="${parentTerm.getLabel()}">parent 1</a>
+                                        <a href="#" th:href="@{terms (iri=${parentTerm.getIri()})}" th:text="${parentTerm.getLabel()}">parent 1</a>
                                     </div>
                                 </div>
 
@@ -264,7 +266,10 @@
                     </div>
 
                     <div role="tabpanel" class="tab-pane" id="tree-tab">
-                        Tree goes here
+
+                        <div id="term-tree" data-olswidget="tree" th:attr="data-olsontology=${ontologyTerm.getOntologyName()},data-ols-iri=${ontologyTerm.getIri()}" data-ols-termtype="class" data-olsontology="" data-ols-iri=""  >
+                        </div>
+
                     </div>
 
                     <div role="tabpanel" class="tab-pane" id="graph-tab">
@@ -336,7 +341,11 @@
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script type="text/javascript" src="../static/js/jquery/jquery.autocomplete.min.js" th:src="@{../../../js/jquery/jquery.autocomplete.min.js}"></script>
+<script type="text/javascript" src="../static/js/ols.js" th:src="@{../../../js/ols.js}"></script>
+<script src="../static/js/jstree/jstree.min.js" th:src="@{../../../js/jstree/jstree.min.js}"></script>
+
 <script type="text/javascript" src="../static/js/ols-termselect.js" th:src="@{../../../js/ols-termselect.js}"></script>
+<script type="text/javascript" src="../static/js/ols-tree.js" th:src="@{../../../js/ols-tree.js}"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script>
     $(document).ready(function() {
@@ -346,10 +355,10 @@
             var href = $(this).attr("href");
 
             if ($(this).hasClass('ObjectProperty')) {
-                $(this).attr("href", 'property?iri=' + href);
+                $(this).attr("href", getUrlType('property') + '?iri=' + encodeURIComponent(href));
             }
             else if ($(this).hasClass('Class')) {
-                $(this).attr("href", 'terms?iri=' + href);
+                $(this).attr("href", getUrlType('class') + '?iri=' + encodeURIComponent(href));
             }
         });
     });

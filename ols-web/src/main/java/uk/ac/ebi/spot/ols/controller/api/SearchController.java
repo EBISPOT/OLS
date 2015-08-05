@@ -186,6 +186,7 @@ public class SearchController {
             fieldList.add("label");
             fieldList.add("uri");
             fieldList.add("id");
+            fieldList.add("type");
             fieldList.add("short_form");
             fieldList.add("ontology_name");
         }

@@ -42,7 +42,10 @@ public class Term {
     private String ontologyIri;
 
 
+    @JsonIgnore
     private Set<String> superClassDescription;
+
+    @JsonIgnore
     private Set<String> equivalentClassDescription;
 
     private boolean isObsolete;

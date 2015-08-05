@@ -8,6 +8,11 @@ $(document).ready(function() {
             minChars: 3,
             dataType : 'json',
             paramName: 'q',
+            onSelect : function (suggestion)  {
+                var type = getUrlType(suggestion.data.type);
+                var encoded = encodeURIComponent(suggestion.data.iri);
+                window.location.href = 'ontology/' + suggestion.data.ontology + "/" + type + '?iri=' + encoded;
+            },
             transformResult: function(response) {
                 return {
                     suggestions: $.map(response.response.docs, function(dataItem) {
@@ -34,7 +39,7 @@ $(document).ready(function() {
                             }
                         }
 
-                        return { value: dataItem.label, data: {ontology: dataItem.ontology_name, uri : dataItem.uri, label: label, synonym: synonym }};
+                        return { value: dataItem.label, data: {ontology: dataItem.ontology_name, iri : dataItem.uri, label: label, synonym: synonym, type: dataItem.type}};
                     })
                 };
             },
