@@ -11,7 +11,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.util.StringUtils;
 import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
 import uk.ac.ebi.spot.ols.config.YamlBasedLoadingService;
 import uk.ac.ebi.spot.ols.config.YamlConfigParser;
@@ -19,7 +22,9 @@ import uk.ac.ebi.spot.ols.model.OntologyDocument;
 import uk.ac.ebi.spot.ols.model.Status;
 import uk.ac.ebi.spot.ols.service.OntologyRepositoryService;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -39,32 +44,51 @@ public class YamlLoader implements CommandLineRunner {
     private OntologyRepositoryService ontologyRepositoryService;
 
     @Value("${ols.ontology.config:}")
-    public String yamlPath;
+    public String yamlPath = "";
 
     @Value("${ols.obofoundry.ontology.config:}")
-    public String oboYamlPath;
+    public String oboYamlPath = "";
 
     @Override
     public void run(String... args) throws Exception {
 
         Collection<String> configs = new HashSet<>();
-        if (yamlPath != null) {
+        if (!yamlPath.equals("")) {
             for (String configPath : yamlPath.split(",")) {
                 configs.add(configPath);
+            }
+        } else if (getClass().getClassLoader().getResource("ols-config.yaml") != null) {
+            File olsYamlFile = new File(getClass().getClassLoader().getResource("ols-config.yaml").getPath());
+            if (Files.exists(olsYamlFile.toPath())) {
+                configs.add(olsYamlFile.getAbsolutePath());
             }
         }
 
         for (String path : configs) {
-            UrlResource resource = new UrlResource(path);
+            Resource resource;
+            if (path.startsWith("http") || path.startsWith("ftp")) {
+                resource = new UrlResource(path);
+            }
+            else {
+                resource = new FileSystemResource(path);
+            }
 
             YamlConfigParser yamlConfigParser = new YamlConfigParser(resource);
             updateDocument(yamlConfigParser);
         }
 
-        if (oboYamlPath != null) {
+        if (!oboYamlPath.equals("")) {
             UrlResource resource = new UrlResource(oboYamlPath);
             YamlConfigParser yamlConfigParser = new YamlConfigParser(resource, true);
             updateDocument(yamlConfigParser);
+        }
+        else if (getClass().getClassLoader().getResource("obo-config.yaml") != null) {
+            File oboYaml = new File(getClass().getClassLoader().getResource("obo-config.yaml").getPath());
+            if (Files.exists(oboYaml.toPath())) {
+                Resource resource = new FileSystemResource(oboYaml);
+                YamlConfigParser yamlConfigParser = new YamlConfigParser(resource, true);
+                updateDocument(yamlConfigParser);
+            }
         }
 
     }
@@ -73,7 +97,7 @@ public class YamlLoader implements CommandLineRunner {
 
         for (YamlBasedLoadingService loadingService : yamlConfigParser.getDocumentLoadingServices()) {
             OntologyResourceConfig ontologyResourceConfig = loadingService.getConfiguration();
-            OntologyDocument mongoOntologyDocument = ontologyRepositoryService.get(ontologyResourceConfig.getNamespace().toUpperCase());
+            OntologyDocument mongoOntologyDocument = ontologyRepositoryService.get(ontologyResourceConfig.getNamespace());
             if (mongoOntologyDocument == null) {
                 getLog().info("New ontology document to load found " + ontologyResourceConfig.getNamespace());
                 OntologyDocument ontologyDocument = new OntologyDocument(ontologyResourceConfig.getNamespace(), ontologyResourceConfig);

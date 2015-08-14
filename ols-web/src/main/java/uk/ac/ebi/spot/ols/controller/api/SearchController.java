@@ -38,9 +38,9 @@ public class SearchController {
 
     @Autowired
     private SearchConfiguration searchConfiguration;
-
-    @Autowired
-    private SolrTemplate solrTemplate;
+//
+//    @Autowired
+//    private SolrTemplate solrTemplate;
 
     @RequestMapping(path = "/api/search", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     public void search(

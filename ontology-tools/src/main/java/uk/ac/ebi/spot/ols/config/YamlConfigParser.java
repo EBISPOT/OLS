@@ -41,17 +41,28 @@ public class YamlConfigParser {
 
         LinkedHashMap contextInfos = (LinkedHashMap)linkedHashMap.get("@context");
         //Get the @base property which will be the first part of the url to the owl file of the ontology.
-        String base = "";
+        String base = null;
         if (contextInfos != null) {
             base = (String)contextInfos.get("@base");
+        }
 
+        if  (base == null && isObo) {
+            base = "http://purl.obolibrary.org/obo/";
         }
 
         ArrayList<LinkedHashMap> ontologies = (ArrayList<LinkedHashMap>)linkedHashMap.get("ontologies");
 
         for (LinkedHashMap ontology : ontologies) {
-            YamlBasedLoadingService yamlBasedLoadingService = new YamlBasedLoadingService(ontology, base, isObo);
-            documentLoadingServices.add(yamlBasedLoadingService);
+
+            boolean obsolete = false;
+            if ( ontology.containsKey("is_obsolete")) {
+                obsolete = ((Boolean)ontology.get("is_obsolete"));
+            }
+
+            if (!obsolete) {
+                YamlBasedLoadingService yamlBasedLoadingService = new YamlBasedLoadingService(ontology, base, isObo);
+                documentLoadingServices.add(yamlBasedLoadingService);
+            }
 
         }
 

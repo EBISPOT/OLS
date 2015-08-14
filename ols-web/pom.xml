@@ -78,6 +78,12 @@
 			<groupId>uk.ac.ebi.spot</groupId>
 			<artifactId>ols-neo4j</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>uk.ac.ebi.spot</groupId>
+			<artifactId>ols-mongo</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<!--<properties>-->

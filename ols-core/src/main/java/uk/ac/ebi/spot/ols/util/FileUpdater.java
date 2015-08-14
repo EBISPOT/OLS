@@ -43,17 +43,42 @@ public class FileUpdater {
     public FileUpdater() {
     }
 
+    public File getDefaultDirectory() {
+
+        String defaultPath = OLSEnv.getOLSHome() + File.separator + "downloads";
+        File pathFile = new File(defaultPath);
+        if (!Files.exists(pathFile.toPath())) {
+            pathFile.mkdir();
+        }
+
+        return pathFile;
+    }
+
     public FileStatus getFile(String name, URI file) throws FileUpdateServiceException {
 
         getLog().info("Downloading " + name + " from " + file.toString());
         File pathFile = new File(path);
-        if (!Files.exists(pathFile.toPath())) {
-            try {
-                pathFile.mkdir();
-            } catch (Exception e) {
-                throw new FileUpdateServiceException("Can't create path to file download:" + e.getMessage());
-            }
+        if (!path.equals("")) {
+            if (!Files.exists(pathFile.toPath())) {
+                try {
+                    pathFile.mkdir();
+                } catch (Exception e) {
 
+                    getLog().info("Couldn't create directory to store ontologies in " + path + " so defaulting to default");
+                    try {
+                        pathFile = getDefaultDirectory();
+                    } catch (Exception e1) {
+                        throw new FileUpdateServiceException("Can't create path to file download:" + path);
+                    }
+                }
+            }
+        }
+        else {
+            try {
+                pathFile = getDefaultDirectory();
+            } catch (Exception e1) {
+                throw new FileUpdateServiceException("Can't create path to file download:" + path);
+            }
         }
 
         String checkName = name + ".chk";
@@ -71,12 +96,12 @@ public class FileUpdater {
             Instant start = Instant.now();
             File downloadFile = writeInputStreamToFile(new File(pathFile, downloadFileName), is);
             Instant end = Instant.now();
-            getLog().info(name + " downloaded in " + Duration.between(start, end));
+            getLog().debug(name + " downloaded in " + Duration.between(start, end));
 
             start = Instant.now();
             String downloadChecksum = ChecksumSHA1.getSHA1Checksum(downloadFile);
             end = Instant.now();
-            getLog().info(downloadChecksum+ " " + name + " created in " + Duration.between(start, end));
+            getLog().debug(downloadChecksum+ " " + name + " created in " + Duration.between(start, end));
 
             // compare new file to latest
             // if previous checksum exists

@@ -65,9 +65,6 @@ public class TermControllerUI {
                     Collections.singleton(ontologyId),
                     null,null, null, false, null, false, false, null, 10,0,model);
         }
-
-
-
         return "term";
     }
 }

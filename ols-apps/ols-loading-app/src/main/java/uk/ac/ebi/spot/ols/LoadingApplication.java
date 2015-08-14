@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.data.neo4j.config.EnableNeo4jRepositories;
+import org.springframework.data.neo4j.core.GraphDatabase;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import uk.ac.ebi.spot.ols.service.OntologyRepositoryService;
@@ -30,6 +33,8 @@ import java.util.concurrent.CountDownLatch;
  *
  */
 @SpringBootApplication
+@EnableNeo4jRepositories(basePackages = "uk.ac.ebi.spot.ols.neo4j.repository")
+@EnableMongoRepositories(basePackages = "uk.ac.ebi.spot.ols.repository.mongo")
 public class LoadingApplication implements CommandLineRunner {
 
     private Logger log = LoggerFactory.getLogger(getClass());
@@ -45,9 +50,6 @@ public class LoadingApplication implements CommandLineRunner {
     OntologyIndexingService ontologyIndexingService;
 
     @Autowired
-    List<OntologyIndexer> indexers;
-
-    @Autowired
     FileUpdater fileUpdater;
 
     private static String [] ontologies = {};
@@ -58,7 +60,6 @@ public class LoadingApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         int parseArgs = parseArguments(args);
-
 
         System.setProperty("entityExpansionLimit", "10000000");
         Map<OntologyDocument, Exception> failedOntologies = new HashMap<>();
@@ -105,7 +106,7 @@ public class LoadingApplication implements CommandLineRunner {
             try {
                 ontologyIndexingService.indexOntologyDocument(document);
             } catch (Exception e) {
-                getLog().error("Failed to create any indexes for " + document.getOntologyId());
+                getLog().error("Failed to creating indexes for " + document.getOntologyId() + ": " + e.getMessage());
             }
         }
 

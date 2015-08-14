@@ -12,8 +12,10 @@ import org.neo4j.unsafe.batchinsert.BatchInserterIndex;
 import org.neo4j.unsafe.batchinsert.BatchInserterIndexProvider;
 import org.neo4j.unsafe.batchinsert.BatchInserters;
 import org.semanticweb.owlapi.model.IRI;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
+import uk.ac.ebi.spot.ols.config.OlsNeo4jConfiguration;
 import uk.ac.ebi.spot.ols.exception.IndexingException;
 import uk.ac.ebi.spot.ols.model.OntologyIndexer;
 
@@ -29,6 +31,7 @@ import java.util.*;
  */
 @Component
 public class BatchOntologyLoader implements OntologyIndexer {
+
 
     public BatchOntologyLoader() {
 
@@ -146,9 +149,17 @@ public class BatchOntologyLoader implements OntologyIndexer {
 
     }
 
+    @Autowired
+    private GraphDatabaseService db;
+
     @Override
     public void dropIndex(OntologyLoader loader) throws IndexingException {
-        GraphDatabaseService db = new GraphDatabaseFactory().newEmbeddedDatabase( "target/batchinserter-example" );
+
+        // shutdown any autowired graph dbs for batch loading
+        db.shutdown();
+
+
+        GraphDatabaseService db = new GraphDatabaseFactory().newEmbeddedDatabase(OlsNeo4jConfiguration.getNeo4JPath());
 
         Transaction tx = db.beginTx();
         try {
@@ -166,6 +177,7 @@ public class BatchOntologyLoader implements OntologyIndexer {
             tx.close();
             db.shutdown();
         }
+
     }
 
     private static Label obsoleteLabel = DynamicLabel.label("Obsolete");
@@ -173,11 +185,6 @@ public class BatchOntologyLoader implements OntologyIndexer {
     @Override
     public void createIndex(OntologyLoader loader) throws IndexingException {
         System.setProperty("entityExpansionLimit", "10000000");
-//        try {
-//            FileUtils.deleteRecursively(new File("target/batchinserter-example"));
-//        } catch (IOException e) {
-//            throw new IndexingException();
-//        }
 
         BatchInserter inserter = null;
         // store a local cache of new local term nodes
@@ -194,7 +201,7 @@ public class BatchOntologyLoader implements OntologyIndexer {
             Label nodeOntologyLabel = DynamicLabel.label(loader.getOntologyName());
             Label _nodeLabel = DynamicLabel.label("_Class");
 
-            File file = new File("target/batchinserter-example");
+            File file = new File(OlsNeo4jConfiguration.getNeo4JPath());
             inserter = BatchInserters.inserter(
                     file.getAbsolutePath(),
                     new DefaultFileSystemAbstraction());
@@ -280,12 +287,15 @@ public class BatchOntologyLoader implements OntologyIndexer {
                 }
             }
             indexProvider.shutdown();
+        } catch (Exception e) {
+            throw new IndexingException("Neo4 indexing exception", e);
         }
         finally
         {
             if ( inserter != null )
             {
                 inserter.shutdown();
+
             }
         }
     }

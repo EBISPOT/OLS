@@ -14,11 +14,14 @@ public class OntologyLoaderFactory {
         if (config.isClassify()) {
             return new HermitOWLOntologyLoader(config);
         }
+        else if (config.isInferred()) {
+            return new StructuralOWLOntologyLoader(config);
+        }
         else if (config.isSkos()) {
             return new SKOSLoader(config);
         }
         else {
-            return new ELKOWLOntologyLoader(config);
+            return  new ELKOWLOntologyLoader(config);
         }
     }
 }

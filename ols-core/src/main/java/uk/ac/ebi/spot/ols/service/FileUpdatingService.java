@@ -57,6 +57,7 @@ public class FileUpdatingService {
 
         public void run() {
             // check if document is updated
+            getLog().info("Checking status of " + document.getOntologyId());
             OntologyResourceConfig config = document.getConfig();
             document.setStatus(Status.DOWNLOADING);
             document.setUpdated(new Date());
@@ -85,6 +86,8 @@ public class FileUpdatingService {
                 log.error("Can't get canonical path for: " + status.getFile().getPath(), e);
             }
             finally {
+                getLog().info("Status of " + document.getOntologyId() + " is " + document.getStatus());
+
                 document.setUpdated(new Date());
                 ontologyRepositoryService.update(document);
                 latch.countDown();
@@ -99,7 +102,7 @@ public class FileUpdatingService {
 
     public void checkForUpdates(List<OntologyDocument> documents, FileUpdater fileUpdateService, boolean force) {
         for(OntologyDocument document : documents) {
-            getLog().info("Starting file update check for " + document.getOntologyId());
+            getLog().debug("Starting file update check for " + document.getOntologyId());
             taskExecutor.execute(new FileUpdatingTask(document, fileUpdateService, force));
         }
     }

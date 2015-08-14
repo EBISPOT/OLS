@@ -5,5 +5,9 @@ package uk.ac.ebi.spot.ols.exception;
  * @date 04/03/2015
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
-public class OntologyIndexingException extends Exception {
+public class OntologyIndexingException extends RuntimeException {
+
+    public OntologyIndexingException(String message) {
+        super(message);
+    }
 }

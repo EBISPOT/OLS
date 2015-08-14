@@ -5,7 +5,7 @@ ontologies:
 ## EFO
 
   - id: efo
-    label: EFO
+    preferredPrefix: EFO
     title: Experimental Factor Ontology
     uri: http://www.ebi.ac.uk/efo
     definition_property:
@@ -30,7 +30,7 @@ ontologies:
 ## ORDO
 
   - id: ordo
-    label: ORDO
+    preferredPrefix: ORDO
     title: Orphanet Rare Disease Ontolog
     uri: http://www.orpha.net/ontology/orphanet.owl
     definition_property:

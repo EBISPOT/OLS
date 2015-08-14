@@ -74,7 +74,7 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
         } catch (Exception e) {
             status = Status.FAILED;
             message = e.getMessage();
-            getLog().error("Failed to create any indexes for " + document.getOntologyId());
+            throw new OntologyIndexingException("Index for " + document.getOntologyId() + " failed: " + e.getMessage());
         }
         finally {
             document.setStatus(status);

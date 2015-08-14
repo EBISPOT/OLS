@@ -254,18 +254,8 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
 
     protected void indexTerms(Collection<OWLEntity> entities) {
 
-        System.out.println("Starting to index "+ entities.size() + " entities");
-        int x = 0;
-        int y = 0;
+        getLog().debug("Starting to index " + entities.size() + " entities");
         for (OWLEntity entity: entities) {
-            if (x == 1000) {
-                System.out.println(y);
-                x = 0;
-            }
-            else {
-                x++;
-            }
-            y++;
             // get all the annotation properties
             evaluateAllAnnotationsValues(entity);
 

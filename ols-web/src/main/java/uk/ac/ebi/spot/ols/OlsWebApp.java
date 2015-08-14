@@ -1,8 +1,14 @@
 package uk.ac.ebi.spot.ols;
 
+import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.data.neo4j.config.EnableNeo4jRepositories;
+import org.springframework.data.solr.repository.config.EnableSolrRepositories;
 
 /**
  * @author Simon Jupp
@@ -11,33 +17,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @EnableAutoConfiguration
+@EnableNeo4jRepositories(basePackages = "uk.ac.ebi.spot.ols.neo4j.repository")
+@EnableMongoRepositories(basePackages = "uk.ac.ebi.spot.ols.repository.mongo")
+//@EnableSolrRepositories(basePackages = "uk.ac.ebi.spot.ols.indexer")
 public class OlsWebApp {
-
-//    @Import(RepositoryRestMvcConfiguration.class)
-//    @EnableAutoConfiguration
-//    @ComponentScan(basePackages = {"uk.ac.ebi.spot.ols"})
-//    @Configuration
-//    @EnableNeo4jRepositories(basePackages = "uk.ac.ebi.spot.ols.neo4j.repository")
-//    @EnableMongoRepositories(basePackages = "uk.ac.ebi.spot.ols.repository.mongo")
-//    static class ApplicationConfig extends Neo4jAspectConfiguration {
-//
-//        public ApplicationConfig() {
-//            setBasePackage("uk.ac.ebi.spot.ols");
-//        }
-//
-//        @Bean
-//        static GraphDatabaseService graphDatabaseService() {
-//            return new GraphDatabaseFactory().newEmbeddedDatabase("target/batchinserter-example");
-//        }
-//
-//
-//    }
-
-//    @Override
-//    public void run(String... args) throws Exception {
-//
-//    }
-
 
     public static void main(String[] args) {
         SpringApplication.run(OlsWebApp.class, args);

@@ -1,5 +1,7 @@
 package uk.ac.ebi.spot.ols.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.yaml.snakeyaml.Yaml;
 import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
 import uk.ac.ebi.spot.ols.loader.DocumentLoadingService;
@@ -19,6 +21,13 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
     private String base;
     private boolean isObo;
 
+    private Logger log = LoggerFactory.getLogger(getClass());
+
+    public Logger getLog() {
+        return log;
+    }
+
+
     public YamlBasedLoadingService (LinkedHashMap ontology, String base, boolean isObo) {
 
         this.ontology = ontology;
@@ -30,24 +39,44 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
     public OntologyResourceConfig getConfiguration() {
 
         String id = ((String)ontology.get("id")); // e.g. Uberon
-        String namespace = id.toUpperCase(); // e.g. UBERON
+        String namespace = id; // e.g. UBERON
 
         if (ontology.containsKey("preferredPrefix"))  {
             namespace =  (String) ontology.get("preferredPrefix");
+        }
+        else if (ontology.containsKey("alternativePrefix")) {
+            namespace =  (String) ontology.get("alternativePrefix");
         }
 
         String ontologyTitle = (String)ontology.get("title");
 
         ArrayList<LinkedHashMap> products = (ArrayList<LinkedHashMap>)ontology.get("products");
+
+
+
         String productId = null;
-        for(LinkedHashMap<String,String> product : products){
-            //Get the product id property which will be the the last part of the url to the owl file of the ontology.
-            //(providing the suffix of the file name is .owl).
-            productId = product.get("id");
-            if(productId.contains(".owl")) {
-                break;
+
+        if (products == null) {
+            getLog().warn("No product defined in OBO Yaml for " + id);
+           productId = id + ".owl";
+        }
+        else {
+            for(LinkedHashMap<String,String> product : products){
+                //Get the product id property which will be the the last part of the url to the owl file of the ontology.
+                //(providing the suffix of the file name is .owl).
+
+                productId = product.get("id");
+                if (product.containsKey("is_canonical")) {
+                    break;
+                }
+
+                if(productId.contains(".owl")) {
+                    productId = product.get("id");
+                    break;
+                }
             }
         }
+
 
         String uri;
         if (ontology.containsKey("uri")) {

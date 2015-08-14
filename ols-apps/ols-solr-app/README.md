@@ -9,6 +9,8 @@ e.g.
 
 java -Dsolr.solr.home=<PATH TO HERE>/ols/ols-solr/src/main/solr-conf -jar start.jar
 
+You can also optionally set the -Dsolr.data.dir= to a location where the SOLR indexes will get created
+
 Once the SOLR service is running (by default at http://localhost:8983/solr) you can create a new index as follows:
 
 1. Create an ontology configuration file. There are some examples in src/main/resources/*.properties
