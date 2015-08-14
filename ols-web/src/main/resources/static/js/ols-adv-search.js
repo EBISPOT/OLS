@@ -102,7 +102,7 @@ function processData(data) {
             if (data.expanded[row.uri] != undefined) {
 
                 $.each (data.expanded[row.uri].docs, function (expandedIndex, expandedRow) {
-                    $("<div class='ontology-source'>" + expandedRow.ontology_name + "</div>").insertAfter(ontologies);
+                    $("<div class='ontology-source'>" + expandedRow.ontology_prefix + "</div>").insertAfter(ontologies);
                 })
 
             }
@@ -113,7 +113,7 @@ function processData(data) {
         var resultHtml = $('<section></section>');
         resultHtml = resultHtml.append(link);
         resultHtml = resultHtml.append('&nbsp;&nbsp;');
-        var ontologies = $("<div class='ontology-source'>" + row.ontology_name + "</div>");
+        var ontologies = $("<div class='ontology-source'>" + row.ontology_prefix + "</div>");
 
         resultHtml = resultHtml.append(ontologies);
 
@@ -121,7 +121,7 @@ function processData(data) {
             if (data.expanded[row.uri] != undefined) {
 
                 $.each (data.expanded[row.uri].docs, function (expandedIndex, expandedRow) {
-                    resultHtml.append($("<div class='ontology-source'>" + expandedRow.ontology_name + "</div>"));
+                    resultHtml.append($("<div class='ontology-source'>" + expandedRow.ontology_prefix + "</div>"));
                 })
 
             }
@@ -142,7 +142,7 @@ function processData(data) {
 
     var searchSummary = $('#results-summary');
 
-    renderFacetField(facets.ontology_name, "Ontologies", searchSummary);
+    renderFacetField(facets.ontology_prefix, "Ontologies", searchSummary);
     renderFacetField(facets.type, "Type", searchSummary);
     //renderFacetField(facets.is_defining_ontology, "Defining ontology", searchSummary);
     //renderFacetField(facets.is_obsolete, "Is Obsolete", searchSummary);

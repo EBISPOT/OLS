@@ -3,6 +3,7 @@ $(document).ready(function() {
 
     $( "input[data-olswidget='select']" ).each(function() {
 
+        var relativePath = $(this).data("selectpath") ? $(this).data("selectpath") : '';
         $(this).devbridgeAutocomplete({
             serviceUrl: '/api/select',
             minChars: 3,
@@ -11,7 +12,7 @@ $(document).ready(function() {
             onSelect : function (suggestion)  {
                 var type = getUrlType(suggestion.data.type);
                 var encoded = encodeURIComponent(suggestion.data.iri);
-                window.location.href = 'ontology/' + suggestion.data.ontology + "/" + type + '?iri=' + encoded;
+                window.location.href = relativePath + 'ontology/' + suggestion.data.ontology + "/" + type + '?iri=' + encoded;
             },
             transformResult: function(response) {
                 return {
@@ -39,7 +40,7 @@ $(document).ready(function() {
                             }
                         }
 
-                        return { value: dataItem.label, data: {ontology: dataItem.ontology_name, iri : dataItem.uri, label: label, synonym: synonym, type: dataItem.type}};
+                        return { value: dataItem.label, data: {ontology: dataItem.ontology_name, prefix: dataItem.ontology_prefix, iri : dataItem.uri, label: label, synonym: synonym, type: dataItem.type}};
                     })
                 };
             },
@@ -52,7 +53,7 @@ $(document).ready(function() {
                     extra = "<div class='sub-text'>synonym for " + suggestion.value + "</div>"
                 }
 
-                return "<div><div class='ontology-source'>" + suggestion.data.ontology + "</div><div class='ontology-suggest''><div class='suggestion-value'>" + label + "</div>" + extra + "</div></div>";
+                return "<div><div class='ontology-source'>" + suggestion.data.prefix + "</div><div class='ontology-suggest''><div class='suggestion-value'>" + label + "</div>" + extra + "</div></div>";
             }
         });
 

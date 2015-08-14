@@ -130,7 +130,7 @@
                             </input>
                         </label>
                         <span class="examples">Examples: <a href="search?q=cancer">cancer</a>,
-                            <a href="search?q=GO:00020304">GO:00020304</a>,
+                            <a href="search?q=GO:0098743">GO:0098743</a>,
                         </span>
                     </div>
                         <div class="right">
@@ -206,7 +206,7 @@
                                     <option
                                             th:value="${{onto.getConfig().getNamespace()}}"
                                             th:each="onto : ${all_ontologies}"
-                                            th:text="${{onto.getConfig().getTitle()}} + ' (' + ${{onto.getConfig().getNamespace()}} + ')'"
+                                            th:text="${{onto.getConfig().getTitle()}} + ' (' + ${{onto.getConfig().getPreferredPrefix()}} + ')'"
                                             th:with="ontologies=${searchOptions.getOntologies()}"
                                             th:selected="${#sets.contains(ontologies , onto.getConfig().getNamespace())}"
                                             >

@@ -125,7 +125,7 @@
                             </input>
                         </label>
                         <span class="examples">Examples: <a href="search?q=cancer">cancer</a>,
-                            <a href="search?q=GO:00020304">GO:00020304</a>,
+                            <a href="search?q=GO:0098743">GO:0098743</a>,
                         </span>
                     </div>
                         <div class="right">
@@ -141,11 +141,11 @@
 
             <nav>
                 <ul class="grid_24" id="local-nav">
-                    <li class="first active"><a href="templates">Home</a></li>
-                    <li><a href="restrictions">API</a></li>
-                    <li><a href="restrictions">SPARQL</a></li>
+                    <li class="first active"><a href="index">Home</a></li>
+                    <li><a href="docs/api">API</a></li>
+                    <li><a href="sparql">SPARQL</a></li>
                     <li><a href="docs">Documentation</a></li>
-                    <li class="last" ><a href="submissions">About</a></li>
+                    <li class="last" ><a href="about">About</a></li>
                     <li class="functional last"><a href="contact" class="icon icon-generic" data-icon="C">Contact Us</a></li>
                 </ul>
             </nav>
@@ -202,7 +202,7 @@
                                     <!--@thymesVar id="onto" type="OntologyDocument"-->
                                     <a th:href="@{/ontology/__${onto.getConfig().getNamespace()}__}" th:text="${{onto.getConfig().getTitle()}}">Ontology name</a>
                                 </td>
-                                <td th:text="${{onto.getConfig().getNamespace()}}">0</td>
+                                <td th:text="${{onto.getConfig().getPreferredPrefix()}}">0</td>
                                 <td th:text="${{onto.getUpdated()}}">0</td>
                                 <td >
                                     <a th:href="'search?ontology=' + ${onto.getConfig().getNamespace()}" href="search">Search</a><br/>

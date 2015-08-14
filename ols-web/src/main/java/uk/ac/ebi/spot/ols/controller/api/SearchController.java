@@ -95,6 +95,7 @@ public class SearchController {
             fieldList.add("short_form");
             fieldList.add("obo_id");
             fieldList.add("ontology_name");
+            fieldList.add("ontology_prefix");
             fieldList.add("description");
             fieldList.add("type");
         }
@@ -131,7 +132,7 @@ public class SearchController {
         solrQuery.addHighlightField("synonym");
         solrQuery.addHighlightField("definition");
 
-        solrQuery.addFacetField("ontology_name", "type", "subset", "is_defining_ontology", "is_obsolete");
+        solrQuery.addFacetField("ontology_name", "ontology_prefix", "type", "subset", "is_defining_ontology", "is_obsolete");
 
         StringBuilder solrSearchBuilder = buildBaseSearchRequest(solrQuery.toString());
         dispatchSearch(solrSearchBuilder.toString(), response.getOutputStream());
@@ -189,6 +190,7 @@ public class SearchController {
             fieldList.add("type");
             fieldList.add("short_form");
             fieldList.add("ontology_name");
+            fieldList.add("ontology_prefix");
         }
         solrQuery.setFields( fieldList.toArray(new String[fieldList.size()]));
 

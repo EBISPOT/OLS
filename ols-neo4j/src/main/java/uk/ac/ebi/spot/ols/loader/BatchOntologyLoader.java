@@ -52,6 +52,7 @@ public class BatchOntologyLoader implements OntologyIndexer {
             }
 
             properties.put("ontologyName", loader.getOntologyName());
+            properties.put("ontologyPrefix", loader.getPreferredPrefix());
             properties.put("ontologyIri", loader.getOntologyIRI().toString());
             properties.put("isObsolete", loader.isObsoleteTerm(classIri));
             properties.put("isLocal", loader.isLocalTerm(classIri));

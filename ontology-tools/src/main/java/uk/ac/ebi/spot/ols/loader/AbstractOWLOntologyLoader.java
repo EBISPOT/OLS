@@ -45,6 +45,7 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
 
     private IRI ontologyIRI;
     private String ontologyName;
+    private String ontologyPrefix;
     private Resource ontologyResource;
     private Map<IRI, IRI> ontologyImportMappings;
 
@@ -97,11 +98,15 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
 
     private Map<IRI, Collection<String>> equivalentClassExpressionsAsString = new HashMap<>();
     private Map<IRI, Collection<String>> superclassExpressionsAsString = new HashMap<>();
+    private String preferredPrefix;
+
 
     public AbstractOWLOntologyLoader(OntologyResourceConfig config) throws OntologyLoadingException {
         // read from config
         setOntologyIRI(IRI.create(config.getId()));
         setOntologyName(config.getNamespace());
+
+        setPreferredPrefix(config.getPreferredPrefix());
         setSynonymIRIs(config.getSynonymProperties().stream()
                 .map(IRI::create).
                         collect(Collectors.toSet()));
@@ -126,11 +131,11 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
                 .collect(Collectors.toSet()));
         try {
             setOntologyResource(new UrlResource(config.getFileLocation()));
-        }
-        catch (MalformedURLException e) {
+        } catch (MalformedURLException e) {
             throw new OntologyLoadingException("Can't load file from " + config.getFileLocation(), e);
         }
     }
+
 
 
     @Override public String getShortForm(IRI ontologyTermIRI) {
@@ -1009,4 +1014,11 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
     }
 
 
+    public void setPreferredPrefix(String preferredPrefix) {
+        this.preferredPrefix = preferredPrefix;
+    }
+
+    public String getPreferredPrefix() {
+        return preferredPrefix;
+    }
 }

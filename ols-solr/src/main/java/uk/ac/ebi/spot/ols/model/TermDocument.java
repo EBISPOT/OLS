@@ -44,6 +44,9 @@ public class TermDocument {
     @Field("ontology_name")
     private String ontologyName;
 
+    @Field("ontology_prefix")
+    private String ontologyPrefix;
+
     @Field("ontology_uri")
     private String ontologyUri;
 
@@ -112,6 +115,7 @@ public class TermDocument {
             String shortForm,
             String oboId,
             String ontologyName,
+            String ontologyPrefix,
             String ontologyUri,
             String type,
             boolean isDefiningOntology,
@@ -137,6 +141,7 @@ public class TermDocument {
         this.shortForm = shortForm;
         this.oboId = oboId;
         this.ontologyName = ontologyName;
+        this.ontologyPrefix = ontologyPrefix;
         this.ontologyUri = ontologyUri;
         this.type = type;
         this.isDefiningOntology = isDefiningOntology;
@@ -232,6 +237,14 @@ public class TermDocument {
 
     public String getOntologyName() {
         return ontologyName;
+    }
+
+    public String getOntologyPrefix() {
+        return ontologyPrefix;
+    }
+
+    public void setOntologyPrefix(String ontologyPrefix) {
+        this.ontologyPrefix = ontologyPrefix;
     }
 
     public void setOntologyName(String ontologyName) {

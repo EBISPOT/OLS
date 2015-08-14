@@ -62,6 +62,7 @@
     <field name="synonym" type="text_general" indexed="true" stored="true" multiValued="true" />
     <field name="description" type="text_general" indexed="true" stored="true" multiValued="true" />
     <field name="ontology_name" type="string" indexed="true" stored="true" required="true" multiValued="false" />
+    <field name="ontology_prefix" type="string" indexed="false" stored="true" required="true" multiValued="false" />
     <field name="ontology_uri" type="string" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="type" type="string" indexed="true" stored="true" multiValued="false" />
     <field name="is_defining_ontology" type="boolean" indexed="true" stored="true" multiValued="false" />

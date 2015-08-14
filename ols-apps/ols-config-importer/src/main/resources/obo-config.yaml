@@ -420,11 +420,11 @@ ontologies:
 
 ## DPO
 
-  - id: dpo
+  - id: fbcv
     title: Drosophila Phenotype Ontology
     preferredPrefix: FBcv
     products:
-      - id: dpo.owl
+      - id: fbcv.owl
     contact:
       email: djs93@gen.cam.ac.uk
       label: David Osumi-Sutherland

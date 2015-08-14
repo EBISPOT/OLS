@@ -60,6 +60,15 @@ public interface OntologyLoader {
      */
     String getOntologyName();
 
+    /**
+     * Get the ontology preferred prefix.  This is a short name for the ontology with preferred casing, for example "FBcv" for Flybase
+     * ontology
+     *
+     * @return IRI of the ontology
+     */
+    String getPreferredPrefix();
+
+
     Collection<IRI>     getAllClasses();
     Collection<IRI> getAllObjectPropertyIRIs();
     Collection<IRI> getAllDataPropertyIRIs();

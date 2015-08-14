@@ -39,20 +39,16 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
     public OntologyResourceConfig getConfiguration() {
 
         String id = ((String)ontology.get("id")); // e.g. Uberon
-        String namespace = id; // e.g. UBERON
-
+        String prefix = id.toUpperCase();
         if (ontology.containsKey("preferredPrefix"))  {
-            namespace =  (String) ontology.get("preferredPrefix");
+            prefix =  (String) ontology.get("preferredPrefix");
+            id = prefix.toLowerCase();
         }
-        else if (ontology.containsKey("alternativePrefix")) {
-            namespace =  (String) ontology.get("alternativePrefix");
-        }
+
 
         String ontologyTitle = (String)ontology.get("title");
 
         ArrayList<LinkedHashMap> products = (ArrayList<LinkedHashMap>)ontology.get("products");
-
-
 
         String productId = null;
 
@@ -99,8 +95,10 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
         }
 
         //Build the OntologyResourceConfig and add it to the Collection.
-        OntologyResourceConfig.OntologyResourceConfigBuilder builder = new  OntologyResourceConfig.OntologyResourceConfigBuilder(uri, ontologyTitle, namespace, URI.create(location));
+        OntologyResourceConfig.OntologyResourceConfigBuilder builder = new  OntologyResourceConfig.OntologyResourceConfigBuilder(uri, ontologyTitle, id, URI.create(location));
 
+
+        builder.setPreferredPrefix(prefix);
 
         if (ontology.containsKey("definition_property"))  {
             Collection<URI> definitionUris = new HashSet<>();
@@ -148,7 +146,7 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
             builder.setBaseUris(baseUris);
         }
         else if (isObo) {
-            builder.setBaseUris(Collections.singleton(base + namespace + "_"));
+            builder.setBaseUris(Collections.singleton(base + id.toUpperCase() + "_"));
         }
         else {
             builder.setBaseUris(Collections.singleton(uri));

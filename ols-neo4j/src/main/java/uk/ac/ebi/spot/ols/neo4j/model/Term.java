@@ -39,6 +39,7 @@ public class Term {
     private Set<String> synonym;
     private Set<String> description;
     private String ontologyName;
+    private String ontologyPrefix;
     private String ontologyIri;
 
 
@@ -113,6 +114,10 @@ public class Term {
 
     public String getOntologyName() {
         return ontologyName;
+    }
+
+    public String getOntologyPrefix() {
+        return ontologyPrefix;
     }
 
     public String getOntologyIri() {

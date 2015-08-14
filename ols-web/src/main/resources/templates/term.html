@@ -123,11 +123,11 @@
                 <form id="local-search" name="local-search" action="../../../search" method="get">
                     <fieldset><div class="left">
                         <label>
-                            <input style="font-weight: normal;" type="text" name="q" data-olswidget="select" data-olsontology="" id="local-searchbox" class="ac_input">
+                            <input style="font-weight: normal;" type="text" name="q" data-olswidget="select" data-olsontology="urr" data-selectpath="../../../" id="local-searchbox" class="ac_input">
                             </input>
                         </label>
                         <span class="examples">Examples: <a href="../../../search?q=cancer">cancer</a>,
-                            <a href="../../../search?q=GO:00020304">GO:00020304</a>,
+                            <a href="../../../search?q=GO:0098743">GO:0098743</a>,
                         </span>
                     </div>
                         <div class="right">
@@ -164,7 +164,7 @@
         <nav id="breadcrumb">
             <p>
                 <a href="index">OLS</a> &gt;
-                <span class="ontology-source" th:text="${ontologyTerm.getOntologyName()}">ontology</span>       &gt;
+                <span class="ontology-source" th:text="${ontologyTerm.getOntologyPrefix()}">ontology</span>       &gt;
                 <span th:text="${ontologyTerm.getShortForm()}">id</span>
 
             </p>
@@ -198,7 +198,9 @@
                                 <div>
                                     <b>Ontology: </b> <span th:text="${ontologyName}" >ontology name</span>
                                 </div>
-
+                                <div>
+                                    <b>Ontology id: </b> <span th:text="${ontologyTerm.getOntologyName()}" >ontology id</span>
+                                </div>
                                 <div>
                                     <b>Short id: </b> <span th:text="${ontologyTerm.getShortForm()}">NCBI_9606</span>
                                 </div>
@@ -359,6 +361,9 @@
             }
             else if ($(this).hasClass('Class')) {
                 $(this).attr("href", getUrlType('class') + '?iri=' + encodeURIComponent(href));
+            }
+            else if ($(this).hasClass('Individual')) {
+                $(this).attr("href", getUrlType('individual') + '?iri=' + encodeURIComponent(href));
             }
         });
     });

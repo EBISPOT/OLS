@@ -56,6 +56,7 @@ public class TermController {
 
         Page<Term> terms = null;
 
+        ontologyId = ontologyId.toLowerCase();
         if (iri != null) {
             Term term = ontologyGraphService.findByOntologyAndIri(ontologyId, iri);
             if (term != null) {
@@ -83,6 +84,8 @@ public class TermController {
 
     @RequestMapping(path = "/{onto}/terms/{id}", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<Resource<Term>> getTerm(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId) throws ResourceNotFoundException {
+        ontologyId = ontologyId.toLowerCase();
+
         try {
             String decoded = UriUtils.decode(termId, "UTF-8");
             Term term = ontologyGraphService.findByOntologyAndIri(ontologyId, decoded);
@@ -95,6 +98,8 @@ public class TermController {
     @RequestMapping(path = "/{onto}/terms/{id}/parents", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<PagedResources<Term>> getParents(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId, Pageable pageable,
                                                 PagedResourcesAssembler assembler) {
+        ontologyId = ontologyId.toLowerCase();
+
         try {
             String decoded = UriUtils.decode(termId, "UTF-8");
             Page<Term> parents = ontologyGraphService.getParents(ontologyId, decoded, pageable);
@@ -108,6 +113,8 @@ public class TermController {
     @RequestMapping(path = "/{onto}/terms/{id}/children", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<PagedResources<Term>> children(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId, Pageable pageable,
                                               PagedResourcesAssembler assembler) {
+        ontologyId = ontologyId.toLowerCase();
+
         try {
             String decoded = UriUtils.decode(termId, "UTF-8");
             Page<Term> children = ontologyGraphService.getChildren(ontologyId, decoded, pageable);
@@ -121,6 +128,8 @@ public class TermController {
     @RequestMapping(path = "/{onto}/terms/{id}/descendants", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<PagedResources<Term>> descendants(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId, Pageable pageable,
                                                  PagedResourcesAssembler assembler) {
+        ontologyId = ontologyId.toLowerCase();
+
         try {
             String decoded = UriUtils.decode(termId, "UTF-8");
             Page<Term> descendants = ontologyGraphService.getDescendants(ontologyId, decoded, pageable);
@@ -134,6 +143,8 @@ public class TermController {
     @RequestMapping(path = "/{onto}/terms/{id}/ancestors", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<PagedResources<Term>> ancestors(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId, Pageable pageable,
                                                PagedResourcesAssembler assembler) {
+        ontologyId = ontologyId.toLowerCase();
+
         try {
             String decoded = UriUtils.decode(termId, "UTF-8");
             Page<Term> ancestors = ontologyGraphService.getAncestors(ontologyId, decoded, pageable);
@@ -146,6 +157,8 @@ public class TermController {
 
     @RequestMapping(path = "/{onto}/terms/{id}/jstree", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<String> graphD3(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId) {
+        ontologyId = ontologyId.toLowerCase();
+
         try {
             String decoded = UriUtils.decode(termId, "UTF-8");
 
@@ -163,6 +176,8 @@ public class TermController {
     @RequestMapping(path = "/{onto}/terms/{id}/{relation}", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<PagedResources<Term>> related(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId, @PathVariable("relation") String relation, Pageable pageable,
                                              PagedResourcesAssembler assembler) {
+        ontologyId = ontologyId.toLowerCase();
+
         try {
             String decodedTerm = UriUtils.decode(termId, "UTF-8");
             String decodedRelation = UriUtils.decode(relation, "UTF-8");

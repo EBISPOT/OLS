@@ -47,6 +47,7 @@ public class TermControllerUI {
             @RequestParam(value = "iri", required = false) String termIri,
             Model model) throws ResourceNotFoundException {
 
+        ontologyId = ontologyId.toLowerCase();
         if (termIri != null) {
             Term term = ontologyGraphService.findByOntologyAndIri(ontologyId, termIri);
             if (term == null) {

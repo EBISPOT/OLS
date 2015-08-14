@@ -18,6 +18,7 @@ public class OntologyResourceConfig  {
     private  String id;
     private  String title;
     private  String namespace;
+    private  String preferredPrefix;
     private  URI fileLocation;
     private  boolean isInferred;
     private  boolean classify;
@@ -31,10 +32,10 @@ public class OntologyResourceConfig  {
     private  Collection<URI> hiddenProperties;
     private boolean isSkos;
 
-    public OntologyResourceConfig(String id, String title, String namespace, URI fileLocation, boolean isInferred, boolean classify, DLExpressivity expressivity, boolean oboSlims, URI labelProperty, Collection<URI> definitionProperties, Collection<URI> synonymProperties, Collection<URI> hierarchicalProperties, Collection<String> baseUris, Collection<URI> hiddenProperties, boolean isSkos) {
+    public OntologyResourceConfig(String id, String title, String namespace, String preferredPrefix, URI fileLocation, boolean isInferred, boolean classify, DLExpressivity expressivity, boolean oboSlims, URI labelProperty, Collection<URI> definitionProperties, Collection<URI> synonymProperties, Collection<URI> hierarchicalProperties, Collection<String> baseUris, Collection<URI> hiddenProperties, boolean isSkos) {
         this.id = id;
         this.title = title;
-        this.namespace = namespace;
+        this.namespace = namespace.toLowerCase();
         this.fileLocation = fileLocation;
         this.isInferred = isInferred;
         this.classify = classify;
@@ -46,6 +47,7 @@ public class OntologyResourceConfig  {
         this.hierarchicalProperties = hierarchicalProperties;
         this.baseUris = baseUris;
         this.hiddenProperties = hiddenProperties;
+        this.preferredPrefix = preferredPrefix;
         this.isSkos = isSkos;
     }
 
@@ -56,6 +58,7 @@ public class OntologyResourceConfig  {
         this.id = builder.id;
         this.title = builder.title;
         this.namespace = builder.namespace;
+        this.preferredPrefix = builder.preferredPrefix;
         this.fileLocation = builder.fileLocation;
         this.isInferred = builder.isInferred;
         this.classify = builder.classify;
@@ -67,6 +70,7 @@ public class OntologyResourceConfig  {
         this.hierarchicalProperties = builder.hierarchicalProperties;
         this.baseUris = builder.baseUris;
         this.hiddenProperties = builder.hiddenProperties;
+        this.preferredPrefix = builder.preferredPrefix;
         this.isSkos = builder.isSkos;
     }
 
@@ -79,7 +83,14 @@ public class OntologyResourceConfig  {
     }
 
     public String getNamespace() {
-        return namespace;
+        return namespace.toLowerCase();
+    }
+
+    public String getPreferredPrefix() {
+        if (preferredPrefix == null) {
+            return namespace.toUpperCase();
+        }
+        return preferredPrefix;
     }
 
     public URI getFileLocation() {
@@ -143,6 +154,7 @@ public class OntologyResourceConfig  {
         private  String id;
         private  String title;
         private  String namespace;
+        private String preferredPrefix;
         private  URI fileLocation;
         private  boolean isInferred = true;
         private  boolean classify = false;
@@ -159,8 +171,9 @@ public class OntologyResourceConfig  {
         public OntologyResourceConfigBuilder(String id, String title, String namespace, URI fileLocation) {
             this.id = id;
             this.title = title;
-            this.namespace = namespace;
+            this.namespace = namespace.toLowerCase();
             this.fileLocation = fileLocation;
+            this.preferredPrefix = namespace;
         }
 
         public OntologyResourceConfigBuilder setId(String id) {
@@ -174,7 +187,12 @@ public class OntologyResourceConfig  {
         }
 
         public OntologyResourceConfigBuilder setNamespace(String namespace) {
-            this.namespace = namespace;
+            this.namespace = namespace.toLowerCase();
+            return this;
+        }
+
+        public OntologyResourceConfigBuilder setPreferredPrefix(String prefix) {
+            this.preferredPrefix = prefix;
             return this;
         }
 

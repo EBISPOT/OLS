@@ -72,7 +72,7 @@ $(document).ready(function() {
                 var node = tree.get_node(event.target);
                 console.log(node);
                 // Do my action
-                window.open(termType + '?iri=' + encodeURIComponent(node.original.iri));
+                window.location.href(termType + '?iri=' + encodeURIComponent(node.original.iri));
             });
         ;
 

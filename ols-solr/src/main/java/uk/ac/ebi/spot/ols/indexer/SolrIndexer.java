@@ -146,6 +146,7 @@ public class SolrIndexer implements OntologyIndexer {
         TermDocumentBuilder builder = new TermDocumentBuilder();
 
         builder.setOntologyName(loader.getOntologyName())
+                .setOntologyPrefix(loader.getPreferredPrefix())
                 .setOntologyUri(loader.getOntologyIRI().toString())
                 .setId(generateId(loader.getOntologyName(), termIRI.toString()))
                 .setUri(termIRI.toString())
