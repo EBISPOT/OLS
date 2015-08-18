@@ -67,12 +67,12 @@ public class SearchController {
         if (queryFields == null) {
             // if exact just search the supplied fields for exact matches
             if (exact) {
-                solrQuery.setQuery( createUnionQuery(query, "label_s", "synonym_s", "shortform_s", "obo_id_s", "uri_s", "annotations_s"));
+                solrQuery.setQuery( createUnionQuery(query, "label_s", "synonym_s", "shortform_s", "obo_id_s", "iri_s", "annotations_s"));
             }
             else {
                 solrQuery.set("defType", "edismax");
                 solrQuery.setQuery(query);
-                solrQuery.set("qf", "label^5 synonym^3 description short_form^2 obo_id^2 annotations logical_description uri");
+                solrQuery.set("qf", "label^5 synonym^3 description short_form^2 obo_id^2 annotations logical_description iri");
                 solrQuery.set("bq", "is_defining_ontology:true^2 label_s:\"" + query + "\"^5 synonym_s:\"" + query + "\"^3 annotations_s:\"" + query + "\"");
             }
         }
@@ -90,7 +90,7 @@ public class SearchController {
         if (fieldList == null) {
             fieldList = new HashSet<>();
             fieldList.add("id");
-            fieldList.add("uri");
+            fieldList.add("iri");
             fieldList.add("label");
             fieldList.add("short_form");
             fieldList.add("obo_id");
@@ -118,7 +118,7 @@ public class SearchController {
         }
 
         if (groupField != null) {
-            solrQuery.addFilterQuery("{!collapse field=uri}");
+            solrQuery.addFilterQuery("{!collapse field=iri}");
             solrQuery.add("expand=true", "true");
         }
 
@@ -185,7 +185,7 @@ public class SearchController {
 
         if (fieldList.isEmpty()) {
             fieldList.add("label");
-            fieldList.add("uri");
+            fieldList.add("iri");
             fieldList.add("id");
             fieldList.add("type");
             fieldList.add("short_form");

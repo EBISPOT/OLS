@@ -54,8 +54,8 @@
         in almost all Solr installations. See the <uniqueKey> declaration below where <uniqueKey> is set to "id". -->
     <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" />
 
-    <field name="uri" type="string" indexed="true" stored="true" required="true" multiValued="false" />
-    <field name="uri_key" type="int" indexed="true" stored="false" multiValued="false" />
+    <field name="iri" type="string" indexed="true" stored="true" required="true" multiValued="false" />
+    <field name="iri_key" type="int" indexed="true" stored="false" multiValued="false" />
     <field name="obo_id" type="string" indexed="true" stored="true" required="false" multiValued="false" />
     <field name="short_form" type="string" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="label" type="text_general" indexed="true" stored="true" multiValued="false" />
@@ -63,7 +63,7 @@
     <field name="description" type="text_general" indexed="true" stored="true" multiValued="true" />
     <field name="ontology_name" type="string" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="ontology_prefix" type="string" indexed="false" stored="true" required="true" multiValued="false" />
-    <field name="ontology_uri" type="string" indexed="true" stored="true" required="true" multiValued="false" />
+    <field name="ontology_iri" type="string" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="type" type="string" indexed="true" stored="true" multiValued="false" />
     <field name="is_defining_ontology" type="boolean" indexed="true" stored="true" multiValued="false" />
     <field name="subset" type="string" indexed="true" stored="true" multiValued="true" />
@@ -71,13 +71,13 @@
     <field name="is_obsolete" type="boolean" indexed="true" stored="false" multiValued="false" />
     <field name="has_children" type="boolean" indexed="true" stored="true" multiValued="false" />
     <field name="is_root" type="boolean" indexed="true" stored="true" multiValued="false" />
-    <field name="equivalent_uri" type="string" indexed="true" stored="false" required="false" multiValued="true" />
+    <field name="equivalent_iri" type="string" indexed="true" stored="false" required="false" multiValued="true" />
     <field name="logical_description" type="text_general" indexed="true" stored="true" multiValued="true" />
 
-    <field name="parent_uri" type="string" indexed="true" stored="false" multiValued="true" />
-    <field name="ancestor_uri" type="string" indexed="true" stored="false" multiValued="true" />
-    <field name="child_uri" type="string" indexed="true" stored="false" multiValued="true" />
-    <field name="descendant_uri" type="string" indexed="true" stored="false" multiValued="true" />
+    <field name="parent_iri" type="string" indexed="true" stored="false" multiValued="true" />
+    <field name="ancestor_iri" type="string" indexed="true" stored="false" multiValued="true" />
+    <field name="child_iri" type="string" indexed="true" stored="false" multiValued="true" />
+    <field name="descendant_iri" type="string" indexed="true" stored="false" multiValued="true" />
 
     <!-- Dynamic field(s) holding relation types -->
     <dynamicField name="*_annotation" type="text_general" indexed="true" stored="true" multiValued="true" />
@@ -95,7 +95,7 @@
     <copyField source="synonym" dest="synonym_s"/>;
     <copyField source="short_form" dest="shortform_s"/>;
     <copyField source="obo_id" dest="obo_id_s"/>;
-    <copyField source="uri" dest="uri_s"/>;
+    <copyField source="iri" dest="iri_s"/>;
     <copyField source="*_annotation" dest="annotations_s"/>
 
     <!-- catch all for annotations-->

@@ -19,11 +19,11 @@ public class TermDocument {
     @Field("id")
     private String id;
 
-    @Field("uri")
+    @Field("iri")
     private String uri;
 
     @JsonIgnore
-    @Field("uri_key")
+    @Field("iri_key")
     private int uri_key;
 
     @Field("short_form")
@@ -47,7 +47,7 @@ public class TermDocument {
     @Field("ontology_prefix")
     private String ontologyPrefix;
 
-    @Field("ontology_uri")
+    @Field("ontology_iri")
     private String ontologyUri;
 
     @Field("type")
@@ -69,7 +69,7 @@ public class TermDocument {
     private boolean isRoot;
 
     @JsonIgnore
-    @Field("equivalent_uri")
+    @Field("equivalent_iri")
    	private List<String> equivalentUris;
 
     @JsonIgnore
@@ -81,19 +81,19 @@ public class TermDocument {
    	private Map<String, List<String>> annotation;
 
     @JsonIgnore
-    @Field("parent_uri")
+    @Field("parent_iri")
    	private List<String> parents;
 
     @JsonIgnore
-    @Field("ancestor_uri")
+    @Field("ancestor_iri")
    	private List<String> ancestors;
 
     @JsonIgnore
-    @Field("child_uri")
+    @Field("child_iri")
    	private List<String> children;
 
     @JsonIgnore
-    @Field("descendant_uri")
+    @Field("descendant_iri")
    	private List<String> descendants;
 
     @JsonIgnore

@@ -21,35 +21,35 @@ import java.util.Set;
 public interface OntologyTermRepository extends GraphRepository<Term> {
 
     @Query(
-            countQuery = "MATCH (n:Class)-[:SUBCLASSOF]->(parent) WHERE n.ontologyName = {0} AND n.iri = {1} RETURN count(parent)",
-            value = "MATCH (n:Class)-[:SUBCLASSOF]->(parent) WHERE n.ontologyName = {0} AND n.iri = {1} RETURN parent")
+            countQuery = "MATCH (n:Class)-[:SUBCLASSOF]->(parent) WHERE n.ontology_name = {0} AND n.iri = {1} RETURN count(parent)",
+            value = "MATCH (n:Class)-[:SUBCLASSOF]->(parent) WHERE n.ontology_name = {0} AND n.iri = {1} RETURN parent")
     Page<Term> getParents(String ontologyName, String iri, Pageable pageable);
 
-    @Query( countQuery = "MATCH (n:Class)<-[:SUBCLASSOF]-(child) WHERE n.ontologyName = {0} AND n.iri = {1} RETURN count(child)",
-            value = "MATCH (n:Class)<-[:SUBCLASSOF]-(child) WHERE n.ontologyName = {0} AND n.iri = {1} RETURN child")
+    @Query( countQuery = "MATCH (n:Class)<-[:SUBCLASSOF]-(child) WHERE n.ontology_name = {0} AND n.iri = {1} RETURN count(child)",
+            value = "MATCH (n:Class)<-[:SUBCLASSOF]-(child) WHERE n.ontology_name = {0} AND n.iri = {1} RETURN child")
     Page<Term> getChildren(String ontologyName, String iri, Pageable pageable);
 
-    @Query(countQuery = "MATCH (n:Class)<-[:SUBCLASSOF*]-(child) WHERE n.ontologyName = {0} AND n.iri = {1} RETURN count(child)",
-            value = "MATCH (n:Class)<-[:SUBCLASSOF*]-(child) WHERE n.ontologyName = {0} AND n.iri = {1} RETURN child")
+    @Query(countQuery = "MATCH (n:Class)<-[:SUBCLASSOF*]-(child) WHERE n.ontology_name = {0} AND n.iri = {1} RETURN count(child)",
+            value = "MATCH (n:Class)<-[:SUBCLASSOF*]-(child) WHERE n.ontology_name = {0} AND n.iri = {1} RETURN child")
     Page<Term> getDescendants(String ontologyName, String iri, Pageable pageable);
 
-    @Query(countQuery = "MATCH (n:Class)-[:SUBCLASSOF*]->(parent) WHERE n.ontologyName = {0} AND n.iri = {1} RETURN count(parent)",
-                value = "MATCH (n:Class)-[:SUBCLASSOF*]->(parent) WHERE n.ontologyName = {0} AND n.iri = {1} RETURN parent")
+    @Query(countQuery = "MATCH (n:Class)-[:SUBCLASSOF*]->(parent) WHERE n.ontology_name = {0} AND n.iri = {1} RETURN count(parent)",
+                value = "MATCH (n:Class)-[:SUBCLASSOF*]->(parent) WHERE n.ontology_name = {0} AND n.iri = {1} RETURN parent")
     Page<Term> getAncestors(String ontologyName, String iri, Pageable pageable);
 
-    @Query(countQuery = "MATCH (n:Class)-[r:Related]->(related) WHERE n.ontologyName = {0} AND n.iri = {1} AND r.uri = {2} RETURN count(related)",
-                value = "MATCH (n:Class)-[r:Related]->(related) WHERE n.ontologyName = {0} AND n.iri = {1} AND r.uri = {2} RETURN related")
+    @Query(countQuery = "MATCH (n:Class)-[r:Related]->(related) WHERE n.ontology_name = {0} AND n.iri = {1} AND r.uri = {2} RETURN count(related)",
+                value = "MATCH (n:Class)-[r:Related]->(related) WHERE n.ontology_name = {0} AND n.iri = {1} AND r.uri = {2} RETURN related")
     Page<Term> getRelated(String ontologyName, String iri, String relation, Pageable pageable);
 
-    @Query (value = "MATCH (n:Class) WHERE n.ontologyName = {0} AND n.iri = {1} RETURN n")
+    @Query (value = "MATCH (n:Class) WHERE n.ontology_name = {0} AND n.iri = {1} RETURN n")
     Term findByOntologyAndIri(String ontologyName, String iri);
 
-    @Query (value = "MATCH (n:Class {ontologyName : {0}}) RETURN n")
+    @Query (value = "MATCH (n:Class {ontology_name : {0}}) RETURN n")
     Page<Term> findAllByOntology(String ontologyName, Pageable pageable);
 
-    @Query (value = "MATCH (n:Class) WHERE n.ontologyName = {0} AND n.shortForm = {1} RETURN n")
+    @Query (value = "MATCH (n:Class) WHERE n.ontology_name = {0} AND n.short_form = {1} RETURN n")
     Term findByOntologyAndShortForm(String ontologyId, String shortForm);
 
-    @Query (value = "MATCH (n:Class) WHERE n.ontologyName = {0} AND n.oboId = {1} RETURN n")
+    @Query (value = "MATCH (n:Class) WHERE n.ontology_name = {0} AND n.obo_id = {1} RETURN n")
     Term findByOntologyAndOboId(String ontologyId, String oboId);
 }

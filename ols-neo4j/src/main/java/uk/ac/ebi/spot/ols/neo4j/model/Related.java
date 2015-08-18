@@ -1,5 +1,6 @@
 package uk.ac.ebi.spot.ols.neo4j.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.neo4j.annotation.*;
 
 /**
@@ -15,6 +16,9 @@ public class Related {
 
     String uri;
     String label;
+
+    @GraphProperty(propertyName="ontology_name")
+    @JsonProperty(value = "ontology_name")
     String ontologyName;
 
     @StartNode

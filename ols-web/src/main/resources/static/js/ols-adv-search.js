@@ -79,7 +79,7 @@ function processData(data) {
     // render search results
     var searchResult = $('#search-results');
     $.each(docs, function(index, row) {
-        var encodedUri = encodeURIComponent(row.uri);
+        var encodedUri = encodeURIComponent(row.iri);
         var type = getUrlType(row.type);
 
         var link = $('<a>',{
@@ -99,9 +99,9 @@ function processData(data) {
         }
 
         if (data.expanded != undefined) {
-            if (data.expanded[row.uri] != undefined) {
+            if (data.expanded[row.iri] != undefined) {
 
-                $.each (data.expanded[row.uri].docs, function (expandedIndex, expandedRow) {
+                $.each (data.expanded[row.iri].docs, function (expandedIndex, expandedRow) {
                     $("<div class='ontology-source'>" + expandedRow.ontology_prefix + "</div>").insertAfter(ontologies);
                 })
 
@@ -118,9 +118,9 @@ function processData(data) {
         resultHtml = resultHtml.append(ontologies);
 
         if (data.expanded != undefined) {
-            if (data.expanded[row.uri] != undefined) {
+            if (data.expanded[row.iri] != undefined) {
 
-                $.each (data.expanded[row.uri].docs, function (expandedIndex, expandedRow) {
+                $.each (data.expanded[row.iri].docs, function (expandedIndex, expandedRow) {
                     resultHtml.append($("<div class='ontology-source'>" + expandedRow.ontology_prefix + "</div>"));
                 })
 
@@ -128,7 +128,7 @@ function processData(data) {
         }
 
         resultHtml = resultHtml.append('<br/>');
-        resultHtml = resultHtml.append($('<span class="search-results-url"></span>').text(row.uri));
+        resultHtml = resultHtml.append($('<span class="search-results-url"></span>').text(row.iri));
         resultHtml = resultHtml.append('<br/>');
         resultHtml = resultHtml.append($('<span class="search-results-description"></span>').text(description));
         resultHtml = resultHtml.append('<br/><hr/>');

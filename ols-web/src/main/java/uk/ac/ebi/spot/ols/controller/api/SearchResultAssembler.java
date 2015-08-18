@@ -38,7 +38,7 @@ public class SearchResultAssembler implements ResourceAssembler<TermDocument, Re
 //                resource.add(lb.slash("jstree").withRel("jstree"));
 //            }
 //
-//            if (!term.isHasChildren()) {
+//            if (!term.hasChildren()) {
 //                resource.add(lb.slash("children").withRel("children"));
 //                resource.add(lb.slash("descendants").withRel("descendants"));
 //            }

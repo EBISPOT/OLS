@@ -2,21 +2,24 @@ package uk.ac.ebi.spot.ols.neo4j.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.neo4j.graphdb.Direction;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.neo4j.annotation.*;
 import org.springframework.data.neo4j.fieldaccess.DynamicProperties;
 import org.springframework.data.neo4j.fieldaccess.DynamicPropertiesContainer;
 
-import java.util.*;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 /**
  * @author Simon Jupp
- * @date 30/04/2015
+ * @date 17/08/2015
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
 @NodeEntity
-@TypeAlias(value = "Class")
-public class Term {
+@TypeAlias(value = "Property")
+public class Property {
 
     @GraphId
     @JsonIgnore
@@ -26,15 +29,19 @@ public class Term {
     private String olsId;
 
     @GraphProperty(propertyName="iri")
+    @JsonProperty(value = "iri")
     private String iri;
 
     @GraphProperty(propertyName="label")
+    @JsonProperty(value = "label")
     private String label;
 
     @GraphProperty(propertyName="synonym")
+    @JsonProperty(value = "synonym")
     private Set<String> synonym;
 
     @GraphProperty(propertyName="description")
+    @JsonProperty(value = "description")
     private Set<String> description;
 
     @GraphProperty(propertyName="ontology_name")
@@ -48,12 +55,6 @@ public class Term {
     @GraphProperty(propertyName="ontology_iri")
     @JsonProperty(value = "ontology_iri")
     private String ontologyIri;
-
-    @JsonIgnore
-    private Set<String> superClassDescription;
-
-    @JsonIgnore
-    private Set<String> equivalentClassDescription;
 
     @GraphProperty(propertyName="is_obsolete")
     @JsonProperty(value = "is_obsolete")
@@ -78,44 +79,12 @@ public class Term {
     @GraphProperty(propertyName="obo_id")
     @JsonProperty(value = "obo_id")
     private String oboId;
-//    private List<String> subsets;
 
     private DynamicProperties annotation = new DynamicPropertiesContainer();
 
-    @JsonIgnore
-    @RelatedToVia
-    @Fetch Set<Related> related;
+    @RelatedTo(type="SUBPROPERTYOF", direction = Direction.OUTGOING)
+    @Fetch Set<Property> parent;
 
-    public Term() {
-    }
-
-    /**
-     * This method gets the distinct set of relations by relation label
-     * @return
-     */
-    public Set<Related> getRelated() {
-        Set<Related> unique = new HashSet<>();
-        Set<String> seen = new HashSet<>();
-        for (Related related1 : related) {
-            if (seen.contains(related1.getLabel())){
-                unique.add(related1);
-            }
-            seen.add(related1.getLabel());
-        }
-        return unique;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public void setIri(String iri) {
-        this.iri = iri;
-    }
 
     public String getIri() {
         return iri;
@@ -123,10 +92,6 @@ public class Term {
 
     public String getLabel() {
         return label;
-    }
-
-    public String getOlsId() {
-        return olsId;
     }
 
     public Set<String> getSynonyms() {
@@ -137,6 +102,7 @@ public class Term {
         return description;
     }
 
+    @JsonProperty(value = "ontology_name")
     public String getOntologyName() {
         return ontologyName;
     }
@@ -149,29 +115,9 @@ public class Term {
         return ontologyIri;
     }
 
-    public void setDescription(Set<String> description) {
-        this.description = description;
-    }
-
-    public void setSynonyms(Set<String> synonyms) {
-        this.synonym = synonyms;
-    }
-
-    public void setOntologyName(String ontologyName) {
-        this.ontologyName = ontologyName;
-    }
-
-    public void setAnnotation(DynamicProperties annotation) {
-        this.annotation = annotation;
-    }
-
     @JsonProperty(value = "is_obsolete")
     public boolean isObsolete() {
         return isObsolete;
-    }
-
-    public Map getAnnotation() {
-        return new TreeMap<String, Object>(annotation.asMap());
     }
 
     @JsonProperty(value = "is_defining_ontology")
@@ -179,46 +125,27 @@ public class Term {
         return isLocal;
     }
 
-    @JsonProperty(value = "is_root")
-    public boolean isRoot() {
-        return isRoot;
-    }
-
     @JsonProperty(value = "has_children")
     public boolean hasChildren() {
         return hasChildren;
+    }
+
+    @JsonProperty(value = "is_root")
+    public boolean isRoot() {
+        return isRoot;
     }
 
     public String getShortForm() {
         return shortForm;
     }
 
-    public void setShortForm(String shortForm) {
-        this.shortForm = shortForm;
-    }
-
     public String getOboId() {
         return oboId;
     }
 
-    public void setOboId(String oboId) {
-        this.oboId = oboId;
+    public Map getAnnotation() {
+        return new TreeMap<String, Object>(annotation.asMap());
     }
 
 
-    public Set<String> getSuperClassDescription() {
-        return superClassDescription;
-    }
-
-    public void setSuperClassDescription(Set<String> superClassDescription) {
-        this.superClassDescription = superClassDescription;
-    }
-
-    public Set<String> getEquivalentClassDescription() {
-        return equivalentClassDescription;
-    }
-
-    public void setEquivalentClassDescription(Set<String> equivalentClassDescription) {
-        this.equivalentClassDescription = equivalentClassDescription;
-    }
 }

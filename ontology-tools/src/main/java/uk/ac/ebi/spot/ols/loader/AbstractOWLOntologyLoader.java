@@ -4,6 +4,7 @@ import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
+import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleIRIMapper;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
@@ -322,6 +323,16 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
                 @Override
                 public void visit(OWLNamedIndividual individual) {
                     individuals.add(individual.getIRI());
+                    // add types as parents
+                    Set<IRI> instanceTypes = new HashSet<IRI>();
+                    for (OWLClassExpression expression : individual.getTypes(ontology)) {
+                        if (expression instanceof  OWLClass) {
+                            instanceTypes.add( ((OWLClass) expression).getIRI());
+                        }
+                    }
+                    if (!instanceTypes.isEmpty()) {
+                        addDirectParents(individual.getIRI(), instanceTypes);
+                    }
                 }
 
                 @Override
@@ -347,6 +358,14 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
             }
         }
         addDirectParents(property.getIRI(), superProperties);
+
+        Set<IRI> subProperties = new HashSet<>();
+        for (OWLObjectPropertyExpression owlProperty : property.getSubProperties(ontology)) {
+            if (!owlProperty.isAnonymous()) {
+                subProperties.add(owlProperty.asOWLObjectProperty().getIRI());
+            }
+        }
+        addDirectChildren(property.getIRI(), subProperties);
     }
 
     protected  void indexSubclassRelations(OWLClass owlClass) throws OWLOntologyCreationException {

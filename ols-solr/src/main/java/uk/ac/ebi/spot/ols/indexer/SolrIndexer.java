@@ -156,8 +156,15 @@ public class SolrIndexer implements OntologyIndexer {
                 .setShortForm(loader.getShortForm(termIRI))
                 .setOboId(loader.getOboId(termIRI))
                 .setHasChildren(loader.getDirectChildTerms().containsKey(termIRI))
-                .setSubsets(new ArrayList<>(loader.getSubsets(termIRI)))
-                .setLabel(loader.getTermLabels().get(termIRI));
+                .setSubsets(new ArrayList<>(loader.getSubsets(termIRI)));
+
+        if (!loader.getTermLabels().containsKey(termIRI)) {
+            builder.setLabel(loader.getShortForm(termIRI));
+        }
+        else  {
+            builder.setLabel(loader.getTermLabels().get(termIRI));
+        }
+
 
 //        try {
 //

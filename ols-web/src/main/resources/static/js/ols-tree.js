@@ -42,16 +42,28 @@ $(document).ready(function() {
                                 var newData = [];
                                 var parentId = node.id;
                                 var counter = 1;
-                                $.each(data._embedded.terms, function(index, term) {
+
+                                var results;
+                                if (termType == "properties") {
+                                    console.log("getting term type:" + termType);
+                                    results = data._embedded.properties;
+                                }
+                                else if (termType == "individuals") {
+                                    results = data._embedded.individuals;
+                                }
+                                else {
+                                    results = data._embedded.terms;
+                                }
+                                $.each(results, function(index, term) {
                                     newData.push(
                                         {
                                             "id" : parentId + "_" + counter,
                                             "parent" : parentId,
                                             "iri" : term.iri,
-                                            "ontologyName" : term.ontologyName,
+                                            "ontology_name" : term.ontology_name,
                                             "text" : term.label,
-                                            "leaf" : term.leafNode,
-                                            "children" : !term.leafNode
+                                            "leaf" : !term.has_children,
+                                            "children" : term.has_children
                                         }
                                     );
                                     counter++;
@@ -72,7 +84,7 @@ $(document).ready(function() {
                 var node = tree.get_node(event.target);
                 console.log(node);
                 // Do my action
-                window.location.href(termType + '?iri=' + encodeURIComponent(node.original.iri));
+                window.location.href = termType + '?iri=' + encodeURIComponent(node.original.iri);
             });
         ;
 

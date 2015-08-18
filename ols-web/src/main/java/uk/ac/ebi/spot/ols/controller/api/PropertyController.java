@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.UriUtils;
-import uk.ac.ebi.spot.ols.neo4j.model.Term;
-import uk.ac.ebi.spot.ols.neo4j.service.OntologyTermGraphService;
+import uk.ac.ebi.spot.ols.neo4j.model.Property;
+import uk.ac.ebi.spot.ols.neo4j.service.OntologyPropertyGraphService;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
@@ -34,15 +34,16 @@ import java.util.Arrays;
  */
 @Controller
 @RequestMapping("/api/ontology")
-public class TermController {
+public class PropertyController {
 
     @Autowired
-    private OntologyTermGraphService ontologyTermGraphService;
+    private OntologyPropertyGraphService ontologyPropertyGraphService;
 
-    @Autowired TermAssembler termAssembler;
+    @Autowired
+    PropertyAssembler termAssembler;
 
-    @RequestMapping(path = "{onto}/terms", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
-    HttpEntity<PagedResources<Term>> terms(
+    @RequestMapping(path = "{onto}/properties", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
+    HttpEntity<PagedResources<Property>> getAllProperties(
             @PathVariable("onto") String ontologyId,
             @RequestParam(value = "iri", required = false) String iri,
             @RequestParam(value = "short_form", required = false) String shortForm,
@@ -50,55 +51,55 @@ public class TermController {
             Pageable pageable,
             PagedResourcesAssembler assembler) {
 
-        Page<Term> terms = null;
+        Page<Property> terms = null;
 
         ontologyId = ontologyId.toLowerCase();
         if (iri != null) {
-            Term term = ontologyTermGraphService.findByOntologyAndIri(ontologyId, iri);
+            Property term = ontologyPropertyGraphService.findByOntologyAndIri(ontologyId, iri);
             if (term != null) {
-                terms =  new PageImpl<Term>(Arrays.asList(term));
+                terms =  new PageImpl<Property>(Arrays.asList(term));
             }
         }
         else if (shortForm != null) {
-            Term term = ontologyTermGraphService.findByOntologyAndShortForm(ontologyId, shortForm);
+            Property term = ontologyPropertyGraphService.findByOntologyAndShortForm(ontologyId, shortForm);
             if (term != null) {
-                terms =  new PageImpl<Term>(Arrays.asList(term));
+                terms =  new PageImpl<Property>(Arrays.asList(term));
             }
         }
         else if (oboId != null) {
-            Term term = ontologyTermGraphService.findByOntologyAndOboId(ontologyId, oboId);
+            Property term = ontologyPropertyGraphService.findByOntologyAndOboId(ontologyId, oboId);
             if (term != null) {
-                terms =  new PageImpl<Term>(Arrays.asList(term));
+                terms =  new PageImpl<Property>(Arrays.asList(term));
             }
         }
         else {
-          terms = ontologyTermGraphService.findAllByOntology(ontologyId, pageable);
+          terms = ontologyPropertyGraphService.findAllByOntology(ontologyId, pageable);
         }
 
         return new ResponseEntity<>( assembler.toResource(terms, termAssembler), HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/{onto}/terms/{id}", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
-    HttpEntity<Resource<Term>> getTerm(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId) throws ResourceNotFoundException {
+    @RequestMapping(path = "/{onto}/properties/{id}", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
+    HttpEntity<Resource<Property>> getProperty(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId) throws ResourceNotFoundException {
         ontologyId = ontologyId.toLowerCase();
 
         try {
             String decoded = UriUtils.decode(termId, "UTF-8");
-            Term term = ontologyTermGraphService.findByOntologyAndIri(ontologyId, decoded);
+            Property term = ontologyPropertyGraphService.findByOntologyAndIri(ontologyId, decoded);
             return new ResponseEntity<>( termAssembler.toResource(term), HttpStatus.OK);
         } catch (UnsupportedEncodingException e) {
             throw new ResourceNotFoundException();
         }
     }
 
-    @RequestMapping(path = "/{onto}/terms/{id}/parents", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
-    HttpEntity<PagedResources<Term>> getParents(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId, Pageable pageable,
+    @RequestMapping(path = "/{onto}/properties/{id}/parents", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
+    HttpEntity<PagedResources<Property>> getParents(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId, Pageable pageable,
                                                 PagedResourcesAssembler assembler) {
         ontologyId = ontologyId.toLowerCase();
 
         try {
             String decoded = UriUtils.decode(termId, "UTF-8");
-            Page<Term> parents = ontologyTermGraphService.getParents(ontologyId, decoded, pageable);
+            Page<Property> parents = ontologyPropertyGraphService.getParents(ontologyId, decoded, pageable);
             return new ResponseEntity<>( assembler.toResource(parents, termAssembler), HttpStatus.OK);
         }
         catch (UnsupportedEncodingException e) {
@@ -106,14 +107,14 @@ public class TermController {
         }
     }
 
-    @RequestMapping(path = "/{onto}/terms/{id}/children", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
-    HttpEntity<PagedResources<Term>> children(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId, Pageable pageable,
+    @RequestMapping(path = "/{onto}/properties/{id}/children", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
+    HttpEntity<PagedResources<Property>> children(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId, Pageable pageable,
                                               PagedResourcesAssembler assembler) {
         ontologyId = ontologyId.toLowerCase();
 
         try {
             String decoded = UriUtils.decode(termId, "UTF-8");
-            Page<Term> children = ontologyTermGraphService.getChildren(ontologyId, decoded, pageable);
+            Page<Property> children = ontologyPropertyGraphService.getChildren(ontologyId, decoded, pageable);
             return new ResponseEntity<>( assembler.toResource(children, termAssembler), HttpStatus.OK);
         }
         catch (UnsupportedEncodingException e) {
@@ -121,14 +122,14 @@ public class TermController {
         }
     }
 
-    @RequestMapping(path = "/{onto}/terms/{id}/descendants", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
-    HttpEntity<PagedResources<Term>> descendants(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId, Pageable pageable,
+    @RequestMapping(path = "/{onto}/properties/{id}/descendants", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
+    HttpEntity<PagedResources<Property>> descendants(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId, Pageable pageable,
                                                  PagedResourcesAssembler assembler) {
         ontologyId = ontologyId.toLowerCase();
 
         try {
             String decoded = UriUtils.decode(termId, "UTF-8");
-            Page<Term> descendants = ontologyTermGraphService.getDescendants(ontologyId, decoded, pageable);
+            Page<Property> descendants = ontologyPropertyGraphService.getDescendants(ontologyId, decoded, pageable);
             return new ResponseEntity<>( assembler.toResource(descendants, termAssembler), HttpStatus.OK);
         }
         catch (UnsupportedEncodingException e) {
@@ -136,14 +137,14 @@ public class TermController {
         }
     }
 
-    @RequestMapping(path = "/{onto}/terms/{id}/ancestors", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
-    HttpEntity<PagedResources<Term>> ancestors(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId, Pageable pageable,
+    @RequestMapping(path = "/{onto}/properties/{id}/ancestors", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
+    HttpEntity<PagedResources<Property>> ancestors(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId, Pageable pageable,
                                                PagedResourcesAssembler assembler) {
         ontologyId = ontologyId.toLowerCase();
 
         try {
             String decoded = UriUtils.decode(termId, "UTF-8");
-            Page<Term> ancestors = ontologyTermGraphService.getAncestors(ontologyId, decoded, pageable);
+            Page<Property> ancestors = ontologyPropertyGraphService.getAncestors(ontologyId, decoded, pageable);
             return new ResponseEntity<>( assembler.toResource(ancestors, termAssembler), HttpStatus.OK);
         }
         catch (UnsupportedEncodingException e) {
@@ -151,14 +152,14 @@ public class TermController {
         }
     }
 
-    @RequestMapping(path = "/{onto}/terms/{id}/jstree", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
-    HttpEntity<String> graphD3(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId) {
+    @RequestMapping(path = "/{onto}/properties/{id}/jstree", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
+    HttpEntity<String> getJsTree(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId) {
         ontologyId = ontologyId.toLowerCase();
 
         try {
             String decoded = UriUtils.decode(termId, "UTF-8");
 
-            Object object= ontologyTermGraphService.getJsTree(ontologyId, decoded);
+            Object object= ontologyPropertyGraphService.getJsTree(ontologyId, decoded);
             ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
             return new HttpEntity<String>(ow.writeValueAsString(object));
         } catch (JsonProcessingException e) {
@@ -167,23 +168,6 @@ public class TermController {
             e.printStackTrace();
         }
         throw new ResourceNotFoundException();
-    }
-
-    @RequestMapping(path = "/{onto}/terms/{id}/{relation}", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
-    HttpEntity<PagedResources<Term>> related(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId, @PathVariable("relation") String relation, Pageable pageable,
-                                             PagedResourcesAssembler assembler) {
-        ontologyId = ontologyId.toLowerCase();
-
-        try {
-            String decodedTerm = UriUtils.decode(termId, "UTF-8");
-            String decodedRelation = UriUtils.decode(relation, "UTF-8");
-            Page<Term> related = ontologyTermGraphService.getRelated(ontologyId, decodedTerm, decodedRelation, pageable);
-
-            return new ResponseEntity<>( assembler.toResource(related, termAssembler), HttpStatus.OK);
-        }
-        catch (UnsupportedEncodingException e) {
-            throw new ResourceNotFoundException();
-        }
     }
 
     private String decode (String iri) throws UnsupportedEncodingException {

@@ -40,7 +40,7 @@ $(document).ready(function() {
                             }
                         }
 
-                        return { value: dataItem.label, data: {ontology: dataItem.ontology_name, prefix: dataItem.ontology_prefix, iri : dataItem.uri, label: label, synonym: synonym, type: dataItem.type}};
+                        return { value: dataItem.label, data: {ontology: dataItem.ontology_name, prefix: dataItem.ontology_prefix, iri : dataItem.iri, label: label, synonym: synonym, type: dataItem.type}};
                     })
                 };
             },

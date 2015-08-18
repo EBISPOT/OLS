@@ -7,12 +7,9 @@ import org.springframework.hateoas.ResourceAssembler;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriUtils;
-import uk.ac.ebi.spot.ols.neo4j.model.Related;
-import uk.ac.ebi.spot.ols.neo4j.model.Term;
+import uk.ac.ebi.spot.ols.neo4j.model.Property;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Collection;
-import java.util.HashSet;
 
 /**
  * @author Simon Jupp
@@ -20,18 +17,18 @@ import java.util.HashSet;
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
 @Component
-public class TermAssembler implements ResourceAssembler<Term, Resource<Term>> {
+public class PropertyAssembler implements ResourceAssembler<Property, Resource<Property>> {
 
     @Autowired
     EntityLinks entityLinks;
 
     @Override
-    public Resource<Term> toResource(Term term) {
-        Resource<Term> resource = new Resource<Term>(term);
+    public Resource<Property> toResource(Property term) {
+        Resource<Property> resource = new Resource<Property>(term);
         try {
             String id = UriUtils.encode(term.getIri(), "UTF-8");
             final ControllerLinkBuilder lb = ControllerLinkBuilder.linkTo(
-                    ControllerLinkBuilder.methodOn(TermController.class).getTerm(term.getOntologyName(), id));
+                    ControllerLinkBuilder.methodOn(PropertyController.class).getProperty(term.getOntologyName(), id));
 
             resource.add(lb.withSelfRel());
 
@@ -46,17 +43,6 @@ public class TermAssembler implements ResourceAssembler<Term, Resource<Term>> {
                 resource.add(lb.slash("descendants").withRel("descendants"));
             }
 
-            Collection<String> relation = new HashSet<>();
-            for (Related related : term.getRelated()) {
-                if (!relation.contains(related.getLabel())) {
-                    String relationId = UriUtils.encode(related.getUri(), "UTF-8");
-
-                    resource.add(lb.slash(relationId).withRel(related.getLabel()));
-                }
-                relation.add(related.getLabel());
-            }
-
-//        resource.add(lb.slash("related").withRel("related"));
             // other links
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

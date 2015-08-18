@@ -12,8 +12,8 @@
          More info: h5bp.com/b/378 -->
     <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> --> <!-- Not yet implemented -->
 
-    <!--@thymesVar id="ontologyTerm" type="uk.ac.ebi.spot.ols.neo4j.model.Term"-->
-    <title th:text="${ontologyTerm.getShortForm()} + ' &lt; Ontology Lookup Service &lt; EMBL-EBI'"> Term &lt; Ontology Lookup Service &lt; EMBL-EBI</title>
+    <!--@thymesVar id="ontologyIndividual" type="uk.ac.ebi.spot.ols.neo4j.model.Individual"-->
+    <title th:text="${ontologyIndividual.getShortForm()} + ' &lt; Ontology Lookup Service &lt; EMBL-EBI'"> Term &lt; Ontology Lookup Service &lt; EMBL-EBI</title>
     <meta name="description" content="EMBL-EBI"/><!-- Describe what this page is about -->
     <meta name="keywords" content="bioinformatics, europe, institute"/><!-- A few keywords that relate to the content of THIS PAGE (not the whol project) -->
     <meta name="author" content="EMBL-EBI"/><!-- Your [project-name] here -->
@@ -156,16 +156,16 @@
 
     </header>
 
-    <!--@thymesVar id="ontologyTerm" type="uk.ac.ebi.spot.ols.neo4j.model.Term"-->
+    <!--@thymesVar id="ontologyIndividual" type="uk.ac.ebi.spot.ols.neo4j.model.Individual"-->
     <!--@thymesVar id="ontologyName" type="String"-->
-    <!--@thymesVar id="parentTerms" type="Set"-->
+    <!--@thymesVar id="parentProperties" type="Set"-->
     <div id="content" role="main" class="grid_24 clearfix">
 
         <nav id="breadcrumb">
             <p>
                 <a href="index">OLS</a> &gt;
-                <span class="ontology-source" th:text="${ontologyTerm.getOntologyPrefix()}">ontology</span>       &gt;
-                <span th:text="${ontologyTerm.getShortForm()}">id</span>
+                <span class="ontology-source" th:text="${ontologyIndividual.getOntologyPrefix()}">ontology</span>       &gt;
+                <span th:text="${ontologyIndividual.getShortForm()}">id</span>
 
             </p>
         </nav>
@@ -177,12 +177,12 @@
             <section>
                 <div class="grid_24 clearfix">
                     <div class="grid_24 alpha clearfix">
-                        <h1 style="margin: 0px;" th:text="${ontologyTerm.getLabel()}">Term label</h1>
-                        <span style="font-size: small;color: grey;padding: 9px;" th:text="${ontologyTerm.getIri()}">http://www.example.com/onto/id</span>
+                        <h1 style="margin: 0px;" th:text="${ontologyIndividual.getLabel()}">Term label</h1>
+                        <span style="font-size: small;color: grey;padding: 9px;" th:text="${ontologyIndividual.getIri()}">http://www.example.com/onto/id</span>
 
                         <hr style="margin-left: 9px;"/>
 
-                        <p th:each="description : ${ontologyTerm.getDescription()}" th:text="${description}">
+                        <p th:each="description : ${ontologyIndividual.getDescription()}" th:text="${description}">
 
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget <nulla class=""></nulla>                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum.
                         </p>
@@ -192,11 +192,13 @@
             </section>
 
             <section>
+
                 <div class="grid_24 clearfix">
-                    <div class="grid_14 alpha">
+
+                    <div class="grid_14 alpha clearfix">
                         <ul  class="nav nav-tabs">
                             <li role="presentation" class="active"><a data-toggle="tab" href="#tree-tab">Tree view</a></li>
-                            <li role="presentation"><a data-toggle="tab" href="#meta-tab">Term metadata</a></li>
+                            <li role="presentation"><a data-toggle="tab" href="#meta-tab">Meta data</a></li>
                             <!--<li role="presentation"><a data-toggle="tab"  href="#graph-tab">Graph view</a></li>-->
                         </ul>
 
@@ -205,7 +207,7 @@
 
                             <div role="tabpanel" class="tab-pane active" id="tree-tab">
 
-                                <div id="term-tree" data-olswidget="tree" th:attr="data-olsontology=${ontologyTerm.getOntologyName()},data-ols-iri=${ontologyTerm.getIri()}" data-ols-termtype="class" data-olsontology="" data-ols-iri=""  >
+                                <div id="term-tree" data-olswidget="tree" th:attr="data-olsontology=${ontologyIndividual.getOntologyName()},data-ols-iri=${ontologyIndividual.getIri()}" data-ols-termtype="individual" data-olsontology="" data-ols-iri=""  >
                                 </div>
 
                             </div>
@@ -213,14 +215,14 @@
                             <div role="tabpanel" class="tab-pane" id="meta-tab">
 
                                 <br/>
-                                <div th:if="${ontologyTerm.getSynonyms() !=null}">
+                                <div th:if="${ontologyIndividual.getSynonyms() !=null}">
                                     <b>Synonyms</b>
-                                    <p style="margin-left:9px;" th:text="${#strings.setJoin(ontologyTerm.getSynonyms(), ', ')}">NCBI_9606</p>
+                                    <p style="margin-left:9px;" th:text="${#strings.setJoin(ontologyIndividual.getSynonyms(), ', ')}">NCBI_9606</p>
                                 </div>
 
-                                <div th:each="annotations: ${ontologyTerm.getAnnotation()}">
+                                <div th:each="annotations: ${ontologyIndividual.getAnnotation()}">
                                     <b>
-                                        <a href="#" th:href="@{../../../search(q=${annotations.key},exact='true', type=property, ontology=${ontologyTerm.ontologyName})}" th:text="${annotations.key.replaceAll('_', ' ')}">property name</a>
+                                        <a href="#" th:href="@{../../../search(q=${annotations.key},exact='true', type=property, ontology=${ontologyIndividual.ontologyName})}" th:text="${annotations.key.replaceAll('_', ' ')}">property name</a>
                                     </b>
                                     <p style="margin-left:9px;" th:text="${#strings.setJoin(annotations.value, ',')}">NCBI_9606</p>
                                 </div>
@@ -235,6 +237,9 @@
                         </div>
 
                     </div>
+
+
+
                     <div class="grid_10 beta">
 
                         <div class="panel panel-primary">
@@ -247,49 +252,33 @@
                                     <b>Ontology: </b> <span th:text="${ontologyName}" >ontology name</span>
                                 </div>
                                 <div>
-                                    <b>Ontology id: </b> <span th:text="${ontologyTerm.getOntologyName()}" >ontology id</span>
+                                    <b>Ontology id: </b> <span th:text="${ontologyIndividual.getOntologyName()}" >ontology id</span>
                                 </div>
                                 <div>
-                                    <b>Term type: </b> <span>Class</span>
+                                    <b>Term type: </b> <span>Individual</span>
                                 </div>
                                 <div>
-                                    <b>Short id: </b> <span th:text="${ontologyTerm.getShortForm()}">NCBI_9606</span>
+                                    <b>Short id: </b> <span th:text="${ontologyIndividual.getShortForm()}">NCBI_9606</span>
                                 </div>
 
-                                <div th:if="${ontologyTerm.getOboId() != null}">
-                                    <b>OBO id: </b> <span th:text="${ontologyTerm.getOboId()}">NCBI:9606</span>
+                                <div th:if="${ontologyIndividual.getOboId() != null}">
+                                    <b>OBO id: </b> <span th:text="${ontologyIndividual.getOboId()}">NCBI:9606</span>
                                 </div>
 
-                                <div th:if="${parentTerms != null}">
-                                    <b>Parents</b>
+                                <div th:if="${indvidualTypes != null}">
+                                    <b>Types</b>
                                     <br/>
-                                    <div th:each="parentTerm : ${parentTerms}">
-                                        <a href="#" th:href="@{terms (iri=${parentTerm.getIri()})}" th:text="${parentTerm.getLabel()}">parent 1</a>
+                                    <div th:each="type : ${indvidualTypes}">
+                                        <a href="#" th:href="@{terms (iri=${type.getIri()})}" th:text="${type.getLabel()}">parent 1</a>
                                     </div>
                                 </div>
 
-
-                                <div  th:if="${ontologyTerm.getSuperClassDescription() != null}">
-                                    <b>Related: </b>
-                                    <br/>
-                                    <div th:each="superclassDesc : ${ontologyTerm.getSuperClassDescription()}" th:utext="${superclassDesc}">NCBI_9606</div>
-
-                                </div>
-
-                                <div  th:if="${ontologyTerm.getEquivalentClassDescription() != null}">
-                                    <b>Equivalent to: </b>
-                                    <br/>
-                                    <div th:each="equivclassDesc : ${ontologyTerm.getEquivalentClassDescription()}" th:utext="${equivclassDesc}">NCBI_9606</div>
-
-                                </div>
                             </div>
                         </div>
 
                     </div>
 
                 </div>
-
-
 
 
 

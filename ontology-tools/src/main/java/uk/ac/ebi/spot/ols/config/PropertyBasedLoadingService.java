@@ -43,10 +43,10 @@ public class PropertyBasedLoadingService extends AbstractLoadingService {
     }
 
     public OntologyResourceConfig getConfiguration() {
-        String preferredPrefix = id.toUpperCase();
+        String preferredPrefix = namespace.toUpperCase();
         if (environment.containsProperty("preferred_prefix")) {
             preferredPrefix = environment.getProperty("preferred_prefix");
-            id = preferredPrefix.toLowerCase();
+            namespace = preferredPrefix.toLowerCase();
         }
 
         OntologyResourceConfig.OntologyResourceConfigBuilder builder =
