@@ -97,4 +97,7 @@ public class OntologyTermGraphService {
     }
 
 
+    public Page<Term> getRoots(String ontologyId,Pageable pageable) {
+        return termRepository.getRoots(ontologyId, pageable);
+    }
 }

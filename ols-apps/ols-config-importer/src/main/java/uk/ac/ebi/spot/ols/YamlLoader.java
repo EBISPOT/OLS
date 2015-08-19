@@ -77,19 +77,19 @@ public class YamlLoader implements CommandLineRunner {
             updateDocument(yamlConfigParser);
         }
 
-        if (!oboYamlPath.equals("")) {
-            UrlResource resource = new UrlResource(oboYamlPath);
-            YamlConfigParser yamlConfigParser = new YamlConfigParser(resource, true);
-            updateDocument(yamlConfigParser);
-        }
-        else if (getClass().getClassLoader().getResource("obo-config.yaml") != null) {
-            File oboYaml = new File(getClass().getClassLoader().getResource("obo-config.yaml").getPath());
-            if (Files.exists(oboYaml.toPath())) {
-                Resource resource = new FileSystemResource(oboYaml);
-                YamlConfigParser yamlConfigParser = new YamlConfigParser(resource, true);
-                updateDocument(yamlConfigParser);
-            }
-        }
+//        if (!oboYamlPath.equals("")) {
+//            UrlResource resource = new UrlResource(oboYamlPath);
+//            YamlConfigParser yamlConfigParser = new YamlConfigParser(resource, true);
+//            updateDocument(yamlConfigParser);
+//        }
+//        else if (getClass().getClassLoader().getResource("obo-config.yaml") != null) {
+//            File oboYaml = new File(getClass().getClassLoader().getResource("obo-config.yaml").getPath());
+//            if (Files.exists(oboYaml.toPath())) {
+//                Resource resource = new FileSystemResource(oboYaml);
+//                YamlConfigParser yamlConfigParser = new YamlConfigParser(resource, true);
+//                updateDocument(yamlConfigParser);
+//            }
+//        }
 
     }
 

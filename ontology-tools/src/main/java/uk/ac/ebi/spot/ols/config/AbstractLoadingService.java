@@ -22,7 +22,7 @@ public abstract class AbstractLoadingService implements DocumentLoadingService {
     public OntologyLoader getLoader() throws OntologyLoadingException {
         OntologyResourceConfig config = getConfiguration();
 
-        getLog().info("Starting up with " + config.getId() + " - " + config.getTitle());
+        getLog().info("Starting up loader with " + config.getId() + " - " + config.getTitle());
 
         return  OntologyLoaderFactory.getLoader(config);
     }

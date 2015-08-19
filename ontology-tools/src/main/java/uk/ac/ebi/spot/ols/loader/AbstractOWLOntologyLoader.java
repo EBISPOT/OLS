@@ -46,7 +46,12 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
 
     private IRI ontologyIRI;
     private String ontologyName;
-    private String ontologyPrefix;
+    private String ontologyTitle;
+    private String ontologyDescription;
+    private String ontologyHomePage;
+    private String ontologyMailingList;
+    private Collection<String> ontologyCreators;
+    private Map<String, Collection<String>> ontologyAnnotations;
     private Resource ontologyResource;
     private Map<IRI, IRI> ontologyImportMappings;
 
@@ -106,6 +111,13 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
         // read from config
         setOntologyIRI(IRI.create(config.getId()));
         setOntologyName(config.getNamespace());
+        setOntologyTitle(config.getTitle());
+
+        setOntologyDescription(config.getDescription());
+        setOntologyHomePage(config.getHomepage());
+        setOntologyMailingList(config.getMailingList());
+        setOntologyCreators(config.getCreators());
+
 
         setPreferredPrefix(config.getPreferredPrefix());
         setSynonymIRIs(config.getSynonymProperties().stream()
@@ -240,11 +252,14 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
             // cache all URIs for classes, properties and individuals
             getLog().debug("Computing indexes...");
 
+
             Collection<OWLEntity> allEntities = new HashSet<>();
             for (OWLOntology ontology1 : manager.getOntologies()) {
                 allEntities.addAll(ontology1.getSignature());
             }
             indexTerms(allEntities);
+            indexOntologyAnnotations(ontology.getAnnotations());
+
             return ontology;
         }
         catch (OWLOntologyCreationException e) {
@@ -256,6 +271,55 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
             discardReasoner(ontology);
             getLog().info("Done loading/indexing");
         }
+    }
+
+    private void indexOntologyAnnotations(Set<OWLAnnotation> owlAnnotations) {
+
+        Set<String> creators = new HashSet<>();
+        Map<String, Collection<String>> annotations = new HashMap<>();
+        for (OWLAnnotation annotation : owlAnnotations) {
+
+            OWLAnnotationProperty property = annotation.getProperty();
+            OWLAnnotationValue value = annotation.getValue();
+            Optional<String> thevalue = getOWLAnnotationValueAsString(value);
+
+            IRI propertyIri = property.getIRI();
+
+            if (propertyIri.toString().equals(OntologyDefaults.DEFINITION)) {
+                if (thevalue.isPresent()) {
+                    setOntologyDescription(thevalue.get());
+                }
+            }
+            else if (propertyIri.toString().equals(OntologyDefaults.TITLE)) {
+                if (thevalue.isPresent()) {
+                    setOntologyTitle(thevalue.get());
+                }
+            }
+            else if (propertyIri.toString().equals(OntologyDefaults.CREATOR)) {
+                if (thevalue.isPresent()) {
+                    creators.add(thevalue.get());
+                }
+            }
+            else if (propertyIri.toString().equals(OntologyDefaults.MAILINGLIST)) {
+                if (thevalue.isPresent()) {
+                    setOntologyMailingList(thevalue.get());
+                }
+            }
+            else if (propertyIri.toString().equals(OntologyDefaults.HOMEPAGE)) {
+                if (thevalue.isPresent()) {
+                    setOntologyHomePage(thevalue.get());
+                }
+            }
+            else  {
+                String propertyLabel = ontologyLabels.get(propertyIri);
+                if (!annotations.containsKey(propertyLabel)) {
+                    annotations.put(propertyLabel, new HashSet<>());
+                }
+                annotations.get(propertyLabel).add(thevalue.get());
+            }
+        }
+        setOntologyCreators(creators);
+        setOntologyAnnotations(annotations);
     }
 
     protected void indexTerms(Collection<OWLEntity> entities) {
@@ -852,6 +916,10 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
         this.ontologyName = ontologyName;
     }
 
+
+    public void setOntologyDescription(String ontologyName) {
+        this.ontologyDescription = ontologyName;
+    }
     /**
      * Returns the short name of the ontology
      *
@@ -1040,4 +1108,53 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
     public String getPreferredPrefix() {
         return preferredPrefix;
     }
+
+    public void setOntologyAnnotations(Map<String, Collection<String>> annotations) {
+        this.ontologyAnnotations = annotations;
+    }
+
+    public void setOntologyHomePage(String ontologyHomePage) {
+        this.ontologyHomePage = ontologyHomePage;
+    }
+
+    public void setOntologyMailingList(String ontologyMailingList) {
+        this.ontologyMailingList = ontologyMailingList;
+    }
+
+    public void setOntologyCreators(Collection<String> ontologyCreators) {
+        this.ontologyCreators = ontologyCreators;
+    }
+
+    public void setOntologyTitle(String ontologyTitle) {
+        this.ontologyTitle = ontologyTitle;
+    }
+
+
+    public String getTitle() {
+        return ontologyTitle;
+    }
+
+    @Override
+    public String getOntologyDescription() {
+        return ontologyDescription;
+    }
+
+    public String getHomePage() {
+        return ontologyHomePage;
+    }
+
+    public String getMailingList() {
+        return ontologyMailingList;
+    }
+
+    public Collection<String> getCreators() {
+        return ontologyCreators;
+    }
+
+    @Override
+    public Map<String, Collection<String>> getOntologyAnnotations() {
+        return ontologyAnnotations;
+    }
+
+
 }

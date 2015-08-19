@@ -30,13 +30,13 @@ public interface OntologyLoader {
      * override where the ontology is loaded from
      * @param ontologyResource
      */
-    public void setOntologyResource(Resource ontologyResource);
+    void setOntologyResource(Resource ontologyResource);
 
     /**
      * override where the ontology imports are loaded from
      * @param ontologyImportMappings
      */
-    public void setOntologyImportMappings(Map<IRI, IRI> ontologyImportMappings);
+     void setOntologyImportMappings(Map<IRI, IRI> ontologyImportMappings);
 
     /**
      * Get the IRIs of the property used to indicate a term or class definition
@@ -74,7 +74,6 @@ public interface OntologyLoader {
     Collection<IRI> getAllDataPropertyIRIs();
     Collection<IRI> getAllIndividualIRIs();
     Collection<IRI> getAllAnnotationPropertyIRIs();
-
 
     /**
      * Returns a mapping between the IRIs that identify classes in the loaded ontology and the corresponding class
@@ -123,6 +122,17 @@ public interface OntologyLoader {
     Map<IRI, Collection<IRI>> getAllParentTerms();
 
 
+    /**
+     * Get a map of ontology annotations
+     * @return annotation a map of ontology annotations
+     */
+    String getTitle();
+
+    Map<String, Collection<String>> getOntologyAnnotations();
+    String getOntologyDescription();
+    String getHomePage();
+    String getMailingList();
+    Collection<String> getCreators();
 
     Map<IRI, Collection<IRI>> getDirectChildTerms();
     Collection<IRI> getDirectChildTerms(IRI iri);

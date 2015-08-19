@@ -1,10 +1,14 @@
 package uk.ac.ebi.spot.ols.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Simon Jupp
@@ -28,6 +32,7 @@ public class OntologyDocument {
 
     private String message;
 
+    @JsonIgnore
     private String localPath;
 
     private int numberOfTerms;
@@ -48,13 +53,7 @@ public class OntologyDocument {
     }
 
     public OntologyDocument(String ontologyId, OntologyResourceConfig config) {
-        this.ontologyId = ontologyId;
-        this.config = config;
-        this.status = Status.NOTLOADED;
-        this.message = "No ontology loaded";
-        this.localPath = null;
-        this.updated = new Date();
-        this.numberOfTerms = 0;
+        this(ontologyId, new Date(), Status.NOTLOADED, "No ontology loaded", null, 0, config);
     }
 
     public String getOntologyId() {

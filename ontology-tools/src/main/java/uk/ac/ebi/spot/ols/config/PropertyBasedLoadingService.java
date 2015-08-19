@@ -110,6 +110,18 @@ public class PropertyBasedLoadingService extends AbstractLoadingService {
             builder.setOboSlims(Boolean.parseBoolean(environment.getProperty("oboSlims")));
         }
 
+        if (environment.containsProperty("description")) {
+            builder.setDescription(environment.getProperty("description"));
+        }
+
+        if (environment.containsProperty("homepage")) {
+            builder.setDescription(environment.getProperty("homepage"));
+        }
+
+        if (environment.containsProperty("mailing_list")) {
+            builder.setDescription(environment.getProperty("mailing_list"));
+        }
+
         this.config = builder.build();
         return config;
 

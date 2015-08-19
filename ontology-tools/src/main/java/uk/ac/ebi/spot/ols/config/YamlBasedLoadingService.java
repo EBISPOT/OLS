@@ -167,6 +167,25 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
             builder.setOboSlims(true);
         }
 
+        if (ontology.containsKey("description")) {
+            builder.setDescription((String) ontology.get("description"));
+        }
+
+        if (ontology.containsKey("homepage")) {
+            builder.setHomepage((String) ontology.get("homepage"));
+        }
+
+        if (ontology.containsKey("mailing_list")) {
+            builder.setMailingList((String) ontology.get("mailing_list"));
+        }
+
+        if (ontology.containsKey("creator"))  {
+            Set<String> creators = new HashSet<>();
+            for (String creator :  (ArrayList<String>) ontology.get("creator")) {
+                creators.add(creator);
+            }
+            builder.setCreators(creators);
+        }
 
         return builder.build();
 

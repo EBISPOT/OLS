@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Component;
+import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
 import uk.ac.ebi.spot.ols.exception.OntologyIndexingException;
 import uk.ac.ebi.spot.ols.loader.OntologyLoader;
 import uk.ac.ebi.spot.ols.loader.OntologyLoaderFactory;
@@ -65,6 +66,29 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
                     indexer.dropIndex(loader);
                     indexer.createIndex(loader);
                 }
+
+                // update any ontology meta data
+                OntologyResourceConfig config = document.getConfig();
+
+                if (loader.getTitle() != null) {
+                    config.setTitle(loader.getTitle());
+                }
+                if (loader.getOntologyDescription() != null) {
+                    config.setDescription(loader.getOntologyDescription());
+                }
+                if (loader.getHomePage() != null) {
+                    config.setHomepage(loader.getHomePage());
+                }
+                if (loader.getMailingList() != null) {
+                    config.setMailingList(loader.getMailingList());
+                }
+                if (!loader.getCreators().isEmpty()) {
+                    config.setCreators(loader.getCreators());
+                }
+                if (!loader.getOntologyAnnotations().keySet().isEmpty()) {
+                    config.setAnnotations(loader.getOntologyAnnotations());
+                }
+                document.setConfig(config);
                 document.setNumberOfTerms(classes.size());
             }
             status = Status.LOADED;

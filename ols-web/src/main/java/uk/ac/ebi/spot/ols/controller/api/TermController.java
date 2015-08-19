@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.UriUtils;
+import uk.ac.ebi.spot.ols.model.OntologyDocument;
 import uk.ac.ebi.spot.ols.neo4j.model.Term;
 import uk.ac.ebi.spot.ols.neo4j.service.OntologyTermGraphService;
 
@@ -72,10 +73,22 @@ public class TermController {
             }
         }
         else {
-          terms = ontologyTermGraphService.findAllByOntology(ontologyId, pageable);
+            terms = ontologyTermGraphService.findAllByOntology(ontologyId, pageable);
         }
 
         return new ResponseEntity<>( assembler.toResource(terms, termAssembler), HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/{onto}/roots", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
+    HttpEntity<PagedResources<Term>> getRoots(
+            @PathVariable("onto") String ontologyId,
+            Pageable pageable,
+            PagedResourcesAssembler assembler
+    ) throws ResourceNotFoundException {
+        ontologyId = ontologyId.toLowerCase();
+
+        Page<Term> roots = ontologyTermGraphService.getRoots(ontologyId, pageable);
+        return new ResponseEntity<>( assembler.toResource(roots, termAssembler), HttpStatus.OK);
     }
 
     @RequestMapping(path = "/{onto}/terms/{id}", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
