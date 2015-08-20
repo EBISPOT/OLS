@@ -1,6 +1,6 @@
 package uk.ac.ebi.spot.ols.service;
 
-import uk.ac.ebi.spot.ols.exception.OntologyIndexingException;
+import uk.ac.ebi.spot.ols.exception.IndexingException;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
 
 /**
@@ -10,6 +10,6 @@ import uk.ac.ebi.spot.ols.model.OntologyDocument;
  */
 public interface OntologyIndexingService {
 
-    void indexOntologyDocument(OntologyDocument document) throws OntologyIndexingException;
+    void indexOntologyDocument(OntologyDocument document) throws IndexingException;
 
 }

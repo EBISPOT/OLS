@@ -12,6 +12,8 @@ import org.neo4j.unsafe.batchinsert.BatchInserterIndex;
 import org.neo4j.unsafe.batchinsert.BatchInserterIndexProvider;
 import org.neo4j.unsafe.batchinsert.BatchInserters;
 import org.semanticweb.owlapi.model.IRI;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import uk.ac.ebi.spot.ols.config.OlsNeo4jConfiguration;
@@ -30,6 +32,10 @@ import java.util.*;
  */
 @Component
 public class BatchOntologyLoader implements OntologyIndexer {
+    private Logger log = LoggerFactory.getLogger(getClass());
+    public Logger getLog() {
+        return log;
+    }
 
 
     public BatchOntologyLoader() {
@@ -174,15 +180,15 @@ public class BatchOntologyLoader implements OntologyIndexer {
         Transaction tx = db.beginTx();
         try {
             String cypherDelete = "match (n:" + loader.getOntologyName().toUpperCase() + ")-[r]->(p) delete n,r";
-            System.out.println("executing delete: " + cypherDelete);
+            getLog().info("executing delete: " + cypherDelete);
             Result result = db.execute(cypherDelete);
-            System.out.println(result.resultAsString());
+            getLog().info(result.resultAsString());
 
             // clear up any roots
             String cypherDeleteRoot = "match (n:Root { ontology_name: '" + loader.getOntologyName() + "'}) delete n";
-            System.out.println("executing delete: " + cypherDeleteRoot);
+            getLog().info("executing delete: " + cypherDeleteRoot);
             Result res2 = db.execute(cypherDeleteRoot);
-            System.out.println(res2.resultAsString());
+            getLog().info(res2.resultAsString());
 
             tx.success();
         }
@@ -388,6 +394,12 @@ public class BatchOntologyLoader implements OntologyIndexer {
                     inserter.createRelationship( node, defaultType, typeOf, rdfTypeProperties);
                 }
             }
+
+            getLog().info("Neo4j indexed " + loader.getAllClasses().size() + " classes");
+            getLog().info("Neo4j indexed " + loader.getAllObjectPropertyIRIs().size() + " object properties");
+            getLog().info("Neo4j indexed " + loader.getAllAnnotationPropertyIRIs().size() + " data properties");
+            getLog().info("Neo4j indexed " + loader.getAllDataPropertyIRIs().size() + " annotation properties");
+            getLog().info("Neo4j indexed " + loader.getAllIndividualIRIs().size() + " inidivudals");
 
             indexProvider.shutdown();
         } catch (Exception e) {

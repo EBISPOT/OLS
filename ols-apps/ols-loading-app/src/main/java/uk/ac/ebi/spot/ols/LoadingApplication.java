@@ -102,13 +102,16 @@ public class LoadingApplication implements CommandLineRunner {
         latch.await();
 
         // For all ontologies set to load, create the new index
+
         for (OntologyDocument document : ontologyRepositoryService.getAllDocumentsByStatus(Status.TOLOAD)) {
             try {
                 ontologyIndexingService.indexOntologyDocument(document);
             } catch (Exception e) {
-                getLog().error("Failed to creating indexes for " + document.getOntologyId() + ": " + e.getMessage());
+                getLog().error("Application failed creating indexes for " + document.getOntologyId() + ": " + e.getMessage());
+                System.exit(1);
             }
         }
+
 
         System.exit(0);
     }

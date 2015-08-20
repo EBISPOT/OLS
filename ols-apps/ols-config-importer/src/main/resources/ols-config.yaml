@@ -8,6 +8,9 @@ ontologies:
     preferredPrefix: EFO
     title: Experimental Factor Ontology
     uri: http://www.ebi.ac.uk/efo
+    description: "The Experimental Factor Ontology (EFO) provides a systematic description of many experimental variables available in EBI databases, and for external projects such as the NHGRI GWAS catalogue. It combines parts of several biological ontologies, such as anatomy, disease and chemical compounds. The scope of EFO is to support the annotation, analysis and visualization of data handled by many groups at the EBI and as the core ontology for the Centre for Therapeutic Validation (CTTV)"
+    homepage: http://www.ebi.ac.uk/efo
+    mailing_list: efo-users@lists.sourceforge.net
     definition_property:
       - http://www.ebi.ac.uk/efo/definition
     synonym_property:
@@ -31,6 +34,9 @@ ontologies:
 
   - id: ordo
     preferredPrefix: ORDO
+    description: "The Orphanet Rare Disease ontology (ORDO) is jointly developed by Orphanet and the EBI to provide a structured vocabulary for rare diseases capturing relationships between diseases, genes and other relevant features which will form a useful resource for the computational analysis of rare diseases.
+                  It derived from the Orphanet database (www.orpha.net ) , a multilingual database dedicated to rare diseases populated from literature and validated by international experts.
+                  It integrates a nosology (classification of rare diseases), relationships (gene-disease relations, epiemological data) and connections with other terminologies (MeSH, UMLS, MedDRA),databases (OMIM, UniProtKB, HGNC, ensembl, Reactome, IUPHAR, Geantlas) or classifications (ICD10)."
     title: Orphanet Rare Disease Ontolog
     uri: http://www.orpha.net/ontology/orphanet.owl
     definition_property:
@@ -48,4 +54,24 @@ ontologies:
     oboSlims: false
     products:
      - id: http://www.orphadata.org/data/ORDO/ordo_orphanet.owl
+       type: owl:Ontology
+
+## TEDDY
+
+  - id: teddy
+    preferredPrefix: TEDDY
+    description: "TEDDY is an ontology for dynamical behaviours, observable dynamical phenomena, and control elements of bio-models and biological systems in Systems and Synthetic Biology."
+    title: "Terminology for Description of Dynamics"
+    uri: http://identifiers.org/teddy/
+    definition_property:
+      - http://www.w3.org/2004/02/skos/core#definition
+    synonym_property:
+      - http://www.w3.org/2004/02/skos/core#altLabel
+    base_uri:
+      - http://identifiers.org/teddy/TEDDY_
+    isInferred: true
+    classify: false
+    oboSlims: false
+    products:
+     - id: http://www.biomodels.net/teddy/TEDDY
        type: owl:Ontology

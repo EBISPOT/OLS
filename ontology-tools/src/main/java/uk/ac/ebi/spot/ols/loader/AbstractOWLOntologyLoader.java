@@ -269,7 +269,7 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
         finally {
             setReady(true);
             discardReasoner(ontology);
-            getLog().info("Done loading/indexing");
+            getLog().info("Loaded " + ontologyIRI);
         }
     }
 
@@ -499,7 +499,7 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
 
                     OWLObjectSomeValuesFrom someValuesFrom = (OWLObjectSomeValuesFrom) expression;
 
-                    if (!someValuesFrom.getFiller().isAnonymous()) {
+                    if (!someValuesFrom.getFiller().isAnonymous() && ! someValuesFrom.getProperty().isAnonymous()) {
                         IRI propertyIRI = someValuesFrom.getProperty().asOWLObjectProperty().getIRI();
                         IRI relatedTerm = someValuesFrom.getFiller().asOWLClass().getIRI();
                         if (!relatedTerms.containsKey(propertyIRI)) {
@@ -712,7 +712,7 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
         else if (value instanceof OWLLiteral) {
             return Optional.of(((OWLLiteral) value).getLiteral());
         }
-        return Optional.empty();
+        return Optional.of("");
 
     }
 

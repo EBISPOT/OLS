@@ -3,6 +3,7 @@ package uk.ac.ebi.spot.ols.config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
+import uk.ac.ebi.spot.ols.exception.ConfigParsingException;
 import uk.ac.ebi.spot.ols.loader.*;
 
 /**
@@ -20,13 +21,18 @@ public abstract class AbstractLoadingService implements DocumentLoadingService {
 
     @Override
     public OntologyLoader getLoader() throws OntologyLoadingException {
-        OntologyResourceConfig config = getConfiguration();
 
-        getLog().info("Starting up loader with " + config.getId() + " - " + config.getTitle());
+        try {
+            OntologyResourceConfig config = getConfiguration();
+            getLog().info("Starting up loader with " + config.getId() + " - " + config.getTitle());
 
-        return  OntologyLoaderFactory.getLoader(config);
+            return  OntologyLoaderFactory.getLoader(config);
+        } catch (ConfigParsingException e) {
+            throw new OntologyLoadingException("Can't get configuration for loader: " + e.getMessage());
+        }
+
     }
 
 
-    public abstract OntologyResourceConfig getConfiguration ();
+    public abstract OntologyResourceConfig getConfiguration () throws ConfigParsingException;
 }

@@ -2,10 +2,7 @@ package uk.ac.ebi.spot.ols.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yaml.snakeyaml.Yaml;
-import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
-import uk.ac.ebi.spot.ols.loader.DocumentLoadingService;
-import uk.ac.ebi.spot.ols.loader.OntologyLoader;
+import uk.ac.ebi.spot.ols.exception.ConfigParsingException;
 
 import java.net.URI;
 import java.util.*;
@@ -36,13 +33,13 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
     }
 
     @Override
-    public OntologyResourceConfig getConfiguration() {
+    public OntologyResourceConfig getConfiguration() throws ConfigParsingException {
 
         String id = ((String)ontology.get("id")); // e.g. Uberon
         String prefix = id.toUpperCase();
         if (ontology.containsKey("preferredPrefix"))  {
             prefix =  (String) ontology.get("preferredPrefix");
-            id = prefix.toLowerCase();
+//            id = prefix.toLowerCase();
         }
 
 
@@ -82,7 +79,7 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
             uri = base + productId;
         }
         else {
-            throw new RuntimeException("Can't determine ontology URI for " + ontologyTitle);
+            throw new ConfigParsingException("Can't determine ontology URI for " + ontologyTitle);
         }
 
         String location = uri;
@@ -172,7 +169,12 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
         }
 
         if (ontology.containsKey("homepage")) {
-            builder.setHomepage((String) ontology.get("homepage"));
+            if (ontology.get("homepage") instanceof ArrayList) {
+                ArrayList pages = (ArrayList) ontology.get("homepage");
+                builder.setHomepage((String) pages.get(0));
+            } else {
+                builder.setHomepage((String) ontology.get("homepage"));
+            }
         }
 
         if (ontology.containsKey("mailing_list")) {

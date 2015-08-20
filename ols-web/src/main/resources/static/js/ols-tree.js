@@ -12,13 +12,11 @@ $(document).ready(function() {
         console.log("Init tree for: " + ontologyName + " - " + termIri + " - " + termType);
         // show errors if above not defined
 
-        // show loading
-
         // build tree
         $.jstree.defaults.core.data = true;
         $.jstree.defaults.core.expand_selected_onload = true;
 
-        var rootUrl = '/api/ontology/' + ontologyName + '/roots';
+        var rootUrl = '/api/ontology/' + ontologyName + '/roots?size=1000';
         var baseUrl = '/api/ontology/' + ontologyName + '/' + termType + '/';
         var url = baseUrl + encodeURIComponent(encodeURIComponent(termIri)) + '/jstree' ;
         console.log("tree url " + url)
@@ -28,15 +26,6 @@ $(document).ready(function() {
                     'data': function (node, cb) {
                         console.log("node id: " + node.id + " term " + termIri);
 
-                        //if (termIri === '') {
-                        //    console.log("am i here 1")
-                        //
-                        //    $.getJSON (rootUrl, function(data) {
-                        //        var data = _processOlsData(data, '#', termType);
-                        //        console.log("roots data " + data)
-                        //        cb(data)
-                        //    });
-                        //}
                         if (node.id === '#' && termIri != '') {
                             $.getJSON(url, function (data) {
                                 cb(data)
@@ -60,35 +49,6 @@ $(document).ready(function() {
                                 var data = _processOlsData(data, parentId, termType);
                                 cb(data)
 
-                                //var newData = [];
-                                //var counter = 1;
-                                //
-                                //var results;
-                                //if (termType == "properties") {
-                                //    console.log("getting term type:" + termType);
-                                //    results = data._embedded.properties;
-                                //}
-                                //else if (termType == "individuals") {
-                                //    results = data._embedded.individuals;
-                                //}
-                                //else {
-                                //    results = data._embedded.terms;
-                                //}
-                                //$.each(results, function(index, term) {
-                                //    newData.push(
-                                //        {
-                                //            "id" : parentId + "_" + counter,
-                                //            "parent" : parentId,
-                                //            "iri" : term.iri,
-                                //            "ontology_name" : term.ontology_name,
-                                //            "text" : term.label,
-                                //            "leaf" : !term.has_children,
-                                //            "children" : term.has_children
-                                //        }
-                                //    );
-                                //    counter++;
-                                //});
-                                //cb(newData)
                             });
                         }
 

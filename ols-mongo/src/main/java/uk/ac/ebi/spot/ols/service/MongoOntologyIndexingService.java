@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Component;
 import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
-import uk.ac.ebi.spot.ols.exception.OntologyIndexingException;
+import uk.ac.ebi.spot.ols.exception.IndexingException;
+import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
 import uk.ac.ebi.spot.ols.loader.OntologyLoader;
 import uk.ac.ebi.spot.ols.loader.OntologyLoaderFactory;
 import uk.ac.ebi.spot.ols.model.Status;
@@ -15,6 +16,7 @@ import uk.ac.ebi.spot.ols.model.OntologyDocument;
 import uk.ac.ebi.spot.ols.model.OntologyIndexer;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -39,68 +41,89 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
     List<OntologyIndexer> indexers;
 
     @Override
-    public void indexOntologyDocument(OntologyDocument document) throws OntologyIndexingException {
+    public void indexOntologyDocument(OntologyDocument document) throws IndexingException {
 
-
-        document.setStatus(Status.LOADING);
-        ontologyRepositoryService.update(document);
-
-        Status status = Status.FAILED;
+        OntologyLoader loader = null;
+        Collection<IRI> classes;
+        Collection<IRI> properties;
+        Collection<IRI> individuals;
         String message = "";
-        try {
-            OntologyLoader loader = OntologyLoaderFactory.getLoader(document.getConfig());
+        Status status = Status.FAILED;
 
+        try {
+            loader = OntologyLoaderFactory.getLoader(document.getConfig());
             if (document.getLocalPath() != null) {
                 // if updated get local path, and set location to local file
                 loader.setOntologyResource(new FileSystemResource(document.getLocalPath()));
             }
+            classes = loader.getAllClasses();
+            properties = loader.getAllObjectPropertyIRIs();
+            individuals = loader.getAllIndividualIRIs();
 
-            Collection<IRI> classes = loader.getAllClasses();
-            if (classes.size() + loader.getAllObjectPropertyIRIs().size() == 0) {
-                getLog().warn("No classes or properties found in latest version of " + loader.getOntologyName() + ": Won't index!");
-                message = "Last update had no classes or properties so was ignored";
-            } else  {
-                // get all the available indexers
-                for (OntologyIndexer indexer : indexers) {
-                    // create the new index
-                    indexer.dropIndex(loader);
-                    indexer.createIndex(loader);
-                }
-
-                // update any ontology meta data
-                OntologyResourceConfig config = document.getConfig();
-
-                if (loader.getTitle() != null) {
-                    config.setTitle(loader.getTitle());
-                }
-                if (loader.getOntologyDescription() != null) {
-                    config.setDescription(loader.getOntologyDescription());
-                }
-                if (loader.getHomePage() != null) {
-                    config.setHomepage(loader.getHomePage());
-                }
-                if (loader.getMailingList() != null) {
-                    config.setMailingList(loader.getMailingList());
-                }
-                if (!loader.getCreators().isEmpty()) {
-                    config.setCreators(loader.getCreators());
-                }
-                if (!loader.getOntologyAnnotations().keySet().isEmpty()) {
-                    config.setAnnotations(loader.getOntologyAnnotations());
-                }
-                document.setConfig(config);
-                document.setNumberOfTerms(classes.size());
+            if (classes.size() + properties.size() + individuals.size() < 10) {
+                getLog().error("A suspiciously small or zero classes or properties found in latest version of " + loader.getOntologyName() + ": Won't index!");
+                message = "Failed to load - last update had no classes or properties so was rejected";
+                document.setStatus(Status.FAILED);
+                document.setMessage(message);
+                ontologyRepositoryService.update(document);
+                // don't try to index, just return
+                return;
             }
-            status = Status.LOADED;
-            ontologyRepositoryService.update(document);
-
 
         } catch (Exception e) {
+            message = "Problem loading file so didn't proceed to index";
+            getLog().error(message, e);
+            document.setStatus(Status.FAILED);
+            document.setMessage(message);
+            ontologyRepositoryService.update(document);
+            throw new IndexingException("Problem loading file so didn't proceed to index", e);
+        }
+
+        document.setStatus(Status.LOADING);
+        ontologyRepositoryService.update(document);
+        // if we get to here, we should have at least loaded the ontology
+        try {
+
+            // get all the available indexers
+            for (OntologyIndexer indexer : indexers) {
+                // create the new index
+                indexer.dropIndex(loader);
+                indexer.createIndex(loader);
+            }
+
+            // update any ontology meta data
+            OntologyResourceConfig config = document.getConfig();
+
+            if (loader.getTitle() != null) {
+                config.setTitle(loader.getTitle());
+            }
+            if (loader.getOntologyDescription() != null) {
+                config.setDescription(loader.getOntologyDescription());
+            }
+            if (loader.getHomePage() != null) {
+                config.setHomepage(loader.getHomePage());
+            }
+            if (loader.getMailingList() != null) {
+                config.setMailingList(loader.getMailingList());
+            }
+            if (!loader.getCreators().isEmpty()) {
+                config.setCreators(loader.getCreators());
+            }
+            if (!loader.getOntologyAnnotations().keySet().isEmpty()) {
+                config.setAnnotations(loader.getOntologyAnnotations());
+            }
+            document.setConfig(config);
+            document.setNumberOfTerms(classes.size());
+            status = Status.LOADED;
+
+        } catch (Exception e) {
+            getLog().error("Error indexing " + document.getOntologyId(), e);
             status = Status.FAILED;
             message = e.getMessage();
-            throw new OntologyIndexingException("Index for " + document.getOntologyId() + " failed: " + e.getMessage());
+            throw new IndexingException("Index for " + document.getOntologyId() + " failed: ", e);
         }
         finally {
+
             document.setStatus(status);
             document.setUpdated(new Date());
             document.setMessage(message);

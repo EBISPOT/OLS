@@ -61,7 +61,7 @@ public class SolrIndexer implements OntologyIndexer {
                 documents.add(builder.createTermDocument());
 
                 if (documents.size() == 10000) {
-                    getLog().info("Max reached - indexing terms");
+                    getLog().debug("Max reached - indexing terms");
                     index(documents);
                     documents = new ArrayList<>();
                 }
@@ -83,6 +83,12 @@ public class SolrIndexer implements OntologyIndexer {
                 TermDocumentBuilder builder = extractFeatures(loader, classTerm);
                 builder.setType(TermType.INDIVIDUAL.toString().toLowerCase());
                 documents.add(builder.createTermDocument());
+
+                if (documents.size() == 10000) {
+                    getLog().debug("Max reached - indexing terms");
+                    index(documents);
+                    documents = new ArrayList<>();
+                }
             }
 
 
@@ -100,8 +106,6 @@ public class SolrIndexer implements OntologyIndexer {
     }
 
     private void index (List<TermDocument> documents) {
-        long startTime = System.currentTimeMillis();
-
         int numDocuments = documents.size();
         getLog().debug("Extracted {} documents", numDocuments);
 
@@ -116,10 +120,8 @@ public class SolrIndexer implements OntologyIndexer {
             ontologySolrRepository.save(documents.subList(count, end));
 
             count = end;
-            getLog().info("Indexed {} / {} entries", count, numDocuments);
+            getLog().debug("Indexed {} / {} entries", count, numDocuments);
         }
-        long endTime = System.currentTimeMillis();
-        long duration = (endTime - startTime) / 1000; // time in seconds
     }
 
     @Override
@@ -222,7 +224,6 @@ public class SolrIndexer implements OntologyIndexer {
             builder.setParentUris(loader.getDirectParentTerms().get(termIRI).stream().map(IRI::toString).collect(Collectors.toSet()));
         }
         else {
-            getLog().debug("Setting root " + termIRI);
             builder.setIsRoot(true);
         }
 
