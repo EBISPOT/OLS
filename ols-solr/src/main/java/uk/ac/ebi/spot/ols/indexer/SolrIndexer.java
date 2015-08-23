@@ -94,10 +94,8 @@ public class SolrIndexer implements OntologyIndexer {
 
             long endTime = System.currentTimeMillis();
             long duration = (endTime - startTime) / 1000; // time in seconds
-            getLog().info("Reading " + loader.getOntologyName() + " completed in " + duration + " seconds");
-
             index(documents);
-            getLog().info("Saving indexing " +loader.getOntologyName()+ " completed");
+            getLog().info("Solr index for " + loader.getOntologyName() + " completed in " + duration + " seconds");
 
         }
 

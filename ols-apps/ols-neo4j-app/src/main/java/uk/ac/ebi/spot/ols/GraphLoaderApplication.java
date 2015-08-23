@@ -6,13 +6,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.data.neo4j.config.EnableNeo4jRepositories;
-import org.springframework.data.neo4j.core.GraphDatabase;
 import uk.ac.ebi.spot.ols.config.PropertyBasedLoadingService;
-import uk.ac.ebi.spot.ols.loader.BatchOntologyLoader;
+import uk.ac.ebi.spot.ols.loader.BatchNeo4JIndexer;
 import uk.ac.ebi.spot.ols.loader.OntologyLoader;
-
-import java.io.File;
-import java.util.*;
 
 /**
  * @author Simon Jupp
@@ -32,7 +28,7 @@ public class GraphLoaderApplication implements CommandLineRunner {
     PropertyBasedLoadingService propertyBasedLoadingService;
 
     @Autowired
-    BatchOntologyLoader batchOntologyLoader;
+    BatchNeo4JIndexer batchNeo4JIndexer;
 
     @Override
     public void run(String... args) throws Exception {
@@ -40,8 +36,8 @@ public class GraphLoaderApplication implements CommandLineRunner {
 
         // get the ontology loader
         OntologyLoader loader = propertyBasedLoadingService.getLoader();
-        batchOntologyLoader.dropIndex(loader);
-        batchOntologyLoader.createIndex(loader);
+        batchNeo4JIndexer.dropIndex(loader);
+        batchNeo4JIndexer.createIndex(loader);
 
 
     }

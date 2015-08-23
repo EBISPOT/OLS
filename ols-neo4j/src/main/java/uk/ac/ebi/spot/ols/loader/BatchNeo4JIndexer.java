@@ -31,18 +31,21 @@ import java.util.*;
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
 @Component
-public class BatchOntologyLoader implements OntologyIndexer {
+public class BatchNeo4JIndexer implements OntologyIndexer {
     private Logger log = LoggerFactory.getLogger(getClass());
     public Logger getLog() {
         return log;
     }
+    @Autowired
+    private GraphDatabaseService db;
 
+    private static Label obsoleteLabel = DynamicLabel.label("Obsolete");
 
-    public BatchOntologyLoader() {
+    public BatchNeo4JIndexer() {
 
     }
 
-    static Long getOrCreateNode(BatchInserter inserter, Map<IRI, Long> nodeMap, OntologyLoader loader, IRI classIri, Label ... nodeLabel) {
+    private Long getOrCreateNode(BatchInserter inserter, Map<String, Long> nodeMap, OntologyLoader loader, IRI classIri, Label ... nodeLabel) {
 
 
         if (!nodeMap.containsKey(classIri)) {
@@ -129,12 +132,12 @@ public class BatchOntologyLoader implements OntologyIndexer {
             }
 
 
-            nodeMap.put(classIri, classNode);
+            nodeMap.put(classIri.toString(), classNode);
         }
         return nodeMap.get(classIri);
     }
 
-    static Long getOrCreateMergedNode(BatchInserterIndex entites, BatchInserter inserter, Map<IRI, Long> mergedNodeMap, OntologyLoader loader, IRI classIri, Label ... nodeLabel) {
+    private Long getOrCreateMergedNode(BatchInserterIndex entites, BatchInserter inserter, Map<String, Long> mergedNodeMap, OntologyLoader loader, IRI classIri, Label ... nodeLabel) {
 
         if (!mergedNodeMap.containsKey(classIri)) {
 
@@ -147,26 +150,30 @@ public class BatchOntologyLoader implements OntologyIndexer {
 
                 Long hit = inserter.createNode(properties, nodeLabel);
                 entites.add(hit, properties);
-                mergedNodeMap.put(classIri, hit);
+                mergedNodeMap.put(classIri.toString(), hit);
             }
             else {
                 if (hits.size() > 1) {
                     System.out.println("WARING: found more than one iri in merged terms for: " + classIri);
                 }
                 Long mergedNode = hits.getSingle();
-                mergedNodeMap.put(classIri, mergedNode);
+                mergedNodeMap.put(classIri.toString(), mergedNode);
             }
         }
-        return mergedNodeMap.get(classIri);
+        return mergedNodeMap.get(classIri.toString());
     }
 
     @Override
-    public void createIndex(Collection<OntologyLoader> loader) throws IndexingException {
+    public void createIndex(Collection<OntologyLoader> loaders) throws IndexingException {
 
+        for (OntologyLoader loader : loaders) {
+
+
+
+
+        }
     }
 
-    @Autowired
-    private GraphDatabaseService db;
 
     @Override
     public void dropIndex(OntologyLoader loader) throws IndexingException {
@@ -203,17 +210,15 @@ public class BatchOntologyLoader implements OntologyIndexer {
 
     }
 
-    private static Label obsoleteLabel = DynamicLabel.label("Obsolete");
 
     @Override
     public void createIndex(OntologyLoader loader) throws IndexingException {
-        System.setProperty("entityExpansionLimit", "10000000");
 
         BatchInserter inserter = null;
         // store a local cache of new local term nodes
-        Map<IRI, Long> nodeMap = new HashMap<>();
+        Map<String, Long> nodeMap = new HashMap<>();
         // store a local cache of merged term nodes
-        Map<IRI, Long> mergedNodeMap = new HashMap<>();
+        Map<String, Long> mergedNodeMap = new HashMap<>();
         try
         {
             // this represents a unique term
@@ -395,13 +400,14 @@ public class BatchOntologyLoader implements OntologyIndexer {
                 }
             }
 
-            getLog().info("Neo4j indexed " + loader.getAllClasses().size() + " classes");
-            getLog().info("Neo4j indexed " + loader.getAllObjectPropertyIRIs().size() + " object properties");
-            getLog().info("Neo4j indexed " + loader.getAllAnnotationPropertyIRIs().size() + " data properties");
-            getLog().info("Neo4j indexed " + loader.getAllDataPropertyIRIs().size() + " annotation properties");
-            getLog().info("Neo4j indexed " + loader.getAllIndividualIRIs().size() + " inidivudals");
+            getLog().info("Neo4j index for " + loader.getAllClasses().size() + " classes complete");
+            getLog().info("Neo4j index for " + loader.getAllObjectPropertyIRIs().size() + " object properties complete");
+            getLog().info("Neo4j index for " + loader.getAllAnnotationPropertyIRIs().size() + " data properties complete");
+            getLog().info("Neo4j index for " + loader.getAllDataPropertyIRIs().size() + " annotation properties complete");
+            getLog().info("Neo4j index for " + loader.getAllIndividualIRIs().size() + " individuals complete");
 
             indexProvider.shutdown();
+            getLog().debug("Neo4j index provider shutdown");
         } catch (Exception e) {
             throw new IndexingException("Neo4j indexing exception", e);
         }
@@ -410,6 +416,8 @@ public class BatchOntologyLoader implements OntologyIndexer {
             if ( inserter != null )
             {
                 inserter.shutdown();
+                getLog().debug("Neo4j batch indexer shutdown");
+
 
             }
         }

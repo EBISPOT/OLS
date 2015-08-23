@@ -2,6 +2,7 @@ package uk.ac.ebi.spot.ols.config;
 
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
+import org.neo4j.graphdb.factory.GraphDatabaseSettings;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +26,9 @@ public class OlsNeo4jConfiguration extends Neo4jConfiguration {
 
     @Bean
     static GraphDatabaseService graphDatabaseService() {
-        return new GraphDatabaseFactory().newEmbeddedDatabase(getNeo4JPath());
+        return new GraphDatabaseFactory().newEmbeddedDatabaseBuilder(getNeo4JPath())
+                .setConfig( GraphDatabaseSettings.dump_configuration, "true" )
+                .newGraphDatabase();
     }
 
     public static String getNeo4JPath () {
