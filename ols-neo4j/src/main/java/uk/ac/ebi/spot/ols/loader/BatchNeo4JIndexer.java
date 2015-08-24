@@ -5,7 +5,6 @@ import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.neo4j.graphdb.index.IndexHits;
 import org.neo4j.helpers.collection.MapUtil;
 import org.neo4j.index.lucene.unsafe.batchinsert.LuceneBatchInserterIndexProvider;
-import org.neo4j.io.fs.FileUtils;
 import org.neo4j.kernel.DefaultFileSystemAbstraction;
 import org.neo4j.unsafe.batchinsert.BatchInserter;
 import org.neo4j.unsafe.batchinsert.BatchInserterIndex;
@@ -21,8 +20,6 @@ import uk.ac.ebi.spot.ols.exception.IndexingException;
 import uk.ac.ebi.spot.ols.model.OntologyIndexer;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.util.*;
 
 /**
@@ -33,6 +30,9 @@ import java.util.*;
 @Component
 public class BatchNeo4JIndexer implements OntologyIndexer {
     private Logger log = LoggerFactory.getLogger(getClass());
+    private BatchInserterIndex entities;
+    private BatchInserterIndexProvider indexProvider;
+
     public Logger getLog() {
         return log;
     }
@@ -40,6 +40,35 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
     private GraphDatabaseService db;
 
     private static Label obsoleteLabel = DynamicLabel.label("Obsolete");
+    // this represents a unique term
+    private static Label mergedClassLabel = DynamicLabel.label("Resource");
+    // define a node label for ontology terms
+    private static Label nodeLabel = DynamicLabel.label("Class");
+    private static Label relationLabel = DynamicLabel.label("Property");
+    private static Label instanceLabel = DynamicLabel.label("Individual");
+    private static Label rootLabel = DynamicLabel.label("Root");
+    private static Label _nodeLabel = DynamicLabel.label("_Class");
+    private static Label _relationLabel = DynamicLabel.label("_Property");
+    private static Label _instanceLabel = DynamicLabel.label("_Individual");
+
+    // create relationship types
+    private static RelationshipType refersTo = DynamicRelationshipType.withName("REFERSTO");
+    private static RelationshipType isa = DynamicRelationshipType.withName("SUBCLASSOF");
+    private static RelationshipType subpropertyof = DynamicRelationshipType.withName("SUBPROPERTYOF");
+    private static RelationshipType typeOf = DynamicRelationshipType.withName("INSTANCEOF");
+    private static RelationshipType related = DynamicRelationshipType.withName("Related");
+    private static RelationshipType treeRelation = DynamicRelationshipType.withName("RelatedTree");
+
+    private Map<String, Object> isaProperties = new HashMap<>();
+    private Map<String, Object> subPropertyProperties = new HashMap<>();
+    private Map<String, Object> rdfTypeProperties = new HashMap<>();
+
+    private Label nodeOntologyLabel;
+
+
+    private static int BATCH_SIZE = 1000000;
+    private static int DELETE_SIZE = 100000;
+
 
     public BatchNeo4JIndexer() {
 
@@ -48,7 +77,7 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
     private Long getOrCreateNode(BatchInserter inserter, Map<String, Long> nodeMap, OntologyLoader loader, IRI classIri, Label ... nodeLabel) {
 
 
-        if (!nodeMap.containsKey(classIri)) {
+        if (!nodeMap.containsKey(classIri.toString())) {
             Map<String, Object> properties = new HashMap<>();
             properties.put("olsId", loader.getOntologyName().toLowerCase() + ":" + classIri.toString());
             properties.put("iri", classIri.toString());
@@ -134,22 +163,22 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
 
             nodeMap.put(classIri.toString(), classNode);
         }
-        return nodeMap.get(classIri);
+        return nodeMap.get(classIri.toString());
     }
 
-    private Long getOrCreateMergedNode(BatchInserterIndex entites, BatchInserter inserter, Map<String, Long> mergedNodeMap, OntologyLoader loader, IRI classIri, Label ... nodeLabel) {
+    private Long getOrCreateMergedNode(BatchInserter inserter, Map<String, Long> mergedNodeMap, OntologyLoader loader, IRI classIri, Label ... nodeLabel) {
 
-        if (!mergedNodeMap.containsKey(classIri)) {
+        if (!mergedNodeMap.containsKey(classIri.toString())) {
 
             // link to merged node
-            IndexHits<Long> hits = entites.get("iri", classIri);
+            IndexHits<Long> hits = entities.get("iri", classIri);
             if (hits.size() == 0) {
                 Map<String, Object> properties = new HashMap<>();
                 properties.put("iri", classIri.toString());
                 properties.put("label", loader.getTermLabels().get(classIri));
 
                 Long hit = inserter.createNode(properties, nodeLabel);
-                entites.add(hit, properties);
+                entities.add(hit, properties);
                 mergedNodeMap.put(classIri.toString(), hit);
             }
             else {
@@ -163,13 +192,247 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
         return mergedNodeMap.get(classIri.toString());
     }
 
+    private void setOntologyLabel (String ontologyName) {
+        nodeOntologyLabel   = DynamicLabel.label(ontologyName.toUpperCase());
+    }
+    private Label getNodeOntologyLabel () {
+        return nodeOntologyLabel;
+    }
+
+    private BatchInserter getBatchIndexer (String ontologyName) {
+        BatchInserter inserter = null;
+
+        // connect to the database instance
+        File file = new File(OlsNeo4jConfiguration.getNeo4JPath());
+        inserter = BatchInserters.inserter(
+                file.getAbsolutePath(),
+                new DefaultFileSystemAbstraction());
+
+        // create schema for classes if not exists
+        createSchemaIndexIfNotExists(inserter, mergedClassLabel, "iri");
+        createSchemaIndexIfNotExists(inserter, nodeLabel, "olsId");
+        createSchemaIndexIfNotExists(inserter, nodeLabel, "iri");
+        createSchemaIndexIfNotExists(inserter, nodeLabel, "short_form");
+        createSchemaIndexIfNotExists(inserter, nodeLabel, "obo_id");
+        createSchemaIndexIfNotExists(inserter, nodeLabel, "ontology_name");
+
+        // create schema for properties if not exists
+        createSchemaIndexIfNotExists(inserter, relationLabel, "olsId");
+        createSchemaIndexIfNotExists(inserter, relationLabel, "iri");
+        createSchemaIndexIfNotExists(inserter, relationLabel, "short_form");
+        createSchemaIndexIfNotExists(inserter, relationLabel, "obo_id");
+        createSchemaIndexIfNotExists(inserter, relationLabel, "ontology_name");
+
+        // create schema for instances if not exists
+        createSchemaIndexIfNotExists(inserter, instanceLabel, "olsId");
+        createSchemaIndexIfNotExists(inserter, instanceLabel, "iri");
+        createSchemaIndexIfNotExists(inserter, instanceLabel, "short_form");
+        createSchemaIndexIfNotExists(inserter, instanceLabel, "obo_id");
+        createSchemaIndexIfNotExists(inserter, instanceLabel, "ontology_name");
+
+        isaProperties.put("uri", "http://www.w3.org/2000/01/rdf-schema#subClassOf");
+        isaProperties.put("label", "is a");
+        isaProperties.put("ontology_name", ontologyName);
+        isaProperties.put("__type__", "SubClassOf");
+
+        subPropertyProperties.put("uri", "http://www.w3.org/2000/01/rdf-schema#subPropertyOf");
+        subPropertyProperties.put("label", "sub property of");
+        subPropertyProperties.put("ontology_name", ontologyName);
+        subPropertyProperties.put("__type__", "SubPropertyOf");
+
+        rdfTypeProperties.put("uri", "http://www.w3.org/1999/02/22-rdf-syntax-ns#>");
+        rdfTypeProperties.put("label", "type");
+        rdfTypeProperties.put("ontology_name", ontologyName);
+        rdfTypeProperties.put("__type__", "Type");
+
+        entities = getBatchInserterIndex(getIndexProvider(inserter));
+
+        return inserter;
+
+    }
+
+    private BatchInserterIndexProvider getIndexProvider (BatchInserter inserter) {
+
+        // index for looking up merged classes
+        indexProvider =
+                new LuceneBatchInserterIndexProvider(inserter);
+        return indexProvider;
+    }
+
+    private BatchInserterIndex getBatchInserterIndex(BatchInserterIndexProvider indexProvider) {
+        BatchInserterIndex entites =
+                indexProvider.nodeIndex("Resource", MapUtil.stringMap("type", "exact"));
+        entites.setCacheCapacity("iri", 1000000);
+        return entites;
+    }
+
+    private void indexProperties(BatchInserter inserter, OntologyLoader loader, Map<String, Long> nodeMap, Map<String, Long> mergedNodeMap) {
+
+        // index relations
+        Collection<IRI> allRelations = loader.getAllObjectPropertyIRIs();
+        allRelations.addAll(loader.getAllDataPropertyIRIs());
+        allRelations.addAll(loader.getAllAnnotationPropertyIRIs());
+        getLog().debug("Creating Neo4j index for " + allRelations.size() + " properties");
+
+        for (IRI objectPropertyIri : allRelations) {
+            Long node = getOrCreateNode(inserter, nodeMap,loader, objectPropertyIri, relationLabel, _relationLabel,nodeOntologyLabel);
+            Long mergedNode = getOrCreateMergedNode(inserter, mergedNodeMap, loader, objectPropertyIri, mergedClassLabel);
+
+            // add refers link
+            inserter.createRelationship( node, mergedNode, refersTo, null);
+
+            // add parent nodes
+            if (!loader.getDirectParentTerms(objectPropertyIri).isEmpty()) {
+                for (IRI parent : loader.getDirectParentTerms().get(objectPropertyIri)) {
+                    Long parentNode =  getOrCreateNode(inserter, nodeMap,loader, parent,relationLabel, _relationLabel,nodeOntologyLabel);
+                    // create local relationship
+                    inserter.createRelationship(node, parentNode, subpropertyof, subPropertyProperties);
+                }
+            }
+            else {
+                Long rootProperty = getOrCreateNode(inserter, nodeMap,loader, IRI.create("http://www.w3.org/2002/07/owl#TopObjectProperty"), relationLabel, _relationLabel,nodeOntologyLabel, rootLabel);
+                inserter.createRelationship( node, rootProperty, subpropertyof, subPropertyProperties);
+            }
+        }
+    }
+
+    private void indexIndividuals(BatchInserter inserter, OntologyLoader loader, Map<String, Long> nodeMap, Map<String, Long> mergedNodeMap) {
+        getLog().debug("Creating Neo4j index for " + loader.getAllIndividualIRIs().size() + " individuals");
+
+        for (IRI individualIri : loader.getAllIndividualIRIs()) {
+            Long node = getOrCreateNode(inserter, nodeMap,loader, individualIri, instanceLabel, _instanceLabel,nodeOntologyLabel);
+            Long mergedNode = getOrCreateMergedNode(inserter, mergedNodeMap, loader, individualIri, mergedClassLabel);
+
+            // add refers link
+            inserter.createRelationship( node, mergedNode, refersTo, null);
+
+            // add parent nodes
+            if (!loader.getDirectParentTerms(individualIri).isEmpty()) {
+                for (IRI parent : loader.getDirectParentTerms().get(individualIri)) {
+                    Long parentNode =  getOrCreateNode(inserter, nodeMap,loader, parent, nodeLabel,nodeOntologyLabel,  _nodeLabel);
+                    // create local relationship
+                    inserter.createRelationship(node, parentNode, typeOf, rdfTypeProperties);
+                }
+            }
+            else {
+                Long defaultType = getOrCreateNode(inserter, nodeMap,loader, IRI.create("http://www.w3.org/2002/07/owl#Thing"),  nodeLabel,nodeOntologyLabel,  _nodeLabel, rootLabel);
+                inserter.createRelationship( node, defaultType, typeOf, rdfTypeProperties);
+            }
+        }
+    }
+
+    private void indexClasses(BatchInserter inserter, OntologyLoader loader, Map<String, Long> nodeMap, Map<String, Long> mergedNodeMap) {
+        getLog().debug("Creating Neo4j index for " + loader.getAllClasses().size() + " classes");
+
+//        int counter = 0;
+
+        for (IRI classIri : loader.getAllClasses()) {
+
+            Long node = getOrCreateNode(inserter, nodeMap,loader, classIri, nodeLabel,nodeOntologyLabel,  _nodeLabel);
+
+            Long mergedNode = getOrCreateMergedNode(inserter, mergedNodeMap, loader, classIri, mergedClassLabel);
+
+            // add refers link
+            inserter.createRelationship( node, mergedNode, refersTo, null);
+
+            // add parent nodes
+            if (!loader.getDirectParentTerms(classIri).isEmpty()) {
+                for (IRI parent : loader.getDirectParentTerms().get(classIri)) {
+                    Long parentNode =  getOrCreateNode(inserter, nodeMap,loader, parent, nodeLabel, nodeOntologyLabel, _nodeLabel);
+//                        Long mergedParentNode = getOrCreateMergedNode(entites, inserter, mergedClassLabel, mergedNodeMap, loader, parent);
+                    // create local relationship
+                    inserter.createRelationship(node, parentNode, isa, isaProperties);
+                    // create merged relationship
+//                        inserter.createRelationship( mergedNode, mergedParentNode, isa, properties);
+                }
+            }
+            else {
+                Long thing = getOrCreateNode(inserter, nodeMap,loader, IRI.create("http://www.w3.org/2002/07/owl#Thing"), nodeLabel,nodeOntologyLabel, _nodeLabel, rootLabel);
+//                    Long mergedThingNode = getOrCreateMergedNode(entites, inserter, mergedClassLabel, mergedNodeMap, loader, IRI.create("http://www.w3.org/2002/07/owl#Thing"));
+//                    RelationshipType isa = DynamicRelationshipType.withName("Parent");
+                inserter.createRelationship( node, thing, isa, isaProperties);
+//                    inserter.createRelationship( mergedNode, mergedThingNode, isa, properties);
+            }
+
+
+            // add related nodes
+            Map<IRI, Collection<IRI>> relatedterms = loader.getRelatedTerms(classIri);
+
+
+            for (IRI relation : relatedterms.keySet()) {
+                Map<String, Object> relatedProperties = new HashMap<>();
+                relatedProperties.put("uri", relation.toString());
+                relatedProperties.put("label", loader.getTermLabels().get(relation));
+                relatedProperties.put("ontology_name", loader.getOntologyName());
+                relatedProperties.put("__type__", "Related");
+
+                for (IRI relatedTerm : relatedterms.get(relation)) {
+                    Long relatedNode =  getOrCreateNode(inserter, nodeMap,loader, relatedTerm, nodeLabel,nodeOntologyLabel, _nodeLabel);
+                    // create local relationship
+                    inserter.createRelationship( node, relatedNode, related, relatedProperties);
+                    // add a hierarchical relation if it is a related parent term
+                    if (!loader.getRelatedParentTerms(classIri).isEmpty()) {
+                        if (loader.getRelatedParentTerms(classIri).containsKey(relation)) {
+                            inserter.createRelationship( node, relatedNode, treeRelation, relatedProperties);
+                        }
+                    }
+                }
+
+            }
+
+//            if (counter == BATCH_SIZE) {
+//                inserter = restartIndexer(inserter, loader.getOntologyName());
+//                counter = 0;
+//            }
+//            counter++;
+
+        }
+
+//        indexProvider.shutdown();
+//        getLog().debug("Neo4j class index provider shutdown");
+//        inserter.shutdown();
+//        getLog().debug("Neo4j class batch indexer shutdown");
+
+    }
+
+//    private BatchInserter   restartIndexer(BatchInserter inserter, String ontologyName) {
+//        indexProvider.shutdown();
+//        getLog().debug(BATCH_SIZE  + " reached Neo4j index provider restarted");
+//        inserter.shutdown();
+//        getLog().debug(BATCH_SIZE  +  " reached Neo4j batch indexer shutdown");
+//        inserter = getBatchIndexer(ontologyName);
+//        return inserter;
+//    }
+
+
     @Override
     public void createIndex(Collection<OntologyLoader> loaders) throws IndexingException {
+        // store a local cache of new local term nodes
+        Map<String, Long> classNodeMap = new HashMap<>();
+        Map<String, Long> propertyNodeMap = new HashMap<>();
+        Map<String, Long> individualNodeMap = new HashMap<>();
+        // store a local cache of merged term nodes
+        Map<String, Long> mergedNodeMap = new HashMap<>();
+
 
         for (OntologyLoader loader : loaders) {
+            BatchInserter inserter = getBatchIndexer(loader.getOntologyName());
+            setOntologyLabel(loader.getOntologyName());
+            // index classes
+            indexClasses(inserter, loader, classNodeMap, mergedNodeMap);
+            // index properties
+            indexProperties(inserter, loader, propertyNodeMap, mergedNodeMap);
+            // index individuals
+            indexIndividuals(inserter, loader, individualNodeMap, mergedNodeMap);
 
+            getLog().info("Neo4j index for " + loader.getAllClasses().size() + " classes complete");
+            getLog().info("Neo4j index for " + loader.getAllObjectPropertyIRIs().size() + " object properties complete");
+            getLog().info("Neo4j index for " + loader.getAllAnnotationPropertyIRIs().size() + " annotation  properties complete");
+            getLog().info("Neo4j index for " + loader.getAllDataPropertyIRIs().size() + " data properties complete");
+            getLog().info("Neo4j index for " + loader.getAllIndividualIRIs().size() + " individuals complete");
 
-
+            indexProvider.shutdown();
+            inserter.shutdown();
 
         }
     }
@@ -180,247 +443,112 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
 
         // shutdown any autowired graph dbs for batch loading
         db.shutdown();
+        db = new GraphDatabaseFactory().newEmbeddedDatabase(OlsNeo4jConfiguration.getNeo4JPath());
+
+        deleteNodes(loader.getOntologyName());
+//        deleteRoots(loader.getOntologyName());
+
+        db.shutdown();
 
 
-        GraphDatabaseService db = new GraphDatabaseFactory().newEmbeddedDatabase(OlsNeo4jConfiguration.getNeo4JPath());
+    }
+
+    private void deleteRoots(String ontologyName) {
 
         Transaction tx = db.beginTx();
         try {
-            String cypherDelete = "match (n:" + loader.getOntologyName().toUpperCase() + ")-[r]->(p) delete n,r";
-            getLog().info("executing delete: " + cypherDelete);
-            Result result = db.execute(cypherDelete);
-            getLog().info(result.resultAsString());
-
             // clear up any roots
-            String cypherDeleteRoot = "match (n:Root { ontology_name: '" + loader.getOntologyName() + "'}) delete n";
+            String cypherDeleteRoot = "match (n:Root { ontology_name: '" + ontologyName + "'}) delete n";
             getLog().info("executing delete: " + cypherDeleteRoot);
             Result res2 = db.execute(cypherDeleteRoot);
             getLog().info(res2.resultAsString());
+
 
             tx.success();
         }
         catch (Exception e) {
             tx.failure();
-            throw new IndexingException("Couldn't drop: " + loader.getOntologyName(), e);
+            throw new IndexingException("Couldn't drop: " + ontologyName, e);
         }
         finally {
             tx.close();
-            db.shutdown();
+        }
+    }
+
+    private void deleteNodes(String ontologyName) {
+
+        int count = getNodeCount(
+                "match (n:" + ontologyName.toUpperCase() + ")-[r]->() return count(r) as count", ontologyName);
+
+        for (int x = 0; x < count ; x +=DELETE_SIZE) {
+
+            Transaction tx = db.beginTx();
+
+            try {
+                String cypherDelete =
+                        "match (n:" + ontologyName.toUpperCase() + ")-[r]->() with r limit " + DELETE_SIZE + " delete r";
+                getLog().info("executing delete: " + cypherDelete);
+                Result result = db.execute(cypherDelete);
+                getLog().info(result.resultAsString());
+
+                tx.success();
+            } catch (Exception e) {
+                tx.failure();
+                throw new IndexingException("Couldn't drop: " + ontologyName, e);
+            }
+            tx.close();
         }
 
+        count = getNodeCount(
+                "match (n:" + ontologyName.toUpperCase() + ") return count(n) as count", ontologyName
+        );
+        for (int x = 0; x < count ; x +=DELETE_SIZE) {
+
+            Transaction tx = db.beginTx();
+
+            try {
+                String cypherDelete =
+                        "match (n:" + ontologyName.toUpperCase() + ") with n limit " + DELETE_SIZE + " delete n";
+                getLog().info("executing delete: " + cypherDelete);
+                Result result = db.execute(cypherDelete);
+                getLog().info(result.resultAsString());
+
+                tx.success();
+            } catch (Exception e) {
+                tx.failure();
+                throw new IndexingException("Couldn't drop: " + ontologyName, e);
+            }
+            tx.close();
+        }
+    }
+
+    private int getNodeCount(String nodeCountCypher, String ontologyName) {
+
+        Long count;
+
+        Transaction tx = db.beginTx();
+        try {
+            getLog().debug("executing count: " + nodeCountCypher);
+            Result result = db.execute(nodeCountCypher);
+
+            count = (Long) result.next().get("count");
+            getLog().debug("query count " + count);
+            tx.success();
+        }
+        catch (Exception e) {
+            tx.failure();
+            throw new IndexingException("Couldn't count: " + ontologyName, e);
+        }
+        finally {
+            tx.close();
+        }
+        return count.intValue();
     }
 
 
     @Override
     public void createIndex(OntologyLoader loader) throws IndexingException {
-
-        BatchInserter inserter = null;
-        // store a local cache of new local term nodes
-        Map<String, Long> nodeMap = new HashMap<>();
-        // store a local cache of merged term nodes
-        Map<String, Long> mergedNodeMap = new HashMap<>();
-        try
-        {
-            // this represents a unique term
-            Label mergedClassLabel = DynamicLabel.label("Resource");
-
-            // define a node label for ontology terms
-            Label nodeLabel = DynamicLabel.label("Class");
-            Label relationLabel = DynamicLabel.label("Property");
-            Label instanceLabel = DynamicLabel.label("Individual");
-            Label rootLabel = DynamicLabel.label("Root");
-            Label nodeOntologyLabel = DynamicLabel.label(loader.getOntologyName().toUpperCase());
-
-            Label _nodeLabel = DynamicLabel.label("_Class");
-            Label _relationLabel = DynamicLabel.label("_Property");
-            Label _instanceLabel = DynamicLabel.label("_Individual");
-
-            // connect to the database instance
-            File file = new File(OlsNeo4jConfiguration.getNeo4JPath());
-            inserter = BatchInserters.inserter(
-                    file.getAbsolutePath(),
-                    new DefaultFileSystemAbstraction());
-
-            // create schema for classes if not exists
-            createSchemaIndexIfNotExists(inserter, mergedClassLabel, "iri");
-            createSchemaIndexIfNotExists(inserter, nodeLabel, "olsId");
-            createSchemaIndexIfNotExists(inserter, nodeLabel, "iri");
-            createSchemaIndexIfNotExists(inserter, nodeLabel, "short_form");
-            createSchemaIndexIfNotExists(inserter, nodeLabel, "obo_id");
-            createSchemaIndexIfNotExists(inserter, nodeLabel, "ontology_name");
-
-            // create schema for properties if not exists
-            createSchemaIndexIfNotExists(inserter, relationLabel, "olsId");
-            createSchemaIndexIfNotExists(inserter, relationLabel, "iri");
-            createSchemaIndexIfNotExists(inserter, relationLabel, "short_form");
-            createSchemaIndexIfNotExists(inserter, relationLabel, "obo_id");
-            createSchemaIndexIfNotExists(inserter, relationLabel, "ontology_name");
-
-            // create schema for instances if not exists
-            createSchemaIndexIfNotExists(inserter, instanceLabel, "olsId");
-            createSchemaIndexIfNotExists(inserter, instanceLabel, "iri");
-            createSchemaIndexIfNotExists(inserter, instanceLabel, "short_form");
-            createSchemaIndexIfNotExists(inserter, instanceLabel, "obo_id");
-            createSchemaIndexIfNotExists(inserter, instanceLabel, "ontology_name");
-
-            // index for looking up merged classes
-            BatchInserterIndexProvider indexProvider =
-                    new LuceneBatchInserterIndexProvider( inserter );
-
-            BatchInserterIndex entites =
-                    indexProvider.nodeIndex("Resource", MapUtil.stringMap("type", "exact") );
-            entites.setCacheCapacity( "iri", 1000000 );
-
-            // create relationship types
-            RelationshipType refersTo = DynamicRelationshipType.withName("REFERSTO");
-            RelationshipType isa = DynamicRelationshipType.withName("SUBCLASSOF");
-            RelationshipType subpropertyof = DynamicRelationshipType.withName("SUBPROPERTYOF");
-            RelationshipType typeOf = DynamicRelationshipType.withName("INSTANCEOF");
-            RelationshipType related = DynamicRelationshipType.withName("Related");
-            RelationshipType treeRelation = DynamicRelationshipType.withName("RelatedTree");
-
-            Map<String, Object> isaProperties = new HashMap<>();
-            isaProperties.put("uri", "http://www.w3.org/2000/01/rdf-schema#subClassOf");
-            isaProperties.put("label", "is a");
-            isaProperties.put("ontology_name", loader.getOntologyName());
-            isaProperties.put("__type__", "SubClassOf");
-
-            Map<String, Object> subPropertyProperties = new HashMap<>();
-            subPropertyProperties.put("uri", "http://www.w3.org/2000/01/rdf-schema#subPropertyOf");
-            subPropertyProperties.put("label", "sub property of");
-            subPropertyProperties.put("ontology_name", loader.getOntologyName());
-            subPropertyProperties.put("__type__", "SubPropertyOf");
-
-            Map<String, Object> rdfTypeProperties = new HashMap<>();
-            rdfTypeProperties.put("uri", "http://www.w3.org/1999/02/22-rdf-syntax-ns#>");
-            rdfTypeProperties.put("label", "type");
-            rdfTypeProperties.put("ontology_name", loader.getOntologyName());
-            rdfTypeProperties.put("__type__", "Type");
-
-            // index classes
-            for (IRI classIri : loader.getAllClasses()) {
-
-                Long node = getOrCreateNode(inserter, nodeMap,loader, classIri, nodeLabel,nodeOntologyLabel,  _nodeLabel);
-
-                Long mergedNode = getOrCreateMergedNode(entites, inserter, mergedNodeMap, loader, classIri, mergedClassLabel);
-
-                // add refers link
-                inserter.createRelationship( node, mergedNode, refersTo, null);
-
-                // add parent nodes
-                if (!loader.getDirectParentTerms(classIri).isEmpty()) {
-                    for (IRI parent : loader.getDirectParentTerms().get(classIri)) {
-                        Long parentNode =  getOrCreateNode(inserter, nodeMap,loader, parent, nodeLabel, nodeOntologyLabel, _nodeLabel);
-//                        Long mergedParentNode = getOrCreateMergedNode(entites, inserter, mergedClassLabel, mergedNodeMap, loader, parent);
-                        // create local relationship
-                        inserter.createRelationship(node, parentNode, isa, isaProperties);
-                        // create merged relationship
-//                        inserter.createRelationship( mergedNode, mergedParentNode, isa, properties);
-                    }
-                }
-                else {
-                    Long thing = getOrCreateNode(inserter, nodeMap,loader, IRI.create("http://www.w3.org/2002/07/owl#Thing"), nodeLabel,nodeOntologyLabel, _nodeLabel, rootLabel);
-//                    Long mergedThingNode = getOrCreateMergedNode(entites, inserter, mergedClassLabel, mergedNodeMap, loader, IRI.create("http://www.w3.org/2002/07/owl#Thing"));
-//                    RelationshipType isa = DynamicRelationshipType.withName("Parent");
-                    inserter.createRelationship( node, thing, isa, isaProperties);
-//                    inserter.createRelationship( mergedNode, mergedThingNode, isa, properties);
-                }
-
-
-                // add related nodes
-                Map<IRI, Collection<IRI>> relatedterms = loader.getRelatedTerms(classIri);
-
-
-                for (IRI relation : relatedterms.keySet()) {
-                    Map<String, Object> relatedProperties = new HashMap<>();
-                    relatedProperties.put("uri", relation.toString());
-                    relatedProperties.put("label", loader.getTermLabels().get(relation));
-                    relatedProperties.put("ontology_name", loader.getOntologyName());
-                    relatedProperties.put("__type__", "Related");
-
-                    for (IRI relatedTerm : relatedterms.get(relation)) {
-                        Long relatedNode =  getOrCreateNode(inserter, nodeMap,loader, relatedTerm, nodeLabel,nodeOntologyLabel, _nodeLabel);
-                        // create local relationship
-                        inserter.createRelationship( node, relatedNode, related, relatedProperties);
-                        // add a hierarchical relation if it is a related parent term
-                        if (!loader.getRelatedParentTerms(classIri).isEmpty()) {
-                            if (loader.getRelatedParentTerms(classIri).containsKey(relation)) {
-                                inserter.createRelationship( node, relatedNode, treeRelation, relatedProperties);
-                            }
-                        }
-                    }
-
-                }
-            }
-
-            // index relations
-            Collection<IRI> allRelations = loader.getAllObjectPropertyIRIs();
-            allRelations.addAll(loader.getAllDataPropertyIRIs());
-            allRelations.addAll(loader.getAllAnnotationPropertyIRIs());
-            for (IRI objectPropertyIri : allRelations) {
-                Long node = getOrCreateNode(inserter, nodeMap,loader, objectPropertyIri, relationLabel, _relationLabel,nodeOntologyLabel);
-                Long mergedNode = getOrCreateMergedNode(entites, inserter, mergedNodeMap, loader, objectPropertyIri, mergedClassLabel);
-
-                // add refers link
-                inserter.createRelationship( node, mergedNode, refersTo, null);
-
-                // add parent nodes
-                if (!loader.getDirectParentTerms(objectPropertyIri).isEmpty()) {
-                    for (IRI parent : loader.getDirectParentTerms().get(objectPropertyIri)) {
-                        Long parentNode =  getOrCreateNode(inserter, nodeMap,loader, parent,relationLabel, _relationLabel,nodeOntologyLabel);
-                        // create local relationship
-                        inserter.createRelationship(node, parentNode, subpropertyof, subPropertyProperties);
-                    }
-                }
-                else {
-                    Long rootProperty = getOrCreateNode(inserter, nodeMap,loader, IRI.create("http://www.w3.org/2002/07/owl#TopObjectProperty"), relationLabel, _relationLabel,nodeOntologyLabel, rootLabel);
-                    inserter.createRelationship( node, rootProperty, subpropertyof, subPropertyProperties);
-                }
-            }
-
-            // index individuals
-            for (IRI individualIri : loader.getAllIndividualIRIs()) {
-                Long node = getOrCreateNode(inserter, nodeMap,loader, individualIri, instanceLabel, _instanceLabel,nodeOntologyLabel);
-                Long mergedNode = getOrCreateMergedNode(entites, inserter, mergedNodeMap, loader, individualIri, mergedClassLabel);
-
-                // add refers link
-                inserter.createRelationship( node, mergedNode, refersTo, null);
-
-                // add parent nodes
-                if (!loader.getDirectParentTerms(individualIri).isEmpty()) {
-                    for (IRI parent : loader.getDirectParentTerms().get(individualIri)) {
-                        Long parentNode =  getOrCreateNode(inserter, nodeMap,loader, parent, nodeLabel,nodeOntologyLabel,  _nodeLabel);
-                        // create local relationship
-                        inserter.createRelationship(node, parentNode, typeOf, rdfTypeProperties);
-                    }
-                }
-                else {
-                    Long defaultType = getOrCreateNode(inserter, nodeMap,loader, IRI.create("http://www.w3.org/2002/07/owl#Thing"),  nodeLabel,nodeOntologyLabel,  _nodeLabel, rootLabel);
-                    inserter.createRelationship( node, defaultType, typeOf, rdfTypeProperties);
-                }
-            }
-
-            getLog().info("Neo4j index for " + loader.getAllClasses().size() + " classes complete");
-            getLog().info("Neo4j index for " + loader.getAllObjectPropertyIRIs().size() + " object properties complete");
-            getLog().info("Neo4j index for " + loader.getAllAnnotationPropertyIRIs().size() + " data properties complete");
-            getLog().info("Neo4j index for " + loader.getAllDataPropertyIRIs().size() + " annotation properties complete");
-            getLog().info("Neo4j index for " + loader.getAllIndividualIRIs().size() + " individuals complete");
-
-            indexProvider.shutdown();
-            getLog().debug("Neo4j index provider shutdown");
-        } catch (Exception e) {
-            throw new IndexingException("Neo4j indexing exception", e);
-        }
-        finally
-        {
-            if ( inserter != null )
-            {
-                inserter.shutdown();
-                getLog().debug("Neo4j batch indexer shutdown");
-
-
-            }
-        }
+        createIndex(Collections.singleton(loader));
     }
 
     private boolean createSchemaIndexIfNotExists(BatchInserter inserter, Label label, String name) {
