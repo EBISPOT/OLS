@@ -27,11 +27,7 @@ public class OntologySolrApplication implements CommandLineRunner {
 
         System.setProperty("entityExpansionLimit", "10000000");
         OntologyLoader loader = propertyBasedLoadingService.getLoader();
-//        if (args != null) {
-//            if (args[0].equals("dropall")) {
-//                solrIndexingService.dropIndex(loader);
-//            }
-//        }
+        solrIndexingService.dropIndex(loader);
         solrIndexingService.createIndex(loader);
    	}
 

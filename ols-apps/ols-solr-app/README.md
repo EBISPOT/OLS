@@ -1,13 +1,13 @@
 # OLS-SOLR
 This module is a spring boot application for creating a SOLR index from a given ontology. 
 
-You need a local version of SOLR running, we are currently testing with version 4.10.3. 
+You need a local version of SOLR running, we are currently running with version 5.2.1. 
 
 Start SOLR in the example directory with the config supplied by this module 
 
 e.g. 
 
-java -Dsolr.solr.home=<PATH TO HERE>/ols/ols-solr/src/main/solr-conf -jar start.jar
+solr-5.2.1/bin/solr -Dsolr.solr.home=<OLS INSTALL DIR>/ols/ols-solr/solr-5-config 
 
 You can also optionally set the -Dsolr.data.dir= to a location where the SOLR indexes will get created
 
@@ -44,19 +44,19 @@ definition_property http://purl.obolibrary.org/obo/IAO_0000115
 synonym_property    http://www.geneontology.org/formats/oboInOwl#hasExactSynonym
 
 # experimental, can ignore for now
-hierarchical_property   http://purl.obolibrary.org/obo/BFO_0000050
+#hierarchical_property   http://purl.obolibrary.org/obo/BFO_0000050
 
 # list any properties where you want to ignore assertions (can be annotation or object properties)
-hidden_property
+#hidden_property
 
 # Base URIs that are local to this ontology, used to identify terms that are defined in this ontology. 
 base_uri    http://purl.obolibrary.org/obo/UBERON_,http://purl.obolibrary.org/obo/UBPROP_,http://purl.obolibrary.org/obo/uberon/core#
 
-# ignore this
-isInferred false
-
-# does this ontology need to be classified with a DL reasoner? default is ELK, if true we will classify with Hermit
+# does this ontology need to be classified with a DL reasoner? if true HermiT will be used, otherwise Elk will be used
 classify false
+
+# if you don't want the ontology be classified by either ELK or Hermit, set isInferred to true
+isInferred false
 
 # True if the ontology contains OBO style slim annotations
 oboSlims true

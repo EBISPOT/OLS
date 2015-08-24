@@ -18,7 +18,6 @@
         <module>ols-apps</module>
         <module>ols-dependencies</module>
         <module>ols-parent</module>
-        <module>ols-interfaces</module>
     </modules>
 
 </project>
