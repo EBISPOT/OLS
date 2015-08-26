@@ -1,96 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<parent>
-		<groupId>uk.ac.ebi.spot</groupId>
-		<artifactId>ols-parent</artifactId>
-		<version>3.0.0-SNAPSHOT</version>
-		<relativePath>../ols-parent/pom.xml</relativePath>
-	</parent>
-	<modelVersion>4.0.0</modelVersion>
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>uk.ac.ebi.spot</groupId>
+        <artifactId>ols-parent</artifactId>
+        <version>3.0.0-SNAPSHOT</version>
+        <relativePath>../ols-parent/pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
 
-	<artifactId>ols-web</artifactId>
+    <artifactId>ols-web</artifactId>
 
-	<dependencies>
-		<!--<dependency>-->
-		<!--<groupId>org.springframework.boot</groupId>-->
-		<!--<artifactId>spring-boot-starter-web</artifactId>-->
-		<!--</dependency>-->
+    <dependencies>
 
-		<!--<dependency>-->
-		<!--<groupId>org.springframework.boot</groupId>-->
-		<!--<artifactId>spring-boot-starter-thymeleaf</artifactId>-->
-		<!--</dependency>-->
-		<!--<dependency>-->
-		<!--<groupId>org.springframework.boot</groupId>-->
-		<!--<artifactId>spring-boot-starter-actuator</artifactId>-->
-		<!--</dependency>-->
-		<!--<dependency>-->
-		<!--<groupId>org.springframework.boot</groupId>-->
-		<!--<artifactId>spring-boot-starter-test</artifactId>-->
-		<!--<scope>test</scope>-->
-		<!--</dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-rest</artifactId>
+        </dependency>
 
-		<!--<dependency>-->
-		<!--<groupId>org.springframework</groupId>-->
-		<!--<artifactId>spring-context</artifactId>-->
-		<!--</dependency>-->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-solr</artifactId>
+        </dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-rest</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
 
-		<!--<dependency>-->
-		<!--<groupId>org.springframework.data</groupId>-->
-		<!--<artifactId>spring-data-rest-webmvc</artifactId>-->
-		<!--</dependency>-->
+        <dependency>
+            <groupId>uk.ac.ebi.spot</groupId>
+            <artifactId>ols-solr</artifactId>
+        </dependency>
 
-		<!--<dependency>-->
-		<!--<groupId>org.springframework.data</groupId>-->
-		<!--<artifactId>spring-data-neo4j-aspects</artifactId>-->
-		<!--</dependency>-->
+        <dependency>
+            <groupId>uk.ac.ebi.spot</groupId>
+            <artifactId>ols-neo4j</artifactId>
+        </dependency>
 
-		<!--<dependency>-->
-		<!--<groupId>org.springframework.data</groupId>-->
-		<!--<artifactId>spring-data-neo4j-rest</artifactId>-->
-		<!--<version>3.3.0.RELEASE</version>-->
-		<!--</dependency>-->
+        <dependency>
+            <groupId>uk.ac.ebi.spot</groupId>
+            <artifactId>ols-mongo</artifactId>
+        </dependency>
 
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-solr</artifactId>
-		</dependency>
+    </dependencies>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
+    <packaging>war</packaging>
 
-
-		<dependency>
-			<groupId>uk.ac.ebi.spot</groupId>
-			<artifactId>ols-solr</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>uk.ac.ebi.spot</groupId>
-			<artifactId>ols-neo4j</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>uk.ac.ebi.spot</groupId>
-			<artifactId>ols-mongo</artifactId>
-		</dependency>
-
-	</dependencies>
-
-	<!--<properties>-->
-	<!--<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>-->
-	<!--<start-class>uk.ac.ebi.spot.spot.goci.SearchApplication</start-class>-->
-	<!--<java.version>1.8</java.version>-->
-	<!--</properties>-->
-
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>1.2.5.RELEASE</version>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <mainClass>uk.ac.ebi.spot.ols.OlsWebApp</mainClass>
+                            <finalName>ols</finalName>
+                            <classifier>-boot</classifier>
+                        </configuration>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.asciidoctor</groupId>-->
+                <!--<artifactId>asciidoctor-maven-plugin</artifactId>-->
+                <!--<version>1.5.2</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>output-html</id>-->
+                        <!--<phase>generate-resources</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>process-asciidoc</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+                <!--<configuration>-->
+                    <!--<sourceDirectory>src/main/docs</sourceDirectory>-->
+                    <!--<outputDirectory>${project.build.directory}/classes/static/docs/content/</outputDirectory>-->
+                    <!--<backend>html</backend>-->
+                    <!--<doctype>book</doctype>-->
+                    <!--<attributes>-->
+                        <!--<toc/>-->
+                        <!--<imagesdir>img</imagesdir>-->
+                    <!--</attributes>-->
+                    <!--&lt;!&ndash;<headerFooter>false</headerFooter>&ndash;&gt;-->
+                    <!--<preserveDirectories>true</preserveDirectories>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
+        </plugins>
+    </build>
 
 </project>

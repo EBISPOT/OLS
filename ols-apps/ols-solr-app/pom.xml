@@ -32,18 +32,6 @@
                 <version>${springboot.maven}</version>
                 <configuration>
                 </configuration>
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<goals>-->
-                            <!--<goal>repackage</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--<finalName>-->
-                                <!--build-ols-solr-index-->
-                            <!--</finalName>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
-                <!--</executions>-->
    			</plugin>
    		</plugins>
    	</build>
