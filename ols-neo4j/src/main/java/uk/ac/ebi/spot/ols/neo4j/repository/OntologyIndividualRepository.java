@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.GraphRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import uk.ac.ebi.spot.ols.neo4j.model.Individual;
 import uk.ac.ebi.spot.ols.neo4j.model.Term;
 
@@ -12,6 +13,7 @@ import uk.ac.ebi.spot.ols.neo4j.model.Term;
  * @date 18/08/2015
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
+@RepositoryRestResource(exported = false)
 public interface OntologyIndividualRepository  extends GraphRepository<Individual> {
 
     @Query(

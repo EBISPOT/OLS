@@ -3,10 +3,14 @@ package uk.ac.ebi.spot.ols.controller.api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.rest.webmvc.RepositoryLinksResource;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.ResourceProcessor;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -30,7 +34,9 @@ import java.io.UnsupportedEncodingException;
  */
 @Controller
 @RequestMapping("/api/ontology")
-public class OntologyController {
+@ExposesResourceFor(OntologyDocument.class)
+public class OntologyController implements
+        ResourceProcessor<RepositoryLinksResource> {
 
     @Autowired
     private OntologyRepositoryService ontologyRepositoryService;
@@ -38,6 +44,13 @@ public class OntologyController {
     @Autowired DocumentAssembler documentAssembler;
 
     @Autowired TermAssembler termAssembler;
+
+    @Override
+    public RepositoryLinksResource process(RepositoryLinksResource resource) {
+        resource.add(ControllerLinkBuilder.linkTo(OntologyController.class).withRel("ontology"));
+
+        return resource;
+    }
 
     @RequestMapping(path = "", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<PagedResources<OntologyDocument>> getOntologies(

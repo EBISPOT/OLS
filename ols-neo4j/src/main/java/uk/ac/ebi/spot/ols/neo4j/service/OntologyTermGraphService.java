@@ -48,11 +48,12 @@ public class OntologyTermGraphService {
             "RETURN distinct id(startNode(r1)) as startId, startNode(r1).iri as startIri, startNode(r1).label as startLabel, startNode(r1).has_children as hasChildren, collect( distinct id(endNode(r1)) ) as parents";
 
     @Transactional
-    public Object getJsTree(String ontologyName, String iri) {
+    public Object getJsTree(String ontologyName, String iri, boolean siblings) {
         Map<String, Object> paramt = new HashMap<>();
         paramt.put("0", ontologyName);
         paramt.put("1", iri);
-        Result res = graphDatabaseService.execute(parentTreeQuery, paramt);
+        String query = siblings ? parentSiblingTreeQuery : parentTreeQuery;
+        Result res = graphDatabaseService.execute(query, paramt);
 
         JsTreeBuilder builder = new JsTreeBuilder("Thing");
         return builder.getJsTreeObject(ontologyName, iri, res);

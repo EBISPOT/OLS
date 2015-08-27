@@ -23,21 +23,21 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-neo4j</artifactId>
+			<artifactId>spring-data-neo4j</artifactId>
 		</dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>5.2.0.CR1</version>
-        </dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>5.2.0.CR1</version>
+		</dependency>
 
-        <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.0-api</artifactId>
-            <version>1.0.0.Final</version>
-            <optional>true</optional>
-            <scope>compile</scope>
-        </dependency>
+		<dependency>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.0-api</artifactId>
+			<version>1.0.0.Final</version>
+			<optional>true</optional>
+			<scope>compile</scope>
+		</dependency>
 
 
 		<dependency>
@@ -46,40 +46,45 @@
 			<version>2.2.4</version>
 		</dependency>
 
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-            <version>1.1.0.Final</version>
-            <scope>runtime</scope>
-        </dependency>
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.1.0.Final</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-rest-core</artifactId>
+		</dependency>
 
 		<!--<dependency>-->
-		    <!--<groupId>org.springframework.data</groupId>-->
-		    <!--<artifactId>spring-data-neo4j-aspects</artifactId>-->
-            <!--<version>3.4.0.M1</version>-->
+		<!--<groupId>org.springframework.data</groupId>-->
+		<!--<artifactId>spring-data-neo4j-aspects</artifactId>-->
+		<!--<version>3.4.0.M1</version>-->
 		<!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.neo4j</groupId>-->
-            <!--<artifactId>neo4j</artifactId>-->
-            <!--<version>2.2.2</version>-->
-        <!--</dependency>-->
+		<!--<dependency>-->
+		<!--<groupId>org.neo4j</groupId>-->
+		<!--<artifactId>neo4j</artifactId>-->
+		<!--<version>2.2.2</version>-->
+		<!--</dependency>-->
 
-        <dependency>
-      			<groupId>org.springframework.data</groupId>
-      			<artifactId>spring-data-rest-webmvc</artifactId>
-      		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-rest-webmvc</artifactId>
+		</dependency>
 
 		<!--<dependency>-->
-			<!--<groupId>org.springframework.data</groupId>-->
-			<!--<artifactId>spring-data-neo4j-rest</artifactId>-->
-			<!--<version>2.3.0.RELEASE</version>-->
+		<!--<groupId>org.springframework.data</groupId>-->
+		<!--<artifactId>spring-data-neo4j-rest</artifactId>-->
+		<!--<version>2.3.0.RELEASE</version>-->
 		<!--</dependency>-->
 
-        <dependency>
-            <groupId>org.neo4j</groupId>
-            <artifactId>neo4j</artifactId>
-            <version>2.2.2</version>
-        </dependency>
+		<dependency>
+			<groupId>org.neo4j</groupId>
+			<artifactId>neo4j</artifactId>
+			<version>2.2.2</version>
+		</dependency>
 
 		<dependency>
 			<groupId>uk.ac.ebi.spot</groupId>
@@ -91,19 +96,19 @@
 
 
 	<!--<build>-->
-		<!--<plugins>-->
-			<!--<plugin>-->
-				<!--<groupId>org.springframework.boot</groupId>-->
-				<!--<artifactId>spring-boot-maven-plugin</artifactId>-->
-				<!--<executions>-->
-					<!--<execution>-->
-						<!--<goals>-->
-							<!--<goal>repackage</goal>-->
-						<!--</goals>-->
-					<!--</execution>-->
-				<!--</executions>-->
-			<!--</plugin>-->
-		<!--</plugins>-->
+	<!--<plugins>-->
+	<!--<plugin>-->
+	<!--<groupId>org.springframework.boot</groupId>-->
+	<!--<artifactId>spring-boot-maven-plugin</artifactId>-->
+	<!--<executions>-->
+	<!--<execution>-->
+	<!--<goals>-->
+	<!--<goal>repackage</goal>-->
+	<!--</goals>-->
+	<!--</execution>-->
+	<!--</executions>-->
+	<!--</plugin>-->
+	<!--</plugins>-->
 	<!--</build>-->
 
 

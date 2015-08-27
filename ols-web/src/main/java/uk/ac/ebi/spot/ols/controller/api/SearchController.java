@@ -20,6 +20,7 @@ import uk.ac.ebi.spot.ols.config.SearchConfiguration;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -254,9 +255,13 @@ public class SearchController {
     private StringBuilder buildBaseSearchRequest(String queryPath) {
         // build base request
         StringBuilder solrSearchBuilder = new StringBuilder();
-        solrSearchBuilder.append(searchConfiguration.getOlsSearchServer().toString())
-                .append("/select?")
-                .append(queryPath);
+        try {
+            solrSearchBuilder.append(searchConfiguration.getOlsSearchServer().toString())
+                    .append("/select?")
+                    .append(queryPath);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("Can't search solr server, malformed URL", e);
+        }
         return solrSearchBuilder;
     }
 

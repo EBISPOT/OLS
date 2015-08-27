@@ -4,6 +4,20 @@ $(document).ready(function() {
     $('.ontology-select').select2();
     $('.type-select').select2();
 
+
+    $('#local-search').on ('submit', function (e) {
+        e.preventDefault();
+        var queryTerm = $('#local-searchbox').val();
+
+        if (queryTerm != '') {
+            console.log("new search for " + queryTerm)
+            $('#query-id').val(queryTerm);
+            var query =$('#filter_form').serialize();
+            $('#filter_form').submit();
+        }
+
+    });
+
     try {
         loadResults();
     } catch (err) {
@@ -19,7 +33,7 @@ function loadResults() {
     //var query = $("#query-id").text();
 
     var query =$('#filter_form').serialize()
-    //console.log("Loading results for " + query);
+    console.log("Loading results for " + query);
 
     solrSearch(query)
 

@@ -73,7 +73,7 @@ public class PropertyController {
             }
         }
         else {
-          terms = ontologyPropertyGraphService.findAllByOntology(ontologyId, pageable);
+            terms = ontologyPropertyGraphService.findAllByOntology(ontologyId, pageable);
         }
 
         return new ResponseEntity<>( assembler.toResource(terms, termAssembler), HttpStatus.OK);
@@ -94,7 +94,7 @@ public class PropertyController {
 
     @RequestMapping(path = "/{onto}/properties/{id}/parents", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<PagedResources<Property>> getParents(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId, Pageable pageable,
-                                                PagedResourcesAssembler assembler) {
+                                                    PagedResourcesAssembler assembler) {
         ontologyId = ontologyId.toLowerCase();
 
         try {
@@ -109,7 +109,7 @@ public class PropertyController {
 
     @RequestMapping(path = "/{onto}/properties/{id}/children", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<PagedResources<Property>> children(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId, Pageable pageable,
-                                              PagedResourcesAssembler assembler) {
+                                                  PagedResourcesAssembler assembler) {
         ontologyId = ontologyId.toLowerCase();
 
         try {
@@ -124,7 +124,7 @@ public class PropertyController {
 
     @RequestMapping(path = "/{onto}/properties/{id}/descendants", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<PagedResources<Property>> descendants(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId, Pageable pageable,
-                                                 PagedResourcesAssembler assembler) {
+                                                     PagedResourcesAssembler assembler) {
         ontologyId = ontologyId.toLowerCase();
 
         try {
@@ -139,7 +139,7 @@ public class PropertyController {
 
     @RequestMapping(path = "/{onto}/properties/{id}/ancestors", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<PagedResources<Property>> ancestors(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId, Pageable pageable,
-                                               PagedResourcesAssembler assembler) {
+                                                   PagedResourcesAssembler assembler) {
         ontologyId = ontologyId.toLowerCase();
 
         try {
@@ -153,13 +153,15 @@ public class PropertyController {
     }
 
     @RequestMapping(path = "/{onto}/properties/{id}/jstree", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
-    HttpEntity<String> getJsTree(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId) {
+    HttpEntity<String> getJsTree(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId,
+                                 @RequestParam(value = "siblings", defaultValue = "false", required = false) boolean siblings)
+     {
         ontologyId = ontologyId.toLowerCase();
 
         try {
             String decoded = UriUtils.decode(termId, "UTF-8");
 
-            Object object= ontologyPropertyGraphService.getJsTree(ontologyId, decoded);
+            Object object= ontologyPropertyGraphService.getJsTree(ontologyId, decoded,siblings );
             ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
             return new HttpEntity<String>(ow.writeValueAsString(object));
         } catch (JsonProcessingException e) {

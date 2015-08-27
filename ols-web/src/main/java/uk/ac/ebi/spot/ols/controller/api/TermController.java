@@ -165,13 +165,16 @@ public class TermController {
     }
 
     @RequestMapping(path = "/{onto}/terms/{id}/jstree", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
-    HttpEntity<String> graphD3(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId) {
+    HttpEntity<String> graphJsTree(
+            @PathVariable("onto") String ontologyId,
+            @PathVariable("id") String termId,
+            @RequestParam(value = "siblings", defaultValue = "false", required = false) boolean siblings) {
         ontologyId = ontologyId.toLowerCase();
 
         try {
             String decoded = UriUtils.decode(termId, "UTF-8");
 
-            Object object= ontologyTermGraphService.getJsTree(ontologyId, decoded);
+            Object object= ontologyTermGraphService.getJsTree(ontologyId, decoded, siblings);
             ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
             return new HttpEntity<String>(ow.writeValueAsString(object));
         } catch (JsonProcessingException e) {

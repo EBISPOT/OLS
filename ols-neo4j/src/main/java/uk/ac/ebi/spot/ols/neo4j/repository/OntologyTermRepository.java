@@ -18,6 +18,7 @@ import java.util.Set;
  * @date 30/04/2015
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
+@RepositoryRestResource(exported = false)
 public interface OntologyTermRepository extends GraphRepository<Term> {
 
     @Query(

@@ -1,5 +1,31 @@
 
 $(document).ready(function() {
+     showTree(false);
+
+});
+
+function toggleSiblings(elm) {
+
+    var buttonValue = $(elm).val() == 'true';
+
+    if (buttonValue) {
+        $(elm).text("Hide siblings");
+        $(elm).val(false);
+    }
+    else {
+        $(elm).text("Show siblings");
+        $(elm).val(true);
+
+    }
+    showTree(buttonValue)
+    console.log(buttonValue);
+
+}
+
+function showTree(siblings) {
+
+
+    $( "div[data-olswidget='tree']").empty();
 
     $( "div[data-olswidget='tree']" ).each(function() {
 
@@ -17,8 +43,13 @@ $(document).ready(function() {
         $.jstree.defaults.core.expand_selected_onload = true;
 
         var rootUrl = '/api/ontology/' + ontologyName + '/roots?size=1000';
+
         var baseUrl = '/api/ontology/' + ontologyName + '/' + termType + '/';
         var url = baseUrl + encodeURIComponent(encodeURIComponent(termIri)) + '/jstree' ;
+        if (siblings) {
+            url += '?siblings=true';
+            console.log("rebuild tree iwth siblings " + url)
+        }
         console.log("tree url " + url)
         var treeDiv = $('<div></div>')
             .jstree({
@@ -57,7 +88,8 @@ $(document).ready(function() {
                         "dots": true
                         , "icons": false
                     }
-                }
+                },
+                plugins: ["sort"]
             }).bind("dblclick.jstree", function (event) {
 
                 var tree = $(this).jstree();
@@ -71,7 +103,7 @@ $(document).ready(function() {
         $(this).append(treeDiv);
 
     });
-});
+}
 
 function _processOlsData (data, parentId, termType) {
 

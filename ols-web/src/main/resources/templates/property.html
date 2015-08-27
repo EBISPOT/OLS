@@ -208,6 +208,9 @@
 
                             <div role="tabpanel" class="tab-pane active" id="tree-tab">
 
+                                <div style="float: right;">
+                                    <button style="background-color: #5FBDCE; color: white;" value="true" onclick="toggleSiblings(this)">Show siblings</button>
+                                </div>
                                 <div id="term-tree" data-olswidget="tree" th:attr="data-olsontology=${ontologyProperty.getOntologyName()},data-ols-iri=${ontologyProperty.getIri()}" data-ols-termtype="property" data-olsontology="" data-ols-iri=""  >
                                 </div>
 

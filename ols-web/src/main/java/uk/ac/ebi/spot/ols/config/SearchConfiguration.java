@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
@@ -14,12 +15,16 @@ import java.net.URL;
 @Component
 public class SearchConfiguration {
     @NotNull
-    @Value("${search.server}")
-    private URL server;
+    @Value("${spring.data.solr.host}")
+    private String server;
+
+    @NotNull
+    @Value("${ols.solr.core}")
+    private String core = "ontology";
 
 
-    public URL getOlsSearchServer() {
-        return server;
+    public URL getOlsSearchServer() throws MalformedURLException {
+        return new URL(server + "/" + core);
     }
 
 }

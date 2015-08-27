@@ -75,3 +75,69 @@ ontologies:
     products:
      - id: http://www.biomodels.net/teddy/TEDDY
        type: owl:Ontology
+
+## EDAM
+
+  - id: edam
+  preferredPrefix: EDAM
+  title: EMBRACE Data and Methods
+  uri: http://edamontology.org
+  description: "EDAM is a simple ontology of well established, familiar concepts that are prevalent within bioinformatics, including types of data and data identifiers, data formats, operations and topics. EDAM provides a set of terms with synonyms and definitions - organised into an intuitive hierarchy for convenient use."
+  homepage: http://edamontology.org
+  mailing_list: edam@elixir-dk.org
+  definition_property:
+    - http://www.geneontology.org/formats/oboInOwl#hasDefinition
+  synonym_property:
+    - http://www.geneontology.org/formats/oboInOwl#hasExactSynonym
+  base_uri:
+    - http://edamontology.org/data_
+  isInferred: true
+  classify: false
+  oboSlims: false
+  products:
+    - id: http://edamontology.org/EDAM.owl   ### This is the download URL
+      type: owl:Ontology
+
+## CCO
+
+  - id: cco
+  preferredPrefix: CCO
+  title: Cell Cycle Ontology
+  uri: http://purl.obolibrary.org/obo/cco
+  description: "The Cell Cycle Ontology extends existing ontologies for cell cycle knowledge building a resource that integrates and manages knowledge about the cell cycle components and regulatory aspects."
+  homepage: http://www.semantic-systems-biology.org/apo
+  mailing_list: vladimir.n.mironov@gmail.com
+  definition_property:
+    - http://purl.obolibrary.org/obo/IAO_0000115
+  synonym_property:
+    - http://www.geneontology.org/formats/oboInOwl#hasExactSynonym
+  base_uri:
+    - http://purl.obolibrary.org/obo/CCO_
+  isInferred: true
+  classify: false
+  oboSlims: true
+  products:
+    - id: http://www.nt.ntnu.no/users/mironov/ontology/CCO/cco.obo   ### This is the download URL
+      type: obo:Ontology
+
+## CMPO
+
+  - id: cmpo
+  preferredPrefix: CMPO
+  title: Cellular Microscopy Phenotype Ontology
+  uri: http://www.ebi.ac.uk/cmpo
+  description: "CMPO is a species neutral ontology for describing general phenotypic observations relating to the whole cell, cellular components, cellular processes and cell populations."
+  homepage: http://www.ebi.ac.uk/cmpo
+  mailing_list: jupp@ebi.ac.uk
+  definition_property:
+    - http://purl.obolibrary.org/obo/IAO_0000115
+  synonym_property:
+    - http://www.geneontology.org/formats/oboInOwl#hasExactSynonym
+  base_uri:
+    - http://www.ebi.ac.uk/cmpo/CMPO_
+  isInferred: true
+  classify: false
+  oboSlims: true
+  products:
+    - id: http://www.ebi.ac.uk/cmpo.owl   ### This is the download URL
+      type: obo:Ontology

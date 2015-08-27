@@ -1,6 +1,7 @@
 package uk.ac.ebi.spot.ols.repository.mongo;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
 import uk.ac.ebi.spot.ols.model.Status;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * @date 11/02/2015
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
+@RepositoryRestResource(exported = false)
 public interface MongoOntologyRepository extends MongoRepository<OntologyDocument, String> {
 
     List<OntologyDocument> findByStatus(Status status);

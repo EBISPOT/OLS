@@ -19,6 +19,11 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-rest-core</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>uk.ac.ebi.spot</groupId>
             <artifactId>ols-core</artifactId>
         </dependency>
