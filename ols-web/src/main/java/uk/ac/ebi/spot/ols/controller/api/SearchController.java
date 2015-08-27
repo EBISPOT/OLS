@@ -68,13 +68,18 @@ public class SearchController {
         if (queryFields == null) {
             // if exact just search the supplied fields for exact matches
             if (exact) {
-                solrQuery.setQuery( createUnionQuery(query, "label_s", "synonym_s", "shortform_s", "obo_id_s", "iri_s", "annotations_s"));
+                solrQuery.setQuery(
+                        "((" +
+                        createUnionQuery(query, "label_s", "synonym_s", "shortform_s", "obo_id_s", "iri_s", "annotations_s")
+                        + ") AND (is_defining_ontology:true^100 OR is_defining_ontology:false^0))"
+                );
+
             }
             else {
                 solrQuery.set("defType", "edismax");
                 solrQuery.setQuery(query);
                 solrQuery.set("qf", "label^5 synonym^3 description short_form^2 obo_id^2 annotations logical_description iri");
-                solrQuery.set("bq", "is_defining_ontology:true^2 label_s:\"" + query + "\"^5 synonym_s:\"" + query + "\"^3 annotations_s:\"" + query + "\"");
+                solrQuery.set("bq", "is_defining_ontology:true^100 label_s:\"" + query + "\"^5 synonym_s:\"" + query + "\"^3 annotations_s:\"" + query + "\"");
             }
         }
         else {
@@ -103,11 +108,11 @@ public class SearchController {
         solrQuery.setFields( fieldList.toArray(new String[fieldList.size()]));
 
         if (ontologies != null) {
-            solrQuery.addFilterQuery("ontology_name:" + String.join(" OR ", ontologies));
+            solrQuery.addFilterQuery("ontology_name: (" + String.join(" OR ", ontologies) + ")");
         }
 
         if (slims != null) {
-            solrQuery.addFilterQuery("subset:" + String.join(" OR ", slims));
+            solrQuery.addFilterQuery("subset: (" + String.join(" OR ", slims) + ")");
         }
 
         if (isLocal) {
@@ -115,12 +120,14 @@ public class SearchController {
         }
 
         if (types != null) {
-            solrQuery.addFilterQuery("type:" + String.join(" OR ", types));
+            solrQuery.addFilterQuery("type: (" + String.join(" OR ", types) + ")");
         }
 
         if (groupField != null) {
             solrQuery.addFilterQuery("{!collapse field=iri}");
             solrQuery.add("expand=true", "true");
+            solrQuery.add("expand.rows", "100");
+
         }
 
         solrQuery.addFilterQuery("is_obsolete:" + queryObsoletes);
@@ -152,6 +159,8 @@ public class SearchController {
 
             if (x+1 < fields.length) {
                 builder.append(OR);
+                builder.append(SPACE);
+
             }
         }
         return builder.toString();
@@ -177,7 +186,7 @@ public class SearchController {
         solrQuery.setQuery(query);
         solrQuery.set("defType", "edismax");
         solrQuery.set("qf", "label synonym label_autosuggest_ws label_autosuggest_e label_autosuggest synonym_autosuggest_ws synonym_autosuggest_e synonym_autosuggest shortform_autosuggest");
-        solrQuery.set("bq", "is_defining_ontology:true label_s:\"" + query + "\"^2 synonym_s:\"" + query + "\"");
+        solrQuery.set("bq", "is_defining_ontology:true^100.0 label_s:\"" + query + "\"^2 synonym_s:\"" + query + "\"");
         solrQuery.set("wt", "json");
 
         if (fieldList == null) {
@@ -196,20 +205,17 @@ public class SearchController {
         solrQuery.setFields( fieldList.toArray(new String[fieldList.size()]));
 
         if (ontologies != null) {
-            for (String ontologyname : ontologies) {
-                solrQuery.addFilterQuery("ontology_name:" + ontologyname);
-            }
+            solrQuery.addFilterQuery("ontology_name: (" + String.join(" OR ", ontologies) + ")");
         }
 
         if (slims != null) {
-            for (String slim : slims) {
-                solrQuery.addFilterQuery("subset:" + slim);
-            }
+            solrQuery.addFilterQuery("subset: (" + String.join(" OR ", slims) + ")");
         }
 
         if (isLocal) {
             solrQuery.addFilterQuery("is_defining_ontology:true");
         }
+
 
         solrQuery.addFilterQuery("is_obsolete:" + queryObsoletes);
         solrQuery.setStart(start);
