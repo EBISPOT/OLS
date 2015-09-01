@@ -119,21 +119,21 @@
 
             <!-- -->
             <div class="grid_10 omega">
-                <form id="local-search" name="local-search" action="../search" method="get">
+                <form id="local-search" name="local-search" action="../../search" method="get">
                     <fieldset><div class="left">
                         <label>
                             <input style="font-weight: normal;" type="text" name="q" data-olswidget="select" th:attr="data-olsontology=${ontologyDocument.getOntologyId()}" data-selectpath="../" id="local-searchbox" class="ac_input">
                             </input>
                         </label>
                         <span class="examples">Examples: <a href="../search?q=cancer">cancer</a>,
-                            <a href="../search?q=GO:0098743">GO:0098743</a>,
+                            <a href="../../search?q=GO:0098743">GO:0098743</a>,
                         </span>
                     </div>
                         <div class="right">
                             <input type="submit" value="Search" class="submit">
                             </input>
                             <span class="adv">
-                                <a href="../search" id="adv-search" title="Advanced">Advanced</a>
+                                <a href="../../search" id="adv-search" title="Advanced">Advanced</a>
                             </span>
                         </div>
                     </fieldset>
@@ -184,7 +184,7 @@
                     </div>
                     <div class="grid_24 clearfix">
                         <span style="font-size: small;color: grey;padding: 9px;" th:text="${ontologyDocument.getConfig().getId()}">http://www.example.com/onto/id</span>
-                        <a th:href="@{${ontologyDocument.getConfig().getId()}}" class="nounderline" target="blank"><img th:src="@{../../../img/external_link.png}" src="../static/img/external_link.png" alt="^" title="Go to external page"/></a>
+                        <a th:href="@{${ontologyDocument.getConfig().getId()}}" class="nounderline" target="blank"><img th:src="@{../img/external_link.png}" src="../static/img/external_link.png" alt="^" title="Go to external page"/></a>
                         <div style="float:right;">
                             <div>
                                 <a class ="icon icon-functional"  data-icon ="=" target="_blank" href="#" th:href="${ontologyDocument.getConfig().getFileLocation()}">Download</a>
@@ -346,12 +346,12 @@
 </div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script type="text/javascript" src="../static/js/jquery/jquery.autocomplete.min.js" th:src="@{../../../js/jquery/jquery.autocomplete.min.js}"></script>
-<script type="text/javascript" src="../static/js/ols.js" th:src="@{../../../js/ols.js}"></script>
-<script src="../static/js/jstree/jstree.min.js" th:src="@{../../../js/jstree/jstree.min.js}"></script>
+<script type="text/javascript" src="../static/js/jquery/jquery.autocomplete.min.js" th:src="@{../js/jquery/jquery.autocomplete.min.js}"></script>
+<script type="text/javascript" src="../static/js/ols.js" th:src="@{../js/ols.js}"></script>
+<script src="../static/js/jstree/jstree.min.js" th:src="@{../js/jstree/jstree.min.js}"></script>
 
-<script type="text/javascript" src="../static/js/ols-termselect.js" th:src="@{../../../js/ols-termselect.js}"></script>
-<script type="text/javascript" src="../static/js/ols-tree.js" th:src="@{../../../js/ols-tree.js}"></script>
+<script type="text/javascript" src="../static/js/ols-termselect.js" th:src="@{../js/ols-termselect.js}"></script>
+<script type="text/javascript" src="../static/js/ols-tree.js" th:src="@{../js/ols-tree.js}"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script>
     $(document).ready(function() {

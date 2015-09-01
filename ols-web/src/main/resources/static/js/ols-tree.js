@@ -42,9 +42,9 @@ function showTree(siblings) {
         $.jstree.defaults.core.data = true;
         $.jstree.defaults.core.expand_selected_onload = true;
 
-        var rootUrl = '/api/ontology/' + ontologyName + '/roots?size=1000';
+        var rootUrl = relativePath + '/api/ontology/' + ontologyName + '/roots?size=1000';
 
-        var baseUrl = '/api/ontology/' + ontologyName + '/' + termType + '/';
+        var baseUrl = relativePath + '/api/ontology/' + ontologyName + '/' + termType + '/';
         var url = baseUrl + encodeURIComponent(encodeURIComponent(termIri)) + '/jstree' ;
         if (siblings) {
             url += '?siblings=true';

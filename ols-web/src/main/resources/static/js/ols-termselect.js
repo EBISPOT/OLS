@@ -6,7 +6,7 @@ $(document).ready(function() {
         var relativePath = $(this).data("selectpath") ? $(this).data("selectpath") : '';
         var ontology =   $(this).data("olsontology") ? $(this).data("olsontology") : '';
         $(this).devbridgeAutocomplete({
-            serviceUrl: '/api/select',
+            serviceUrl: relativePath + 'api/select',
             minChars: 3,
             dataType : 'json',
             paramName: 'q',
