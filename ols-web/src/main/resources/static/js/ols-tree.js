@@ -86,17 +86,21 @@ function showTree(siblings) {
                     },
                     "themes": {
                         "dots": true
-                        , "icons": false
+                        , "icons": false,
+                        "name" : "proton"
+                        //"responsive" : true
                     }
                 },
                 plugins: ["sort"]
-            }).bind("dblclick.jstree", function (event) {
+            }).bind("select_node.jstree", function (node, selected, event) {
 
-                var tree = $(this).jstree();
-                var node = tree.get_node(event.target);
-                console.log(node);
+                //var tree = $(this).jstree();
+                //node = tree.get_node(event.target);
+                //console.log(node);
+                //console.log(selected);
+                //console.log(event);
                 // Do my action
-                window.location.href = relativePath + "/ontology/" + node.original.ontology_name + "/" + termType + '?iri=' + encodeURIComponent(node.original.iri);
+                window.location.href = relativePath + "ontology/" + selected.node.original.ontology_name + "/" + termType + '?iri=' + encodeURIComponent(selected.node.original.iri);
             });
 
 

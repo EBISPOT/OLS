@@ -204,7 +204,7 @@ public class SearchController {
         }
         solrQuery.setFields( fieldList.toArray(new String[fieldList.size()]));
 
-        if (ontologies != null) {
+        if (!ontologies.isEmpty()) {
             solrQuery.addFilterQuery("ontology_name: (" + String.join(" OR ", ontologies) + ")");
         }
 

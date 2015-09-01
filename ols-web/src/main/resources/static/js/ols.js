@@ -11,3 +11,7 @@ function getUrlType (type) {
     }
     return urlType;
 }
+
+function goTo (url) {
+    window.location.href =  url;
+}

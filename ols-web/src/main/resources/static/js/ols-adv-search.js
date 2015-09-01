@@ -28,6 +28,16 @@ $(document).ready(function() {
 
 });
 
+function clearFilter() {
+    $('#ontology-select-id').val('');
+    $('#ontology-type-id').val('');
+    $('#group-id').attr('checked', false);
+    $('#exact-id').attr('checked', false);
+    $('#obsolete-id').attr('checked', false);
+    $('#local-searchbox').submit();
+
+}
+
 function loadResults() {
 
     //var query = $("#query-id").text();

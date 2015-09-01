@@ -13,9 +13,9 @@
     <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> --> <!-- Not yet implemented -->
 
     <title>Home &lt; Ontology Lookup Service &lt; EMBL-EBI</title>
-    <meta name="description" content="EMBL-EBI"/><!-- Describe what this page is about -->
-    <meta name="keywords" content="bioinformatics, europe, institute"/><!-- A few keywords that relate to the content of THIS PAGE (not the whol project) -->
-    <meta name="author" content="EMBL-EBI"/><!-- Your [project-name] here -->
+    <meta name="description" content="EMBL-EBI Ontology Lookup Service is a repository of bio-medical ontologies and provides a powerful REST API for searching and accessing ontology term information"/><!-- Describe what this page is about -->
+    <meta name="keywords" content="ontology, ontologies, bioinformatics, europe, institute"/><!-- A few keywords that relate to the content of THIS PAGE (not the whol project) -->
+    <meta name="author" content="Samples Phenotypes and Ontologies Team, EMBL-EBI"/><!-- Your [project-name] here -->
 
     <!-- Mobile viewport optimized: j.mp/bplateviewport -->
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
@@ -108,7 +108,7 @@
             <!-- local-title -->
             <!-- NB: for additional title style patterns, see http://frontier.ebi.ac.uk/web/style/patterns -->
 
-            <div id="local-title" class="grid_12 alpha logo-title">
+            <div id="local-title" class="grid_14 alpha logo-title">
                 <a href="index" title="Back to OLS homepage">
                     <img style="width: 80px" th:src="@{img/ols-logo.jpg}" src="../static/img/ols-logo.jpg" alt="OLS logo"/></a>
                 <span><h1>Ontology Lookup Service</h1></span>
@@ -117,7 +117,7 @@
             <!-- /local-title -->
 
             <!-- -->
-            <div class="grid_12 omega">
+            <div class="grid_10 omega">
                 <form id="local-search" name="local-search" action="search" method="get">
                     <fieldset><div class="left">
                         <label>
@@ -182,14 +182,14 @@
                     <div class="ontologies" th:unless="${#lists.isEmpty(all_ontologies)}">
 
 
-                        <!--<h2 class="strapline">Ontologies</h2>-->
+                        <h2 class="strapline">List of ontologies in OLS</h2>
 
                         <div style="padding: 9px;">
 
                         <table data-toggle="table" data-search="true" data-locale="en-US" class="table table-striped table-hover ">
                             <thead>
                             <tr>
-                                <th data-sortable="true">Ontology</th>
+                                <th data-sortable="true">Ontology Name</th>
                                 <th data-sortable="true">Short name</th>
                                 <th data-sortable="true">Last updated</th>
                                 <th>Action</th>
@@ -206,8 +206,8 @@
                                 <td th:text="${{onto.getUpdated()}}">0</td>
                                 <td >
                                     <a th:href="'search?ontology=' + ${onto.getConfig().getNamespace()}" href="search">Search</a><br/>
-                                    <a href="#">Download</a><br/>
-                                    <a href="#">Project homepage</a><br/>
+                                    <!--<a href="#">Download</a><br/>-->
+                                    <!--<a href="#">Project homepage</a><br/>-->
                                 </td>
                             </tr>
                             </tbody>

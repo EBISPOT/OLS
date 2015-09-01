@@ -4,11 +4,13 @@ $(document).ready(function() {
     $( "input[data-olswidget='select']" ).each(function() {
 
         var relativePath = $(this).data("selectpath") ? $(this).data("selectpath") : '';
+        var ontology =   $(this).data("olsontology") ? $(this).data("olsontology") : '';
         $(this).devbridgeAutocomplete({
             serviceUrl: '/api/select',
             minChars: 3,
             dataType : 'json',
             paramName: 'q',
+            params: {ontology : ontology},
             onSelect : function (suggestion)  {
                 var type = getUrlType(suggestion.data.type);
                 var encoded = encodeURIComponent(suggestion.data.iri);
