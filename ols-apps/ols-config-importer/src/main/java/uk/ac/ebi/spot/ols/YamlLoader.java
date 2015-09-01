@@ -72,7 +72,7 @@ public class YamlLoader implements CommandLineRunner {
         }
 
         if (!oboYamlPath.equals("")) {
-            UrlResource resource = new UrlResource(oboYamlPath);
+            Resource resource = getResourceFromPath(oboYamlPath);
             YamlConfigParser yamlConfigParser = new YamlConfigParser(resource, true);
             updateDocument(yamlConfigParser);
         }
