@@ -10,7 +10,7 @@
         <encoder>
             <pattern>${FILE_LOG_PATTERN}</pattern>
         </encoder>
-        <file>${LOG_PATH}/webulous.log</file>
+        <file>${LOG_PATH}/ols.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover daily -->
             <fileNamePattern>${LOG_PATH}/ols.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
