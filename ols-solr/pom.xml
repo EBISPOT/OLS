@@ -14,8 +14,8 @@
 
     <dependencies>
         <dependency>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-data-solr</artifactId>
+          <groupId>org.springframework.data</groupId>
+          <artifactId>spring-data-solr</artifactId>
         </dependency>
 
         <dependency>

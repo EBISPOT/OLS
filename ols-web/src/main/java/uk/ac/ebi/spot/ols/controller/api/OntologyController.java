@@ -1,5 +1,6 @@
 package uk.ac.ebi.spot.ols.controller.api;
 
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,6 +34,7 @@ import java.io.UnsupportedEncodingException;
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
 @Controller
+@Api(value = "Ontologies", description = "Ontologies loaded into OLS", position = 20)
 @RequestMapping("/api/ontology")
 @ExposesResourceFor(OntologyDocument.class)
 public class OntologyController implements

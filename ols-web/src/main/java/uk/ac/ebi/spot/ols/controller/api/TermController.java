@@ -3,6 +3,9 @@ package uk.ac.ebi.spot.ols.controller.api;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.UriUtils;
+import springfox.documentation.annotations.ApiIgnore;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
 import uk.ac.ebi.spot.ols.neo4j.model.Term;
 import uk.ac.ebi.spot.ols.neo4j.service.OntologyTermGraphService;
@@ -34,6 +38,7 @@ import java.util.Arrays;
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
 @Controller
+@Api(value = "Terms", description = "Ontology terms API", position = 2)
 @RequestMapping("/api/ontology")
 public class TermController {
 
@@ -42,14 +47,15 @@ public class TermController {
 
     @Autowired TermAssembler termAssembler;
 
+    @ApiOperation(value = "Find ontology term", notes = "Returns a term from the specified ontology with specified ID")
     @RequestMapping(path = "{onto}/terms", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<PagedResources<Term>> terms(
-            @PathVariable("onto") String ontologyId,
-            @RequestParam(value = "iri", required = false) String iri,
+             @PathVariable("onto") String ontologyId,
+             @ApiParam(value = "iri", name = "iri") @RequestParam(value = "iri", required = false) String iri,
             @RequestParam(value = "short_form", required = false) String shortForm,
             @RequestParam(value = "obo_id", required = false) String oboId,
-            Pageable pageable,
-            PagedResourcesAssembler assembler) {
+            @ApiIgnore()Pageable pageable,
+             @ApiIgnore() PagedResourcesAssembler assembler) {
 
         Page<Term> terms = null;
 

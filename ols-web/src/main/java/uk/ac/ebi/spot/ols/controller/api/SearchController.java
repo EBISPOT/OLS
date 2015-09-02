@@ -1,5 +1,6 @@
 package uk.ac.ebi.spot.ols.controller.api;
 
+import io.swagger.annotations.Api;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -30,6 +31,7 @@ import java.util.HashSet;
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
 @Controller
+@Api(value = "Search", description = "Ontology search API", position = 1)
 public class SearchController {
 
     private static String COLON = ":";

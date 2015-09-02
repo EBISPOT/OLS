@@ -21,12 +21,13 @@
     </appender>
 
     <logger name="uk.ac.ebi.spot" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE" />
         <appender-ref ref="FILE" />
     </logger>
 
     <root level="INFO">
-        <!--<appender-ref ref="CONSOLE" />-->
-        <appender-ref ref="FILE" />
+        <appender-ref ref="CONSOLE" />
+        <!--<appender-ref ref="FILE" />-->
     </root>
 
 </configuration>
