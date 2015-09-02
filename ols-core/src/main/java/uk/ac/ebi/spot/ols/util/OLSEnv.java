@@ -26,21 +26,15 @@ public class OLSEnv {
         String olsHome = null;
         try {
             olsHome = InitialContext.doLookup("java:comp/env/ols.home");
+            System.setProperty("ols.home", olsHome);
             getLog().debug("*** context environment ols.home: " + olsHome + " ***");
 
         } catch (NamingException e) {
             olsHome = null;
         }
 
-        if (olsHome == null || olsHome.equals("")) {
-            getLog().debug("*** environment ols.home: " + System.getenv("ols.home") + " ***");
-            System.setProperty("ols.home", System.getenv("ols.home"));
-        }
-
         // ols properties already set?
         olsHome = System.getProperty("ols.home");
-
-
 
         // if ols.home not set, check $OLS_HOME environment variable
         if (olsHome == null || olsHome.equals("")) {
