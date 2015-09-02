@@ -25,7 +25,7 @@ public class OlsNeo4jConfiguration extends Neo4jConfiguration {
         setBasePackage("uk.ac.ebi.spot.ols");
     }
 
-    @Bean
+    @Bean (destroyMethod = "shutdown")
     static GraphDatabaseService graphDatabaseService() {
         return new GraphDatabaseFactory().newEmbeddedDatabaseBuilder(getNeo4JPath())
                 .setConfig( GraphDatabaseSettings.dump_configuration, "true" )
