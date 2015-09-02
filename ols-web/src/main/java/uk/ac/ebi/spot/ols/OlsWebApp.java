@@ -11,6 +11,9 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import org.springframework.data.neo4j.config.EnableNeo4jRepositories;
 import org.springframework.data.solr.repository.config.EnableSolrRepositories;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
 /**
  * @author Simon Jupp
  * @date 17/06/2015

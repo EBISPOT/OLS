@@ -3,6 +3,8 @@ package uk.ac.ebi.spot.ols.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import java.io.File;
 
 /**
@@ -21,13 +23,22 @@ public class OLSEnv {
 
     public static String getOLSHome () {
 
-        if (System.getenv().containsKey("ols.home")) {
+        String olsHome = null;
+        try {
+            olsHome = InitialContext.doLookup("java:comp/env/ols.home");
+            getLog().debug("*** context environment ols.home: " + olsHome + " ***");
+
+        } catch (NamingException e) {
+            olsHome = null;
+        }
+
+        if (olsHome == null || olsHome.equals("")) {
             getLog().debug("*** environment ols.home: " + System.getenv("ols.home") + " ***");
             System.setProperty("ols.home", System.getenv("ols.home"));
         }
 
         // ols properties already set?
-        String olsHome = System.getProperty("ols.home");
+        olsHome = System.getProperty("ols.home");
 
 
 
