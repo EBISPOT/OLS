@@ -69,6 +69,8 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
     private static int BATCH_SIZE = 1000000;
     private static int DELETE_SIZE = 100000;
 
+    @Autowired
+    OlsNeo4jConfiguration neo4jConfiguration;
 
     public BatchNeo4JIndexer() {
 
@@ -203,7 +205,7 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
         BatchInserter inserter = null;
 
         // connect to the database instance
-        File file = new File(OlsNeo4jConfiguration.getNeo4JPath());
+        File file = new File(neo4jConfiguration.getNeo4JPath());
         inserter = BatchInserters.inserter(
                 file.getAbsolutePath(),
                 new DefaultFileSystemAbstraction());
@@ -443,7 +445,7 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
 
         // shutdown any autowired graph dbs for batch loading
         db.shutdown();
-        db = new GraphDatabaseFactory().newEmbeddedDatabase(OlsNeo4jConfiguration.getNeo4JPath());
+        db = new GraphDatabaseFactory().newEmbeddedDatabase(neo4jConfiguration.getNeo4JPath());
 
         deleteNodes(loader.getOntologyName());
 //        deleteRoots(loader.getOntologyName());

@@ -21,8 +21,15 @@ public class OLSEnv {
 
     public static String getOLSHome () {
 
+        if (System.getenv().containsKey("ols.home")) {
+            getLog().debug("*** environment ols.home: " + System.getenv("ols.home") + " ***");
+            System.setProperty("ols.home", System.getenv("ols.home"));
+        }
+
         // ols properties already set?
         String olsHome = System.getProperty("ols.home");
+
+
 
         // if ols.home not set, check $OLS_HOME environment variable
         if (olsHome == null || olsHome.equals("")) {
