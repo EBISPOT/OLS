@@ -160,6 +160,7 @@
     <!--@thymesVar id="ontologyTerm" type="uk.ac.ebi.spot.ols.neo4j.model.Term"-->
     <!--@thymesVar id="ontologyName" type="String"-->
     <!--@thymesVar id="parentTerms" type="Set"-->
+    <!--@thymesVar id="relatedFroms" type="Set"-->
     <div id="content" role="main" class="grid_24 clearfix">
 
         <nav id="breadcrumb">
@@ -296,6 +297,23 @@
 
                                 </div>
 
+                                <br/>
+
+                                <div th:if="${not #maps.isEmpty(relatedFroms)}">
+                                    <b>Related from</b>
+                                    <br/>
+                                    <div th:each="relation : ${relatedFroms}">
+                                        <a class="ObjectProperty" th:href="@{../../search(q=${relation.key},exact='true', type=property, ontology=${ontologyTerm.ontologyName})}" th:text="${relation.key}"></a>
+                                        <p>
+                                            <span th:each="term,iterStat: ${relation.value}">
+                                                <a href="#" th:href="@{terms (iri=${term.iri})}" th:text="${term.label}">parent 1</a>
+                                                <span th:if="${iterStat.count &lt; iterStat.size}">, </span>
+                                            </span>
+                                        </p>
+
+
+                                    </div>
+                                </div>
 
 
                             </div>
@@ -304,12 +322,6 @@
                     </div>
 
                 </div>
-
-
-
-
-
-
 
             </section>
 

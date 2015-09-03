@@ -3,7 +3,9 @@ package uk.ac.ebi.spot.ols.neo4j.service;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,8 +21,9 @@ public class JsTreeObject {
     private String ontologyName;
     private String text;
     private boolean hasChildren;
-            private Map<String, Boolean> state;
+    private Map<String, Boolean> state;
     private boolean children;
+    private Map<String, String> a_attr;
 
 
     public JsTreeObject(String id, String iri, String ontologyName, String text, boolean hasChildren, String parent) {
@@ -33,7 +36,18 @@ public class JsTreeObject {
         this.state = new HashMap<>();
         state.put("opened", true);
         this.children = false;
+        a_attr = new HashMap<>();
+        a_attr.put("title", iri);
 
+
+    }
+
+    public Map<String, String> getA_attr() {
+        return a_attr;
+    }
+
+    public void setA_attr(Map<String, String> a_attr) {
+        this.a_attr = a_attr;
     }
 
     public boolean isChildren() {

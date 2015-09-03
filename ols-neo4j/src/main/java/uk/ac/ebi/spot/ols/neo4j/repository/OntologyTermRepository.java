@@ -6,6 +6,7 @@ import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import uk.ac.ebi.spot.ols.neo4j.model.Related;
 import uk.ac.ebi.spot.ols.neo4j.model.Term;
 
 import java.util.Collection;
@@ -54,6 +55,6 @@ public interface OntologyTermRepository extends GraphRepository<Term> {
     @Query (value = "MATCH (n:Class) WHERE n.ontology_name = {0} AND n.obo_id = {1} RETURN n")
     Term findByOntologyAndOboId(String ontologyId, String oboId);
 
-    @Query (value = "MATCH (n:Class)-[SUBCLASSOF]->(r:Root) WHERE n.ontology_name = {0} RETURN n")
-    Page<Term> getRoots(String ontologyId, Pageable pageable);
+    @Query (value = "MATCH (n:Class)-[SUBCLASSOF]->(r:Root) WHERE n.ontology_name = {0} AND n.is_obsolete = {1}  RETURN n")
+    Page<Term> getRoots(String ontologyId, boolean obsolete, Pageable pageable);
 }

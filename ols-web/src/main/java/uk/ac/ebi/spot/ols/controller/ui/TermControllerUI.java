@@ -1,6 +1,7 @@
 package uk.ac.ebi.spot.ols.controller.ui;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.MediaType;
@@ -10,11 +11,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import uk.ac.ebi.spot.ols.neo4j.model.Related;
 import uk.ac.ebi.spot.ols.neo4j.model.Term;
 import uk.ac.ebi.spot.ols.neo4j.service.OntologyTermGraphService;
 import uk.ac.ebi.spot.ols.service.OntologyRepositoryService;
 
+import java.util.Collection;
 import java.util.Collections;
+import java.util.Map;
 
 /**
  * @author Simon Jupp
@@ -46,6 +50,10 @@ public class TermControllerUI {
             if (term == null) {
                 throw new ResourceNotFoundException();
             }
+
+            Map<String, Collection<Map<String, String>>> relatedFroms = ontologyTermGraphService.getRelatedFrom(ontologyId, termIri);
+
+            model.addAttribute("relatedFroms", relatedFroms);
 
             model.addAttribute("ontologyTerm", term);
             model.addAttribute("parentTerms", ontologyTermGraphService.getParents(ontologyId, termIri, new PageRequest(0, 10)));

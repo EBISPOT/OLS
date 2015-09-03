@@ -140,6 +140,10 @@ a:hover.nounderline {
 .max {color: #770077;}
 .exactly {color: #770077;}
 
+.ObjectProperty {
+  font-style: italic;
+}
+
 .panel-title {
   margin-top: 0;
   margin-bottom: 0;

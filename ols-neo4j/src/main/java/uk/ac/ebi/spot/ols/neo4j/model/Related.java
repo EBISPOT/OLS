@@ -27,6 +27,14 @@ public class Related {
     @EndNode
     private Term relatedTo;
 
+    public Term getRelatedFrom() {
+        return relatedFrom;
+    }
+
+    public Term getRelatedTo() {
+        return relatedTo;
+    }
+
     public String getUri() {
         return uri;
     }

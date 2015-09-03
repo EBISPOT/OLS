@@ -88,12 +88,13 @@ public class TermController {
     @RequestMapping(path = "/{onto}/roots", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<PagedResources<Term>> getRoots(
             @PathVariable("onto") String ontologyId,
+            @RequestParam(value = "includeObsoletes", defaultValue = "false", required = false) boolean includeObsoletes,
             Pageable pageable,
             PagedResourcesAssembler assembler
     ) throws ResourceNotFoundException {
         ontologyId = ontologyId.toLowerCase();
 
-        Page<Term> roots = ontologyTermGraphService.getRoots(ontologyId, pageable);
+        Page<Term> roots = ontologyTermGraphService.getRoots(ontologyId, includeObsoletes, pageable);
         return new ResponseEntity<>( assembler.toResource(roots, termAssembler), HttpStatus.OK);
     }
 
