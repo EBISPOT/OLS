@@ -119,21 +119,21 @@
 
             <!-- -->
             <div class="grid_10 omega">
-                <form id="local-search" name="local-search" action="../../search" method="get">
+                <form id="local-search" name="local-search" action="../search" method="get">
                     <fieldset><div class="left">
                         <label>
                             <input style="font-weight: normal;" type="text" name="q" data-olswidget="select" th:attr="data-olsontology=${ontologyDocument.getOntologyId()}" data-selectpath="../" id="local-searchbox" class="ac_input">
                             </input>
                         </label>
                         <span class="examples">Examples: <a href="../search?q=cancer">cancer</a>,
-                            <a href="../../search?q=GO:0098743">GO:0098743</a>,
+                            <a href="../search?q=GO:0098743">GO:0098743</a>,
                         </span>
                     </div>
                         <div class="right">
                             <input type="submit" value="Search" class="submit">
                             </input>
                             <span class="adv">
-                                <a href="../../search" id="adv-search" title="Advanced">Advanced</a>
+                                <a href="../search" id="adv-search" title="Advanced">Advanced</a>
                             </span>
                         </div>
                     </fieldset>
@@ -160,7 +160,7 @@
 
         <nav id="breadcrumb">
             <p>
-                <a href="../../index">OLS</a> &gt;
+                <a href="../index">OLS</a> &gt;
                 <span class="ontology-source" th:text="${ontologyDocument.getConfig().getPreferredPrefix()}">ontology</span>
             </p>
         </nav>
