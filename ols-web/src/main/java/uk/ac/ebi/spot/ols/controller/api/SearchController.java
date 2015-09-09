@@ -10,7 +10,6 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.solr.core.SolrTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -72,7 +71,7 @@ public class SearchController {
             if (exact) {
                 solrQuery.setQuery(
                         "((" +
-                        createUnionQuery(query, "label_s", "synonym_s", "shortform_s", "obo_id_s", "iri_s", "annotations_s")
+                        createUnionQuery(query.toLowerCase(), "label_s", "synonym_s", "shortform_s", "obo_id_s", "iri_s", "annotations_s")
                         + ") AND (is_defining_ontology:true^100 OR is_defining_ontology:false^0))"
                 );
 

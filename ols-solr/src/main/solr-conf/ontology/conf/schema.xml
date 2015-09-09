@@ -90,7 +90,7 @@
     <!--<field name="text_rev" type="text_general_rev" indexed="true" stored="false" multiValued="true" />-->
 
     <!-- dynamic string firlds for exact match searches-->
-    <dynamicField name="*_s" type="string" indexed="true" stored="false" multiValued="true"/>
+    <dynamicField name="*_s" type="lowercase" indexed="true" stored="false" multiValued="true"/>
     <copyField source="label" dest="label_s"/>;
     <copyField source="synonym" dest="synonym_s"/>;
     <copyField source="short_form" dest="shortform_s"/>;
