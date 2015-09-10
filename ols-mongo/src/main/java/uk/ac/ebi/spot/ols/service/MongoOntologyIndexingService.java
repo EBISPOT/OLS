@@ -60,6 +60,7 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             properties = loader.getAllObjectPropertyIRIs();
             individuals = loader.getAllIndividualIRIs();
 
+            // this means that file parsed, but had nothing in it, which is a bit suspect - indexing should fail until we undertand why/how this could happen
             if (classes.size() + properties.size() + individuals.size()== 0) {
                 getLog().error("A suspiciously small or zero classes or properties found in latest version of " + loader.getOntologyName() + ": Won't index!");
                 message = "Failed to load - last update had no classes or properties so was rejected";
@@ -71,12 +72,13 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             }
 
         } catch (Exception e) {
-            message = "Problem loading file so didn't proceed to index";
+            message = "Problem loading file so didn't proceed to index ";
             getLog().error(message, e);
             document.setStatus(Status.FAILED);
             document.setMessage(message);
             ontologyRepositoryService.update(document);
-            throw new IndexingException("Problem loading file so didn't proceed to index", e);
+            // just set document to failed and return
+            return;
         }
 
         document.setStatus(Status.LOADING);
@@ -120,7 +122,7 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             getLog().error("Error indexing " + document.getOntologyId(), e);
             status = Status.FAILED;
             message = e.getMessage();
-            throw new IndexingException("Index for " + document.getOntologyId() + " failed: ", e);
+            throw e;
         }
         finally {
 
