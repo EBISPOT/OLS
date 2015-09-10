@@ -60,14 +60,14 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             properties = loader.getAllObjectPropertyIRIs();
             individuals = loader.getAllIndividualIRIs();
 
-            if (classes.size() + properties.size() + individuals.size() < 10) {
+            if (classes.size() + properties.size() + individuals.size()== 0) {
                 getLog().error("A suspiciously small or zero classes or properties found in latest version of " + loader.getOntologyName() + ": Won't index!");
                 message = "Failed to load - last update had no classes or properties so was rejected";
                 document.setStatus(Status.FAILED);
                 document.setMessage(message);
                 ontologyRepositoryService.update(document);
                 // don't try to index, just return
-                return;
+                throw new IndexingException("Empty ontology found", new RuntimeException());
             }
 
         } catch (Exception e) {

@@ -201,7 +201,7 @@ public class FileUpdater {
                 is = new ByteArrayInputStream(out.toByteArray());
             }
         }
-        else {
+        else if (is == null){
             is = connection.getInputStream();
         }
 //        else if ("application/gzip".equals(connection.getContentType())) {
