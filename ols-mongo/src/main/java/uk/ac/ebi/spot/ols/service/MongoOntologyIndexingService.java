@@ -60,6 +60,7 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             properties = loader.getAllObjectPropertyIRIs();
             individuals = loader.getAllIndividualIRIs();
 
+
             // this means that file parsed, but had nothing in it, which is a bit suspect - indexing should fail until we undertand why/how this could happen
             if (classes.size() + properties.size() + individuals.size()== 0) {
                 getLog().error("A suspiciously small or zero classes or properties found in latest version of " + loader.getOntologyName() + ": Won't index!");
@@ -116,6 +117,8 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             }
             document.setConfig(config);
             document.setNumberOfTerms(classes.size());
+            document.setNumberOfProperties(properties.size());
+            document.setNumberOfIndividuals(individuals.size());
             status = Status.LOADED;
 
         } catch (Exception e) {

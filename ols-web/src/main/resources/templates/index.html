@@ -157,7 +157,7 @@
     <div id="content" role="main" class="grid_24 clearfix">
         <div class="container">
 
-
+            <!--@thymesVar id="summary" type="uk.ac.ebi.spot.ols.controller.ui.HomeController.SummaryInfo"-->
             <div class="grid_24 alpha">
 
                 <section class="grid_19 alpha intro">
@@ -169,12 +169,13 @@
                 </section>
                 <aside class="grid_5 omega">
                     <h3 class="icon icon-generic" data-icon="g">Data Content</h3>
-                    <h5>Updated today at 07:00</h5>
+                    <h5>Updated <span th:text="${summary.getLastUpdated()}">Today at 07:00</span></h5>
                     <ul>
-                        <li>102 Ontologies</li>
-                        <li>5.2M terms</li>
-                        <li>3677 properties</li>
-                        <li>Version 3.0.0-beta</li>
+                        <li><span th:text="${summary.getNumberOfOntologies()}">102</span> ontologies</li>
+                        <li th:if="${summary.getNumberOfTerms() &gt; 0}"><span th:text="${summary.getNumberOfTerms()}">102</span> terms</li>
+                        <li th:if="${summary.getNumberOfProperties() &gt; 0}"><span th:text="${summary.getNumberOfProperties()}">102</span> properties</li>
+                        <li th:if="${summary.getNumberOfIndividuals() &gt; 0}"><span th:text="${summary.getNumberOfIndividuals()}">102</span> individuals</li>
+                        <li th:if="${summary.getSoftwareVersion() != null}">Version <span th:text="${summary.getSoftwareVersion()}">102</span></li>
                     </ul>
                 </aside>
 

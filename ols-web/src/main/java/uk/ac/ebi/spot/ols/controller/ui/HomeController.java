@@ -6,6 +6,7 @@ package uk.ac.ebi.spot.ols.controller.ui;
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
 
+import org.neo4j.graphdb.GraphDatabaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -16,10 +17,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import uk.ac.ebi.spot.ols.indexer.OntologySolrRepository;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
+import uk.ac.ebi.spot.ols.model.Status;
+import uk.ac.ebi.spot.ols.neo4j.repository.OntologyTermRepository;
+import uk.ac.ebi.spot.ols.neo4j.service.OntologyTermGraphService;
 import uk.ac.ebi.spot.ols.service.OntologyRepositoryService;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -36,6 +42,16 @@ public class HomeController {
 
     @RequestMapping({"", "/index"})
     public String showHome(Model model) {
+
+        Date lastUpdated = repositoryService.getLastUpdated();
+        int numberOfOntologies = repositoryService.getNumberOfOntologies();
+        int numberOfTerms = repositoryService.getNumberOfTerms();
+        int numberOfProperties = repositoryService.getNumberOfProperties();
+        int numberOfIndividuals = repositoryService.getNumberOfIndividuals();
+
+        SummaryInfo summaryInfo = new SummaryInfo(lastUpdated, numberOfOntologies, numberOfTerms, numberOfProperties, numberOfIndividuals, getClass().getPackage().getImplementationVersion());
+
+        model.addAttribute("summary", summaryInfo);
         return "index";
     }
 
@@ -93,9 +109,96 @@ public class HomeController {
     }
 
 
-    @RequestMapping({"/contact"})
+    @RequestMapping({"contact"})
     public String showContact() {
-        return "contact";
+        return "comingsoon";
     }
+
+    @RequestMapping({"sparql"})
+    public String showSparql() {
+        return "comingsoon";
+    }
+    @RequestMapping({"about"})
+    public String showAbout() {
+        return "comingsoon";
+    }
+
+    @RequestMapping({"docs"})
+    public String showDocs() {
+        return "comingsoon";
+    }
+
+    @RequestMapping({"docs/api"})
+    public String showApiDocs() {
+
+        return "redirect:../swagger/index.html?url=../../v2/api-docs";
+    }
+
+    private class SummaryInfo {
+        Date lastUpdated;
+        int numberOfOntologies;
+        int numberOfTerms;
+        int numberOfProperties;
+        int numberOfIndividuals;
+        String softwareVersion;
+
+        public SummaryInfo(Date lastUpdated, int numberOfOntologies, int numberOfTerms, int numberOfProperties, int numberOfIndividuals, String softwareVersion) {
+            this.lastUpdated = lastUpdated;
+            this.numberOfOntologies = numberOfOntologies;
+            this.numberOfTerms = numberOfTerms;
+            this.numberOfProperties = numberOfProperties;
+            this.numberOfIndividuals = numberOfIndividuals;
+            this.softwareVersion = softwareVersion;
+        }
+
+        public Date getLastUpdated() {
+            return lastUpdated;
+        }
+
+        public void setLastUpdated(Date lastUpdated) {
+            this.lastUpdated = lastUpdated;
+        }
+
+        public int getNumberOfOntologies() {
+            return numberOfOntologies;
+        }
+
+        public void setNumberOfOntologies(int numberOfOntologies) {
+            this.numberOfOntologies = numberOfOntologies;
+        }
+
+        public int getNumberOfTerms() {
+            return numberOfTerms;
+        }
+
+        public void setNumberOfTerms(int numberOfTerms) {
+            this.numberOfTerms = numberOfTerms;
+        }
+
+        public int getNumberOfProperties() {
+            return numberOfProperties;
+        }
+
+        public void setNumberOfProperties(int numberOfProperties) {
+            this.numberOfProperties = numberOfProperties;
+        }
+
+        public int getNumberOfIndividuals() {
+            return numberOfIndividuals;
+        }
+
+        public void setNumberOfIndividuals(int numberOfIndividuals) {
+            this.numberOfIndividuals = numberOfIndividuals;
+        }
+
+        public String getSoftwareVersion() {
+            return softwareVersion;
+        }
+
+        public void setSoftwareVersion(String softwareVersion) {
+            this.softwareVersion = softwareVersion;
+        }
+    }
+
 
 }

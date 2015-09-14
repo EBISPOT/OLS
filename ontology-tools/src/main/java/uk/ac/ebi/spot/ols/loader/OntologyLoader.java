@@ -69,7 +69,7 @@ public interface OntologyLoader {
     String getPreferredPrefix();
 
 
-    Collection<IRI>     getAllClasses();
+    Collection<IRI> getAllClasses();
     Collection<IRI> getAllObjectPropertyIRIs();
     Collection<IRI> getAllDataPropertyIRIs();
     Collection<IRI> getAllIndividualIRIs();

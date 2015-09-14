@@ -262,8 +262,9 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
 
             return ontology;
         }
-        catch (OWLOntologyCreationException e) {
-            getLog().error("Failed to parse " + getOntologyName(), e);
+        catch (Exception e) {
+            getLog().debug("Failed to parse " + getOntologyName(), e);
+            getLog().error("Failed to parse " + getOntologyName() + " : " + e.getMessage());
             throw e;
         }
         finally {

@@ -36,16 +36,20 @@ public class OntologyDocument {
     private String localPath;
 
     private int numberOfTerms;
+    private int numberOfProperties;
+    private int numberOfIndividuals;
 
     private OntologyResourceConfig config;
 
-    public OntologyDocument(String ontologyId, Date updated, Status status, String message, String localPath, int numberOfTerms, OntologyResourceConfig config) {
+    public OntologyDocument(String ontologyId, Date updated, Status status, String message, String localPath, int numberOfTerms, int numberOfProperties, int numberOfIndividuals, OntologyResourceConfig config) {
         this.ontologyId = ontologyId;
         this.updated = updated;
         this.status = status;
         this.message = message;
         this.localPath = localPath;
         this.numberOfTerms = numberOfTerms;
+        this.numberOfProperties = numberOfProperties;
+        this.numberOfIndividuals = numberOfIndividuals;
         this.config = config;
     }
 
@@ -53,7 +57,7 @@ public class OntologyDocument {
     }
 
     public OntologyDocument(String ontologyId, OntologyResourceConfig config) {
-        this(ontologyId, new Date(), Status.NOTLOADED, "No ontology loaded", null, 0, config);
+        this(ontologyId, new Date(), Status.NOTLOADED, "No ontology loaded", null, 0,0,0, config);
     }
 
     public String getOntologyId() {
@@ -94,6 +98,22 @@ public class OntologyDocument {
 
     public void setNumberOfTerms(int numberOfTerms) {
         this.numberOfTerms = numberOfTerms;
+    }
+
+    public int getNumberOfProperties() {
+        return numberOfProperties;
+    }
+
+    public void setNumberOfProperties(int numberOfProperties) {
+        this.numberOfProperties = numberOfProperties;
+    }
+
+    public int getNumberOfIndividuals() {
+        return numberOfIndividuals;
+    }
+
+    public void setNumberOfIndividuals(int numberOfIndividuals) {
+        this.numberOfIndividuals = numberOfIndividuals;
     }
 
     public OntologyResourceConfig getConfig() {

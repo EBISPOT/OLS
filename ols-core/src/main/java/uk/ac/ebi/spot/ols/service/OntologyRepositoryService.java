@@ -7,6 +7,7 @@ import uk.ac.ebi.spot.ols.exception.OntologyRepositoryException;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
 import uk.ac.ebi.spot.ols.model.Status;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,4 +33,13 @@ public interface OntologyRepositoryService {
 
     OntologyDocument get(String documentId);
 
+    Date getLastUpdated();
+
+    int getNumberOfOntologies();
+
+    int getNumberOfTerms();
+
+    int getNumberOfProperties();
+
+    int getNumberOfIndividuals();
 }

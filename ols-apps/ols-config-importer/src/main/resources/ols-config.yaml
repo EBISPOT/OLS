@@ -139,5 +139,5 @@ ontologies:
     classify: false
     oboSlims: true
     products:
-      - id: http://www.ebi.ac.uk/cmpo.owl   ### This is the download URL
+      - id: http://www.ebi.ac.uk/cmpo/cmpo.owl   ### This is the download URL
         type: obo:Ontology

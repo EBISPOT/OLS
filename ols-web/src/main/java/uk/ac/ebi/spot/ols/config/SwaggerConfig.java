@@ -40,7 +40,7 @@ public class SwaggerConfig {
           .apiInfo(new ApiInfo(
                   "EMBL-EBI Ontology Lookup Service API",
                   "The Ontology Lookup Service (OLS) provides a web service interface to query multiple ontologies from a single location with a unified output format (JSON). OLS can index any ontology available in the Open Biomedical Ontology (OBO) or Web Ontology Language (OWL) format.",
-                  "1.0",
+                  getClass().getPackage().getImplementationVersion(),
                   "https://www.ebi.ac.uk/about/terms-of-use",
                   "ols-support@ebi.ac.uk",
                   "Apache Version 2.0",
