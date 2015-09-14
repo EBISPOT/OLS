@@ -25,7 +25,7 @@ public class SwaggerConfig {
 
 
     @Bean
-    public Docket petApi() {
+    public Docket olsApi() {
       return new Docket(DocumentationType.SWAGGER_2)
           .select()
 

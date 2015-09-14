@@ -98,6 +98,7 @@ public class TermController {
         return new ResponseEntity<>( assembler.toResource(roots, termAssembler), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Find ontology term by IRI", notes = "Returns a term from the specified ontology with specified IRI. The IRI must be double URL encoded for this endpoint to work")
     @RequestMapping(path = "/{onto}/terms/{id}", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<Resource<Term>> getTerm(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId) throws ResourceNotFoundException {
         ontologyId = ontologyId.toLowerCase();

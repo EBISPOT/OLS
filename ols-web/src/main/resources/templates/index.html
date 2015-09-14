@@ -163,18 +163,18 @@
                 <section class="grid_19 alpha intro">
                     <h2 class="strapline">Ontology Lookup Service</h2>
                     <p class="intro">Welcome to the EMBL-EBI Ontology Lookup Service (OLS). OLS provides a web service interface to query multiple ontologies from a single location with a unified output format.
-                        The OLS can integrate any ontology available in the OBO, OWL or SKOS format.</p>
+                        The OLS can integrate any ontology available in OBO or OWL format.</p>
                     <div style="font-size: larger;" class="bootstrap-alert alert-info">
-                        <img src="//www.ebi.ac.uk/web_guidelines/images/icons/EBI-Generic/Generic%20icons/Beta.png"/> This is a beta site under active development and is primarily aimed at testing functionality of the all new OLS REST API. Please contact us with any feedback or suggestions.</div>
+                        <img src="//www.ebi.ac.uk/web_guidelines/images/icons/EBI-Generic/Generic%20icons/Beta.png"/> This is a beta site under active development and is primarily aimed at testing the basic functionality of the underlying API. Please contact us with any feedback or suggestions.</div>
                 </section>
                 <aside class="grid_5 omega">
                     <h3 class="icon icon-generic" data-icon="g">Data Content</h3>
-                    <h5>Updated <span th:text="${summary.getLastUpdated()}">Today at 07:00</span></h5>
+                    <h5>Updated <span th:text="${#calendars.format(summary.getLastUpdated(), 'dd MMM yyyy HH:mm')}">Today at 07:00</span></h5>
                     <ul>
                         <li><span th:text="${summary.getNumberOfOntologies()}">102</span> ontologies</li>
-                        <li th:if="${summary.getNumberOfTerms() &gt; 0}"><span th:text="${summary.getNumberOfTerms()}">102</span> terms</li>
-                        <li th:if="${summary.getNumberOfProperties() &gt; 0}"><span th:text="${summary.getNumberOfProperties()}">102</span> properties</li>
-                        <li th:if="${summary.getNumberOfIndividuals() &gt; 0}"><span th:text="${summary.getNumberOfIndividuals()}">102</span> individuals</li>
+                        <li th:if="${summary.getNumberOfTerms() &gt; 0}"><span th:text="${#numbers.formatInteger(summary.getNumberOfTerms(),3,'COMMA')}">102</span> terms</li>
+                        <li th:if="${summary.getNumberOfProperties() &gt; 0}"><span th:text="${#numbers.formatInteger(summary.getNumberOfProperties(),3,'COMMA')}">102</span> properties</li>
+                        <li th:if="${summary.getNumberOfIndividuals() &gt; 0}"><span th:text="${#numbers.formatInteger(summary.getNumberOfIndividuals(),3,'COMMA')}">102</span> individuals</li>
                         <li th:if="${summary.getSoftwareVersion() != null}">Version <span th:text="${summary.getSoftwareVersion()}">102</span></li>
                     </ul>
                 </aside>
@@ -187,10 +187,10 @@
 
                         <div style="padding: 9px;">
 
-                        <table data-toggle="table" data-search="true" data-locale="en-US" class="table table-striped table-hover ">
+                        <table data-toggle="table" data-search="false" data-locale="en-US" class="table table-striped table-hover ">
                             <thead>
                             <tr>
-                                <th data-sortable="true">Ontology Name</th>
+                                <th data-width="50%" style="width: 50%;" data-sortable="true">Ontology Name</th>
                                 <th data-sortable="true">Short name</th>
                                 <th data-sortable="true">Last updated</th>
                                 <th>Action</th>
@@ -199,7 +199,7 @@
                             <tbody>
                             <tr th:each="onto : ${all_ontologies}">
 
-                                <td>
+                                <td  data-width="50%" style="width: 50%;" >
                                     <!--@thymesVar id="onto" type="OntologyDocument"-->
                                     <a th:href="@{/ontology/__${onto.getConfig().getNamespace()}__}" th:text="${{onto.getConfig().getTitle()}}">Ontology name</a>
                                 </td>

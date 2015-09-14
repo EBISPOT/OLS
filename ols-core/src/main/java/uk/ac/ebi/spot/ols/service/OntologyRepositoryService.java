@@ -25,6 +25,8 @@ public interface OntologyRepositoryService {
 
     List<OntologyDocument> getAllDocumentsByStatus(Status status);
 
+    List<OntologyDocument> getAllDocumentsByStatus(Status status, Sort sort);
+
     void delete(OntologyDocument document) throws OntologyRepositoryException;
 
     OntologyDocument create(OntologyDocument document) throws OntologyRepositoryException;

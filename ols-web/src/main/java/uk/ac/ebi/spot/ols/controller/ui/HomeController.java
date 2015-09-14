@@ -24,6 +24,7 @@ import uk.ac.ebi.spot.ols.neo4j.repository.OntologyTermRepository;
 import uk.ac.ebi.spot.ols.neo4j.service.OntologyTermGraphService;
 import uk.ac.ebi.spot.ols.service.OntologyRepositoryService;
 
+import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -37,7 +38,7 @@ public class HomeController {
 
     @ModelAttribute("all_ontologies")
     public List<OntologyDocument> getOntologies() {
-        return repositoryService.getAllDocuments(new Sort(new Sort.Order(Sort.Direction.ASC, "ontologyId")));
+        return repositoryService.getAllDocumentsByStatus(Status.LOADED, new Sort(new Sort.Order(Sort.Direction.ASC, "ontologyId")));
     }
 
     @RequestMapping({"", "/index"})

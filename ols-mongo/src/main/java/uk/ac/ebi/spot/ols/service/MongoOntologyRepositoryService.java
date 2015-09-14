@@ -49,7 +49,12 @@ public class MongoOntologyRepositoryService implements OntologyRepositoryService
 
     @Override
     public List<OntologyDocument> getAllDocumentsByStatus(Status status) {
-        return repositoryService.findByStatus(status);
+        return getAllDocumentsByStatus(status, new Sort(new Sort.Order(Sort.Direction.ASC, "ontologyId")));
+    }
+
+    @Override
+    public List<OntologyDocument> getAllDocumentsByStatus(Status status, Sort sort) {
+        return repositoryService.findByStatus(status, sort);
     }
 
     @Override

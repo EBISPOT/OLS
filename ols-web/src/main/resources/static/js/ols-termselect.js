@@ -55,7 +55,7 @@ $(document).ready(function() {
                     extra = "<div class='sub-text'>synonym for " + suggestion.value + "</div>"
                 }
 
-                return "<div><div class='ontology-source'>" + suggestion.data.prefix + "</div><div class='ontology-suggest''><div class='suggestion-value'>" + label + "</div>" + extra + "</div></div>";
+                return "<div style='width: 100%; display: table;'> <div style='display: table-row'><div  style='display: table-cell;' class='ontology-suggest'><div class='suggestion-value'>" + label + "</div>" + extra + "</div><div style='vertical-align:middle; text-align: right; width:60px; display: table-cell;'><div class='ontology-source'>" + suggestion.data.prefix + "</div></div></div></div>";
             }
         });
 

@@ -1,5 +1,6 @@
 package uk.ac.ebi.spot.ols.repository.mongo;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
@@ -15,7 +16,7 @@ import java.util.List;
 @RepositoryRestResource(exported = false)
 public interface MongoOntologyRepository extends MongoRepository<OntologyDocument, String> {
 
-    List<OntologyDocument> findByStatus(Status status);
+    List<OntologyDocument> findByStatus(Status status, Sort sort);
 
     OntologyDocument findByOntologyId(String documentId);
 }
