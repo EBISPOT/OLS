@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.neo4j.config.Neo4jConfiguration;
 import uk.ac.ebi.spot.ols.util.OLSEnv;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import java.io.File;
 import java.nio.file.Files;
 
@@ -27,7 +29,9 @@ public class OlsNeo4jConfiguration extends Neo4jConfiguration {
 
     @Bean (destroyMethod = "shutdown")
     static GraphDatabaseService graphDatabaseService() {
+
         return new GraphDatabaseFactory().newEmbeddedDatabaseBuilder(getNeo4JPath())
+                .setConfig(GraphDatabaseSettings.read_only, "true")
                 .setConfig( GraphDatabaseSettings.dump_configuration, "true" )
                 .newGraphDatabase();
     }
