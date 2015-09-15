@@ -94,6 +94,7 @@ public class OntologyTermGraphService {
         return termRepository.getRelated(ontologyId, iri, relation, pageable);
     }
 
+    @Transactional
     public Map<String, Collection<Map<String, String>>> getRelatedFrom(String ontologyId, String iri) {
         Map<String, Object> paramt = new HashMap<>();
         paramt.put("0", ontologyId);
@@ -110,6 +111,7 @@ public class OntologyTermGraphService {
         return relatedFromMap;
     }
 
+    @Transactional
     public Collection<Map<String, String>> getOntologyUsage (String iri) {
         Map<String, Object> paramt = new HashMap<>();
         paramt.put("0", iri);

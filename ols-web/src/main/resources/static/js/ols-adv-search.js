@@ -166,7 +166,7 @@ function processData(data) {
 
     var searchSummary = $('#results-summary');
 
-    renderFacetField(facets.ontology_prefix, "Ontologies", searchSummary);
+    renderFacetField(facets.ontology_name, "Ontologies", searchSummary);
     renderFacetField(facets.type, "Type", searchSummary);
     //renderFacetField(facets.is_defining_ontology, "Defining ontology", searchSummary);
     //renderFacetField(facets.is_obsolete, "Is Obsolete", searchSummary);
