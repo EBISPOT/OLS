@@ -27,7 +27,6 @@
           <artifactId>spring-data-mongodb</artifactId>
         </dependency>
 
-
         <dependency>
             <groupId>uk.ac.ebi.spot</groupId>
             <artifactId>ontology-tools</artifactId>

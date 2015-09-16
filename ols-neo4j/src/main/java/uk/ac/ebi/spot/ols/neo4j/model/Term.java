@@ -6,6 +6,7 @@ import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.neo4j.annotation.*;
 import org.springframework.data.neo4j.fieldaccess.DynamicProperties;
 import org.springframework.data.neo4j.fieldaccess.DynamicPropertiesContainer;
+import org.springframework.hateoas.core.Relation;
 
 import java.util.*;
 

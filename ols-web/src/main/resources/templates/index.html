@@ -201,7 +201,7 @@
 
                                 <td  data-width="50%" style="width: 50%;" >
                                     <!--@thymesVar id="onto" type="OntologyDocument"-->
-                                    <a th:href="@{/ontology/__${onto.getConfig().getNamespace()}__}" th:text="${{onto.getConfig().getTitle()}}">Ontology name</a>
+                                    <a th:href="@{/ontologies/__${onto.getConfig().getNamespace()}__}" th:text="${{onto.getConfig().getTitle()}}">Ontology name</a>
                                 </td>
                                 <td th:text="${{onto.getConfig().getPreferredPrefix()}}">0</td>
                                 <td th:text="${{onto.getUpdated()}}">0</td>

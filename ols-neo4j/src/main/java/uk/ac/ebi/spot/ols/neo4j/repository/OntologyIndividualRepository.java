@@ -13,7 +13,7 @@ import uk.ac.ebi.spot.ols.neo4j.model.Term;
  * @date 18/08/2015
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
-@RepositoryRestResource(exported = false)
+@RepositoryRestResource(collectionResourceRel = "individuals", exported = false)
 public interface OntologyIndividualRepository  extends GraphRepository<Individual> {
 
     @Query(

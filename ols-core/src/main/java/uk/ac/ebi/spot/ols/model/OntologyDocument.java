@@ -5,10 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
 
-import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author Simon Jupp

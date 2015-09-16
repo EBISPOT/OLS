@@ -14,7 +14,7 @@ $(document).ready(function() {
             onSelect : function (suggestion)  {
                 var type = getUrlType(suggestion.data.type);
                 var encoded = encodeURIComponent(suggestion.data.iri);
-                window.location.href = relativePath + 'ontology/' + suggestion.data.ontology + "/" + type + '?iri=' + encoded;
+                window.location.href = relativePath + 'ontologies/' + suggestion.data.ontology + "/" + type + '?iri=' + encoded;
             },
             transformResult: function(response) {
                 return {

@@ -104,12 +104,31 @@ public class MongoOntologyRepositoryService implements OntologyRepositoryService
 
     @Override
     public int getNumberOfProperties() {
-        return 0;
+        Aggregation agg =
+                Aggregation.newAggregation(
+                        group("ANYTHING").sum("numberOfProperties").as("total"),
+                        project("total")
+                );
+        //Convert the aggregation result into a List
+        AggregationResults<AggregateResult> groupResults
+                = mongoTemplate.aggregate(agg, "olsadmin", AggregateResult.class);
+        AggregateResult result = groupResults.getUniqueMappedResult();
+        return result.getTotal();
+
     }
 
     @Override
     public int getNumberOfIndividuals() {
-        return 0;
+        Aggregation agg =
+                Aggregation.newAggregation(
+                        group("ANYTHING").sum("numberOfIndiviuals").as("total"),
+                        project("total")
+                );
+        //Convert the aggregation result into a List
+        AggregationResults<AggregateResult> groupResults
+                = mongoTemplate.aggregate(agg, "olsadmin", AggregateResult.class);
+        AggregateResult result = groupResults.getUniqueMappedResult();
+        return result.getTotal();
     }
 
     private class AggregateResult {

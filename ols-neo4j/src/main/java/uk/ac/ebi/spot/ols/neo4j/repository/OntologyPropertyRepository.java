@@ -12,7 +12,7 @@ import uk.ac.ebi.spot.ols.neo4j.model.Property;
  * @date 18/08/2015
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
-@RepositoryRestResource(exported = false)
+@RepositoryRestResource(collectionResourceRel = "properties", exported = false)
 public interface OntologyPropertyRepository extends GraphRepository<Property> {
 
     @Query(

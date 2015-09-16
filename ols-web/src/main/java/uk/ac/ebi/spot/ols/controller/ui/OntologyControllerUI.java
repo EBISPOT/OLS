@@ -3,18 +3,18 @@ package uk.ac.ebi.spot.ols.controller.ui;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import uk.ac.ebi.spot.ols.exception.ErrorMessage;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
 import uk.ac.ebi.spot.ols.neo4j.model.Term;
 import uk.ac.ebi.spot.ols.neo4j.service.OntologyTermGraphService;
 import uk.ac.ebi.spot.ols.service.OntologyRepositoryService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
 
 /**
@@ -23,7 +23,7 @@ import java.util.Collections;
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
 @Controller
-@RequestMapping("/ontology")
+@RequestMapping("/ontologies")
 public class OntologyControllerUI {
 
     @Autowired
@@ -42,7 +42,7 @@ public class OntologyControllerUI {
         if (ontologyId != null) {
             OntologyDocument document = repositoryService.get(ontologyId);
             if (document == null) {
-                throw new ResourceNotFoundException();
+                throw new ResourceNotFoundException("Ontology called " + ontologyId + " not found");
             }
             model.addAttribute("ontologyDocument", document);
         }
@@ -54,4 +54,5 @@ public class OntologyControllerUI {
         }
         return "ontology";
     }
+
 }

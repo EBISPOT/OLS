@@ -110,7 +110,7 @@ function processData(data) {
             class: 'search-results-label',
             text: row.label,
             title: row.label,
-            href: 'ontology/' + row.ontology_name + "/" + type + "?iri=" + encodedUri
+            href: 'ontologies/' + row.ontology_name + "/" + type + "?iri=" + encodedUri
         });
 
         var description = row.description;

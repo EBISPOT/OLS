@@ -17,16 +17,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriUtils;
 import uk.ac.ebi.spot.ols.neo4j.model.Individual;
 import uk.ac.ebi.spot.ols.neo4j.model.Property;
 import uk.ac.ebi.spot.ols.neo4j.model.Term;
 import uk.ac.ebi.spot.ols.neo4j.service.OntologyIndividualService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
@@ -36,7 +34,7 @@ import java.util.Arrays;
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
 @Controller
-@RequestMapping("/api/ontology")
+@RequestMapping("/api/ontologies")
 @Api(value = "Individuals", description = "Ontology individuals API", position = 4)
 public class IndividualController {
     @Autowired
@@ -146,4 +144,8 @@ public class IndividualController {
         return UriUtils.decode(iri, "UTF-8");
     }
 
+    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Resource not found")
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public void handleError(HttpServletRequest req, Exception exception) {
+    }
 }

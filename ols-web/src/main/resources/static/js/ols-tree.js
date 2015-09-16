@@ -42,9 +42,9 @@ function showTree(siblings) {
         $.jstree.defaults.core.data = true;
         $.jstree.defaults.core.expand_selected_onload = true;
 
-        var rootUrl = relativePath + '/api/ontology/' + ontologyName + '/roots?size=1000';
+        var rootUrl = relativePath + '/api/ontologies/' + ontologyName + '/roots?size=1000';
 
-        var baseUrl = relativePath + '/api/ontology/' + ontologyName + '/' + termType + '/';
+        var baseUrl = relativePath + '/api/ontologies/' + ontologyName + '/' + termType + '/';
         var url = baseUrl + encodeURIComponent(encodeURIComponent(termIri)) + '/jstree' ;
         if (siblings) {
             url += '?siblings=true';
@@ -100,7 +100,7 @@ function showTree(siblings) {
                 //console.log(selected);
                 //console.log(event);
                 // Do my action
-                window.location.href = relativePath + "ontology/" + selected.node.original.ontology_name + "/" + termType + '?iri=' + encodeURIComponent(selected.node.original.iri);
+                window.location.href = relativePath + "ontologies/" + selected.node.original.ontology_name + "/" + termType + '?iri=' + encodeURIComponent(selected.node.original.iri);
             });
 
 

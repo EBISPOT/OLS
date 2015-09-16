@@ -164,7 +164,7 @@
         <nav id="breadcrumb">
             <p>
                 <a href="../../index">OLS</a> &gt;
-                <span class="ontology-source"  th:onclick="'javascript:goTo(\'' + @{../../ontology/__${ontologyIndividual.getOntologyName()}__} + '\')'" th:text="${ontologyIndividual.getOntologyPrefix()}">parent 1</span>   &gt;
+                <span class="ontology-source"  th:onclick="'javascript:goTo(\'' + @{../../ontologies/__${ontologyIndividual.getOntologyName()}__} + '\')'" th:text="${ontologyIndividual.getOntologyPrefix()}">parent 1</span>   &gt;
                 <span th:text="${ontologyIndividual.getShortForm()}">id</span>
 
             </p>
@@ -181,7 +181,7 @@
                             <h1 style="margin: 0px;" th:text="${ontologyIndividual.getLabel()}">Term label</h1>
                         </div>
                         <div class="grid_2 beta">
-                            <a style="float:right;" th:href="@{../../api/ontology/__${ontologyIndividual.getOntologyName()}__/individuals (iri=${ontologyIndividual.getIri()})}" class="nounderline" href="#">
+                            <a style="float:right;" th:href="@{../../api/ontologies/__${ontologyIndividual.getOntologyName()}__/individuals (iri=${ontologyIndividual.getIri()})}" class="nounderline" href="#">
                                 <img th:src="@{../../img/file_JSON.png}" src="../static/img/file_JSON.png" alt="JSON" title="Get data as JSON"/>
                             </a>
                         </div>
@@ -189,7 +189,7 @@
                     <div class="grid_24 clearfix">
                         <span style="font-size: small;color: grey;padding: 9px;" th:text="${ontologyIndividual.getIri()}">http://www.example.com/onto/id</span>
                         <a th:href="@{${ontologyIndividual.getIri()}}" class="nounderline" target="blank"><img th:src="@{../../img/external_link.png}" src="../static/img/external_link.png" alt="^" title="Go to external page"/></a>
-                        <a style="float:right;" th:href="@{../../ontology/__${ontologyIndividual.getOntologyName()}__}" th:text="${ontologyName}">ontology</a>
+                        <a style="float:right;" th:href="@{../../ontologies/__${ontologyIndividual.getOntologyName()}__}" th:text="${ontologyName}">ontology</a>
                     </div>
                     <div class="grid_24 alpha clearfix">
 

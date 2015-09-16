@@ -143,9 +143,33 @@
 
                 <section class="grid_19 alpha intro">
                     <h2 class="strapline">Ontology Lookup Service</h2>
-                    <p class="error">
+                    <p class="alert-info bootstrap-alert error">
                         Something went wrong! Please contact ols-support@ebi.ac.uk to report any bugs or give feedback.
                     </p>
+
+                    	<p th:if="${timestamp}" id='created'>
+                    		<b>Occurred:</b> <span th:text="${timestamp}">Timestamp</span>
+                    	</p>
+
+                    	<p th:if="${status}">
+                    		<b>Response Status:</b> <span th:text="${status}">status-code</span> <span
+                    			th:if="${error}" th:text="'('+${error}+')'">error ...</span>
+                    	</p>
+
+                    	<div
+                    		th:if="${ex} or ${exception} or (${message} and ${message.length() != 0})">
+                            <p>
+
+                                <b>Cause:</b>
+                                <span th:if="${message} and ${message.length() != 0}"
+                              			th:text="${message}">message ...</span>
+                            </p>
+                    	</div>
+
+                    	<p
+                    		th:unless="${ex} or ${exception} or (${message} and ${message.length() != 0})">
+                    		Cause unknown (no exception details available)</p>
+
                 </section>
 
 

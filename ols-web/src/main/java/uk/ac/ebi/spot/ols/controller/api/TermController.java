@@ -19,16 +19,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriUtils;
 import springfox.documentation.annotations.ApiIgnore;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
 import uk.ac.ebi.spot.ols.neo4j.model.Term;
 import uk.ac.ebi.spot.ols.neo4j.service.OntologyTermGraphService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
@@ -39,7 +37,7 @@ import java.util.Arrays;
  */
 @Controller
 @Api(value = "Terms", description = "Ontology terms API", position = 2)
-@RequestMapping("/api/ontology")
+@RequestMapping("/api/ontologies")
 public class TermController {
 
     @Autowired
@@ -50,36 +48,34 @@ public class TermController {
     @ApiOperation(value = "Find ontology term", notes = "Returns a term from the specified ontology with specified ID")
     @RequestMapping(path = "{onto}/terms", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<PagedResources<Term>> terms(
-             @PathVariable("onto") String ontologyId,
-             @ApiParam(value = "iri", name = "iri") @RequestParam(value = "iri", required = false) String iri,
+            @PathVariable("onto") String ontologyId,
+            @ApiParam(value = "iri", name = "iri") @RequestParam(value = "iri", required = false) String iri,
             @RequestParam(value = "short_form", required = false) String shortForm,
             @RequestParam(value = "obo_id", required = false) String oboId,
             @ApiIgnore()Pageable pageable,
-             @ApiIgnore() PagedResourcesAssembler assembler) {
+            @ApiIgnore() PagedResourcesAssembler assembler) {
 
         Page<Term> terms = null;
 
         ontologyId = ontologyId.toLowerCase();
         if (iri != null) {
             Term term = ontologyTermGraphService.findByOntologyAndIri(ontologyId, iri);
-            if (term != null) {
-                terms =  new PageImpl<Term>(Arrays.asList(term));
-            }
+            if (term == null) throw new ResourceNotFoundException("No resource with " + oboId + " in " + ontologyId);
+            terms =  new PageImpl<Term>(Arrays.asList(term));
         }
         else if (shortForm != null) {
             Term term = ontologyTermGraphService.findByOntologyAndShortForm(ontologyId, shortForm);
-            if (term != null) {
-                terms =  new PageImpl<Term>(Arrays.asList(term));
-            }
+            if (term == null) throw new ResourceNotFoundException("No resource with " + oboId + " in " + ontologyId);
+            terms =  new PageImpl<Term>(Arrays.asList(term));
         }
         else if (oboId != null) {
             Term term = ontologyTermGraphService.findByOntologyAndOboId(ontologyId, oboId);
-            if (term != null) {
-                terms =  new PageImpl<Term>(Arrays.asList(term));
-            }
+            if (term == null) throw new ResourceNotFoundException("No resource with " + oboId + " in " + ontologyId);
+            terms =  new PageImpl<Term>(Arrays.asList(term));
         }
         else {
             terms = ontologyTermGraphService.findAllByOntology(ontologyId, pageable);
+            if (terms == null) throw new ResourceNotFoundException("Ontology not found");
         }
 
         return new ResponseEntity<>( assembler.toResource(terms, termAssembler), HttpStatus.OK);
@@ -95,6 +91,7 @@ public class TermController {
         ontologyId = ontologyId.toLowerCase();
 
         Page<Term> roots = ontologyTermGraphService.getRoots(ontologyId, includeObsoletes, pageable);
+        if (roots == null) throw  new ResourceNotFoundException();
         return new ResponseEntity<>( assembler.toResource(roots, termAssembler), HttpStatus.OK);
     }
 
@@ -106,6 +103,8 @@ public class TermController {
         try {
             String decoded = UriUtils.decode(termId, "UTF-8");
             Term term = ontologyTermGraphService.findByOntologyAndIri(ontologyId, decoded);
+            if (term == null) throw  new ResourceNotFoundException("No term with id " + decoded + " in " + ontologyId);
+
             return new ResponseEntity<>( termAssembler.toResource(term), HttpStatus.OK);
         } catch (UnsupportedEncodingException e) {
             throw new ResourceNotFoundException();
@@ -120,6 +119,8 @@ public class TermController {
         try {
             String decoded = UriUtils.decode(termId, "UTF-8");
             Page<Term> parents = ontologyTermGraphService.getParents(ontologyId, decoded, pageable);
+            if (parents == null) throw  new ResourceNotFoundException();
+
             return new ResponseEntity<>( assembler.toResource(parents, termAssembler), HttpStatus.OK);
         }
         catch (UnsupportedEncodingException e) {
@@ -135,6 +136,8 @@ public class TermController {
         try {
             String decoded = UriUtils.decode(termId, "UTF-8");
             Page<Term> children = ontologyTermGraphService.getChildren(ontologyId, decoded, pageable);
+            if (children == null) throw  new ResourceNotFoundException();
+
             return new ResponseEntity<>( assembler.toResource(children, termAssembler), HttpStatus.OK);
         }
         catch (UnsupportedEncodingException e) {
@@ -150,6 +153,8 @@ public class TermController {
         try {
             String decoded = UriUtils.decode(termId, "UTF-8");
             Page<Term> descendants = ontologyTermGraphService.getDescendants(ontologyId, decoded, pageable);
+            if (descendants == null) throw  new ResourceNotFoundException();
+
             return new ResponseEntity<>( assembler.toResource(descendants, termAssembler), HttpStatus.OK);
         }
         catch (UnsupportedEncodingException e) {
@@ -165,6 +170,8 @@ public class TermController {
         try {
             String decoded = UriUtils.decode(termId, "UTF-8");
             Page<Term> ancestors = ontologyTermGraphService.getAncestors(ontologyId, decoded, pageable);
+            if (ancestors == null) throw  new ResourceNotFoundException();
+
             return new ResponseEntity<>( assembler.toResource(ancestors, termAssembler), HttpStatus.OK);
         }
         catch (UnsupportedEncodingException e) {
@@ -214,5 +221,10 @@ public class TermController {
         return UriUtils.decode(iri, "UTF-8");
     }
 
+    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Resource not found")
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public void handleError(HttpServletRequest req, Exception exception) {
+
+    }
 
 }

@@ -26,7 +26,7 @@ import java.util.Map;
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
 @Controller
-@RequestMapping("/ontology")
+@RequestMapping("/ontologies")
 public class TermControllerUI {
 
     @Autowired
@@ -62,10 +62,7 @@ public class TermControllerUI {
             model.addAttribute("ontologyName", title);
         }
         else {
-            return homeController.doSearch(
-                    "*",
-                    Collections.singleton(ontologyId),
-                    null,null, null, false, null, false, false, null, 10,0,model);
+            return "redirect: ../../../../search?q=*&ontology=" + ontologyId;
         }
         return "term";
     }

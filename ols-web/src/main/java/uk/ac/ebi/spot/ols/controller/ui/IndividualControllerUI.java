@@ -23,7 +23,7 @@ import java.util.Collections;
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
 @Controller
-@RequestMapping("/ontology")
+@RequestMapping("/ontologies")
 public class IndividualControllerUI {
 
     @Autowired

@@ -176,7 +176,7 @@
                             <h1 style="margin: 0px;" th:text="${ontologyDocument.getConfig().getTitle()}">Ontology label</h1>
                         </div>
                         <div class="grid_2 beta">
-                            <a style="float:right;" th:href="@{../api/ontology/__${ontologyDocument.getOntologyId()}__}" class="nounderline" href="#">
+                            <a style="float:right;" th:href="@{../api/ontologies/__${ontologyDocument.getOntologyId()}__}" class="nounderline" href="#">
                                 <img th:src="@{../img/file_JSON.png}" src="../static/img/file_JSON.png" alt="JSON" title="Get data as JSON"/>
                             </a>
                         </div>

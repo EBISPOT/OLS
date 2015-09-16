@@ -1,32 +1,34 @@
 package uk.ac.ebi.spot.ols.controller.api;
 
 import io.swagger.annotations.Api;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.RepositoryLinksResource;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.ExposesResourceFor;
-import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.ResourceProcessor;
+import org.springframework.hateoas.*;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriUtils;
+import uk.ac.ebi.spot.ols.exception.ErrorMessage;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
 import uk.ac.ebi.spot.ols.neo4j.model.Term;
 import uk.ac.ebi.spot.ols.neo4j.service.OntologyTermGraphService;
 import uk.ac.ebi.spot.ols.service.OntologyRepositoryService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
+import java.util.Map;
 
 /**
  * @author Simon Jupp
@@ -35,10 +37,16 @@ import java.io.UnsupportedEncodingException;
  */
 @Controller
 @Api(value = "Ontologies", description = "Ontologies loaded into OLS", position = 20)
-@RequestMapping("/api/ontology")
+@RequestMapping("/api/ontologies")
 @ExposesResourceFor(OntologyDocument.class)
 public class OntologyController implements
         ResourceProcessor<RepositoryLinksResource> {
+
+    private Logger log = LoggerFactory.getLogger(getClass());
+
+    public Logger getLog() {
+        return log;
+    }
 
     @Autowired
     private OntologyRepositoryService ontologyRepositoryService;
@@ -50,13 +58,27 @@ public class OntologyController implements
     @Override
     public RepositoryLinksResource process(RepositoryLinksResource resource) {
         resource.add(ControllerLinkBuilder.linkTo(OntologyController.class).withRel("ontology"));
+//        resource.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(OntologyController.class).getOntologies(null, null)).withRel("ontology"));
+//        resource.add(
+//                new Link(
+//                        new UriTemplate(
+//                                ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(OntologyController.class).getOntologies(null, null))
+//                                .toUriComponentsBuilder().build().toUriString(),
+//                            // register it as variable
+//                                new TemplateVariables(
+//                                        new TemplateVariable("page", TemplateVariable.VariableType.REQUEST_PARAM),
+//                                        new TemplateVariable("sort", TemplateVariable.VariableType.REQUEST_PARAM),
+//                                        new TemplateVariable("size", TemplateVariable.VariableType.REQUEST_PARAM)
+//                                    )
+//                        ).toString()
+//        ));
 
         return resource;
     }
 
     @RequestMapping(path = "", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<PagedResources<OntologyDocument>> getOntologies(
-            Pageable pageable,
+            @PageableDefault(size = 20, page = 0) Pageable pageable,
             PagedResourcesAssembler assembler
     ) throws ResourceNotFoundException {
         Page<OntologyDocument> document = ontologyRepositoryService.getAllDocuments(pageable);
@@ -67,9 +89,16 @@ public class OntologyController implements
     @RequestMapping(path = "/{onto}", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<Resource<OntologyDocument>> getOntology(@PathVariable("onto") String ontologyId) throws ResourceNotFoundException {
         ontologyId = ontologyId.toLowerCase();
-
         OntologyDocument document = ontologyRepositoryService.get(ontologyId);
+        if (document == null) throw new ResourceNotFoundException();
         return new ResponseEntity<>( documentAssembler.toResource(document), HttpStatus.OK);
     }
+
+    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Resource not found")
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public void handleError(HttpServletRequest req, Exception exception) {
+    }
+
+
 
 }
