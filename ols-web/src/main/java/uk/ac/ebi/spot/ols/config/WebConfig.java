@@ -17,16 +17,6 @@ import org.springframework.web.util.UrlPathHelper;
 public class WebConfig extends WebMvcConfigurerAdapter {
 
 
-
-        @Override
-        public void addResourceHandlers(ResourceHandlerRegistry registry) {
-            registry.addResourceHandler("swagger-ui.html")
-                    .addResourceLocations("classpath:/META-INF/resources/");
-
-            registry.addResourceHandler("/webjars/**")
-                    .addResourceLocations("classpath:/META-INF/resources/webjars/");
-        }
-
     /**
      * This config stops the rest api from using suffix pattern matching on URLs to determine content type
      * e.g. .json for .xml in URL to get data back in specific formats

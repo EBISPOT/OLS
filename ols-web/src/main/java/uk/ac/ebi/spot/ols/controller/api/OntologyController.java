@@ -1,6 +1,5 @@
 package uk.ac.ebi.spot.ols.controller.api;
 
-import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +35,6 @@ import java.util.Map;
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
 @Controller
-@Api(value = "Ontologies", description = "Ontologies loaded into OLS", position = 20)
 @RequestMapping("/api/ontologies")
 @ExposesResourceFor(OntologyDocument.class)
 public class OntologyController implements

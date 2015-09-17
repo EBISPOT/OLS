@@ -3,9 +3,6 @@ package uk.ac.ebi.spot.ols.controller.api;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -21,8 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriUtils;
-import springfox.documentation.annotations.ApiIgnore;
-import uk.ac.ebi.spot.ols.model.OntologyDocument;
 import uk.ac.ebi.spot.ols.neo4j.model.Term;
 import uk.ac.ebi.spot.ols.neo4j.service.OntologyTermGraphService;
 
@@ -36,7 +31,6 @@ import java.util.Arrays;
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
 @Controller
-@Api(value = "Terms", description = "Ontology terms API", position = 2)
 @RequestMapping("/api/ontologies")
 public class TermController {
 
@@ -45,15 +39,14 @@ public class TermController {
 
     @Autowired TermAssembler termAssembler;
 
-    @ApiOperation(value = "Find ontology term", notes = "Returns a term from the specified ontology with specified ID")
     @RequestMapping(path = "{onto}/terms", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<PagedResources<Term>> terms(
             @PathVariable("onto") String ontologyId,
-            @ApiParam(value = "iri", name = "iri") @RequestParam(value = "iri", required = false) String iri,
+            @RequestParam(value = "iri", required = false) String iri,
             @RequestParam(value = "short_form", required = false) String shortForm,
             @RequestParam(value = "obo_id", required = false) String oboId,
-            @ApiIgnore()Pageable pageable,
-            @ApiIgnore() PagedResourcesAssembler assembler) {
+            Pageable pageable,
+            PagedResourcesAssembler assembler) {
 
         Page<Term> terms = null;
 
@@ -95,7 +88,6 @@ public class TermController {
         return new ResponseEntity<>( assembler.toResource(roots, termAssembler), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "Find ontology term by IRI", notes = "Returns a term from the specified ontology with specified IRI. The IRI must be double URL encoded for this endpoint to work")
     @RequestMapping(path = "/{onto}/terms/{id}", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<Resource<Term>> getTerm(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId) throws ResourceNotFoundException {
         ontologyId = ontologyId.toLowerCase();
