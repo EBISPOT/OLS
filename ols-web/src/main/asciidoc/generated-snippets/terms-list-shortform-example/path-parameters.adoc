@@ -1,0 +1,14 @@
+----
+GET /api/ontologies/{ontology_id}/terms
+----
+
+|===
+|Parameter|Description
+
+|ontology_id
+|The ontology id in OLS
+
+|short_form
+|Filter by IRI shortform, these values aren't guaranteed to be unique
+
+|===

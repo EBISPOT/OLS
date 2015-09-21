@@ -1,0 +1,14 @@
+----
+GET /api/ontologies/{ontology_id}/terms
+----
+
+|===
+|Parameter|Description
+
+|ontology_id
+|The ontology id in OLS
+
+|iri
+|Filter by IRI, when using IRI the result will always be one
+
+|===

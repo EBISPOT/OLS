@@ -1,0 +1,22 @@
+|===
+|Relation|Description
+
+|self
+|Link to this resource
+
+|parents
+|Link to the direct parent resources for this term
+
+|ancestors
+|Link to all parent resources for this term
+
+|children
+|Link to the direct children resources for this term
+
+|descendants
+|Link to all child resources for this term
+
+|jstree
+|A JSON tree structure of the term hierarchy
+
+|===

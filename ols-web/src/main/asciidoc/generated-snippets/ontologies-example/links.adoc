@@ -1,0 +1,19 @@
+|===
+|Relation|Description
+
+|self
+|This ontology
+
+|terms
+|<<overview-pagination,Paginated>> list of <<terms-resources,terms>> in the ontology
+
+|properties
+|<<overview-pagination,Paginated>> list of <<properties-resources,properties>> in the ontology
+
+|individuals
+|<<overview-pagination,Paginated>> list of <<individuals-resources,individuals>> in the ontology
+
+|roots
+|<<overview-pagination,Paginated>> list of root <<terms-resources,terms>> in the ontology
+
+|===

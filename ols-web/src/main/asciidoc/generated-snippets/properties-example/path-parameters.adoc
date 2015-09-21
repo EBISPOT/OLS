@@ -1,0 +1,14 @@
+----
+GET /api/ontologies/{ontology}/properties/{iri}
+----
+
+|===
+|Parameter|Description
+
+|ontology
+|The OLS ontology id e.g. go
+
+|iri
+|The IRI of the relation, this value must be double URL encoded
+
+|===

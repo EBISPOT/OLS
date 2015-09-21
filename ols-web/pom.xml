@@ -22,13 +22,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>1.10.19</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-solr</artifactId>
         </dependency>
@@ -36,7 +29,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
+            <!--<scope>provided</scope>-->
         </dependency>
 
         <dependency>
@@ -62,7 +55,7 @@
     </dependencies>
 
     <properties>
-        <snippetsDirectory>${project.build.directory}/generated-snippets</snippetsDirectory>
+        <snippetsDirectory>${project.basedir}/src/main/asciidoc/generated-snippets</snippetsDirectory>
     </properties>
 
     <packaging>war</packaging>
@@ -95,78 +88,79 @@
                     </includes>
                 </configuration>
             </plugin>
+            <!--<plugin>-->
+            <!--<groupId>org.asciidoctor</groupId>-->
+            <!--<artifactId>asciidoctor-maven-plugin</artifactId>-->
+            <!--<version>1.5.2</version>-->
+            <!--<executions>-->
+            <!--<execution>-->
+            <!--<id>generate-docs</id>-->
+            <!--<phase>package</phase>-->
+            <!--<goals>-->
+            <!--<goal>process-asciidoc</goal>-->
+            <!--</goals>-->
+            <!--<configuration>-->
+            <!--<backend>html</backend>-->
+            <!--<doctype>book</doctype>-->
+            <!--<attributes>-->
+            <!--<snippets>${snippetsDirectory}</snippets>-->
+            <!--</attributes>-->
+            <!--</configuration>-->
+            <!--</execution>-->
+            <!--</executions>-->
+            <!--</plugin>-->
+            <!--<plugin>-->
+            <!--<artifactId>maven-resources-plugin</artifactId>-->
+            <!--<version>2.7</version>-->
+            <!--<executions>-->
+            <!--<execution>-->
+            <!--<id>copy-resources</id>-->
+            <!--<phase>prepare-package</phase>-->
+            <!--<goals>-->
+            <!--<goal>copy-resources</goal>-->
+            <!--</goals>-->
+            <!--<configuration>-->
+            <!--<outputDirectory>-->
+            <!--${project.build.outputDirectory}/classes/static/docs-->
+            <!--</outputDirectory>-->
+            <!--<resources>-->
+            <!--<resource>-->
+            <!--<directory>-->
+            <!--${project.build.directory}/generated-docs-->
+            <!--</directory>-->
+            <!--</resource>-->
+            <!--</resources>-->
+            <!--</configuration>-->
+            <!--</execution>-->
+            <!--</executions>-->
+            <!--</plugin>-->
             <plugin>
                 <groupId>org.asciidoctor</groupId>
                 <artifactId>asciidoctor-maven-plugin</artifactId>
                 <version>1.5.2</version>
                 <executions>
                     <execution>
-                        <id>generate-docs</id>
-                        <phase>package</phase>
+                        <id>output-html</id>
+                        <phase>prepare-package</phase>
                         <goals>
                             <goal>process-asciidoc</goal>
                         </goals>
-                        <configuration>
-                            <backend>html</backend>
-                            <doctype>book</doctype>
-                            <attributes>
-                                <snippets>${snippetsDirectory}</snippets>
-                            </attributes>
-                        </configuration>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.7</version>
-                <executions>
-                    <execution>
-                        <id>copy-resources</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>
-                                ${project.build.outputDirectory}/static/docs
-                            </outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>
-                                        ${project.build.directory}/generated-docs
-                                    </directory>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <!--<plugin>-->
-                <!--<groupId>org.asciidoctor</groupId>-->
-                <!--<artifactId>asciidoctor-maven-plugin</artifactId>-->
-                <!--<version>1.5.2</version>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>output-html</id>-->
-                        <!--<phase>generate-resources</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>process-asciidoc</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-                <!--<configuration>-->
-                    <!--<sourceDirectory>src/main/docs</sourceDirectory>-->
-                    <!--<outputDirectory>${project.build.directory}/classes/static/docs/content/</outputDirectory>-->
-                    <!--<backend>html</backend>-->
-                    <!--<doctype>book</doctype>-->
-                    <!--<attributes>-->
+                <configuration>
+                    <sourceDirectory>src/main/asciidoc</sourceDirectory>
+                    <outputDirectory>${project.basedir}/src/main/resources/static/docs/</outputDirectory>
+                    <backend>html</backend>
+                    <doctype>book</doctype>
+                    <attributes>
                         <!--<toc/>-->
                         <!--<imagesdir>img</imagesdir>-->
-                    <!--</attributes>-->
-                    <!--&lt;!&ndash;<headerFooter>false</headerFooter>&ndash;&gt;-->
+                        <snippets>${snippetsDirectory}</snippets>
+                    </attributes>
+                    <!--<headerFooter>false</headerFooter>-->
                     <!--<preserveDirectories>true</preserveDirectories>-->
-                <!--</configuration>-->
-            <!--</plugin>-->
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 

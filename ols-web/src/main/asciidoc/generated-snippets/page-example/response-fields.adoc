@@ -1,0 +1,28 @@
+|===
+|Path|Type|Description
+
+|_links
+|Object
+|<<resources-page-links,Links>> to other resources
+
+|_embedded
+|Object
+|The list of resources
+
+|page.size
+|Number
+|The number of resources in this page
+
+|page.totalElements
+|Number
+|The total number of resources
+
+|page.totalPages
+|Number
+|The total number of pages
+
+|page.number
+|Number
+|The page number
+
+|===

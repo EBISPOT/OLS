@@ -19,7 +19,6 @@ public class OLSRestMVCConfiguration extends RepositoryRestMvcConfiguration {
     protected void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
         config.metadataConfiguration().setAlpsEnabled(false);
         config.setBasePath("/api");
-        config.setDefaultMediaType(MediaType.APPLICATION_JSON);
     }
 
 }

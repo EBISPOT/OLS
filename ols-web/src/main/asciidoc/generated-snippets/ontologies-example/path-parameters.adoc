@@ -1,0 +1,11 @@
+----
+GET /api/ontologies/{ontology_id}
+----
+
+|===
+|Parameter|Description
+
+|ontology_id
+|The ontology id in OLS
+
+|===

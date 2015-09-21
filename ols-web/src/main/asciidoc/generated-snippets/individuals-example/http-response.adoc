@@ -1,0 +1,54 @@
+[source,http]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "iri" : "http://purl.obolibrary.org/obo/GAZ_00002637",
+  "label" : "United Kingdom",
+  "description" : [ "A sovereign island country located off the northwestern coast of mainland Europe comprising of the four constituent countries; England, Scotland, Wales and Northern Ireland. It comprises the island of Great Britain, the northeast part of the island of Ireland and many small islands. Apart from Northern Ireland the UK is surrounded by the Atlantic Ocean, the North Sea, the English Channel and the Irish Sea. The largest island, Great Britain, is linked to France by the Channel Tunnel." ],
+  "annotation" : {
+    "database_cross_reference" : [ "ISO3166-1:826", "ISO3166-1:GB", "ISO3166-2:GB", "ISO3166-1:GBR" ],
+    "has_obo_namespace" : [ "GAZ" ],
+    "id" : [ "GAZ:00002637" ]
+  },
+  "type" : [ {
+    "iri" : "http://www.w3.org/2002/07/owl#Thing",
+    "label" : "Thing",
+    "description" : null,
+    "annotation" : { },
+    "synonyms" : null,
+    "ontology_name" : "gaz",
+    "ontology_prefix" : "GAZ",
+    "ontology_iri" : "http://purl.obolibrary.org/obo/gaz.owl",
+    "is_obsolete" : false,
+    "is_defining_ontology" : false,
+    "has_children" : false,
+    "is_root" : true,
+    "short_form" : "Thing",
+    "obo_id" : null
+  } ],
+  "synonyms" : [ "UK", "Britain", "G.B", "GB", "United Kingdom of Great Britain and Northern Ireland", "U.K. {abbrevation}" ],
+  "ontology_name" : "gaz",
+  "ontology_prefix" : "GAZ",
+  "ontology_iri" : "http://purl.obolibrary.org/obo/gaz.owl",
+  "is_obsolete" : false,
+  "is_defining_ontology" : true,
+  "short_form" : "GAZ_00002637",
+  "obo_id" : "GAZ:00002637",
+  "_links" : {
+    "self" : {
+      "href" : "http://www.ebi.ac.uk/api/ontologies/gaz/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGAZ_00002637"
+    },
+    "types" : {
+      "href" : "http://www.ebi.ac.uk/api/ontologies/gaz/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGAZ_00002637/types"
+    },
+    "alltypes" : {
+      "href" : "http://www.ebi.ac.uk/api/ontologies/gaz/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGAZ_00002637/alltypes"
+    },
+    "jstree" : {
+      "href" : "http://www.ebi.ac.uk/api/ontologies/gaz/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGAZ_00002637/jstree"
+    }
+  }
+}
+----

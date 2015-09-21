@@ -1,0 +1,33 @@
+[source,http]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "annotation" : {
+    "database_cross_reference" : [ "BFO:0000050" ],
+    "has_obo_namespace" : [ "external" ],
+    "id" : [ "part_of" ],
+    "shorthand" : [ "part_of" ]
+  },
+  "synonyms" : null,
+  "iri" : "http://purl.obolibrary.org/obo/BFO_0000050",
+  "label" : "part of",
+  "synonym" : null,
+  "description" : null,
+  "ontology_name" : "go",
+  "ontology_prefix" : "GO",
+  "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
+  "is_obsolete" : false,
+  "is_defining_ontology" : false,
+  "has_children" : false,
+  "is_root" : true,
+  "short_form" : "BFO_0000050",
+  "obo_id" : "BFO:0000050",
+  "_links" : {
+    "self" : {
+      "href" : "http://www.ebi.ac.uk/api/ontologies/go/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
+    }
+  }
+}
+----

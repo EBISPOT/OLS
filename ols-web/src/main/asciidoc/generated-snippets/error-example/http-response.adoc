@@ -1,0 +1,13 @@
+[source,http]
+----
+HTTP/1.1 404 Not Found
+Content-Type: application/json;charset=UTF-8
+
+{
+  "timestamp" : 1442850903658,
+  "status" : 404,
+  "error" : "Not Found",
+  "message" : "Resource not found",
+  "path" : "/api/ontologies/foobar"
+}
+----

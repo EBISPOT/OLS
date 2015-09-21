@@ -1,0 +1,7 @@
+|===
+|Relation|Description
+
+|ontologies
+|Link to the ontologies in OLS
+
+|===

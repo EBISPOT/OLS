@@ -1,0 +1,24 @@
+|===
+|Path|Type|Description
+
+|error
+|String
+|The HTTP error that occurred, e.g. `Bad Request`
+
+|message
+|String
+|A description of the cause of the error
+
+|path
+|String
+|The path to which the request was made
+
+|status
+|Number
+|The HTTP status code, e.g. `400`
+
+|timestamp
+|Number
+|The time, in milliseconds, at which the error occurred
+
+|===

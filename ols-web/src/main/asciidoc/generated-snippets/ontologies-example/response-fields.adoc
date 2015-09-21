@@ -1,0 +1,36 @@
+|===
+|Path|Type|Description
+
+|_links
+|Object
+|<<ontologies-links,Links>> to other resources
+
+|updated
+|String
+|Date the ontology was checked for updates
+
+|status
+|String
+|Status of the ontology {LOADED,LOADING,FAILED}
+
+|message
+|String
+|Any message relating to the status of the ontology
+
+|numberOfTerms
+|Number
+|Number of terms/classes in the ontology 
+
+|numberOfProperties
+|Number
+|Number of properties/relations in the ontology 
+
+|numberOfIndividuals
+|Number
+|Number of individuals/instances in the ontology 
+
+|config
+|Object
+|Basic meta-data about the ontology such as its title, description and any other ontology annotations extracted from the file. It also includes the and download location. and information used by OLS at index time (such as the synonym and description predicates)
+
+|===

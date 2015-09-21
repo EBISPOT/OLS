@@ -1,0 +1,8 @@
+|===
+|Path|Type|Description
+
+|_links
+|Object
+|<<resources-ontologies-links,Links>> to other resources
+
+|===

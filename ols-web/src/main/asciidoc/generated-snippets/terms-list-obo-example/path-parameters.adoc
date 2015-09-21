@@ -1,0 +1,14 @@
+----
+GET /api/ontologies/{ontology_id}/terms
+----
+
+|===
+|Parameter|Description
+
+|ontology_id
+|The ontology id in OLS
+
+|obo_id
+|Filter by OBO id. This is OBO style id taht aren't guaranteed to be unique within a given ontology
+
+|===

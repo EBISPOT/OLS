@@ -1,0 +1,62 @@
+[source,http]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "_links" : {
+    "self" : {
+      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms?obo_id=GO:0043226"
+    }
+  },
+  "_embedded" : {
+    "terms" : [ {
+      "iri" : "http://purl.obolibrary.org/obo/GO_0043226",
+      "label" : "organelle",
+      "description" : [ "Organized structure of distinctive morphology and function. Includes the nucleus, mitochondria, plastids, vacuoles, vesicles, ribosomes and the cytoskeleton, and prokaryotic structures such as anammoxosomes and pirellulosomes. Excludes the plasma membrane." ],
+      "annotation" : {
+        "database_cross_reference" : [ "NIF_Subcellular:sao1539965131", "Wikipedia:Organelle" ],
+        "has_obo_namespace" : [ "cellular_component" ],
+        "id" : [ "GO:0043226" ],
+        "in_subset" : [ "goslim_chembl", "goslim_generic", "goslim_pir", "gosubset_prok" ]
+      },
+      "synonyms" : null,
+      "ontology_name" : "go",
+      "ontology_prefix" : "GO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "GO_0043226",
+      "obo_id" : "GO:0043226",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/descendants"
+        }
+      }
+    } ]
+  },
+  "page" : {
+    "size" : 0,
+    "totalElements" : 1,
+    "totalPages" : 1,
+    "number" : 0
+  }
+}
+----

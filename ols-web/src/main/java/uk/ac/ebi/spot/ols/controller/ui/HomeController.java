@@ -132,7 +132,7 @@ public class HomeController {
     @RequestMapping({"docs/api"})
     public String showApiDocs() {
 
-        return "redirect:../swagger/index.html?url=../../v2/api-docs";
+        return "forward:../docs/api-template.html";
     }
 
     private class SummaryInfo {

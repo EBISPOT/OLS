@@ -1,0 +1,84 @@
+[source,http]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "_links" : {
+    "first" : {
+      "href" : "http://www.ebi.ac.uk/api/ontologies?page=0&size=1"
+    },
+    "prev" : {
+      "href" : "http://www.ebi.ac.uk/api/ontologies?page=0&size=1"
+    },
+    "self" : {
+      "href" : "http://www.ebi.ac.uk/api/ontologies"
+    },
+    "next" : {
+      "href" : "http://www.ebi.ac.uk/api/ontologies?page=2&size=1"
+    },
+    "last" : {
+      "href" : "http://www.ebi.ac.uk/api/ontologies?page=140&size=1"
+    }
+  },
+  "_embedded" : {
+    "ontologies" : [ {
+      "updated" : "2015-08-20T10:42:52.538+0000",
+      "status" : "LOADED",
+      "message" : "",
+      "numberOfTerms" : 12377,
+      "numberOfProperties" : 0,
+      "numberOfIndividuals" : 0,
+      "config" : {
+        "title" : "Orphanet Rare Disease Ontolog",
+        "namespace" : "ordo",
+        "preferredPrefix" : "ORDO",
+        "description" : null,
+        "homepage" : null,
+        "mailingList" : null,
+        "creators" : [ ],
+        "annotations" : {
+          "creator" : [ "Marc Hanauer", "Ana Rath", "Annie Olry", "James Malone", "Drashtti Vasant" ],
+          "comment" : [ "Date: 9th January, 2015." ],
+          "versionInfo" : [ "2.0" ]
+        },
+        "fileLocation" : "http://www.orphadata.org/data/ORDO/ordo_orphanet.owl",
+        "classify" : true,
+        "expressivity" : "UNKNOWN",
+        "oboSlims" : false,
+        "labelProperty" : "http://www.w3.org/2000/01/rdf-schema#label",
+        "definitionProperties" : [ "http://www.ebi.ac.uk/efo/definition" ],
+        "synonymProperties" : [ "http://www.ebi.ac.uk/efo/alternative_term" ],
+        "hierarchicalProperties" : [ "http://purl.obolibrary.org/obo/BFO_0000050" ],
+        "baseUris" : [ "http://www.orpha.net/ORDO/Orphanet_" ],
+        "hiddenProperties" : [ "http://www.ebi.ac.uk/efo/has_flag" ],
+        "inferred" : false,
+        "skos" : false
+      },
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/ordo"
+        },
+        "terms" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/ordo/terms"
+        },
+        "properties" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/ordo/properties"
+        },
+        "individuals" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/ordo/individuals"
+        },
+        "roots" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/ordo/roots"
+        }
+      }
+    } ]
+  },
+  "page" : {
+    "size" : 1,
+    "totalElements" : 141,
+    "totalPages" : 141,
+    "number" : 1
+  }
+}
+----

@@ -1,0 +1,14 @@
+----
+GET /api/ontologies/{ontology}/individuals/{iri}
+----
+
+|===
+|Parameter|Description
+
+|ontology
+|The OLS ontology id e.g. go
+
+|iri
+|The IRI of the individual, this value must be double URL encoded
+
+|===

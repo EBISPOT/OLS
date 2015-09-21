@@ -1,0 +1,897 @@
+[source,http]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "_links" : {
+    "first" : {
+      "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms?page=0&size=20"
+    },
+    "self" : {
+      "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms"
+    },
+    "next" : {
+      "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms?page=1&size=20"
+    },
+    "last" : {
+      "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms?page=1&size=20"
+    }
+  },
+  "_embedded" : {
+    "terms" : [ {
+      "iri" : "http://purl.obolibrary.org/obo/UBERON_0013702",
+      "label" : "body proper",
+      "description" : null,
+      "annotation" : {
+        "AEO_definition_citation" : [ "AEO:0000103" ],
+        "FMA_definition_citation" : [ "FMA:231424" ],
+        "definition" : [ "\nThe region of the organism associated with the visceral organs.\n" ],
+        "external_definition" : [ "\nCardinal body part, which consists of a maximal set of diverse subclasses of organ and organ part spatially associated with the vertebral column and ribcage. Examples: There is only one body proper[FMA:231424].\n" ],
+        "has_obo_namespace" : [ "uberon" ],
+        "has_related_synonym" : [ "body" ],
+        "id" : [ "UBERON:0013702" ],
+        "imported from" : [ "uberon.owl" ]
+      },
+      "synonyms" : null,
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "is_defining_ontology" : false,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "UBERON_0013702",
+      "obo_id" : "UBERON:0013702",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0013702"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0013702/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0013702/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0013702/jstree"
+        }
+      }
+    }, {
+      "iri" : "http://www.ebi.ac.uk/efo/EFO_0000787",
+      "label" : "animal component",
+      "description" : null,
+      "annotation" : {
+        "MAT_definition_citation" : [ "MAT:0000001" ],
+        "definition_editor" : [ "James Malone" ]
+      },
+      "synonyms" : null,
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "EFO_0000787",
+      "obo_id" : "EFO:0000787",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787/descendants"
+        }
+      }
+    }, {
+      "iri" : "http://www.orpha.net/ORDO/Orphanet_308459",
+      "label" : "Disorder of glycolysis",
+      "description" : null,
+      "annotation" : { },
+      "synonyms" : null,
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "is_defining_ontology" : false,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "Orphanet_308459",
+      "obo_id" : "Orphanet:308459",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459/descendants"
+        }
+      }
+    }, {
+      "iri" : "http://www.orpha.net/ORDO/Orphanet_79161",
+      "label" : "Disorder of carbohydrate metabolism",
+      "description" : null,
+      "annotation" : {
+        "MedDRA_definition_citation" : [ "MedDRA:10061023" ],
+        "UMLS_definition_citation" : [ "UMLS:C0149670" ]
+      },
+      "synonyms" : null,
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "is_defining_ontology" : false,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "Orphanet_79161",
+      "obo_id" : "Orphanet:79161",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161/descendants"
+        }
+      }
+    }, {
+      "iri" : "http://www.orpha.net/ORDO/Orphanet_309789",
+      "label" : "Rhizomelic chondrodysplasia punctata type 1",
+      "description" : null,
+      "annotation" : {
+        "ICD10_definition_citation" : [ "ICD10:Q77.3" ],
+        "OMIM_definition_citation" : [ "OMIM:215100" ],
+        "UMLS_definition_citation" : [ "UMLS:C1859133" ]
+      },
+      "synonyms" : null,
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "is_defining_ontology" : false,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "Orphanet_309789",
+      "obo_id" : "Orphanet:309789",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_309789"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_309789/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_309789/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_309789/jstree"
+        }
+      }
+    }, {
+      "iri" : "http://www.orpha.net/ORDO/Orphanet_177",
+      "label" : "Rhizomelic chondrodysplasia punctata",
+      "description" : null,
+      "annotation" : {
+        "ICD10_definition_citation" : [ "ICD10:Q77.3" ],
+        "MSH_definition_citation" : [ "MSH:D018902" ],
+        "OMIM_definition_citation" : [ "OMIM:222765", "OMIM:600121", "OMIM:215100" ],
+        "UMLS_definition_citation" : [ "UMLS:C0282529" ]
+      },
+      "synonyms" : [ "RCDP" ],
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "is_defining_ontology" : false,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "Orphanet_177",
+      "obo_id" : "Orphanet:177",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_177"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_177/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_177/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_177/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_177/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_177/descendants"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/NCBITaxon_134821",
+      "label" : "Ureaplasma parvum",
+      "description" : null,
+      "annotation" : {
+        "definition_editor" : [ "Class imported / merged by efoimporter" ],
+        "has_obo_namespace" : [ "ncbi_taxonomy" ],
+        "has_rank" : [ "NCBITaxon_species" ],
+        "id" : [ "NCBITaxon:134821" ]
+      },
+      "synonyms" : [ "Ureaplasma urealyticum biovar 1" ],
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "is_defining_ontology" : false,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "NCBITaxon_134821",
+      "obo_id" : "NCBITaxon:134821",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_134821"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_134821/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_134821/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_134821/jstree"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/NCBITaxon_2",
+      "label" : "Bacteria",
+      "description" : null,
+      "annotation" : {
+        "definition_editor" : [ "Class imported / merged by efoimporter", "James Malone" ],
+        "has_obo_namespace" : [ "ncbi_taxonomy" ],
+        "has_rank" : [ "NCBITaxon_superkingdom" ],
+        "id" : [ "NCBITaxon:2" ]
+      },
+      "synonyms" : [ "prokaryotes", "bacteria", "Procaryotae", "eubacteria", "Prokaryotae", "Monera", "not Bacteria Haeckel 1894", "Prokaryota" ],
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "is_defining_ontology" : false,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "NCBITaxon_2",
+      "obo_id" : "NCBITaxon:2",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2/descendants"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/UBERON_0001715",
+      "label" : "oculomotor nuclear complex",
+      "description" : [ "The fibers of the oculomotor nerve arise from a nucleus in the midbrain, which lies in the gray substance of the floor of the cerebral aqueduct and extends in front of the aqueduct for a short distance into the floor of the third ventricle. From this nucleus the fibers pass forward through the tegmentum, the red nucleus, and the medial part of the substantia nigra, forming a series of curves with a lateral convexity, and emerge from the oculomotor sulcus on the medial side of the cerebral peduncle. The nucleus of the oculomotor nerve does not consist of a continuous column of cells, but is broken up into a number of smaller nuclei, which are arranged in two groups, anterior and posterior. Those of the posterior group are six in number, five of which are symmetrical on the two sides of the middle line, while the sixth is centrally placed and is common to the nerves of both sides. The anterior group consists of two nuclei, an antero-medial and an antero-lateral . The nucleus of the oculomotor nerve, considered from a physiological standpoint, can be subdivided into several smaller groups of cells, each group controlling a particular muscle. A nearby nucleus, the Edinger-Westphal nucleus, is responsible for the autonomic functions of the oculomotor nerve, including pupillary constriction and lens accommodation. [WP,unvetted]." ],
+      "annotation" : {
+        "ABA_definition_citation" : [ "ABA:III" ],
+        "BM_definition_citation" : [ "BM:MB-III" ],
+        "EFO_definition_citation" : [ "EFO:0002468" ],
+        "EHDAA2_definition_citation" : [ "EHDAA2:0004211" ],
+        "EV_definition_citation" : [ "EV:0100250" ],
+        "FMA_definition_citation" : [ "FMA:54510" ],
+        "MA_definition_citation" : [ "MA:0001073" ],
+        "NCI_Thesaurus_definition_citation" : [ "NCI_Thesaurus:Oculomotor_Nucleus" ],
+        "NIF_GrossAnatomy_definition_citation" : [ "NIF_GrossAnatomy:birnlex_1240" ],
+        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:362457000" ],
+        "TAO_definition_citation" : [ "TAO:0000553" ],
+        "UMLS_definition_citation" : [ "UMLS:C0228686" ],
+        "VHOG_definition_citation" : [ "VHOG:0001389" ],
+        "Wikipedia_definition_citation" : [ "Wikipedia:Nucleus_of_oculomotor_nerve" ],
+        "ZFA_definition_citation" : [ "ZFA:0000553" ],
+        "comment" : [ "This class was created automatically from a combination of ontologies" ],
+        "database_cross_reference" : [ "http://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Cn3nucleus.png/200px-Cn3nucleus.png" ],
+        "has_obo_namespace" : [ "uberon" ],
+        "homologous_in" : [ "NCBITaxon_7742" ],
+        "id" : [ "UBERON:0001715" ],
+        "in_subset" : [ "uberon_slim", "efo_slim", "vertebrate_core" ],
+        "spatially_disjoint_from" : [ "UBERON_0002438", "UBERON_0003040", "UBERON_0001944", "UBERON_0001966", "UBERON_0001947", "UBERON_0002691", "UBERON_0002141", "UBERON_0002696", "UBERON_0002995", "UBERON_0002722" ]
+      },
+      "synonyms" : [ "oculomotor III nucleus", "motor nucleus III", "nIII", "nucleus nervi oculomotorii", "nucleus of oculomotor nerve", "nucleus of third cranial nerve", "oculomotor nucleus", "third cranial nerve nucleus" ],
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "is_defining_ontology" : false,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "UBERON_0001715",
+      "obo_id" : "UBERON:0001715",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001715"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001715/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001715/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001715/jstree"
+        },
+        "part_of" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001715/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/UBERON_0010285",
+      "label" : "midbrain basal plate",
+      "description" : [ "Portion of tissue that is dorsolateral to the floor plate and part of the midbrain." ],
+      "annotation" : {
+        "EHDAA2_definition_citation" : [ "EHDAA2:0004375" ],
+        "TAO_definition_citation" : [ "TAO:0000761" ],
+        "ZFA_definition_citation" : [ "ZFA:0000761" ],
+        "bioportal_provenance" : [ "Portion of tissue that is dorsolateral to the floor plate and part of the midbrain.[accessedResource: ZFA:0000761][accessDate: 05-04-2011]" ],
+        "definition_editor" : [ "Tomasz Adamusiak" ],
+        "has_obo_namespace" : [ "uberon" ],
+        "id" : [ "UBERON:0010285" ],
+        "in_subset" : [ "efo_slim" ]
+      },
+      "synonyms" : [ "basal plate midbrain region", "floor plate midbrain", "floorplate midbrain", "basal plate midbrain" ],
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "is_defining_ontology" : false,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "UBERON_0010285",
+      "obo_id" : "UBERON:0010285",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0010285"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0010285/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0010285/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0010285/jstree"
+        },
+        "part_of" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0010285/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/UBERON_0001891",
+      "label" : "midbrain",
+      "description" : [ "Organ component of neuraxis that has as its parts the tectum, cerebral peduncle, midbrain tegmentum and cerebral aqueduct[FMA]. The brain region between the forebrain anteriorly and the hindbrain posteriorly, including the tectum dorsally and the midbrain tegmentum ventrally[ZFA]. The midbrain is the middle division of the three primary divisions of the developing chordate brain or the corresponding part of the adult brain (in vertebrates, includes a ventral part containing the cerebral peduncles and a dorsal tectum containing the corpora quadrigemina and that surrounds the aqueduct of Sylvius connecting the third and fourth ventricles)[GO]." ],
+      "annotation" : {
+        "AAO_definition_citation" : [ "AAO:0010149" ],
+        "ABA_definition_citation" : [ "ABA:MB" ],
+        "BM_definition_citation" : [ "BM:MB" ],
+        "BTO_definition_citation" : [ "BTO:0000138" ],
+        "CALOHA_definition_citation" : [ "CALOHA:TS-0630" ],
+        "EFO_definition_citation" : [ "EFO:0000919" ],
+        "EHDAA2_definition_citation" : [ "EHDAA2:0001162" ],
+        "EHDAA_definition_citation" : [ "EHDAA:3694" ],
+        "EMAPA_definition_citation" : [ "EMAPA:16974" ],
+        "EV_definition_citation" : [ "EV:0100242" ],
+        "FMA_definition_citation" : [ "FMA:61993" ],
+        "MAT_definition_citation" : [ "MAT:0000106" ],
+        "MA_definition_citation" : [ "MA:0000207" ],
+        "MESH_definition_citation" : [ "MESH:A08.186.211.132.659" ],
+        "MIAA_definition_citation" : [ "MIAA:0000106" ],
+        "NCI_Thesaurus_definition_citation" : [ "NCI_Thesaurus:Mesencephalon" ],
+        "NIF_GrossAnatomy_definition_citation" : [ "NIF_GrossAnatomy:birnlex_1667" ],
+        "OpenCyc_definition_citation" : [ "OpenCyc:Mx4rvsBUqpwpEbGdrcN5Y29ycA" ],
+        "RETIRED_EHDAA2_definition_citation" : [ "RETIRED_EHDAA2:0001104" ],
+        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:279099009" ],
+        "TAO_definition_citation" : [ "TAO:0000128" ],
+        "UMLS_definition_citation" : [ "UMLS:C0025462" ],
+        "VHOG_definition_citation" : [ "VHOG:0000069" ],
+        "Wikipedia_definition_citation" : [ "Wikipedia:Midbrain" ],
+        "XAO_definition_citation" : [ "XAO:0000014" ],
+        "ZFA_definition_citation" : [ "ZFA:0000128" ],
+        "comment" : [ "Editors note: developmental relationships need revised. AO notes: part of brainstem in ABA - we reject this in favor of ISBN10:0471888893 which has an implicit overlaps relationships" ],
+        "database_cross_reference" : [ "http://upload.wikimedia.org/wikipedia/commons/f/f9/Human_brain_inferior_view_description.JPG", "http://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Human_brain_inferior_view_description.JPG/200px-Human_brain_inferior_view_description.JPG" ],
+        "external_definition" : [ "The brain region between the forebrain anteriorly and the hindbrain posteriorly, including the tectum dorsally and the midbrain tegmentum ventrally. Kimmel et al, 1995.[TAO]", "Middle part of the brain composed of the optic tectum and penducular region.[AAO]" ],
+        "has_obo_namespace" : [ "uberon" ],
+        "has_relational_adjective" : [ "mesencephalic" ],
+        "homologous_in" : [ "NCBITaxon_7742" ],
+        "homology_notes" : [ "Fine structural, computerized three-dimensional (3D) mapping of cell connectivity in the amphioxus nervous system and comparative molecular genetic studies of amphioxus and tunicates have provided recent insights into the phylogenetic origin of the vertebrate nervous system. The results suggest that several of the genetic mechanisms for establishing and patterning the vertebrate nervous system already operated in the ancestral chordate and that the nerve cord of the proximate invertebrate ancestor of the vertebrates included a diencephalon, midbrain, hindbrain, and spinal cord.[well established][VHOG]" ],
+        "id" : [ "UBERON:0001891" ],
+        "in_subset" : [ "uberon_slim", "efo_slim", "vertebrate_core" ],
+        "spatially_disjoint_from" : [ "UBERON_0001894", "UBERON_0002028" ]
+      },
+      "synonyms" : [ "mesencephalon" ],
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "is_defining_ontology" : false,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "UBERON_0001891",
+      "obo_id" : "UBERON:0001891",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/jstree"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/UBERON_0002298",
+      "label" : "brainstem",
+      "description" : [ "Multi-tissue structure that has as its parts the medulla oblongata of the hindbrain and the tegmentum of the midbrain[ZFA,adopted]." ],
+      "annotation" : {
+        "ABA_definition_citation" : [ "ABA:BS" ],
+        "BTO_definition_citation" : [ "BTO:0000146" ],
+        "CALOHA_definition_citation" : [ "CALOHA:TS-0093" ],
+        "EFO_definition_citation" : [ "EFO:0001962" ],
+        "EV_definition_citation" : [ "EV:0100241" ],
+        "FMA_definition_citation" : [ "FMA:79876" ],
+        "MA_definition_citation" : [ "MA:0000169" ],
+        "MESH_definition_citation" : [ "MESH:A08.186.211.132" ],
+        "NCI_Thesaurus_definition_citation" : [ "NCI_Thesaurus:Brain_Stem" ],
+        "NIF_GrossAnatomy_definition_citation" : [ "NIF_GrossAnatomy:birnlex_1565" ],
+        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:180925009" ],
+        "TAO_definition_citation" : [ "TAO:0002156" ],
+        "UMLS_definition_citation" : [ "UMLS:C0006121" ],
+        "VHOG_definition_citation" : [ "VHOG:0001457" ],
+        "Wikipedia_definition_citation" : [ "Wikipedia:Brainstem" ],
+        "ZFA_definition_citation" : [ "ZFA:0001707" ],
+        "comment" : [ "'brainstem' is a loose term that sometimes refers to the ventral parts o the brain except for any part of the telencephalon - sometimes it includes the diencephalon or subpallial telencephalon structures (ISBN10:0471888893). Here we use it in a more restriced sense, to include only the medulla oblongata, pons (when present) and the midbrain tegmentum (following the ZFA definitions)." ],
+        "database_cross_reference" : [ "http://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Gray719.png/200px-Gray719.png", "http://upload.wikimedia.org/wikipedia/commons/b/b7/Gray719.png" ],
+        "external_definition" : [ "Multi-tissue structure that has as its parts the medulla oblongata of the hindbrain and the tegmentum of the midbrain.[TAO]" ],
+        "has_obo_namespace" : [ "uberon" ],
+        "homologous_in" : [ "NCBITaxon_7742" ],
+        "id" : [ "UBERON:0002298" ],
+        "in_subset" : [ "uberon_slim", "efo_slim", "vertebrate_core", "loose_concept" ],
+        "spatially_disjoint_from" : [ "UBERON_0002037" ]
+      },
+      "synonyms" : [ "truncus encephali", "brain stem", "truncus encephalicus" ],
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "is_defining_ontology" : false,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "UBERON_0002298",
+      "obo_id" : "UBERON:0002298",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0002298"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0002298/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0002298/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0002298/jstree"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/UBERON_0001711",
+      "label" : "eyelid",
+      "description" : [ "An eyelid is a thin fold of skin that covers and protects an eyeball. With the exception of the prepuce and the labia minora, it has the thinnest skin of the whole body. The levator palpebrae superioris muscle retracts the eyelid to 'open' the eye. This can be either voluntarily or involuntarily. The human eyelid features a row of eyelashes which serve to heighten the protection of the eye from dust and foreign debris, as well as from perspiration. 'Palpebral' (and 'blepharo') means relating to the eyelids. Its key function is to regularly spread the tears and other secretion on the eye surface to keep it moist, since the cornea must be continuously moist. They keep the eyes from drying out when asleep. Moreover, the blink reflex protects the eye from foreign bodies. [WP,unvetted]. Each eyelid consists of the following layers, starting anteriorly: (1) skin, (2) a layer of subcutaneous connective tissue, (3) a layer of striated muscle fibres of the orbicularis muscle, (4) a layer of submuscular connective tissue, (5) a fibrous layer, including the tarsal plates, (6) a layer of smooth muscle, (7) the palpebral conjunctiva. AO notes: FMA divides this into skin, fascia, conjunctiva. Consider adding 'eye surface', like MA" ],
+      "annotation" : {
+        "BTO_definition_citation" : [ "BTO:0002241" ]
+      },
+      "synonyms" : [ "palpebra", "eye lid", "blepharon" ],
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "is_defining_ontology" : false,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "UBERON_0001711",
+      "obo_id" : "UBERON:0001711",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001711"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001711/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001711/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001711/jstree"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/UBERON_0000970",
+      "label" : "eye",
+      "description" : [ "An organ that detects light." ],
+      "annotation" : {
+        "BILA_definition_citation" : [ "BILA:0000017" ],
+        "BTO_definition_citation" : [ "BTO:0000439" ],
+        "CALOHA_definition_citation" : [ "CALOHA:TS-0309" ],
+        "EFO_definition_citation" : [ "EFO:0000827" ],
+        "EV_definition_citation" : [ "EV:0100336" ],
+        "FBbt_definition_citation" : [ "FBbt:00005162" ],
+        "GAID_definition_citation" : [ "GAID:69" ],
+        "MAT_definition_citation" : [ "MAT:0000140" ],
+        "MESH_definition_citation" : [ "MESH:A01.456.505.420" ],
+        "MIAA_definition_citation" : [ "MIAA:0000140" ],
+        "OpenCyc_definition_citation" : [ "OpenCyc:Mx4rvViTvpwpEbGdrcN5Y29ycA" ],
+        "Wikipedia_definition_citation" : [ "Wikipedia:Eye" ],
+        "comment" : [ "Usage notes: This class encompasses a variety of light-detecting structures from different phyla with no implication of homology, from the compound insect eye to the vertebrate camera-type eye (distinct classes are provided for each). Structure notes: Note that whilst this is classified as an organ, it is in fact more of a unit composed of different structures: in Drosophila, it includes the interommatidial bristle as a part; we consider here the vertebrate eye to include the eyeball/eye proper as a part, with the eye having as parts (when present): eyelids, conjuctiva," ],
+        "has_obo_namespace" : [ "uberon" ],
+        "has_relational_adjective" : [ "optic", "ocular" ],
+        "id" : [ "UBERON:0000970" ],
+        "in_subset" : [ "uberon_slim", "efo_slim", "organ_slim", "functional_classification", "major_organ" ]
+      },
+      "synonyms" : [ "light-detecting organ", "photoreceptor", "visual apparatus" ],
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "is_defining_ontology" : false,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "UBERON_0000970",
+      "obo_id" : "UBERON:0000970",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000970"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000970/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000970/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000970/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000970/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000970/descendants"
+        }
+      }
+    }, {
+      "iri" : "http://www.orpha.net/ORDO/Orphanet_309796",
+      "label" : "Rhizomelic chondrodysplasia punctata type 2",
+      "description" : null,
+      "annotation" : {
+        "ICD10_definition_citation" : [ "ICD10:Q77.3" ],
+        "OMIM_definition_citation" : [ "OMIM:222765" ],
+        "UMLS_definition_citation" : [ "UMLS:C1857242" ]
+      },
+      "synonyms" : null,
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "is_defining_ontology" : false,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "Orphanet_309796",
+      "obo_id" : "Orphanet:309796",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_309796"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_309796/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_309796/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_309796/jstree"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/NCBITaxon_300275",
+      "label" : "Lachancea",
+      "description" : null,
+      "annotation" : {
+        "definition_editor" : [ "Class imported / merged by efoimporter" ],
+        "has_obo_namespace" : [ "ncbi_taxonomy" ],
+        "has_rank" : [ "NCBITaxon_genus" ],
+        "id" : [ "NCBITaxon:300275" ]
+      },
+      "synonyms" : null,
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "is_defining_ontology" : false,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "NCBITaxon_300275",
+      "obo_id" : "NCBITaxon:300275",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_300275"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_300275/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_300275/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_300275/jstree"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/NCBITaxon_4890",
+      "label" : "Ascomycota",
+      "description" : [ "Strain or line specific to yeast" ],
+      "annotation" : {
+        "EFO_URI" : [ "http://www.ebi.ac.uk/efo/EFO_0000740" ],
+        "definition_editor" : [ "James Malone" ]
+      },
+      "synonyms" : [ "yeasts" ],
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "is_defining_ontology" : false,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "NCBITaxon_4890",
+      "obo_id" : "NCBITaxon:4890",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_4890"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_4890/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_4890/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_4890/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_4890/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_4890/descendants"
+        }
+      }
+    }, {
+      "iri" : "http://www.orpha.net/ORDO/Orphanet_308463",
+      "label" : "Disorder of fructose metabolism",
+      "description" : null,
+      "annotation" : {
+        "ICD10_definition_citation" : [ "ICD10:E74.1" ],
+        "UMLS_definition_citation" : [ "UMLS:C0342744" ]
+      },
+      "synonyms" : null,
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "is_defining_ontology" : false,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "Orphanet_308463",
+      "obo_id" : "Orphanet:308463",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308463"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308463/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308463/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308463/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308463/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308463/descendants"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/UBERON_0001714",
+      "label" : "cranial ganglion",
+      "description" : [ "Ganglion of a cranial nerve[cjm]." ],
+      "annotation" : {
+        "BTO_definition_citation" : [ "BTO:0000106" ],
+        "EFO_definition_citation" : [ "EFO:0000902" ],
+        "EMAPA_definition_citation" : [ "EMAPA:16659" ],
+        "FMA_definition_citation" : [ "FMA:54502" ],
+        "MAT_definition_citation" : [ "MAT:0000200" ],
+        "MA_definition_citation" : [ "MA:0000213", "MA:0000214" ],
+        "MIAA_definition_citation" : [ "MIAA:0000200" ],
+        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:244448001" ],
+        "TAO_definition_citation" : [ "TAO:0000013" ],
+        "VHOG_definition_citation" : [ "VHOG:0000076" ],
+        "Wikipedia_definition_citation" : [ "Wikipedia:Cranial_nerve_ganglion" ],
+        "XAO_definition_citation" : [ "XAO:0000027" ],
+        "ZFA_definition_citation" : [ "ZFA:0000013" ],
+        "comment" : [ "Editor note: split out MA ter,. Note the MA term is part of the CNS. This needs to be checked w.r.t relationship between ganglia and the PNS, as the PNS and CNS are spatially disjoint. also meaning of MA term is not clear (appears to be union of nerve and ganglion, but MA 'cranial nerve' is unconnected)" ],
+        "external_definition" : [ "Ganglion which is located in the head.[TAO]" ],
+        "has_alternative_id" : [ "UBERON:0003213" ],
+        "has_obo_namespace" : [ "uberon" ],
+        "homologous_in" : [ "NCBITaxon_7742" ],
+        "id" : [ "UBERON:0001714" ],
+        "in_subset" : [ "uberon_slim", "efo_slim", "vertebrate_core" ]
+      },
+      "synonyms" : [ "head ganglion", "cranial neural ganglion", "ganglion of cranial neural tree organ", "presumptive cranial ganglia", "cranial nerve ganglion", "cranial neural tree organ ganglion", "cranial ganglion", "cranial ganglia", "ganglion of cranial nerve", "cranial ganglion/nerve" ],
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "is_defining_ontology" : false,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "UBERON_0001714",
+      "obo_id" : "UBERON:0001714",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001714"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001714/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001714/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001714/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001714/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001714/descendants"
+        },
+        "part_of" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001714/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/UBERON_0000045",
+      "label" : "ganglion",
+      "description" : [ "A biological tissue mass, most commonly a mass of nerve cell bodies." ],
+      "annotation" : {
+        "AAO_definition_citation" : [ "AAO:0010426" ],
+        "AEO_definition_citation" : [ "AEO:0000135" ],
+        "BTO_definition_citation" : [ "BTO:0000497" ],
+        "CALOHA_definition_citation" : [ "CALOHA:TS-0397" ],
+        "EFO_definition_citation" : [ "EFO:0000899" ],
+        "EHDAA2_definition_citation" : [ "EHDAA2:0003135" ],
+        "EHDAA_definition_citation" : [ "EHDAA:4662", "EHDAA:5621", "EHDAA:2897", "EHDAA:918" ],
+        "EV_definition_citation" : [ "EV:0100372" ],
+        "FBbt_definition_citation" : [ "FBbt:00005137" ],
+        "FMA_definition_citation" : [ "FMA:5884" ],
+        "MAT_definition_citation" : [ "MAT:0000207", "MAT:0000343" ],
+        "MA_definition_citation" : [ "MA:0002406" ],
+        "MESH_definition_citation" : [ "MESH:A08.340" ],
+        "MIAA_definition_citation" : [ "MIAA:0000207", "MIAA:0000343" ],
+        "NCI_Thesaurus_definition_citation" : [ "NCI_Thesaurus:Ganglion" ],
+        "NIF_GrossAnatomy_definition_citation" : [ "NIF_GrossAnatomy:nlx_anat_100302" ],
+        "TAO_definition_citation" : [ "TAO:0000190" ],
+        "TGMA_definition_citation" : [ "TGMA:0001016" ],
+        "UMLS_definition_citation" : [ "UMLS:C0017067" ],
+        "VHOG_definition_citation" : [ "VHOG:0000156" ],
+        "WBbt_definition_citation" : [ "WBbt:0005189" ],
+        "Wikipedia_definition_citation" : [ "Wikipedia:Ganglion" ],
+        "XAO_definition_citation" : [ "XAO:0000209" ],
+        "ZFA_definition_citation" : [ "ZFA:0000190" ],
+        "comment" : [ "TODO - check vert vs invert. Other species: Any of a number of aggregations of neurons, glial cells and their processes, surrounded by a glial cell and connective tissue sheath (plural: ganglia). // Subdivision of neural tree (organ) which primarily consists of cell bodies of neurons located outside the neuraxis (brain and spinal cord); together with a nucleus and its associated nerve, it constitutes a neural tree (organ). Examples: spinal ganglion, trigeminal ganglion, superior cervical ganglion, celiac ganglion, inferior hypogastric (pelvic) ganglion. // a cluster of nerve cells and associated glial cells (nuclear location) // Portion of tissue that contains cell bodies of neurons and is located outside the central nervous system. // Structures containing a collection of nerve cell bodies. (Source: BioGlossary, www.Biology-Text.com)." ],
+        "external_definition" : [ "Portion of tissue that contains cell bodies of neurons and is located outside the central nervous system.[AAO]", "Structures containing a collection of nerve cell bodies. (Source: BioGlossary, www.Biology-Text.com)[TAO]" ],
+        "has_obo_namespace" : [ "uberon" ],
+        "has_relational_adjective" : [ "ganglionic" ],
+        "homologous_in" : [ "NCBITaxon_7742" ],
+        "homology_notes" : [ "Cranial sensory placodes are focused areas of the head ectoderm of vertebrates that contribute to the development of the cranial sense organs and their associated ganglia. Placodes have long been considered a key character of vertebrates, and their evolution is proposed to have been essential for the evolution of an active predatory lifestyle by early vertebrates.[well established][VHOG]" ],
+        "id" : [ "UBERON:0000045" ],
+        "in_subset" : [ "uberon_slim", "efo_slim", "vertebrate_core" ]
+      },
+      "synonyms" : [ "ganglia", "neural ganglion" ],
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "is_defining_ontology" : false,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "UBERON_0000045",
+      "obo_id" : "UBERON:0000045",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000045"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000045/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000045/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000045/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000045/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000045/descendants"
+        }
+      }
+    } ]
+  },
+  "page" : {
+    "size" : 20,
+    "totalElements" : 21,
+    "totalPages" : 2,
+    "number" : 0
+  }
+}
+----

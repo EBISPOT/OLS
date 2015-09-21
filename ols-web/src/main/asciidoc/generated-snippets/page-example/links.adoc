@@ -1,0 +1,19 @@
+|===
+|Relation|Description
+
+|self
+|This resource list
+
+|first
+|The first page in the resource list
+
+|next
+|The next page in the resource list
+
+|prev
+|The previous page in the resource list
+
+|last
+|The last page in the resource list
+
+|===

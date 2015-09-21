@@ -1,0 +1,282 @@
+= Ontology Lookup Service API Guide
+:doctype: book
+:toc: left
+:toc-title: OLS API
+:sectanchors:
+:sectlinks:
+:toclevels: 4
+:source-highlighter: highlightjs
+
+[[overview]]
+= Overview
+
+[[overview-http-verbs]]
+== HTTP verbs
+
+RESTful notes tries to adhere as closely as possible to standard HTTP and REST conventions in its
+use of HTTP verbs.
+
+|===
+| Verb | Usage
+
+| `GET`
+| Used to retrieve a resource
+|===
+
+[[overview-http-status-codes]]
+== HTTP status codes
+
+RESTful notes tries to adhere as closely as possible to standard HTTP and REST conventions in its
+use of HTTP status codes.
+
+|===
+| Status code | Usage
+
+| `200 OK`
+| The request completed successfully
+
+| `400 Bad Request`
+| The request was malformed. The response body will include an error providing further information
+
+| `404 Not Found`
+| The requested resource did not exist
+|===
+
+[[overview-errors]]
+== Errors
+
+Whenever an error response (status code >= 400) is returned, the body will contain a JSON object
+that describes the problem. The error object has the following structure:
+
+include::{snippets}/error-example/response-fields.adoc[]
+
+For example, a request that attempts to apply a non-existent tag to a note will produce a
+`400 Bad Request` response:
+
+include::{snippets}/error-example/http-response.adoc[]
+
+
+[[overview-hypermedia]]
+== Hypermedia
+
+RESTful Notes uses hypermedia and resources include links to other resources in their
+responses. Responses are in http://stateless.co/hal_specification.html[Hypertext Application
+Language (HAL)] format. Links can be found benath the `_links` key. Users of the API should
+not created URIs themselves, instead they should use the above-described links to navigate
+from resource to resource.
+
+[[overview-pagination]]
+== Listing resources
+
+Requests that return multiple resources will be paginated to 20 items by default. You can change number of items
+returned using the `size` parameter up to a maximum of 500 for a single request. The API also supports the `page`
+parameter for accessing a specific page of items.
+
+=== Paging resources
+
+Links will be provided in the response to navigate the resources.
+
+==== Example request
+
+include::{snippets}/page-example/curl-request.adoc[]
+
+==== Example response
+
+[source,http]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "_links" : {
+    "first" : {
+      "href" : "http://www.ebi.ac.uk/api/ontologies?page=0&size=1"
+    },
+    "prev" : {
+      "href" : "http://www.ebi.ac.uk/api/ontologies?page=0&size=1"
+    },
+    "self" : {
+      "href" : "http://www.ebi.ac.uk/api/ontologies"
+    },
+    "next" : {
+      "href" : "http://www.ebi.ac.uk/api/ontologies?page=2&size=1"
+    },
+    "last" : {
+      "href" : "http://www.ebi.ac.uk/api/ontologies?page=140&size=1"
+    }
+  },
+  "_embedded" : {
+    ...
+  },
+  "page" : {
+    "size" : 1,
+    "totalElements" : 141,
+    "totalPages" : 141,
+    "number" : 1
+  }
+}
+----
+
+==== Response structure
+
+include::{snippets}/page-example/response-fields.adoc[]
+
+[[resources-page-links]]
+==== Links
+
+include::{snippets}/page-example/links.adoc[]
+
+[[resources]]
+= Resources
+
+
+[[resources-api]]
+== API
+The api endpoint provides the entry point into the service.
+
+
+[[resources-api-access]]
+=== Accessing the API
+
+A `GET` request is used to access the API
+
+==== Example request
+
+include::{snippets}/api-example/curl-request.adoc[]
+
+==== Response structure
+
+include::{snippets}/api-example/response-fields.adoc[]
+
+==== Example response
+
+include::{snippets}/api-example/http-response.adoc[]
+
+[[resources-api-links]]
+==== Links
+
+include::{snippets}/api-example/links.adoc[]
+
+[[resources-ontologies]]
+== Ontologies
+
+The Ontologies resources is used to list ontologies in OLS
+
+[[resources-ontologies-list]]
+=== Listing ontologies
+
+A `GET` request will list all of the OLS ontologies.
+
+==== Example request
+
+include::{snippets}/ontologies-list-example/curl-request.adoc[]
+
+==== Response structure
+
+The response is <<overview-pagination,paginated>> where the individual <<resources-ontology,ontology resources>>  are in the `_embedded.ontologies` field.
+
+[[resources-ontology]]
+== Ontology
+
+=== Retrieve an ontology
+
+include::{snippets}/ontologies-example/path-parameters.adoc[]
+
+==== Example request
+
+include::{snippets}/ontologies-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/ontologies-example/http-response.adoc[]
+
+[[resources-ontology-links]]
+==== Links
+
+include::{snippets}/ontologies-example/links.adoc[]
+
+[[resources-terms]]
+== Terms
+
+The terms resources is used to list terms (or classes) in OLS from a particular ontology
+
+[[resources-terms-list]]
+=== Listing ontology terms
+
+include::{snippets}/terms-list-example/path-parameters.adoc[]
+
+==== Optional parameters
+
+|===
+|Parameter|Description
+
+|iri
+|Filter by IRI, when using IRI the result will always be one
+
+|short_form
+|Filter by IRI shortform, these values aren't guaranteed to be unique
+
+
+|obo_id
+|Filter by OBO id. This is OBO style id taht aren't guaranteed to be unique within a given ontology
+
+|===
+
+==== Example request
+
+include::{snippets}/terms-list-example/curl-request.adoc[]
+
+==== Response structure
+
+The response is <<overview-pagination,paginated>> where the individual <<resources-term,term resources>>  are in the `_embedded.terms` field.
+
+[[resources-term]]
+== Term
+
+=== Retrieve an term
+
+==== Example request
+
+include::{snippets}/terms-example/path-parameters.adoc[]
+
+==== Example request
+
+include::{snippets}/terms-example/curl-request.adoc[]
+
+==== Example response
+
+include::{snippets}/terms-example/http-response.adoc[]
+
+[[resources-terms-links]]
+==== Links
+
+include::{snippets}/terms-example/links.adoc[]
+
+==== Related terms
+
+In cases where a term has a direct relation to another term (single existential to a named class in OBO), for example a "part of" relation, the related
+terms can be accessed directly with this API.
+
+----
+GET /api/ontologies/{ontology_id}/terms/{term_iri}/{property_iri}
+----
+
+[[resources-properties]]
+== Properties and individuals
+
+You can access property (relationships) and ontology individuals (instances) following similar methods to terms.
+
+=== Retrieve an property
+
+include::{snippets}/properties-example/path-parameters.adoc[]
+
+=== Retrieve an individual
+
+include::{snippets}/individuals-example/path-parameters.adoc[]
+
+[[search]]
+= Search
+
+The search API is independent of the REST API and is there to support free text search for ontology entities.
+
+== Search ontologies
