@@ -504,7 +504,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#search">Search</a>
 <ul class="sectlevel1">
-<li><a href="#_search_ontologies">Search ontologies</a></li>
+<li><a href="#_search_ontologies">Search ontologies</a>
+<ul class="sectlevel2">
+<li><a href="#_search_parameters">Search parameters</a></li>
+</ul>
+</li>
+<li><a href="#_select_ontologies">Select ontologies</a></li>
 </ul>
 </li>
 </ul>
@@ -1351,21 +1356,128 @@ terms can be accessed directly with this API.</p>
 </div>
 </div>
 <h1 id="search" class="sect0"><a class="anchor" href="#search"></a>Search</h1>
-<div class="openblock partintro">
-<div class="content">
-The search API is independent of the REST API and is there to support free text search for ontology entities.
-</div>
-</div>
 <div class="sect1">
 <h2 id="_search_ontologies"><a class="anchor" href="#_search_ontologies"></a>Search ontologies</h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p>The search API is independent of the REST API and supports free text search over the ontologies. The default search is across all textual fields in the ontology, but results are ranked towards hits in labels, then synonyms, then definitions, then annotations.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>GET /api/search?q={query}</pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_search_parameters"><a class="anchor" href="#_search_parameters"></a>Search parameters</h3>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">query</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The terms to search. By default the search is performed over term labels, synonyms, descriptions, identifiers and annotation properties.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>You can override the fields that are searched by supplying a <code>queryFields</code> argument. For example, to query on labels and synonyms use</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>GET /api/search?q={query}&amp;queryFields={label,synonym}</pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ontology</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Restrict a search to a set of ontologies e.g. <code>ontology=uberon,ma</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Restrict a search to an entity type, one of {term,property,individual}</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">slim</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Restrict a search to an particular set of slims by name</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">fieldList</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifcy the fields to return, the defaults are {iri,label,short_form,obo_id,ontology_name,ontology_prefix,description,type}</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">fieldList</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifcy the fields to return, the defaults are {iri,label,short_form,obo_id,ontology_name,ontology_prefix,description,type}</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">exact</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set to true for exact matches</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">groupField</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set to true to group results by unique id (IRI)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">obsoletes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set to true to include obsoleted terms in the results</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">local</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set to true to only return terms that are in a defining ontology e.g. Only retun matches to gene ontology terms in the gene ontology, and exclude ontologies where those terms are also referenced</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">childrenOf</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">You can restrict a search to children of a given term. SUpply a list of IRI for the terms that you want to search under</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">rows</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">How many results per page</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">start</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The results page number</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_select_ontologies"><a class="anchor" href="#_select_ontologies"></a>Select ontologies</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We provide an additional search endopint that is designed specifically for selecting ontology terms. This has been tuned specifically to support
+applications such as autocomplete.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>GET /api/select?q={query}</pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-09-21 16:54:43 BST
+Last updated 2015-09-22 11:09:07 BST
 </div>
 </div>
 </body>

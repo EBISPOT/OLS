@@ -112,7 +112,7 @@ public class HomeController {
 
     @RequestMapping({"contact"})
     public String showContact() {
-        return "comingsoon";
+        return "contact";
     }
 
     @RequestMapping({"sparql"})

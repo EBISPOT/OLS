@@ -277,6 +277,76 @@ include::{snippets}/individuals-example/path-parameters.adoc[]
 [[search]]
 = Search
 
-The search API is independent of the REST API and is there to support free text search for ontology entities.
-
 == Search ontologies
+
+The search API is independent of the REST API and supports free text search over the ontologies. The default search is across all textual fields in the ontology, but results are ranked towards hits in labels, then synonyms, then definitions, then annotations.
+
+----
+GET /api/search?q={query}
+----
+
+=== Search parameters
+
+|===
+|Parameter|Description
+
+|query
+|The terms to search. By default the search is performed over term labels, synonyms, descriptions, identifiers and annotation properties.
+
+|===
+
+You can override the fields that are searched by supplying a `queryFields` argument. For example, to query on labels and synonyms use
+
+----
+GET /api/search?q={query}&queryFields={label,synonym}
+----
+
+|===
+|Parameter|Description
+
+|ontology
+|Restrict a search to a set of ontologies e.g. `ontology=uberon,ma`
+
+|type
+|Restrict a search to an entity type, one of {term,property,individual}
+
+|slim
+|Restrict a search to an particular set of slims by name
+
+|fieldList
+|Specifcy the fields to return, the defaults are {iri,label,short_form,obo_id,ontology_name,ontology_prefix,description,type}
+
+|fieldList
+|Specifcy the fields to return, the defaults are {iri,label,short_form,obo_id,ontology_name,ontology_prefix,description,type}
+
+|exact
+|Set to true for exact matches
+
+|groupField
+|Set to true to group results by unique id (IRI)
+
+|obsoletes
+|Set to true to include obsoleted terms in the results
+
+|local
+|Set to true to only return terms that are in a defining ontology e.g. Only retun matches to gene ontology terms in the gene ontology, and exclude ontologies where those terms are also referenced
+
+|childrenOf
+|You can restrict a search to children of a given term. SUpply a list of IRI for the terms that you want to search under
+
+|rows
+|How many results per page
+
+|start
+|The results page number
+
+|===
+
+== Select ontologies
+
+We provide an additional search endopint that is designed specifically for selecting ontology terms. This has been tuned specifically to support
+applications such as autocomplete.
+
+----
+GET /api/select?q={query}
+----
