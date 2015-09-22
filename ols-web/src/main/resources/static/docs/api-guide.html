@@ -637,7 +637,7 @@ that describes the problem. The error object has the following structure:</p>
 Content-Type: application/json;charset=UTF-8
 
 {
-  "timestamp" : 1442850903658,
+  "timestamp" : 1442927030470,
   "status" : 404,
   "error" : "Not Found",
   "message" : "Resource not found",
@@ -676,7 +676,7 @@ parameter for accessing a specific page of items.</p>
 <h4 id="_example_request"><a class="anchor" href="#_example_request"></a>Example request</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://www.ebi.ac.uk/ols-beta/api/ontologies?page=1&amp;size=1' -i</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://www.ebi.ac.uk/ols/beta/api/ontologies?page=1&amp;size=1' -i</code></pre>
 </div>
 </div>
 </div>
@@ -823,7 +823,7 @@ Content-Type: application/json
 <h4 id="_example_request_2"><a class="anchor" href="#_example_request_2"></a>Example request</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://www.ebi.ac.uk/ols-beta/api' -i -H 'Accept: application/json'</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://www.ebi.ac.uk/ols/beta/api' -i -H 'Accept: application/json'</code></pre>
 </div>
 </div>
 </div>
@@ -907,7 +907,7 @@ Content-Type: application/json;charset=UTF-8
 <h4 id="_example_request_3"><a class="anchor" href="#_example_request_3"></a>Example request</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://www.ebi.ac.uk/ols-beta/api/ontologies' -i -H 'Accept: application/json'</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://www.ebi.ac.uk/ols/beta/api/ontologies' -i -H 'Accept: application/json'</code></pre>
 </div>
 </div>
 </div>
@@ -952,7 +952,7 @@ Content-Type: application/json;charset=UTF-8
 <h4 id="_example_request_4"><a class="anchor" href="#_example_request_4"></a>Example request</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://www.ebi.ac.uk/ols-beta/api/ontologies/efo' -i -H 'Accept: application/json'</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://www.ebi.ac.uk/ols/beta/api/ontologies/efo' -i -H 'Accept: application/json'</code></pre>
 </div>
 </div>
 </div>
@@ -996,8 +996,8 @@ Content-Type: application/json
     "hierarchicalProperties" : [ "http://purl.obolibrary.org/obo/RO_0002202", "http://purl.obolibrary.org/obo/BFO_0000050" ],
     "baseUris" : [ "http://www.ebi.ac.uk/efo/EFO_" ],
     "hiddenProperties" : [ "http://www.ebi.ac.uk/efo/has_flag" ],
-    "inferred" : false,
-    "skos" : false
+    "skos" : false,
+    "inferred" : false
   },
   "_links" : {
     "self" : {
@@ -1111,11 +1111,11 @@ Content-Type: application/json
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">short_form</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Filter by IRI shortform, these values aren&#8217;t guaranteed to be unique</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Filter by IRI shortform, these values aren&#8217;t guaranteed to be unique e.g. GO_0098743</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">obo_id</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Filter by OBO id. This is OBO style id taht aren&#8217;t guaranteed to be unique within a given ontology</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Filter by OBO id. This is OBO style id that aren&#8217;t guaranteed to be unique within a given ontology  e.g. GO:0098743</p></td>
 </tr>
 </tbody>
 </table>
@@ -1124,7 +1124,7 @@ Content-Type: application/json
 <h4 id="_example_request_5"><a class="anchor" href="#_example_request_5"></a>Example request</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://www.ebi.ac.uk/ols-beta/api/ontologies/efo/terms' -i -H 'Accept: application/json'</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://www.ebi.ac.uk/ols/beta/api/ontologies/efo/terms' -i -H 'Accept: application/json'</code></pre>
 </div>
 </div>
 </div>
@@ -1176,7 +1176,7 @@ Content-Type: application/json
 <h4 id="_example_request_7"><a class="anchor" href="#_example_request_7"></a>Example request</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://www.ebi.ac.uk/ols-beta/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226' -i -H 'Accept: application/json'</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://www.ebi.ac.uk/ols/beta/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226' -i -H 'Accept: application/json'</code></pre>
 </div>
 </div>
 </div>
@@ -1477,7 +1477,7 @@ applications such as autocomplete.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-09-22 11:09:07 BST
+Last updated 2015-09-22 14:05:24 BST
 </div>
 </div>
 </body>

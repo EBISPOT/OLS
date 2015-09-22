@@ -1,6 +1,6 @@
 [source,http]
 ----
-GET /ols-beta/api/ontologies HTTP/1.1
+GET /ols/beta/api/ontologies HTTP/1.1
 Host: www.ebi.ac.uk
 Accept: application/json
 

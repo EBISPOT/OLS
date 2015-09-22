@@ -53,8 +53,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/AEO_" ],
         "hiddenProperties" : [ ],
-        "inferred" : true,
-        "skos" : false
+        "skos" : false,
+        "inferred" : true
       },
       "_links" : {
         "self" : {
@@ -103,8 +103,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ "http://purl.obolibrary.org/obo/BFO_0000050" ],
         "baseUris" : [ "http://www.orpha.net/ORDO/Orphanet_" ],
         "hiddenProperties" : [ "http://www.ebi.ac.uk/efo/has_flag" ],
-        "inferred" : false,
-        "skos" : false
+        "skos" : false,
+        "inferred" : false
       },
       "_links" : {
         "self" : {
@@ -153,8 +153,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/CHMO_" ],
         "hiddenProperties" : [ ],
-        "inferred" : true,
-        "skos" : false
+        "skos" : false,
+        "inferred" : true
       },
       "_links" : {
         "self" : {
@@ -201,8 +201,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/CL_" ],
         "hiddenProperties" : [ ],
-        "inferred" : true,
-        "skos" : false
+        "skos" : false,
+        "inferred" : true
       },
       "_links" : {
         "self" : {
@@ -247,8 +247,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/CLO_" ],
         "hiddenProperties" : [ ],
-        "inferred" : true,
-        "skos" : false
+        "skos" : false,
+        "inferred" : true
       },
       "_links" : {
         "self" : {
@@ -293,8 +293,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/CTENO_" ],
         "hiddenProperties" : [ ],
-        "inferred" : true,
-        "skos" : false
+        "skos" : false,
+        "inferred" : true
       },
       "_links" : {
         "self" : {
@@ -341,8 +341,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/ENVO_" ],
         "hiddenProperties" : [ ],
-        "inferred" : true,
-        "skos" : false
+        "skos" : false,
+        "inferred" : true
       },
       "_links" : {
         "self" : {
@@ -393,8 +393,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/EO_" ],
         "hiddenProperties" : [ ],
-        "inferred" : true,
-        "skos" : false
+        "skos" : false,
+        "inferred" : true
       },
       "_links" : {
         "self" : {
@@ -439,8 +439,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/EPO_" ],
         "hiddenProperties" : [ ],
-        "inferred" : true,
-        "skos" : false
+        "skos" : false,
+        "inferred" : true
       },
       "_links" : {
         "self" : {
@@ -485,8 +485,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/EXO_" ],
         "hiddenProperties" : [ ],
-        "inferred" : true,
-        "skos" : false
+        "skos" : false,
+        "inferred" : true
       },
       "_links" : {
         "self" : {
@@ -531,8 +531,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/FIX_" ],
         "hiddenProperties" : [ ],
-        "inferred" : true,
-        "skos" : false
+        "skos" : false,
+        "inferred" : true
       },
       "_links" : {
         "self" : {
@@ -577,8 +577,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/GAZ_" ],
         "hiddenProperties" : [ ],
-        "inferred" : true,
-        "skos" : false
+        "skos" : false,
+        "inferred" : true
       },
       "_links" : {
         "self" : {
@@ -630,8 +630,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/GO_" ],
         "hiddenProperties" : [ ],
-        "inferred" : true,
-        "skos" : false
+        "skos" : false,
+        "inferred" : true
       },
       "_links" : {
         "self" : {
@@ -678,8 +678,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/HAO_" ],
         "hiddenProperties" : [ ],
-        "inferred" : true,
-        "skos" : false
+        "skos" : false,
+        "inferred" : true
       },
       "_links" : {
         "self" : {
@@ -724,8 +724,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/KISAO_" ],
         "hiddenProperties" : [ ],
-        "inferred" : true,
-        "skos" : false
+        "skos" : false,
+        "inferred" : true
       },
       "_links" : {
         "self" : {
@@ -776,8 +776,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/MA_" ],
         "hiddenProperties" : [ ],
-        "inferred" : true,
-        "skos" : false
+        "skos" : false,
+        "inferred" : true
       },
       "_links" : {
         "self" : {
@@ -822,8 +822,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/MAMO_" ],
         "hiddenProperties" : [ ],
-        "inferred" : true,
-        "skos" : false
+        "skos" : false,
+        "inferred" : true
       },
       "_links" : {
         "self" : {
@@ -868,8 +868,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/MFMO_" ],
         "hiddenProperties" : [ ],
-        "inferred" : true,
-        "skos" : false
+        "skos" : false,
+        "inferred" : true
       },
       "_links" : {
         "self" : {
@@ -914,8 +914,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/MFO_" ],
         "hiddenProperties" : [ ],
-        "inferred" : true,
-        "skos" : false
+        "skos" : false,
+        "inferred" : true
       },
       "_links" : {
         "self" : {
@@ -960,8 +960,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/MFOMD_" ],
         "hiddenProperties" : [ ],
-        "inferred" : true,
-        "skos" : false
+        "skos" : false,
+        "inferred" : true
       },
       "_links" : {
         "self" : {

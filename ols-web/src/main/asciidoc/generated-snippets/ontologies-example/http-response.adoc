@@ -36,8 +36,8 @@ Content-Type: application/json
     "hierarchicalProperties" : [ "http://purl.obolibrary.org/obo/RO_0002202", "http://purl.obolibrary.org/obo/BFO_0000050" ],
     "baseUris" : [ "http://www.ebi.ac.uk/efo/EFO_" ],
     "hiddenProperties" : [ "http://www.ebi.ac.uk/efo/has_flag" ],
-    "inferred" : false,
-    "skos" : false
+    "skos" : false,
+    "inferred" : false
   },
   "_links" : {
     "self" : {

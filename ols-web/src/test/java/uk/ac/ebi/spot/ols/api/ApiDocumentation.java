@@ -67,7 +67,7 @@ public class ApiDocumentation {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.context)
                 .apply(documentationConfiguration(this.restDocumentation).uris()
                                 .withScheme("http")
-                                .withHost("www.ebi.ac.uk/ols-beta")
+                                .withHost("www.ebi.ac.uk/ols/beta")
                                 .withPort(80)
 
                 )
