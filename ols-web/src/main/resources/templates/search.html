@@ -174,20 +174,26 @@
 
             <div class="grid_24 alpha">
 
-                <section class="grid_14 push_6">
-                    <h2>Search results for <span class="searchterm" th:text="${searchOptions.query}">text</span>
-                    </h2>
-                    <p class="search-results-count">
+                <div style="text-align: center;" id="searching">
+                    <img th:src="@{img/loading1.gif}" src="../static/img/loading1.gif" alt="Search loading..."/>
+                    <span>Searching OLS, please wait...</span>
+                </div>
+                <div id="search-results-summary" style="display: none;">
+                    <section class="grid_14 push_6">
+                        <h2>Search results for <span class="searchterm" th:text="${searchOptions.query}">text</span>
+                        </h2>
+                        <p class="search-results-count">
 
-                        <button id="prev-button" disabled="disabled" onclick="clickPrev()">Prev</button>
-                        Showing <span id="start-display">0</span> to  <span id="end-display">10</span> of <span id="total-display">0</span> results
-                        <button id="next-button" disabled="disabled" onclick="clickNext()">Next</button>
-                    </p>
+                            <button id="prev-button" disabled="disabled" onclick="clickPrev()">Prev</button>
+                            Showing <span id="start-display">0</span> to  <span id="end-display">10</span> of <span id="total-display">0</span> results
+                            <button id="next-button" disabled="disabled" onclick="clickNext()">Next</button>
+                        </p>
 
-                    <div id="search-results">
+                        <div id="search-results">
 
-                    </div>
-                </section>
+                        </div>
+                    </section>
+                </div>
 
 
                 <section class="grid_6 pull_14 alpha" id="search-filters">

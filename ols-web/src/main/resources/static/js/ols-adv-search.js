@@ -100,6 +100,11 @@ function processData(data) {
     }
 
 
+    // hide spinner
+    $('#searching').hide();
+    // show summary
+    $('#search-results-summary').show();
+
     // render search results
     var searchResult = $('#search-results');
     $.each(docs, function(index, row) {
@@ -160,7 +165,8 @@ function processData(data) {
         searchResult.append(resultHtml);
     });
 
-    //
+
+
 
     var facets = data.facet_counts.facet_fields;
 
@@ -171,6 +177,8 @@ function processData(data) {
     //renderFacetField(facets.is_defining_ontology, "Defining ontology", searchSummary);
     //renderFacetField(facets.is_obsolete, "Is Obsolete", searchSummary);
     //renderFacetField(facets.subset, "Susbsets", searchSummary);
+
+    //
 }
 
 function renderFacetField (facetArray, name, searchSummary) {
