@@ -192,7 +192,7 @@
                             <tr>
                                 <th data-width="50%" style="width: 50%;" data-sortable="true">Ontology Name</th>
                                 <th data-sortable="true">Short name</th>
-                                <th data-sortable="true">Last updated</th>
+                                <th data-sortable="true">Loaded</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -204,7 +204,7 @@
                                     <a th:href="@{/ontologies/__${onto.getConfig().getNamespace()}__}" th:text="${{onto.getConfig().getTitle()}}">Ontology name</a>
                                 </td>
                                 <td th:text="${{onto.getConfig().getPreferredPrefix()}}">0</td>
-                                <td th:text="${{onto.getUpdated()}}">0</td>
+                                <td th:text="${{onto.getLoaded()}}">0</td>
                                 <td >
                                     <a th:href="'search?ontology=' + ${onto.getConfig().getNamespace()}" href="search">Search</a><br/>
                                     <!--<a href="#">Download</a><br/>-->

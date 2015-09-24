@@ -23,6 +23,8 @@ public class OntologyDocument {
     @Id
     private String ontologyId;
 
+    private Date loaded;
+
     private Date updated;
 
     private Status status;
@@ -31,6 +33,9 @@ public class OntologyDocument {
 
     @JsonIgnore
     private String localPath;
+
+    private String version;
+
 
     private int numberOfTerms;
     private int numberOfProperties;
@@ -47,6 +52,8 @@ public class OntologyDocument {
         this.numberOfTerms = numberOfTerms;
         this.numberOfProperties = numberOfProperties;
         this.numberOfIndividuals = numberOfIndividuals;
+        this.loaded = null;
+        this.version = null;
         this.config = config;
     }
 
@@ -55,6 +62,22 @@ public class OntologyDocument {
 
     public OntologyDocument(String ontologyId, OntologyResourceConfig config) {
         this(ontologyId, new Date(), Status.NOTLOADED, "No ontology loaded", null, 0,0,0, config);
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public Date getLoaded() {
+        return loaded;
+    }
+
+    public void setLoaded(Date loaded) {
+        this.loaded = loaded;
     }
 
     public String getOntologyId() {

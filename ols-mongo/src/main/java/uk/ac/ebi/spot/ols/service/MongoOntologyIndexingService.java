@@ -15,6 +15,7 @@ import uk.ac.ebi.spot.ols.model.Status;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
 import uk.ac.ebi.spot.ols.model.OntologyIndexer;
 
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -112,14 +113,26 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             if (!loader.getCreators().isEmpty()) {
                 config.setCreators(loader.getCreators());
             }
+            if (!loader.getVersionNumber().isEmpty()) {
+                config.setVersion(loader.getVersionNumber());
+            }
             if (!loader.getOntologyAnnotations().keySet().isEmpty()) {
                 config.setAnnotations(loader.getOntologyAnnotations());
+            }
+
+            // check for a version number or set to today date
+            if (!loader.getVersionNumber().isEmpty()) {
+                config.setVersion(loader.getVersionNumber());
+            }
+            else {
+                config.setVersion(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
             }
             document.setConfig(config);
             document.setNumberOfTerms(classes.size());
             document.setNumberOfProperties(properties.size());
             document.setNumberOfIndividuals(individuals.size());
             status = Status.LOADED;
+            document.setLoaded(new Date());
 
         } catch (Exception e) {
             getLog().error("Error indexing " + document.getOntologyId(), e);

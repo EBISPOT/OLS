@@ -77,11 +77,22 @@ public class FileUpdatingService {
                     document.setMessage("");
                 }
             } catch (FileUpdateServiceException e) {
-                document.setStatus(Status.FAILED);
+
+                if (document.getLoaded() == null) {
+                    document.setStatus(Status.NOTLOADED);
+                }
+                else {
+                    document.setStatus(Status.FAILED);
+                }
                 document.setMessage(e.getMessage());
                 log.error("Error checking: " + config.getTitle() + e.getMessage());
             } catch (IOException e) {
-                document.setStatus(Status.FAILED);
+                if (document.getLoaded() == null) {
+                    document.setStatus(Status.NOTLOADED);
+                }
+                else {
+                    document.setStatus(Status.FAILED);
+                }
                 document.setMessage(e.getMessage());
                 log.error("Can't get canonical path for: " + status.getFile().getPath(), e);
             }

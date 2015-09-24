@@ -55,6 +55,6 @@ public interface OntologyTermRepository extends GraphRepository<Term> {
     @Query (value = "MATCH (n:Class) WHERE n.ontology_name = {0} AND n.obo_id = {1} RETURN n")
     Term findByOntologyAndOboId(String ontologyId, String oboId);
 
-    @Query (value = "MATCH (n:Class)-[SUBCLASSOF]->(r:Root) WHERE n.ontology_name = {0} AND n.is_obsolete = {1}  RETURN n")
+    @Query (value = "MATCH (n:Class)-[SUBCLASSOF]->(r:Root) WHERE r.ontology_name = {0} AND n.is_obsolete = {1}  RETURN n")
     Page<Term> getRoots(String ontologyId, boolean obsolete, Pageable pageable);
 }

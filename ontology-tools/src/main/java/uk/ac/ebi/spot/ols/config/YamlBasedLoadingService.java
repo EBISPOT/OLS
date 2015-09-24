@@ -45,9 +45,15 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
 
         String ontologyTitle = (String)ontology.get("title");
 
+        if (ontologyTitle == null) {
+            ontologyTitle = id;
+        }
+
         ArrayList<LinkedHashMap> products = (ArrayList<LinkedHashMap>)ontology.get("products");
 
         String productId = null;
+
+
 
         if (products == null) {
             getLog().warn("No product defined in OBO Yaml for " + id);
@@ -84,7 +90,10 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
 
         String location = uri;
 
-        if (base == null && productId != null) {
+        if (ontology.containsKey("ontology_purl")) {
+            location = (String) ontology.get("ontology_purl");
+        }
+        else if (base == null && productId != null) {
             location = productId;
         }
         else {

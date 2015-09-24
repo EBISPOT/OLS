@@ -29,7 +29,7 @@ public class OntologyTermGraphService {
     GraphDatabaseService graphDatabaseService;
 
 
-    String parentGraphQuery =     "MATCH path = (n:Class)-[r:SUBCLASSOF|RelatedTree*]->(parent)\n"+
+    String relatedGraphQuery =     "MATCH path = (n:Class)-[r:SUBCLASSOF|Related]-(parent)\n"+
             "WHERE n.ontology_name = {0} AND n.iri = {1}\n"+
             "UNWIND nodes(path) as p\n" +
             "UNWIND rels(path) as r1\n" +
@@ -64,6 +64,23 @@ public class OntologyTermGraphService {
 
     }
 
+    public Object getGraphJson(String ontologyName, String iri) {
+        return getGraphJson(ontologyName, iri, 1);
+    }
+
+
+    @Transactional
+    public Object getGraphJson(String ontologyName, String iri, int distance) {
+
+        Map<String, Object> paramt = new HashMap<>();
+        paramt.put("0", ontologyName);
+        paramt.put("1", iri);
+//        paramt.put("2",distance);
+        Result res = graphDatabaseService.execute(relatedGraphQuery, paramt);
+
+        return res.next().get("result");
+
+    }
 
 
     public Page<Term> findAllByOntology(String ontologyId, Pageable pageable) {

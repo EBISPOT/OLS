@@ -265,8 +265,11 @@
                                 <div>
                                     <b>Number of terms: </b> <span th:text="${ontologyDocument.getNumberOfTerms()}">NCBI_9606</span>
                                 </div>
+                                <div th:if="${ontologyDocument.getConfig().getVersion() != null}">
+                                    <b>Version: </b> <span th:text="${ontologyDocument.getConfig().getVersion()}">NCBI:9606</span>
+                                </div>
                                 <div>
-                                    <b>Last updated: </b> <span th:text="${ontologyDocument.getUpdated()}">NCBI_9606</span>
+                                    <b>Last updated: </b> <span th:text="${ontologyDocument.getLoaded()}">NCBI_9606</span>
                                 </div>
                                 <div th:if="${ontologyDocument.getConfig().getMailingList() != null}">
                                     <b>Mailing list: </b> <span th:text="${ontologyDocument.getConfig().getMailingList()}">NCBI:9606</span>

@@ -50,6 +50,7 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
     private String ontologyDescription;
     private String ontologyHomePage;
     private String ontologyMailingList;
+    private String version;
     private Collection<String> ontologyCreators;
     private Map<String, Collection<String>> ontologyAnnotations;
     private Resource ontologyResource;
@@ -306,6 +307,11 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
                 }
             }
             else if (propertyIri.toString().equals(OntologyDefaults.HOMEPAGE)) {
+                if (thevalue.isPresent()) {
+                    setOntologyVersion(thevalue.get());
+                }
+            }
+            else if (propertyIri.toString().equals(OntologyDefaults.VERSION)) {
                 if (thevalue.isPresent()) {
                     setOntologyHomePage(thevalue.get());
                 }
@@ -1121,6 +1127,10 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
         this.ontologyMailingList = ontologyMailingList;
     }
 
+    public void setOntologyVersion(String version) {
+        this.version = version;
+    }
+
     public void setOntologyCreators(Collection<String> ontologyCreators) {
         this.ontologyCreators = ontologyCreators;
     }
@@ -1129,6 +1139,10 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
         this.ontologyTitle = ontologyTitle;
     }
 
+    @Override
+    public String getVersionNumber() {
+        return this.version;
+    }
 
     public String getTitle() {
         return ontologyTitle;

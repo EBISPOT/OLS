@@ -86,6 +86,10 @@ function processData(data) {
 
     if (total == 0) {
         $('.search-results-count').text("No results!")
+        // hide spinner
+        $('#searching').hide();
+        $('#search-results-summary').show();
+
         return;
     }
     $('#start-display').text(start + 1);
@@ -172,7 +176,7 @@ function processData(data) {
 
     var searchSummary = $('#results-summary');
 
-    renderFacetField(facets.ontology_name, "Ontologies", searchSummary);
+    renderFacetField(facets.ontology_prefix, "Ontologies", searchSummary);
     renderFacetField(facets.type, "Type", searchSummary);
     //renderFacetField(facets.is_defining_ontology, "Defining ontology", searchSummary);
     //renderFacetField(facets.is_obsolete, "Is Obsolete", searchSummary);

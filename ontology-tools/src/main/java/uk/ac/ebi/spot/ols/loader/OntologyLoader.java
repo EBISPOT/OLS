@@ -128,10 +128,35 @@ public interface OntologyLoader {
      */
     String getTitle();
 
+    /**
+     * Get a map of the ontology annotation. The key is the label or short form of the annotation predicate.
+     * @return
+     */
     Map<String, Collection<String>> getOntologyAnnotations();
+
+    /**
+     * Get the long description of this ontology
+     * @return
+     */
     String getOntologyDescription();
+
+    /**
+     * Get the ontology homepage
+     * @return
+     */
     String getHomePage();
+
+    /**
+     * Get a mailing list associated with this ontology
+     * @return
+     */
     String getMailingList();
+
+    /**
+     * Get a version number for the ontology
+     * @return
+     */
+    String getVersionNumber();
     Collection<String> getCreators();
 
     Map<IRI, Collection<IRI>> getDirectChildTerms();

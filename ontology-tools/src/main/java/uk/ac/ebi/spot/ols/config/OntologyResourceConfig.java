@@ -23,6 +23,7 @@ public class OntologyResourceConfig  {
 
     private String description;
     private String homepage;
+    private String version;
     private String mailingList;
     private Collection<String> creators;
     private Map<String, Collection<String>> annotations;
@@ -103,6 +104,7 @@ public class OntologyResourceConfig  {
         this.baseUris = builder.baseUris;
         this.hiddenProperties = builder.hiddenProperties;
         this.preferredPrefix = builder.preferredPrefix;
+        this.version = builder.version;
         this.isSkos = builder.isSkos;
         this.description = builder.description;
         this.homepage = builder.homepage;
@@ -117,6 +119,10 @@ public class OntologyResourceConfig  {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getVersion() {
+        return version;
     }
 
     public String getNamespace() {
@@ -231,6 +237,10 @@ public class OntologyResourceConfig  {
         this.creators = creators;
     }
 
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
     public static class OntologyResourceConfigBuilder {
         private  String id;
         private  String title;
@@ -250,6 +260,7 @@ public class OntologyResourceConfig  {
         private  Collection<URI> hiddenProperties = Collections.emptySet();
         private String description;
         private String homepage;
+        private String version;
         private String mailingList;
         private Collection<String> creators = Collections.emptySet();
         private Map<String, Collection<String>> annotations = Collections.emptyMap();
@@ -269,6 +280,11 @@ public class OntologyResourceConfig  {
 
         public OntologyResourceConfigBuilder setTitle(String title) {
             this.title = title;
+            return this;
+        }
+
+        public OntologyResourceConfigBuilder setVersion(String version) {
+            this.version = version;
             return this;
         }
 

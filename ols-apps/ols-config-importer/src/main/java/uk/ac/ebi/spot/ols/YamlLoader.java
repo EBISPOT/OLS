@@ -106,15 +106,13 @@ public class YamlLoader implements CommandLineRunner {
                     ontologyDocument.setStatus(Status.TOLOAD);
                     ontologyRepositoryService.create(ontologyDocument);
                 } else {
-                    if (ontologyResourceConfig.getNamespace().equals(mongoOntologyDocument.getOntologyId())) {
-                        // if location has changed, update the info
-                        if (!mongoOntologyDocument.getConfig().getFileLocation().equals(ontologyResourceConfig.getFileLocation())) {
-                            getLog().info("Location of " + ontologyResourceConfig.getNamespace() + " changed from " + mongoOntologyDocument.getConfig().getFileLocation() + " to " + ontologyResourceConfig.getFileLocation());
-                            mongoOntologyDocument.getConfig().setFileLocation(ontologyResourceConfig.getFileLocation());
-                            mongoOntologyDocument.setStatus(Status.TOLOAD);
-                            ontologyRepositoryService.update(mongoOntologyDocument);
-                        }
+                    // if location has changed, update the info
+                    if (!mongoOntologyDocument.getConfig().getFileLocation().equals(ontologyResourceConfig.getFileLocation())) {
+                        getLog().info("Location of " + ontologyResourceConfig.getNamespace() + " changed from " + mongoOntologyDocument.getConfig().getFileLocation() + " to " + ontologyResourceConfig.getFileLocation());
+                        mongoOntologyDocument.setStatus(Status.TOLOAD);
                     }
+                    mongoOntologyDocument.setConfig(ontologyResourceConfig);
+                    ontologyRepositoryService.update(mongoOntologyDocument);
                 }
             } catch (ConfigParsingException e) {
                 getLog().error("Can't read config:" + e.getMessage());

@@ -192,6 +192,26 @@ public class TermController {
         throw new ResourceNotFoundException();
     }
 
+    @RequestMapping(path = "/{onto}/terms/{id}/graph", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
+    HttpEntity<String> graphJson(
+            @PathVariable("onto") String ontologyId,
+            @PathVariable("id") String termId ) {
+        ontologyId = ontologyId.toLowerCase();
+
+        try {
+            String decoded = UriUtils.decode(termId, "UTF-8");
+
+            Object object= ontologyTermGraphService.getGraphJson(ontologyId, decoded);
+            ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+            return new HttpEntity<String>(ow.writeValueAsString(object));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        throw new ResourceNotFoundException();
+    }
+
     @RequestMapping(path = "/{onto}/terms/{id}/{relation}", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<PagedResources<Term>> related(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId, @PathVariable("relation") String relation, Pageable pageable,
                                              PagedResourcesAssembler assembler) {
