@@ -521,8 +521,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="overview-http-verbs"><a class="anchor" href="#overview-http-verbs"></a>HTTP verbs</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>RESTful notes tries to adhere as closely as possible to standard HTTP and REST conventions in its
-use of HTTP verbs.</p>
+<p>This API supports the following HTTP verbs.</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
@@ -548,7 +547,7 @@ use of HTTP verbs.</p>
 <h2 id="overview-http-status-codes"><a class="anchor" href="#overview-http-status-codes"></a>HTTP status codes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>RESTful notes tries to adhere as closely as possible to standard HTTP and REST conventions in its
+<p>This API tries to adhere as closely as possible to standard HTTP and REST conventions in its
 use of HTTP status codes.</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
@@ -628,7 +627,7 @@ that describes the problem. The error object has the following structure:</p>
 </tbody>
 </table>
 <div class="paragraph">
-<p>For example, a request that attempts to apply a non-existent tag to a note will produce a
+<p>For example, a request that attempts to apply a non-existent tag to a resource will produce a
 <code>400 Bad Request</code> response:</p>
 </div>
 <div class="listingblock">
@@ -637,7 +636,7 @@ that describes the problem. The error object has the following structure:</p>
 Content-Type: application/json;charset=UTF-8
 
 {
-  "timestamp" : 1442927030470,
+  "timestamp" : 1443169311814,
   "status" : 404,
   "error" : "Not Found",
   "message" : "Resource not found",
@@ -651,7 +650,7 @@ Content-Type: application/json;charset=UTF-8
 <h2 id="overview-hypermedia"><a class="anchor" href="#overview-hypermedia"></a>Hypermedia</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>RESTful Notes uses hypermedia and resources include links to other resources in their
+<p>This API uses hypermedia and resources include links to other resources in their
 responses. Responses are in <a href="http://stateless.co/hal_specification.html">Hypertext Application
 Language (HAL)</a> format. Links can be found benath the <code>_links</code> key. Users of the API should
 not created URIs themselves, instead they should use the above-described links to navigate
@@ -964,9 +963,11 @@ Content-Type: application/json;charset=UTF-8
 Content-Type: application/json
 
 {
+  "loaded" : null,
   "updated" : "2015-08-20T15:30:34.979+0000",
   "status" : "LOADED",
   "message" : "",
+  "version" : null,
   "numberOfTerms" : 16379,
   "numberOfProperties" : 0,
   "numberOfIndividuals" : 0,
@@ -976,6 +977,7 @@ Content-Type: application/json
     "preferredPrefix" : "EFO",
     "description" : "The Experimental Factor Ontology (EFO) provides a systematic description of many experimental variables available in EBI databases, and for external projects such as the NHGRI GWAS catalogue. It combines parts of several biological ontologies, such as anatomy, disease and chemical compounds. The scope of EFO is to support the annotation, analysis and visualization of data handled by many groups at the EBI and as the core ontology for the Centre for Therapeutic Validation (CTTV)",
     "homepage" : "http://www.ebi.ac.uk/efo",
+    "version" : null,
     "mailingList" : "efo-users@lists.sourceforge.net",
     "creators" : [ ],
     "annotations" : {
@@ -996,8 +998,8 @@ Content-Type: application/json
     "hierarchicalProperties" : [ "http://purl.obolibrary.org/obo/RO_0002202", "http://purl.obolibrary.org/obo/BFO_0000050" ],
     "baseUris" : [ "http://www.ebi.ac.uk/efo/EFO_" ],
     "hiddenProperties" : [ "http://www.ebi.ac.uk/efo/has_flag" ],
-    "skos" : false,
-    "inferred" : false
+    "inferred" : false,
+    "skos" : false
   },
   "_links" : {
     "self" : {
@@ -1424,8 +1426,8 @@ terms can be accessed directly with this API.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Specifcy the fields to return, the defaults are {iri,label,short_form,obo_id,ontology_name,ontology_prefix,description,type}</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">fieldList</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Specifcy the fields to return, the defaults are {iri,label,short_form,obo_id,ontology_name,ontology_prefix,description,type}</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">queryFields</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifcy the fields to query, the defaults are {label, synonym, description, short_form, obo_id, annotations, logical_description, iri}</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">exact</p></td>
@@ -1441,7 +1443,7 @@ terms can be accessed directly with this API.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">local</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Set to true to only return terms that are in a defining ontology e.g. Only retun matches to gene ontology terms in the gene ontology, and exclude ontologies where those terms are also referenced</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set to true to only return terms that are in a defining ontology e.g. Only return matches to gene ontology terms in the gene ontology, and exclude ontologies where those terms are also referenced</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">childrenOf</p></td>
@@ -1477,7 +1479,7 @@ applications such as autocomplete.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-09-22 14:05:24 BST
+Last updated 2015-09-25 09:18:23 BST
 </div>
 </div>
 </body>

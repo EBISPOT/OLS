@@ -9,6 +9,14 @@
 |String
 |Date the ontology was checked for updates
 
+|loaded
+|Null
+|Date the ontology was succesfully loaded
+
+|version
+|Null
+|Version name associated with the ontology
+
 |status
 |String
 |Status of the ontology {LOADED,LOADING,FAILED}

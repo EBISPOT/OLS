@@ -113,15 +113,12 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             if (!loader.getCreators().isEmpty()) {
                 config.setCreators(loader.getCreators());
             }
-            if (!loader.getVersionNumber().isEmpty()) {
-                config.setVersion(loader.getVersionNumber());
-            }
             if (!loader.getOntologyAnnotations().keySet().isEmpty()) {
                 config.setAnnotations(loader.getOntologyAnnotations());
             }
 
             // check for a version number or set to today date
-            if (!loader.getVersionNumber().isEmpty()) {
+            if (loader.getVersionNumber() != null) {
                 config.setVersion(loader.getVersionNumber());
             }
             else {

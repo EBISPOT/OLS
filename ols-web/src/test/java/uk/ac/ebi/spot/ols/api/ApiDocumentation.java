@@ -156,6 +156,8 @@ public class ApiDocumentation {
                 responseFields(
                         fieldWithPath("_links").description("<<ontologies-links,Links>> to other resources"),
                         fieldWithPath("updated").description("Date the ontology was checked for updates"),
+                        fieldWithPath("loaded").description("Date the ontology was succesfully loaded"),
+                        fieldWithPath("version").description("Version name associated with the ontology"),
                         fieldWithPath("status").description("Status of the ontology {LOADED,LOADING,FAILED}"),
                         fieldWithPath("message").description("Any message relating to the status of the ontology"),
                         fieldWithPath("numberOfTerms").description("Number of terms/classes in the ontology "),

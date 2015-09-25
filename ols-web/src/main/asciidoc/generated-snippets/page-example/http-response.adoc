@@ -23,9 +23,11 @@ Content-Type: application/json
   },
   "_embedded" : {
     "ontologies" : [ {
+      "loaded" : null,
       "updated" : "2015-08-20T10:42:52.538+0000",
       "status" : "LOADED",
       "message" : "",
+      "version" : null,
       "numberOfTerms" : 12377,
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
@@ -35,6 +37,7 @@ Content-Type: application/json
         "preferredPrefix" : "ORDO",
         "description" : null,
         "homepage" : null,
+        "version" : null,
         "mailingList" : null,
         "creators" : [ ],
         "annotations" : {
@@ -52,8 +55,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ "http://purl.obolibrary.org/obo/BFO_0000050" ],
         "baseUris" : [ "http://www.orpha.net/ORDO/Orphanet_" ],
         "hiddenProperties" : [ "http://www.ebi.ac.uk/efo/has_flag" ],
-        "skos" : false,
-        "inferred" : false
+        "inferred" : false,
+        "skos" : false
       },
       "_links" : {
         "self" : {

@@ -20,9 +20,11 @@ Content-Type: application/json
   },
   "_embedded" : {
     "ontologies" : [ {
+      "loaded" : null,
       "updated" : "2015-08-20T10:41:06.521+0000",
       "status" : "LOADED",
       "message" : "",
+      "version" : null,
       "numberOfTerms" : 250,
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
@@ -32,6 +34,7 @@ Content-Type: application/json
         "preferredPrefix" : "AEO",
         "description" : "AEO is an ontology of anatomical structures that expands CARO, the Common Anatomy Reference Ontology",
         "homepage" : "http://www.obofoundry.org/wiki/index.php/AEO:Main_Page",
+        "version" : null,
         "mailingList" : null,
         "creators" : [ ],
         "annotations" : {
@@ -53,8 +56,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/AEO_" ],
         "hiddenProperties" : [ ],
-        "skos" : false,
-        "inferred" : true
+        "inferred" : true,
+        "skos" : false
       },
       "_links" : {
         "self" : {
@@ -74,9 +77,11 @@ Content-Type: application/json
         }
       }
     }, {
+      "loaded" : null,
       "updated" : "2015-08-20T10:42:52.538+0000",
       "status" : "LOADED",
       "message" : "",
+      "version" : null,
       "numberOfTerms" : 12377,
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
@@ -86,6 +91,7 @@ Content-Type: application/json
         "preferredPrefix" : "ORDO",
         "description" : null,
         "homepage" : null,
+        "version" : null,
         "mailingList" : null,
         "creators" : [ ],
         "annotations" : {
@@ -103,8 +109,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ "http://purl.obolibrary.org/obo/BFO_0000050" ],
         "baseUris" : [ "http://www.orpha.net/ORDO/Orphanet_" ],
         "hiddenProperties" : [ "http://www.ebi.ac.uk/efo/has_flag" ],
-        "skos" : false,
-        "inferred" : false
+        "inferred" : false,
+        "skos" : false
       },
       "_links" : {
         "self" : {
@@ -124,9 +130,11 @@ Content-Type: application/json
         }
       }
     }, {
+      "loaded" : null,
       "updated" : "2015-08-20T10:45:51.677+0000",
       "status" : "LOADED",
       "message" : "",
+      "version" : null,
       "numberOfTerms" : 2965,
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
@@ -136,6 +144,7 @@ Content-Type: application/json
         "preferredPrefix" : "CHMO",
         "description" : "CHMO, the chemical methods ontology, describes methods used to",
         "homepage" : "http://code.google.com/p/rsc-cmo/",
+        "version" : null,
         "mailingList" : null,
         "creators" : [ ],
         "annotations" : {
@@ -153,8 +162,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/CHMO_" ],
         "hiddenProperties" : [ ],
-        "skos" : false,
-        "inferred" : true
+        "inferred" : true,
+        "skos" : false
       },
       "_links" : {
         "self" : {
@@ -174,9 +183,11 @@ Content-Type: application/json
         }
       }
     }, {
+      "loaded" : null,
       "updated" : "2015-08-20T10:47:02.875+0000",
       "status" : "LOADED",
       "message" : "",
+      "version" : null,
       "numberOfTerms" : 4782,
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
@@ -186,6 +197,7 @@ Content-Type: application/json
         "preferredPrefix" : "CL",
         "description" : "The Cell Ontology is a structured controlled vocabulary for cell types in animals.",
         "homepage" : null,
+        "version" : null,
         "mailingList" : "https://lists.sourceforge.net/lists/listinfo/obo-cell-type",
         "creators" : [ ],
         "annotations" : {
@@ -201,8 +213,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/CL_" ],
         "hiddenProperties" : [ ],
-        "skos" : false,
-        "inferred" : true
+        "inferred" : true,
+        "skos" : false
       },
       "_links" : {
         "self" : {
@@ -222,9 +234,11 @@ Content-Type: application/json
         }
       }
     }, {
+      "loaded" : null,
       "updated" : "2015-08-20T10:47:05.178+0000",
       "status" : "FAILED",
       "message" : "Problem loading file so didn't proceed to index ",
+      "version" : null,
       "numberOfTerms" : 0,
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
@@ -234,6 +248,7 @@ Content-Type: application/json
         "preferredPrefix" : "CLO",
         "description" : "An ontology to standardize and integrate cell line information and to support computer-assisted reasoning.",
         "homepage" : "http://www.clo-ontology.org",
+        "version" : null,
         "mailingList" : null,
         "creators" : [ ],
         "annotations" : { },
@@ -247,8 +262,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/CLO_" ],
         "hiddenProperties" : [ ],
-        "skos" : false,
-        "inferred" : true
+        "inferred" : true,
+        "skos" : false
       },
       "_links" : {
         "self" : {
@@ -268,9 +283,11 @@ Content-Type: application/json
         }
       }
     }, {
+      "loaded" : null,
       "updated" : "2015-08-20T10:49:19.726+0000",
       "status" : "LOADED",
       "message" : "",
+      "version" : null,
       "numberOfTerms" : 18861,
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
@@ -280,6 +297,7 @@ Content-Type: application/json
         "preferredPrefix" : "CTENO",
         "description" : "An anatomical and developmental ontology for ctenophores (Comb Jellies)",
         "homepage" : "https://github.com/obophenotype/ctenophore-ontology",
+        "version" : null,
         "mailingList" : null,
         "creators" : [ ],
         "annotations" : { },
@@ -293,8 +311,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/CTENO_" ],
         "hiddenProperties" : [ ],
-        "skos" : false,
-        "inferred" : true
+        "inferred" : true,
+        "skos" : false
       },
       "_links" : {
         "self" : {
@@ -314,9 +332,11 @@ Content-Type: application/json
         }
       }
     }, {
+      "loaded" : null,
       "updated" : "2015-08-20T10:50:21.263+0000",
       "status" : "LOADED",
       "message" : "",
+      "version" : null,
       "numberOfTerms" : 4861,
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
@@ -326,6 +346,7 @@ Content-Type: application/json
         "preferredPrefix" : "ENVO",
         "description" : "Ontology of environmental features and habitats",
         "homepage" : "http://environmentontology.org/",
+        "version" : null,
         "mailingList" : null,
         "creators" : [ ],
         "annotations" : {
@@ -341,8 +362,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/ENVO_" ],
         "hiddenProperties" : [ ],
-        "skos" : false,
-        "inferred" : true
+        "inferred" : true,
+        "skos" : false
       },
       "_links" : {
         "self" : {
@@ -362,9 +383,11 @@ Content-Type: application/json
         }
       }
     }, {
+      "loaded" : null,
       "updated" : "2015-08-20T10:51:12.081+0000",
       "status" : "LOADED",
       "message" : "",
+      "version" : null,
       "numberOfTerms" : 561,
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
@@ -374,6 +397,7 @@ Content-Type: application/json
         "preferredPrefix" : "EO",
         "description" : "A structured, controlled vocabulary for the representation of plant environmental conditions.",
         "homepage" : "http://www.gramene.org",
+        "version" : null,
         "mailingList" : null,
         "creators" : [ ],
         "annotations" : {
@@ -393,8 +417,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/EO_" ],
         "hiddenProperties" : [ ],
-        "skos" : false,
-        "inferred" : true
+        "inferred" : true,
+        "skos" : false
       },
       "_links" : {
         "self" : {
@@ -414,9 +438,11 @@ Content-Type: application/json
         }
       }
     }, {
+      "loaded" : null,
       "updated" : "2015-08-20T10:52:03.838+0000",
       "status" : "LOADED",
       "message" : "",
+      "version" : null,
       "numberOfTerms" : 208,
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
@@ -426,6 +452,7 @@ Content-Type: application/json
         "preferredPrefix" : "EPO",
         "description" : "An ontology designed to support the semantic annotation of epidemiology resources",
         "homepage" : "https://code.google.com/p/epidemiology-ontology/",
+        "version" : null,
         "mailingList" : null,
         "creators" : [ ],
         "annotations" : { },
@@ -439,8 +466,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/EPO_" ],
         "hiddenProperties" : [ ],
-        "skos" : false,
-        "inferred" : true
+        "inferred" : true,
+        "skos" : false
       },
       "_links" : {
         "self" : {
@@ -460,9 +487,11 @@ Content-Type: application/json
         }
       }
     }, {
+      "loaded" : null,
       "updated" : "2015-08-20T10:52:54.620+0000",
       "status" : "LOADED",
       "message" : "",
+      "version" : null,
       "numberOfTerms" : 81,
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
@@ -472,6 +501,7 @@ Content-Type: application/json
         "preferredPrefix" : "EXO",
         "description" : "ExO is designed to facilitate centralization and integration of exposure data to inform understanding of environmental health.",
         "homepage" : "http://ctdbase.org/downloads/#exposures",
+        "version" : null,
         "mailingList" : null,
         "creators" : [ ],
         "annotations" : { },
@@ -485,8 +515,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/EXO_" ],
         "hiddenProperties" : [ ],
-        "skos" : false,
-        "inferred" : true
+        "inferred" : true,
+        "skos" : false
       },
       "_links" : {
         "self" : {
@@ -506,9 +536,11 @@ Content-Type: application/json
         }
       }
     }, {
+      "loaded" : null,
       "updated" : "2015-08-20T10:53:45.482+0000",
       "status" : "LOADED",
       "message" : "",
+      "version" : null,
       "numberOfTerms" : 1163,
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
@@ -518,6 +550,7 @@ Content-Type: application/json
         "preferredPrefix" : "FIX",
         "description" : "An ontology of physico-chemical methods and properties.",
         "homepage" : null,
+        "version" : null,
         "mailingList" : null,
         "creators" : [ ],
         "annotations" : { },
@@ -531,8 +564,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/FIX_" ],
         "hiddenProperties" : [ ],
-        "skos" : false,
-        "inferred" : true
+        "inferred" : true,
+        "skos" : false
       },
       "_links" : {
         "self" : {
@@ -552,9 +585,11 @@ Content-Type: application/json
         }
       }
     }, {
+      "loaded" : null,
       "updated" : "2015-08-23T23:23:55.963+0000",
       "status" : "LOADED",
       "message" : "",
+      "version" : null,
       "numberOfTerms" : 15469,
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
@@ -564,6 +599,7 @@ Content-Type: application/json
         "preferredPrefix" : "GAZ",
         "description" : null,
         "homepage" : "http://gensc.org/gc_wiki/index.php/GAZ_Project",
+        "version" : null,
         "mailingList" : null,
         "creators" : [ ],
         "annotations" : { },
@@ -577,8 +613,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/GAZ_" ],
         "hiddenProperties" : [ ],
-        "skos" : false,
-        "inferred" : true
+        "inferred" : true,
+        "skos" : false
       },
       "_links" : {
         "self" : {
@@ -598,9 +634,11 @@ Content-Type: application/json
         }
       }
     }, {
+      "loaded" : null,
       "updated" : "2015-08-20T12:25:27.700+0000",
       "status" : "LOADED",
       "message" : "",
+      "version" : null,
       "numberOfTerms" : 43566,
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
@@ -610,6 +648,7 @@ Content-Type: application/json
         "preferredPrefix" : "GO",
         "description" : "An ontology for describing the function of genes and gene products",
         "homepage" : null,
+        "version" : null,
         "mailingList" : null,
         "creators" : [ ],
         "annotations" : {
@@ -630,8 +669,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/GO_" ],
         "hiddenProperties" : [ ],
-        "skos" : false,
-        "inferred" : true
+        "inferred" : true,
+        "skos" : false
       },
       "_links" : {
         "self" : {
@@ -651,9 +690,11 @@ Content-Type: application/json
         }
       }
     }, {
+      "loaded" : null,
       "updated" : "2015-08-20T12:26:43.112+0000",
       "status" : "LOADED",
       "message" : "",
+      "version" : null,
       "numberOfTerms" : 2349,
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
@@ -663,6 +704,7 @@ Content-Type: application/json
         "preferredPrefix" : "HAO",
         "description" : "A structured controlled vocabulary of the anatomy of the Hymenoptera (bees, wasps, and ants)",
         "homepage" : "http://hymao.org",
+        "version" : null,
         "mailingList" : null,
         "creators" : [ ],
         "annotations" : {
@@ -678,8 +720,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/HAO_" ],
         "hiddenProperties" : [ ],
-        "skos" : false,
-        "inferred" : true
+        "inferred" : true,
+        "skos" : false
       },
       "_links" : {
         "self" : {
@@ -699,9 +741,11 @@ Content-Type: application/json
         }
       }
     }, {
+      "loaded" : null,
       "updated" : "2015-08-20T10:34:32.338+0000",
       "status" : "FAILED",
       "message" : "Failed to download file: http://www.berkeleybop.org/ontologies/kisao.owl",
+      "version" : null,
       "numberOfTerms" : 0,
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
@@ -711,6 +755,7 @@ Content-Type: application/json
         "preferredPrefix" : "KISAO",
         "description" : "A classification of algorithms available for the simulation of models in biology.",
         "homepage" : "http://biomodels.net/kisao",
+        "version" : null,
         "mailingList" : null,
         "creators" : [ ],
         "annotations" : { },
@@ -724,8 +769,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/KISAO_" ],
         "hiddenProperties" : [ ],
-        "skos" : false,
-        "inferred" : true
+        "inferred" : true,
+        "skos" : false
       },
       "_links" : {
         "self" : {
@@ -745,9 +790,11 @@ Content-Type: application/json
         }
       }
     }, {
+      "loaded" : null,
       "updated" : "2015-08-20T12:36:57.784+0000",
       "status" : "LOADED",
       "message" : "",
+      "version" : null,
       "numberOfTerms" : 3229,
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
@@ -757,6 +804,7 @@ Content-Type: application/json
         "preferredPrefix" : "MA",
         "description" : "A structured controlled vocabulary of the adult anatomy of the mouse (Mus).",
         "homepage" : "https://github.com/obophenotype/mouse-anatomy-ontology",
+        "version" : null,
         "mailingList" : null,
         "creators" : [ ],
         "annotations" : {
@@ -776,8 +824,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/MA_" ],
         "hiddenProperties" : [ ],
-        "skos" : false,
-        "inferred" : true
+        "inferred" : true,
+        "skos" : false
       },
       "_links" : {
         "self" : {
@@ -797,9 +845,11 @@ Content-Type: application/json
         }
       }
     }, {
+      "loaded" : null,
       "updated" : "2015-08-20T12:36:58.281+0000",
       "status" : "LOADED",
       "message" : "Last update had no classes or properties so was ignored",
+      "version" : null,
       "numberOfTerms" : 0,
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
@@ -809,6 +859,7 @@ Content-Type: application/json
         "preferredPrefix" : "MAMO",
         "description" : "The Mathematical Modelling Ontology (MAMO) is a classification of the types of mathematical models used mostly in the life sciences, their variables, relationships and other relevant features.",
         "homepage" : "http://sourceforge.net/projects/mamo-ontology/",
+        "version" : null,
         "mailingList" : null,
         "creators" : [ ],
         "annotations" : { },
@@ -822,8 +873,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/MAMO_" ],
         "hiddenProperties" : [ ],
-        "skos" : false,
-        "inferred" : true
+        "inferred" : true,
+        "skos" : false
       },
       "_links" : {
         "self" : {
@@ -843,9 +894,11 @@ Content-Type: application/json
         }
       }
     }, {
+      "loaded" : null,
       "updated" : "2015-08-20T12:39:53.994+0000",
       "status" : "LOADED",
       "message" : "",
+      "version" : null,
       "numberOfTerms" : 291,
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
@@ -855,6 +908,7 @@ Content-Type: application/json
         "preferredPrefix" : "MFMO",
         "description" : "The Mammalian Feeding Muscle Ontology is an antomy ontology for the muscles of the head and neck that participate in feeding, swallowing, and other oral-pharyngeal behaviors.",
         "homepage" : "http://feedexp.org",
+        "version" : null,
         "mailingList" : null,
         "creators" : [ ],
         "annotations" : { },
@@ -868,8 +922,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/MFMO_" ],
         "hiddenProperties" : [ ],
-        "skos" : false,
-        "inferred" : true
+        "inferred" : true,
+        "skos" : false
       },
       "_links" : {
         "self" : {
@@ -889,9 +943,11 @@ Content-Type: application/json
         }
       }
     }, {
+      "loaded" : null,
       "updated" : "2015-08-20T12:39:54.498+0000",
       "status" : "LOADED",
       "message" : "Last update had no classes or properties so was ignored",
+      "version" : null,
       "numberOfTerms" : 0,
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
@@ -901,6 +957,7 @@ Content-Type: application/json
         "preferredPrefix" : "MFO",
         "description" : "A structured controlled vocabulary of the anatomy and development of the Japanese medaka fish, <i>Oryzias latipes</i>.",
         "homepage" : null,
+        "version" : null,
         "mailingList" : null,
         "creators" : [ ],
         "annotations" : { },
@@ -914,8 +971,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/MFO_" ],
         "hiddenProperties" : [ ],
-        "skos" : false,
-        "inferred" : true
+        "inferred" : true,
+        "skos" : false
       },
       "_links" : {
         "self" : {
@@ -935,9 +992,11 @@ Content-Type: application/json
         }
       }
     }, {
+      "loaded" : null,
       "updated" : "2015-08-20T12:41:19.459+0000",
       "status" : "LOADED",
       "message" : "Last update had no classes or properties so was ignored",
+      "version" : null,
       "numberOfTerms" : 0,
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
@@ -947,6 +1006,7 @@ Content-Type: application/json
         "preferredPrefix" : "MFOMD",
         "description" : "An ontology to describe and classify mental diseases",
         "homepage" : "http://mental-functioning-ontology.googlecode.com",
+        "version" : null,
         "mailingList" : null,
         "creators" : [ ],
         "annotations" : { },
@@ -960,8 +1020,8 @@ Content-Type: application/json
         "hierarchicalProperties" : [ ],
         "baseUris" : [ "http://purl.obolibrary.org/obo/MFOMD_" ],
         "hiddenProperties" : [ ],
-        "skos" : false,
-        "inferred" : true
+        "inferred" : true,
+        "skos" : false
       },
       "_links" : {
         "self" : {

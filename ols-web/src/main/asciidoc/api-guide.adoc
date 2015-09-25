@@ -13,8 +13,7 @@
 [[overview-http-verbs]]
 == HTTP verbs
 
-RESTful notes tries to adhere as closely as possible to standard HTTP and REST conventions in its
-use of HTTP verbs.
+This API supports the following HTTP verbs.
 
 |===
 | Verb | Usage
@@ -26,7 +25,7 @@ use of HTTP verbs.
 [[overview-http-status-codes]]
 == HTTP status codes
 
-RESTful notes tries to adhere as closely as possible to standard HTTP and REST conventions in its
+This API tries to adhere as closely as possible to standard HTTP and REST conventions in its
 use of HTTP status codes.
 
 |===
@@ -50,7 +49,7 @@ that describes the problem. The error object has the following structure:
 
 include::{snippets}/error-example/response-fields.adoc[]
 
-For example, a request that attempts to apply a non-existent tag to a note will produce a
+For example, a request that attempts to apply a non-existent tag to a resource will produce a
 `400 Bad Request` response:
 
 include::{snippets}/error-example/http-response.adoc[]
@@ -59,7 +58,7 @@ include::{snippets}/error-example/http-response.adoc[]
 [[overview-hypermedia]]
 == Hypermedia
 
-RESTful Notes uses hypermedia and resources include links to other resources in their
+This API uses hypermedia and resources include links to other resources in their
 responses. Responses are in http://stateless.co/hal_specification.html[Hypertext Application
 Language (HAL)] format. Links can be found benath the `_links` key. Users of the API should
 not created URIs themselves, instead they should use the above-described links to navigate
@@ -316,8 +315,8 @@ GET /api/search?q={query}&queryFields={label,synonym}
 |fieldList
 |Specifcy the fields to return, the defaults are {iri,label,short_form,obo_id,ontology_name,ontology_prefix,description,type}
 
-|fieldList
-|Specifcy the fields to return, the defaults are {iri,label,short_form,obo_id,ontology_name,ontology_prefix,description,type}
+|queryFields
+|Specifcy the fields to query, the defaults are {label, synonym, description, short_form, obo_id, annotations, logical_description, iri}
 
 |exact
 |Set to true for exact matches
@@ -329,7 +328,7 @@ GET /api/search?q={query}&queryFields={label,synonym}
 |Set to true to include obsoleted terms in the results
 
 |local
-|Set to true to only return terms that are in a defining ontology e.g. Only retun matches to gene ontology terms in the gene ontology, and exclude ontologies where those terms are also referenced
+|Set to true to only return terms that are in a defining ontology e.g. Only return matches to gene ontology terms in the gene ontology, and exclude ontologies where those terms are also referenced
 
 |childrenOf
 |You can restrict a search to children of a given term. SUpply a list of IRI for the terms that you want to search under
