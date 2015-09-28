@@ -152,7 +152,8 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
 
 
 
-    @Override public String getShortForm(IRI ontologyTermIRI) {
+    @Override
+    public String getShortForm(IRI ontologyTermIRI) {
 
         if (getOntologyTermAccessions().containsKey(ontologyTermIRI)) {
             getOntologyTermAccessions().get(ontologyTermIRI);
@@ -160,7 +161,8 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
         return  extractShortForm(ontologyTermIRI).get();
     }
 
-    @Override public String getOboId(IRI ontologyTermIRI) {
+    @Override
+    public String getOboId(IRI ontologyTermIRI) {
 
         if (getOntologyTermOboId().containsKey(ontologyTermIRI)) {
             return  getOntologyTermOboId().get(ontologyTermIRI);

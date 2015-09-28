@@ -14,7 +14,7 @@ import java.util.Map;
 
 /**
  * An ontology loader that provides some abstraction around core concepts in ontologies.  We essentially
- * try and flatten the ontology to graph and assume all nodes and relations can be identifierd by an IRI.
+ * try and flatten the ontology to a graph and assume all nodes and relations can be identified by an IRI.
  * This interface provides a mechanism to decouple ontology loading and processing from specific implementations.
  * Typically we use the OWL API as a base implementation, but we may also provide other implementations for
  * loading different types of vocabularies such as OBO or SKOS, or something entirely bespoke.

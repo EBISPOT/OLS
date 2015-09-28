@@ -12,9 +12,8 @@ import java.util.Date;
  * @date 11/02/2015
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  *
- * This is an interface to Ontology Documents in the OLS system. An OntologyDocument contains meta
- * data for an individual ontology in OLS. This in includes basic stats on an ontology that is loaded into the
- * Ontology repository.
+ * An OntologyDocument contains meta data for an individual ontology in OLS.
+ * This includes basic stats on an ontology that is loaded into the Ontology repository.
  *
  */
 @Document(collection = "olsadmin")

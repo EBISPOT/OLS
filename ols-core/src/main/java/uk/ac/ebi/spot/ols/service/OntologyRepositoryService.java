@@ -14,6 +14,9 @@ import java.util.List;
  * @author Simon Jupp
  * @date 29/01/2015
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
+ *
+ * Provides access to a repository of ontology documents
+ *
  */
 public interface OntologyRepositoryService {
 
