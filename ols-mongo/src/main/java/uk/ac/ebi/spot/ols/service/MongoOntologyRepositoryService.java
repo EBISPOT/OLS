@@ -121,7 +121,7 @@ public class MongoOntologyRepositoryService implements OntologyRepositoryService
     public int getNumberOfIndividuals() {
         Aggregation agg =
                 Aggregation.newAggregation(
-                        group("ANYTHING").sum("numberOfIndiviuals").as("total"),
+                        group("ANYTHING").sum("numberOfIndividuals").as("total"),
                         project("total")
                 );
         //Convert the aggregation result into a List
