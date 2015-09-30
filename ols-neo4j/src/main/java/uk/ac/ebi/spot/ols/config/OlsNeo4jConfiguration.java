@@ -31,7 +31,7 @@ public class OlsNeo4jConfiguration extends Neo4jConfiguration {
     static GraphDatabaseService graphDatabaseService() {
 
         return new GraphDatabaseFactory().newEmbeddedDatabaseBuilder(getNeo4JPath())
-                .setConfig(GraphDatabaseSettings.read_only, "true")
+//                .setConfig(GraphDatabaseSettings.read_only, "true")
                 .setConfig( GraphDatabaseSettings.dump_configuration, "true" )
                 .newGraphDatabase();
     }

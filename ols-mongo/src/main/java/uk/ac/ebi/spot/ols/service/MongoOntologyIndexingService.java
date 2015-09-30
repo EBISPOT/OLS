@@ -75,7 +75,7 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
 
         } catch (Exception e) {
             message = "Problem loading file so didn't proceed to index ";
-            getLog().error(message, e);
+            getLog().error(message, e.getMessage());
             document.setStatus(Status.FAILED);
             document.setMessage(message);
             ontologyRepositoryService.update(document);
@@ -132,7 +132,7 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             document.setLoaded(new Date());
 
         } catch (Exception e) {
-            getLog().error("Error indexing " + document.getOntologyId(), e);
+            getLog().error("Error indexing " + document.getOntologyId(), e.getMessage());
             status = Status.FAILED;
             message = e.getMessage();
             throw e;

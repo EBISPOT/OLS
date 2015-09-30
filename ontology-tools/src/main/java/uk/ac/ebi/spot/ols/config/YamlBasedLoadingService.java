@@ -39,7 +39,6 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
         String prefix = id.toUpperCase();
         if (ontology.containsKey("preferredPrefix"))  {
             prefix =  (String) ontology.get("preferredPrefix");
-//            id = prefix.toLowerCase();
         }
 
 
@@ -80,6 +79,9 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
         String uri;
         if (ontology.containsKey("uri")) {
             uri = (String) ontology.get("uri");
+        }
+        else if (base == null && productId != null) {
+            uri = productId;
         }
         else if (base != null & productId != null ) {
             uri = base + productId;

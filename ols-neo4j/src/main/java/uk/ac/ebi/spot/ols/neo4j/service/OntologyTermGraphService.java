@@ -29,7 +29,7 @@ public class OntologyTermGraphService {
     GraphDatabaseService graphDatabaseService;
 
 
-    String relatedGraphQuery =     "MATCH path = (n:Class)-[r:SUBCLASSOF|Related]-(parent)\n"+
+    String relatedGraphQuery = "MATCH path = (n:Class)-[r:SUBCLASSOF|Related]-(parent)\n"+
             "WHERE n.ontology_name = {0} AND n.iri = {1}\n"+
             "UNWIND nodes(path) as p\n" +
             "UNWIND rels(path) as r1\n" +
