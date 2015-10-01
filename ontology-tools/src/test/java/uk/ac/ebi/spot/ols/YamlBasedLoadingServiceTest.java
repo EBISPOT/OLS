@@ -3,12 +3,12 @@ package uk.ac.ebi.spot.ols;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
+import uk.ac.ebi.spot.ols.config.OboDefaults;
 import uk.ac.ebi.spot.ols.config.YamlBasedLoadingService;
 import uk.ac.ebi.spot.ols.exception.ConfigParsingException;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.net.URI;
+import java.util.*;
 
 /**
  * @author Simon Jupp
@@ -180,6 +180,105 @@ public class YamlBasedLoadingServiceTest extends TestCase {
         yamlBasedLoadingService = new YamlBasedLoadingService(ontology, "http://foobar.com/",  false);
         try {
             assertEquals("http://foobar.com/foobar.owl", yamlBasedLoadingService.getConfiguration().getFileLocation().toString());
+        } catch (ConfigParsingException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testDefinition () {
+
+        ontology.put("uri", "http://example1.com/foo.owl");
+        Collection defs = new ArrayList<>();
+
+        defs.add("http://example1.com/definition1");
+        defs.add("http://example1.com/definition2");
+        ontology.put("definition_property", defs);
+        yamlBasedLoadingService = new YamlBasedLoadingService(ontology, "http://foobar.com/", false);
+        try {
+            assertTrue(yamlBasedLoadingService.getConfiguration().getDefinitionProperties().size() == 2);
+            assertTrue(yamlBasedLoadingService.getConfiguration().getDefinitionProperties().contains(URI.create("http://example1.com/definition1")));
+            assertTrue(yamlBasedLoadingService.getConfiguration().getDefinitionProperties().contains(URI.create("http://example1.com/definition2")));
+        } catch (ConfigParsingException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testOBODefinition () {
+
+        ontology.put("uri", "http://example1.com/foo.owl");
+        yamlBasedLoadingService = new YamlBasedLoadingService(ontology, "http://foobar.com/", true);
+        try {
+            assertTrue(yamlBasedLoadingService.getConfiguration().getDefinitionProperties().size() == 1);
+            assertTrue(yamlBasedLoadingService.getConfiguration().getDefinitionProperties().contains(URI.create(OboDefaults.DEFINITION)));
+        } catch (ConfigParsingException e) {
+            fail();
+        }
+    }
+
+
+    @Test
+    public void testSynonym () {
+
+        ontology.put("uri", "http://example1.com/foo.owl");
+        Collection syns = new ArrayList<>();
+
+        syns.add("http://example1.com/synonym1");
+        syns.add("http://example1.com/synonym2");
+        ontology.put("synonym_property", syns);
+        yamlBasedLoadingService = new YamlBasedLoadingService(ontology, "http://foobar.com/", false);
+        try {
+            assertTrue(yamlBasedLoadingService.getConfiguration().getSynonymProperties().size() == 2);
+            assertTrue(yamlBasedLoadingService.getConfiguration().getSynonymProperties().contains(URI.create("http://example1.com/synonym1")));
+            assertTrue(yamlBasedLoadingService.getConfiguration().getSynonymProperties().contains(URI.create("http://example1.com/synonym2")));
+        } catch (ConfigParsingException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testOboSynonym () {
+
+        ontology.put("uri", "http://example1.com/foo.owl");
+        yamlBasedLoadingService = new YamlBasedLoadingService(ontology, "http://foobar.com/", true);
+        try {
+            assertTrue(yamlBasedLoadingService.getConfiguration().getSynonymProperties().size() == 1);
+            assertTrue(yamlBasedLoadingService.getConfiguration().getSynonymProperties().contains(URI.create(OboDefaults.SYNONYM)));
+        } catch (ConfigParsingException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testHiddenProp () {
+
+        ontology.put("uri", "http://example1.com/foo.owl");
+        Collection prop = new ArrayList<>();
+
+        prop.add("http://example1.com/hidden");
+        ontology.put("hidden_property", prop);
+        yamlBasedLoadingService = new YamlBasedLoadingService(ontology, "http://foobar.com/", false);
+        try {
+            assertTrue(yamlBasedLoadingService.getConfiguration().getHiddenProperties().size() == 1);
+            assertTrue(yamlBasedLoadingService.getConfiguration().getHiddenProperties().contains(URI.create("http://example1.com/hidden")));
+        } catch (ConfigParsingException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testHierarchicalProp () {
+
+        ontology.put("uri", "http://example1.com/foo.owl");
+        Collection prop = new ArrayList<>();
+
+        prop.add("http://example1.com/hierarchical");
+        ontology.put("hierarchical_property", prop);
+        yamlBasedLoadingService = new YamlBasedLoadingService(ontology, "http://foobar.com/", false);
+        try {
+            assertTrue(yamlBasedLoadingService.getConfiguration().getHierarchicalProperties().size() == 1);
+            assertTrue(yamlBasedLoadingService.getConfiguration().getHierarchicalProperties().contains(URI.create("http://example1.com/hierarchical")));
         } catch (ConfigParsingException e) {
             fail();
         }
