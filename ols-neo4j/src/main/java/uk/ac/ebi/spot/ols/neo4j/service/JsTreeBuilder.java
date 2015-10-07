@@ -149,6 +149,7 @@ public class JsTreeBuilder {
 
         List<JsTreeObject> treeObjects = new ArrayList<>();
 
+        int counter = 1;
         while (res.hasNext()) {
             Map<String, Object> row = res.next();
             String nodeId = row.get("startId").toString();
@@ -157,7 +158,7 @@ public class JsTreeBuilder {
             String relation = row.get("relation").toString().replaceAll(" ", "_");
             boolean hasChildren = Boolean.parseBoolean(row.get("hasChildren").toString());
 
-            String startNode = nodeId + "_child";
+            String startNode = nodeId + "_child_" + counter;
 
 
             JsTreeObject jsTreeObject = new JsTreeObject(
@@ -176,6 +177,7 @@ public class JsTreeBuilder {
             }
             treeObjects.add(jsTreeObject);
 
+            counter++;
         }
 
         return treeObjects;
