@@ -101,9 +101,9 @@ function showTree(siblings) {
                 //console.log(event);
                 // Do my action
 
-                var type = getUrlType('terms');
-                if (termIri == selected.node.original.iri) {
-                    type = getUrlType('individual');
+                var type = termType;
+                if (type == 'individual' && termIri != selected.node.original.iri) {
+                    type = getUrlType('terms');
                 }
                 window.location.href = relativePath + "ontologies/" + selected.node.original.ontology_name + "/" + type + '?iri=' + encodeURIComponent(selected.node.original.iri);
             });
