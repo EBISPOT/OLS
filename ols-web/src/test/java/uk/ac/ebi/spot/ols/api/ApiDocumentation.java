@@ -171,17 +171,25 @@ public class ApiDocumentation {
                         linkWithRel("self").description("This ontology"),
                         linkWithRel("terms").description("<<overview-pagination,Paginated>> list of <<terms-resources,terms>> in the ontology"),
                         linkWithRel("properties").description("<<overview-pagination,Paginated>> list of <<properties-resources,properties>> in the ontology"),
-                        linkWithRel("individuals").description("<<overview-pagination,Paginated>> list of <<individuals-resources,individuals>> in the ontology"),
-                        linkWithRel("roots").description("<<overview-pagination,Paginated>> list of root <<terms-resources,terms>> in the ontology")
+                        linkWithRel("individuals").description("<<overview-pagination,Paginated>> list of <<individuals-resources,individuals>> in the ontology")
                 )
 
         );
 
         this.mockMvc.perform(get("/api/ontologies/{ontology_id}", "efo").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void rootsExample () throws Exception {
 
 
-
+        this.document.snippets(
+                pathParameters(
+                          parameterWithName("ontology_id").description("The ontology id in OLS"))
+        );
+        this.mockMvc.perform(get("/api/ontologies/{ontology_id}/terms/roots", "efo").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -255,7 +263,9 @@ public class ApiDocumentation {
                         linkWithRel("ancestors").description("Link to all parent resources for this term"),
                         linkWithRel("children").description("Link to the direct children resources for this term"),
                         linkWithRel("descendants").description("Link to all child resources for this term"),
-                        linkWithRel("jstree").description("A JSON tree structure of the term hierarchy")));
+                        linkWithRel("jstree").description("A JSON tree structure of the term hierarchy"),
+                        linkWithRel("graph").description("A JSON grpah structure of the immediately related nodes")));
+
 
         this.mockMvc.perform(get("/api/ontologies/{ontology}/terms/{iri}", "go", URLEncoder.encode("http://purl.obolibrary.org/obo/GO_0043226", "UTF-8")).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());

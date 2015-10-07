@@ -181,6 +181,9 @@
                     <div class="grid_24 clearfix">
                         <div class="grid_22 alpha">
                             <h1 style="margin: 0px;" th:text="${ontologyTerm.getLabel()}">Term label</h1>
+                            <div class="obsolete" th:if="${ontologyTerm.isObsolete()}">
+                                <p>This term is obsolete</p>
+                            </div>
                         </div>
                         <div class="grid_2 beta">
                             <a style="float:right;" th:href="@{../../api/ontologies/__${ontologyTerm.getOntologyName()}__/terms (iri=${ontologyTerm.getIri()})}" class="nounderline" href="#">

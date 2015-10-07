@@ -28,6 +28,7 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
 
 
 @SpringBootApplication
@@ -50,8 +51,19 @@ public class YamlLoader implements CommandLineRunner {
     @Value("${ols.obofoundry.ontology.config:}")
     public String oboYamlPath = "";
 
+    @Value("${ols.obofoundry.dontclassify:}")
+    public String dontClassify = "";
+
+    public Set<String> dontClassifySet = new HashSet<>();
+
     @Override
     public void run(String... args) throws Exception {
+
+        if (!dontClassify.equals("")) {
+            for (String dontClassifyName : dontClassify.split(",")) {
+                dontClassifySet.add(dontClassifyName);
+            }
+        }
 
         Collection<String> configs = new HashSet<>();
         if (!yamlPath.equals("")) {
@@ -104,12 +116,22 @@ public class YamlLoader implements CommandLineRunner {
                     getLog().info("New ontology document to load found " + ontologyResourceConfig.getNamespace());
                     OntologyDocument ontologyDocument = new OntologyDocument(ontologyResourceConfig.getNamespace(), ontologyResourceConfig);
                     ontologyDocument.setStatus(Status.TOLOAD);
+
+                    if (dontClassifySet.contains(ontologyDocument.getOntologyId())) {
+                        ontologyDocument.getConfig().setIsInferred(true);
+                    }
+
                     ontologyRepositoryService.create(ontologyDocument);
+
+
                 } else {
                     // if location has changed, update the info
                     if (!mongoOntologyDocument.getConfig().getFileLocation().equals(ontologyResourceConfig.getFileLocation())) {
                         getLog().info("Location of " + ontologyResourceConfig.getNamespace() + " changed from " + mongoOntologyDocument.getConfig().getFileLocation() + " to " + ontologyResourceConfig.getFileLocation());
                         mongoOntologyDocument.setStatus(Status.TOLOAD);
+                    }
+                    if (dontClassifySet.contains(mongoOntologyDocument.getOntologyId())) {
+                        mongoOntologyDocument.getConfig().setIsInferred(true);
                     }
                     mongoOntologyDocument.setConfig(ontologyResourceConfig);
                     ontologyRepositoryService.update(mongoOntologyDocument);

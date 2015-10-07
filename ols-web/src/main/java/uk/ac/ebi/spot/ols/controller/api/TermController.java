@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriUtils;
 import uk.ac.ebi.spot.ols.neo4j.model.Term;
+import uk.ac.ebi.spot.ols.neo4j.service.JsTreeBuilder;
 import uk.ac.ebi.spot.ols.neo4j.service.OntologyTermGraphService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +39,9 @@ public class TermController {
     private OntologyTermGraphService ontologyTermGraphService;
 
     @Autowired TermAssembler termAssembler;
+
+    @Autowired
+    JsTreeBuilder jsTreeBuilder;
 
     @RequestMapping(path = "{onto}/terms", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<PagedResources<Term>> terms(
@@ -74,7 +78,7 @@ public class TermController {
         return new ResponseEntity<>( assembler.toResource(terms, termAssembler), HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/{onto}/roots", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
+    @RequestMapping(path = "/{onto}/terms/roots", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<PagedResources<Term>> getRoots(
             @PathVariable("onto") String ontologyId,
             @RequestParam(value = "includeObsoletes", defaultValue = "false", required = false) boolean includeObsoletes,
@@ -181,7 +185,29 @@ public class TermController {
         try {
             String decoded = UriUtils.decode(termId, "UTF-8");
 
-            Object object= ontologyTermGraphService.getJsTree(ontologyId, decoded, siblings);
+            Object object= jsTreeBuilder.getClassJsTree(ontologyId, decoded, siblings);
+            ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+            return new HttpEntity<String>(ow.writeValueAsString(object));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        throw new ResourceNotFoundException();
+    }
+
+    @RequestMapping(path = "/{onto}/terms/{id}/jstree/children/{nodeid}", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
+    HttpEntity<String> graphJsTreeChildren(
+            @PathVariable("onto") String ontologyId,
+            @PathVariable("id") String termId,
+            @PathVariable("nodeid") String nodeId
+            ) {
+        ontologyId = ontologyId.toLowerCase();
+
+        try {
+            String decoded = UriUtils.decode(termId, "UTF-8");
+
+            Object object= jsTreeBuilder.getJsTreeClassChildren(ontologyId, decoded, nodeId);
             ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
             return new HttpEntity<String>(ow.writeValueAsString(object));
         } catch (JsonProcessingException e) {

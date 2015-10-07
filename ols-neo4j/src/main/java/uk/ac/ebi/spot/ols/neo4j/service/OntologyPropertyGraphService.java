@@ -27,31 +27,6 @@ public class OntologyPropertyGraphService {
     GraphDatabaseService graphDatabaseService;
 
 
-    String parentTreeQuery = "MATCH path = (n:Property)-[r:SUBPROPERTYOF*]->(parent)\n"+
-            "USING INDEX n:Property(iri)\n" +
-            "WHERE n.ontology_name = {0} AND n.iri = {1}\n"+
-            "UNWIND rels(path) as r1\n" +
-            "RETURN distinct id(startNode(r1)) as startId, startNode(r1).iri as startIri, startNode(r1).label as startLabel, startNode(r1).has_children as hasChildren, collect( distinct id(endNode(r1)) ) as parents";
-
-    String parentSiblingTreeQuery = "MATCH path = (n:Property)-[r:SUBPROPERTYOF*]->(parent)<-[r2:SUBPROPERTYOF]-(n1:Property)\n"+
-            "USING INDEX n:Property(iri)\n" +
-            "WHERE n.ontology_name = {0} AND n.iri = {1}\n"+
-            "UNWIND rels(path) as r1\n" +
-            "RETURN distinct id(startNode(r1)) as startId, startNode(r1).iri as startIri, startNode(r1).label as startLabel, startNode(r1).has_children as hasChildren, collect( distinct id(endNode(r1)) ) as parents";
-
-    @Transactional
-    public Object getJsTree(String ontologyName, String iri, boolean siblings) {
-        Map<String, Object> paramt = new HashMap<>();
-        paramt.put("0", ontologyName);
-        paramt.put("1", iri);
-        String query = siblings ? parentSiblingTreeQuery : parentTreeQuery;
-        Result res = graphDatabaseService.execute(query, paramt);
-
-        JsTreeBuilder builder = new JsTreeBuilder("TopObjectProperty");
-        return builder.getJsTreeObject(ontologyName, iri, res);
-
-    }
-
     public Page<Property> findAllByOntology(String ontologyId, Pageable pageable) {
         return ontologyPropertyRepository.findAllByOntology(ontologyId, pageable);
     }
@@ -83,4 +58,7 @@ public class OntologyPropertyGraphService {
         return ontologyPropertyRepository.findByOntologyAndOboId(ontologyId, oboId);
     }
 
+    public Page<Property> getRoots(String ontologyId, boolean includeObsoletes, Pageable pageable) {
+        return ontologyPropertyRepository.getRoots(ontologyId, includeObsoletes, pageable);
+    }
 }

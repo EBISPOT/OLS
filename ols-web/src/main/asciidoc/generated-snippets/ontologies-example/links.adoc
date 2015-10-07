@@ -13,7 +13,4 @@
 |individuals
 |<<overview-pagination,Paginated>> list of <<individuals-resources,individuals>> in the ontology
 
-|roots
-|<<overview-pagination,Paginated>> list of root <<terms-resources,terms>> in the ontology
-
 |===

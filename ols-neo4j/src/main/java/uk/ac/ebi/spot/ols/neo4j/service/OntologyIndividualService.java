@@ -28,31 +28,6 @@ public class OntologyIndividualService {
     @Autowired(required = false)
     GraphDatabaseService graphDatabaseService;
 
-    String parentTreeQuery = "MATCH path = (n:Individual)-[r:INSTANCEOF|SUBCLASSOF*]->(parent)\n"+
-            "USING INDEX n:Individual(iri)\n" +
-            "WHERE n.ontology_name = {0} AND n.iri = {1}\n"+
-            "UNWIND rels(path) as r1\n" +
-            "RETURN distinct id(startNode(r1)) as startId, startNode(r1).iri as startIri, startNode(r1).label as startLabel, startNode(r1).has_children as hasChildren, collect( distinct id(endNode(r1)) ) as parents";
-
-    String parentSiblingTreeQuery = "MATCH path = (n:Individual)-[r:INSTANCEOF|SUBCLASSOF*]->(parent)<-[r2:SUBCLASSOF]-(n1:Individual)\n"+
-            "USING INDEX n:Individual(iri)\n" +
-            "WHERE n.ontology_name = {0} AND n.iri = {1}\n"+
-            "UNWIND rels(path) as r1\n" +
-            "RETURN distinct id(startNode(r1)) as startId, startNode(r1).iri as startIri, startNode(r1).label as startLabel, startNode(r1).has_children as hasChildren, collect( distinct id(endNode(r1)) ) as parents";
-
-    @Transactional
-    public Object getJsTree(String ontologyName, String iri) {
-        Map<String, Object> paramt = new HashMap<>();
-        paramt.put("0", ontologyName);
-        paramt.put("1", iri);
-        Result res = graphDatabaseService.execute(parentTreeQuery, paramt);
-
-        JsTreeBuilder builder = new JsTreeBuilder("Thing");
-        return builder.getJsTreeObject(ontologyName, iri, res);
-
-    }
-
-
 
     public Page<Individual> findAllByOntology(String ontologyId, Pageable pageable) {
         return individualRepository.findAllByOntology(ontologyId, pageable);

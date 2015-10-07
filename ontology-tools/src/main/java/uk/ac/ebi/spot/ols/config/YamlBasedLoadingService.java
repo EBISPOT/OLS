@@ -145,6 +145,9 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
             }
             builder.setHierarchicalProperties(hierarchicalUris);
         }
+        else  {
+            builder.setHierarchicalProperties(OboDefaults.hierarchical_relations);
+        }
 
         if (ontology.containsKey("base_uri"))  {
             Set<String> baseUris = new HashSet<>();
@@ -163,6 +166,10 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
         if (ontology.containsKey("isInferred")) {
             builder.setInferred((boolean) ontology.get("isInferred"));
         }
+        else {
+            builder.setInferred(false);
+        }
+
 
         if (ontology.containsKey("classify")) {
             builder.setClassify((boolean) ontology.get("classify"));

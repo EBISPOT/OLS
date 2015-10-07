@@ -46,12 +46,14 @@ public class TermAssembler implements ResourceAssembler<Term, Resource<Term>> {
                 resource.add(lb.slash("descendants").withRel("descendants"));
             }
 
+            resource.add(lb.slash("graph").withRel("graph"));
+
             Collection<String> relation = new HashSet<>();
             for (Related related : term.getRelated()) {
                 if (!relation.contains(related.getLabel())) {
                     String relationId = UriUtils.encode(related.getUri(), "UTF-8");
 
-                    resource.add(lb.slash(relationId).withRel(related.getLabel()));
+                    resource.add(lb.slash(relationId).withRel(related.getLabel().replaceAll(" ", "_")));
                 }
                 relation.add(related.getLabel());
             }

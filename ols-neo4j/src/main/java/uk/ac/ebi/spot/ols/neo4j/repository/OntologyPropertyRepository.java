@@ -6,6 +6,7 @@ import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import uk.ac.ebi.spot.ols.neo4j.model.Property;
+import uk.ac.ebi.spot.ols.neo4j.model.Term;
 
 /**
  * @author Simon Jupp
@@ -43,4 +44,7 @@ public interface OntologyPropertyRepository extends GraphRepository<Property> {
 
     @Query (value = "MATCH (n:Property) WHERE n.ontology_name = {0} AND n.obo_id = {1} RETURN n")
     Property findByOntologyAndOboId(String ontologyId, String oboId);
+
+    @Query (value = "MATCH (n:Property)-[SUBPROPERTYOF]->(r:Root) WHERE r.ontology_name = {0} AND n.is_obsolete = {1}  RETURN n")
+    Page<Property> getRoots(String ontologyId, boolean obsolete, Pageable pageable);
 }

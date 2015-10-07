@@ -194,6 +194,13 @@ include::{snippets}/ontologies-example/http-response.adoc[]
 
 include::{snippets}/ontologies-example/links.adoc[]
 
+[[resources-ontology-roots]]
+==== Roots terms
+
+You can access the root terms or properties in an ontology hierarchy with the following
+
+include::{snippets}/roots-example/path-parameters.adoc[]
+
 [[resources-terms]]
 == Terms
 

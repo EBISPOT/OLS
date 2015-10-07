@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriUtils;
 import uk.ac.ebi.spot.ols.neo4j.model.Property;
+import uk.ac.ebi.spot.ols.neo4j.service.JsTreeBuilder;
 import uk.ac.ebi.spot.ols.neo4j.service.OntologyPropertyGraphService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,6 +40,9 @@ public class PropertyController {
 
     @Autowired
     PropertyAssembler termAssembler;
+
+    @Autowired
+    JsTreeBuilder jsTreeBuilder;
 
     @RequestMapping(path = "{onto}/properties", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<PagedResources<Property>> getAllProperties(
@@ -75,6 +79,20 @@ public class PropertyController {
         }
 
         return new ResponseEntity<>( assembler.toResource(terms, termAssembler), HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/{onto}/properties/roots", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
+    HttpEntity<PagedResources<Property>> getRoots(
+            @PathVariable("onto") String ontologyId,
+            @RequestParam(value = "includeObsoletes", defaultValue = "false", required = false) boolean includeObsoletes,
+            Pageable pageable,
+            PagedResourcesAssembler assembler
+    ) throws ResourceNotFoundException {
+        ontologyId = ontologyId.toLowerCase();
+
+        Page<Property> roots = ontologyPropertyGraphService.getRoots(ontologyId, includeObsoletes, pageable);
+        if (roots == null) throw  new ResourceNotFoundException();
+        return new ResponseEntity<>( assembler.toResource(roots, termAssembler), HttpStatus.OK);
     }
 
     @RequestMapping(path = "/{onto}/properties/{id}", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
@@ -150,6 +168,29 @@ public class PropertyController {
         }
     }
 
+
+    @RequestMapping(path = "/{onto}/properties/{id}/jstree/children/{nodeid}", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
+    HttpEntity<String> graphJsTreeChildren(
+            @PathVariable("onto") String ontologyId,
+            @PathVariable("id") String termId,
+            @PathVariable("nodeid") String nodeId
+            ) {
+        ontologyId = ontologyId.toLowerCase();
+
+        try {
+            String decoded = UriUtils.decode(termId, "UTF-8");
+
+            Object object= jsTreeBuilder.getJsTreePropertyChildren(ontologyId, decoded, nodeId);
+            ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+            return new HttpEntity<String>(ow.writeValueAsString(object));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        throw new ResourceNotFoundException();
+    }
+
     @RequestMapping(path = "/{onto}/properties/{id}/jstree", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<String> getJsTree(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId,
                                  @RequestParam(value = "siblings", defaultValue = "false", required = false) boolean siblings)
@@ -159,7 +200,7 @@ public class PropertyController {
         try {
             String decoded = UriUtils.decode(termId, "UTF-8");
 
-            Object object= ontologyPropertyGraphService.getJsTree(ontologyId, decoded,siblings );
+            Object object= jsTreeBuilder.getPropertyJsTree(ontologyId, decoded, siblings);
             ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
             return new HttpEntity<String>(ow.writeValueAsString(object));
         } catch (JsonProcessingException e) {

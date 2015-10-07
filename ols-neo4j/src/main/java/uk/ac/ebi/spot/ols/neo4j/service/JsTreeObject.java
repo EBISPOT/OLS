@@ -26,7 +26,7 @@ public class JsTreeObject {
     private Map<String, String> a_attr;
 
 
-    public JsTreeObject(String id, String iri, String ontologyName, String text, boolean hasChildren, String parent) {
+    public JsTreeObject(String id, String iri, String ontologyName, String text, String relation, boolean hasChildren, String parent) {
         this.id = id;
         this.iri = iri;
         this.ontologyName = ontologyName;
@@ -38,6 +38,7 @@ public class JsTreeObject {
         this.children = false;
         a_attr = new HashMap<>();
         a_attr.put("title", iri);
+        a_attr.put("class", relation);
 
 
     }

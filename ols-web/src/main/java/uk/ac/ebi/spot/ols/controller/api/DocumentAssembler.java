@@ -36,7 +36,6 @@ public class DocumentAssembler implements ResourceAssembler<OntologyDocument, Re
         resource.add(lb.slash("terms").withRel("terms"));
         resource.add(lb.slash("properties").withRel("properties"));
         resource.add(lb.slash("individuals").withRel("individuals"));
-        resource.add(lb.slash("roots").withRel("roots"));
         return resource;
     }
 }

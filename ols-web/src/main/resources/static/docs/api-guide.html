@@ -466,6 +466,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_example_request_4">Example request</a></li>
 <li><a href="#_example_response_3">Example response</a></li>
 <li><a href="#resources-ontology-links">Links</a></li>
+<li><a href="#resources-ontology-roots">Roots terms</a></li>
 </ul>
 </li>
 </ul>
@@ -636,7 +637,7 @@ that describes the problem. The error object has the following structure:</p>
 Content-Type: application/json;charset=UTF-8
 
 {
-  "timestamp" : 1443169311814,
+  "timestamp" : 1444217009507,
   "status" : 404,
   "error" : "Not Found",
   "message" : "Resource not found",
@@ -964,11 +965,11 @@ Content-Type: application/json
 
 {
   "loaded" : null,
-  "updated" : "2015-08-20T15:30:34.979+0000",
+  "updated" : "2015-10-05T15:32:22.399+0000",
   "status" : "LOADED",
-  "message" : "",
+  "message" : "No ontology loaded",
   "version" : null,
-  "numberOfTerms" : 16379,
+  "numberOfTerms" : 0,
   "numberOfProperties" : 0,
   "numberOfIndividuals" : 0,
   "config" : {
@@ -980,14 +981,7 @@ Content-Type: application/json
     "version" : null,
     "mailingList" : "efo-users@lists.sourceforge.net",
     "creators" : [ ],
-    "annotations" : {
-      "license" : [ "www.apache.org/licenses/LICENSE-2.0" ],
-      "creator" : [ "Simon Jupp", "Jon Ison", "Helen Parkinson", "Eleanor Williams", "James Malone", "Sirarat Sarntivijai", "Catherine Leroy", "Ele Holloway", "Tomasz Adamusiak", "Emma Kate Hastings", "Natalja Kurbatova", "Dani Welter", "Drashtti Vasant" ],
-      "rights" : [ "Copyright [2014] EMBL - European Bioinformatics Institute \nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the \nLicense. " ],
-      "format-version" : [ "1.4" ],
-      "comment" : [ "Bioportal mappings to Human disease (DOID) ver", "Bioportal mappings to NCI Thesaurus (NCIt) ver11.01e", "Bioportal mappings to MGED Ontology (MO) ver1.3.1.1", "Bioportal mappings to Phenotypic quality (PATO) vernull", "Bioportal mappings to Teleost anatomy and development (TAO) ver1.158", "Bioportal mappings to Units of measurement (UO) vernull", "Bioportal mappings to BRENDA tissue / enzyme source (BTO) verunknown", "Mappings: CRISP Thesaurus Version 2.5.2.0", "Bioportal mappings to Teleost Anatomy Ontology (TAO) vernull", "Bioportal mappings to NIFSTD (nif) ver2.2 - December 20, 2010", "Bioportal mappings to SNOMED Clinical Terms (SNOMEDCT) ver2010_07_31", "Bioportal mappings to Chemical entities of biological interest (CHEBI) verunknown", "Mappings to Plant structure (PO)", "Bioportal mappings to Gene Ontology (GO) ver1.886", "Mappings:The Arabidopsis Information Resource (TAIR)", "Bioportal mappings to Drosophila gross anatomy (FBbt) ver2011-02-10", "Bioportal mappings to International Classification of Diseases (ICD-9) ver9", "Bioportal mappings to Foundational Model of Anatomy (FMA) ver3.1", "Bioportal mappings to Malaria Ontology (IDOMAL) ver1.22", "Bioportal mappings to Medical Subject Headings (MSH) ver2011_2010_08_30", "Ontology containing axioms that describe relationships between orphanet disease ontology classes and efo classes.", "Bioportal mappings to Zebrafish anatomy and development (ZFA) verunknown", "Bioportal mappings to NCBI organismal classification (NCBITaxon) ver1.2", "Date: 17th August 2015", "Bioportal mappings to Mosquito gross anatomy (TGMA) version unknown", "Bioportal mappings to Mammalian phenotype (MP) vernull", "Bioportal mappings to Minimal anatomical terminology (MAT) ver1.1", "Mappings: The Jackson Lab", "Bioportal mappings to Cell type (CL) verunknown", "Bioportal mappings to Microarray experimental conditions (MO) ver1.3.1.1", "Bioportal mappings to Ontology for Biomedical Investigations (OBI) ver2010-10-26 Vancouver 2010 release, RC2" ],
-      "versionInfo" : [ "2.63" ]
-    },
+    "annotations" : { },
     "fileLocation" : "http://www.ebi.ac.uk/efo/efo.owl",
     "classify" : true,
     "expressivity" : "UNKNOWN",
@@ -1013,9 +1007,6 @@ Content-Type: application/json
     },
     "individuals" : {
       "href" : "http://www.ebi.ac.uk/api/ontologies/efo/individuals"
-    },
-    "roots" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/efo/roots"
     }
   }
 }</code></pre>
@@ -1052,9 +1043,34 @@ Content-Type: application/json
 <td class="tableblock halign-left valign-top"><p class="tableblock">individuals</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#overview-pagination">Paginated</a> list of <a href="#individuals-resources">individuals</a> in the ontology</p></td>
 </tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="resources-ontology-roots"><a class="anchor" href="#resources-ontology-roots"></a>Roots terms</h4>
+<div class="paragraph">
+<p>You can access the root terms or properties in an ontology hierarchy with the following</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>GET /api/ontologies/{ontology_id}/terms/roots</pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">roots</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#overview-pagination">Paginated</a> list of root <a href="#terms-resources">terms</a> in the ontology</p></td>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ontology_id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The ontology id in OLS</p></td>
 </tr>
 </tbody>
 </table>
@@ -1227,6 +1243,9 @@ Content-Type: application/json
     },
     "descendants" : {
       "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/descendants"
+    },
+    "graph" : {
+      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/graph"
     }
   }
 }</code></pre>
@@ -1270,6 +1289,10 @@ Content-Type: application/json
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">jstree</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A JSON tree structure of the term hierarchy</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">graph</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A JSON grpah structure of the immediately related nodes</p></td>
 </tr>
 </tbody>
 </table>
@@ -1479,7 +1502,7 @@ applications such as autocomplete.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-09-25 10:18:23 CEST
+Last updated 2015-10-07 12:26:12 BST
 </div>
 </div>
 </body>

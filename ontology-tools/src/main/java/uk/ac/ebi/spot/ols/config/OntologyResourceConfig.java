@@ -209,6 +209,10 @@ public class OntologyResourceConfig  {
         return annotations;
     }
 
+    public void setIsInferred(boolean isInferred) {
+        this.isInferred = isInferred;
+    }
+
     public void setFileLocation(URI fileLocation) {
         this.fileLocation = fileLocation;
     }

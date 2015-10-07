@@ -18,33 +18,29 @@ Content-Type: application/json
       "href" : "http://www.ebi.ac.uk/api/ontologies?page=2&size=1"
     },
     "last" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies?page=140&size=1"
+      "href" : "http://www.ebi.ac.uk/api/ontologies?page=139&size=1"
     }
   },
   "_embedded" : {
     "ontologies" : [ {
       "loaded" : null,
-      "updated" : "2015-08-20T10:42:52.538+0000",
+      "updated" : "2015-10-05T15:32:22.426+0000",
       "status" : "LOADED",
-      "message" : "",
+      "message" : "No ontology loaded",
       "version" : null,
-      "numberOfTerms" : 12377,
+      "numberOfTerms" : 0,
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
       "config" : {
         "title" : "Orphanet Rare Disease Ontolog",
         "namespace" : "ordo",
         "preferredPrefix" : "ORDO",
-        "description" : null,
+        "description" : "The Orphanet Rare Disease ontology (ORDO) is jointly developed by Orphanet and the EBI to provide a structured vocabulary for rare diseases capturing relationships between diseases, genes and other relevant features which will form a useful resource for the computational analysis of rare diseases. It derived from the Orphanet database (www.orpha.net ) , a multilingual database dedicated to rare diseases populated from literature and validated by international experts. It integrates a nosology (classification of rare diseases), relationships (gene-disease relations, epiemological data) and connections with other terminologies (MeSH, UMLS, MedDRA),databases (OMIM, UniProtKB, HGNC, ensembl, Reactome, IUPHAR, Geantlas) or classifications (ICD10).",
         "homepage" : null,
         "version" : null,
         "mailingList" : null,
         "creators" : [ ],
-        "annotations" : {
-          "creator" : [ "Marc Hanauer", "Ana Rath", "Annie Olry", "James Malone", "Drashtti Vasant" ],
-          "comment" : [ "Date: 9th January, 2015." ],
-          "versionInfo" : [ "2.0" ]
-        },
+        "annotations" : { },
         "fileLocation" : "http://www.orphadata.org/data/ORDO/ordo_orphanet.owl",
         "classify" : true,
         "expressivity" : "UNKNOWN",
@@ -70,17 +66,14 @@ Content-Type: application/json
         },
         "individuals" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/ordo/individuals"
-        },
-        "roots" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/ordo/roots"
         }
       }
     } ]
   },
   "page" : {
     "size" : 1,
-    "totalElements" : 141,
-    "totalPages" : 141,
+    "totalElements" : 140,
+    "totalPages" : 140,
     "number" : 1
   }
 }

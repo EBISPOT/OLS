@@ -310,12 +310,12 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
             }
             else if (propertyIri.toString().equals(OntologyDefaults.HOMEPAGE)) {
                 if (thevalue.isPresent()) {
-                    setOntologyVersion(thevalue.get());
+                    setOntologyHomePage(thevalue.get());
                 }
             }
             else if (propertyIri.toString().equals(OntologyDefaults.VERSION)) {
                 if (thevalue.isPresent()) {
-                    setOntologyHomePage(thevalue.get());
+                    setOntologyVersion(thevalue.get());
                 }
             }
             else  {
@@ -515,14 +515,14 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
                         }
                         relatedTerms.get(propertyIRI).add(relatedTerm);
 
-//                        // check if hierarchical
-//                        if (hierarchicalRels.contains(propertyIRI)) {
-//                            if (!relatedParentTerms.containsKey(propertyIRI)) {
-//                                relatedParentTerms.put(propertyIRI, new HashSet<>());
-//                            }
-//                            relatedParentTerms.get(propertyIRI).add(relatedTerm);
-//                            addRelatedChildTerm(relatedTerm, owlClass.getIRI());
-//                        }
+                        // check if hierarchical
+                        if (hierarchicalRels.contains(propertyIRI)) {
+                            if (!relatedParentTerms.containsKey(propertyIRI)) {
+                                relatedParentTerms.put(propertyIRI, new HashSet<>());
+                            }
+                            relatedParentTerms.get(propertyIRI).add(relatedTerm);
+                            addRelatedChildTerm(relatedTerm, owlClass.getIRI());
+                        }
 
                     }
                 }

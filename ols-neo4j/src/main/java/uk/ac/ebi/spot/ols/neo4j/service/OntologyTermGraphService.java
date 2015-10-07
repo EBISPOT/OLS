@@ -35,34 +35,11 @@ public class OntologyTermGraphService {
             "UNWIND rels(path) as r1\n" +
             "RETURN {nodes: collect( distinct {iri: p.iri, label: p.label}), edges: collect (distinct {source: startNode(r1).iri, target: endNode(r1).iri, label: r1.label, uri: r1.uri}  )} as result";
 
-    String parentTreeQuery = "MATCH path = (n:Class)-[r:SUBCLASSOF*]->(parent)\n"+
-            "USING INDEX n:Class(iri)\n" +
-            "WHERE n.ontology_name = {0} AND n.iri = {1}\n"+
-            "UNWIND rels(path) as r1\n" +
-            "RETURN distinct id(startNode(r1)) as startId, startNode(r1).iri as startIri, startNode(r1).label as startLabel, startNode(r1).has_children as hasChildren, collect( distinct id(endNode(r1)) ) as parents";
-
-    String parentSiblingTreeQuery = "MATCH path = (n:Class)-[r:SUBCLASSOF*]->(parent)<-[r2:SUBCLASSOF]-(n1:Class)\n"+
-            "USING INDEX n:Class(iri)\n" +
-            "WHERE n.ontology_name = {0} AND n.iri = {1} AND (n1.is_obsolete = false OR parent.is_obsolete = false) \n"+
-            "UNWIND rels(path) as r1\n" +
-            "RETURN distinct id(startNode(r1)) as startId, startNode(r1).iri as startIri, startNode(r1).label as startLabel, startNode(r1).has_children as hasChildren, collect( distinct id(endNode(r1)) ) as parents";
 
     String relatedFromQuery =  "MATCH (x)-[r:Related]->(n:Class) WHERE n.ontology_name = {0} AND n.iri = {1} RETURN r.label as relation, collect( {iri: x.iri, label: x.label}) as terms limit 100";
 
     String usageQuery = "MATCH (n:Resource)<-[r:REFERSTO]-(x) WHERE n.iri = {0} RETURN distinct ({name: x.ontology_name, prefix: x.ontology_prefix}) as usage";
 
-    @Transactional
-    public Object getJsTree(String ontologyName, String iri, boolean siblings) {
-        Map<String, Object> paramt = new HashMap<>();
-        paramt.put("0", ontologyName);
-        paramt.put("1", iri);
-        String query = siblings ? parentSiblingTreeQuery : parentTreeQuery;
-        Result res = graphDatabaseService.execute(query, paramt);
-
-        JsTreeBuilder builder = new JsTreeBuilder("Thing");
-        return builder.getJsTreeObject(ontologyName, iri, res);
-
-    }
 
     public Object getGraphJson(String ontologyName, String iri) {
         return getGraphJson(ontologyName, iri, 1);

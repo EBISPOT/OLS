@@ -98,7 +98,7 @@ public class Term {
         Set<Related> unique = new HashSet<>();
         Set<String> seen = new HashSet<>();
         for (Related related1 : related) {
-            if (seen.contains(related1.getLabel())){
+            if (!seen.contains(related1.getLabel())){
                 unique.add(related1);
             }
             seen.add(related1.getLabel());

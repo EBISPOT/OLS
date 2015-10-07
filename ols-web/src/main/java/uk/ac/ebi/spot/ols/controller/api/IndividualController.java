@@ -21,6 +21,7 @@ import org.springframework.web.util.UriUtils;
 import uk.ac.ebi.spot.ols.neo4j.model.Individual;
 import uk.ac.ebi.spot.ols.neo4j.model.Property;
 import uk.ac.ebi.spot.ols.neo4j.model.Term;
+import uk.ac.ebi.spot.ols.neo4j.service.JsTreeBuilder;
 import uk.ac.ebi.spot.ols.neo4j.service.OntologyIndividualService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,6 +44,9 @@ public class IndividualController {
 
     @Autowired
     TermAssembler termAssembler;
+
+    @Autowired
+    JsTreeBuilder jsTreeBuilder;
 
     @RequestMapping(path = "{onto}/individuals", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<PagedResources<Individual>> getAllIndividuals(
@@ -127,7 +131,7 @@ public class IndividualController {
         try {
             String decoded = UriUtils.decode(termId, "UTF-8");
 
-            Object object = ontologyIndividualRepository.getJsTree(ontologyId, decoded);
+            Object object = jsTreeBuilder.getIndividualJsTree(ontologyId, decoded);
             ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
             return new HttpEntity<String>(ow.writeValueAsString(object));
         } catch (JsonProcessingException e) {

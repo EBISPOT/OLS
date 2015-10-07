@@ -42,7 +42,7 @@ function showTree(siblings) {
         $.jstree.defaults.core.data = true;
         $.jstree.defaults.core.expand_selected_onload = true;
 
-        var rootUrl = relativePath + '/api/ontologies/' + ontologyName + '/roots?size=1000';
+        var rootUrl = relativePath + '/api/ontologies/' + ontologyName + '/' + termType + '/roots?size=1000';
 
         var baseUrl = relativePath + '/api/ontologies/' + ontologyName + '/' + termType + '/';
         var url = baseUrl + encodeURIComponent(encodeURIComponent(termIri)) + '/jstree' ;
@@ -73,11 +73,11 @@ function showTree(siblings) {
                         else {
                             var requestIri = node.original.iri;
                             // get all children
-                            var childUrl = baseUrl + encodeURIComponent(encodeURIComponent(requestIri)) + '/children?size=1000';
+                            var childUrl = baseUrl + encodeURIComponent(encodeURIComponent(requestIri)) + '/jstree/children/'+ node.id;
 
                             $.getJSON(childUrl, function (data) {
-                                var parentId = node.id;
-                                var data = _processOlsData(data, parentId, termType);
+                                //var parentId = node.id;
+                                //var data = _processOlsData(data, parentId, termType);
                                 cb(data)
 
                             });
@@ -100,7 +100,12 @@ function showTree(siblings) {
                 //console.log(selected);
                 //console.log(event);
                 // Do my action
-                window.location.href = relativePath + "ontologies/" + selected.node.original.ontology_name + "/" + termType + '?iri=' + encodeURIComponent(selected.node.original.iri);
+
+                var type = getUrlType('terms');
+                if (termIri == selected.node.original.iri) {
+                    type = getUrlType('individual');
+                }
+                window.location.href = relativePath + "ontologies/" + selected.node.original.ontology_name + "/" + type + '?iri=' + encodeURIComponent(selected.node.original.iri);
             });
 
 
