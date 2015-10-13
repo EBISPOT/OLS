@@ -74,8 +74,8 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             }
 
         } catch (Exception e) {
-            message = "Problem loading file so didn't proceed to index ";
-            getLog().error(message, e.getMessage());
+            message = e.getMessage() + ":" + e.getCause().getMessage();
+            getLog().error(message);
             document.setStatus(Status.FAILED);
             document.setMessage(message);
             ontologyRepositoryService.update(document);

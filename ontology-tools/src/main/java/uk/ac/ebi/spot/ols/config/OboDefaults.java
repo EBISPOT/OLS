@@ -16,7 +16,6 @@ public class OboDefaults {
     public static String DEFINITION = "http://purl.obolibrary.org/obo/IAO_0000115";
     public static Set<URI> hierarchical_relations = new HashSet<>(
             Arrays.asList(
-                    URI.create("http://purl.obolibrary.org/obo/BFO_0000050"),
-                    URI.create("http://purl.obolibrary.org/obo/ma#part_of")
+                    URI.create("http://purl.obolibrary.org/obo/BFO_0000050")
             ));
 }

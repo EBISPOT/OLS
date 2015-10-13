@@ -51,7 +51,6 @@ public class JsTreeBuilder {
 
     // Property queries
 
-    // CLASS queries
     String getJsTreePropertyChildren = "MATCH path = (child)-[r:SUBPROPERTYOF]->(n:Property)\n"+
             "USING INDEX n:Property(iri)\n" +
             "WHERE n.ontology_name = {0} AND n.iri = {1}\n"+

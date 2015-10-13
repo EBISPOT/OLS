@@ -56,7 +56,7 @@ public abstract class Initializable {
     public synchronized boolean isReady() throws IllegalStateException {
         if (initializationException != null) {
             throw new IllegalStateException(
-                    "Initialization of " + getClass().getSimpleName() + " failed", initializationException);
+                    "Initialization of " + getClass().getSimpleName() + " failed: " + initializationException.getMessage(), initializationException);
         }
         else {
             return ready;

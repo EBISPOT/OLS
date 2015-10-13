@@ -263,15 +263,14 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
             indexTerms(allEntities);
             indexOntologyAnnotations(ontology.getAnnotations());
 
+            setReady(true);
             return ontology;
         }
         catch (Exception e) {
-            getLog().debug("Failed to parse " + getOntologyName(), e);
             getLog().error("Failed to parse " + getOntologyName() + " : " + e.getMessage());
             throw e;
         }
         finally {
-            setReady(true);
             discardReasoner(ontology);
         }
     }
@@ -488,12 +487,8 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
                         owlVocabulary);
         if (ap.size()>0) addAllParents(owlClass.getIRI(), ap);
 
-        // put all parents (is a) in the relatedParentTerms collection
-        // we will also add any additional hierarchical relations to this map
+        // map of related parent terms for hierarchy views
         Map<IRI, Collection<IRI>> relatedParentTerms = new HashMap<>();
-
-        //
-//        relatedParentTerms.put(OWLRDFVocabulary.RDFS_SUBCLASS_OF.getIRI(), getDirectParentTerms(owlClass.getIRI()));
 
         // find direct related terms
         Map<IRI, Collection<IRI>> relatedTerms = new HashMap<>();
@@ -516,7 +511,7 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
                         relatedTerms.get(propertyIRI).add(relatedTerm);
 
                         // check if hierarchical
-                        if (hierarchicalRels.contains(propertyIRI)) {
+                        if (hierarchicalRels.contains(propertyIRI) || isPartOf(propertyIRI) ) {
                             if (!relatedParentTerms.containsKey(propertyIRI)) {
                                 relatedParentTerms.put(propertyIRI, new HashSet<>());
                             }
@@ -529,7 +524,6 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
 
 
                 // store stringified form of class description
-//                relatedDescriptions.add(manSyntaxRenderer.render(expression));
                 relatedDescriptions.add(renderHtml(expression));
             }
         }
@@ -547,6 +541,18 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
         // todo find transitive closure of related terms
     }
 
+    /**
+     * Bit of a hack to try and detect non standard 'part of' predicates
+     * @param propertyIri
+     * @return
+     */
+    private boolean isPartOf(IRI propertyIri) {
+        String shortForm = getShortForm(propertyIri);
+        if (shortForm != null) {
+            return shortForm.toLowerCase().replaceAll("_", "").equals("partof");
+        }
+        return false;
+    }
     private String renderHtml (OWLObject owlObject) {
         StringWriter stringWriter = new StringWriter();
         PrintWriter printWriter = new PrintWriter(stringWriter);

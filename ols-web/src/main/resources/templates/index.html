@@ -192,7 +192,8 @@
                             <tr>
                                 <th data-width="50%" style="width: 50%;" data-sortable="true">Ontology Name</th>
                                 <th data-sortable="true">Short name</th>
-                                <th data-sortable="true">Loaded</th>
+                                <th data-sortable="true">Updated</th>
+                                <th data-sortable="true">Status</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -201,13 +202,25 @@
 
                                 <td  data-width="50%" style="width: 50%;" >
                                     <!--@thymesVar id="onto" type="OntologyDocument"-->
-                                    <a th:href="@{/ontologies/__${onto.getConfig().getNamespace()}__}" th:text="${{onto.getConfig().getTitle()}}">Ontology name</a>
+                                    <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="@{/ontologies/__${onto.getConfig().getNamespace()}__}" th:text="${{onto.getConfig().getTitle()}}">Ontology name</a>
+                                    <span th:if="${{onto.getStatus() ==  T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:text="${{onto.getConfig().getTitle()}}">Ontology name</span>
                                 </td>
                                 <td th:text="${{onto.getConfig().getPreferredPrefix()}}">0</td>
                                 <td th:text="${{onto.getLoaded()}}">0</td>
+                                <td style="text-align: center;">
+                                    <div th:if="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).LOADED}}"  th:class="${{onto.getStatus().toString().toLowerCase()}}" class="loaded">
+                                        OK
+                                    </div>
+                                    <div th:if="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).FAILED}}"  th:class="${{onto.getStatus().toString().toLowerCase()}}" class="loaded">
+                                        Failed
+                                    </div>
+                                    <div th:if="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}"  th:class="${{onto.getStatus().toString().toLowerCase()}}" class="loaded">
+                                        Not loaded
+                                    </div>
+                                </td>
                                 <td >
-                                    <a th:href="'search?ontology=' + ${onto.getConfig().getNamespace()}" href="search">Search</a><br/>
-                                    <!--<a href="#">Download</a><br/>-->
+                                    <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="'search?ontology=' + ${onto.getConfig().getNamespace()}" href="search">Search</a><br/>
+                                    <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="${{onto.getConfig().getId()}}">Download</a><br/>
                                     <!--<a href="#">Project homepage</a><br/>-->
                                 </td>
                             </tr>

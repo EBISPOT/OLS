@@ -637,7 +637,7 @@ that describes the problem. The error object has the following structure:</p>
 Content-Type: application/json;charset=UTF-8
 
 {
-  "timestamp" : 1444217009507,
+  "timestamp" : 1444774337922,
   "status" : 404,
   "error" : "Not Found",
   "message" : "Resource not found",
@@ -1470,7 +1470,7 @@ terms can be accessed directly with this API.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">childrenOf</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">You can restrict a search to children of a given term. SUpply a list of IRI for the terms that you want to search under</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">You can restrict a search to children of a given term. Supply a list of IRI for the terms that you want to search under</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">rows</p></td>
@@ -1497,12 +1497,58 @@ applications such as autocomplete.</p>
 <pre>GET /api/select?q={query}</pre>
 </div>
 </div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ontology</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Restrict a search to a set of ontologies e.g. <code>ontology=uberon,ma</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">slim</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Restrict a search to an particular set of slims by name</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">fieldList</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifcy the fields to return, the defaults are {iri,label,short_form,obo_id,ontology_name,ontology_prefix,description,type}</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">obsoletes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set to true to include obsoleted terms in the results</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">local</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set to true to only return terms that are in a defining ontology e.g. Only return matches to gene ontology terms in the gene ontology, and exclude ontologies where those terms are also referenced</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">childrenOf</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">You can restrict a search to children of a given term. Supply a list of IRI for the terms that you want to search under</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">rows</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">How many results per page</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">start</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The results page number</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-10-07 12:26:12 BST
+Last updated 2015-10-13 23:35:03 BST
 </div>
 </div>
 </body>
