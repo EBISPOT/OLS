@@ -263,14 +263,15 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
             indexTerms(allEntities);
             indexOntologyAnnotations(ontology.getAnnotations());
 
-            setReady(true);
             return ontology;
         }
         catch (Exception e) {
+            setInitializationException(e);
             getLog().error("Failed to parse " + getOntologyName() + " : " + e.getMessage());
             throw e;
         }
         finally {
+            setReady(true);
             discardReasoner(ontology);
         }
     }
@@ -547,9 +548,9 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
      * @return
      */
     private boolean isPartOf(IRI propertyIri) {
-        String shortForm = getShortForm(propertyIri);
-        if (shortForm != null) {
-            return shortForm.toLowerCase().replaceAll("_", "").equals("partof");
+        Optional<String> shortForm = extractShortForm(propertyIri);
+        if (shortForm.isPresent()) {
+            return shortForm.get().toLowerCase().replaceAll("_", "").equals("partof");
         }
         return false;
     }
