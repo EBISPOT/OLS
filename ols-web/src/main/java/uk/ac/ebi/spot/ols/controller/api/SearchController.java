@@ -245,6 +245,12 @@ public class SearchController {
             solrQuery.addFilterQuery("is_defining_ontology:true");
         }
 
+        if (childrenOf != null) {
+            String result = childrenOf.stream()
+              .map(addQuotes)
+                    .collect(Collectors.joining(" OR "));
+            solrQuery.addFilterQuery("ancestor_iri: (" + result + ")");
+        }
 
         solrQuery.addFilterQuery("is_obsolete:" + queryObsoletes);
         solrQuery.setStart(start);
