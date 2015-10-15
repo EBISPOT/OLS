@@ -24,6 +24,9 @@ import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @author Simon Jupp
@@ -90,7 +93,9 @@ public class SearchController {
         }
         else {
             if (exact) {
-                solrQuery.setQuery( createUnionQuery(query, queryFields.toArray(new String [queryFields.size()])));
+                List<String> fieldS = queryFields.stream()
+                  .map(addStringField).collect(Collectors.toList());
+                solrQuery.setQuery( createUnionQuery(query, fieldS.toArray(new String [fieldS.size()])));
             }
             else {
                 solrQuery.set("defType", "edismax");
@@ -136,6 +141,13 @@ public class SearchController {
 
         }
 
+        if (childrenOf != null) {
+            String result = childrenOf.stream()
+              .map(addQuotes)
+                    .collect(Collectors.joining(" OR "));
+            solrQuery.addFilterQuery("ancestor_iri: (" + result + ")");
+        }
+
         solrQuery.addFilterQuery("is_obsolete:" + queryObsoletes);
         solrQuery.setStart(start);
         solrQuery.setRows(rows);
@@ -152,6 +164,17 @@ public class SearchController {
         dispatchSearch(solrSearchBuilder.toString(), response.getOutputStream());
     }
 
+    Function<String,String> addQuotes = new Function<String,String>() {
+      @Override public String apply(String s) {
+        return new StringBuilder(s.length()+2).append('"').append(s).append('"').toString();
+      }
+    };
+
+    Function<String,String> addStringField = new Function<String,String>() {
+      @Override public String apply(String s) {
+        return new StringBuilder(s.length()+2).append(s).append("_").append('s').toString();
+      }
+    };
 
     private String createUnionQuery (String query, String ... fields) {
         StringBuilder builder = new StringBuilder();

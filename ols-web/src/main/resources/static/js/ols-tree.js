@@ -118,17 +118,19 @@ function _processOlsData (data, parentId, termType) {
 
     var newData = [];
     var counter = 1;
+    var results = [];
 
-    var results;
-    if (termType == "properties") {
-        console.log("getting term type:" + termType);
-        results = data._embedded.properties;
-    }
-    else if (termType == "individuals") {
-        results = data._embedded.individuals;
-    }
-    else {
-        results = data._embedded.terms;
+    if (data._embedded != undefined) {
+        if (termType == "properties") {
+            console.log("getting term type:" + termType);
+            results = data._embedded.properties;
+        }
+        else if (termType == "individuals") {
+            results = data._embedded.individuals;
+        }
+        else if (termType == "terms") {
+            results = data._embedded.terms;
+        }
     }
     $.each(results, function(index, term) {
         var id = parentId + "_" + counter;
