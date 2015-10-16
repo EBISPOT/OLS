@@ -38,7 +38,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Override
     public void configureCors(CorsConfigurer configurer) {
         configurer.enableCors("/api/**")
-            .allowedOrigins("*");
+                .allowedMethods("GET")
+                .allowedOrigins("*");
     }
 
 

@@ -7,7 +7,7 @@ Start SOLR in the example directory with the config supplied by this module
 
 e.g. 
 
-solr-5.2.1/bin/solr -Dsolr.solr.home=<OLS INSTALL DIR>/ols/ols-solr/solr-5-config 
+solr-5.2.1/bin/solr -Dsolr.solr.home=<OLS INSTALL DIR>/ols/ols-solr/src/main/solr-5-config 
 
 You can also optionally set the -Dsolr.data.dir= to a location where the SOLR indexes will get created
 

@@ -169,7 +169,7 @@ public class ApiDocumentation {
                 ),
                 links(halLinks(),
                         linkWithRel("self").description("This ontology"),
-                        linkWithRel("terms").description("<<overview-pagination,Paginated>> list of <<terms-resources,terms>> in the ontology"),
+                        linkWithRel("terms").description("<<overview-pagination,Paginated>> list of <<resources-terms,terms>> in the ontology"),
                         linkWithRel("properties").description("<<overview-pagination,Paginated>> list of <<properties-resources,properties>> in the ontology"),
                         linkWithRel("individuals").description("<<overview-pagination,Paginated>> list of <<individuals-resources,individuals>> in the ontology")
                 )
