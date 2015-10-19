@@ -48,7 +48,7 @@ function showTree(siblings) {
         var url = baseUrl + encodeURIComponent(encodeURIComponent(termIri)) + '/jstree' ;
         if (siblings) {
             url += '?siblings=true';
-            console.log("rebuild tree iwth siblings " + url)
+            console.log("rebuild tree with siblings " + url)
         }
         console.log("tree url " + url)
         var treeDiv = $('<div></div>')

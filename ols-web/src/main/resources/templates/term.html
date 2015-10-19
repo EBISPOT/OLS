@@ -314,42 +314,51 @@
                             </div>
                             <div class="panel-body">
 
-                                <div th:if="${parentTerms != null}">
-                                    <b>Parents</b>
-                                    <br/>
-                                    <div th:each="parentTerm : ${parentTerms}">
-                                        <a href="#" th:href="@{terms (iri=${parentTerm.getIri()})}" th:text="${parentTerm.getLabel()}">parent 1</a>
-                                    </div>
-                                </div>
+                                <!--<div th:if="${parentTerms != null}">-->
+                                <!--<b>Parents</b>-->
+                                <!--<br/>-->
+
+                                <!--</div>-->
 
                                 <div  th:if="${ontologyTerm.getEquivalentClassDescription() != null}">
                                     <b>Equivalent to: </b>
                                     <br/>
-                                    <div th:each="equivclassDesc : ${ontologyTerm.getEquivalentClassDescription()}" th:utext="${equivclassDesc}">NCBI_9606</div>
+                                    <ul>
+                                        <li th:each="equivclassDesc : ${ontologyTerm.getEquivalentClassDescription()}" th:utext="${equivclassDesc}">NCBI_9606</li>
+                                    </ul>
+                                    <br/>
                                 </div>
 
                                 <div  th:if="${ontologyTerm.getSuperClassDescription() != null}">
                                     <b>Subclass of: </b>
                                     <br/>
-                                    <div th:each="superclassDesc : ${ontologyTerm.getSuperClassDescription()}" th:utext="${superclassDesc}">NCBI_9606</div>
+                                    <ul>
+                                        <li th:each="parentTerm : ${parentTerms}">
+                                            <a href="#" th:href="@{terms (iri=${parentTerm.getIri()})}" th:text="${parentTerm.getLabel()}">parent 1</a>
+                                        </li>
+                                        <li th:each="superclassDesc : ${ontologyTerm.getSuperClassDescription()}" th:utext="${superclassDesc}">NCBI_9606</li>
+                                    </ul>
 
+
+                                    <br/>
                                 </div>
 
-                                <br/>
 
                                 <div th:if="${not #maps.isEmpty(relatedFroms)}">
                                     <b>Related from</b>
                                     <br/>
                                     <div th:each="relation : ${relatedFroms}">
                                         <a class="ObjectProperty" th:href="@{../../search(q=${relation.key},exact='true', type=property, ontology=${ontologyTerm.ontologyName})}" th:text="${relation.key}"></a>
-                                        <p>
-                                            <span th:each="term,iterStat: ${relation.value}">
+                                        <ul>
+                                            <li th:each="term,iterStat: ${relation.value}">
                                                 <a href="#" th:href="@{terms (iri=${term.iri})}" th:text="${term.label}">parent 1</a>
-                                                <span th:if="${iterStat.count &lt; iterStat.size}">, </span>
-                                            </span>
-                                        </p>
+                                            </li>
 
-
+                                        </ul>
+                                            <!--<span th:each="term,iterStat: ${relation.value}">-->
+                                                <!--<a href="#" th:href="@{terms (iri=${term.iri})}" th:text="${term.label}">parent 1</a>-->
+                                                <!--<span th:if="${iterStat.count &lt; iterStat.size}">, </span>-->
+                                            <!--</span>-->
                                     </div>
                                 </div>
 
