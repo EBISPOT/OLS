@@ -25,7 +25,7 @@ public class OWLOntologyLoaderEFOTest {
                         "http://www.ebi.ac.uk/efo",
                         "Experimental Factor Ontology",
                         "EFO",
-                        URI.create("file:/Users/jupp/dev/ontologies/efo/efo.owl")
+                        URI.create("http://www.ebi.ac.uk/efo/efo.owl")
 
                 );
 

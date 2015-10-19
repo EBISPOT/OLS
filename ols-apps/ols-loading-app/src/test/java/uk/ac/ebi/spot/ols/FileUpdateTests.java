@@ -25,7 +25,7 @@ public class FileUpdateTests {
 //    @Test
     public void testFileUpdater () {
 
-        updater.setPath("/Users/jupp/Dropbox/dev/ols/ols-loader/src/test/resources/tmp");
+        updater.setPath("/tmp");
 
         FileUpdater.FileStatus status = null;
         try {
