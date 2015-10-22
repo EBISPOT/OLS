@@ -12,7 +12,7 @@
          More info: h5bp.com/b/378 -->
     <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> --> <!-- Not yet implemented -->
 
-    <title>Home &lt; Ontology Lookup Service &lt; EMBL-EBI</title>
+    <title>OLS roadmap &lt; Ontology Lookup Service &lt; EMBL-EBI</title>
     <meta name="description" content="EMBL-EBI Ontology Lookup Service is a repository of bio-medical ontologies and provides a powerful REST API for searching and accessing ontology term information"/><!-- Describe what this page is about -->
     <meta name="keywords" content="ontology, ontologies, bioinformatics, europe, institute"/><!-- A few keywords that relate to the content of THIS PAGE (not the whol project) -->
     <meta name="author" content="Samples Phenotypes and Ontologies Team, EMBL-EBI"/><!-- Your [project-name] here -->
@@ -110,7 +110,7 @@
 
             <div id="local-title" class="grid_14 alpha logo-title">
                 <a href="index" title="Back to OLS homepage">
-                    <img style="width: 80px" th:src="@{img/ols-logo.jpg}" src="../static/img/ols-logo.jpg" alt="OLS logo"/></a>
+                    <img style="width: 80px" th:src="@{img/ols-logo.jpg}" src="static/img/ols-logo.jpg" alt="OLS logo"/></a>
                 <span><h1>Ontology Lookup Service</h1></span>
             </div>
 
@@ -118,25 +118,6 @@
 
             <!-- -->
             <div class="grid_10 omega">
-                <form id="local-search" name="local-search" action="search" method="get">
-                    <fieldset><div class="left">
-                        <label>
-                            <input autofocus="autofocus" type="text" name="q" data-olswidget="select" data-olsontology="" id="local-searchbox" class="ac_input">
-                            </input>
-                        </label>
-                        <span class="examples">Examples: <a href="search?q=cancer">cancer</a>,
-                            <a href="search?q=GO:0098743">GO:0098743</a>,
-                        </span>
-                    </div>
-                        <div class="right">
-                            <input type="submit" value="Search" class="submit">
-                            </input>
-                            <span class="adv">
-                                <a href="search" id="adv-search" title="Advanced">Advanced</a>
-                            </span>
-                        </div>
-                    </fieldset>
-                </form>
             </div>
 
             <nav>
@@ -161,78 +142,91 @@
             <div class="grid_24 alpha">
 
                 <section class="grid_19 alpha intro">
-                    <h2 class="strapline">Ontology Lookup Service</h2>
-                    <p class="intro">Welcome to the EMBL-EBI Ontology Lookup Service (OLS). OLS provides a web service interface to query multiple ontologies from a single location with a unified output format.
-                        The OLS can integrate any ontology available in OBO or OWL format.</p>
-                    <div style="font-size: larger;" class="bootstrap-alert alert-info">
-                        <img src="//www.ebi.ac.uk/web_guidelines/images/icons/EBI-Generic/Generic%20icons/Beta.png"/> This is a beta site under active development and is primarily aimed at testing the basic functionality of the underlying API. Please contact us with any feedback or suggestions.</div>
-                </section>
-                <aside class="grid_5 omega">
-                    <h3 class="icon icon-generic" data-icon="g">Data Content</h3>
-                    <h5>Updated <span th:text="${#calendars.format(summary.getLastUpdated(), 'dd MMM yyyy HH:mm')}">Today at 07:00</span></h5>
+                    <h2 class="strapline">Ontology Lookup Service roadmap</h2>
+                    <p class="intro">
+                        This new version of OLS is a complete re-write of the code and includes some significant changes to how we index and serve up ontology data. This includes an all new API for programmatic access to the data.
+                        The old OLS service is no longer able to update the ontologies and we plan to deprecate the service entirely in 2016. This document outline the road map for releasing the new OLS service and provides a guide for migrating from the old SOAP API
+                        to the new REST API.
+                    </p>
+
+                    <h2>Timeline</h2>
                     <ul>
-                        <li><span th:text="${summary.getNumberOfOntologies()}">102</span> ontologies</li>
-                        <li th:if="${summary.getNumberOfTerms() &gt; 0}"><span th:text="${#numbers.formatInteger(summary.getNumberOfTerms(),3,'COMMA')}">102</span> terms</li>
-                        <li th:if="${summary.getNumberOfProperties() &gt; 0}"><span th:text="${#numbers.formatInteger(summary.getNumberOfProperties(),3,'COMMA')}">102</span> properties</li>
-                        <li th:if="${summary.getNumberOfIndividuals() &gt; 0}"><span th:text="${#numbers.formatInteger(summary.getNumberOfIndividuals(),3,'COMMA')}">102</span> individuals</li>
-                        <li th:if="${summary.getSoftwareVersion() != null}">Version <span th:text="${summary.getSoftwareVersion()}">102</span></li>
+                        <li><b>November 1st 2015</b>
+                            <ul>
+                                <li>OLS beta announced running at http://www.ebi.ac.uk/ols/beta</li>
+                                <li>Announcement of deprecation of old OLS services running at http://www.ebi.ac.uk/ontology-lookup (also redirects from http://www.ebi.ac.uk/ols)</li>
+                                <li>Freeze data in old OLS and stop nightly update of ontologies</li>
+                            </ul>
+                        </li>
+                        <li><b>January 31st 2016</b>
+                            <ul>
+                                <li>We will start an instance of the old OLS at http://www.ebi.ac.uk/ontology-lookup/v2. This will serve the old services and data until October 1st 2016</li>
+                            </ul>
+                        </li>
+                        <li><b>March 1st 2016</b>
+                            <ul>
+                                <li>We will move new OLS to production and serve from http://www.ebi.ac.uk/ols</li>
+                                <li>http://www.ebi.ac.uk/ontology-lookup will redirect to http://www.ebi.ac.uk/ols</li>
+                                <li>http://www.ebi.ac.uk/ols/beta will redirect to http://www.ebi.ac.uk/ols</li>
+                                <li>The old OLS service will be archived and only available from http://www.ebi.ac.uk/ols/v2</li>
+                            </ul>
+                        </li>
+                        <li><b>October 1st 2016</b>
+                            <ul>
+                                <li>We will stop redirecting request from http://www.ebi.ac.uk/ols/beta</li>
+                                <li>We will shutdown the old OLS service running at http://www.ebi.ac.uk/ols/v2</li>
+                            </ul>
+                        </li>
+
                     </ul>
-                </aside>
 
-                <section class="grid_19 alpha intro">
-                    <div class="ontologies" th:unless="${#lists.isEmpty(all_ontologies)}">
+                    <h2>What will be deprecated</h2>
+                    <ul>
+                        <li>As of March 1st 2016 we will no longer provide a MySQL dump of OLS</li>
+                        <li>As of March 1st 2016 the SOAP API will no longer be accessible from http://www.ebi.ac.uk/ontology-lookup/OntologyQuery and only available from http://www.ebi.ac.uk/ols/v2/OntologyQuery until October 1st 2016</li>
+                    </ul>
+
+                    <h2>Migration</h2>
+
+                    Migration guide to follow...
+
+                    <!--
+                    <h2>Migration</h2>
+
+                    <h3>Linking to OLS</h3>
+
+                    <h4>Linking to an ontology</h4>
+                    <p>
+                        You can link to an ontology page in old OLS with http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=&lt;ontology name&gt;. Where ontology name is the short id for the ontology in uppercase. <br/>
+                        e.g. http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=GO;
+                    </p>
+                    <p>
+                        In the new OLS this URL will be http://www.ebi.ac.uk/ols/ontologies/&lt;ontology name&gt;. Where ontology name is the short id for the ontology in lowercase. We will continue to support redirects to the new OLS from the old style URLs after March 1st.
+                    </p>
 
 
-                        <h2 class="strapline">List of ontologies in OLS</h2>
 
-                        <div style="padding: 9px;">
+                    <h4>Linking to an ontology term</h4>
+                    <p>
+                        You can link to an ontology term in old OLS with http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=&lt;ontology name&gt;&termId=GO%3A0007610. Where ontology name is the short id for the ontology in uppercase and the term id is the OBO styke short id.<br/>]
+                        e.g. http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=GO&termId=GO%3A0007610
+                    </p>
+                    <p>
+                        In the new OLS term are identified with their full URI. For example the full URI for a gene ontology term GO%3A0007610 is http://purl.obolibrary.org/obo/GO_0007610.<br/>
+                        The correct way to link to these terms in OLS is using http://www.ebi.ac.uk/ols/ontologies/&lt;ontology name&gt;/terms?iri=&lt;term URI&gt;. Where ontology name is the short id for the ontology in lowercase and the term URI is URL encoded.
+                    </p>
+                    <p>
+                        For convinence we also support the following URLs:<br/>
+                        http://www.ebi.ac.uk/ols/ontologies/&lt;ontology name&gt;/terms?iri=&lt;term URI&gt; e.g. http://www.ebi.ac.uk/ols/ontologies/go/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FGO_0007610<br/>
+                        http://www.ebi.ac.uk/ols/ontologies/&lt;ontology name&gt;/terms?short_form=&lt;term shortform&gt;. Where shortform is the URI fragment e.g.  http://www.ebi.ac.uk/ols/ontologies/go/terms?short_form=GO_0007610 <br/>
+                        http://www.ebi.ac.uk/ols/ontologies/&lt;ontology name&gt;/terms?obo_id=&lt;term obo id&gt;. Where obo id is the OBO form of the URI fragment e.g.  http://www.ebi.ac.uk/ols/ontologies/go/terms?obo_id=GO:0007610 <br/>
 
-                        <table data-toggle="table" data-search="false" data-locale="en-US" class="table table-striped table-hover ">
-                            <thead>
-                            <tr>
-                                <th data-width="50%" style="width: 50%;" data-sortable="true">Ontology Name</th>
-                                <th data-sortable="true">Short name</th>
-                                <th data-sortable="true">Loaded</th>
-                                <th data-sortable="true">Status</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="onto : ${all_ontologies}">
 
-                                <td  data-width="50%" style="width: 50%;" >
-                                    <!--@thymesVar id="onto" type="OntologyDocument"-->
-                                    <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="@{/ontologies/__${onto.getConfig().getNamespace()}__}" th:text="${{onto.getConfig().getTitle()}}">Ontology name</a>
-                                    <span th:if="${{onto.getStatus() ==  T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:text="${{onto.getConfig().getTitle()}}">Ontology name</span>
-                                </td>
-                                <td th:text="${{onto.getConfig().getPreferredPrefix()}}">0</td>
-                                <td th:text="${{onto.getLoaded()}}">0</td>
-                                <td style="text-align: center;">
-                                    <div th:if="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).LOADED}}"  th:class="${{onto.getStatus().toString().toLowerCase()}}" class="loaded">
-                                        OK
-                                    </div>
-                                    <div th:if="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).FAILED}}"  th:class="${{onto.getStatus().toString().toLowerCase()}}" class="loaded">
-                                        Failed
-                                    </div>
-                                    <div th:if="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}"  th:class="${{onto.getStatus().toString().toLowerCase()}}" class="loaded">
-                                        Not loaded
-                                    </div>
-                                </td>
-                                <td >
-                                    <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="'search?ontology=' + ${onto.getConfig().getNamespace()}" href="search">Search</a><br/>
-                                    <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="${{onto.getConfig().getId()}}">Download</a><br/>
-                                    <!--<a href="#">Project homepage</a><br/>-->
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                    </p>
 
-                        </div>
-
-                    </div>
+                            -->
 
                 </section>
-
 
 
             </div>
@@ -292,19 +286,13 @@
 
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script type="text/javascript" src="../static/js/jquery/jquery.autocomplete.min.js" th:src="@{js/jquery/jquery.autocomplete.min.js}"></script>
-<script type="text/javascript" src="../static/js/ols.js" th:src="@{js/ols.js}"></script>
-<script type="text/javascript" src="../static/js/ols-termselect.js" th:src="@{js/ols-termselect.js}"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/locale/bootstrap-table-en-US.min.js"></script>
 
 <!--<script>-->
-    <!--$(document).ready(function() {-->
-        <!--$('ontology-table').bootstrapTable(-->
-                <!--{locale:'en-UK', search: true}-->
-        <!--);-->
-    <!--});-->
+<!--$(document).ready(function() {-->
+<!--$('ontology-table').bootstrapTable(-->
+<!--{locale:'en-UK', search: true}-->
+<!--);-->
+<!--});-->
 <!--</script>-->
 
 <script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/cookiebanner.js"></script>

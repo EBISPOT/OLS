@@ -133,7 +133,7 @@ public class YamlLoader implements CommandLineRunner {
                     if (dontClassifySet.contains(mongoOntologyDocument.getOntologyId())) {
                         mongoOntologyDocument.getConfig().setIsInferred(true);
                     }
-                    mongoOntologyDocument.setConfig(ontologyResourceConfig);
+                    // todo validation and check for breaking changes
                     ontologyRepositoryService.update(mongoOntologyDocument);
                 }
             } catch (ConfigParsingException e) {

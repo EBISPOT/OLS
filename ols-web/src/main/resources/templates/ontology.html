@@ -277,7 +277,7 @@
                                     <b>Version: </b> <span th:text="${ontologyDocument.getConfig().getVersion()}">NCBI:9606</span>
                                 </div>
                                 <div>
-                                    <b>Last updated: </b> <span th:text="${ontologyDocument.getLoaded()}">NCBI_9606</span>
+                                    <b>Last loaded: </b> <span th:text="${ontologyDocument.getLoaded()}">NCBI_9606</span>
                                 </div>
                                 <div th:if="${ontologyDocument.getConfig().getMailingList() != null}">
                                     <b>Mailing list: </b> <span th:text="${ontologyDocument.getConfig().getMailingList()}">NCBI:9606</span>
