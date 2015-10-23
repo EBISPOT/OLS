@@ -59,6 +59,18 @@ public class FileUpdatingService {
             // check if document is updated
             getLog().info("Checking status of " + document.getOntologyId());
             OntologyResourceConfig config = document.getConfig();
+
+
+            // check if was previously failing
+            boolean wasFailing = false;
+            if (document.getStatus() != null) {
+                //
+                if (document.getStatus().equals(Status.FAILED) || document.getStatus().equals(Status.NOTLOADED)) {
+                    wasFailing = true;
+                }
+            }
+
+
             document.setStatus(Status.DOWNLOADING);
             document.setUpdated(new Date());
             document.setMessage("");
@@ -68,7 +80,7 @@ public class FileUpdatingService {
             try {
                 status = fileUpdateService.getFile(config.getNamespace(), config.getFileLocation());
                 document.setLocalPath(status.getFile().getCanonicalPath());
-                if (force || status.isNew()) {
+                if (force || status.isNew() || wasFailing) {
                     document.setStatus(Status.TOLOAD);
                     document.setMessage("");
                 }
