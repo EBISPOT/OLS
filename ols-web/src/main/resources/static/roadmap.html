@@ -35,15 +35,14 @@
     <!-- also inform ES so we can host your colour palette file -->
     <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/embl-petrol-colours.css" type="text/css" media="screen"/>
 
-    <link rel="stylesheet" href="../static/css/ols.css" th:href="@{css/ols.css}" type="text/css" media="screen"/>
-    <link rel="stylesheet" href="../static/css/ols-colors.css" th:href="@{css/ols-colors.css}" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/ols.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="css/ols-colors.css" type="text/css" media="screen"/>
 
     <!-- for production the above can be replaced with -->
     <!--
     <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/mini/ebi-fluid-embl.css">
     -->
     <!-- Bootstrap table css -->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.css"/>
 
     <style type="text/css">
         /* You have the option of setting a maximum width for your page, and making sure everything is centered */
@@ -110,7 +109,7 @@
 
             <div id="local-title" class="grid_14 alpha logo-title">
                 <a href="index" title="Back to OLS homepage">
-                    <img style="width: 80px" th:src="@{img/ols-logo.jpg}" src="static/img/ols-logo.jpg" alt="OLS logo"/></a>
+                    <img style="width: 80px" src="img/ols-logo.jpg" alt="OLS logo"/></a>
                 <span><h1>Ontology Lookup Service</h1></span>
             </div>
 
@@ -145,16 +144,16 @@
                     <h2 class="strapline">Ontology Lookup Service roadmap</h2>
                     <p class="intro">
                         This new version of OLS is a complete re-write of the code and includes some significant changes to how we index and serve up ontology data. This includes an all new API for programmatic access to the data.
-                        The old OLS service is no longer able to update the ontologies and we plan to deprecate the service entirely in 2016. This document outline the road map for releasing the new OLS service and provides a guide for migrating from the old SOAP API
+                        The old OLS service is no longer able to update the ontologies and we plan to deprecate the service entirely in 2016. This document outlines the road map for releasing the new OLS service and provides a guide for migrating from the old SOAP API
                         to the new REST API.
                     </p>
 
                     <h2>Timeline</h2>
                     <ul>
-                        <li><b>November 1st 2015</b>
+                        <li><b>October 27th 2015</b>
                             <ul>
-                                <li>OLS beta announced running at http://www.ebi.ac.uk/ols/beta</li>
-                                <li>Announcement of deprecation of old OLS services running at http://www.ebi.ac.uk/ontology-lookup (also redirects from http://www.ebi.ac.uk/ols)</li>
+                                <li>OLS beta announced running at <a href="http://www.ebi.ac.uk/ols/beta">http://www.ebi.ac.uk/ols/beta</a></li>
+                                <li>Announcement of deprecation of old OLS services running at <a href="http://www.ebi.ac.uk/ontology-lookup">http://www.ebi.ac.uk/ontology-lookup</a> (also redirects from http://www.ebi.ac.uk/ols)</li>
                                 <li>Freeze data in old OLS and stop nightly update of ontologies</li>
                             </ul>
                         </li>
@@ -186,9 +185,15 @@
                         <li>As of March 1st 2016 the SOAP API will no longer be accessible from http://www.ebi.ac.uk/ontology-lookup/OntologyQuery and only available from http://www.ebi.ac.uk/ols/v2/OntologyQuery until October 1st 2016</li>
                     </ul>
 
+                    <p>
+                        If you have any questions please get in touch with as at ols-support [at] ebi.ac.uk
+                    </p>
+
                     <h2>Migration</h2>
 
-                    Migration guide to follow...
+                    <p>
+                        Information on how to migrate from the ols OLS SOAP API to the new REST API will be available soon...
+                    </p>
 
                     <!--
                     <h2>Migration</h2>
