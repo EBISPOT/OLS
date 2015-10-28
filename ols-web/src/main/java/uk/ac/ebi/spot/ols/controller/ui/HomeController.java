@@ -38,7 +38,7 @@ public class HomeController {
 
     @ModelAttribute("all_ontologies")
     public List<OntologyDocument> getOntologies() {
-        return repositoryService.getAllDocuments(new Sort(new Sort.Order(Sort.Direction.ASC, "ontologyId")));
+        return repositoryService.getAllDocumentsByStatus(Status.LOADED, new Sort(new Sort.Order(Sort.Direction.ASC, "ontologyId")));
     }
 
     @RequestMapping({"", "/index"})
