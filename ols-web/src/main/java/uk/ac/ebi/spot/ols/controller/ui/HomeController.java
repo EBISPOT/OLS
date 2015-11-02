@@ -121,7 +121,7 @@ public class HomeController {
     }
     @RequestMapping({"about"})
     public String showAbout() {
-        return "comingsoon";
+        return "about";
     }
 
     @RequestMapping({"docs"})
