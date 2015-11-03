@@ -60,6 +60,22 @@ public class OntologyTermGraphService {
     }
 
 
+    public Page<Term> findAll(Pageable pageable) {
+        return termRepository.findAll(pageable);
+    }
+
+    public Page<Term> findAllByIri(String iri, Pageable pageable) {
+        return termRepository.findAllByIri(iri, pageable);
+    }
+
+    public Page<Term> findAllByShortForm(String shortForm, Pageable pageable) {
+        return termRepository.findAllByShortForm(shortForm, pageable);
+    }
+
+    public Page<Term> findAllByOboId(String oboId, Pageable pageable) {
+        return termRepository.findAllByOboId(oboId, pageable);
+    }
+
     public Page<Term> findAllByOntology(String ontologyId, Pageable pageable) {
         return termRepository.findAllByOntology(ontologyId, pageable);
     }

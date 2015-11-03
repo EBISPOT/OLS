@@ -5,8 +5,17 @@ Content-Type: application/json;charset=UTF-8
 
 {
   "_links" : {
+    "individuals" : {
+      "href" : "http://www.ebi.ac.uk/api/individuals"
+    },
     "ontologies" : {
       "href" : "http://www.ebi.ac.uk/api/ontologies"
+    },
+    "properties" : {
+      "href" : "http://www.ebi.ac.uk/api/properties"
+    },
+    "terms" : {
+      "href" : "http://www.ebi.ac.uk/api/terms"
     }
   }
 }

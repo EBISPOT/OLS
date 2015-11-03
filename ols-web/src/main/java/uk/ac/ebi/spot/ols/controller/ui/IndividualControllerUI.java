@@ -39,27 +39,34 @@ public class IndividualControllerUI {
     String getIndividuals(
             @PathVariable("onto") String ontologyId,
             @RequestParam(value = "iri", required = false) String termIri,
+            @RequestParam(value = "short_form", required = false) String shortForm,
+            @RequestParam(value = "obo_id", required = false) String oboId,
             Model model) throws ResourceNotFoundException {
 
         ontologyId = ontologyId.toLowerCase();
+
+        Individual term = null;
+
         if (termIri != null) {
-            Individual term = ontologyIndividualService.findByOntologyAndIri(ontologyId, termIri);
-            if (term == null) {
-                throw new ResourceNotFoundException();
-            }
-
-            model.addAttribute("ontologyIndividual", term);
-            model.addAttribute("indvidualTypes", ontologyIndividualService.getDirectTypes(ontologyId, termIri, new PageRequest(0, 10)));
-
-            String title = repositoryService.get(ontologyId).getConfig().getTitle();
-            model.addAttribute("ontologyName", title);
+            term = ontologyIndividualService.findByOntologyAndIri(ontologyId, termIri);
         }
-        else {
-            return homeController.doSearch(
-                    "*",
-                    Collections.singleton(ontologyId),
-                    null,null, null, false, null, false, false, null, 10,0,model);
+        else if (shortForm != null) {
+            term = ontologyIndividualService.findByOntologyAndShortForm(ontologyId, shortForm);
         }
+        else if (oboId != null) {
+            term = ontologyIndividualService.findByOntologyAndOboId(ontologyId, oboId);
+        }
+
+        if (term == null) {
+            throw new ResourceNotFoundException("Can't find any individual with that id");
+        }
+
+        model.addAttribute("ontologyIndividual", term);
+        model.addAttribute("indvidualTypes", ontologyIndividualService.getDirectTypes(ontologyId, term.getIri(), new PageRequest(0, 10)));
+
+        String title = repositoryService.get(ontologyId).getConfig().getTitle();
+        model.addAttribute("ontologyName", title);
+
         return "individual";
     }
 }

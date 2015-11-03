@@ -22,6 +22,7 @@ import java.util.Set;
 @RepositoryRestResource(collectionResourceRel = "terms", exported = false)
 public interface OntologyTermRepository extends GraphRepository<Term> {
 
+
     @Query(
             countQuery = "MATCH (n:Class)-[:SUBCLASSOF]->(parent) WHERE n.ontology_name = {0} AND n.iri = {1} RETURN count(parent)",
             value = "MATCH (n:Class)-[:SUBCLASSOF]->(parent) WHERE n.ontology_name = {0} AND n.iri = {1} RETURN parent")
@@ -46,7 +47,8 @@ public interface OntologyTermRepository extends GraphRepository<Term> {
     @Query (value = "MATCH (n:Class) WHERE n.ontology_name = {0} AND n.iri = {1} RETURN n")
     Term findByOntologyAndIri(String ontologyName, String iri);
 
-    @Query (value = "MATCH (n:Class {ontology_name : {0}}) RETURN n")
+    @Query (countQuery = "MATCH (n:Class {ontology_name : {0}}) RETURN count(n)",
+            value = "MATCH (n:Class {ontology_name : {0}}) RETURN n")
     Page<Term> findAllByOntology(String ontologyName, Pageable pageable);
 
     @Query (value = "MATCH (n:Class) WHERE n.ontology_name = {0} AND n.short_form = {1} RETURN n")
@@ -55,6 +57,23 @@ public interface OntologyTermRepository extends GraphRepository<Term> {
     @Query (value = "MATCH (n:Class) WHERE n.ontology_name = {0} AND n.obo_id = {1} RETURN n")
     Term findByOntologyAndOboId(String ontologyId, String oboId);
 
-    @Query (value = "MATCH (n:Class)-[SUBCLASSOF]->(r:Root) WHERE r.ontology_name = {0} AND n.is_obsolete = {1}  RETURN n")
+    @Query (countQuery = "MATCH (n:Class)-[SUBCLASSOF]->(r:Root) WHERE r.ontology_name = {0} AND n.is_obsolete = {1}  RETURN count(n)",
+            value = "MATCH (n:Class)-[SUBCLASSOF]->(r:Root) WHERE r.ontology_name = {0} AND n.is_obsolete = {1}  RETURN n")
     Page<Term> getRoots(String ontologyId, boolean obsolete, Pageable pageable);
+
+    @Query (countQuery = "MATCH (n:Class) RETURN count(n)",
+            value = "MATCH (n:Class) RETURN n")
+    Page<Term> findAll(Pageable pageable);
+
+    @Query (countQuery = "MATCH (n:Class) WHERE n.iri = {0} RETURN count(n)",
+            value = "MATCH (n:Class) WHERE n.iri = {0} RETURN n")
+    Page<Term> findAllByIri(String iri, Pageable pageable);
+
+    @Query (countQuery = "MATCH (n:Class) WHERE n.short_form = {0} RETURN count(n)",
+            value = "MATCH (n:Class) WHERE n.short_form = {0} RETURN n")
+    Page<Term> findAllByShortForm(String shortForm, Pageable pageable);
+
+    @Query (countQuery = "MATCH (n:Class) WHERE n.obo_id = {0} RETURN count(n)",
+            value = "MATCH (n:Class) WHERE n.obo_id = {0} RETURN n")
+    Page<Term> findAllByOboId(String oboId, Pageable pageable);
 }

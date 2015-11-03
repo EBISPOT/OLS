@@ -141,7 +141,7 @@
             <div class="grid_24 alpha">
 
                 <section class="grid_19 alpha intro">
-                    <h2 class="strapline">Ontology Lookup Service roadmap</h2>
+                    <h2>Ontology Lookup Service roadmap</h2>
                     <p class="intro">
                         This new version of OLS is a complete re-write of the code and includes some significant changes to how we index and serve up ontology data. This includes an all new API for programmatic access to the data.
                         The old OLS service is no longer able to update the ontologies and we plan to deprecate the service entirely in 2016. This document outlines the road map for releasing the new OLS service and provides a guide for migrating from the old SOAP API
@@ -157,7 +157,7 @@
                     <ul>
                         <li>Supports both OWL and OBO formatted ontologies</li>
                         <li>Ontology crawler that is based on registering files by URLs and checking those files nightly for changes</li>
-                        <li>Built for scalability using two industry standard technologies - Neo4j and SOLR</li>
+                        <li>Built for scalability using two industry standard technologies - Neo4j and Solr</li>
                     </ul>
 
                     <h2>Timeline</h2>
@@ -206,33 +206,173 @@
                     <h3>Linking to OLS</h3>
 
                     <h4>Linking to an ontology</h4>
-                    <p>
-                        You can link to an ontology page in old OLS with http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=&lt;ontology name&gt;. Where ontology name is the short id for the ontology in uppercase. <br/>
-                        e.g. http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=GO;
-                    </p>
-                    <p>
-                        In the new OLS this URL will be http://www.ebi.ac.uk/ols/ontologies/&lt;ontology name&gt;. Where ontology name is the short id for the ontology in lowercase. We will continue to support redirects to the new OLS from the old style URLs after March 1st.
-                    </p>
 
+                    <p>If you want to link to an ontology in OLS you will need to know the ontology id. Typically this is a lowercase form of the ontology namespace e.g. For the gene ontology this is 'go'</p>
 
+                    <table>
+                        <tr>
+                            <th>Old URL</th>
+                            <th>New URL</th>
+                            <th>Example</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                www.ebi.ac.uk/ontology-lookup/browse.do?ontName=&lt;ontology name&gt;
+                            </td>
+                            <td>
+                                www.ebi.ac.uk/ols/ontologies/&lt;ontology name&gt;
+                            </td>
+                            <td>
+                                <a href="//www.ebi.ac.uk/ols/beta/ontologies/go">ebi.ac.uk/ols/ontologies/&lt;ontology name&gt;</a> (Note that the live URL is currently for the beta site)
+                            </td>
+                        </tr>
+                    </table>
 
                     <h4>Linking to an ontology term</h4>
                     <p>
-                        You can link to an ontology term in old OLS with http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=&lt;ontology name&gt;&termId=GO%3A0007610. Where ontology name is the short id for the ontology in uppercase and the term id is the OBO styke short id.<br/>]
-                        e.g. http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=GO&termId=GO%3A0007610
+                        You can link to an ontology term in the old OLS using the OBO style short id e.g. GO:0007610. The new OLS moves to identify ontology terms via a <a href="http://www.w3.org/International/">International Resource Identifier</a> (IRI). We still support linking via the old id style.
                     </p>
-                    <p>
-                        In the new OLS term are identified with their full URI. For example the full URI for a gene ontology term GO%3A0007610 is http://purl.obolibrary.org/obo/GO_0007610.<br/>
-                        The correct way to link to these terms in OLS is using http://www.ebi.ac.uk/ols/ontologies/&lt;ontology name&gt;/terms?iri=&lt;term URI&gt;. Where ontology name is the short id for the ontology in lowercase and the term URI is URL encoded.
-                    </p>
-                    <p>
-                        For convinence we also support the following URLs:<br/>
-                        http://www.ebi.ac.uk/ols/ontologies/&lt;ontology name&gt;/terms?iri=&lt;term URI&gt; e.g. http://www.ebi.ac.uk/ols/ontologies/go/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FGO_0007610<br/>
-                        http://www.ebi.ac.uk/ols/ontologies/&lt;ontology name&gt;/terms?short_form=&lt;term shortform&gt;. Where shortform is the URI fragment e.g.  http://www.ebi.ac.uk/ols/ontologies/go/terms?short_form=GO_0007610 <br/>
-                        http://www.ebi.ac.uk/ols/ontologies/&lt;ontology name&gt;/terms?obo_id=&lt;term obo id&gt;. Where obo id is the OBO form of the URI fragment e.g.  http://www.ebi.ac.uk/ols/ontologies/go/terms?obo_id=GO:0007610 <br/>
+
+                    <table>
+                        <tr>
+                            <th>Old URL</th>
+                            <th>New URL</th>
+                            <th>Example</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                www.ebi.ac.uk/ontology-lookup/browse.do?ontName=&lt;ontology name&gt;&termId=GO%3A0007610
+                            </td>
+                            <td>
+                                www.ebi.ac.uk/ols/ontologies/&lt;ontology name&gt;/terms?iri=&lt;term =IRI&gt;
+                            </td>
+                            <td>
+                                <a href="//www.ebi.ac.uk/ols/beta/ontologies/go/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FGO_0007610">www.ebi.ac.uk/ols/ontologies/go/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FGO_0007610</a> (Note that the live URL is currently for the beta site)
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                            </td>
+                            <td>
+                                www.ebi.ac.uk/ols/ontologies/&lt;ontology name&gt;/terms?short_form=&lt;term shortform&gt;
+                            </td>
+                            <td>
+                                <a href="//www.ebi.ac.uk/ols/beta/ontologies/go/terms?short_form=GO_0007610">www.ebi.ac.uk/ols/ontologies/go/terms?short_form=GO_0007610</a> (Note that the live URL is currently for the beta site)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            </td>
+                            <td>
+                                www.ebi.ac.uk/ols/ontologies/&lt;ontology name&gt;/terms?obo_id=&lt;term obo id&gt;
+                            </td>
+                            <td>
+                                <a href="//www.ebi.ac.uk/ols/beta/ontologies/go/terms?obo_id=GO:0007610">www.ebi.ac.uk/ols/ontologies/go/terms?obo_id=GO:0007610</a> (Note that the live URL is currently for the beta site)
+                            </td>
+                        </tr>
+                    </table>
 
 
-                    </p>
+                    <h3>Using the OLS API</h3>
+
+                    <h4></h4>
+                    <p>The old OLS API was built around SOAP, the WSDL for this service is described <a hre="http://www.ebi.ac.uk/ontology-lookup/OntologyQuery.wsdl">http://www.ebi.ac.uk/ontology-lookup/OntologyQuery.wsdl</a>. The new OLS
+                        API is built around REST principles where individual resources are identified by URLs. You can find detailed documentation of the new OLS REST API <a href="">here</a></p>
+
+                    <h4>Migrating from SOAP API methods to the new REST API</h4>
+
+                    <table>
+                        <tr>
+                            <th>
+                                SOAP method
+                            </th>
+                            <th>
+                                Equivalent REST query
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>getAllTermsFromOntologyRequest</td>
+                            <td>api/ontologies/{ontology name}/terms</td>
+                        </tr>
+                        <tr>
+                            <td>getOntologyLoadDateRequest</td>
+                            <td>api/ontologies/{ontology name}</td>
+                        </tr>
+                        <tr>
+                            <td>getOntologyNamesRequest</td>
+                            <td>api/ontologies</td>
+                        </tr>
+                        <tr>
+                            <td>getPrefixedTermsByNameRequest</td>
+                            <td>api/search?q=</td>
+                        </tr>
+                        <tr>
+                            <td>getRootTermsRequest</td>
+                            <td>api/ontologies/{ontology name}/terms/roots</td>
+                        </tr>
+                        <tr>
+                            <td>getTermByIdRequest</td>
+                            <td>api/ontologies/{ontology name}/terms?obo_id=</td>
+                        </tr>
+                        <tr>
+                            <td>getTermChildrenRequest</td>
+                            <td>api/ontologies/{ontology name}/terms/{term IRI}/children</td>
+                        </tr>
+                        <tr>
+                            <td>getTermMetadataRequest</td>
+                            <td>api/ontologies/{ontology name}/terms?obo_id=</td>
+                        </tr>
+                        <tr>
+                            <td>getTermParentsRequest</td>
+                            <td>api/ontologies/{ontology name}/terms/{term IRI}/parents</td>
+                        </tr>
+                        <tr>
+                            <td>getTermRelationsRequest</td>
+                            <td>api/ontologies/{ontology name}/terms?obo_id=</td>
+                        </tr>
+                        <tr>
+                            <td>getTermsByAnnotationDataRequest</td>
+                            <td>api/search?q={query}&fl='annotation_{field name}'</td>
+                        </tr>
+                        <tr>
+                            <td>getTermsByNameRequest</td>
+                            <td>api/search?q={query}&fl=label</td>
+                        </tr>
+                        <tr>
+                            <td>getTermXrefsRequest</td>
+                            <td>api/search?q={query}&fl='annotation_{xref field name}'</td>
+                        </tr>
+                        <tr>
+                            <td>isObsoleteRequest</td>
+                            <td>api/ontologies/{ontology name}/terms?obo_id=</td>
+                        </tr>
+                    </table>
+
+                    <h4>Migrating from OLS Ajax API methods to the new Search API</h4>
+
+                    <table>
+                        <tr>
+                            <th>
+                                Ajax call
+                            </th>
+                            <th>
+                                Equivalent REST query
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>ajax.view?q=termmetadata&termid={id}&ontologyname={ontology name}</td>
+                            <td>api/ontologies/{ontology name}/terms?obo_id={id}</td>
+                        </tr>
+                        <tr>
+                            <td>ajax.view?q=termautocomplete&termname={label}&ontologyname={short name}</td>
+                            <td>api/select?q={label}&ontology_name={short name}</td>
+                        </tr>
+                        <tr>
+                            <td>ajax.view?q=termname&termid={id}&ontologyname={ontology name}</td>
+                            <td>api/ontologies/{ontology name}/terms?obo_id={id}</td>
+                        </tr>
+                    </table>
 
                 </section>
 
@@ -306,13 +446,13 @@
 <script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/cookiebanner.js"></script>
 <script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/foot.js"></script>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-69391170-1', 'auto');
-  ga('send', 'pageview');
+    ga('create', 'UA-69391170-1', 'auto');
+    ga('send', 'pageview');
 
 </script>
 </body>

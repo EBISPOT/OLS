@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uk.ac.ebi.spot.ols.neo4j.model.Property;
+import uk.ac.ebi.spot.ols.neo4j.model.Term;
 import uk.ac.ebi.spot.ols.neo4j.repository.OntologyPropertyRepository;
 
 import java.util.*;
@@ -26,6 +27,22 @@ public class OntologyPropertyGraphService {
     @Autowired(required = false)
     GraphDatabaseService graphDatabaseService;
 
+
+    public Page<Property> findAll(Pageable pageable) {
+        return ontologyPropertyRepository.findAll(pageable);
+    }
+
+    public Page<Property> findAllByIri(String iri, Pageable pageable) {
+        return ontologyPropertyRepository.findAllByIri(iri, pageable);
+    }
+
+    public Page<Property> findAllByShortForm(String shortForm, Pageable pageable) {
+        return ontologyPropertyRepository.findAllByShortForm(shortForm, pageable);
+    }
+
+    public Page<Property> findAllByOboId(String oboId, Pageable pageable) {
+        return ontologyPropertyRepository.findAllByOboId(oboId, pageable);
+    }
 
     public Page<Property> findAllByOntology(String ontologyId, Pageable pageable) {
         return ontologyPropertyRepository.findAllByOntology(ontologyId, pageable);

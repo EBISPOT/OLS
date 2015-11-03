@@ -15,7 +15,7 @@ Content-Type: application/json
       "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms?page=1&size=20"
     },
     "last" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms?page=1&size=20"
+      "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms?page=852&size=20"
     }
   },
   "_embedded" : {
@@ -420,7 +420,7 @@ Content-Type: application/json
       "ontology_iri" : "http://www.ebi.ac.uk/efo",
       "is_obsolete" : false,
       "is_defining_ontology" : false,
-      "has_children" : false,
+      "has_children" : true,
       "is_root" : false,
       "short_form" : "UBERON_0010285",
       "obo_id" : "UBERON:0010285",
@@ -436,6 +436,12 @@ Content-Type: application/json
         },
         "jstree" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0010285/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0010285/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0010285/descendants"
         },
         "graph" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0010285/graph"
@@ -492,7 +498,7 @@ Content-Type: application/json
       "ontology_iri" : "http://www.ebi.ac.uk/efo",
       "is_obsolete" : false,
       "is_defining_ontology" : false,
-      "has_children" : false,
+      "has_children" : true,
       "is_root" : false,
       "short_form" : "UBERON_0001891",
       "obo_id" : "UBERON:0001891",
@@ -509,14 +515,20 @@ Content-Type: application/json
         "jstree" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/jstree"
         },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/descendants"
+        },
         "graph" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/graph"
         },
-        "develops_from" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0002202"
-        },
         "part_of" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
+        },
+        "develops_from" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0002202"
         }
       }
     }, {
@@ -555,7 +567,7 @@ Content-Type: application/json
       "ontology_iri" : "http://www.ebi.ac.uk/efo",
       "is_obsolete" : false,
       "is_defining_ontology" : false,
-      "has_children" : false,
+      "has_children" : true,
       "is_root" : false,
       "short_form" : "UBERON_0002298",
       "obo_id" : "UBERON:0002298",
@@ -571,6 +583,12 @@ Content-Type: application/json
         },
         "jstree" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0002298/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0002298/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0002298/descendants"
         },
         "graph" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0002298/graph"
@@ -970,8 +988,8 @@ Content-Type: application/json
   },
   "page" : {
     "size" : 20,
-    "totalElements" : 21,
-    "totalPages" : 2,
+    "totalElements" : 17046,
+    "totalPages" : 853,
     "number" : 0
   }
 }

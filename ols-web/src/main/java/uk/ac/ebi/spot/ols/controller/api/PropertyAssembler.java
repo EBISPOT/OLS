@@ -28,7 +28,7 @@ public class PropertyAssembler implements ResourceAssembler<Property, Resource<P
         try {
             String id = UriUtils.encode(term.getIri(), "UTF-8");
             final ControllerLinkBuilder lb = ControllerLinkBuilder.linkTo(
-                    ControllerLinkBuilder.methodOn(PropertyController.class).getProperty(term.getOntologyName(), id));
+                    ControllerLinkBuilder.methodOn(OntologyPropertyController.class).getProperty(term.getOntologyName(), id));
 
             resource.add(lb.withSelfRel());
 

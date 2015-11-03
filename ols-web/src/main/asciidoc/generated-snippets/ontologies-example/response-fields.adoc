@@ -10,7 +10,7 @@
 |Date the ontology was checked for updates
 
 |loaded
-|Null
+|String
 |Date the ontology was succesfully loaded
 
 |version

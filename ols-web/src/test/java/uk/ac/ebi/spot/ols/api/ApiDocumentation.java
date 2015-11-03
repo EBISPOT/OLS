@@ -131,7 +131,11 @@ public class ApiDocumentation {
                         fieldWithPath("_links").description("<<resources-ontologies-links,Links>> to other resources")
                 ),
                 links(halLinks(),
-                        linkWithRel("ontologies").description("Link to the ontologies in OLS"))
+                        linkWithRel("ontologies").description("Link to the ontologies in OLS"),
+                        linkWithRel("terms").description("Link to all the terms in OLS"),
+                        linkWithRel("properties").description("Link to all the properties in OLS"),
+                        linkWithRel("individuals").description("Link to all the individuals in OLS")
+                        )
         );
         this.mockMvc.perform(get("/api").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());

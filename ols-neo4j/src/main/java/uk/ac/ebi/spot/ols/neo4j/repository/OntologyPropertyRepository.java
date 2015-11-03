@@ -45,6 +45,24 @@ public interface OntologyPropertyRepository extends GraphRepository<Property> {
     @Query (value = "MATCH (n:Property) WHERE n.ontology_name = {0} AND n.obo_id = {1} RETURN n")
     Property findByOntologyAndOboId(String ontologyId, String oboId);
 
-    @Query (value = "MATCH (n:Property)-[SUBPROPERTYOF]->(r:Root) WHERE r.ontology_name = {0} AND n.is_obsolete = {1}  RETURN n")
+    @Query (countQuery =  "MATCH (n:Property)-[SUBPROPERTYOF]->(r:Root) WHERE r.ontology_name = {0} AND n.is_obsolete = {1}  RETURN count(n)",
+            value = "MATCH (n:Property)-[SUBPROPERTYOF]->(r:Root) WHERE r.ontology_name = {0} AND n.is_obsolete = {1}  RETURN n")
     Page<Property> getRoots(String ontologyId, boolean obsolete, Pageable pageable);
+
+    @Query (countQuery = "MATCH (n:Property) RETURN count(n)",
+            value = "MATCH (n:Property) RETURN n")
+    Page<Property> findAll(Pageable pageable);
+
+    @Query (countQuery = "MATCH (n:Property) WHERE n.iri = {0} RETURN count(n)",
+            value = "MATCH (n:Property) WHERE n.iri = {0} RETURN n")
+    Page<Property> findAllByIri(String iri, Pageable pageable);
+
+    @Query (countQuery = "MATCH (n:Property) WHERE n.short_form = {0} RETURN count(n)",
+            value = "MATCH (n:Property) WHERE n.short_form = {0} RETURN n")
+    Page<Property> findAllByShortForm(String shortForm, Pageable pageable);
+
+    @Query (countQuery = "MATCH (n:Property) WHERE n.obo_id = {0} RETURN count(n)",
+            value = "MATCH (n:Property) WHERE n.obo_id = {0} RETURN n")
+    Page<Property> findAllByOboId(String oboId, Pageable pageable);
+
 }

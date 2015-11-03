@@ -56,21 +56,6 @@ public class OntologyController implements
     @Override
     public RepositoryLinksResource process(RepositoryLinksResource resource) {
         resource.add(ControllerLinkBuilder.linkTo(OntologyController.class).withRel("ontologies"));
-//        resource.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(OntologyController.class).getOntologies(null, null)).withRel("ontology"));
-//        resource.add(
-//                new Link(
-//                        new UriTemplate(
-//                                ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(OntologyController.class).getOntologies(null, null))
-//                                .toUriComponentsBuilder().build().toUriString(),
-//                            // register it as variable
-//                                new TemplateVariables(
-//                                        new TemplateVariable("page", TemplateVariable.VariableType.REQUEST_PARAM),
-//                                        new TemplateVariable("sort", TemplateVariable.VariableType.REQUEST_PARAM),
-//                                        new TemplateVariable("size", TemplateVariable.VariableType.REQUEST_PARAM)
-//                                    )
-//                        ).toString()
-//        ));
-
         return resource;
     }
 

@@ -28,7 +28,7 @@ public class IndividualAssembler implements ResourceAssembler<Individual, Resour
         try {
             String id = UriUtils.encode(term.getIri(), "UTF-8");
             final ControllerLinkBuilder lb = ControllerLinkBuilder.linkTo(
-                    ControllerLinkBuilder.methodOn(IndividualController.class).getIndividual(term.getOntologyName(), id));
+                    ControllerLinkBuilder.methodOn(OntologyIndividualController.class).getIndividual(term.getOntologyName(), id));
 
             resource.add(lb.withSelfRel());
 

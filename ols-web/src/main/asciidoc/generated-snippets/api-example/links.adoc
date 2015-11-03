@@ -4,4 +4,13 @@
 |ontologies
 |Link to the ontologies in OLS
 
+|terms
+|Link to all the terms in OLS
+
+|properties
+|Link to all the properties in OLS
+
+|individuals
+|Link to all the individuals in OLS
+
 |===

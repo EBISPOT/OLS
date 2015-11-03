@@ -39,27 +39,33 @@ public class PropertyControllerUI {
     String getProperty(
             @PathVariable("onto") String ontologyId,
             @RequestParam(value = "iri", required = false) String termIri,
+            @RequestParam(value = "short_form", required = false) String shortForm,
+            @RequestParam(value = "obo_id", required = false) String oboId,
             Model model) throws ResourceNotFoundException {
 
         ontologyId = ontologyId.toLowerCase();
+        Property property = null;
+
         if (termIri != null) {
-            Property term = ontologyPropertyGraphService.findByOntologyAndIri(ontologyId, termIri);
-            if (term == null) {
-                throw new ResourceNotFoundException();
-            }
-
-            model.addAttribute("ontologyProperty", term);
-            model.addAttribute("parentProperties", ontologyPropertyGraphService.getParents(ontologyId, termIri, new PageRequest(0, 10)));
-
-            String title = repositoryService.get(ontologyId).getConfig().getTitle();
-            model.addAttribute("ontologyName", title);
+            property = ontologyPropertyGraphService.findByOntologyAndIri(ontologyId, termIri);
         }
-        else {
-            return homeController.doSearch(
-                    "*",
-                    Collections.singleton(ontologyId),
-                    null,null, null, false, null, false, false, null, 10,0,model);
+        else if (shortForm != null) {
+            property = ontologyPropertyGraphService.findByOntologyAndShortForm(ontologyId, shortForm);
         }
+        else if (oboId != null) {
+            property = ontologyPropertyGraphService.findByOntologyAndOboId(ontologyId, oboId);
+        }
+
+        if (property == null) {
+            throw new ResourceNotFoundException("Can't find any property with that id");
+        }
+
+        model.addAttribute("ontologyProperty", property);
+        model.addAttribute("parentProperties", ontologyPropertyGraphService.getParents(ontologyId, property.getIri(), new PageRequest(0, 10)));
+
+        String title = repositoryService.get(ontologyId).getConfig().getTitle();
+        model.addAttribute("ontologyName", title);
+
         return "property";
     }
 }

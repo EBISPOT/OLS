@@ -31,7 +31,7 @@ public class TermAssembler implements ResourceAssembler<Term, Resource<Term>> {
         try {
             String id = UriUtils.encode(term.getIri(), "UTF-8");
             final ControllerLinkBuilder lb = ControllerLinkBuilder.linkTo(
-                    ControllerLinkBuilder.methodOn(TermController.class).getTerm(term.getOntologyName(), id));
+                    ControllerLinkBuilder.methodOn(OntologyTermController.class).getTerm(term.getOntologyName(), id));
 
             resource.add(lb.withSelfRel());
 

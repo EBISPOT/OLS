@@ -5,7 +5,7 @@
 |This ontology
 
 |terms
-|<<overview-pagination,Paginated>> list of <<terms-resources,terms>> in the ontology
+|<<overview-pagination,Paginated>> list of <<resources-terms,terms>> in the ontology
 
 |properties
 |<<overview-pagination,Paginated>> list of <<properties-resources,properties>> in the ontology

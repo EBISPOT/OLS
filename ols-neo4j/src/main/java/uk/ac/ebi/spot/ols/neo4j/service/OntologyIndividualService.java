@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uk.ac.ebi.spot.ols.neo4j.model.Individual;
+import uk.ac.ebi.spot.ols.neo4j.model.Property;
 import uk.ac.ebi.spot.ols.neo4j.model.Term;
 import uk.ac.ebi.spot.ols.neo4j.repository.OntologyIndividualRepository;
 
@@ -28,6 +29,21 @@ public class OntologyIndividualService {
     @Autowired(required = false)
     GraphDatabaseService graphDatabaseService;
 
+    public Page<Individual> findAll(Pageable pageable) {
+        return individualRepository.findAll(pageable);
+    }
+
+    public Page<Individual> findAllByIri(String iri, Pageable pageable) {
+        return individualRepository.findAllByIri(iri, pageable);
+    }
+
+    public Page<Individual> findAllByShortForm(String shortForm, Pageable pageable) {
+        return individualRepository.findAllByShortForm(shortForm, pageable);
+    }
+
+    public Page<Individual> findAllByOboId(String oboId, Pageable pageable) {
+        return individualRepository.findAllByOboId(oboId, pageable);
+    }
 
     public Page<Individual> findAllByOntology(String ontologyId, Pageable pageable) {
         return individualRepository.findAllByOntology(ontologyId, pageable);

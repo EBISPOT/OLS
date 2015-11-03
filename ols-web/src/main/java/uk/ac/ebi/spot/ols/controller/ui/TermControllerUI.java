@@ -2,6 +2,7 @@ package uk.ac.ebi.spot.ols.controller.ui;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.MediaType;
@@ -16,6 +17,7 @@ import uk.ac.ebi.spot.ols.neo4j.model.Term;
 import uk.ac.ebi.spot.ols.neo4j.service.OntologyTermGraphService;
 import uk.ac.ebi.spot.ols.service.OntologyRepositoryService;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -30,9 +32,6 @@ import java.util.Map;
 public class TermControllerUI {
 
     @Autowired
-    private HomeController homeController;
-
-    @Autowired
     OntologyRepositoryService repositoryService;
 
     @Autowired
@@ -42,28 +41,37 @@ public class TermControllerUI {
     String getTerm(
             @PathVariable("onto") String ontologyId,
             @RequestParam(value = "iri", required = false) String termIri,
+            @RequestParam(value = "short_form", required = false) String shortForm,
+            @RequestParam(value = "obo_id", required = false) String oboId,
             Model model) throws ResourceNotFoundException {
 
         ontologyId = ontologyId.toLowerCase();
+        Term term = null;
+
         if (termIri != null) {
-            Term term = ontologyTermGraphService.findByOntologyAndIri(ontologyId, termIri);
-            if (term == null) {
-                throw new ResourceNotFoundException();
-            }
-
-            Map<String, Collection<Map<String, String>>> relatedFroms = ontologyTermGraphService.getRelatedFrom(ontologyId, termIri);
-
-            model.addAttribute("relatedFroms", relatedFroms);
-
-            model.addAttribute("ontologyTerm", term);
-            model.addAttribute("parentTerms", ontologyTermGraphService.getParents(ontologyId, termIri, new PageRequest(0, 10)));
-
-            String title = repositoryService.get(ontologyId).getConfig().getTitle();
-            model.addAttribute("ontologyName", title);
+            term = ontologyTermGraphService.findByOntologyAndIri(ontologyId, termIri);
         }
-        else {
-            return "redirect: ../../../../search?q=*&ontology=" + ontologyId;
+        else if (shortForm != null) {
+            term = ontologyTermGraphService.findByOntologyAndShortForm(ontologyId, shortForm);
         }
+        else if (oboId != null) {
+            term = ontologyTermGraphService.findByOntologyAndOboId(ontologyId, oboId);
+        }
+
+        if (term == null) {
+            throw new ResourceNotFoundException("Can't find any terms with that id");
+        }
+
+        Map<String, Collection<Map<String, String>>> relatedFroms = ontologyTermGraphService.getRelatedFrom(ontologyId, term.getIri());
+
+        model.addAttribute("relatedFroms", relatedFroms);
+
+        model.addAttribute("ontologyTerm", term);
+        model.addAttribute("parentTerms", ontologyTermGraphService.getParents(ontologyId, term.getIri(), new PageRequest(0, 10)));
+
+        String title = repositoryService.get(ontologyId).getConfig().getTitle();
+        model.addAttribute("ontologyName", title);
+
         return "term";
     }
 }
