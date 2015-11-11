@@ -11,9 +11,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
+import org.springframework.core.io.*;
 import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
 import uk.ac.ebi.spot.ols.config.YamlBasedLoadingService;
 import uk.ac.ebi.spot.ols.config.YamlConfigParser;
@@ -45,67 +43,51 @@ public class YamlLoader implements CommandLineRunner {
     @Autowired
     private OntologyRepositoryService ontologyRepositoryService;
 
-    @Value("${ols.ontology.config:}")
-    public String yamlPath = "";
+    @Value("${ols.ontology.config:ols-config.yaml}")
+    public String yamlPath;
 
-    @Value("${ols.obofoundry.ontology.config:}")
-    public String oboYamlPath = "";
+    @Value("${ols.obofoundry.ontology.config:obo-config.yaml}")
+    public String oboYamlPath;
 
     @Value("${ols.obofoundry.dontclassify:}")
-    public String dontClassify = "";
+    public String dontClassify;
+
+    @Autowired
+    ResourceLoader resourceLoader;
 
     public Set<String> dontClassifySet = new HashSet<>();
 
     @Override
     public void run(String... args) throws Exception {
-
         if (!dontClassify.equals("")) {
             for (String dontClassifyName : dontClassify.split(",")) {
                 dontClassifySet.add(dontClassifyName);
             }
         }
 
-        Collection<String> configs = new HashSet<>();
-        if (!yamlPath.equals("")) {
-            for (String configPath : yamlPath.split(",")) {
-                configs.add(configPath);
-            }
-        } else if (getClass().getClassLoader().getResource("ols-config.yaml") != null) {
-            File olsYamlFile = new File(getClass().getClassLoader().getResource("ols-config.yaml").getPath());
-            if (Files.exists(olsYamlFile.toPath())) {
-                configs.add(olsYamlFile.getAbsolutePath());
-            }
-        }
-
-        for (String path : configs) {
-            YamlConfigParser yamlConfigParser = new YamlConfigParser(getResourceFromPath(path));
-            updateDocument(yamlConfigParser);
-        }
-
-        if (!oboYamlPath.equals("")) {
-            Resource resource = getResourceFromPath(oboYamlPath);
-            YamlConfigParser yamlConfigParser = new YamlConfigParser(resource, true);
-            updateDocument(yamlConfigParser);
-        }
-        else if (getClass().getClassLoader().getResource("obo-config.yaml") != null) {
-            File oboYaml = new File(getClass().getClassLoader().getResource("obo-config.yaml").getPath());
-            if (Files.exists(oboYaml.toPath())) {
-                Resource resource = new FileSystemResource(oboYaml);
-                YamlConfigParser yamlConfigParser = new YamlConfigParser(resource, true);
+        for (String configPath : yamlPath.split(",")) {
+            getLog().info("Ontologies will be imported using config at '" + configPath + "'");
+            Resource olsResource = resourceLoader.getResource(configPath);
+            if (olsResource.exists()) {
+                YamlConfigParser yamlConfigParser = new YamlConfigParser(olsResource);
                 updateDocument(yamlConfigParser);
             }
+            else {
+                getLog().warn("Resource '" + olsResource + "' could not be found and will not be loaded");
+            }
         }
 
-    }
-
-    private Resource getResourceFromPath (String path) throws MalformedURLException {
-        if (path.startsWith("http") || path.startsWith("ftp")) {
-            return new UrlResource(path);
+        getLog().info("OBO Ontologies will be imported using config at '" + oboYamlPath + "'");
+        Resource oboResource = resourceLoader.getResource(oboYamlPath);
+        if (oboResource.exists()) {
+            YamlConfigParser yamlConfigParser = new YamlConfigParser(oboResource, true);
+            updateDocument(yamlConfigParser);
         }
         else {
-            return new FileSystemResource(path);
+            getLog().warn("Resource '" + oboResource + "' could not be found and will therefore not be loaded");
         }
     }
+
     public void updateDocument(YamlConfigParser yamlConfigParser) throws IOException {
 
         for (YamlBasedLoadingService loadingService : yamlConfigParser.getDocumentLoadingServices()) {
