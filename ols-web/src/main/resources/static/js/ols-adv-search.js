@@ -1,6 +1,5 @@
+var ontologyList;
 $(document).ready(function() {
-
-
     $('.ontology-select').select2();
     $('.type-select').select2();
 
@@ -18,14 +17,19 @@ $(document).ready(function() {
 
     });
 
+
+    ontologyList = new Object();
+    $('#ontology-select-id option').each(function(){
+        ontologyList[this.value]=this.text;
+     });
+    console.log(ontologyList);
+
+
     try {
         loadResults();
     } catch (err) {
 
     }
-
-
-
 });
 
 function clearFilter() {
@@ -34,8 +38,6 @@ function clearFilter() {
     $('#group-id').attr('checked', false);
     $('#exact-id').attr('checked', false);
     $('#obsolete-id').attr('checked', false);
-    $('#local-searchbox').submit();
-
 }
 
 function loadResults() {
@@ -51,7 +53,6 @@ function loadResults() {
 
 function solrSearch(queryTerm) {
     console.log("Solr search request received for " + queryTerm);
-
     $.getJSON('api/search?' + queryTerm)
         .done(function (data) {
             processData(data);
@@ -76,7 +77,6 @@ function clickNext() {
 }
 
 function processData(data) {
-
     var docs = data.response.docs;
 
     // render results stats and pagination
@@ -131,6 +131,7 @@ function processData(data) {
             }
         }
 
+        /*IS this ever executed? DO we need this*/
         if (data.expanded != undefined) {
             if (data.expanded[row.iri] != undefined) {
 
@@ -146,10 +147,15 @@ function processData(data) {
         var resultHtml = $('<section></section>');
         resultHtml = resultHtml.append(link);
         resultHtml = resultHtml.append('&nbsp;&nbsp;');
-        var ontologies = $("<div class='ontology-source'>" + row.ontology_prefix + "</div>");
 
+        console.log(ontologyList[row.ontology_name])
+        var ontologies = $("<div class='ontology-source' title='"+ontologyList[row.ontology_name]+"'>" + row.ontology_prefix + "</div>");
         resultHtml = resultHtml.append(ontologies);
 
+
+        
+
+        /*IS this ever executed? Do we need this*/
         if (data.expanded != undefined) {
             if (data.expanded[row.iri] != undefined) {
 
@@ -159,6 +165,7 @@ function processData(data) {
 
             }
         }
+
 
         resultHtml = resultHtml.append('<br/>');
         resultHtml = resultHtml.append($('<span class="search-results-url"></span>').text(row.iri));
