@@ -22,7 +22,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
-
+/**
+ * @author Thomas Liener
+ * @date 15/11/2015
+ * Samples, Phenotypes and Ontologies Team, EMBL-EBI
+ */
 
 
 @Controller

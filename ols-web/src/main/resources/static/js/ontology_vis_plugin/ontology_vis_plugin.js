@@ -799,7 +799,9 @@
 				}
 			})
 
-			$("#goToOLS").on("click", function () {window.open(termURL.substring(0,termURL.indexOf("/graph"))+"/terms?iri="+encodeURIComponent(nodeId))})
+			$("#goToOLS").on("click", function () {
+				var termURL=document.URL;
+				window.open(termURL.substring(0,termURL.indexOf("/graph"))+"?iri="+encodeURIComponent(nodeId))})
 
 		}).fail(function () {console.log("Error with the webservice call for "+networkOptions.webservice.URL+id+" in the function ShowNodeInfo. Set showInfoWindow to false if you use a not-OLS structred webservice addresse.")})
 
