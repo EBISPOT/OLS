@@ -208,7 +208,8 @@ function renderFacetField (facetArray, inputName, searchSummary) {
                if (inputName==="Ontologies")
                         {   fieldList.append('<li><a href="#" id="'+name+'" class="onto_list" title="'+ontologyList[name.toLowerCase()]+'">'+name+ '</a> (' + count + ')</li>');         }
                 else
-                        {   fieldList.append(  $('<li></li>').text(name+ " (" + count + ")"));  }
+                        {   fieldList.append('<li><a href="#" id="'+name+'" class="type_list">'+name+ '</a> (' + count + ')</li>');         }
+                    //    {   fieldList.append(  $('<li></li>').text(name+ " (" + count + ")"));  }
 
                 numberOfFacets++;
             }
@@ -227,5 +228,13 @@ function renderFacetField (facetArray, inputName, searchSummary) {
             $("#ontology-select-id option[value='"+e.target.id.toLowerCase()+"']").prop('selected', true);
             $("#filter_form").submit();
         });
+
+        $(".type_list").on('click', function(e){
+            $('#ontology-type-id').val('');
+            $('#ontology-type-id option[value="'+e.target.id.toLowerCase()+'"]').prop('selected', true);;
+            $("#filter_form").submit();
+        });
+
+
     }
 }
