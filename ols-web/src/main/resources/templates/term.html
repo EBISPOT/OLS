@@ -112,7 +112,7 @@
             <!-- NB: for additional title style patterns, see http://frontier.ebi.ac.uk/web/style/patterns -->
 
             <div id="local-title" class="grid_14 alpha logo-title">
-                <a href="index" title="Back to OLS homepage">
+                <a href="../index" title="Back to OLS homepage">
                     <img style="width: 80px" th:src="@{../../img/ols-logo.jpg}" src="../static/img/ols-logo.jpg" alt="OLS logo"/></a>
                 <span><h1>Ontology Lookup Service</h1></span>
             </div>
@@ -179,15 +179,18 @@
             <section>
                 <div class="grid_24 clearfix">
                     <div class="grid_24 clearfix">
-                        <div class="grid_22 alpha">
-                            <h1 style="margin: 0px;" th:text="${ontologyTerm.getLabel()}">Term label</h1>
+                        <div class="grid_20 alpha">
+                            <h1 style="margin: 0px;" th:text="${ontologyTerm.getLabel()}">Term Label</h1>
                         </div>
-                        <div class="grid_2 beta">
+
+                        <div class="grid_4 clearfix">
                             <a style="float:right;" th:href="@{../../api/ontologies/__${ontologyTerm.getOntologyName()}__/terms (iri=${ontologyTerm.getIri()})}" class="nounderline" href="#">
                                 <img th:src="@{../../img/file_JSON.png}" src="../static/img/file_JSON.png" alt="JSON" title="Get data as JSON"/>
                             </a>
                         </div>
                     </div>
+
+
                     <div class="grid_24 clearfix">
                         <span style="font-size: small;color: grey;padding: 9px;" th:text="${ontologyTerm.getIri()}">http://www.example.com/onto/id</span>
                         <a th:href="@{${ontologyTerm.getIri()}}" class="nounderline" target="blank"><img th:src="@{../../img/external_link.png}" src="../static/img/external_link.png" alt="^" title="Go to external page"/></a>
@@ -257,6 +260,7 @@
                         <ul  class="nav nav-tabs">
                             <li role="presentation" class="active"><a data-toggle="tab" href="#tree-tab">Tree view</a></li>
                             <li role="presentation"><a data-toggle="tab" href="#meta-tab">Term metadata</a></li>
+                            <!--<li role="presentation"><a data-toggle="tab" href="#graph-tab"  th:onclick="'window.open(\'@{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})\'})'" th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})}" target="_blank">Visualisation</a></li>-->
                             <!--<li role="presentation"><a data-toggle="tab"  href="#graph-tab">Graph view</a></li>-->
                         </ul>
 
@@ -267,6 +271,12 @@
 
                                 <div style="float: right;padding-top:5px;">
                                     <button class="primary" value="true" onclick="toggleSiblings(this)">Show siblings</button>
+                                </div>
+
+                                <div style="float: right;padding-top:5px;">
+                                  <a style="float:right; margin-right:10px;" th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})}" class="nounderline" target="_blank">
+                                      <button class="primary" title="Visualisation of this term">Visualisation</button>
+                                    </a>
                                 </div>
 
                                 <div id="term-tree" data-olswidget="tree" th:attr="data-olsontology=${ontologyTerm.getOntologyName()},data-ols-iri=${ontologyTerm.getIri()}" data-selectpath="../../" data-ols-termtype="class" data-olsontology="" data-ols-iri=""  >
@@ -297,11 +307,6 @@
 
                             </div>
 
-
-
-                            <!--<div role="tabpanel" class="tab-pane" id="graph-tab">-->
-                            <!--graph goes here-->
-                            <!--</div>-->
                         </div>
 
                     </div>
@@ -441,7 +446,6 @@
         {
 //            $(this).trigger('click');//for clicking element
             var href = $(this).attr("href");
-
             if ($(this).hasClass('ObjectProperty')) {
                 $(this).attr("href", getUrlType('property') + '?iri=' + encodeURIComponent(href));
             }
@@ -462,10 +466,8 @@
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
   ga('create', 'UA-69391170-1', 'auto');
   ga('send', 'pageview');
-
 </script>
 </body>
 </html>

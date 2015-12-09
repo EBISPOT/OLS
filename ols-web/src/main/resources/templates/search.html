@@ -218,64 +218,66 @@
                                             >
                                     </option>
                                 </select>
-                            </p>
-
-                            <p>
-                                <label for="ontology-type-id">Types</label>
-                                <br/>
-                                <select id="ontology-type-id" name="type" class="type-select" multiple="multiple" style="width:100%"
-                                        th:with="types=${searchOptions.getTypes()}"
-                                        >
-                                    <option value="class"
-                                            th:selected="${#sets.contains(types , 'class')}">Class</option>
-                                    <option value="property"
-                                            th:selected="${#sets.contains(types , 'property')}">Property</option>
-                                    <option value="individual"
-                                            th:selected="${#sets.contains(types , 'individual')}">Individual</option>
-                                </select>
-                            </p>
 
 
-                            <p>
-                                <label for="group-id">Group by id</label>
-                                <input id="group-id" name="groupField" type="checkbox" value="iri" th:checked="${searchOptions.getGroupField() != null}"/>
-                            </p>
+                          </p>
 
-                            <p>
-                                <label for="exact-id">Exact match</label>
-                                <input id="exact-id" name="exact" type="checkbox" th:checked="${searchOptions.isExact()}"/>
-                            </p>
-
-                            <p>
-                                <label for="obsolete-id">Search obsolete terms</label>
-                                <input id="obsolete-id" type="checkbox" name="obsoletes" th:checked="${searchOptions.isQueryObsoletes()}"/>
-                            </p>
-
-                             <p>
-                                 <button style="float:left;" type="submit" class="submit">Apply Filter</button>
-                                 <button type="reset" onclick="clearFilter()" class="reset">Reset</button>
-                             </p>
-                        </fieldset>
-                    </form>
-                </section>
-
-                <section class="grid_4 omega" id="search-extras">
-                    <h2 id="summary" style="visibility: hidden;">Summary</h2>
-                    <div id="results-summary">
-
-                    </div>
-                </section>
+                          <p>
+                              <label for="ontology-type-id">Types</label>
+                              <br/>
+                              <select id="ontology-type-id" name="type" class="type-select" multiple="multiple" style="width:100%"
+                                      th:with="types=${searchOptions.getTypes()}"
+                                      >
+                                  <option value="class"
+                                          th:selected="${#sets.contains(types , 'class')}">Class</option>
+                                  <option value="property"
+                                          th:selected="${#sets.contains(types , 'property')}">Property</option>
+                                  <option value="individual"
+                                          th:selected="${#sets.contains(types , 'individual')}">Individual</option>
+                              </select>
+                          </p>
 
 
+                          <p>
+                              <label for="group-id">Group by id</label>
+                              <input id="group-id" name="groupField" type="checkbox" value="iri" th:checked="${searchOptions.getGroupField() != null}"/>
+                          </p>
+
+                          <p>
+                              <label for="exact-id">Exact match</label>
+                              <input id="exact-id" name="exact" type="checkbox" th:checked="${searchOptions.isExact()}"/>
+                          </p>
+
+                          <p>
+                              <label for="obsolete-id">Search obsolete terms</label>
+                              <input id="obsolete-id" type="checkbox" name="obsoletes" th:checked="${searchOptions.isQueryObsoletes()}"/>
+                          </p>
+
+                           <p>
+                               <button style="float:left;" type="submit" class="submit">Apply Filter</button>
+                               <button style="margin-left:6px;" type="reset" onclick="clearFilter()" class="reset">Reset</button>
+                           </p>
+                      </fieldset>
+                  </form>
+              </section>
+
+              <section class="grid_4 omega" id="search-extras">
+                  <h2 id="summary" style="visibility: hidden;">Summary</h2>
+                  <div id="results-summary">
+
+                  </div>
+              </section>
 
 
-            </div>
 
-        </div>
-    </div>
 
-    <footer>
-        <!-- Optional local footer (insert citation / project-specific copyright / etc here -->
+          </div>
+
+      </div>
+  </div>
+
+  <footer>
+      <!-- Optional local footer (insert citation / project-specific copyright / etc here -->
         <!--
         <div id="local-footer" class="grid_24 clearfix">
           <p>How to reference this page: ...</p>
@@ -329,7 +331,6 @@
 <script type="text/javascript" src="../static/js/ols.js" th:src="@{js/ols.js}"></script>
 <script type="text/javascript" src="../static/js/ols-termselect.js" th:src="@{js/ols-termselect.js}"></script>
 <script type="text/javascript" src="../static/js/ols-adv-search.js" th:src="@{js/ols-adv-search.js}"></script>
-
 <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 
