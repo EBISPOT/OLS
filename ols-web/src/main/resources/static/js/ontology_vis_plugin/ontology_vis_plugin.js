@@ -49,7 +49,7 @@
 				//springLength: 50,
 				//springConstant: 0.01,
 				//avoidOverlap: 0.1,
-				damping: 0.09,
+				damping: 0.09
 			},
 			stabilization: {
 				enabled:true,
@@ -69,11 +69,12 @@
 				drawThreshold: 12
 			}},
 			hoverWidth: 2,
+			width : 1.5,
 			selectionWidth: 2,
 			shadow:true,
 			font: {align:"middle"},
-			arrows: "to",
-		},
+			arrows: "to"
+		}
 	};
 
 
@@ -95,7 +96,7 @@
 			clusterEdgeProperties:{physics:false, dashes:true, shadow:false}
 		},
 		appearance: {
-			colorMap: ['#8dd3c7','#ffffb3','#bebada','#fb998e','#80b1d3','#fdb462','#b3de69','#fccde5','#d9d9d9','#bc80bd','#ccebc5','#ffed6f',
+			colorMap: ['#8dd3c7','#ffffb3','#bebada','#fba399','#80b1d3','#fdb462','#b3de69','#fccde5','#d9d9d9','#bc80bd','#ccebc5','#ffed6f',
 				'#a6cee3','#1f78b4','#b2df8a','#33a02c','#fb9a99', "#e31a1c", '#fdbf6f','#ff7f00','#cab2d6','#6a3d9a','#ffff99','#b15928',
 				"#00FFFF", "#D9DCC6", "#FF7F50", "#6495ED", "#008B8B","#FF8C00","#FF1493", "#696969", "#FFD700", "#4B0082", "#808000", "#CD853F", "#B0E0E6", "#D8BFD8",
 				"#00FFFF", "#D9DCC6", "#FF7F50", "#6495ED", "#008B8B","#FF8C00","#FF1493", "#696969", "#FFD700"],
@@ -105,17 +106,17 @@
 		rootNode:{
 			color:{
 				border: '#000000',
-				background: '#dd5858',
+				background: '#e06868',
 				highlight: {
 					border: '#000000',
-					background: '#dd5858'},
+					background: '#e06868'},
 				hover: {
 					border: '#000000',
-					background: '#dd5858'    }
+					background: '#e06868'    }
 			},
 			rootMass:2,
 			connectingEdges:{
-				color : "#dd5858", //{inherit:"from"},
+				color : "#e06868",
 				width : 2.5
 			}
 		},
@@ -131,9 +132,9 @@
 		callbacks: {
 			onSelectNode: onSelectNode,
 			onDoubleClick: onDoubleClick,
-			onSelectEdge: onSelectEdge,
+			onSelectEdge: onSelectEdge
 		}
-	}
+	};
 
 
 
@@ -156,8 +157,8 @@
 		else
 		{
 			//Split the string along the "&&" and fetch data for each substring
-			var params=url.substring(url.indexOf("ed=")+3, url.length)
-			params=params.split("&&")
+			var params=url.substring(url.indexOf("ed=")+3, url.length);
+			params=params.split("&&");
 			params.forEach(function(e){
 				if (e!=="")
 					fetchData(e); // removed parseIRI, just so u know
@@ -174,18 +175,18 @@
 
 
 	function initializeIButtonBox(){
-		var htmlString='<div id="buttonBoxWrapper"><div id="buttonBox"><input id="Cluster" class="primary" type="submit" title="Click this button to cluster nodes by relationship and parent. Clusters help you to have a clear view if many nodes are expended!" value="Create clusters"></input>'
-		htmlString+='<input id="UnCluster" class="primary" type="submit" title="Click this button to open all clusters - this has only and effect in case you clustered nodes before!" value="Open all clusters" ></input>'
-		htmlString+='<input id="TogglePhysics" class="primary" type="submit" title="Click this button to turn on or off the physic engine. With physics turned off you can freely drag nodes around the screen and position them the way you like it." value="Turn off physics"></input>'
-		htmlString+='<input id="ChangeLayout" class="primary" type="submit" title="Click this button to switch between dynamic and hierarchical layout" value="Hierarchical layout"></input>'
-		htmlString+='<input id="LookUpNodeTextfield" title="You can search for a node in the graph, enter its label here!" type="text" placeholder="Search node"></input> <input id="LookUpNodeButton" title="Click this button to find a node after you typed its label in the textfield" class="primary" type="submit" value="Search Node"></input></div></div>'
+		var htmlString='<div id="buttonBoxWrapper"><div id="buttonBox"><input id="Cluster" class="primary" type="submit" title="Click this button to cluster nodes by relationship and parent. Clusters help you to have a clear view if many nodes are expended!" value="Create clusters"/>';
+		htmlString+='<input id="UnCluster" class="primary" type="submit" title="Click this button to open all clusters - this has only and effect in case you clustered nodes before!" value="Open all clusters" />';
+		htmlString+='<input id="TogglePhysics" class="primary" type="submit" title="Click this button to turn on or off the physic engine. With physics turned off you can freely drag nodes around the screen and position them the way you like it." value="Turn off physics"/>';
+		htmlString+='<input id="ChangeLayout" class="primary" type="submit" title="Click this button to switch between dynamic and hierarchical layout" value="Hierarchical layout"/>';
+		htmlString+='<input id="LookUpNodeTextfield" title="You can search for a node in the graph, enter its label here!" type="text" placeholder="Search node"/> <input id="LookUpNodeButton" title="Click this button to find a node after you typed its label in the textfield" class="primary" type="submit" value="Search Node"/></div></div>';
 		$("#ontology_vis").append(htmlString);
 
 		/*Onclick handler for Buttons */
 		$("#Cluster").on("click", cluster);
-		$("#UnCluster").on("click", unclusterAllNodes)
-		$("#TogglePhysics").on("click", togglePhysics)
-		$("#ChangeLayout").on("click", changeLayout)
+		$("#UnCluster").on("click", unclusterAllNodes);
+		$("#TogglePhysics").on("click", togglePhysics);
+		$("#ChangeLayout").on("click", changeLayout);
 
 		/*
 		 * As soon as the user focuses on the Textfield, a list for autocompletion is build. The list contains all nodes of the current graph
@@ -195,16 +196,17 @@
 
 			//Construct an list of all nodes/ids that are shown in the Graph
 			var list=[];
-			autoCompleteList={}
+			autoCompleteList={};
 			nodes.forEach(function(e){
-				autoCompleteList[e.label]=e.id
-				list.push(e.label)
-			})
+				autoCompleteList[e.label]=e.id;
+				list.push(e.label);
+			});
 			awesomplete.list = list;
-		})
+		});
 
 		$("#LookUpNodeButton").on("click", function(){
-			var nodeToFocus=autoCompleteList[$("#LookUpNodeTextfield").val()];
+			var LookUpNodeTextfield=$("#LookUpNodeTextfield");
+			var nodeToFocus=autoCompleteList[LookUpNodeTextfield.val()];
 			//IF length===1 then the we can zoom to the node (it is not part of a cluster). Focus the node and show the information about the cluster
 			if (network.findNode(nodeToFocus).length===1)
 			{
@@ -215,21 +217,21 @@
 			//The node is part of a cluster, so we don't zoom to the node but to the cluster and show the relevant information
 			else
 			{
-				var tmpClusterNode=network.findNode(nodeToFocus)[1].id
+				var tmpClusterNode=network.findNode(nodeToFocus)[1].id;
 				network.focus(tmpClusterNode, networkOptions.ZoomOptions);
 				network.selectNodes([tmpClusterNode]);
 				showClusterInfo(tmpClusterNode);
 			}
-			$("#LookUpNodeTextfield").val("");
-			$("#LookUpNodeTextfield").blur();
+			LookUpNodeTextfield.val("");
+			LookUpNodeTextfield.blur();
 		})
 
 	}
 
 
 	function initializeInfoWindow(){
-		var htmlString='	<div id="SecondWindow"><div id="infoWindow"><h6>Selected Node</h6></div><div id="infoWindowSub">No node selected yet</div></div>'
-		$("#ontology_vis").append(htmlString)
+		var htmlString='	<div id="SecondWindow"><div id="infoWindow"><h6>Selected Node</h6></div><div id="infoWindowSub">No node selected yet</div></div>';
+		$("#ontology_vis").append(htmlString);
 	}
 
 	/*
@@ -239,12 +241,10 @@
 //Go through all Nodes of the network, check each if it is a cluster and if so release the cluster
 		var tmp=network.body.nodeIndices;
 		tmp.forEach(function(e) {
-			if (network.isCluster(e)===true)
-				network.openCluster(e)
-		})
+			if (network.isCluster(e)===true);
+				network.openCluster(e);
+		});
 	}
-
-
 	/*
 	 * Function is activated by button press or if a new fetch data event retrieves a lot of data.
 	 * - The function builds all posible clusters, using the vis js cluster function and the cluster Array (which contains all possible clusters: Possible Clusters are all relationships from each parent)
@@ -257,9 +257,9 @@
 
 			var Clusteroptions = {joinCondition:function(nodeOptions) {
 				if (e===nodeOptions.cluster)
-					return true
+					return true;
 				else
-					return false
+					return false;
 			},
 				clusterNodeProperties:{id:e, label:e},
 				//	clusterEdgeProperties:{physics:false, dashes:true, shadow:false},
@@ -283,16 +283,16 @@
 					}
 					if (x==="is a" && y==="to")
 					{
-						tmpLabel="parent"
+						tmpLabel="parent";
 						//shape="triangleDown"
 						shape=networkOptions.clusterOptions.parentClusterSymbole;
 					}
 					if (x!=="is a")
 						tmpLabel=tmpe.substring(tmpe.indexOf("__")+2, tmpe.length);
 
-					clusterOptions.label=tmpLabel+"(#"+childNodes.length+")"
+					clusterOptions.label=tmpLabel+"(#"+childNodes.length+")";
 
-					clusterOptions.title="This cluster '"+tmpLabel+"' contains "+childNodes.length+" nodes"
+					clusterOptions.title="This cluster '"+tmpLabel+"' contains "+childNodes.length+" nodes";
 					//clusterOptions.mass=childNodes.length;
 					clusterOptions.mass=networkOptions.clusterOptions.clusterMass;
 					clusterOptions.shape=shape;
@@ -307,8 +307,8 @@
 					if (networkOptions.appearance.colorMap.length>=relationships.length)
 						clusterOptions.color=networkOptions.appearance.colorMap[_.indexOf(relationships,x)];
 
-					return clusterOptions
-				}}
+					return clusterOptions;
+				}};
 
 			network.clustering.cluster(Clusteroptions);
 		})
@@ -332,17 +332,17 @@
 		var options={};
 		if ($("#ChangeLayout").val()==="Hierarchical layout")
 		{
-			options = {layout: { hierarchical: {direction: "UD", sortMethod: "directed"}   }  };
+			options = {layout: { hierarchical: {direction: "DU", sortMethod: "directed"}   }  };
 			network.setOptions(options);
 
 			//Since REACTIVATING the dynamic layout activates physic, we have to change the text of the physic button here
 			$("#TogglePhysics").val("Turn off physics");
-			$("#ChangeLayout").val("Dynamic layout")
+			$("#ChangeLayout").val("Dynamic layout");
 		}
 
 		else
 		{
-			$("#ChangeLayout").val("Hierarchical layout")
+			$("#ChangeLayout").val("Hierarchical layout");
 			options = {layout: {   hierarchical: false  }  };
 			network.setOptions(options);
 		}
@@ -373,15 +373,13 @@
 					/*
 					 * Start IF branch, check if we got data from the getJSON call, if so, prepare the data for further use
 					 */
-					console.log(data)
-
 					if (data.nodes.length!=0 && data.edges.length!=0)
 					{
 						var nodesTMP=data.nodes;
 						var edgesTMP=data.edges;
 
 						//Remember the rood node for later fixing of groups
-						root.push(nodesTMP[0]["iri"])
+						root.push(nodesTMP[0]["iri"]);
 
 						//Go through all nodes and prepare them for the graph, e.g change the iri to id cause that corresponce with from/to
 						nodesTMP.forEach(function(e)
@@ -399,8 +397,8 @@
 
 							//Check if the node is already part of the network, if not add it
 							if (graphdataset.nodes.get(e.id)===null)
-								graphdataset.nodes.add(e)
-						})
+								graphdataset.nodes.add(e);
+						});
 
 
 						/*
@@ -425,15 +423,15 @@
 
 							if (_.indexOf(relationships, e["label"])===-1)
 							{
-								relationships.push(e["label"])
+								relationships.push(e["label"]);
 								//Dynamically pick the right color for the groups
 								var options={groups:{}};
 								var tmp={color:{}};
 								//Check for length to prevent an error if the relationships array is bigger than the color map
 								if (networkOptions.appearance.colorMap.length>=relationships.length)
-									tmp.color=networkOptions.appearance.colorMap[_.indexOf(relationships,e["label"])]
+									tmp.color=networkOptions.appearance.colorMap[_.indexOf(relationships,e["label"])];
 
-								options.groups[e["label"]]=tmp
+								options.groups[e["label"]]=tmp;
 								network.setOptions(options);
 							}
 
@@ -443,23 +441,23 @@
 							//To thread the edges between root node especially, we would need a check
 							// But we have to go through all edges again and further down the code because here we dont know about all root nodes YET
 							if (networkOptions.appearance.colorMap.length>=relationships.length)
-								e["color"]=networkOptions.appearance.colorMap[_.indexOf(relationships,e["label"])]
+								e["color"]=networkOptions.appearance.colorMap[_.indexOf(relationships,e["label"])];
 
 							//Apply Clusters to node depending on the group and the direction of the relationship
 							var tmpNode=nodes.get(e["from"]);
 							if (tmpNode.group!=undefined ){
-								nodes.update({id:e.from, cluster: _.last(root)+"from__"+tmpNode.group})
+								nodes.update({id:e.from, cluster: _.last(root)+"from__"+tmpNode.group});
 
 								//If the id is not part yet of the clusterArray, save it there
 								if (_.indexOf(clusterArray, _.last(root)+"from__"+tmpNode.group)===-1)
-								{clusterArray.push(_.last(root)+"from__"+tmpNode.group)}
+								{clusterArray.push(_.last(root)+"from__"+tmpNode.group);}
 							}
 
 							//Check if the edge is already part of the network, if not add it
 							if (graphdataset.edges.get(e.id)===null)
 								graphdataset.edges.add(e);
 
-						})
+						});
 
 
 						/*
@@ -469,20 +467,20 @@
 						 */
 						nodes.forEach(function(e){
 							if (e.group===undefined)
-							{	e.group=_.findWhere(edgesTMP, {to:e.id}).label
-								nodes.update({id:e.id, group: e.group})
+							{	e.group=_.findWhere(edgesTMP, {to:e.id}).label;
+								nodes.update({id:e.id, group: e.group});
 							}
 
 							// If a NODE is not part of a cluster yet and is not root, update the node's cluster
 							if (e.cluster===undefined &&e.group!="root"){
 								//Clustering applied - save in extra Array clusters all groups of clusters
-								nodes.update({id:e.id, cluster: _.last(root)+"to__"+e.group})
+								nodes.update({id:e.id, cluster: _.last(root)+"to__"+e.group});
 							}
 
 							//Add the group the to cluster array if the group is not root (Root nodes should not be part of any clusters)
 							if(e.group!=="root"){
 								if (_.indexOf(clusterArray, _.last(root)+"to__"+e.group)===-1)
-								{		clusterArray.push(_.last(root)+"to__"+e.group)}}  })
+								{		clusterArray.push(_.last(root)+"to__"+e.group);	}}  });
 
 						/*
 						 * - Update the root elements, which means going through the root array, then setting the group, the cluster and additional options
@@ -490,9 +488,32 @@
 						 * - Second step, special treatment for the edges between root nodes, so they are not longer removed by user actions
 						 */
 						root.forEach(function(e){
-							//nodes.update({id: e, group:"root", cluster: undefined, mass:2, color:{background: networkOptions.rootNode.colorRoot.toString(), border:networkOptions.rootNode.borderColor}, borderWidth:networkOptions.rootNode.borderWidth})
-							nodes.update({id: e, group:"root", cluster: undefined, mass:networkOptions.rootNode.rootMass, color: networkOptions.rootNode.color})
-							//nodes.update({id: e, group:"root", cluster: undefined, mass:2, color:{ background: networkOptions.rootNode.color.background}})
+
+
+							/** ******** This part is a try, don't know if we go this path  *********
+							console.log(nodes.get(e))
+							console.log(nodes.get(e).prevColor)
+
+							if (nodes.get(e).prevColor===undefined)
+							{
+								console.log(nodes.get(e).group)
+								var previousColor=networkOptions.appearance.colorMap[_.indexOf(relationships,nodes.get(e).group)];
+								console.log(previousColor);
+								nodes.update({id: e, prevColor:previousColor})
+
+							}
+
+
+							console.log(networkOptions.rootNode.color)
+							var tmpbackground=nodes.get(e).prevColor;
+							var tmpbordercolor=networkOptions.rootNode.color.background;
+							var tmpcolor={border:tmpbordercolor, background:tmpbackground, hover: {background: tmpbackground, border:tmpbordercolor}, highlight:{background:tmpbackground, border:tmpbordercolor}};
+
+							nodes.update({id: e, group:"root", cluster: undefined, mass:networkOptions.rootNode.rootMass, borderWidth:4, color: tmpcolor});
+							/******** End new try **********/
+
+
+							nodes.update({id: e, group:"root", cluster: undefined, mass:networkOptions.rootNode.rootMass, color: networkOptions.rootNode.color});
 
 							//Go through all the connecting Edges of root nodes, if an edge connects two root edges, mark the edge as "special" (set Flag, change label and color)
 							network.getConnectedEdges(e).forEach(function(e){
@@ -501,11 +522,11 @@
 								{
 									//Check if we already changed that edge, if so we can skip this step
 									if (tmpEdge.connectingFlag!=true)
-										edges.update({id:e, connectingFlag: true, label:tmpEdge.label+" (*)", color: networkOptions.rootNode.connectingEdges.color, width: networkOptions.rootNode.connectingEdges.width})
+										edges.update({id:e, connectingFlag: true, label:tmpEdge.label+" (*)", color: networkOptions.rootNode.connectingEdges.color, width: networkOptions.rootNode.connectingEdges.width});
 								}
 
 							})
-						})
+						});
 
 
 						//Call this function to update the legend every time that new data is fetched because the legend dynamically is adjusted to the relationships that are part of the vizualisation
@@ -543,29 +564,34 @@
 	 *  @param: term - represents the term we ask the webservice for data e.g. an Uberon ID
 	 */
 	function fetchData(term){
-		/*console.log(term);
-		 console.log(networkOptions.webservice.URL);
-		 console.log(networkOptions.webservice.URL+term)
-		 console.log(networkOptions.webservice.OLSschema)*/
 
 		if (networkOptions.webservice.OLSschema===true)
 		{
 			$.getJSON(networkOptions.webservice.URL+term, function (data2){
-				console.log(data2)
 				linkToGraph=data2._embedded.terms[0]._links.graph.href;
 				//This unfocus the textfield. This is done because focusing into the textfield triggers an update of the autocomplete list
 				//If new data is fetched, the texfield is therefore unfocused with the blur event. Re-entering it updates the autocompelte list
 				$("#LookUpNodeTextfield").blur();
-				console.log(linkToGraph)
-				fetchGraphData(linkToGraph)
+				fetchGraphData(linkToGraph);
 
-			}).fail(function (){console.log("Failed to do the webservice call! Is the server down? Tried to reach: "+networkOptions.webservice.URL+term);})
+			}).fail(function (){printMsgToScreen("Failed to do the webservice call! Is the server down? Tried to reach: "+networkOptions.webservice.URL+term);})
 		}
 
 		else
-		{      fetchGraphData(networkOptions.webservice.URL)  }
+		{      fetchGraphData(networkOptions.webservice.URL);  }
 
 
+	}
+
+
+	/*Function print msg
+	* Function should print msg to screen for the user to see it, used e.g. for error messages
+	*/
+	function printMsgToScreen(msg){
+		console.log(msg);
+		var HTMLString='<div id="msgBox" style="position:absolute; width:60%; background-color: orange;  ">'+msg
+		HTMLString+='</div>'
+		$("#ontology_vis").append(HTMLString);
 	}
 
 	/*
@@ -578,10 +604,7 @@
 	{
 
 		htmlString='<div id="vis_network"  style="height:200px;"></div><div id="Legend"></div>';
-		$("#ontology_vis").append(htmlString)
-
-		console.log("initialize network")
-
+		$("#ontology_vis").append(htmlString);
 		var container = document.getElementById('vis_network');
 
 		//get the height of the available div and start the network with it
@@ -631,7 +654,7 @@
 	}
 
 	/*Function to handle the default behavior for onSelectEdge*/
-	function onSelectEdge(edgeId){showEdgeInfo(edgeId)}
+	function onSelectEdge(edgeId){showEdgeInfo(edgeId);}
 
 
 	/*
@@ -640,20 +663,19 @@
 	function parseIRI(term){
 		var reversed = term.split("").reverse().join("");
 		var tmp=reversed.substring(0,reversed.indexOf("/"));
-		var rtmp=tmp.split("").reverse().join("");
-		return rtmp;
+		return tmp.split("").reverse().join("");
 	}
 
 
 
 	/*
-	 *
+	 * This function provides information about the selected edge, when a edge is selected
 	 */
 
 	function showEdgeInfo(edgeId){
-		var twoNodesArray=network.getConnectedNodes(edgeId)
+		var twoNodesArray=network.getConnectedNodes(edgeId);
 
-		$("#infoWindow").html("<h6>Edge selected</h6>")
+		$("#infoWindow").html("<h6>Edge selected</h6>");
 		$("#infoWindowSub").empty();
 
 //Edge connects 2 normal nodes
@@ -664,10 +686,10 @@
 		{
 			if (nodes.get(twoNodesArray[0])!==null)
 			{
-				$("#infoWindowSub").append("This edge connects the node <strong>"+nodes.get(twoNodesArray[0]).label+"</strong> with a <strong>cluster</strong>")
+				$("#infoWindowSub").append("This edge connects the node <strong>"+nodes.get(twoNodesArray[0]).label+"</strong> with a <strong>cluster</strong>");
 			}
 			if (nodes.get(twoNodesArray[1])!==null)
-				$("#infoWindowSub").append("This edge connects a <strong>cluster</strong> with the node <strong>"+nodes.get(twoNodesArray[1]).label+"</strong>")
+				$("#infoWindowSub").append("This edge connects a <strong>cluster</strong> with the node <strong>"+nodes.get(twoNodesArray[1]).label+"</strong>");
 		}
 
 
@@ -677,49 +699,48 @@
 	 * This function can provide information about a selected cluster
 	 */
 	function showClusterInfo(clusterId){
+		var infoWindowSub=$("#infoWindowSub");
 		$("#infoWindow").html("<h6>The selected cluster contains the following nodes</h6>");
-		$("#infoWindowSub").empty();
+		infoWindowSub.empty();
 		var htmlString="";
 
 		htmlString="<i>Click on the node label to fetch data for this node and update the graph</i><br><br>";
 
 		network.getNodesInCluster(clusterId).forEach(function(e){
-			htmlString+="- <a class='clusterLink' data="+e+" href="+parseIRI(e)+">"+graphdataset.nodes.get(e).label+"</a> <small>("+parseIRI(e)+")</small><br>"
-		})
+			htmlString+="- <a class='clusterLink' data="+e+" href="+parseIRI(e)+">"+graphdataset.nodes.get(e).label+"</a> <small>("+parseIRI(e)+")</small><br>";
+		});
 
-		htmlString+='<br><br><br><hr style="margin-left: 79px; margin-right:84px"/>'
-		htmlString+='<div style="text-align:center;"><input id="ExpandClusterButton" class="primary" type="submit" title="Click here to uncluster this cluster. The same result can be achieved by double clicking on a cluster in the graph!" value="Expand this cluster"></input> '
-		htmlString+='<input id="FocusOnCluster" class="primary" type="submit" title="Click this button to zoom to the selected node" value="Zoom to this cluster"></input> '
+		htmlString+='<br><br><br><hr style="margin-left: 79px; margin-right:84px"/>';
+		htmlString+='<div style="text-align:center;"><input id="ExpandClusterButton" class="primary" type="submit" title="Click here to uncluster this cluster. The same result can be achieved by double clicking on a cluster in the graph!" value="Expand this cluster"/> ';
+		htmlString+='<input id="FocusOnCluster" class="primary" type="submit" title="Click this button to zoom to the selected node" value="Zoom to this cluster"/> ';
 
-		$("#infoWindowSub").append(htmlString);
+		infoWindowSub.append(htmlString);
 
 		$(".clusterLink").on("click", function(event){
 			event.preventDefault(); // we don't want to link at the moment
 			//alert("clicked on a link, we could go on from here but we dont at the moment "+$(this).attr("data")+" "+event.currentTarget.attributes.href)
 
 			unclusterAllNodes();
-			var nodeToFocus=$(this).attr("data")           ///THESE THINGS ARE WRONG
+			var nodeToFocus=$(this).attr("data");
 
 			//TO fetch data, we use at the moment short for of id (=label)
-			fetchData(parseIRI($(this).attr("data")))     ///THESE THINGS ARE WRONG
-
-			//For these functions we need the id and not the label
+			fetchData(parseIRI($(this).attr("data")));
 
 			network.selectNodes([nodeToFocus]);
 			showNodeInfo(nodeToFocus);
-			network.focus(nodeToFocus) //makes no sense if the nodes still bounce around
-		})
+			network.focus(nodeToFocus);
+		});
 
 
 		$("#FocusOnCluster").on("click", function() {
 
 			//network.focus(clusterId, ZoomOptions)
 
-			var tmpClusterNode=network.findNode(clusterId)[1].id
+			var tmpClusterNode=network.findNode(clusterId)[1].id;
 			network.focus(tmpClusterNode, networkOptions.ZoomOptions);
 			network.selectNodes([tmpClusterNode]);
 			showClusterInfo(tmpClusterNode);
-		})
+		});
 
 
 
@@ -735,11 +756,11 @@
 
 //  var id=nodeId // DO WE HAVE TO ENCODE THIS?
 		var id=encodeURIComponent(nodeId);
-		console.log("Try to fetch Data for showNodeInfo at "+networkOptions.webservice.URL+id)
+		console.log("Try to fetch Data for showNodeInfo at "+networkOptions.webservice.URL+id);
 		$.getJSON(networkOptions.webservice.URL+id, function(inputdata){
 			var data=inputdata._embedded.terms[0];
 
-			$("#infoWindow").html("<h6>Selected Node - "+data.label+"</h6>")
+			$("#infoWindow").html("<h6>Selected Node - "+data.label+"</h6>");
 
 			//Check if the term is obsolete and if so, tell that to the user!
 			var htmlString="";
@@ -759,20 +780,20 @@
 
 			//Check if Database cross references are available
 			if (data.database_cross_references!==undefined)
-				htmlString+="<br><strong>Database cross references:</strong> "+data.database_cross_references
+				htmlString+="<br><strong>Database cross references:</strong> "+data.database_cross_references;
 
 			//Check if there are synonyms
 			if (data.synonyms!==null)
-				htmlString+="<br><strong>Synonyms:</strong> "+data.synonyms
+				htmlString+="<br><strong>Synonyms:</strong> "+data.synonyms;
 
 			//Short_form and IRI are always present, so no check is needed
-			htmlString+="<br><i><strong>Short id:</strong></i> "+data.short_form+" (<i>iri: </i><small>"+data.iri+"</small>)"
+			htmlString+="<br><i><strong>Short id:</strong></i> "+data.short_form+" (<i>iri: </i><small>"+data.iri+"</small>)";
 
-			htmlString+='<br><br><br><hr style="margin-left: 79px; margin-right:84px"/>'
-			htmlString+='<div style="text-align:center;"><input id="ExpandNodeButton" class="primary" type="submit" title="Click here to expand this node. The same result can be achieved by double clicking on a node in the graph!" value="Expand this node"></input> '
-			htmlString+='<input id="FocusOnNode" class="primary" type="submit" title="Click this button to zoom to the selected node" value="Zoom to this node"></input> '
+			htmlString+='<br><br><br><hr style="margin-left: 79px; margin-right:84px"/>';
+			htmlString+='<div style="text-align:center;"><input id="ExpandNodeButton" class="primary" type="submit" title="Click here to expand this node. The same result can be achieved by double clicking on a node in the graph!" value="Expand this node"/> ';
+			htmlString+='<input id="FocusOnNode" class="primary" type="submit" title="Click this button to zoom to the selected node" value="Zoom to this node"/> ';
 
-			htmlString+='<input id="goToOLS" class="primary" type="submit" title="Click here to go to the OLS page of this term" value="Find this term in OLS"></input></div>'
+			htmlString+='<input id="goToOLS" class="primary" type="submit" title="Click here to go to the OLS page of this term" value="Find this term in OLS"/></div>';
 
 
 			$("#infoWindowSub").html(htmlString);
@@ -781,7 +802,7 @@
 				var tmpNode=network.getSelection().nodes;
 				if (tmpNode.length!=0)
 					network.focus(tmpNode[0], networkOptions.ZoomOptions)
-			})
+			});
 
 
 
@@ -797,13 +818,13 @@
 					if (root.indexOf(nodeId)===-1)
 						fetchData(nodeId);
 				}
-			})
+			});
 
 			$("#goToOLS").on("click", function () {
 				var termURL=document.URL;
-				window.open(termURL.substring(0,termURL.indexOf("/graph"))+"?iri="+encodeURIComponent(nodeId))})
+				window.open(termURL.substring(0,termURL.indexOf("/graph"))+"?iri="+encodeURIComponent(nodeId));})
 
-		}).fail(function () {console.log("Error with the webservice call for "+networkOptions.webservice.URL+id+" in the function ShowNodeInfo. Set showInfoWindow to false if you use a not-OLS structred webservice addresse.")})
+		}).fail(function () {printMsgToScreen("Error with the webservice call for "+networkOptions.webservice.URL+id+"<br><br> The server might be down, you might not use a OLS structured webservice or something else went wrong!");})
 
 
 	}
@@ -816,31 +837,35 @@
 	 */
 
 	function updateDataView(tmpID, checked){
+		var view;
+		var edgeView;
+
 		clusterArray.forEach(function(e){
 //Try to find these potential cluster
 			if (tmpID===e.substring(e.indexOf("__")+2,e.length))
 			{
 				if (network.isCluster(e))
-				{	unclusterSingeCluster(e)}
+				{	unclusterSingeCluster(e);}
 			}
-		})
+		});
+
 
 //If the user sets the relationship type to false, we have to remove the view from the nodes (active dataset). The removed nodes get stored in another dataset (removedNodes) so they can be added again easily later if needed
 		if (checked===false)
 		{
 			//Construct the view - go through nodes and apply filter. Elements for which the filter is true are part of the view
-			var view = new vis.DataView(nodes, {
+			view = new vis.DataView(nodes, {
 				filter: function (item) {
 					return (item.group===tmpID);
 				}
-			})
+			});
 
 			//Construct the view for EDGES - go through all edges and apply the filter. Eements for which the filter is true are part of the view.
-			var edgeView=new vis.DataView(edges, {
+			edgeView=new vis.DataView(edges, {
 				filter: function (item) {
 					return (item.label===tmpID);
 				}
-			})
+			});
 
 			//Shift the filtered nodes to the removed Nodes Dataset, the filtered Edges to the removedEdges Dataset
 			removedNodes.update(view.get());
@@ -855,17 +880,17 @@
 		else
 		{
 			//Construct the view - go through removeNodes and apply filter. Elements for which the filter is true are part of the view
-			var view = new vis.DataView(removedNodes, {
+			view = new vis.DataView(removedNodes, {
 				filter: function(item) {
 					return (item.group===tmpID)
 				}
-			})
+			});
 
-			var edgeView=new vis.DataView(removedEdges, {
+			edgeView=new vis.DataView(removedEdges, {
 				filter: function (item) {
 					return (item.label===tmpID);
 				}
-			})
+			});
 
 			//Add the filtered expression to the the nodes and edges that are displayed
 			nodes.update(view.get());
@@ -884,17 +909,18 @@
 	 * - Updates the Legend div of the html e.g. relationships
 	 */
 	function updateLegend(){
-		$("#Legend").empty();
+		var Legend=$("#Legend");
+		Legend.empty();
 		var tmp="";
 
 //Preparing the html of the Legend - which means adding the table, the relationship names, the canvas as well as the check boxes for every table row
-		tmp+='<h6 title="How are relationships and colours connected">Legend</h6>'
-		tmp+='<table><tbody><tr><td><strong title="List of relationships that is displayed in the graph">Relationship</strong></td><td><strong title="The color a certain relationship is represented by">Color</strong></td><td><strong title="You can change the visibility of relationship types ">Visibility</strong></td></tr>'
-		tmp+='<tr><td title="Relationships in between extended nodes are special - those relationships are always visible!">Extended nodes (*)</td><td><canvas id="canvas_root" width="30" height="15"></canvas></td><td>-</td></tr>'
+		tmp+='<h6 title="How are relationships and colours connected">Legend</h6>';
+		tmp+='<table><tbody><tr><td><strong title="List of relationships that is displayed in the graph">Relationship</strong></td><td><strong title="The color a certain relationship is represented by">Color</strong></td><td><strong title="You can change the visibility of relationship types ">Visibility</strong></td></tr>';
+		tmp+='<tr><td title="Relationships in between extended nodes are special - those relationships are always visible!">Extended nodes (*)</td><td><canvas id="canvas_root" width="30" height="15"></canvas></td><td>-</td></tr>';
 
 		relationships.forEach(function(e){
 			tmp+="<tr><td>"+e+'</td><td><canvas id="canvas_'+e+'" width="30" height="15"></canvas></td><td><input type="checkbox" class="Legendoptions" name="'+e+'" id="visible_'+e.replace(/\s+/g, '')+'" checked></td></tr>';
-		})
+		});
 
 //Add a Deselect all Box (Do we even need it?)
 		tmp+='<tr><td title="This option is useful if you only want to display the path you extended! Or revert the effect and display everything!">Select/Deselect all</td><td></td><td><input type="checkbox" id="special" unchecked></td></tr>';
@@ -903,13 +929,13 @@
 
 //From here on the output of the path (=extended nodes) is constructed
 		tmp+='<br><i title="The list contains all nodes that data was fetched for and displayed in the graph">List of extended nodes (*):</i><br>';
-		tmp+="<ul>"
+		tmp+="<ul>";
 		root.forEach(function(e){
-			tmp+="<li>"+nodes.get(e).label+" <small>("+(parseIRI(nodes.get(e).id))+")</small></li>"
-		})
-		tmp+="</ul>"
-		tmp+='<div id="Permaanwser" style="text-align:center; margin-top:100px;"><hr style="margin-left: 50px; margin-right:50px"/><input id="Permalink" title="Get a static URL of this graph - so you can return or share it" type="submit" value="Get permalink to this graph"></input></div>'
-		$("#Legend").append(tmp);
+			tmp+="<li>"+nodes.get(e).label+" <small>("+(parseIRI(nodes.get(e).id))+")</small></li>";
+		});
+		tmp+="</ul>";
+		tmp+='<div id="Permaanwser" style="text-align:center; margin-top:100px;"><hr style="margin-left: 50px; margin-right:50px"/><input id="Permalink" title="Get a static URL of this graph - so you can return or share it" type="submit" value="Get permalink to this graph"/></div>';
+		Legend.append(tmp);
 
 //Color the root canvas
 		var c=document.getElementById("canvas_root").getContext("2d");
@@ -918,17 +944,18 @@
 
 //After appending the legend, the colours have to be adjusted according to the colorMap
 		relationships.forEach(function(e){
-			var c=document.getElementById("canvas_"+e).getContext("2d")
+			var c=document.getElementById("canvas_"+e).getContext("2d");
 
 			if (networkOptions.appearance.colorMap.length>=relationships.length)
-				c.fillStyle=networkOptions.appearance.colorMap[_.indexOf(relationships,e)]
+				c.fillStyle=networkOptions.appearance.colorMap[_.indexOf(relationships,e)];
 
-			c.fillRect(0,0,350,100)
+			c.fillRect(0,0,350,100);
 			//Register event handler for visibility
 			$('#visible_'+e.replace(/\s+/g, '')).on("click", function(event){
-				var tmpID=$("#"+event.target.id).attr("name")
-				var checked=$("#"+event.target.id).is(':checked')
-				updateDataView(tmpID,checked)
+				var target=$("#"+event.target.id);
+				var tmpID=target.attr("name");
+				var checked=target.is(':checked');
+				updateDataView(tmpID,checked);
 			});
 
 
@@ -937,16 +964,16 @@
 			$('#special').on("click", function(event){
 				if($('#special').prop("checked"))
 				{
-					$('input:checkbox.Legendoptions').prop('checked', false )
-					_.map($(".Legendoptions"), function(e){ updateDataView(e.name, false)})
+					$('input:checkbox.Legendoptions').prop('checked', false );
+					_.map($(".Legendoptions"), function(e){ updateDataView(e.name, false)});
 				}
 				else
 				{
 					$('input:checkbox.Legendoptions').prop('checked',true);
-					_.map($(".Legendoptions"), function(e){updateDataView(e.name, true)})
+					_.map($(".Legendoptions"), function(e){updateDataView(e.name, true)});
 				}
 			})
-		})
+		});
 
 
 //Finally, add also a Listener to the Permalink Button
@@ -955,7 +982,7 @@
 			var rootNodes=window.location.href+"&ed=";
 			root.forEach(function(e){
 				rootNodes+=e+"&&";
-			})
+			});
 			$("#Permaanwser").html('<style="text-align:center; margin-top:100px;"><hr style="margin-left: 50px; margin-right:50px"/><input type="text" title="Copy and paste this link to return to this graph! You can easly share it via email as well!" name="Permalink" value="'+rootNodes+'">')
 		});
 
@@ -964,7 +991,8 @@
 	/*Public Methods, exposed because some people might be interested in these things*/
 	$.fn.getRelationships=function(){return relationships;};
 	$.fn.getExtendedNodes=function(){return root;};
-	$.fn.fetchNewGraphData=function(webserviceURL){fetchGraphData(webserviceURL); return this};
+	$.fn.fetchNewGraphData=function(webserviceURL){fetchGraphData(webserviceURL); return this;};
+	$.fn.printMsgToScreen=function(msg){printMsgToScreen(msg);}
 
 	/*Public Methods to start the whole thing up
 	 * If only a term is passed, we start the visualisation with default options
@@ -983,7 +1011,6 @@
 
 	 /*If options are passed in, we extend (=override) the default options with the new options and start the network*/
 	$.fn.visstart=function(term, inputNetworkOptions, visoptions){
-		console.log("Plugin started with personal options");
 		//Apply the options for the network - mix them with the default options and save it in the global variable networkOptions
 		networkOptions=$.extend( true, {},networkOptions,inputNetworkOptions);
 		//Mix the defaultVisNetworkOptions with the passed parameters visoptions
