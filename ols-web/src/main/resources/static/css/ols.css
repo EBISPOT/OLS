@@ -715,6 +715,7 @@ a:hover.nounderline {
 }
 .tab-content > .active {
   display: block;
+  overflow-x: auto;
 }
 .nav-tabs .dropdown-menu {
   margin-top: -1px;

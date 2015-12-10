@@ -133,13 +133,13 @@
 
             <!-- -->
             <div class="grid_10 omega">
-                <form id="local-search" name="local-search" action="../../search" method="get">
+                <form id="local-search" name="local-search" action="../../../search" method="get">
                     <fieldset><div class="left">
                         <label>
                             <input style="font-weight: normal;" type="text" name="q" data-olswidget="select" th:attr="data-olsontology=${ontologyTerm.getOntologyName()}" data-olsontology="urr" data-selectpath="../../" id="local-searchbox" class="ac_input">
                             </input>
                         </label>
-                        <span class="examples">Examples: <a href="../../search?q=cancer">cancer</a>,
+                        <span class="examples">Examples: <a href="../.../../search?q=cancer">cancer</a>,
                             <a href="../../search?q=GO:0098743">GO:0098743</a>,
                         </span>
                     </div>
@@ -147,7 +147,7 @@
                             <input type="submit" value="Search" class="submit">
                             </input>
                             <span class="adv">
-                                <a href="../../search" id="adv-search" title="Advanced">Advanced</a>
+                                <a href="../../../search" id="adv-search" title="Advanced">Advanced</a>
                             </span>
                         </div>
                     </fieldset>
@@ -175,7 +175,7 @@
       <nav id="breadcrumb">
           <p>
               <a href="../../../index">OLS</a> &gt;
-              <span class="ontology-source"  th:onclick="'javascript:goTo(\'' + @{../../ontologies/__${ontologyTerm.getOntologyName()}__} + '\')'" th:text="${ontologyTerm.getOntologyPrefix()}">parent 1</span>   &gt;
+              <a href="#" style="border-bottom-width: 0px;"><span class="ontology-source"  th:onclick="'javascript:goTo(\'' + @{../../ontologies/__${ontologyTerm.getOntologyName()}__} + '\')'" th:text="${ontologyTerm.getOntologyPrefix()}">parent 1</span></a>   &gt;
               <span th:text="${ontologyTerm.getShortForm()}">id</span>
           </p>
       </nav>
