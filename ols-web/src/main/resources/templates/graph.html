@@ -175,7 +175,7 @@
       <nav id="breadcrumb">
           <p>
               <a href="../../../index">OLS</a> &gt;
-              <a href="#" style="border-bottom-width: 0px;"><span class="ontology-source"  th:onclick="'javascript:goTo(\'' + @{../../ontologies/__${ontologyTerm.getOntologyName()}__} + '\')'" th:text="${ontologyTerm.getOntologyPrefix()}">parent 1</span></a>   &gt;
+              <a href="#" th:href="@{../../../ontologies/__${ontologyTerm.getOntologyName()}__}" style="border-bottom-width: 0px;"><span class="ontology-source" th:text="${ontologyTerm.getOntologyPrefix()}">parent 1</span></a>   &gt;
               <span th:text="${ontologyTerm.getShortForm()}">id</span>
           </p>
       </nav>
