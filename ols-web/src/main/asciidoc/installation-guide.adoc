@@ -37,34 +37,34 @@ Example configuration file:
 ## EFO +
 # * are required fields
 
-*id:* efo  # short unique id for the ontology * +
-*preferredPrefix:* EFO  # preferred display name for the ontology +
-*title:* Experimental Factor Ontology  # Short title of the ontology +
-*uri:* http://www.ebi.ac.uk/efo  # The ontology URI *
-*description:* "The Experimental Factor Ontology (EFO) provides a..." # Full ontology description +
-*ontology_purl:* http://www.ebi.ac.uk/efo/efo.owl # URL to get the ontology from * +
-*homepage:* http://www.ebi.ac.uk/efo  # homepage of the ontology +
-*mailing_list:* efo-users@lists.sourceforge.net  # assocaited mailing list +
-*definition_property:* # predicates that are used for term definitions +
+- *id:* efo  // short unique id for the ontology * +
+*preferredPrefix:* EFO	// preferred display name for the ontology +
+*title:* Experimental Factor Ontology // Short title of the ontology +
+*uri:* http://www.ebi.ac.uk/efo // The ontology URI *
+*description:* "The Experimental Factor Ontology (EFO) provides a..." // Full ontology description +
+*ontology_purl:* http://www.ebi.ac.uk/efo/efo.owl  // URL to get the ontology from * +
+*homepage:* http://www.ebi.ac.uk/efo  // homepage of the ontology +
+*mailing_list:* efo-users@lists.sourceforge.net // assocaited mailing list +
+*definition_property:* // predicates that are used for term definitions +
     - http://www.ebi.ac.uk/efo/definition +
-*synonym_property:* # prediates used for synonyms +
+*synonym_property:* // prediates used for synonyms +
     - http://www.ebi.ac.uk/efo/alternative_term +
-*hierarchical_property:* # predicates that are hierarchical (like part of) will be included in default tree view +
+*hierarchical_property:* // predicates that are hierarchical (like part of) will be included in default tree view +
      - http://purl.obolibrary.org/obo/BFO_0000050 +
      - http://purl.obolibrary.org/obo/RO_0002202 +
-*hidden_property:* # any predicates that should be ignored when indexing +
+*hidden_property:* // any predicates that should be ignored when indexing +
      - http://www.ebi.ac.uk/efo/has_flag +
-*base_uri:* # base URIs for local terms +
+*base_uri:* // base URIs for local terms +
      - http://www.ebi.ac.uk/efo/EFO_ +
-*classify:* true # if true will be classified with a a DL reasoner (HermiT) +
-*isInferred:* false # if true no reasoner will be used +
-*oboSlims:* false # contains OBO style slim annotations +
+*classify:* true // if true will be classified with a a DL reasoner (HermiT) +
+*isInferred:* false // if true no reasoner will be used +
+*oboSlims:* false   // contains OBO style slim annotations +
 **********************
 
 OLS is also able to import Yaml files following the OBO foundry specification. By default it will load the OBO config from the classpath. If you don't want the OBO ontologies delete or rename the obo-config.yaml file. You may also need to comment out the property from the `git/OLS/ols-apps/ols-config-importer/src/main/resources/application.properties` file (`ols.obofoundry.ontology.config`)
 https://raw.githubusercontent.com/OBOFoundry/OBOFoundry.github.io/master/_config.yml
 
-By default OLS will classify ontologies with an EL reasoner (ELK) before indexing. To force an ontology to not be classified at all (some big ontologies require this) there is an option to include a list of ontologies to not classify in the application.properties file e.g.
+By default OLS will classify ontologies with an EL reasoner (ELK) before indexing. To force an ontology to not be classified at all (some big ontologies require this) there is an option to include a list of ontologies not to be classified in the application.properties file e.g.
 `ols.obofoundry.dontclassify ncbitaxon,gaz`
 
 NOTE: We recognise the configuration around classifying ontologies is a bit convoluted, we are going to change this soon to make things more explicit.
