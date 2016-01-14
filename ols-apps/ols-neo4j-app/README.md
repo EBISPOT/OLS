@@ -1,6 +1,6 @@
 == OLS-NEO4J
 
-This module builds an app for creating a standalone Neo4J index for one or more ontologies.
+This module builds an app for creating a standalone Neo4J index for one or more ontologies. Details of the OLS Neo4J schema can be found here http://www.ebi.ac.uk/ols/beta/docs/neo4j-schema 
 
 This application will build an embedded neo4j database (currently version 2.2.2)
 
