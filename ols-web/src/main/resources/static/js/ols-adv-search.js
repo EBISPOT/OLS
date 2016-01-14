@@ -1,6 +1,4 @@
 $(document).ready(function() {
-
-
     $('.ontology-select').select2();
     $('.type-select').select2();
 
@@ -18,15 +16,19 @@ $(document).ready(function() {
 
     });
 
+    ontologyList = new Object();
+    $('#ontology-select-id option').each(function(){
+        ontologyList[this.value]=this.text;
+     });
+
     try {
         loadResults();
     } catch (err) {
 
     }
-
-
-
 });
+
+var ontologyList;
 
 function clearFilter() {
     $('#ontology-select-id').val('');
@@ -51,7 +53,6 @@ function loadResults() {
 
 function solrSearch(queryTerm) {
     console.log("Solr search request received for " + queryTerm);
-
     $.getJSON('api/search?' + queryTerm)
         .done(function (data) {
             processData(data);
@@ -76,7 +77,6 @@ function clickNext() {
 }
 
 function processData(data) {
-
     var docs = data.response.docs;
 
     // render results stats and pagination
@@ -131,6 +131,7 @@ function processData(data) {
             }
         }
 
+        /*IS this ever executed? DO we need this*/
         if (data.expanded != undefined) {
             if (data.expanded[row.iri] != undefined) {
 
@@ -146,10 +147,14 @@ function processData(data) {
         var resultHtml = $('<section></section>');
         resultHtml = resultHtml.append(link);
         resultHtml = resultHtml.append('&nbsp;&nbsp;');
-        var ontologies = $("<div class='ontology-source'>" + row.ontology_prefix + "</div>");
 
+        var ontologies = $("<div class='ontology-source' title='"+ontologyList[row.ontology_name]+"'>" + row.ontology_prefix + "</div>");
         resultHtml = resultHtml.append(ontologies);
 
+
+
+
+        /*IS this ever executed? Do we need this*/
         if (data.expanded != undefined) {
             if (data.expanded[row.iri] != undefined) {
 
@@ -159,6 +164,7 @@ function processData(data) {
 
             }
         }
+
 
         resultHtml = resultHtml.append('<br/>');
         resultHtml = resultHtml.append($('<span class="search-results-url"></span>').text(row.iri));
@@ -182,25 +188,29 @@ function processData(data) {
     //renderFacetField(facets.is_obsolete, "Is Obsolete", searchSummary);
     //renderFacetField(facets.subset, "Susbsets", searchSummary);
 
-    //
 }
 
-function renderFacetField (facetArray, name, searchSummary) {
+function renderFacetField (facetArray, inputName, searchSummary) {
 
     if (facetArray != undefined) {
 
         var numberOfFacets = 0;
 
-        var facet = $('<h3></h3>').text(name);
+        var facet = $('<h3></h3>').text(inputName);
         var fieldList = $('<ul></ul>');
 
         for (var x = 0 ; x < facetArray.length; x = x + 2) {
             var name = facetArray[x];
             var count = facetArray[x + 1];
-            console.log("facets " + name + " - " + count);
 
             if (count > 0) {
-                fieldList.append($('<li></li>').text(name + " (" + count + ")"));
+
+               if (inputName==="Ontologies")
+                        {   fieldList.append('<li><a href="#" id="'+name+'" class="onto_list" title="'+ontologyList[name.toLowerCase()]+'">'+name+ '</a> (' + count + ')</li>');         }
+                else
+                        {   fieldList.append('<li><a href="#" id="'+name+'" class="type_list">'+name+ '</a> (' + count + ')</li>');         }
+                    //    {   fieldList.append(  $('<li></li>').text(name+ " (" + count + ")"));  }
+
                 numberOfFacets++;
             }
 
@@ -211,5 +221,20 @@ function renderFacetField (facetArray, name, searchSummary) {
             searchSummary.append(facet);
             searchSummary.append(fieldList);
         }
+
+        //Register click event for ontology list
+        $(".onto_list").on('click', function(e){
+            $('#ontology-select-id').val('');
+            $("#ontology-select-id option[value='"+e.target.id.toLowerCase()+"']").prop('selected', true);
+            $("#filter_form").submit();
+        });
+
+        $(".type_list").on('click', function(e){
+            $('#ontology-type-id').val('');
+            $('#ontology-type-id option[value="'+e.target.id.toLowerCase()+'"]').prop('selected', true);;
+            $("#filter_form").submit();
+        });
+
+
     }
 }

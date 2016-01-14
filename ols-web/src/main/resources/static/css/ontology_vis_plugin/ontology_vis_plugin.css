@@ -1,0 +1,87 @@
+#searchBox{
+	float:left
+	border:1px solid black;
+	margin-bottom:10px;
+}
+
+#vis_network{
+	min-height:700px;
+	width:74%;
+	border:1px solid ;
+	border-color: #337ab7;
+	border-radius: 5px;
+	float:left;
+}
+
+#Legend{
+	width:25%;
+	float:right;
+}
+
+#buttonBoxWrapper
+{float:left;width:74%;}
+
+#buttonBox{
+ text-align: center;
+
+ margin-top:10px;
+ padding-left:10px;
+}
+
+#LookUpNodeTextfield{
+ 	position: relative;
+    top: 5px; /*To make the box align with the buttons*/
+    /*Round corners ... if we want to have that */
+    -webkit-border-radius: 5px;
+		-moz-border-radius: 5px;
+		border-radius: 5px;
+}
+
+
+#SecondWindow{
+	width:74%;
+	float:left;
+	min-height:100px;
+	margin-top:10px;
+	border: 1px solid;
+	border-color: #337ab7;
+	border-radius: 5px;
+	margin-bottom:25px;
+
+}
+
+#infoWindow{
+	float:left;
+}
+
+#infoWindowSub{
+	width:99%;
+	min-height: 160px;
+	float:left;
+	padding: 5px;
+}
+
+
+#ChangeLayout{
+	width: 120px;
+	text-align: center;
+}
+
+#LookUpNodeTextfield{
+	margin-left: 40px;
+	width:100px;
+}
+
+#TogglePhysics{
+	width:115px;
+	text-align: center;
+}
+
+#Permaanwser{
+	margin-bottom:20px;
+}
+
+.primary{
+	padding: 4px;
+	margin-right:10px
+}

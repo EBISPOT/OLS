@@ -1,0 +1,63 @@
+= OLS Documentation
+:doctype: book
+:toc: left
+:toc-title: OLS API
+:sectanchors:
+:sectlinks:
+:toclevels: 4
+:source-highlighter: highlightjs
+
+
+
+== Misson statement
+The OLS aims to be a comprehensive collection of biomedical ontologies for the life sciences.
+
+== Description of the service
+The Ontology Lookup Service (OLS) is a repository for bioinformatic ontologies that aims to provide a single point of access to the latest ontology versions. The user can browse the ontologies through the website as well as programmatically through the API. The new version of the OLS, which you are browsing at the moment, is meant to replace the old version that was online for nearly 10 years. To see a more detailed timeline of the transition and how to migrate for the old version to the new OLS,  please check the roadmap (http://www.ebi.ac.uk/ols/beta/roadmap.html).
+
+== How to use the website
+There are two main ways of browsing the OLS:
+Browse by ontology: By clicking on the ontology on the main page. The user enters the ontology on top level and is able to browse through the tree view to lower levels
+Search by term: Use the search box to enter the term that you are looking for. The provided results show all ontologies where the term was found. By using the advanced search the user can further restrict the results to one or multiple ontologies or to a specific 'type'. Types can be class, property or individual.
+Using the advanced search you can restrict searches to one or more ontology
+
+No matter what way of browsing an ontology you choose, your search leads you to the view of a term
+
+== Resources
+* Information about the API access to our services can be found at (http://www.ebi.ac.uk/ols/beta/docs/api)
+* You can obtain the source code at https://github.com/EBISPOT/OLS
+* Details on how to build a local OLS can be found here < create a doc for this >
+* You can use OLS to build standalone SOLR or Neo4J indexes. For information about the OLS SORL and Neo4J schema see the following documents
+** How to build a SOLR index for an ontology
+** How to build a Neo4J index for an ontology
+* Links to different OLS widgets (coming soon)
+
+== Contact
+* For feedback, enquiries or suggestion about OLS or to request a new ontology please contact ols-support
+* For bugs or problems with the code or API please create a GitHub issue (https://github.com/EBISPOT/OLS)
+
+== License
+Apache version 2.0 (link to license in github). See also EBI term of use http://www.ebi.ac.uk/about/terms-of-use
+
+== FAQ
+
+* How can I ask for a certain ontology to be included in OLS? +
+Open a github issue
+* What ontology formats does OLS support? +
+OBO and OWL 2
+* What reasoners are supported by OLS? +
+Hermit and ELK
+* How does OLS handle OWL imports? +
+* How often does OLS check for updates in external ontology files? +
+OLS updates nightly to always provide the latest ontology versions
+* How can I use OLS in my own applications? +
+The use of OLS for applications is widely supported by the API, which allows you to retrieve exactly the data you need. Check the API section for more information. In addition, some specific functionality (graphview, treeview, autocomplete) of OLS is available as stand alone widget and can be easily integrated into other websites.
+* What is the Neo4J schema? +
+As described in the official Neo4J documentation (http://neo4j.com/docs/stable/cypher-schema.html): “Neo4j 2.0 introduced an optional schema for the graph, based around the concept of labels. Labels are used in the specification of indexes, and for defining constraints on the graph. Together, indexes and constraints are the schema of the graph”
+* What is the SOLR schema? +
+* How can I build a local version of OLS? ? +
+Look at the same link as mentioned in the resource part?
+* How can I build a standalone SOLR server for an ontology?
+* How can I build a standalone Neo4J server for an ontology?
+* How can I ask anything else? Use github or ols-support
+* How is OLS different from other ontology repositories such as BioPortal and OntoBee?

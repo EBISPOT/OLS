@@ -58,6 +58,10 @@ th {
   vertical-align: middle;
 }
 
+.ontology-source:hover {
+  box-shadow: 5px 5px 2px #888888;
+}
+
 .loaded{
   background-color: #00bf00;
   padding:2px;
@@ -711,6 +715,7 @@ a:hover.nounderline {
 }
 .tab-content > .active {
   display: block;
+  overflow-x: auto;
 }
 .nav-tabs .dropdown-menu {
   margin-top: -1px;
