@@ -1,5 +1,6 @@
-# OLS-NEO4J
-This module is a spring boot application for creating a Neo4j index for a given ontology. 
+== OLS-NEO4J
+
+This module builds an app for creating a standalone Neo4J index for one or more ontologies.
 
 This application will build an embedded neo4j database (currently version 2.2.2)
 
@@ -12,7 +13,19 @@ java -Xmx2g -jar -Dspring.profiles.active=uberon ols-apps/ols-neo4j-app/target/o
 By default this will create a neo4j database in ~/.ols/neo4j. You can overide the location of the neo4j database by supplying the -Dols.home=<path to neo4j database> property. If you want to runa  local neo4j server that uses this database set the
 org.neo4j.server.database.location=<ols home>/neo4j property in the neo4j conf/neo4j-server.properties file. 
 
-The config for application-uberon.properties would include:
+Once the Neo4J database has been created you can connect a Neo4J server to this database so you can use the Neo4J interface to query and explore the data.
+
+1. Download Neo4J (version 2.2+) from the Neo4J website http://neo4j.com
+2. Edit the conf/neo4j-server.properties file to point at the neoj directory built previously
+
+```
+e.g. org.neo4j.server.database.location =~/.ols/neo4j
+```
+3. Start neo4j using 'bin/neo4j start' anbd open your browser to http://localhost:7474
+
+== An example ontology configuration file
+
+application-uberon.properties would include:
 
 ```
 # The ontology URI

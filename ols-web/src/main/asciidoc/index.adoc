@@ -1,12 +1,11 @@
 = OLS Documentation
 :doctype: book
 :toc: left
-:toc-title: OLS API
+:toc-title: OLS Documentation
 :sectanchors:
 :sectlinks:
 :toclevels: 4
 :source-highlighter: highlightjs
-
 
 
 == Misson statement
@@ -23,15 +22,6 @@ Using the advanced search you can restrict searches to one or more ontology
 
 No matter what way of browsing an ontology you choose, your search leads you to the view of a term
 
-== Resources
-* Information about the API access to our services can be found at (http://www.ebi.ac.uk/ols/beta/docs/api)
-* You can obtain the source code at https://github.com/EBISPOT/OLS
-* Details on how to build a local OLS can be found here < create a doc for this >
-* You can use OLS to build standalone SOLR or Neo4J indexes. For information about the OLS SORL and Neo4J schema see the following documents
-** How to build a SOLR index for an ontology
-** How to build a Neo4J index for an ontology
-* Links to different OLS widgets (coming soon)
-
 == Contact
 * For feedback, enquiries or suggestion about OLS or to request a new ontology please contact ols-support
 * For bugs or problems with the code or API please create a GitHub issue (https://github.com/EBISPOT/OLS)
@@ -39,25 +29,52 @@ No matter what way of browsing an ontology you choose, your search leads you to 
 == License
 Apache version 2.0 (link to license in github). See also EBI term of use http://www.ebi.ac.uk/about/terms-of-use
 
+== Resources
+
+=== OLS source code
+
+* You can obtain the source code at https://github.com/EBISPOT/OLS
+
+=== OLS REST API
+* Information about the API access to our services can be found at (http://www.ebi.ac.uk/ols/beta/docs/api)
+
+=== OLS javascript widgets
+* Links to different OLS widgets (coming soon)
+
+=== Local OLS installation
+* Details on how to build a local OLS can be found link:../docs/installation-guide[here]
+
+=== Neo4J schema
+
+* link:../docs/neo4j-schema[Description of the OLS Neo4J schema]
+* link:https://github.com/EBISPOT/OLS/tree/master/ols-apps/ols-neo4j-app[How to build a standalone Neo4J index for an ontology]
+
+=== SOLR schema
+* link:solr-schema[Description of the OLS SOLR schema]
+* link:https://github.com/EBISPOT/OLS/tree/master/ols-apps/ols-solr-app[How to build a standalone SOLR index for an ontology]
+
+
 == FAQ
 
 * How can I ask for a certain ontology to be included in OLS? +
-Open a github issue
+e-mail ols-support@ebi.ac.uk or open a github issue
 * What ontology formats does OLS support? +
 OBO and OWL 2
 * What reasoners are supported by OLS? +
 Hermit and ELK
 * How does OLS handle OWL imports? +
+OWL imports are respects so any impoprted files will be indexes as part of the ontology. If any import fails these will be ignored
 * How often does OLS check for updates in external ontology files? +
 OLS updates nightly to always provide the latest ontology versions
 * How can I use OLS in my own applications? +
 The use of OLS for applications is widely supported by the API, which allows you to retrieve exactly the data you need. Check the API section for more information. In addition, some specific functionality (graphview, treeview, autocomplete) of OLS is available as stand alone widget and can be easily integrated into other websites.
 * What is the Neo4J schema? +
-As described in the official Neo4J documentation (http://neo4j.com/docs/stable/cypher-schema.html): “Neo4j 2.0 introduced an optional schema for the graph, based around the concept of labels. Labels are used in the specification of indexes, and for defining constraints on the graph. Together, indexes and constraints are the schema of the graph”
+See the OLS schema documentation here
 * What is the SOLR schema? +
+See the OLS schema documentation here
 * How can I build a local version of OLS? ? +
-Look at the same link as mentioned in the resource part?
-* How can I build a standalone SOLR server for an ontology?
-* How can I build a standalone Neo4J server for an ontology?
-* How can I ask anything else? Use github or ols-support
-* How is OLS different from other ontology repositories such as BioPortal and OntoBee?
+See the documentation here
+* How can I build a standalone SOLR server for an ontology? +
+See the documentation here
+* How can I build a standalone Neo4J server for an ontology? +
+See the documentation here

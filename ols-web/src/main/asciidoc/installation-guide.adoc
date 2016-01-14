@@ -1,7 +1,7 @@
 = Build a local Version of OLS
 :doctype: book
 :toc: left
-:toc-title: OLS API
+:toc-title: OLS Installation
 :sectanchors:
 :sectlinks:
 :toclevels: 4

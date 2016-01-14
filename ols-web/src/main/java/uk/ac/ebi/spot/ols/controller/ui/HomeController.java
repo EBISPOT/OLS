@@ -15,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import uk.ac.ebi.spot.ols.indexer.OntologySolrRepository;
@@ -125,15 +126,21 @@ public class HomeController {
     }
 
     @RequestMapping({"docs"})
-    public String showDocs() {
-        return "comingsoon";
+    public String showDocsIndex() {
+        return "forward:docs/index";
+    }
+    @RequestMapping({"docs/{page}"})
+    public String showDocs(@PathVariable("page") String pageName, Model model) {
+        model.addAttribute("page", pageName);
+
+        return "docs-template";
     }
 
-    @RequestMapping({"docs/api"})
-    public String showApiDocs() {
-
-        return "forward:../docs/api-template.html";
-    }
+//    @RequestMapping({"docs/api"})
+//    public String showApiDocs() {
+//
+//        return "forward:../docs/api-template.html";
+//    }
 
     private class SummaryInfo {
         Date lastUpdated;
