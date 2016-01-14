@@ -280,7 +280,7 @@
                                     <b>Last loaded: </b> <span th:text="${ontologyDocument.getLoaded()}">NCBI_9606</span>
                                 </div>
                                 <div th:if="${ontologyDocument.getConfig().getMailingList() != null}">
-                                    <b>Mailing list: </b> <span th:text="${ontologyDocument.getConfig().getMailingList()}">NCBI:9606</span>
+                                    <b>Contact E-mail: </b> <span th:text="${ontologyDocument.getConfig().getMailingList()}">NCBI:9606</span>
                                 </div>
                                 <div th:each="creator : ${ontologyDocument.getConfig().getCreators()}">
                                     <b>Creator: </b> <span th:text="${creator}">NCBI:9606</span>

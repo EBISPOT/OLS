@@ -106,6 +106,7 @@ public class YamlLoader implements CommandLineRunner {
             return new FileSystemResource(path);
         }
     }
+
     public void updateDocument(YamlConfigParser yamlConfigParser) throws IOException {
 
         for (YamlBasedLoadingService loadingService : yamlConfigParser.getDocumentLoadingServices()) {
@@ -128,6 +129,7 @@ public class YamlLoader implements CommandLineRunner {
                     // if location has changed, update the info
                     if (!mongoOntologyDocument.getConfig().getFileLocation().equals(ontologyResourceConfig.getFileLocation())) {
                         getLog().info("Location of " + ontologyResourceConfig.getNamespace() + " changed from " + mongoOntologyDocument.getConfig().getFileLocation() + " to " + ontologyResourceConfig.getFileLocation());
+                        mongoOntologyDocument.getConfig().setFileLocation(ontologyResourceConfig.getFileLocation());
                         mongoOntologyDocument.setStatus(Status.TOLOAD);
                     }
                     if (dontClassifySet.contains(mongoOntologyDocument.getOntologyId())) {

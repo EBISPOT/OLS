@@ -11,6 +11,9 @@ import java.util.*;
  * @author Simon Jupp
  * @date 09/07/2015
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
+ *
+ * Creates an Ontology configuration from a configuration define in Yaml
+ *
  */
 public class YamlBasedLoadingService extends AbstractLoadingService {
 
@@ -52,10 +55,8 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
 
         String productId = null;
 
-
-
         if (products == null) {
-            getLog().warn("No product defined in OBO Yaml for " + id);
+           getLog().warn("No product defined in OBO Yaml for " + id);
            productId = id + ".owl";
         }
         else {

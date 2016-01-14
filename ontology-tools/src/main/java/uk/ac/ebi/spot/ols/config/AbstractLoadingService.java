@@ -10,6 +10,9 @@ import uk.ac.ebi.spot.ols.loader.*;
  * @author Simon Jupp
  * @date 09/07/2015
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
+ *
+ * Abstract loading service that creates an ontology loader given an Ontology configuration document (OntologyResourceLoader)
+ *
  */
 public abstract class AbstractLoadingService implements DocumentLoadingService {
 
