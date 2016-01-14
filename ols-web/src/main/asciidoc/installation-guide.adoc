@@ -13,7 +13,7 @@ The OLS (http://www.ebi.ac.uk/ols ) aims to be a comprehensive collection of bio
 
 
 == Premise: Software requirements
-In order to be able to run OLS, there are some Software requirements that have to be fulfilled and therefore installed locally. There are obviously multiple ways to install the relevant software and of course the exact way depends majorly on the OS you use. For Mac OS one way to go is homebrew.
+In order to be able to run OLS, there are some Software requirements that have to be fulfilled and therefore installed locally. There are multiple ways to install the relevant software and of course the exact way depends on the OS you use. For Mac OS one way to go is homebrew.
 
 |=======
 | *Software* | *Description* | *Installation with homebrew (OS X)*
@@ -37,34 +37,34 @@ Example configuration file:
 ## EFO +
 # * are required fields
 
-*id:* efo  # short unique id for the ontology * +
-*preferredPrefix:* EFO  # preferred display name for the ontology +
-*title:* Experimental Factor Ontology  # Short title of the ontology +
-*uri:* http://www.ebi.ac.uk/efo  # The ontology URI *
-*description:* "The Experimental Factor Ontology (EFO) provides a..." # Full ontology description +
-*ontology_purl:* http://www.ebi.ac.uk/efo/efo.owl # URL to get the ontology from * +
-*homepage:* http://www.ebi.ac.uk/efo  # homepage of the ontology +
-*mailing_list:* efo-users@lists.sourceforge.net  # assocaited mailing list +
-*definition_property:* # predicates that are used for term definitions +
-    - http://www.ebi.ac.uk/efo/definition +
-*synonym_property:* # prediates used for synonyms +
-    - http://www.ebi.ac.uk/efo/alternative_term +
-*hierarchical_property:* # predicates that are hierarchical (like part of) will be included in default tree view +
-     - http://purl.obolibrary.org/obo/BFO_0000050 +
-     - http://purl.obolibrary.org/obo/RO_0002202 +
-*hidden_property:* # any predicates that should be ignored when indexing +
-     - http://www.ebi.ac.uk/efo/has_flag +
-*base_uri:* # base URIs for local terms +
-     - http://www.ebi.ac.uk/efo/EFO_ +
-*classify:* true # if true will be classified with a a DL reasoner (HermiT) +
-*isInferred:* false # if true no reasoner will be used +
-*oboSlims:* false # contains OBO style slim annotations +
+*id:* efo  // short unique id for the ontology * +
+*preferredPrefix:* EFO	// preferred display name for the ontology +
+*title:* Experimental Factor Ontology // Short title of the ontology +
+*uri:* http://www.ebi.ac.uk/efo // The ontology URI *
+*description:* "The Experimental Factor Ontology (EFO) provides a..." // Full ontology description +
+*ontology_purl:* http://www.ebi.ac.uk/efo/efo.owl  // URL to get the ontology from * +
+*homepage:* http://www.ebi.ac.uk/efo  // homepage of the ontology +
+*mailing_list:* efo-users@lists.sourceforge.net // assocaited mailing list +
+*definition_property:* // predicates that are used for term definitions +
+    -- http://www.ebi.ac.uk/efo/definition +
+*synonym_property:* // prediates used for synonyms +
+    -- http://www.ebi.ac.uk/efo/alternative_term +
+*hierarchical_property:* // predicates that are hierarchical (like part of) will be included in default tree view +
+     -- http://purl.obolibrary.org/obo/BFO_0000050 +
+     -- http://purl.obolibrary.org/obo/RO_0002202 +
+*hidden_property:* // any predicates that should be ignored when indexing +
+     -- http://www.ebi.ac.uk/efo/has_flag +
+*base_uri:* // base URIs for local terms +
+     -- http://www.ebi.ac.uk/efo/EFO_ +
+*classify:* true // if true will be classified with a a DL reasoner (HermiT) +
+*isInferred:* false // if true no reasoner will be used +
+*oboSlims:* false   // contains OBO style slim annotations +
 **********************
 
 OLS is also able to import Yaml files following the OBO foundry specification. By default it will load the OBO config from the classpath. If you don't want the OBO ontologies delete or rename the obo-config.yaml file. You may also need to comment out the property from the `git/OLS/ols-apps/ols-config-importer/src/main/resources/application.properties` file (`ols.obofoundry.ontology.config`)
 https://raw.githubusercontent.com/OBOFoundry/OBOFoundry.github.io/master/_config.yml
 
-By default OLS will classify ontologies with an EL reasoner (ELK) before indexing. To force an ontology to not be classified at all (some big ontologies require this) there is an option to include a list of ontologies to not classify in the application.properties file e.g.
+By default OLS will classify ontologies with an EL reasoner (ELK) before indexing. To force an ontology to not be classified at all (some big ontologies require this) there is an option to include a list of ontologies not to be classified in the application.properties file e.g.
 `ols.obofoundry.dontclassify ncbitaxon,gaz`
 
 NOTE: We recognise the configuration around classifying ontologies is a bit convoluted, we are going to change this soon to make things more explicit.
@@ -80,7 +80,7 @@ After a successful build process, this should create target folders.
 
 == Initializing OLS (Loading and indexing resources/ontologies)
 === Loading the configuration files into MongoDB
-In order to be able to load and index data in OLS, the MongoDB as well as Solr has to be available, so they have to be up and running. In contrast to that, the local tomcat server has to be down before running the `ols-indexer.jar`
+In order to be able to load and index data in OLS, the MongoDB as well as Solr have to be available, so they need to be up and running. In contrast to that, the local tomcat server has to be down before running the `ols-indexer.jar`
 
 OLS uses mongodb to persist ontology configuration. To load the ontology configuration into your mongodb database, first make sure your mongo database is running.
 
@@ -104,10 +104,10 @@ spring.data.mongodb.username= # Login user of the mongo server.
 
 At this point the config should be loaded into your mongo db database called ols and a document collection called olsadmin.
 
-If you need to update any config or reload the config simply re-run the config-loader.jar as required.
+If you need to update any config or reload the config, simply re-run the config-loader.jar as required.
 
 === Building the Neo4J and SOLR indexes
-OLS provide a single application for indexing ontologies. When run this program does a few things:
+OLS provides a single application for indexing ontologies. When run this program does a few things:
 
 ---
 
@@ -119,7 +119,7 @@ b. If this is run a subsequent time it will check the latest download to the las
 
 ---
 
-For this to work you need to make sure your Mongo and SOLR server is running. You don't need a Neo4J server as OLS uses an embedded Neo4J database. If you already have a tomcat server running with OLS deployed and it is using the same index files as SOLR and Neo4J, it is advisable to shutdown the tomcat before running this script.
+For this to work you need to make sure your Mongo and SOLR servers are running. You don't need a Neo4J server as OLS uses an embedded Neo4J database. If you already have a tomcat server running with OLS deployed and it is using the same index files as SOLR and Neo4J, it is advised to shutdown the tomcat before running this script.
 
 To invoke the indexer process you can run the file ols-loading-app.jar (`java -jar ols-loading-app.jar`) in the folder OLS/ols-apps/ols-loading-app/target.
 
@@ -140,9 +140,9 @@ ols.solr.core ontology
 #Mongo DB properties same as above
 ----------------
 
-By default OLS will use ~/.ols as the working directory for OLS where files will be downloaded and Neo4J indexes are created. You can override this by setting the OLS_HOME environment variable to a custom directory. You can also override this by passing the ``-Dols.home=` argument to any of the scripts.
+By default OLS will use ~/.ols as the working directory for OLS where files will be downloaded and Neo4J indexes will be created. You can override this by setting the $OLS_HOME environment variable to a custom directory. You can also override this by passing the ``-Dols.home=` argument to any of the scripts.
 
-Providing this script has run successfully you can rerun this script to update the OLS indexes. Each time you run it will fetch the latest ontologies and only index the ones that have changed. Remember to shut down the tomcat before running this app.
+Providing this script has run successfully, you can rerun this script to update the OLS indexes. Each time you run it it will fetch the latest ontologies and only index the ones that have changed. Remember to shut down the tomcat before running this app.
 
 
 == Deploying the app on local server
