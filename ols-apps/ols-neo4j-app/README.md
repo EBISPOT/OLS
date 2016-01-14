@@ -8,7 +8,9 @@ This application will build an embedded neo4j database (currently version 2.2.2)
 2. In the project root build the OLS application jars using: mvn clean package
 3. Assuming a properties file called application-uberon.properties you can run the application to build the index with: 
 
+```
 java -Xmx2g -jar -Dspring.profiles.active=uberon ols-apps/ols-neo4j-app/target/ols-neo4j-app.jar
+```
 
 By default this will create a neo4j database in ~/.ols/neo4j. You can overide the location of the neo4j database by supplying the -Dols.home=<path to neo4j database> property. If you want to runa  local neo4j server that uses this database set the
 org.neo4j.server.database.location=<ols home>/neo4j property in the neo4j conf/neo4j-server.properties file. 
