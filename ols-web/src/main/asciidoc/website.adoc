@@ -1,0 +1,14 @@
+== Misson statement
+The OLS aims to be a comprehensive collection of biomedical ontologies for the life sciences.
+
+== Description of the service
+The Ontology Lookup Service (OLS) is a repository for bioinformatic ontologies that aims to provide a single point of access to the latest ontology versions. The user can browse the ontologies through the website as well as programmatically through the API. The new version of the OLS, which you are browsing at the moment, is meant to replace the old version that was online for nearly 10 years. To see a more detailed timeline of the transition and how to migrate for the old version to the new OLS,  please check the roadmap (http://www.ebi.ac.uk/ols/beta/roadmap.html).
+
+== How to use the website
+There are two main ways of browsing the OLS:
+Browse by ontology: By clicking on the ontology on the main page. The user enters the ontology on top level and is able to browse through the tree view to lower levels
+Search by term: Use the search box to enter the term that you are looking for. The provided results show all ontologies where the term was found. By using the advanced search the user can further restrict the results to one or multiple ontologies or to a specific 'type'. Types can be class, property or individual.
+Using the advanced search you can restrict searches to one or more ontology
+
+No matter what way of browsing an ontology you choose, your search leads you to the view of a term
+

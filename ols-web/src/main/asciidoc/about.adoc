@@ -1,0 +1,34 @@
+
+== About OLS
+OLS is developed and maintained by the link:http://www.ebi.ac.uk/about/spot-team[Samples, Phenotypes and Ontologies Team] at EMBL-EBI.
+
+== Funding
+
+OLS is supported in part by CORBEL funded by the  EU's Horizon 2020 research and innovation programme (2014–2020) under grant agreement number 654248 and by DIACHRON, EU FP7 Capacities Specific Programme,/grant/agreement/number/284209.
+
+== Contact
+* For feedback, enquiries or suggestion about OLS or to request a new ontology please contact ols-support@ebi.ac.uk
+* For bugs or problems with the code or API please create a GitHub issue (https://github.com/EBISPOT/OLS)
+
+== License
+Apache version 2.0 (https://github.com/EBISPOT/OLS/blob/master/LICENSE). See also EBI term of use http://www.ebi.ac.uk/about/terms-of-use
+
+== Thanks
+
+OLS makes use of many public and freely available software resources - we would like to thank them all for their continued support.
+
+* link:https://spring.io[Spring]: application framework
+* link:http://owlapi.sourceforge.net[OWL API] : Java OWL API
+* link:http://www.hermit-reasoner.com[HermiT]: OWL reasoner
+* https://www.cs.ox.ac.uk/isg/tools/ELK/[Elk]: OWL reasoner
+* link:http://neo4j.com[Neo4j]: Graph database
+* link:http://lucene.apache.org/solr/[Solr]: Search server
+* link:https://www.mongodb.org[MongoDB]: Document store
+* link:http://virtuoso.openlinksw.com[OpenLink Virtuoso]: RDF triple store provider for SPARQL endpoint
+* link:http://tomcat.apache.org[Apache Tomcat]: Web server
+* link:https://maven.apache.org[Apache Maven]: Software library dependency management
+* link:https://github.com[GitHub]: - source code hosting
+* link:https://www.atlassian.com/software/bamboo/[Bamboo]: Continuous integration, continuous deployment and release management.
+* link:https://www.atlassian.com/software/fisheye/[Fisheye]: Browse, search and track your source code repositories.
+* link:https://www.jetbrains.com/idea/[IntelliJ IDEA] is the full-featured commercial IDE — with a complete set of tools and integrations with the most important modern technologies and frameworks, such as Spring and Hibernate — a must-have for effective Web and Java EE development.
+

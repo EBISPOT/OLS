@@ -122,7 +122,7 @@ public class HomeController {
     }
     @RequestMapping({"about"})
     public String showAbout() {
-        return "about";
+        return "redirect:docs/about";
     }
 
     @RequestMapping({"docs"})
