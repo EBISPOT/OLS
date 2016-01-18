@@ -268,7 +268,7 @@ public class ApiDocumentation {
                         linkWithRel("children").description("Link to the direct children resources for this term"),
                         linkWithRel("descendants").description("Link to all child resources for this term"),
                         linkWithRel("jstree").description("A JSON tree structure of the term hierarchy"),
-                        linkWithRel("graph").description("A JSON grpah structure of the immediately related nodes")));
+                        linkWithRel("graph").description("A JSON graph structure of the immediately related nodes")));
 
 
         this.mockMvc.perform(get("/api/ontologies/{ontology}/terms/{iri}", "go", URLEncoder.encode("http://purl.obolibrary.org/obo/GO_0043226", "UTF-8")).accept(MediaType.APPLICATION_JSON))
