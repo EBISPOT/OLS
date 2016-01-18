@@ -101,41 +101,6 @@ public class YamlBasedLoadingServiceTest extends TestCase {
         }
     }
 
-    @Test
-    public void testBase2 () {
-
-        LinkedHashMap productMap =  new LinkedHashMap<>();
-        productMap.put("id", "bar.owl");
-        productMap.put("is_canonical", true);
-        List products = new ArrayList();
-        products.add(productMap);
-        ontology.put("products", products);
-
-        yamlBasedLoadingService = new YamlBasedLoadingService(ontology, "http://foobar.com/", false);
-        try {
-            assertEquals("http://foobar.com/bar.owl", yamlBasedLoadingService.getConfiguration().getId());
-        } catch (ConfigParsingException e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void testBase3 () {
-
-        LinkedHashMap productMap =  new LinkedHashMap<>();
-        productMap.put("id", "foobar.owl");
-        productMap.put("is_canonical", false);
-        List products = new ArrayList();
-        products.add(productMap);
-        ontology.put("products", products);
-
-        yamlBasedLoadingService = new YamlBasedLoadingService(ontology, "http://foobar.com/", false);
-        try {
-            assertEquals("http://foobar.com/foobar.owl", yamlBasedLoadingService.getConfiguration().getId());
-        } catch (ConfigParsingException e) {
-            fail();
-        }
-    }
 
     public void testLocation () {
 
@@ -149,41 +114,6 @@ public class YamlBasedLoadingServiceTest extends TestCase {
         }
     }
 
-    @Test
-    public void testLocation1 () {
-
-        LinkedHashMap productMap =  new LinkedHashMap<>();
-        productMap.put("id", "http://foobar.com/location/foobar.owl");
-        productMap.put("is_canonical", false);
-        List products = new ArrayList();
-        products.add(productMap);
-        ontology.put("products", products);
-
-        yamlBasedLoadingService = new YamlBasedLoadingService(ontology, null,  false);
-        try {
-            assertEquals("http://foobar.com/location/foobar.owl", yamlBasedLoadingService.getConfiguration().getFileLocation().toString());
-        } catch (ConfigParsingException e) {
-            fail();
-        }
-    }
-
-    @Test
-    public void testLocation2 () {
-
-        LinkedHashMap productMap =  new LinkedHashMap<>();
-        productMap.put("id", "foobar.owl");
-        productMap.put("is_canonical", false);
-        List products = new ArrayList();
-        products.add(productMap);
-        ontology.put("products", products);
-
-        yamlBasedLoadingService = new YamlBasedLoadingService(ontology, "http://foobar.com/",  false);
-        try {
-            assertEquals("http://foobar.com/foobar.owl", yamlBasedLoadingService.getConfiguration().getFileLocation().toString());
-        } catch (ConfigParsingException e) {
-            fail();
-        }
-    }
 
     @Test
     public void testDefinition () {

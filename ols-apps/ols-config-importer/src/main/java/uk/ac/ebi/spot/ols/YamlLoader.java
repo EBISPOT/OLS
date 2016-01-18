@@ -21,6 +21,7 @@ import uk.ac.ebi.spot.ols.exception.ConfigParsingException;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
 import uk.ac.ebi.spot.ols.model.Status;
 import uk.ac.ebi.spot.ols.service.OntologyRepositoryService;
+import uk.ac.ebi.spot.ols.util.ReasonerType;
 
 import java.io.File;
 import java.io.IOException;
@@ -119,7 +120,7 @@ public class YamlLoader implements CommandLineRunner {
                     ontologyDocument.setStatus(Status.TOLOAD);
 
                     if (dontClassifySet.contains(ontologyDocument.getOntologyId())) {
-                        ontologyDocument.getConfig().setIsInferred(true);
+                        ontologyDocument.getConfig().setReasonerType(ReasonerType.NONE);
                     }
 
                     ontologyRepositoryService.create(ontologyDocument);
@@ -133,7 +134,7 @@ public class YamlLoader implements CommandLineRunner {
                         mongoOntologyDocument.setStatus(Status.TOLOAD);
                     }
                     if (dontClassifySet.contains(mongoOntologyDocument.getOntologyId())) {
-                        mongoOntologyDocument.getConfig().setIsInferred(true);
+                        mongoOntologyDocument.getConfig().setReasonerType(ReasonerType.NONE);
                     }
                     // todo validation and check for breaking changes
                     ontologyRepositoryService.update(mongoOntologyDocument);

@@ -1,7 +1,7 @@
 package uk.ac.ebi.spot.ols.config;
 
 
-import uk.ac.ebi.spot.ols.util.DLExpressivity;
+import uk.ac.ebi.spot.ols.util.ReasonerType;
 
 import java.net.URI;
 import java.util.Collection;
@@ -15,8 +15,10 @@ import java.util.Map;
  */
 public class OntologyResourceConfig  {
 
-    // ontology URI
+    // ontology IRI
     private  String id;
+    // ontology version IRI
+    private  String versionIri;
     private  String title;
     private  String namespace;
     private  String preferredPrefix;
@@ -29,9 +31,8 @@ public class OntologyResourceConfig  {
     private Map<String, Collection<String>> annotations;
 
     private  URI fileLocation;
-    private  boolean isInferred;
-    private  boolean classify;
-    private  DLExpressivity expressivity;
+
+    private ReasonerType reasonerType;
     private  boolean oboSlims;
     private  URI labelProperty;
     private  Collection<URI> definitionProperties;
@@ -41,8 +42,12 @@ public class OntologyResourceConfig  {
     private  Collection<URI> hiddenProperties;
     private boolean isSkos;
 
-    public OntologyResourceConfig(String id, String title, String namespace, String preferredPrefix, String description, String homepage, String mailingList, Collection<String> creators, Map<String, Collection<String>> annotations, URI fileLocation, boolean isInferred, boolean classify, DLExpressivity expressivity, boolean oboSlims, URI labelProperty, Collection<URI> definitionProperties, Collection<URI> synonymProperties, Collection<URI> hierarchicalProperties, Collection<String> baseUris, Collection<URI> hiddenProperties, boolean isSkos) {
+    // these are any metadata properties for the ontology, such as title or definition that are included in the ontology as OWL ontology annotation
+    private Collection<String> internalMetadataProperties;
+
+    public OntologyResourceConfig(String id, String versionIri, String title, String namespace, String preferredPrefix, String description, String homepage, String mailingList, Collection<String> creators, Map<String, Collection<String>> annotations, URI fileLocation, ReasonerType reasonerType, boolean oboSlims, URI labelProperty, Collection<URI> definitionProperties, Collection<URI> synonymProperties, Collection<URI> hierarchicalProperties, Collection<String> baseUris, Collection<URI> hiddenProperties, boolean isSkos, Collection<String> internalMetadataProperties) {
         this.id = id;
+        this.versionIri = versionIri;
         this.title = title;
         this.namespace = namespace;
         this.preferredPrefix = preferredPrefix;
@@ -52,9 +57,7 @@ public class OntologyResourceConfig  {
         this.creators = creators;
         this.annotations = annotations;
         this.fileLocation = fileLocation;
-        this.isInferred = isInferred;
-        this.classify = classify;
-        this.expressivity = expressivity;
+        this.reasonerType = reasonerType;
         this.oboSlims = oboSlims;
         this.labelProperty = labelProperty;
         this.definitionProperties = definitionProperties;
@@ -63,16 +66,17 @@ public class OntologyResourceConfig  {
         this.baseUris = baseUris;
         this.hiddenProperties = hiddenProperties;
         this.isSkos = isSkos;
+        this.internalMetadataProperties = internalMetadataProperties;
     }
 
-//    public OntologyResourceConfig(String id, String title, String namespace, String preferredPrefix, URI fileLocation, boolean isInferred, boolean classify, DLExpressivity expressivity, boolean oboSlims, URI labelProperty, Collection<URI> definitionProperties, Collection<URI> synonymProperties, Collection<URI> hierarchicalProperties, Collection<String> baseUris, Collection<URI> hiddenProperties, boolean isSkos) {
+//    public OntologyResourceConfig(String id, String title, String namespace, String preferredPrefix, URI fileLocation, boolean isInferred, boolean classify, DLExpressivity reasonerType, boolean oboSlims, URI labelProperty, Collection<URI> definitionProperties, Collection<URI> synonymProperties, Collection<URI> hierarchicalProperties, Collection<String> baseUris, Collection<URI> hiddenProperties, boolean isSkos) {
 //        this.id = id;
 //        this.title = title;
 //        this.namespace = namespace.toLowerCase();
 //        this.fileLocation = fileLocation;
 //        this.isInferred = isInferred;
 //        this.classify = classify;
-//        this.expressivity = expressivity;
+//        this.reasonerType = reasonerType;
 //        this.oboSlims = oboSlims;
 //        this.labelProperty = labelProperty;
 //        this.definitionProperties = definitionProperties;
@@ -89,13 +93,12 @@ public class OntologyResourceConfig  {
 
     private OntologyResourceConfig(OntologyResourceConfigBuilder builder) {
         this.id = builder.id;
+        this.versionIri = builder.versionIri;
         this.title = builder.title;
         this.namespace = builder.namespace;
         this.preferredPrefix = builder.preferredPrefix;
         this.fileLocation = builder.fileLocation;
-        this.isInferred = builder.isInferred;
-        this.classify = builder.classify;
-        this.expressivity = builder.expressivity;
+        this.reasonerType = builder.reasonerType;
         this.oboSlims = builder.oboSlims;
         this.labelProperty = builder.labelProperty;
         this.synonymProperties = builder.synonymProperties;
@@ -111,11 +114,16 @@ public class OntologyResourceConfig  {
         this.mailingList = builder.mailingList;
         this.creators = builder.creators;
         this.annotations = builder.annotations;
+        this.internalMetadataProperties = builder.internalMetadatProperties;
     }
 
     public String getId() {
         return id;
     }
+
+    public String getVersionIri() {
+            return versionIri;
+        }
 
     public String getTitle() {
         return title;
@@ -140,16 +148,8 @@ public class OntologyResourceConfig  {
         return fileLocation;
     }
 
-    public boolean isInferred() {
-        return isInferred;
-    }
-
-    public boolean isClassify() {
-        return classify;
-    }
-
-    public DLExpressivity getExpressivity() {
-        return expressivity;
+    public ReasonerType getReasonerType() {
+        return reasonerType;
     }
 
     public boolean isOboSlims() {
@@ -209,10 +209,6 @@ public class OntologyResourceConfig  {
         return annotations;
     }
 
-    public void setIsInferred(boolean isInferred) {
-        this.isInferred = isInferred;
-    }
-
     public void setFileLocation(URI fileLocation) {
         this.fileLocation = fileLocation;
     }
@@ -237,6 +233,10 @@ public class OntologyResourceConfig  {
         this.annotations = annotations;
     }
 
+    public void setReasonerType(ReasonerType reasonerType) {
+        this.reasonerType = reasonerType;
+    }
+
     public void setCreators(Collection<String> creators) {
         this.creators = creators;
     }
@@ -245,16 +245,27 @@ public class OntologyResourceConfig  {
         this.version = version;
     }
 
+    public void setVersionIri(String versionIri) {
+        this.versionIri = versionIri;
+    }
+
+    public Collection<String> getInternalMetadataProperties() {
+        return internalMetadataProperties;
+    }
+
+    public void setInternalMetadataProperties(Collection<String> internalMetadataProperties) {
+        this.internalMetadataProperties = internalMetadataProperties;
+    }
+
     public static class OntologyResourceConfigBuilder {
         private  String id;
+        private  String versionIri;
         private  String title;
         private  String namespace;
         private String preferredPrefix;
         private  URI fileLocation;
-        private  boolean isInferred = true;
-        private  boolean classify = false;
         private  boolean isSkos = false;
-        private  DLExpressivity expressivity = DLExpressivity.UNKNOWN;
+        private ReasonerType reasonerType = ReasonerType.NONE;
         private  boolean oboSlims = false;
         private  URI labelProperty = URI.create(OntologyDefaults.LABEL);
         private  Collection<URI> definitionProperties  = Collections.singleton(URI.create(OntologyDefaults.DEFINITION));
@@ -268,6 +279,7 @@ public class OntologyResourceConfig  {
         private String mailingList;
         private Collection<String> creators = Collections.emptySet();
         private Map<String, Collection<String>> annotations = Collections.emptyMap();
+        private Collection<String> internalMetadatProperties = Collections.emptySet();
 
         public OntologyResourceConfigBuilder(String id, String title, String namespace, URI fileLocation) {
             this.id = id;
@@ -279,6 +291,11 @@ public class OntologyResourceConfig  {
 
         public OntologyResourceConfigBuilder setId(String id) {
             this.id = id;
+            return this;
+        }
+
+        public OntologyResourceConfigBuilder setVersionIri(String versionIri) {
+            this.versionIri = versionIri;
             return this;
         }
 
@@ -307,23 +324,13 @@ public class OntologyResourceConfig  {
             return this;
         }
 
-        public OntologyResourceConfigBuilder setInferred(boolean isInferred) {
-            this.isInferred = isInferred;
-            return this;
-        }
-
-        public OntologyResourceConfigBuilder setClassify(boolean classify) {
-            this.classify = classify;
-            return this;
-        }
-
         public OntologyResourceConfigBuilder setIsSkos(boolean isSkos) {
             this.isSkos = isSkos;
             return this;
         }
 
-        public OntologyResourceConfigBuilder setExpressivity(DLExpressivity expressivity) {
-            this.expressivity = expressivity;
+        public OntologyResourceConfigBuilder setReasonerType(ReasonerType reasonerType) {
+            this.reasonerType = reasonerType;
             return this;
         }
 
@@ -362,11 +369,6 @@ public class OntologyResourceConfig  {
             return this;
         }
 
-        public OntologyResourceConfigBuilder setIsInferred(boolean isInferred) {
-            this.isInferred = isInferred;
-            return this;
-        }
-
         public OntologyResourceConfigBuilder setDescription(String description) {
             this.description = description;
             return this;
@@ -389,6 +391,11 @@ public class OntologyResourceConfig  {
 
         public OntologyResourceConfigBuilder setAnnotations(Map<String, Collection<String>> annotations) {
             this.annotations = annotations;
+            return this;
+        }
+
+        public OntologyResourceConfigBuilder setInternalMetadatProperties(Collection<String> internalMetadatProperties) {
+            this.internalMetadatProperties = internalMetadatProperties;
             return this;
         }
 

@@ -5,11 +5,11 @@ package uk.ac.ebi.spot.ols.util;
  * @date 29/01/2015
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
-public enum DLExpressivity {
+public enum ReasonerType {
     // requires aa full OWL2 reasoner
     OWL2,
     // requires an EL reasoner
     EL,
 
-    UNKNOWN
+    NONE
 }

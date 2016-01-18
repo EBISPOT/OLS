@@ -22,12 +22,9 @@ ontologies:
       - http://www.ebi.ac.uk/efo/has_flag
     base_uri:
       - http://www.ebi.ac.uk/efo/EFO_
-    isInferred: false
-    classify: true
+    reasoner: OWL2
     oboSlims: false
-    products:
-     - id: http://www.ebi.ac.uk/efo/efo.owl
-       type: owl:Ontology
+    ontology_purl : http://www.ebi.ac.uk/efo/efo.owl
 
 
 ## ORDO
@@ -49,12 +46,9 @@ ontologies:
       - http://purl.obolibrary.org/obo/BFO_0000050
     base_uri:
       - http://www.orpha.net/ORDO/Orphanet_
-    isInferred: false
-    classify: true
+    reasoner: OWL2
     oboSlims: false
-    products:
-     - id: http://www.orphadata.org/data/ORDO/ordo_orphanet.owl
-       type: owl:Ontology
+    ontology_purl : http://www.orphadata.org/data/ORDO/ordo_orphanet.owl
 
 ## TEDDY
 
@@ -69,12 +63,8 @@ ontologies:
       - http://www.w3.org/2004/02/skos/core#altLabel
     base_uri:
       - http://identifiers.org/teddy/TEDDY_
-    isInferred: true
-    classify: false
     oboSlims: false
-    products:
-     - id: http://www.biomodels.net/teddy/TEDDY
-       type: owl:Ontology
+    ontology_purl : http://www.biomodels.net/teddy/TEDDY
 
 ## EDAM
 
@@ -91,12 +81,8 @@ ontologies:
      - http://www.geneontology.org/formats/oboInOwl#hasExactSynonym
     base_uri:
       - http://edamontology.org/data_
-    isInferred: true
-    classify: false
     oboSlims: false
-    products:
-      - id: http://edamontology.org/EDAM.owl   ### This is the download URL
-        type: owl:Ontology
+    ontology_purl : http://edamontology.org/EDAM.owl   ### This is the download URL
 
 ## CCO
 
@@ -113,12 +99,8 @@ ontologies:
       - http://www.geneontology.org/formats/oboInOwl#hasExactSynonym
     base_uri:
       - http://purl.obolibrary.org/obo/CCO_
-    isInferred: true
-    classify: false
     oboSlims: true
-    products:
-      - id: http://www.nt.ntnu.no/users/mironov/ontology/CCO/cco.obo   ### This is the download URL
-        type: obo:Ontology
+    ontology_purl : http://www.nt.ntnu.no/users/mironov/ontology/CCO/cco.obo   ### This is the download URL
 
 ## CMPO
 
@@ -135,12 +117,9 @@ ontologies:
       - http://www.geneontology.org/formats/oboInOwl#hasExactSynonym
     base_uri:
       - http://www.ebi.ac.uk/cmpo/CMPO_
-    isInferred: true
-    classify: false
     oboSlims: true
-    products:
-      - id: http://www.ebi.ac.uk/cmpo/cmpo.owl   ### This is the download URL
-        type: obo:Ontology
+    reasoner: EL
+    ontology_purl : http://www.ebi.ac.uk/cmpo/cmpo.owl   ### This is the download URL
 
 ## eNanoMapper
 
@@ -169,9 +148,7 @@ ull domain of nanomaterial safety assessment. It re-uses several other ontologie
     isInferred: true
     classify: false
     oboSlims: false
-    products:
-      - id: http://purl.enanomapper.net/onto/enanomapper.owl
-        type: owl:Ontology
+    ontology_purl : http://purl.enanomapper.net/onto/enanomapper.owl
 
 ## ATOL
 
@@ -190,12 +167,8 @@ make the ATOL ontology as operational as possible and closely related to measure
       - "file:/C:/Lea/ontologies/versions%20ATOL/atol_v3.0.obo#synonymExact"
     base_uri:
       - http://purl.org/obo/owlATOL_
-    isInferred: true
-    classify: false
     oboSlims: false
-    products:
-      - id: http://www.atol-ontology.com/ontology/12092013/atol_v6.owl
-        type: owl:Ontology
+    ontology_purl : http://www.atol-ontology.com/ontology/12092013/atol_v6.owl
 
 ## ATOL
 
@@ -213,11 +186,7 @@ make the ATOL ontology as operational as possible and closely related to measure
     base_uri:
       - http://purl.org/obo/owlEOL_
     isInferred: true
-    classify: false
-    oboSlims: false
-    products:
-      - id: http://www.atol-ontology.com/ontology/20082013/eol_v4__collaboration.owl
-        type: owl:Ontology
+    ontology_purl : http://www.atol-ontology.com/ontology/20082013/eol_v4__collaboration.owl
 
 ## LBO
 
@@ -237,9 +206,7 @@ make the ATOL ontology as operational as possible and closely related to measure
     isInferred: true
     classify: false
     oboSlims: false
-    products:
-      - id: http://data.bioontology.org/ontologies/LBO/submissions/2/download?apikey=0911d614-1dd4-41c0-afd4-9f3df0fc70be
-        type: obo:Ontology
+    ontology_purl : http://data.bioontology.org/ontologies/LBO/submissions/2/download?apikey=0911d614-1dd4-41c0-afd4-9f3df0fc70be
 
 
 ## AncestrO
@@ -262,6 +229,4 @@ make the ATOL ontology as operational as possible and closely related to measure
     isInferred: false
     classify: true
     oboSlims: false
-    products:
-      - id: https://github.com/EBISPOT/ancestro/blob/master/ancestro.owl
-        type: owl:Ontology
+    ontology_purl : https://github.com/EBISPOT/ancestro/blob/master/ancestro.owl

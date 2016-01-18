@@ -2,6 +2,7 @@ package uk.ac.ebi.spot.ols.loader;
 
 import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
 import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
+import uk.ac.ebi.spot.ols.util.ReasonerType;
 
 /**
  * @author Simon Jupp
@@ -11,17 +12,17 @@ import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
 public class OntologyLoaderFactory {
 
     public static OntologyLoader getLoader(OntologyResourceConfig config) throws OntologyLoadingException {
-        if (config.isClassify()) {
+        if (config.getReasonerType().equals(ReasonerType.OWL2)) {
             return new HermitOWLOntologyLoader(config);
         }
-        else if (config.isInferred()) {
-            return new StructuralOWLOntologyLoader(config);
+        else if (config.getReasonerType().equals(ReasonerType.EL)) {
+            return new ELKOWLOntologyLoader(config);
         }
         else if (config.isSkos()) {
             return new SKOSLoader(config);
         }
         else {
-            return  new ELKOWLOntologyLoader(config);
+            return new StructuralOWLOntologyLoader(config);
         }
     }
 }
