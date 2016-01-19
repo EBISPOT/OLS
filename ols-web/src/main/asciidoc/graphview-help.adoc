@@ -1,0 +1,30 @@
+= OLS-graphview help page
+:doctype: book
+:toc: left
+:toc-title: OLS-graphview help page
+:sectanchors:
+:sectlinks:
+:toclevels: 4
+:source-highlighter: highlightjs
+
+== Introduction
+The visualisation offers a new and innovative way to explore a given ontology. Its primary purpose is to offer an alternative viewpoint for ontologies stored in the OLS. The visualisation is interactive, enabling the users to dynamically expand the number of nodes, zoom in/out, search for nodes as well as changing the displayed layout or hide specific relationships. Besides the the possibility of exploring an ontology and retrieve term information, the tool offers a convenient way to take screenshots for presentations. All buttons and elements of the visualisation are equiped with tooltips, so if you are unsure of the functionality, hover over them!
+Below the main window, a couple of buttons offer additional options to interact with the visualisation. These are explained here in detail:
+
+* "Create clusters" - By clicking on this button, multiple nodes are grouped by relationship type AND parent to a cluster. This should help with the overview if a network gets too big or a node has many children/parents.
+* "Open all clusters" resolves all clusters of the network and therefore shows all nodes. This button has only an effect, if clusters were created before.
+* "Turn off physics": Turns of the physical engine and stops all animations. Nodes can be dragged freely and be adjusted, which is very useful to prepare screenshots. By clicking on the button again, the physic engine is turned on again and the network re-arranges itself. This is especially necessary if nodes are expanded while the physic engine is turned off - or all new nodes might just stick in one place!
+* "Search Node" - If you look for a node in a larger network, you can search for it by using the textbox and click on the button.
+
+== The main window
+The main window shows the selected term and its relationships. The general navigation options are represented by the green buttons at the bottom of the window. On the left side, the arrow icons help to adjust the viewpoint. On the right side, the plus and the minus let you zoom in and out, while the third button fits your viewpoint to your network - so that all nodes of the network are visible.<br>
+By clicking on a node, the information window is updated. Double clicking on a node expands the node, which means that all nodes connected to it are added to the network and the legend is updated accordingly.
+
+== The legend
+On the right side, the legend is shown. Every relationship type of the graph is displayed with a unique color. The row "visibility" allows you to display or hide nodes and edges by the relationship types. Extended nodes are threaded special, because it is assumed that the user is interested in these nodes (after all, these nodes got extended). Therefore, "extended nodes" can not be hidden and are always displayed.
+
+== The information window
+Depending on the item you selected, the information window is updated. All available information is displayed - for example the description or synonyms or cross references. The buttons at the bottom the the information window offer some functionally for the selected node, namely "Expand this node" (same as double click), "Zoom to this node" and "Find this term in OLS" (Link back to the treeview in OLS).
+
+== Contact
+For more questions or feedback, please use the "contact us" button on the right side on the top of the page.

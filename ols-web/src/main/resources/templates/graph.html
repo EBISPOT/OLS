@@ -43,16 +43,9 @@
     <link rel="stylesheet" href="../static/css/ols-colors.css" th:href="@{../../../css/ols-colors.css}" type="text/css" media="screen"/>
     <link rel="stylesheet" href="../static/css/ols.css" th:href="@{../../../css/ols.css}" type="text/css" media="screen"/>
 
-
-    <!-- HERE STARTS THE PART FOR THE GRAPH / CSS INCLUDE  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-
     <link rel="stylesheet" href="../static/css/ontology_vis_plugin/awesomplete.css" th:href="@{../../../css/ontology_vis_plugin/awesomplete.css}" type="text/css" />
     <link rel="stylesheet" href="../static/css/ontology_vis_plugin/ontology_vis_plugin.css" th:href="@{../../../css/ontology_vis_plugin/ontology_vis_plugin.css}" type="text/css" media="screen" />
     <link rel="stylesheet" href="../static/css/ontology_vis_plugin/vis.css" th:href="@{../../../css/ontology_vis_plugin/vis.css}" type="text/css" />	<!-- THIS is for the VIS BUTTONS-->
-
-    <!-- HERE ENDS THE PART FOR THE GRAPH  / CSS INCLUDE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-
-
 
 
     <!-- for production the above can be replaced with -->
@@ -172,19 +165,18 @@
     <!--@thymesVar id="parentTerms" type="Set"-->
     <!--@thymesVar id="relatedFroms" type="Set"-->
     <div id="content" role="main" class="grid_24 clearfix">
-      <nav id="breadcrumb">
+
+        <nav id="breadcrumb">
           <p>
               <a href="../../../index">OLS</a> &gt;
               <a href="#" th:href="@{../../../ontologies/__${ontologyTerm.getOntologyName()}__}" style="border-bottom-width: 0px;"><span class="ontology-source" th:text="${ontologyTerm.getOntologyPrefix()}">parent 1</span></a>   &gt;
               <span th:text="${ontologyTerm.getShortForm()}">id</span>
+             <a href="../../../graphview-help.html" style="position:absolute; right:20px;">Do you NEED HELP with the visualisation?</a>
           </p>
-      </nav>
+        </nav>
 
       <div class="container" style="margin:9px;">
             <!--<div class="grid_24 alpha">-->
-
-
-
 
             <section>
                 <div class="grid_24 clearfix">
@@ -197,10 +189,8 @@
                         </div>
 
 
-                        <!-- GRAPH PART START IN HERE-->
+                        <!-- Visualisation div-->
                         <div id="ontology_vis"></div>
-                        <!-- GRAPH PART ENDS HERE -->
-
                     </div>
                 </div>
             </section>
@@ -314,15 +304,12 @@
     });
 </script>
 
-<script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/cookiebanner.js"></script>
-<script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/foot.js"></script>
-
-<!-- HERE THE INCLUDES I USE, MOVE LATER TO right position- here?? -->
-		<script src="../static/js/ontology_vis_plugin/vis.min.js" th:src="@{../../../js/ontology_vis_plugin/vis.min.js}"></script>
-		<script src="../static/js/ontology_vis_plugin/ontology_vis_plugin.js" th:src="@{../../../js/ontology_vis_plugin/ontology_vis_plugin.js}"></script>
-		<script src="../static/js/ontology_vis_plugin/underscore-min.js" th:src="@{../../../js/ontology_vis_plugin/underscore-min.js}"></script>
-		<script src="../static/js/ontology_vis_plugin/awesomplete.min.js" th:src="@{../../../js/ontology_vis_plugin/awesomplete.min.js}"></script>
-<!-- HERE ENDS THE NEW PART -->
+    <script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/cookiebanner.js"></script>
+    <script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/foot.js"></script>
+	<script src="../static/js/ontology_vis_plugin/vis.min.js" th:src="@{../../../js/ontology_vis_plugin/vis.min.js}"></script>
+	<script src="../static/js/ontology_vis_plugin/ontology_vis_plugin.js" th:src="@{../../../js/ontology_vis_plugin/ontology_vis_plugin.js}"></script>
+	<script src="../static/js/ontology_vis_plugin/underscore-min.js" th:src="@{../../../js/ontology_vis_plugin/underscore-min.js}"></script>
+	<script src="../static/js/ontology_vis_plugin/awesomplete.min.js" th:src="@{../../../js/ontology_vis_plugin/awesomplete.min.js}"></script>
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
