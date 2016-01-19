@@ -129,7 +129,7 @@ public interface OntologyLoader {
     Collection<IRI> getDirectParentTerms(IRI iri);
     Map<IRI, Collection<IRI>> getAllParentTerms();
 
-    Collection<String> internalMetadataProperties ();
+    Collection<String> getInternalMetadataProperties ();
 
     /**
      * Get a map of ontology annotations

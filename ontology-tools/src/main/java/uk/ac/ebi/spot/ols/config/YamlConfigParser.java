@@ -46,17 +46,23 @@ public class YamlConfigParser {
             base = (String)contextInfos.get("@base");
         }
 
-        if  (base == null && isObo) {
-            base = "http://purl.obolibrary.org/obo/";
-        }
+
 
         ArrayList<LinkedHashMap> ontologies = (ArrayList<LinkedHashMap>)linkedHashMap.get("ontologies");
 
         for (LinkedHashMap ontology : ontologies) {
 
+            if ( ontology.containsKey("is_foundry")) {
+                isObo = ((Boolean)ontology.get("is_foundry"));
+            }
+
             boolean obsolete = false;
             if ( ontology.containsKey("is_obsolete")) {
                 obsolete = ((Boolean)ontology.get("is_obsolete"));
+            }
+
+            if  (base == null && isObo) {
+                base = "http://purl.obolibrary.org/obo/";
             }
 
             if (!obsolete) {

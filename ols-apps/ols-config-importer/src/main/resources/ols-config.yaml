@@ -145,8 +145,6 @@ ull domain of nanomaterial safety assessment. It re-uses several other ontologie
       - http://purl.bioontology.org/ontology/npo#part_of
     base_uri:
       - http://purl.enanomapper.org/onto/ENM_
-    isInferred: true
-    classify: false
     oboSlims: false
     ontology_purl : http://purl.enanomapper.net/onto/enanomapper.owl
 
@@ -185,7 +183,6 @@ make the ATOL ontology as operational as possible and closely related to measure
       - "file:/C:/Lea/ontologies/environnement/leo.obo#synonymExact"
     base_uri:
       - http://purl.org/obo/owlEOL_
-    isInferred: true
     ontology_purl : http://www.atol-ontology.com/ontology/20082013/eol_v4__collaboration.owl
 
 ## LBO
@@ -203,8 +200,6 @@ make the ATOL ontology as operational as possible and closely related to measure
       - "file:/C:/Lea/ontologies/environnement/leo.obo#synonymExact"
     base_uri:
       - http://purl.org/obo/owlEOL_
-    isInferred: true
-    classify: false
     oboSlims: false
     ontology_purl : http://data.bioontology.org/ontologies/LBO/submissions/2/download?apikey=0911d614-1dd4-41c0-afd4-9f3df0fc70be
 
@@ -226,7 +221,15 @@ make the ATOL ontology as operational as possible and closely related to measure
       - http://purl.obolibrary.org/obo/BFO_0000050
     base_uri:
       - http://www.ebi.ac.uk/ancestro/ancestro_
-    isInferred: false
-    classify: true
     oboSlims: false
     ontology_purl : https://github.com/EBISPOT/ancestro/blob/master/ancestro.owl
+
+## GAZ overide
+
+  - id: gaz
+    is_foundry: true
+    ontology_purl: http://purl.obolibrary.org/obo/gaz.obo
+    reasoner: NONE
+    hierarchical_property:
+      - http://purl.obolibrary.org/obo/BFO_0000050
+      - http://purl.obolibrary.org/obo/gaz.obo#located_in

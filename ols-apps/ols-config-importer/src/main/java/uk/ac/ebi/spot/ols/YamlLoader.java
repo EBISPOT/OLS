@@ -50,9 +50,6 @@ public class YamlLoader implements CommandLineRunner {
     @Value("${ols.obofoundry.ontology.config:obo-config.yaml}")
     public String oboYamlPath;
 
-    @Value("${ols.obofoundry.dontclassify:}")
-    public String dontClassify;
-
     @Autowired
     ResourceLoader resourceLoader;
 
@@ -60,10 +57,16 @@ public class YamlLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if (!dontClassify.equals("")) {
-            for (String dontClassifyName : dontClassify.split(",")) {
-                dontClassifySet.add(dontClassifyName);
-            }
+
+        // load from externaly imported yaml files (this is mainly from OBO now, but could be others in the future
+        getLog().info("OBO Ontologies will be imported using config at '" + oboYamlPath + "'");
+        Resource oboResource = resourceLoader.getResource(oboYamlPath);
+        if (oboResource.exists()) {
+            YamlConfigParser yamlConfigParser = new YamlConfigParser(oboResource, true);
+            updateDocument(yamlConfigParser);
+        }
+        else {
+            getLog().warn("Resource '" + oboResource + "' could not be found and will therefore not be loaded");
         }
 
         for (String configPath : yamlPath.split(",")) {
@@ -78,15 +81,7 @@ public class YamlLoader implements CommandLineRunner {
             }
         }
 
-        getLog().info("OBO Ontologies will be imported using config at '" + oboYamlPath + "'");
-        Resource oboResource = resourceLoader.getResource(oboYamlPath);
-        if (oboResource.exists()) {
-            YamlConfigParser yamlConfigParser = new YamlConfigParser(oboResource, true);
-            updateDocument(yamlConfigParser);
-        }
-        else {
-            getLog().warn("Resource '" + oboResource + "' could not be found and will therefore not be loaded");
-        }
+
     }
 
     public void updateDocument(YamlConfigParser yamlConfigParser) throws IOException {
@@ -100,24 +95,12 @@ public class YamlLoader implements CommandLineRunner {
                     OntologyDocument ontologyDocument = new OntologyDocument(ontologyResourceConfig.getNamespace(), ontologyResourceConfig);
                     ontologyDocument.setStatus(Status.TOLOAD);
 
-                    if (dontClassifySet.contains(ontologyDocument.getOntologyId())) {
-                        ontologyDocument.getConfig().setReasonerType(ReasonerType.NONE);
-                    }
-
                     ontologyRepositoryService.create(ontologyDocument);
 
 
                 } else {
-                    // if location has changed, update the info
-                    if (!mongoOntologyDocument.getConfig().getFileLocation().equals(ontologyResourceConfig.getFileLocation())) {
-                        getLog().info("Location of " + ontologyResourceConfig.getNamespace() + " changed from " + mongoOntologyDocument.getConfig().getFileLocation() + " to " + ontologyResourceConfig.getFileLocation());
-                        mongoOntologyDocument.getConfig().setFileLocation(ontologyResourceConfig.getFileLocation());
-                        mongoOntologyDocument.setStatus(Status.TOLOAD);
-                    }
-                    if (dontClassifySet.contains(mongoOntologyDocument.getOntologyId())) {
-                        mongoOntologyDocument.getConfig().setReasonerType(ReasonerType.NONE);
-                    }
-                    // todo validation and check for breaking changes
+
+                    mongoOntologyDocument = DocumentUpdater.updateFields(mongoOntologyDocument, ontologyResourceConfig);
                     ontologyRepositoryService.update(mongoOntologyDocument);
                 }
             } catch (ConfigParsingException e) {

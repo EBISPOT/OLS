@@ -1,5 +1,6 @@
 package uk.ac.ebi.spot.ols.loader;
 
+import org.apache.log4j.Level;
 import org.semanticweb.elk.owlapi.ElkReasonerFactory;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.*;
@@ -27,6 +28,7 @@ public class ELKOWLOntologyLoader extends AbstractOWLOntologyLoader {
 
     protected OWLReasoner getOWLReasoner(OWLOntology ontology) throws OWLOntologyCreationException {
 
+        org.apache.log4j.Logger.getLogger("org.semanticweb.elk").setLevel(Level.ERROR);
 
         if (reasoner == null) {
             getLog().debug("Trying to create a reasoner over ontology '" + getOntologyIRI() + "'");

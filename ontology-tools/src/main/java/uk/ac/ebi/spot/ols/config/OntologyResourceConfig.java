@@ -106,7 +106,6 @@ public class OntologyResourceConfig  {
         this.hierarchicalProperties = builder.hierarchicalProperties;
         this.baseUris = builder.baseUris;
         this.hiddenProperties = builder.hiddenProperties;
-        this.preferredPrefix = builder.preferredPrefix;
         this.version = builder.version;
         this.isSkos = builder.isSkos;
         this.description = builder.description;
@@ -255,6 +254,38 @@ public class OntologyResourceConfig  {
 
     public void setInternalMetadataProperties(Collection<String> internalMetadataProperties) {
         this.internalMetadataProperties = internalMetadataProperties;
+    }
+
+    public void setPreferredPrefix(String preferredPrefix) {
+        this.preferredPrefix = preferredPrefix;
+    }
+
+    public void setOboSlims(boolean oboSlims) {
+        this.oboSlims = oboSlims;
+    }
+
+    public void setLabelProperty(URI labelProperty) {
+        this.labelProperty = labelProperty;
+    }
+
+    public void setDefinitionProperties(Collection<URI> definitionProperties) {
+        this.definitionProperties = definitionProperties;
+    }
+
+    public void setSynonymProperties(Collection<URI> synonymProperties) {
+        this.synonymProperties = synonymProperties;
+    }
+
+    public void setHierarchicalProperties(Collection<URI> hierarchicalProperties) {
+        this.hierarchicalProperties = hierarchicalProperties;
+    }
+
+    public void setBaseUris(Collection<String> baseUris) {
+        this.baseUris = baseUris;
+    }
+
+    public void setHiddenProperties(Collection<URI> hiddenProperties) {
+        this.hiddenProperties = hiddenProperties;
     }
 
     public static class OntologyResourceConfigBuilder {

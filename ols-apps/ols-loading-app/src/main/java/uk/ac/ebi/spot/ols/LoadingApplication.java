@@ -4,6 +4,7 @@ import org.apache.commons.cli.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,6 +21,8 @@ import uk.ac.ebi.spot.ols.model.Status;
 import uk.ac.ebi.spot.ols.model.OntologyIndexer;
 import uk.ac.ebi.spot.ols.util.FileUpdater;
 
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import java.util.*;
 import java.util.concurrent.CountDownLatch;
 
@@ -52,7 +55,13 @@ public class LoadingApplication implements CommandLineRunner {
     @Autowired
     FileUpdater fileUpdater;
 
+    @Autowired
+    MailService mailService;
+
     private static String [] ontologies = {};
+
+    private static String email;
+
 
     private static boolean offline = false;
 
@@ -62,7 +71,7 @@ public class LoadingApplication implements CommandLineRunner {
         int parseArgs = parseArguments(args);
 
         System.setProperty("entityExpansionLimit", "10000000");
-        Map<OntologyDocument, Exception> failedOntologies = new HashMap<>();
+        Collection<String> updatedOntologies = new HashSet<>();
 
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(10);
@@ -101,17 +110,57 @@ public class LoadingApplication implements CommandLineRunner {
         // wait for ontologies to have been checked
         latch.await();
 
+
         // For all ontologies set to load, create the new index
 
         boolean haserror = false;
-        for (OntologyDocument document : ontologyRepositoryService.getAllDocumentsByStatus(Status.TOLOAD)) {
-            try {
-                ontologyIndexingService.indexOntologyDocument(document);
-            } catch (Exception e) {
-                getLog().error("Application failed creating indexes for " + document.getOntologyId() + ": " + e.getMessage());
-                haserror = true;
+
+        // if force loading
+
+        StringBuilder exceptions = new StringBuilder();
+
+        if (ontologies.length > 0) {
+            for (String ontologyName : ontologies) {
+                OntologyDocument document = ontologyRepositoryService.get(ontologyName);
+                if (document != null) {
+                    try {
+                        ontologyIndexingService.indexOntologyDocument(document);
+                        updatedOntologies.add(document.getOntologyId());
+                    } catch (Exception e) {
+                        getLog().error("Application failed creating indexes for " + document.getOntologyId() + ": " + e.getMessage());
+                        haserror = true;
+                    }
+                }
             }
         }
+        else {
+            // otherwise load everything set TOLOAD
+            for (OntologyDocument document : ontologyRepositoryService.getAllDocumentsByStatus(Status.TOLOAD)) {
+                try {
+                    ontologyIndexingService.indexOntologyDocument(document);
+                    updatedOntologies.add(document.getOntologyId());
+                } catch (Exception e) {
+                    getLog().error("Application failed creating indexes for " + document.getOntologyId() + ": " + e.getMessage());
+                    exceptions.append(e.getMessage());
+                    exceptions.append("\n");
+                    haserror = true;
+                }
+            }
+        }
+
+        Map<String, String> failingOntologies= new HashMap<>();
+        for (OntologyDocument document : ontologyRepositoryService.getAllDocumentsByStatus(Status.FAILED)) {
+            failingOntologies.put(document.getOntologyId(), document.getMessage());
+        }
+
+        LoadingReport loadingReport = new LoadingReport(failingOntologies, updatedOntologies, exceptions.toString());
+
+        System.out.println(LoadingReportPrinter.getMessage(loadingReport));
+
+        if (email != null) {
+            mailService.sendEmailNotification(email, null, "OLS loading report", LoadingReportPrinter.getMessage(loadingReport));
+        }
+
 
 
         if (haserror) {
@@ -144,7 +193,20 @@ public class LoadingApplication implements CommandLineRunner {
                 }
 
                 offline = cl.hasOption("off");
+
+
+                if (cl.hasOption("m")) {
+                    InternetAddress emailAddr = new InternetAddress( cl.getOptionValue("m"));
+                    emailAddr.validate();
+                    email = cl.getOptionValue("m");
+                }
+
             }
+
+        }
+        catch (AddressException ex) {
+            System.err.println("Please supply a valid e-mail address");
+            parseArgs += 1;
         }
         catch (ParseException e) {
             System.err.println("Failed to read supplied arguments");
@@ -169,11 +231,15 @@ public class LoadingApplication implements CommandLineRunner {
         options.addOption(force);
 
         Option nodownload = new Option("off", "offline", false,
-                        "Run offline - doesn't download new versions");
+                "Run offline - doesn't download new versions");
         nodownload.setRequired(false);
         options.addOption(nodownload);
 
 
+        Option mail = new Option("m", "mail", true,
+                "Send e-mail report");
+        mail.setRequired(false);
+        options.addOption(mail);
         return options;
     }
 
