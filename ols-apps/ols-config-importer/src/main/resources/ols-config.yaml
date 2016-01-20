@@ -232,4 +232,5 @@ make the ATOL ontology as operational as possible and closely related to measure
     reasoner: NONE
     hierarchical_property:
       - http://purl.obolibrary.org/obo/BFO_0000050
-      - http://purl.obolibrary.org/obo/gaz.obo#located_in
+      - http://purl.obolibrary.org/obo/RO_0001025
+      - http://purl.obolibrary.org/obo/RO_0002151
