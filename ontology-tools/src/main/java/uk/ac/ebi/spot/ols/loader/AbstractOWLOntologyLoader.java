@@ -45,6 +45,7 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
     private static final Pattern oboIdFragmentPattern = Pattern.compile("(([A-Za-z_]*)_(\\d+))");
 
     private IRI ontologyIRI;
+    private IRI ontologyVersionIRI;
     private String ontologyName;
     private String ontologyTitle;
     private String ontologyDescription;
@@ -99,6 +100,7 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
     private Map<IRI, Map<IRI,Collection<IRI>>> allRelatedTerms = new HashMap<>();
 
     private Collection<IRI> hierarchicalRels = new HashSet<>();
+    private Collection<String> internalMetadataProperties = new HashSet<>();
 
     private ShortFormProvider provider;
     private ManchesterOWLSyntaxOWLObjectRendererImpl manSyntaxRenderer;
@@ -185,7 +187,10 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
 
     @Override protected void doInitialization() throws Exception {
         // init owl fields
+
         this.manager = OWLManager.createOWLOntologyManager();
+        this.manager.setSilentMissingImportsHandling(true);
+
         if (getOntologyResource() != null) {
             getLog().info("Mapping ontology IRI from " + getOntologyIRI() + " to " + getOntologyResource().getURI());
             this.manager.addIRIMapper(new SimpleIRIMapper(getOntologyIRI(),
@@ -232,6 +237,9 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
             this.ontology = getManager().loadOntology(getOntologyIRI());
             IRI ontologyIRI = ontology.getOntologyID().getOntologyIRI();
 
+            if (ontology.getOntologyID().getVersionIRI() != null) {
+                ontologyVersionIRI = ontologyVersionIRI;
+            }
             if (getOntologyName() == null) {
                 String name = extractShortForm(ontologyIRI).get();
                 if (name == null) {
@@ -291,31 +299,38 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
             if (propertyIri.toString().equals(OntologyDefaults.DEFINITION)) {
                 if (thevalue.isPresent()) {
                     setOntologyDescription(thevalue.get());
+                    internalMetadataProperties.add(OntologyDefaults.DEFINITION);
                 }
             }
             else if (propertyIri.toString().equals(OntologyDefaults.TITLE)) {
                 if (thevalue.isPresent()) {
                     setOntologyTitle(thevalue.get());
+                    internalMetadataProperties.add(OntologyDefaults.TITLE);
                 }
             }
             else if (propertyIri.toString().equals(OntologyDefaults.CREATOR)) {
                 if (thevalue.isPresent()) {
                     creators.add(thevalue.get());
+                    internalMetadataProperties.add(OntologyDefaults.CREATOR);
                 }
             }
             else if (propertyIri.toString().equals(OntologyDefaults.MAILINGLIST)) {
                 if (thevalue.isPresent()) {
                     setOntologyMailingList(thevalue.get());
+                    internalMetadataProperties.add(OntologyDefaults.MAILINGLIST);
+
                 }
             }
             else if (propertyIri.toString().equals(OntologyDefaults.HOMEPAGE)) {
                 if (thevalue.isPresent()) {
                     setOntologyHomePage(thevalue.get());
+                    internalMetadataProperties.add(OntologyDefaults.HOMEPAGE);
                 }
             }
             else if (propertyIri.toString().equals(OntologyDefaults.VERSION)) {
                 if (thevalue.isPresent()) {
                     setOntologyVersion(thevalue.get());
+                    internalMetadataProperties.add(OntologyDefaults.VERSION);
                 }
             }
             else  {
@@ -1039,6 +1054,9 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
     @Override public IRI getOntologyIRI() {
         return ontologyIRI;
     }
+    @Override public IRI getOntologyVersionIRI() {
+        return ontologyVersionIRI;
+    }
 
     public OWLOntology getOntology() {
         return lazyGet(() -> ontology);
@@ -1177,6 +1195,10 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
     @Override
     public Map<String, Collection<String>> getOntologyAnnotations() {
         return ontologyAnnotations;
+    }
+
+    public Collection<String> getInternalMetadataProperties() {
+        return internalMetadataProperties;
     }
 
 

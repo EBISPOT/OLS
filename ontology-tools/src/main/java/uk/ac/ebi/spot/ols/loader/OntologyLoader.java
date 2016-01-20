@@ -53,6 +53,14 @@ public interface OntologyLoader {
     IRI getOntologyIRI();
 
     /**
+     * Get the ontology version IRI.  This returns the version IRI of the ontology that was actually loaded
+     *
+     * @return IRI of the ontology
+     */
+    IRI getOntologyVersionIRI();
+
+
+    /**
      * Get the ontology name.  This is a short name for the ontology, for example "efo" for the experimental factor
      * ontology
      *
@@ -121,6 +129,7 @@ public interface OntologyLoader {
     Collection<IRI> getDirectParentTerms(IRI iri);
     Map<IRI, Collection<IRI>> getAllParentTerms();
 
+    Collection<String> getInternalMetadataProperties ();
 
     /**
      * Get a map of ontology annotations

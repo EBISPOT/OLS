@@ -52,11 +52,8 @@ synonym_property    http://www.geneontology.org/formats/oboInOwl#hasExactSynonym
 # Base URIs that are local to this ontology, used to identify terms that are defined in this ontology. 
 base_uri    http://purl.obolibrary.org/obo/UBERON_,http://purl.obolibrary.org/obo/UBPROP_,http://purl.obolibrary.org/obo/uberon/core#
 
-# does this ontology need to be classified with a DL reasoner? if true HermiT will be used, otherwise Elk will be used
-classify false
-
-# if you don't want the ontology be classified by either ELK or Hermit, set isInferred to true
-isInferred false
+# if the ontology needs to be classified first, select a reasoner type. Allowed values are none, EL, OWL2
+reasoner EL
 
 # True if the ontology contains OBO style slim annotations
 oboSlims true

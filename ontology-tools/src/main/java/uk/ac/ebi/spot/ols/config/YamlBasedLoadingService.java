@@ -3,6 +3,7 @@ package uk.ac.ebi.spot.ols.config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.ac.ebi.spot.ols.exception.ConfigParsingException;
+import uk.ac.ebi.spot.ols.util.ReasonerType;
 
 import java.net.URI;
 import java.util.*;
@@ -51,56 +52,19 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
             ontologyTitle = id;
         }
 
-        ArrayList<LinkedHashMap> products = (ArrayList<LinkedHashMap>)ontology.get("products");
 
-        String productId = null;
-
-        if (products == null) {
-           getLog().warn("No product defined in OBO Yaml for " + id);
-           productId = id + ".owl";
-        }
-        else {
-            for(LinkedHashMap<String,String> product : products){
-                //Get the product id property which will be the the last part of the url to the owl file of the ontology.
-                //(providing the suffix of the file name is .owl).
-
-                productId = product.get("id");
-                if (product.containsKey("is_canonical")) {
-                    break;
-                }
-
-                if(productId.contains(".owl")) {
-                    productId = product.get("id");
-                    break;
-                }
-            }
-        }
-
-
-        String uri;
-        if (ontology.containsKey("uri")) {
-            uri = (String) ontology.get("uri");
-        }
-        else if (base == null && productId != null) {
-            uri = productId;
-        }
-        else if (base != null & productId != null ) {
-            uri = base + productId;
-        }
-        else {
-            throw new ConfigParsingException("Can't determine ontology URI for " + ontologyTitle);
-        }
-
-        String location = uri;
+        String location;
 
         if (ontology.containsKey("ontology_purl")) {
             location = (String) ontology.get("ontology_purl");
         }
-        else if (base == null && productId != null) {
-            location = productId;
-        }
         else {
-            location = base + productId;
+            throw new ConfigParsingException("No ontology purl defined for " + ontologyTitle);
+        }
+
+        String uri = location;
+        if (ontology.containsKey("uri")) {
+            uri = (String) ontology.get("uri");
         }
 
         //Build the OntologyResourceConfig and add it to the Collection.
@@ -164,16 +128,18 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
             builder.setBaseUris(Collections.singleton(uri));
         }
 
-        if (ontology.containsKey("isInferred")) {
-            builder.setInferred((boolean) ontology.get("isInferred"));
+        if (ontology.containsKey("reasoner")) {
+            String reasonerType = (String) ontology.get("reasoner");
+            ReasonerType type = ReasonerType.valueOf(reasonerType.toUpperCase());
+            if (type == null) {
+                log.warn("Unknown reasoner type, defaulting to structural reasoner " + reasonerType);
+            }
+            else  {
+                builder.setReasonerType(type);
+            }
         }
-        else {
-            builder.setInferred(false);
-        }
-
-
-        if (ontology.containsKey("classify")) {
-            builder.setClassify((boolean) ontology.get("classify"));
+        else if (isObo) {
+            builder.setReasonerType(ReasonerType.EL);
         }
 
         if (ontology.containsKey("oboSlims")) {

@@ -4,8 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
-import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
-import uk.ac.ebi.spot.ols.loader.*;
+import uk.ac.ebi.spot.ols.util.ReasonerType;
 
 import java.net.URI;
 import java.util.Collection;
@@ -98,12 +97,12 @@ public class PropertyBasedLoadingService extends AbstractLoadingService {
         }
 
 
-        if (environment.containsProperty("isInferred")) {
-            builder.setInferred(Boolean.parseBoolean(environment.getProperty("isInferred")));
-        }
-
-        if (environment.containsProperty("classify")) {
-            builder.setClassify(Boolean.parseBoolean(environment.getProperty("classify")));
+        if (environment.containsProperty("reasoner")) {
+            String reasoner = environment.getProperty("reasoner");
+            ReasonerType reasonerType = ReasonerType.valueOf(reasoner.toUpperCase());
+            if (reasonerType != null) {
+                builder.setReasonerType(reasonerType);
+            }
         }
 
         if (environment.containsProperty("oboSlims")) {

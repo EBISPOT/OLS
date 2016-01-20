@@ -1,8 +1,10 @@
 package uk.ac.ebi.spot.ols.loader;
 
+import org.apache.log4j.Level;
 import org.semanticweb.elk.owlapi.ElkReasonerFactory;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.*;
+import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 import org.slf4j.Logger;
 import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
 import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
@@ -26,6 +28,7 @@ public class ELKOWLOntologyLoader extends AbstractOWLOntologyLoader {
 
     protected OWLReasoner getOWLReasoner(OWLOntology ontology) throws OWLOntologyCreationException {
 
+        org.apache.log4j.Logger.getLogger("org.semanticweb.elk").setLevel(Level.ERROR);
 
         if (reasoner == null) {
             getLog().debug("Trying to create a reasoner over ontology '" + getOntologyIRI() + "'");
@@ -38,11 +41,16 @@ public class ELKOWLOntologyLoader extends AbstractOWLOntologyLoader {
             reasoner.precomputeInferences();
 
             getLog().debug("Checking ontology consistency...");
-            reasoner.isConsistent();
+            if ( ! reasoner.isConsistent()) {
+                getLog().warn("Inconsistent ontology " + getOntologyIRI() + ", reverting to structural reasoner");
+                reasoner.dispose();
+                OWLReasonerFactory structuralReasonerFactory = new StructuralReasonerFactory();
+                return structuralReasonerFactory.createReasoner(ontology);
+            }
 
             getLog().debug("Checking for unsatisfiable classes...");
             if (reasoner.getUnsatisfiableClasses().getEntitiesMinusBottom().size() > 0) {
-                throw new OWLOntologyCreationException(
+                getLog().warn(
                         "Once classified, unsatisfiable classes were detected in '" + getOntologyIRI() + "'");
             }
             else {
