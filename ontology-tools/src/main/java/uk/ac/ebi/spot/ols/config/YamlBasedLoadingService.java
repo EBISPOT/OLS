@@ -62,10 +62,17 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
             throw new ConfigParsingException("No ontology purl defined for " + ontologyTitle);
         }
 
-        String uri = location;
+        String uri;
         if (ontology.containsKey("uri")) {
             uri = (String) ontology.get("uri");
         }
+        else if (base != null) {
+            uri = base + id;
+        }
+        else {
+            uri = location;
+        }
+
 
         //Build the OntologyResourceConfig and add it to the Collection.
         OntologyResourceConfig.OntologyResourceConfigBuilder builder = new  OntologyResourceConfig.OntologyResourceConfigBuilder(uri, ontologyTitle, id, URI.create(location));

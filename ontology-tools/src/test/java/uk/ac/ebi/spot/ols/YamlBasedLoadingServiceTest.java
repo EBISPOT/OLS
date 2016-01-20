@@ -27,6 +27,7 @@ public class YamlBasedLoadingServiceTest extends TestCase {
         ontology.put("id", "foo");
         ontology.put("title", "foo ontology");
         ontology.put("preferredPrefix", "FoO");
+        ontology.put("ontology_purl", "http://www.foo.com/bar");
 
     }
 
@@ -95,7 +96,7 @@ public class YamlBasedLoadingServiceTest extends TestCase {
 
         yamlBasedLoadingService = new YamlBasedLoadingService(ontology, "http://foobar.com/", false);
         try {
-            assertEquals("http://foobar.com/foo.owl", yamlBasedLoadingService.getConfiguration().getId());
+            assertEquals("http://foobar.com/foo", yamlBasedLoadingService.getConfiguration().getId());
         } catch (ConfigParsingException e) {
             fail();
         }
