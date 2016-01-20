@@ -339,7 +339,7 @@
                                     <br/>
                                     <ul>
                                         <li th:each="parentTerm : ${parentTerms}">
-                                            <a href="#" th:href="@{terms (iri=${parentTerm.getIri()})}" th:text="${parentTerm.getLabel()}">parent 1</a>
+                                            <a href="#" th:title="${parentTerm.getIri()}" th:href="@{terms (iri=${parentTerm.getIri()})}" th:text="${parentTerm.getLabel()}">parent 1</a>
                                         </li>
                                         <li th:each="superclassDesc : ${ontologyTerm.getSuperClassDescription()}" th:utext="${superclassDesc}">NCBI_9606</li>
                                     </ul>
@@ -356,7 +356,7 @@
                                         <a class="ObjectProperty" th:href="@{../../search(q=${relation.key},exact='true', type=property, ontology=${ontologyTerm.ontologyName})}" th:text="${relation.key}"></a>
                                         <ul>
                                             <li th:each="term,iterStat: ${relation.value}">
-                                                <a href="#" th:href="@{terms (iri=${term.iri})}" th:text="${term.label}">parent 1</a>
+                                                <a href="#" th:title="${term.iri}" th:href="@{terms (iri=${term.iri})}" th:text="${term.label}">parent 1</a>
                                             </li>
 
                                         </ul>
