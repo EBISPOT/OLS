@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.DigestUtils;
 import uk.ac.ebi.spot.ols.loader.OntologyLoader;
+import uk.ac.ebi.spot.ols.model.SuggestDocument;
 import uk.ac.ebi.spot.ols.model.TermDocument;
 import uk.ac.ebi.spot.ols.model.TermDocumentBuilder;
 import uk.ac.ebi.spot.ols.util.TermType;
@@ -37,12 +38,17 @@ public class SolrIndexer implements OntologyIndexer {
     @Autowired
     OntologySolrRepository ontologySolrRepository;
 
+    @Autowired
+    OntologySuggestRepository ontologySuggestRepository;
+
     @Override
     public void createIndex(Collection<OntologyLoader> loaders) {
 
         getLog().info("Creating index for " + loaders.size() + " loaders");
 
+
         for (OntologyLoader loader : loaders) {
+
 
             getLog().info("Creating new index for " + loader.getOntologyName());
             long startTime = System.currentTimeMillis();
@@ -53,6 +59,7 @@ public class SolrIndexer implements OntologyIndexer {
             getLog().info("Number of individuals to index: " + loader.getAllIndividualIRIs().size());
 
             List<TermDocument> documents = new ArrayList<TermDocument>();
+            List<SuggestDocument> suggestDocuments = new ArrayList<>();
 
             for (IRI classTerm : loader.getAllClasses()) {
 
@@ -65,6 +72,22 @@ public class SolrIndexer implements OntologyIndexer {
                     index(documents);
                     documents = new ArrayList<>();
                 }
+
+                if (classTerm.toString().equals("http://www.ebi.ac.uk/efo/EFO_0001421")) {
+                    System.out.printf("heelo");
+                }
+                // get labels and synonyms for suggest index
+                suggestDocuments.add(new SuggestDocument(loader.getTermLabels().get(classTerm), loader.getTermLabels().get(classTerm)));
+                if (loader.getTermSynonyms().containsKey(classTerm)) {
+                    for (String syn : loader.getTermSynonyms().get(classTerm)) {
+                        suggestDocuments.add(new SuggestDocument(syn, syn));
+                    }
+                }
+                if (suggestDocuments.size() > 10000) {
+                    indexSuggest(suggestDocuments);
+                    suggestDocuments = new ArrayList<>();
+                }
+
             }
 
             for (IRI classTerm : loader.getAllObjectPropertyIRIs()) {
@@ -95,12 +118,34 @@ public class SolrIndexer implements OntologyIndexer {
             long endTime = System.currentTimeMillis();
             long duration = (endTime - startTime) / 1000; // time in seconds
             index(documents);
+            indexSuggest(suggestDocuments);
             getLog().info("Solr index for " + loader.getOntologyName() + " completed in " + duration + " seconds");
 
         }
 
 
 
+    }
+
+    private void indexSuggest(List<SuggestDocument> suggestDocuments) {
+        // save suggest index
+
+        int numDocuments = suggestDocuments.size();
+        getLog().debug("Extracted {} documents", numDocuments);
+
+        // Index documents in batches
+        int count = 0;
+        while (count < numDocuments) {
+            int end = count + getBatchSize();
+            if (end > numDocuments) {
+                end = numDocuments;
+            }
+
+            ontologySuggestRepository.save(suggestDocuments.subList(count, end));
+
+            count = end;
+            getLog().debug("Indexed {} / {} entries", count, numDocuments);
+        }
     }
 
     private void index (List<TermDocument> documents) {
@@ -164,34 +209,6 @@ public class SolrIndexer implements OntologyIndexer {
         else  {
             builder.setLabel(loader.getTermLabels().get(termIRI));
         }
-
-
-//        try {
-//
-//
-//            //Set json bbop sibling graph string directly (the json graph is not saved to a file it is in memory
-//            // in the ByteArrayOutputStream object).
-//            ByteArrayOutputStream outStream=new ByteArrayOutputStream();
-//            SiblingGraphCreator siblingGraphCreator = new SiblingGraphCreator();
-//            //Get the jsonGenerator object for this termIRI
-//            siblingGraphCreator.buildBpopGraph(loader, termIRI, outStream);
-//            //Set the builder bbobSiblingGraph document.
-//            builder.setBbopSibblingGraph(outStream.toString().intern());
-//
-////            //Set path to file containing json bbop sibling graph.
-////            String termId = termIRI.toString().substring(termIRI.toString().lastIndexOf('/') + 1, termIRI.toString().length());
-////            String filePath = "/Users/catherineleroy/Documents/json-graphs/" + termId + ".json";
-////            File file = new File(filePath);
-////            OutputStream outputStream = new FileOutputStream(file);
-////            SiblingGraphCreator siblingGraphCreator = new SiblingGraphCreator();
-////            siblingGraphCreator.buildBpopGraph(loader, termIRI, outputStream);
-////            builder.setBbopSibblingGraph(filePath);
-//
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
 
 
         // index all annotations

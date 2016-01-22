@@ -59,11 +59,6 @@ public class OntologyController implements
 
     @Autowired TermAssembler termAssembler;
 
-    // Reading these from application.properties
-    @Value("${ols.downloads.folder:}")
-    private String downloadsFolder;
-
-
     @Override
     public RepositoryLinksResource process(RepositoryLinksResource resource) {
         resource.add(ControllerLinkBuilder.linkTo(OntologyController.class).withRel("ontologies"));
@@ -86,38 +81,6 @@ public class OntologyController implements
         OntologyDocument document = ontologyRepositoryService.get(ontologyId);
         if (document == null) throw new ResourceNotFoundException();
         return new ResponseEntity<>( documentAssembler.toResource(document), HttpStatus.OK);
-    }
-
-    @RequestMapping(path = "/{onto}", produces = "application/rdf+xml", method = RequestMethod.GET)
-    FileSystemResource getOntologyDirectDownload(@PathVariable("onto") String ontologyId) throws ResourceNotFoundException {
-        return getDownloadOntology(ontologyId);
-    }
-
-
-    @RequestMapping(path = "/{onto}/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE, method = RequestMethod.GET)
-    public FileSystemResource getDownloadOntology(@PathVariable("onto") String ontologyId) throws ResourceNotFoundException {
-        try {
-            return new FileSystemResource(getDownloadFile(ontologyId));
-        } catch (FileNotFoundException e) {
-            throw new ResourceNotFoundException("This ontology is not available for download");
-        }
-    }
-
-
-    private File getDownloadFile (String ontologyId) throws FileNotFoundException {
-        File file = new File (getDownloadsFolder(), ontologyId.toLowerCase());
-        if (!file.exists()) {
-            throw new FileNotFoundException();
-        }
-        return file;
-    }
-
-
-    private String getDownloadsFolder ( ) {
-        if (downloadsFolder == null) {
-            return OLSEnv.getOLSHome() + File.pathSeparator + "downloads";
-        }
-        return downloadsFolder;
     }
 
     @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Resource not found")

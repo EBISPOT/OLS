@@ -19,12 +19,19 @@ public class SearchConfiguration {
     private String server;
 
     @NotNull
-    @Value("${ols.solr.core}")
-    private String core = "ontology";
+    @Value("${ols.solr.search.core}")
+    private String ontologyCore = "ontology";
 
+    @NotNull
+    @Value("${ols.solr.suggest.core}")
+    private String suggestCore = "autocomplete";
 
     public URL getOlsSearchServer() throws MalformedURLException {
-        return new URL(server + "/" + core);
+        return new URL(server + "/" + ontologyCore);
+    }
+
+    public URL getOlsSuggestServer() throws MalformedURLException {
+        return new URL(server + "/" + suggestCore);
     }
 
 }

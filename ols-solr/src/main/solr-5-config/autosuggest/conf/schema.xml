@@ -114,104 +114,40 @@
 
     <!--
 
-     EMBL-EBI Ontology Lookup Service Fields
+     EMBL-EBI Ontology Lookup Service Autosuggest Fields
 
     -->
 
-    <field name="iri" type="string" indexed="true" stored="true" required="true" multiValued="false" />
-    <field name="iri_key" type="int" indexed="true" stored="false" multiValued="false" />
-    <field name="obo_id" type="string" indexed="true" stored="true" required="false" multiValued="false" />
-    <field name="short_form" type="string" indexed="true" stored="true" required="true" multiValued="false" />
-    <field name="label" type="text_general" indexed="true" stored="true" multiValued="false" />
-    <field name="synonym" type="text_general" indexed="true" stored="true" multiValued="true" />
-    <field name="description" type="text_general" indexed="true" stored="true" multiValued="true" />
-    <field name="ontology_name" type="string" indexed="true" stored="true" required="true" multiValued="false" />
-    <field name="ontology_prefix" type="string" indexed="true" stored="true" required="true" multiValued="false" />
-    <field name="ontology_iri" type="string" indexed="true" stored="true" required="true" multiValued="false" />
-    <field name="type" type="string" indexed="true" stored="true" multiValued="false" />
-    <field name="is_defining_ontology" type="boolean" indexed="true" stored="true" multiValued="false" />
-    <field name="subset" type="string" indexed="true" stored="true" multiValued="true" />
-
-    <field name="is_obsolete" type="boolean" indexed="true" stored="false" multiValued="false" />
-    <field name="has_children" type="boolean" indexed="true" stored="true" multiValued="false" />
-    <field name="is_root" type="boolean" indexed="true" stored="true" multiValued="false" />
-    <field name="equivalent_iri" type="string" indexed="true" stored="false" required="false" multiValued="true" />
-    <field name="logical_description" type="text_general" indexed="true" stored="true" multiValued="true" />
-
-    <field name="parent_iri" type="string" indexed="true" stored="false" multiValued="true" />
-    <field name="ancestor_iri" type="string" indexed="true" stored="false" multiValued="true" />
-    <field name="child_iri" type="string" indexed="true" stored="false" multiValued="true" />
-    <field name="descendant_iri" type="string" indexed="true" stored="false" multiValued="true" />
-
-    <!-- Dynamic field(s) holding relation types -->
-    <dynamicField name="*_annotation" type="text_general" indexed="true" stored="true" multiValued="true" />
-    <dynamicField name="*_related" type="string" indexed="true" stored="false" multiValued="true" />
-
-
-    <!-- catchall field, containing all other searchable text fields (implemented via copyField further on in this schema -->
-    <field name="text" type="text_general" indexed="true" stored="false" multiValued="true" />
-    <!-- catchall text field that indexes tokens both normally and in reverse for efficient leading wildcard queries. -->
-    <!--<field name="text_rev" type="text_general_rev" indexed="true" stored="false" multiValued="true" />-->
+    <field name="autosuggest" type="string" indexed="true" stored="true" required="true" multiValued="false" />
 
     <!-- dynamic string fields for lowercase exact match searches-->
-    <dynamicField name="*_s" type="lowercase" indexed="true" stored="false" multiValued="true"/>
-    <copyField source="label" dest="label_s"/>;
-    <copyField source="synonym" dest="synonym_s"/>;
-    <copyField source="short_form" dest="shortform_s"/>;
-    <copyField source="obo_id" dest="obo_id_s"/>;
-    <copyField source="iri" dest="iri_s"/>;
-    <copyField source="*_annotation" dest="annotations_s"/>
+    <!--<dynamicField name="*_s" type="lowercase" indexed="true" stored="false" multiValued="true"/>-->
+    <!--<copyField source="autosuggest" dest="autosuggest_s"/>;-->
 
-    <!-- catch all for annotations-->
-    <field name="annotations" type="text_general" indexed="true" stored="false" multiValued="true" />
-    <copyField source="*_annotation" dest="annotations"/>
+      <!-- field types from Ilinca -->
 
-    <!-- field types from Ilinca -->
+    <!--<copyField source="autosuggest" dest="label_autosuggest"/>;-->
+    <copyField source="autosuggest" dest="autosuggest_ws"/>;
+    <copyField source="autosuggest" dest="autosuggest_e"/>;
 
-    <copyField source="label" dest="label_autosuggest"/>;
-    <copyField source="label" dest="label_autosuggest_ws"/>;
-    <copyField source="label" dest="label_autosuggest_e"/>;
-
-    <copyField source="synonym" dest="synonym_autosuggest"/>;
-    <copyField source="synonym" dest="synonym_autosuggest_ws"/>;
-    <copyField source="synonym" dest="synonym_autosuggest_e"/>;
-
-    <copyField source="obo_id" dest="shortform_autosuggest"/>
-    <copyField source="short_form" dest="shortform_autosuggest"/>
-
-    <field name="label_autosuggest_ws" type="textWhitespace" indexed="true" stored="true" multiValued="false"/>
-    <field name="label_autosuggest_e" type="textEdge" indexed="true" stored="true" multiValued="false" />
-    <field name="label_autosuggest" type="textWhitespaceEdge" indexed="true" stored="true" multiValued="false" />
-
-    <field name="synonym_autosuggest_ws" type="textWhitespace" indexed="true" stored="true" multiValued="true"/>
-    <field name="synonym_autosuggest_e" type="textEdge" indexed="true" stored="true" multiValued="true" />
-    <field name="synonym_autosuggest" type="textWhitespaceEdge" indexed="true" stored="true" multiValued="true" />
-
-    <field name="shortform_autosuggest" type="textEdge" indexed="true" stored="true" multiValued="true" />
-
-    <copyField source="label" dest="autosuggest"/>;
-    <copyField source="label" dest="autosuggest_e"/>;
-    <copyField source="label" dest="autosuggest_s"/>;
-    <copyField source="synonym" dest="autosuggest"/>;
-    <copyField source="synonym" dest="autosuggest_e"/>;
-    <copyField source="synonym" dest="autosuggest_s"/>;
-    <field name="autosuggest" type="textWhitespaceEdge" indexed="true" stored="true" multiValued="true" />
-    <field name="autosuggest_e" type="textEdge" indexed="true" stored="true" multiValued="true" />
+    <field name="autosuggest_ws" type="textWhitespace" indexed="true" stored="true" multiValued="false"/>
+    <field name="autosuggest_e" type="textEdge" indexed="true" stored="true" multiValued="false" />
+    <!--<field name="label_autosuggest" type="textWhitespaceEdge" indexed="true" stored="true" multiValued="false" />-->
 
 
-    <fieldType name="textWhitespaceEdge" class="solr.TextField">
-        <analyzer type="index">
-            <filter class="solr.LowerCaseFilterFactory"/>
-            <tokenizer class="solr.WhitespaceTokenizerFactory"/>
-            <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
-            <filter class="solr.EdgeNGramFilterFactory" minGramSize="1" maxGramSize="35" />
-        </analyzer>
-        <analyzer type="query">
-            <filter class="solr.LowerCaseFilterFactory"/>
-            <tokenizer class="solr.WhitespaceTokenizerFactory"/>
-            <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
-        </analyzer>
-    </fieldType>
+    <!--<fieldType name="textWhitespaceEdge" class="solr.TextField">-->
+        <!--<analyzer type="index">-->
+            <!--<filter class="solr.LowerCaseFilterFactory"/>-->
+            <!--<tokenizer class="solr.WhitespaceTokenizerFactory"/>-->
+            <!--<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>-->
+            <!--<filter class="solr.EdgeNGramFilterFactory" minGramSize="1" maxGramSize="35" />-->
+        <!--</analyzer>-->
+        <!--<analyzer type="query">-->
+            <!--<filter class="solr.LowerCaseFilterFactory"/>-->
+            <!--<tokenizer class="solr.WhitespaceTokenizerFactory"/>-->
+            <!--<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>-->
+        <!--</analyzer>-->
+    <!--</fieldType>-->
     <fieldType name="textEdge" class="solr.TextField">
         <analyzer type="index">
             <tokenizer class="solr.PatternTokenizerFactory" pattern="______" />

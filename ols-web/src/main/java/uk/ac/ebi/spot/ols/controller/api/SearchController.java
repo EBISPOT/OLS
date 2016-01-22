@@ -40,6 +40,7 @@ public class SearchController {
     private static String QUOTUE = "\"";
     private static String SPACE = " ";
     private static String OR = "OR";
+    private static String AND = "AND";
 
     @Autowired
     private SearchConfiguration searchConfiguration;
@@ -79,8 +80,8 @@ public class SearchController {
             if (exact) {
                 solrQuery.setQuery(
                         "((" +
-                        createUnionQuery(query.toLowerCase(), "label_s", "synonym_s", "shortform_s", "obo_id_s", "iri_s", "annotations_s")
-                        + ") AND (is_defining_ontology:true^100 OR is_defining_ontology:false^0))"
+                                createUnionQuery(query.toLowerCase(), "label_s", "synonym_s", "shortform_s", "obo_id_s", "iri_s", "annotations_s")
+                                + ") AND (is_defining_ontology:true^100 OR is_defining_ontology:false^0))"
                 );
 
             }
@@ -94,7 +95,7 @@ public class SearchController {
         else {
             if (exact) {
                 List<String> fieldS = queryFields.stream()
-                  .map(addStringField).collect(Collectors.toList());
+                        .map(addStringField).collect(Collectors.toList());
                 solrQuery.setQuery( createUnionQuery(query, fieldS.toArray(new String [fieldS.size()])));
             }
             else {
@@ -143,7 +144,7 @@ public class SearchController {
 
         if (childrenOf != null) {
             String result = childrenOf.stream()
-              .map(addQuotes)
+                    .map(addQuotes)
                     .collect(Collectors.joining(" OR "));
             solrQuery.addFilterQuery("ancestor_iri: (" + result + ")");
         }
@@ -165,15 +166,15 @@ public class SearchController {
     }
 
     Function<String,String> addQuotes = new Function<String,String>() {
-      @Override public String apply(String s) {
-        return new StringBuilder(s.length()+2).append('"').append(s).append('"').toString();
-      }
+        @Override public String apply(String s) {
+            return new StringBuilder(s.length()+2).append('"').append(s).append('"').toString();
+        }
     };
 
     Function<String,String> addStringField = new Function<String,String>() {
-      @Override public String apply(String s) {
-        return new StringBuilder(s.length()+2).append(s).append("_").append('s').toString();
-      }
+        @Override public String apply(String s) {
+            return new StringBuilder(s.length()+2).append(s).append("_").append('s').toString();
+        }
     };
 
     private String createUnionQuery (String query, String ... fields) {
@@ -190,6 +191,20 @@ public class SearchController {
                 builder.append(OR);
                 builder.append(SPACE);
 
+            }
+        }
+        return builder.toString();
+    }
+
+    private String createIntersectionString (String query) {
+        StringBuilder builder = new StringBuilder();
+        String [] tokens = query.split(" ");
+        for (int x = 0; x< tokens.length; x++) {
+            builder.append(tokens[x]);
+            if (x+1 < tokens.length) {
+                builder.append(SPACE);
+                builder.append(AND);
+                builder.append(SPACE);
             }
         }
         return builder.toString();
@@ -212,10 +227,14 @@ public class SearchController {
 
         final SolrQuery solrQuery = new SolrQuery(); // 1
 
+        String queryLc = query.toLowerCase();
+        if (query.contains(" ")) {
+            query = "(" + createIntersectionString(query) +")";
+        }
         solrQuery.setQuery(query);
         solrQuery.set("defType", "edismax");
-        solrQuery.set("qf", "label synonym label_autosuggest_ws label_autosuggest_e label_autosuggest synonym_autosuggest_ws synonym_autosuggest_e synonym_autosuggest shortform_autosuggest");
-        solrQuery.set("bq", "is_defining_ontology:true^100.0 label_s:\"" + query.toLowerCase() + "\"^2 synonym_s:\"" + query.toLowerCase() + "\"");
+        solrQuery.set("qf", "label synonym label_autosuggest_e label_autosuggest synonym_autosuggest_e synonym_autosuggest shortform_autosuggest");
+        solrQuery.set("bq", "is_defining_ontology:true^100.0 label_s:\"" + queryLc + "\"^1000  label_autosuggest_e:\"" + queryLc + "\"^500 synonym_s:\"" + queryLc + "\" synonym_autosuggest_e:\"" + queryLc + "\"^100");
         solrQuery.set("wt", "json");
 
         if (fieldList == null) {
@@ -247,7 +266,7 @@ public class SearchController {
 
         if (childrenOf != null) {
             String result = childrenOf.stream()
-              .map(addQuotes)
+                    .map(addQuotes)
                     .collect(Collectors.joining(" OR "));
             solrQuery.addFilterQuery("ancestor_iri: (" + result + ")");
         }
@@ -264,6 +283,40 @@ public class SearchController {
         solrQuery.addHighlightField("synonym");
 
         StringBuilder solrSearchBuilder = buildBaseSearchRequest(solrQuery.toString());
+        dispatchSearch(solrSearchBuilder.toString(), response.getOutputStream());
+
+    }
+
+    @RequestMapping(path = "/api/suggest", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
+    public void suggest(
+            @RequestParam("q") String query,
+            @RequestParam(value = "rows", defaultValue = "10") Integer rows,
+            @RequestParam(value = "start", defaultValue = "0") Integer start,
+            HttpServletResponse response
+    ) throws IOException {
+
+
+        final SolrQuery solrQuery = new SolrQuery(); // 1
+
+        String queryLc = query.toLowerCase();
+        query = new StringBuilder(queryLc.length()+2).append('"').append(queryLc).append('"').toString();
+
+        solrQuery.setQuery(query);
+        solrQuery.set("defType", "edismax");
+        solrQuery.set("qf", "autosuggest^2 autosuggest_e^1");
+        solrQuery.set("wt", "json");
+        solrQuery.setFields("autosuggest");
+        solrQuery.setStart(start);
+        solrQuery.setRows(rows);
+        solrQuery.setHighlight(true);
+        solrQuery.add("hl.simple.pre", "<b>");
+        solrQuery.add("hl.simple.post", "</b>");
+        solrQuery.add("group", "true");
+        solrQuery.add("group.field", "autosuggest");
+        solrQuery.add("group.main", "true");
+        solrQuery.addHighlightField("autosuggest");
+
+        StringBuilder solrSearchBuilder = buildBaseSuggestRequest(solrQuery.toString());
         dispatchSearch(solrSearchBuilder.toString(), response.getOutputStream());
 
     }
@@ -298,6 +351,19 @@ public class SearchController {
         StringBuilder solrSearchBuilder = new StringBuilder();
         try {
             solrSearchBuilder.append(searchConfiguration.getOlsSearchServer().toString())
+                    .append("/select?")
+                    .append(queryPath);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("Can't search solr server, malformed URL", e);
+        }
+        return solrSearchBuilder;
+    }
+
+    private StringBuilder buildBaseSuggestRequest(String queryPath) {
+        // build base request
+        StringBuilder solrSearchBuilder = new StringBuilder();
+        try {
+            solrSearchBuilder.append(searchConfiguration.getOlsSuggestServer().toString())
                     .append("/select?")
                     .append(queryPath);
         } catch (MalformedURLException e) {

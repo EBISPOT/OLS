@@ -28,6 +28,7 @@
 
 <solr>
 
+
   <solrcloud>
 
     <str name="host">${host:}</str>

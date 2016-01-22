@@ -187,7 +187,7 @@
                         <a th:href="@{${ontologyDocument.getConfig().getId()}}" class="nounderline" target="blank"><img th:src="@{../img/external_link.png}" src="../static/img/external_link.png" alt="^" title="Go to external page"/></a>
                         <div style="float:right;">
                             <div>
-                                <a class ="icon icon-functional"  data-icon ="=" target="_blank" href="#" th:href="${ontologyDocument.getConfig().getFileLocation()}">Download</a>
+                                <a class ="icon icon-functional"  data-icon ="=" target="_blank" href="download">Download</a>
                             </div>
                             <div th:if="${ontologyDocument.getConfig().getHomepage() != null}">
                                 <a class ="icon icon-generic"  data-icon ="H" target="_blank" href="#" th:href="${ontologyDocument.getConfig().getHomepage()}">Ontology Homepage</a>
