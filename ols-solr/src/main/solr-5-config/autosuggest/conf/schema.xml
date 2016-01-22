@@ -119,6 +119,7 @@
     -->
 
     <field name="autosuggest" type="string" indexed="true" stored="true" required="true" multiValued="false" />
+    <!--<field name="ontology" type="string" indexed="true" stored="true" required="true" multiValued="true" />-->
 
     <!-- dynamic string fields for lowercase exact match searches-->
     <!--<dynamicField name="*_s" type="lowercase" indexed="true" stored="false" multiValued="true"/>-->
