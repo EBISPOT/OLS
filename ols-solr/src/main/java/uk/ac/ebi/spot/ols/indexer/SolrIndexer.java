@@ -73,14 +73,11 @@ public class SolrIndexer implements OntologyIndexer {
                     documents = new ArrayList<>();
                 }
 
-                if (classTerm.toString().equals("http://www.ebi.ac.uk/efo/EFO_0001421")) {
-                    System.out.printf("heelo");
-                }
                 // get labels and synonyms for suggest index
-                suggestDocuments.add(new SuggestDocument(loader.getTermLabels().get(classTerm), loader.getTermLabels().get(classTerm)));
+                suggestDocuments.add(new SuggestDocument(loader.getTermLabels().get(classTerm), loader.getOntologyName()));
                 if (loader.getTermSynonyms().containsKey(classTerm)) {
                     for (String syn : loader.getTermSynonyms().get(classTerm)) {
-                        suggestDocuments.add(new SuggestDocument(syn, syn));
+                        suggestDocuments.add(new SuggestDocument(syn, loader.getOntologyName()));
                     }
                 }
                 if (suggestDocuments.size() > 10000) {

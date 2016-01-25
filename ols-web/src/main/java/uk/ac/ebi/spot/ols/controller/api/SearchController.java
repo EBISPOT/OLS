@@ -290,6 +290,7 @@ public class SearchController {
     @RequestMapping(path = "/api/suggest", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     public void suggest(
             @RequestParam("q") String query,
+            @RequestParam(value = "ontology", required = false) Collection<String> ontologies,
             @RequestParam(value = "rows", defaultValue = "10") Integer rows,
             @RequestParam(value = "start", defaultValue = "0") Integer start,
             HttpServletResponse response
@@ -303,9 +304,14 @@ public class SearchController {
 
         solrQuery.setQuery(query);
         solrQuery.set("defType", "edismax");
-        solrQuery.set("qf", "autosuggest^2 autosuggest_e^1");
+        solrQuery.set("qf", "autosuggest^3 autosuggest_e^2 autosuggest_wse^1");
         solrQuery.set("wt", "json");
         solrQuery.setFields("autosuggest");
+
+        if (ontologies != null && !ontologies.isEmpty()) {
+            solrQuery.addFilterQuery("ontology_name: (" + String.join(" OR ", ontologies) + ")");
+        }
+
         solrQuery.setStart(start);
         solrQuery.setRows(rows);
         solrQuery.setHighlight(true);

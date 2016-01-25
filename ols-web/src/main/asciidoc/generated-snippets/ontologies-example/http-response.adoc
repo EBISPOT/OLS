@@ -30,8 +30,7 @@ Content-Type: application/json
       "versionInfo" : [ "2.64" ]
     },
     "fileLocation" : "http://www.ebi.ac.uk/efo/efo.owl",
-    "classify" : true,
-    "expressivity" : "UNKNOWN",
+    "reasoner" : "OWL2",
     "oboSlims" : false,
     "labelProperty" : "http://www.w3.org/2000/01/rdf-schema#label",
     "definitionProperties" : [ "http://www.ebi.ac.uk/efo/definition" ],
@@ -39,7 +38,6 @@ Content-Type: application/json
     "hierarchicalProperties" : [ "http://purl.obolibrary.org/obo/RO_0002202", "http://purl.obolibrary.org/obo/BFO_0000050" ],
     "baseUris" : [ "http://www.ebi.ac.uk/efo/EFO_" ],
     "hiddenProperties" : [ "http://www.ebi.ac.uk/efo/has_flag" ],
-    "inferred" : false,
     "skos" : false
   },
   "_links" : {

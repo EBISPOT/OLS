@@ -348,9 +348,17 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
     protected void indexTerms(Collection<OWLEntity> entities) {
 
         getLog().debug("Starting to index " + entities.size() + " entities");
+
+//        int count = 0;
         for (OWLEntity entity: entities) {
             // get all the annotation properties
             evaluateAllAnnotationsValues(entity);
+
+//            if (count == 1000) {
+//                System.out.println("Processed a thousand...");
+//                count =0;
+//            }
+//            count++;
 
             // add the class accession for this entity
             Optional<String> shortForm = extractShortForm(entity.getIRI());
@@ -459,19 +467,24 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
 
         OWLReasoner reasoner = getOWLReasoner(ontology);
 
+        Set<OWLClass> directSubClasses = reasoner.getSubClasses(owlClass, true).getFlattened();
+        Set<OWLClass> allSubClasses = reasoner.getSubClasses(owlClass, false).getFlattened();
+        Set<OWLClass> directSuperClasses = reasoner.getSuperClasses(owlClass, true).getFlattened();
+        Set<OWLClass> allSuperClasses = reasoner.getSuperClasses(owlClass, false).getFlattened();
+
         // use reasoner to check if root
-        if (reasoner.getSubClasses(getFactory().getOWLThing(), true).getFlattened().contains(owlClass)) {
+        if (directSuperClasses.contains(getFactory().getOWLThing())) {
             addRootsTerms(owlClass.getIRI());
         }
 
-        if (reasoner.getSubClasses(getFactory().getOWLClass(Namespaces.OBOINOWL.createIRI("ObsoleteClass")), false).getFlattened().contains(owlClass)) {
+        if (directSuperClasses.contains(getFactory().getOWLClass(Namespaces.OBOINOWL.createIRI("ObsoleteClass")))) {
             addObsoleteTerms(owlClass.getIRI());
         }
 
         // get direct children
 
         Set<IRI> ct = removeExcludedIRI(
-                reasoner.getSubClasses(owlClass, true).getFlattened().stream()
+                directSubClasses.parallelStream()
                         .map(OWLNamedObject::getIRI)
                         .collect(Collectors.toSet()),
                 owlVocabulary);
@@ -479,7 +492,7 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
 
         // get all children
         Set<IRI> act = removeExcludedIRI(
-                reasoner.getSubClasses(owlClass, false).getFlattened().stream()
+                allSubClasses.parallelStream()
                         .map(OWLNamedObject::getIRI)
                         .collect(Collectors.toSet()),
                 owlVocabulary);
@@ -488,7 +501,7 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
         // get parents
         Set<IRI> dp =
                 removeExcludedIRI(
-                        reasoner.getSuperClasses(owlClass, true).getFlattened().stream()
+                        directSuperClasses.parallelStream()
                                 .map(OWLNamedObject::getIRI)
                                 .collect(Collectors.toSet()),
                         owlVocabulary);
@@ -497,7 +510,7 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
         // get all parents
         Set<IRI> ap =
                 removeExcludedIRI(
-                        reasoner.getSuperClasses(owlClass, false).getFlattened().stream()
+                        allSuperClasses.parallelStream()
                                 .map(OWLNamedObject::getIRI)
                                 .collect(Collectors.toSet()),
                         owlVocabulary);

@@ -119,7 +119,7 @@
     -->
 
     <field name="autosuggest" type="string" indexed="true" stored="true" required="true" multiValued="false" />
-    <!--<field name="ontology" type="string" indexed="true" stored="true" required="true" multiValued="true" />-->
+    <field name="ontology_name" type="string" indexed="true" stored="true" required="true" multiValued="false" />
 
     <!-- dynamic string fields for lowercase exact match searches-->
     <!--<dynamicField name="*_s" type="lowercase" indexed="true" stored="false" multiValued="true"/>-->
@@ -130,25 +130,26 @@
     <!--<copyField source="autosuggest" dest="label_autosuggest"/>;-->
     <copyField source="autosuggest" dest="autosuggest_ws"/>;
     <copyField source="autosuggest" dest="autosuggest_e"/>;
+    <copyField source="autosuggest" dest="autosuggest_wse"/>;
 
     <field name="autosuggest_ws" type="textWhitespace" indexed="true" stored="true" multiValued="false"/>
     <field name="autosuggest_e" type="textEdge" indexed="true" stored="true" multiValued="false" />
-    <!--<field name="label_autosuggest" type="textWhitespaceEdge" indexed="true" stored="true" multiValued="false" />-->
+    <field name="autosuggest_wse" type="textWhitespaceEdge" indexed="true" stored="true" multiValued="false" />
 
 
-    <!--<fieldType name="textWhitespaceEdge" class="solr.TextField">-->
-        <!--<analyzer type="index">-->
-            <!--<filter class="solr.LowerCaseFilterFactory"/>-->
-            <!--<tokenizer class="solr.WhitespaceTokenizerFactory"/>-->
-            <!--<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>-->
-            <!--<filter class="solr.EdgeNGramFilterFactory" minGramSize="1" maxGramSize="35" />-->
-        <!--</analyzer>-->
-        <!--<analyzer type="query">-->
-            <!--<filter class="solr.LowerCaseFilterFactory"/>-->
-            <!--<tokenizer class="solr.WhitespaceTokenizerFactory"/>-->
-            <!--<filter class="solr.RemoveDuplicatesTokenFilterFactory"/>-->
-        <!--</analyzer>-->
-    <!--</fieldType>-->
+    <fieldType name="textWhitespaceEdge" class="solr.TextField">
+        <analyzer type="index">
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+            <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            <filter class="solr.EdgeNGramFilterFactory" minGramSize="1" maxGramSize="35" />
+        </analyzer>
+        <analyzer type="query">
+            <filter class="solr.LowerCaseFilterFactory"/>
+            <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+            <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+        </analyzer>
+    </fieldType>
     <fieldType name="textEdge" class="solr.TextField">
         <analyzer type="index">
             <tokenizer class="solr.PatternTokenizerFactory" pattern="______" />
@@ -172,7 +173,6 @@
             <filter class="solr.LowerCaseFilterFactory"/>
             <tokenizer class="solr.WhitespaceTokenizerFactory"/>
             <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
-            <!-- filter class="solr.EdgeNGramFilterFactory" minGramSize="1" maxGramSize="35" side="front" /-->
         </analyzer>
     </fieldType>
 

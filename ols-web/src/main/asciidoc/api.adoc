@@ -283,7 +283,7 @@ include::{snippets}/individuals-example/path-parameters.adoc[]
 [[search]]
 = Search
 
-== Search ontologies
+== Search terms
 
 The search API is independent of the REST API and supports free text search over the ontologies. The default search is across all textual fields in the ontology, but results are ranked towards hits in labels, then synonyms, then definitions, then annotations.
 
@@ -348,7 +348,7 @@ GET /api/search?q={query}&queryFields={label,synonym}
 
 |===
 
-== Select ontologies
+== Select terms
 
 We provide an additional search endopint that is designed specifically for selecting ontology terms. This has been tuned specifically to support
 applications such as autocomplete.
@@ -377,6 +377,28 @@ GET /api/select?q={query}
 
 |childrenOf
 |You can restrict a search to children of a given term. Supply a list of IRI for the terms that you want to search under
+
+|rows
+|How many results per page
+
+|start
+|The results page number
+
+|===
+
+== Suggest term
+
+We also provide a generic suggester endpoint. This endpoint aims to provide traditional autosuggest based on all the vocabulary in OLS (all class labels or synonyms). All results from this endpoint are unique and are not coupled to any particular ontology, however, searches can be restricted by ontology.
+
+----
+GET /api/suggest?q={query}
+----
+
+|===
+|Parameter|Description
+
+|ontology
+|Restrict a search to a set of ontologies e.g. `ontology=uberon,ma`
 
 |rows
 |How many results per page

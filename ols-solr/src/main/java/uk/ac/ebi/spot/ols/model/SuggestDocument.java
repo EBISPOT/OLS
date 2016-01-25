@@ -18,22 +18,17 @@ public class SuggestDocument {
 
     @Field("autosuggest")
     private String autosuggest;
-//
-//    @Field("ontology")
-//    private List<String> ontology;
 
-//    public SuggestDocument(String id, String autosuggest, List<String> ontology) {
-//        this.id = id;
-//        this.autosuggest = autosuggest;
-//        this.ontology = ontology;
-//    }
+    @Field("ontology_name")
+    private String ontology;
 
-    public SuggestDocument() {
+    public SuggestDocument(String autosuggest, String ontology) {
+        this.id = autosuggest + ontology;
+        this.autosuggest = autosuggest;
+        this.ontology = ontology;
     }
 
-    public SuggestDocument(String id, String autosuggest) {
-        this.id = id;
-        this.autosuggest = autosuggest;
+    public SuggestDocument() {
     }
 
     public String getAutosuggest() {
