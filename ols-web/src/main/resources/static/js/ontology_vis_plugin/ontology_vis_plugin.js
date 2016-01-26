@@ -165,12 +165,14 @@
 			})
 		}
 
+		if (networkOptions.displayOptions.showInfoWindow===true)
+			initializeInfoWindow();
+
 		initializeNetwork(visNetworkOptions);
 
 		if (networkOptions.displayOptions.showButtonBox===true)
 			initializeIButtonBox();
-		if (networkOptions.displayOptions.showInfoWindow===true)
-			initializeInfoWindow();
+
 	}
 
 
@@ -230,7 +232,7 @@
 
 
 	function initializeInfoWindow(){
-		var htmlString='	<div id="SecondWindow"><div id="infoWindow"><h6>Selected Node</h6></div><div id="infoWindowSub">No node selected yet</div></div>';
+		var htmlString='<div id="SecondWindow"><div id="infoWindow"><h6>Welcome to the ontology visualisation!</h6></div><div id="infoWindowSub">This tool should help you to explore an ontology in a different way. Some notes:<br><br> - This window is updated whenever you select a node or edge of the graph, showing you the description and all other available information<br> - You can interact with the graph. Use the buttons on the bottom of this window as well as below the graph to do so. Double clicking on a node expands the node<br> - All buttons and other elements of the page show tooltips! Make use of this function if you are unsure of a functionality!<br> - If you need further help, please visit the <a href="../../../docs/graphview-help">documentation page</a>!</div></div>';
 		$("#ontology_vis").append(htmlString);
 	}
 
@@ -760,7 +762,7 @@
 		$.getJSON(networkOptions.webservice.URL+id, function(inputdata){
 			var data=inputdata._embedded.terms[0];
 
-			$("#infoWindow").html("<h6>Selected Node - "+data.label+"</h6>");
+			$("#infoWindow").html("<h6>"+data.label+"</h6>");
 
 			//Check if the term is obsolete and if so, tell that to the user!
 			var htmlString="";
@@ -934,7 +936,7 @@
 			tmp+="<li>"+nodes.get(e).label+" <small>("+(parseIRI(nodes.get(e).id))+")</small></li>";
 		});
 		tmp+="</ul>";
-		tmp+='<div id="Permaanwser" style="text-align:center; margin-top:100px;"><hr style="margin-left: 50px; margin-right:50px"/><input id="Permalink" title="Get a static URL of this graph - so you can return or share it" type="submit" value="Get permalink to this graph"/></div>';
+		tmp+='<div id="Permaanwser" style="text-align:center; margin-top:100px;"><hr style="margin-left: 50px; margin-right:50px"/><input class="primary" type="submit" id="Permalink" title="Get a static URL of this graph - so you can return or share it" type="submit" value="Get permalink to this graph"/></div>';
 		Legend.append(tmp);
 
 //Color the root canvas
