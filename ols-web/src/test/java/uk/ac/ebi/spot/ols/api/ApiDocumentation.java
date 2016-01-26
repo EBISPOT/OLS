@@ -299,7 +299,7 @@ public class ApiDocumentation {
                         parameterWithName("iri").description("The IRI of the individual, this value must be double URL encoded"))
                 );
 
-        this.mockMvc.perform(get("/api/ontologies/{ontology}/individuals/{iri}", "gaz", URLEncoder.encode("http://purl.obolibrary.org/obo/GAZ_00002637", "UTF-8")).accept(MediaType.APPLICATION_JSON))
+        this.mockMvc.perform(get("/api/ontologies/{ontology}/individuals/{iri}", "ro", URLEncoder.encode("http://purl.obolibrary.org/obo/RO_0001901", "UTF-8")).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
     }

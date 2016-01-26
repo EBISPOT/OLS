@@ -20,6 +20,6 @@
 |A JSON tree structure of the term hierarchy
 
 |graph
-|A JSON grpah structure of the immediately related nodes
+|A JSON graph structure of the immediately related nodes
 
 |===

@@ -18,20 +18,21 @@ Content-Type: application/json
       "href" : "http://www.ebi.ac.uk/api/ontologies?page=2&size=1"
     },
     "last" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies?page=139&size=1"
+      "href" : "http://www.ebi.ac.uk/api/ontologies?page=142&size=1"
     }
   },
   "_embedded" : {
     "ontologies" : [ {
       "loaded" : null,
-      "updated" : "2015-10-05T15:32:22.429+0000",
-      "status" : "LOADED",
+      "updated" : "2016-01-19T11:34:57.354+0000",
+      "status" : "TOLOAD",
       "message" : "No ontology loaded",
       "version" : null,
       "numberOfTerms" : 0,
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
       "config" : {
+        "versionIri" : null,
         "title" : "Terminology for Description of Dynamics",
         "namespace" : "teddy",
         "preferredPrefix" : "TEDDY",
@@ -42,16 +43,15 @@ Content-Type: application/json
         "creators" : [ ],
         "annotations" : { },
         "fileLocation" : "http://www.biomodels.net/teddy/TEDDY",
-        "classify" : false,
-        "expressivity" : "UNKNOWN",
+        "reasonerType" : "NONE",
         "oboSlims" : false,
         "labelProperty" : "http://www.w3.org/2000/01/rdf-schema#label",
         "definitionProperties" : [ "http://www.w3.org/2004/02/skos/core#definition" ],
         "synonymProperties" : [ "http://www.w3.org/2004/02/skos/core#altLabel" ],
-        "hierarchicalProperties" : [ "http://purl.obolibrary.org/obo/BFO_0000050", "http://purl.obolibrary.org/obo/ma#part_of" ],
+        "hierarchicalProperties" : [ "http://purl.obolibrary.org/obo/BFO_0000050" ],
         "baseUris" : [ "http://identifiers.org/teddy/TEDDY_" ],
         "hiddenProperties" : [ ],
-        "inferred" : true,
+        "internalMetadataProperties" : [ ],
         "skos" : false
       },
       "_links" : {
@@ -72,8 +72,8 @@ Content-Type: application/json
   },
   "page" : {
     "size" : 1,
-    "totalElements" : 140,
-    "totalPages" : 140,
+    "totalElements" : 143,
+    "totalPages" : 143,
     "number" : 1
   }
 }

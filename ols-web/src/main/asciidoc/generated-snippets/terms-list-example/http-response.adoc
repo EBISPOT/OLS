@@ -15,7 +15,7 @@ Content-Type: application/json
       "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms?page=1&size=20"
     },
     "last" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms?page=852&size=20"
+      "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms?page=863&size=20"
     }
   },
   "_embedded" : {
@@ -264,6 +264,7 @@ Content-Type: application/json
       "label" : "Ureaplasma parvum",
       "description" : null,
       "annotation" : {
+        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:438391000" ],
         "definition_editor" : [ "Class imported / merged by efoimporter" ],
         "has_obo_namespace" : [ "ncbi_taxonomy" ],
         "has_rank" : [ "NCBITaxon_species" ],
@@ -301,6 +302,9 @@ Content-Type: application/json
       "label" : "Bacteria",
       "description" : null,
       "annotation" : {
+        "MSH_definition_citation" : [ "MSH:D001419" ],
+        "NCI_Thesaurus_definition_citation" : [ "NCIt:C14187" ],
+        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:41146007", "SNOMEDCT:409822003" ],
         "definition_editor" : [ "Class imported / merged by efoimporter", "James Malone" ],
         "has_obo_namespace" : [ "ncbi_taxonomy" ],
         "has_rank" : [ "NCBITaxon_superkingdom" ],
@@ -351,7 +355,8 @@ Content-Type: application/json
         "EV_definition_citation" : [ "EV:0100250" ],
         "FMA_definition_citation" : [ "FMA:54510" ],
         "MA_definition_citation" : [ "MA:0001073" ],
-        "NCI_Thesaurus_definition_citation" : [ "NCI_Thesaurus:Oculomotor_Nucleus" ],
+        "MSH_definition_citation" : [ "MSH:D065838" ],
+        "NCI_Thesaurus_definition_citation" : [ "NCIt:C12897" ],
         "NIF_GrossAnatomy_definition_citation" : [ "NIF_GrossAnatomy:birnlex_1240" ],
         "SNOMEDCT_definition_citation" : [ "SNOMEDCT:362457000" ],
         "TAO_definition_citation" : [ "TAO:0000553" ],
@@ -367,7 +372,7 @@ Content-Type: application/json
         "in_subset" : [ "uberon_slim", "efo_slim", "vertebrate_core" ],
         "spatially_disjoint_from" : [ "UBERON_0002438", "UBERON_0003040", "UBERON_0001944", "UBERON_0001966", "UBERON_0001947", "UBERON_0002691", "UBERON_0002141", "UBERON_0002696", "UBERON_0002995", "UBERON_0002722" ]
       },
-      "synonyms" : [ "oculomotor III nucleus", "motor nucleus III", "nIII", "nucleus nervi oculomotorii", "nucleus of oculomotor nerve", "nucleus of third cranial nerve", "oculomotor nucleus", "third cranial nerve nucleus" ],
+      "synonyms" : [ "oculomotor III nucleus", "motor nucleus III", "Entire oculomotor nucleus", "nIII", "nucleus nervi oculomotorii", "nucleus of oculomotor nerve", "nucleus of third cranial nerve", "oculomotor nucleus", "third cranial nerve nucleus" ],
       "ontology_name" : "efo",
       "ontology_prefix" : "EFO",
       "ontology_iri" : "http://www.ebi.ac.uk/efo",
@@ -470,7 +475,8 @@ Content-Type: application/json
         "MA_definition_citation" : [ "MA:0000207" ],
         "MESH_definition_citation" : [ "MESH:A08.186.211.132.659" ],
         "MIAA_definition_citation" : [ "MIAA:0000106" ],
-        "NCI_Thesaurus_definition_citation" : [ "NCI_Thesaurus:Mesencephalon" ],
+        "MSH_definition_citation" : [ "MSH:D008636" ],
+        "NCI_Thesaurus_definition_citation" : [ "NCIt:C12510" ],
         "NIF_GrossAnatomy_definition_citation" : [ "NIF_GrossAnatomy:birnlex_1667" ],
         "OpenCyc_definition_citation" : [ "OpenCyc:Mx4rvsBUqpwpEbGdrcN5Y29ycA" ],
         "RETIRED_EHDAA2_definition_citation" : [ "RETIRED_EHDAA2:0001104" ],
@@ -492,7 +498,7 @@ Content-Type: application/json
         "in_subset" : [ "uberon_slim", "efo_slim", "vertebrate_core" ],
         "spatially_disjoint_from" : [ "UBERON_0001894", "UBERON_0002028" ]
       },
-      "synonyms" : [ "mesencephalon" ],
+      "synonyms" : [ "Entire midbrain", "mesencephalon" ],
       "ontology_name" : "efo",
       "ontology_prefix" : "EFO",
       "ontology_iri" : "http://www.ebi.ac.uk/efo",
@@ -524,11 +530,11 @@ Content-Type: application/json
         "graph" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/graph"
         },
-        "part_of" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
-        },
         "develops_from" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0002202"
+        },
+        "part_of" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
         }
       }
     }, {
@@ -544,7 +550,8 @@ Content-Type: application/json
         "FMA_definition_citation" : [ "FMA:79876" ],
         "MA_definition_citation" : [ "MA:0000169" ],
         "MESH_definition_citation" : [ "MESH:A08.186.211.132" ],
-        "NCI_Thesaurus_definition_citation" : [ "NCI_Thesaurus:Brain_Stem" ],
+        "MSH_definition_citation" : [ "MSH:D001933" ],
+        "NCI_Thesaurus_definition_citation" : [ "NCIt:C12441" ],
         "NIF_GrossAnatomy_definition_citation" : [ "NIF_GrossAnatomy:birnlex_1565" ],
         "SNOMEDCT_definition_citation" : [ "SNOMEDCT:180925009" ],
         "TAO_definition_citation" : [ "TAO:0002156" ],
@@ -561,7 +568,7 @@ Content-Type: application/json
         "in_subset" : [ "uberon_slim", "efo_slim", "vertebrate_core", "loose_concept" ],
         "spatially_disjoint_from" : [ "UBERON_0002037" ]
       },
-      "synonyms" : [ "truncus encephali", "brain stem", "truncus encephalicus" ],
+      "synonyms" : [ "truncus encephali", "brain stem", "truncus encephalicus", "Entire brainstem" ],
       "ontology_name" : "efo",
       "ontology_prefix" : "EFO",
       "ontology_iri" : "http://www.ebi.ac.uk/efo",
@@ -602,7 +609,8 @@ Content-Type: application/json
       "label" : "eyelid",
       "description" : [ "An eyelid is a thin fold of skin that covers and protects an eyeball. With the exception of the prepuce and the labia minora, it has the thinnest skin of the whole body. The levator palpebrae superioris muscle retracts the eyelid to 'open' the eye. This can be either voluntarily or involuntarily. The human eyelid features a row of eyelashes which serve to heighten the protection of the eye from dust and foreign debris, as well as from perspiration. 'Palpebral' (and 'blepharo') means relating to the eyelids. Its key function is to regularly spread the tears and other secretion on the eye surface to keep it moist, since the cornea must be continuously moist. They keep the eyes from drying out when asleep. Moreover, the blink reflex protects the eye from foreign bodies. [WP,unvetted]. Each eyelid consists of the following layers, starting anteriorly: (1) skin, (2) a layer of subcutaneous connective tissue, (3) a layer of striated muscle fibres of the orbicularis muscle, (4) a layer of submuscular connective tissue, (5) a fibrous layer, including the tarsal plates, (6) a layer of smooth muscle, (7) the palpebral conjunctiva. AO notes: FMA divides this into skin, fascia, conjunctiva. Consider adding 'eye surface', like MA" ],
       "annotation" : {
-        "BTO_definition_citation" : [ "BTO:0002241" ]
+        "BTO_definition_citation" : [ "BTO:0002241" ],
+        "NCI_Thesaurus_definition_citation" : [ "NCIt:C12713" ]
       },
       "synonyms" : [ "palpebra", "eye lid", "blepharon" ],
       "ontology_name" : "efo",
@@ -649,6 +657,8 @@ Content-Type: application/json
         "MAT_definition_citation" : [ "MAT:0000140" ],
         "MESH_definition_citation" : [ "MESH:A01.456.505.420" ],
         "MIAA_definition_citation" : [ "MIAA:0000140" ],
+        "MSH_definition_citation" : [ "MSH:D005123" ],
+        "NCI_Thesaurus_definition_citation" : [ "NCIt:C12401" ],
         "OpenCyc_definition_citation" : [ "OpenCyc:Mx4rvViTvpwpEbGdrcN5Y29ycA" ],
         "Wikipedia_definition_citation" : [ "Wikipedia:Eye" ],
         "comment" : [ "Usage notes: This class encompasses a variety of light-detecting structures from different phyla with no implication of homology, from the compound insect eye to the vertebrate camera-type eye (distinct classes are provided for each). Structure notes: Note that whilst this is classified as an organ, it is in fact more of a unit composed of different structures: in Drosophila, it includes the interommatidial bristle as a part; we consider here the vertebrate eye to include the eyeball/eye proper as a part, with the eye having as parts (when present): eyelids, conjuctiva," ],
@@ -772,6 +782,9 @@ Content-Type: application/json
       "description" : [ "Strain or line specific to yeast" ],
       "annotation" : {
         "EFO_URI" : [ "http://www.ebi.ac.uk/efo/EFO_0000740" ],
+        "MSH_definition_citation" : [ "MSH:D001203" ],
+        "NCI_Thesaurus_definition_citation" : [ "NCIt:C77167" ],
+        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:415098006" ],
         "definition_editor" : [ "James Malone" ]
       },
       "synonyms" : [ "yeasts" ],
@@ -874,7 +887,7 @@ Content-Type: application/json
         "id" : [ "UBERON:0001714" ],
         "in_subset" : [ "uberon_slim", "efo_slim", "vertebrate_core" ]
       },
-      "synonyms" : [ "head ganglion", "cranial neural ganglion", "ganglion of cranial neural tree organ", "presumptive cranial ganglia", "cranial nerve ganglion", "cranial neural tree organ ganglion", "cranial ganglion", "cranial ganglia", "ganglion of cranial nerve", "cranial ganglion/nerve" ],
+      "synonyms" : [ "head ganglion", "cranial neural ganglion", "ganglion of cranial neural tree organ", "presumptive cranial ganglia", "cranial nerve ganglion", "cranial neural tree organ ganglion", "Entire cranial nerve ganglion", "cranial ganglion", "cranial ganglia", "ganglion of cranial nerve", "cranial ganglion/nerve" ],
       "ontology_name" : "efo",
       "ontology_prefix" : "EFO",
       "ontology_iri" : "http://www.ebi.ac.uk/efo",
@@ -929,7 +942,8 @@ Content-Type: application/json
         "MA_definition_citation" : [ "MA:0002406" ],
         "MESH_definition_citation" : [ "MESH:A08.340" ],
         "MIAA_definition_citation" : [ "MIAA:0000207", "MIAA:0000343" ],
-        "NCI_Thesaurus_definition_citation" : [ "NCI_Thesaurus:Ganglion" ],
+        "MSH_definition_citation" : [ "MSH:D005724" ],
+        "NCI_Thesaurus_definition_citation" : [ "NCIt:C12719" ],
         "NIF_GrossAnatomy_definition_citation" : [ "NIF_GrossAnatomy:nlx_anat_100302" ],
         "TAO_definition_citation" : [ "TAO:0000190" ],
         "TGMA_definition_citation" : [ "TGMA:0001016" ],
@@ -988,8 +1002,8 @@ Content-Type: application/json
   },
   "page" : {
     "size" : 20,
-    "totalElements" : 17046,
-    "totalPages" : 853,
+    "totalElements" : 17264,
+    "totalPages" : 864,
     "number" : 0
   }
 }
