@@ -80,7 +80,7 @@ public class SearchController {
             if (exact) {
                 solrQuery.setQuery(
                         "((" +
-                                createUnionQuery(query.toLowerCase(), "label_s", "synonym_s", "shortform_s", "obo_id_s", "iri_s", "annotations_s")
+                                createUnionQuery(query.toLowerCase(), "label_s", "synonym_s", "shortform_s", "obo_id_s", "iri_s", "annotations_trimmed")
                                 + ") AND (is_defining_ontology:true^100 OR is_defining_ontology:false^0))"
                 );
 
@@ -89,7 +89,7 @@ public class SearchController {
                 solrQuery.set("defType", "edismax");
                 solrQuery.setQuery(query);
                 solrQuery.set("qf", "label^5 synonym^3 description short_form^2 obo_id^2 annotations logical_description iri");
-                solrQuery.set("bq", "is_defining_ontology:true^100 label_s:\"" + query.toLowerCase() + "\"^5 synonym_s:\"" + query.toLowerCase() + "\"^3 annotations_s:\"" + query.toLowerCase() + "\"");
+                solrQuery.set("bq", "is_defining_ontology:true^100 label_s:\"" + query.toLowerCase() + "\"^5 synonym_s:\"" + query.toLowerCase() + "\"^3 annotations_trimmed:\"" + query.toLowerCase() + "\"");
             }
         }
         else {

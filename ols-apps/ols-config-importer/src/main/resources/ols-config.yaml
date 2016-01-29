@@ -168,7 +168,7 @@ make the ATOL ontology as operational as possible and closely related to measure
     oboSlims: false
     ontology_purl : http://www.atol-ontology.com/ontology/12092013/atol_v6.owl
 
-## ATOL
+## EOL
 
   - id: eol
     preferredPrefix: EOL

@@ -160,7 +160,11 @@
     <copyField source="short_form" dest="shortform_s"/>;
     <copyField source="obo_id" dest="obo_id_s"/>;
     <copyField source="iri" dest="iri_s"/>;
-    <copyField source="*_annotation" dest="annotations_s"/>
+    <copyField source="*_annotation" dest="annotations_trimmed"/>
+
+    <field name="annotations_trimmed" type="lengthfilt" indexed="true" stored="true" multiValued="true" />
+
+    <copyField source="annotations_trimmed" dest="annotations_s"/>
 
     <!-- catch all for annotations-->
     <field name="annotations" type="text_general" indexed="true" stored="false" multiValued="true" />
@@ -238,6 +242,14 @@
             <!-- filter class="solr.EdgeNGramFilterFactory" minGramSize="1" maxGramSize="35" side="front" /-->
         </analyzer>
     </fieldType>
+
+
+    <fieldtype name="lengthfilt" class="solr.TextField">
+        <analyzer>
+            <tokenizer class="solr.PatternTokenizerFactory" pattern="______" />
+            <filter class="solr.LengthFilterFactory" min="2" max="10000" />
+        </analyzer>
+    </fieldtype>
 
     <!-- End of EMBL-EBI OLS field definitions -->
 
