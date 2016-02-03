@@ -255,3 +255,19 @@ make the ATOL ontology as operational as possible and closely related to measure
       - http://purl.obolibrary.org/obo/BFO_0000050
       - http://purl.obolibrary.org/obo/bto#develops_from
       - http://purl.obolibrary.org/obo/bto#related_to
+
+## ProbOnto
+
+  - id: probonto
+    preferredPrefix: probonto
+    title: Probability Ontology
+    uri: http://www.probonto.org/ontology
+    description: "ProbOnto, is an ontology-based knowledge base of probability distributions, featuring more than eighty uni- and multivariate distributions with their defining functions, characteristics, relationships and reparameterisation formulas."
+    homepage: http://probonto.org
+    mailing_list: probonto.dev@gmail.com
+    definition_property:
+      - http://www.probonto.org/core#0000028
+    base_uri:
+      - http://www.probonto.org/core
+    oboSlims: false
+    ontology_purl : https://raw.githubusercontent.com/probonto/ontology/master/probonto4ols.owl

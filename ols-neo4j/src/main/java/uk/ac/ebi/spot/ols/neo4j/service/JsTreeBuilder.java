@@ -46,6 +46,8 @@ public class JsTreeBuilder {
             "USING INDEX n:Class(iri)\n" +
             "WHERE n.ontology_name = {0} AND n.iri = {1}\n"+
             "UNWIND rels(path) as r1\n" +
+            "WITH r1\n" +
+            "WHERE startNode(r1).is_obsolete=false\n"+
             "RETURN distinct id(startNode(r1)) as startId, startNode(r1).iri as startIri, startNode(r1).label as startLabel, startNode(r1).has_children as hasChildren, r1.label as relation, collect( distinct id(endNode(r1)) ) as parents";
 
 
@@ -67,6 +69,8 @@ public class JsTreeBuilder {
             "USING INDEX n:Property(iri)\n" +
             "WHERE n.ontology_name = {0} AND n.iri = {1}\n"+
             "UNWIND rels(path) as r1\n" +
+            "WITH r1\n" +
+            "WHERE startNode(r1).is_obsolete=false\n"+
             "RETURN distinct id(startNode(r1)) as startId, startNode(r1).iri as startIri, startNode(r1).label as startLabel, startNode(r1).has_children as hasChildren, r1.label as relation, collect( distinct id(endNode(r1)) ) as parents";
 
     // individual tree query
@@ -80,6 +84,8 @@ public class JsTreeBuilder {
             "USING INDEX n:Individual(iri)\n" +
             "WHERE n.ontology_name = {0} AND n.iri = {1}\n"+
             "UNWIND rels(path) as r1\n" +
+            "WITH r1\n" +
+            "WHERE startNode(r1).is_obsolete=false\n"+
             "RETURN distinct id(startNode(r1)) as startId, startNode(r1).iri as startIri, startNode(r1).label as startLabel, startNode(r1).has_children as hasChildren, r1.label as relation, collect( distinct id(endNode(r1)) ) as parents";
 
 
