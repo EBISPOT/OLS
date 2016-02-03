@@ -381,7 +381,10 @@
 						var edgesTMP=data.edges;
 
 						//Remember the rood node for later fixing of groups
-						root.push(nodesTMP[0]["iri"]);
+						//If the node is not part of the root array, than add it now (collapsed if they get reexpanded might already be part of the root array)
+						if (jQuery.inArray(nodesTMP[0].iri, root)===-1)
+						{	root.push(nodesTMP[0]["iri"]);  }
+						//root.push(nodesTMP[0]["iri"]);
 
 						//Go through all nodes and prepare them for the graph, e.g change the iri to id cause that corresponce with from/to
 						nodesTMP.forEach(function(e)
@@ -981,7 +984,7 @@
 //Finally, add also a Listener to the Permalink Button
 		$("#Permalink").on("click", function()
 		{
-			var rootNodes=window.location.href+"&ed=";
+			var rootNodes=window.location.href+"&&ed=";
 			root.forEach(function(e){
 				rootNodes+=e+"&&";
 			});
