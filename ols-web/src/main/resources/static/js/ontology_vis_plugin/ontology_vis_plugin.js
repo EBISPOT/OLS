@@ -569,7 +569,7 @@
 	 *  @param: term - represents the term we ask the webservice for data e.g. an Uberon ID
 	 */
 	function fetchData(term){
-
+	term=encodeURIComponent(term);
 		if (networkOptions.webservice.OLSschema===true)
 		{
 			$.getJSON(networkOptions.webservice.URL+term, function (data2){
