@@ -53,7 +53,28 @@ public class SearchController {
         return resource;
     }
 
-    @RequestMapping(path = "/api/search", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
+    @RequestMapping(path = "/api/multiSearch", method = RequestMethod.GET)
+    public void multiSearch(
+            @RequestParam("q") Collection<String> query,
+            @RequestParam(value = "ontology", required = false) Collection<String> ontologies,
+            @RequestParam(value = "type", required = false) Collection<String> types,
+            @RequestParam(value= "slim", required = false) Collection<String> slims,
+            @RequestParam(value = "fieldList", required = false) Collection<String> fieldList,
+            @RequestParam(value = "queryFields", required = false) Collection<String> queryFields,
+            @RequestParam(value = "exact", required = false) boolean exact,
+            @RequestParam(value = "groupField", required = false) String groupField,
+            @RequestParam(value = "obsoletes", defaultValue = "false") boolean queryObsoletes,
+            @RequestParam(value = "local", defaultValue = "false") boolean isLocal,
+            @RequestParam(value = "childrenOf", required = false) Collection<String> childrenOf,
+            @RequestParam(value = "rows", defaultValue = "10") Integer rows,
+            @RequestParam(value = "start", defaultValue = "0") Integer start,
+            @RequestParam(value = "format", defaultValue = "json") String format,
+            HttpServletResponse response
+    ) throws IOException {
+
+    }
+
+    @RequestMapping(path = "/api/search", method = RequestMethod.GET)
     public void search(
             @RequestParam("q") String query,
             @RequestParam(value = "ontology", required = false) Collection<String> ontologies,
@@ -68,12 +89,12 @@ public class SearchController {
             @RequestParam(value = "childrenOf", required = false) Collection<String> childrenOf,
             @RequestParam(value = "rows", defaultValue = "10") Integer rows,
             @RequestParam(value = "start", defaultValue = "0") Integer start,
+            @RequestParam(value = "format", defaultValue = "json") String format,
             HttpServletResponse response
     ) throws IOException {
 
         final SolrQuery solrQuery = new SolrQuery(); // 1
 
-        solrQuery.set("wt", "json");
 
         if (queryFields == null) {
             // if exact just search the supplied fields for exact matches
@@ -119,7 +140,7 @@ public class SearchController {
         }
         solrQuery.setFields( fieldList.toArray(new String[fieldList.size()]));
 
-        if (ontologies != null) {
+        if (ontologies != null && !ontologies.isEmpty()) {
             solrQuery.addFilterQuery("ontology_name: (" + String.join(" OR ", ontologies) + ")");
         }
 
@@ -160,6 +181,7 @@ public class SearchController {
         solrQuery.addHighlightField("definition");
 
         solrQuery.addFacetField("ontology_name", "ontology_prefix", "type", "subset", "is_defining_ontology", "is_obsolete");
+        solrQuery.add("wt", format);
 
         StringBuilder solrSearchBuilder = buildBaseSearchRequest(solrQuery.toString());
         dispatchSearch(solrSearchBuilder.toString(), response.getOutputStream());
@@ -252,7 +274,7 @@ public class SearchController {
         }
         solrQuery.setFields( fieldList.toArray(new String[fieldList.size()]));
 
-        if (!ontologies.isEmpty()) {
+        if (ontologies != null && !ontologies.isEmpty()) {
             solrQuery.addFilterQuery("ontology_name: (" + String.join(" OR ", ontologies) + ")");
         }
 
