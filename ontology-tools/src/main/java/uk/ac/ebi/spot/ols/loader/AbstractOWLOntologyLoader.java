@@ -238,7 +238,7 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
             IRI ontologyIRI = ontology.getOntologyID().getOntologyIRI();
 
             if (ontology.getOntologyID().getVersionIRI() != null) {
-                ontologyVersionIRI = ontologyVersionIRI;
+                ontologyVersionIRI = ontology.getOntologyID().getVersionIRI();
             }
             if (getOntologyName() == null) {
                 String name = extractShortForm(ontologyIRI).get();

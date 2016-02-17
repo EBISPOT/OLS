@@ -261,7 +261,7 @@ make the ATOL ontology as operational as possible and closely related to measure
 
   - id: probonto
     preferredPrefix: probonto
-    title: Probability Ontology
+    title: Probability Ontology test
     uri: http://www.probonto.org/ontology
     description: "ProbOnto, is an ontology-based knowledge base of probability distributions, featuring more than eighty uni- and multivariate distributions with their defining functions, characteristics, relationships and reparameterisation formulas."
     homepage: http://probonto.org
