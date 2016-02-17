@@ -190,7 +190,7 @@ make the ATOL ontology as operational as possible and closely related to measure
   - id: lbo
     preferredPrefix: LBO
     title: Livestock Breed Ontology
-    uri: file:/C:/Lea/ontologies/environnement/leo.obo
+    uri: http://purl.obolibrary.org/obo/lbo
     description: "A vocabulary for cattle, chicken, horse, pig, and sheep breeds."
     homepage: http://bioportal.bioontology.org/ontologies/LBO
     mailing_list: jreecy@iastate.edu

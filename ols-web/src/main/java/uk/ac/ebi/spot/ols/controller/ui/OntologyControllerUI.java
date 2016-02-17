@@ -41,6 +41,7 @@ public class OntologyControllerUI {
     // Reading these from application.properties
     @Value("${ols.downloads.folder:}")
     private String downloadsFolder;
+
     @RequestMapping(path = "/{onto}", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     String getTerm(
             @PathVariable("onto") String ontologyId,
