@@ -56,8 +56,7 @@ Example configuration file:
      -- http://www.ebi.ac.uk/efo/has_flag +
 *base_uri:* // base URIs for local terms +
      -- http://www.ebi.ac.uk/efo/EFO_ +
-*reasoner:* OWL2 // can be one of OWL2, EL, NONE - deafult is EL
-*isInferred:* false // if true no reasoner will be used +
+*reasoner:* OWL2 // can be one of OWL2, EL, NONE - deafult is EL + 
 *oboSlims:* false   // contains OBO style slim annotations +
 **********************
 
