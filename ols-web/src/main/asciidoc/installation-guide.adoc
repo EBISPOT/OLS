@@ -56,19 +56,13 @@ Example configuration file:
      -- http://www.ebi.ac.uk/efo/has_flag +
 *base_uri:* // base URIs for local terms +
      -- http://www.ebi.ac.uk/efo/EFO_ +
-*classify:* true // if true will be classified with a a DL reasoner (HermiT) +
+*reasoner:* OWL2 // can be one of OWL2, EL, NONE - deafult is EL
 *isInferred:* false // if true no reasoner will be used +
 *oboSlims:* false   // contains OBO style slim annotations +
 **********************
 
 OLS is also able to import Yaml files following the OBO foundry specification. By default it will load the OBO config from the classpath. If you don't want the OBO ontologies delete or rename the obo-config.yaml file. You may also need to comment out the property from the `git/OLS/ols-apps/ols-config-importer/src/main/resources/application.properties` file (`ols.obofoundry.ontology.config`)
 https://raw.githubusercontent.com/OBOFoundry/OBOFoundry.github.io/master/_config.yml
-
-By default OLS will classify ontologies with an EL reasoner (ELK) before indexing. To force an ontology to not be classified at all (some big ontologies require this) there is an option to include a list of ontologies not to be classified in the application.properties file e.g.
-`ols.obofoundry.dontclassify ncbitaxon,gaz`
-
-NOTE: We recognise the configuration around classifying ontologies is a bit convoluted, we are going to change this soon to make things more explicit.
-
 
 == Building OLS
 You can build your version of OLS by using maven. Go to your local OLS folder and execute
@@ -135,7 +129,8 @@ spring.data.mongodb.database ols # mongo db name, default is ols
 
 # SOLR (SolrProperties)
 spring.data.solr.host=http://127.0.0.1:8983/solr # Solr host. Ignored if "zk-host" is set.
-ols.solr.core ontology
+ols.solr.search.core ontology
+ols.solr.suggest.core autosuggest
 
 #Mongo DB properties same as above
 ----------------
