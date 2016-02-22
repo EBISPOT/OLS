@@ -35,7 +35,6 @@ $(document).ready(function() {
 
     console.log("Init tree for: " + ontologyName + " - " + termIri + " - " + termType);
 
-
     URL=constructURL(document.URL)
 
     //URL for static dev
@@ -43,9 +42,6 @@ $(document).ready(function() {
 
     //URL for later on
     var tmpURL=URL+"changes/search/findByOntologyNameAndChangeSubjectUri?ontologyName="+ontologyName+"&subject="+termIri
-
-    //Harccoded URL for development
-    var tmpURL="http://snarf.ebi.ac.uk:9080/changes-api/changes/search/findByOntologyNameAndChangeSubjectUri?ontologyName=go&subject=http://purl.obolibrary.org/obo/GO_1902944"
 
 
 
@@ -69,43 +65,68 @@ $(document).ready(function() {
           var i;
           var htmlString='';
 
+          htmlString+='<table id="termtable" class="display" cellspacing="0" width="100%">'
+          htmlString+='<thead><tr><th>date</th><th>change</th><th>Info</th></tr></thead>'
 
           for (i=0;i<obj.length;i++)
           {
-            htmlString+='<table>'
-            htmlString+='<tr><td>changeName: </td><td>'+obj[i]["changeName"]+'</td></tr>'
-            htmlString+='<tr><td>changeDate: </td><td>'+obj[i]["changeDate"]+'</td></tr>'
-            htmlString+='<tr><td>changeIRI: </td><td>'+obj[i]["changeSubjectUri"]+'</td></tr>'
 
-            /*
-            $("#diachron-wrapper").append("changeName: "+obj[i]["changeName"]+"<br>")
-            $("#diachron-wrapper").append("changeDate: "+obj[i]["changeDate"]+"<br>")
-            $("#diachron-wrapper").append("changeIRI: "+obj[i]["changeSubjectUri"]+"<br>")
-            */
-
+            var date=moment(obj[i]["changeDate"]).format('YYYY-MM-DD')
+            htmlString+='<tr><td>'+date+'</td><td>'+obj[i]["changeName"]+'</td>'
+            //htmlString+='<tr><td>changeDate: </td><td>'+obj[i]["changeDate"]+'</td></tr>'
+            //htmlString+='<tr><td>changeIRI: </td><td>'+obj[i]["changeSubjectUri"]+'</td></tr>'
 
           var keys=_.keys(obj[i].changeProperties)
           if (obj[i].changeProperties!==null)
           {
           var f;
           //Add line for every property in key
+          htmlString+='<td>'
+
           for (f=0;f<keys.length;f++)
             {
-              htmlString+='<tr><td>'+keys[f]+'</td><td>'+obj[i].changeProperties[keys[f]]+'</td></tr>'
-            }
+              if (!keys[f].startsWith("predicate"))
+                {
+                  var tmpPropList=obj[i].changeProperties[keys[f]]
+
+                  if (tmpPropList.length>1){
+                    htmlString+='<strong>'+keys[f]+':</strong><br>'
+                    for (tmpi=0;tmpi<tmpPropList.length;tmpi++)
+                      {
+                        htmlString+='- '+tmpPropList[tmpi]+'<br>'
+                      }
+                  }
+
+
+                  if (tmpPropList.length===1){
+                    htmlString+='<strong>'+keys[f]+':</strong> '+obj[i].changeProperties[keys[f]]+'<br>'
+                  }
+                }
           }
-          //htmlString+='<tr><td>&nbsp;</td><td>&nbsp;</td></tr>'
-          htmlString+='</table>'
+
+            htmlString+='</td></tr>'
+          }
+
+          else
+          {
+            htmlString+='<td></td></tr>'
+          }
+
         }
+          htmlString+='</table>'
 
+        //console.log(htmlString);
         $("#diachron-wrapper").html(htmlString)
+        $("#termtable").DataTable();
 
-        sortTable(obj)
 
+        /*All the things below might go away - maybe I can do something with the chart, maybe not*/
+        /*sortTable(obj)
         $("#diachron-wrapper").append("<div id='graph'></div>");
         var data=delieverBubbleChartData(obj)
         console.log(data);
-        bubble('graph', data)
+        bubble('graph', data)*/
+
       }
 
 
@@ -113,6 +134,7 @@ $(document).ready(function() {
 
 })
 
+/*
 function sortTable(obj)
 {
 
@@ -137,7 +159,7 @@ function sortTable(obj)
 
 
 
-
+/*
 function delieverBubbleChartData(obj)
     //{ x: 95, y: 95, z: 13.8, name: 'BE', country: 'Belgium' }
     {
@@ -158,7 +180,7 @@ function delieverBubbleChartData(obj)
         if (option==="month")
           tmpDate=tmpDate.getMonth()
         if (option==="year")
-          tmpDate=tmpDate.getFullYear()*/
+          tmpDate=tmpDate.getFullYear()* /
 
         returndata.push({"x": tmpDate, "y":0, "z": 3, "name":obj[i].changeName, "info":obj[i].changeSubjectUri })
       }
@@ -198,103 +220,4 @@ function delieverBubbleChartData(obj)
 
 
         Highcharts.chart(divname, chartoptions);
-  }
-
-
-
-
-
-
-
-
-
-var tmpdata={
-  "_embedded" : {
-    "changes" : [ {
-      "changeDate" : "2016-02-09T01:00:00.000+0000",
-      "ontologyName" : "go",
-      "changeName" : "ADD CLASS",
-      "changeSubjectUri" : "http://purl.obolibrary.org/obo/GO_1904945",
-      "changeProperties" : null,
-      "_links" : {
-        "self" : {
-          "href" : "http://snarf.ebi.ac.uk:9080/changes-api/changes/56bb4889eea9a7219a2151fd"
-        },
-        "change" : {
-          "href" : "http://snarf.ebi.ac.uk:9080/changes-api/changes/56bb4889eea9a7219a2151fd"
-        }
-      }
-    },
-    {
-      "changeDate" : "2016-01-09T01:00:00.000+0000",
-      "ontologyName" : "go",
-      "changeName" : "ADD CLASS",
-      "changeSubjectUri" : "http://purl.obolibrary.org/obo/GO_1904945",
-      "changeProperties" : null,
-      "_links" : {
-        "self" : {
-          "href" : "http://snarf.ebi.ac.uk:9080/changes-api/changes/56bb4889eea9a7219a2151fd"
-        },
-        "change" : {
-          "href" : "http://snarf.ebi.ac.uk:9080/changes-api/changes/56bb4889eea9a7219a2151fd"
-        }
-      }
-    },
-    {
-      "changeDate" : "2016-01-19T01:00:00.000+0000",
-      "ontologyName" : "go",
-      "changeName" : "ADD CLASS",
-      "changeSubjectUri" : "http://purl.obolibrary.org/obo/GO_1904945",
-      "changeProperties" : null,
-      "_links" : {
-        "self" : {
-          "href" : "http://snarf.ebi.ac.uk:9080/changes-api/changes/56bb4889eea9a7219a2151fd"
-        },
-        "change" : {
-          "href" : "http://snarf.ebi.ac.uk:9080/changes-api/changes/56bb4889eea9a7219a2151fd"
-        }
-      }
-    },
-    {
-      "changeDate" : "2016-01-29T01:00:00.000+0000",
-      "ontologyName" : "go",
-      "changeName" : "DELETE CLASS",
-      "changeSubjectUri" : "http://purl.obolibrary.org/obo/GO_1904945",
-      "changeProperties" : null,
-      "_links" : {
-        "self" : {
-          "href" : "http://snarf.ebi.ac.uk:9080/changes-api/changes/56bb4889eea9a7219a2151fd"
-        },
-        "change" : {
-          "href" : "http://snarf.ebi.ac.uk:9080/changes-api/changes/56bb4889eea9a7219a2151fd"
-        }
-      }
-    },
-     {
-      "changeDate" : "2016-02-09T01:00:00.000+0000",
-      "ontologyName" : "go",
-      "changeName" : "Mark as Obsolete",
-      "changeSubjectUri" : "http://purl.obolibrary.org/obo/GO_1904945",
-      "changeProperties" : null,
-      "_links" : {
-        "self" : {
-          "href" : "http://snarf.ebi.ac.uk:9080/changes-api/changes/56bb4889eea9a7219a215200"
-        },
-        "change" : {
-          "href" : "http://snarf.ebi.ac.uk:9080/changes-api/changes/56bb4889eea9a7219a215200"
-        }
-      }
-    } ]
-  },
-  "_links" : {
-    "self" : {
-      "href" : "http://snarf.ebi.ac.uk:9080/changes-api/changes/search/findByOntologyNameAndChangeSubjectUri?ontologyName=go&subject=http://purl.obolibrary.org/obo/GO_1904945"
-    }
-  },
-  "page" : {
-    "size" : 20,
-    "totalElements" : 2,
-    "totalPages" : 1,
-    "number" : 0
-  }
-}
+  }*/
