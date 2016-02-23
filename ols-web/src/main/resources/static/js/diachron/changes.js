@@ -2,9 +2,21 @@ var dateBefore;
 var dateAfter;
 var ontologyName;
 var name='';
-var status='pie';
 var date='';
 var URL='';
+
+
+var colorObject={
+"ADD CLASS": "#66bd63",
+"ADD LABEL":"#a6d96a",
+"Add Synonym":"#d9ef8b",
+"Add Definition":"#ffffbf",
+"Mark as Obsolete":"#fee08b",
+"Delete Definition":"#fdae61",
+"Delete Synonym":"#f46d43",
+"DELETE LABEL":"#d73027",
+"DELETE CLASS":"#a50026"
+}
 
 
 //tmp function!
@@ -37,6 +49,7 @@ $(document).ready(function() {
 
     URL=constructURL(document.URL)
 
+
     //URL for static dev
     //var tmpURL="http://www.ebi.ac.uk/ols/beta/api/ontologies?page=1&size=1"
 
@@ -66,15 +79,13 @@ $(document).ready(function() {
           var htmlString='';
 
           htmlString+='<table id="termtable" class="display" cellspacing="0" width="100%">'
-          htmlString+='<thead><tr><th>date</th><th>change</th><th>Info</th></tr></thead>'
+          htmlString+='<thead><tr><th>date</th><th>change</th><th>Info</th><th></th></tr></thead>'
 
           for (i=0;i<obj.length;i++)
           {
 
             var date=moment(obj[i]["changeDate"]).format('YYYY-MM-DD')
             htmlString+='<tr><td>'+date+'</td><td>'+obj[i]["changeName"]+'</td>'
-            //htmlString+='<tr><td>changeDate: </td><td>'+obj[i]["changeDate"]+'</td></tr>'
-            //htmlString+='<tr><td>changeIRI: </td><td>'+obj[i]["changeSubjectUri"]+'</td></tr>'
 
           var keys=_.keys(obj[i].changeProperties)
           if (obj[i].changeProperties!==null)
@@ -104,7 +115,7 @@ $(document).ready(function() {
                 }
           }
 
-            htmlString+='</td></tr>'
+            htmlString+='</td><td bgcolor="'+colorObject[obj[i].changeName]+'"></td></tr>'
           }
 
           else
@@ -117,7 +128,15 @@ $(document).ready(function() {
 
         //console.log(htmlString);
         $("#diachron-wrapper").html(htmlString)
-        $("#termtable").DataTable();
+        $("#termtable").DataTable({
+          "aoColumns" :[
+            false,
+            false,
+            false,
+            {"bSortable":false}
+          ]
+
+        });
 
 
         /*All the things below might go away - maybe I can do something with the chart, maybe not*/

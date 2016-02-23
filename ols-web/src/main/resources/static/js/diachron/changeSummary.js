@@ -8,6 +8,18 @@ var URL='';
 //var semaphore=false;
 //var showDatepicker=true;
 
+var colorObject={
+"ADD CLASS": "#66bd63",
+"ADD LABEL":"#a6d96a",
+"Add Synonym":"#d9ef8b",
+"Add Definition":"#ffffbf",
+"Mark as Obsolete":"#fee08b",
+"Delete Definition":"#fdae61",
+"Delete Synonym":"#f46d43",
+"DELETE LABEL":"#d73027",
+"DELETE CLASS":"#a50026"
+}
+
 //tmp function!
 function constructURL(urlToProcess){
 console.log(urlToProcess);
@@ -53,8 +65,9 @@ $(document).ready(function() {
         $("#diachron-wrapper").append("<div id='optionfield'><div>")
 
         //Append datepicker
-        $("#datepicker").html('<br><div><input type="text" id="dateAfter" value="'+dateAfter+'"> <input type="text" id="dateBefore" value="'+dateBefore+'"> <input id="changeDateSubmit" type="submit" value="Update Data!"></div><br>')
-        $("#optionfield").html('<br><button id="pieChart" class="primary" type="button">Show Pie Chart Summary</button> <button id="overTime" class="primary" type="button">Show data over Timeframe</button>');
+
+        $("#datepicker").html('<br><div>Show data from <input type="text" size="9" id="dateAfter" value="'+dateAfter+'"> to <input type="text" size="9" id="dateBefore" value="'+dateBefore+'"> --> <input id="changeDateSubmit" type="submit" value="Update Data!"></div><br>')
+        $("#optionfield").html('<br><button id="overTime" class="primary" type="button">Show data over Timeframe</button> <button id="pieChart" class="primary" type="button">Show Pie Chart Summary</button>');
 
         //$("#optionfield").html('<br><button id="pieChart" type="button">Show Pie Chart Summary</button> <button id="overTime" type="button">Show data over Timeframe</button>');
 
@@ -149,8 +162,12 @@ function pieChartData(){
 
       var data=[]
       for (var i=0;tmp.length>i ;i++)
-          {     data[i]={"name":tmp[i], "y":value[i]}    }
+          {
+            console.log(tmp[i])
+            console.log(colorObject[tmp[i]]);
+            data[i]={"name":tmp[i], "y":value[i], "color": colorObject[tmp[i]] }    }
 
+          console.log(data);
         piechart("graphpart", data);
     })
   }
@@ -298,7 +315,7 @@ function BarChart(divname, name){
              onclick : function(){
 
                  $("#"+divname).highcharts().destroy();
-                 drawBarTable(divname, data)
+                 drawBarTable(divname, name, data)
              },
                symbol: "menu",
                _titleKey : "tooltip",
@@ -324,10 +341,10 @@ function BarChart(divname, name){
 
 
 
-function drawBarTable(divname, data){
+function drawBarTable(divname, changename, data){
   console.log("In drawBarTable", data);
   var htmlString="";
-  htmlString+="<h3>Detailview for '"+ontologyName+"' between "+dateAfter+" and "+dateBefore+"</h3>";
+  htmlString+="<h3>Detail view for '"+ontologyName+", "+changename+" between "+dateAfter+" and "+dateBefore+"</h3>";
   htmlString+="<table id='testTable' class='display' cellspacing='0' width='100%'>"
   htmlString+="<thead><tr><th>Date</th><th>Number of changes</th></tr></thead>"
   htmlString+="<tbody>"
@@ -368,7 +385,7 @@ function parseResult(obj){
         }
       if (!_.findWhere(tmpdata, {"name":obj[i].changeName}))
         {
-          tmpdata.push({"name": obj[i].changeName, "data" : [obj[i].count]})
+          tmpdata.push({"name": obj[i].changeName, "data" : [obj[i].count], "color":colorObject[obj[i].changeName]})
           console.log("Pushed to tmpdata "+obj[i].changeName+" "+obj[i].count);
         }
       else {
@@ -404,7 +421,7 @@ function lineChartData(){
 
 linechart = function(divname, returndata)
 {
-    var title= "Sum of all changes per type between "+ dateAfter+" and "+dateBefore;
+    var title= "All changes per type between "+ dateAfter+" and "+dateBefore;
     console.log("In LINE CHART");
     //var returndata=lineChartData();
     console.log(returndata);
@@ -511,6 +528,9 @@ function callWebserviceForDateView(inputURL){
 }
 
 
+
+
+var tableData=[];
 function detailDateView(divname, date){
   masterdata=[];
   console.log("Let's do this for a certain date");
@@ -525,6 +545,12 @@ function detailDateView(divname, date){
 
   tmpURL=URL+"changes/search/findByOntologyNameAndChangeDateBetween"
   tmpURL=tmpURL+"?ontologyName="+ontologyName+"&after="+tmpdateafter+"&before="+tmpdatebefore
+
+  //No between
+  //tmpURL=URL+"changes/search/findByOntologyNameAndChangeDate"
+  //tmpURL=tmpURL+"?ontologyName="+ontologyName+"&changeDate="+date
+
+
 
   console.log(tmpURL);
 
@@ -547,125 +573,139 @@ function detailDateView(divname, date){
     }
 
 
+
+
+
     $.when.apply($,tokenArray).done(function() {
           console.log("Collected all data! So let's Test the results");
           console.log("Total Elements ",totalElements);
           console.log("Length masterdata", masterdata.length);
 
-          var tableData=ConstructDataTable(masterdata)
+          tableData=ConstructDataTable(masterdata)
           console.log("This is what tableData looks like");
           console.log(tableData);
 
 
-          /*This part is for the second asynchronious webservice call round!* /
+          /*This part is for the second asynchronious webservice call round!*/
           var tokenArrayTwo=[]
-          tokenArrayTwo.push(callOLSforLabel(tableData))
-          $.when.apply($,tokenArrayTwo).done(function() {
-            console.log("All other webservice Calls finished, finally done!");
-          }
-          /* END of the second asynchronious calling round */
-
-
-
-          var htmlString2='<div id="stats">Total number of terms wich changes found: '+tableData.length
-          htmlString2+='<br>'
-          /* Other stats */
-          htmlString2+='</div><br>'
-
-          htmlString2+='<table id="test" class="display" cellspacing="0" width="100%">'
-          htmlString2+='<thead><tr><th>id</th><th>Label</th><th>Number of changes</th></tr></thead>'
-          htmlString2+='<tbody>'
-
           for (var i=0;i<tableData.length;i++)
           {
-              htmlString2+='<tr id="'+i+'" class="mainrow"><td>'+tableData[i].id+'</td><td>'+tableData[i].Label+'</td><td>'+tableData[i].changes.length+'</td></tr>'
+          tokenArrayTwo.push(callOLSforLabel(tableData[i].id))
           }
 
-
-
-          htmlString2+='</tbody></table>'
-
-
-          $("#"+divname).append(htmlString2);
-          var table=$("#test").DataTable();
-
-          $('#test tbody').on('click', 'tr.mainrow', function() {
-          //console.log('clicked on ', this, $(this).closest('tr'));
-            var tr=$(this).closest('tr')
-            var row=table.row(tr)
+          $.when.apply($,tokenArrayTwo).done(function() {
+            console.log("All other webservice Calls finished, finally done!");
 
 
 
-            if (row.child.isShown())
-            {
-              row.child.hide();
-              tr.removeClass('shown');
-            }
-            else
-            {
+                      var htmlString2=''
 
-              var rowid=tr.attr('id');
-              var tmpchanges=tableData[rowid].changes;
+                      /* Stats for table * /
+                      htmlString2+='<div id="stats">Total number of terms wich changes found: '+tableData.length
+                      htmlString2+='<br>'
+                      htmlString2+='</div><br>'
+                      / * */
 
-              console.log(rowid);
-              console.log(tableData);
-              console.log(tableData[rowid]);
+                      /*htmlString2+='- Click on a row to expand and see the details!<br>'*/
 
-              var childHTML='';
+                      htmlString2+='<table id="test" class="display" cellspacing="0" width="100%">'
+                      htmlString2+='<thead><tr><th>id</th><th>Label</th><th># of changes</th></tr></thead>'
+                      htmlString2+='<tbody>'
 
-              console.log(tmpchanges);
-              for (var f=0;f<tmpchanges.length;f++)
-              {
-                childHTML+='<table><tr><td>Change Name</td><td>'+tmpchanges[f].changeName+'</td></tr>'
-                var keys=_.keys(tmpchanges[f].changeProperties)
+                      var baseUrl=document.URL;
+                      baseUrl+="/terms?iri=";
 
-                if (tmpchanges[f].changeProperties!==null)
-                {
-                var counter;
-                //Add line for every property in key
-                for (counter=0;counter<keys.length;counter++)
-                {
-                      if (!keys[counter].startsWith("predicate"))
+                      for (var i=0;i<tableData.length;i++)
+                      {
+                          htmlString2+='<tr id="'+i+'" class="mainrow"><td><a href="'+baseUrl+encodeURIComponent(tableData[i].id)+'">'+tableData[i].id+'</a></td><td>'+tableData[i].Label+'</td><td>'+tableData[i].changes.length+' <img src="../img/eye.png" alt="Click me" title="Click on a row to see more results!"/></td></tr>'
+                      }
+
+
+
+                      htmlString2+='</tbody></table>'
+
+
+                      $("#"+divname).append(htmlString2);
+                      var table=$("#test").DataTable();
+
+                      $('#test tbody').on('click', 'tr.mainrow', function() {
+                      //console.log('clicked on ', this, $(this).closest('tr'));
+                        var tr=$(this).closest('tr')
+                        var row=table.row(tr)
+
+
+
+                        if (row.child.isShown())
                         {
-                          var tmpPropList=tmpchanges[f].changeProperties[keys[counter]]
+                          row.child.hide();
+                          tr.removeClass('shown');
+                        }
+                        else
+                        {
 
-                          //If there are multiple values for a key, go through the values and print the whole array
+                          var rowid=tr.attr('id');
+                          var tmpchanges=tableData[rowid].changes;
 
-                          if (tmpPropList.length>1)
+                          console.log(rowid);
+                          console.log(tableData);
+                          console.log(tableData[rowid]);
+
+                          var childHTML='';
+
+                          console.log(tmpchanges);
+                          for (var f=0;f<tmpchanges.length;f++)
                           {
-                          childHTML+='<tr><td>'+keys[counter]+'</td><td>'
+                            childHTML+='<table><tr><td width="80px">Change Name</td><td>'+tmpchanges[f].changeName+'</td><td bgcolor="'+colorObject[tmpchanges[f].changeName]+'" width="20px"></td></tr>'
+                            var keys=_.keys(tmpchanges[f].changeProperties)
 
-                          for (var tmpi=0;tmpi<tmpPropList.length;tmpi++)
+                            if (tmpchanges[f].changeProperties!==null)
                             {
-                                childHTML+='- '+tmpPropList[tmpi]+'<br>'
+                            var counter;
+                            //Add line for every property in key
+                            for (counter=0;counter<keys.length;counter++)
+                            {
+                                  if (!keys[counter].startsWith("predicate"))
+                                    {
+                                      var tmpPropList=tmpchanges[f].changeProperties[keys[counter]]
+
+                                      //If there are multiple values for a key, go through the values and print the whole array
+
+                                      if (tmpPropList.length>1)
+                                      {
+                                      childHTML+='<tr><td>'+keys[counter]+'</td><td>'
+
+                                      for (var tmpi=0;tmpi<tmpPropList.length;tmpi++)
+                                        {
+                                            childHTML+='- '+tmpPropList[tmpi]+'<br>'
+                                        }
+                                        childHTML+='</td><tr>'
+                                      }
+
+                                    //If there is only ONE Value for the key, print this value
+                                    if (tmpPropList.length===1){
+                                        childHTML+='<tr><td>'+keys[counter]+'</td><td>'+tmpchanges[f].changeProperties[keys[counter]]+'</td><tr>';
+                                      }
+
+                                    }
+
                             }
-                            childHTML+='</td><tr>'
+
+                            }
+
+                            childHTML+='</table>'
+
+
+
                           }
 
-                        //If there is only ONE Value for the key, print this value
-                        if (tmpPropList.length===1){
-                            childHTML+='<tr><td>'+keys[counter]+'</td><td>'+tmpchanges[f].changeProperties[keys[counter]]+'</td><tr>';
-                          }
-
+                          row.child(childHTML).show();
+                          tr.addClass('shown');
                         }
 
-                }
 
-                }
-
-                childHTML+='</table>'
-
-
-
-              }
-
-              row.child(childHTML).show();
-              tr.addClass('shown');
-            }
-
-
+                      })
           })
-
+          /* END of the second asynchronious calling round */
       })
 
   })
@@ -675,29 +715,36 @@ function detailDateView(divname, date){
 
 
 /*Calling for OLS Label*/
-/*function callOLSforLabel(data){
-  var token=$.Deferred();
-  var OLSurl="http://www.ebi.ac.uk/ols/beta/api/ontologies/"+ontologyName+"/terms?iri="+obj[i].changeSubjectUri
+function callOLSforLabel(iri){
 
-$.getJSON(OLSurl, function(olsdata){})
-  .fail(function(){console.log("Failed to do webservice call! Please try again later or make sure the "+OLSurl+" exists!"); return null})
-  .done(function(olsdata){
+    var token=$.Deferred();
+    var OLSurl="http://www.ebi.ac.uk/ols/beta/api/ontologies/"+ontologyName+"/terms?iri="+iri
 
-  olsdata=olsdata["_embedded"]["terms"]
-  var label=olsdata.label;
-  tableData
-  return token.resolve();
-  }
+  $.getJSON(OLSurl, function(olsdata){})
+    .fail(function(){console.log("Failed to do webservice call! Please try again later or make sure the "+OLSurl+" exists!"); return null})
+    .done(function(olsdata){
+
+      console.log("Doing other webservice calls");
+      olsdata=olsdata["_embedded"]["terms"]
+      var label=olsdata[0].label;
+      console.log(olsdata);
+      console.log(label);
+      var tmp=_.findWhere(tableData, {"id":iri})
+      console.log(tmp);
+      tmp.Label=label
+      console.log(tmp);
+
+    return token.resolve();
+  })
 
 return token;
-}*/
+}
+/**/
 
 
 /* Construction the Data for the data table */
 function ConstructDataTable(masterdata){
   console.log("In construct Data Table");
-  //console.log(masterdata);
-  var uniqueTermURIList=[];
   var dataObject=[];
 
   var i;
@@ -726,11 +773,11 @@ function ConstructDataTable(masterdata){
       }
     }
 
-    console.log(masterdata.length);
-    console.log(dataObject.length);
-    console.log(tmpcounter);
-    console.log(dataObject.length+tmpcounter);
-    console.log(dataObject);
+    //console.log(masterdata.length);
+    //console.log(dataObject.length);
+    //console.log(tmpcounter);
+    //console.log(dataObject.length+tmpcounter);
+    //console.log(dataObject);
 
    return dataObject;
 }
@@ -770,57 +817,79 @@ function detailview(divname, changeName, date){
   .done(function(obj){
     console.log(obj);
 
+    var baseUrl=document.URL;
+    baseUrl+="/terms?iri=";
+
     obj=obj["_embedded"]["changes"]
 
     var i=0;
     var htmlString='';
-    var baseUrl=document.URL;
-    baseUrl+="/terms?iri=";
 
     for (i=0 ; i<obj.length ; i++)
     {
       var keys=_.keys(obj[i].changeProperties)
 
-      htmlString='<table><tr><td>Change Name</td><td>'+obj[i].changeName+'</td><tr>'
-      htmlString+='<tr><td>ChangeSubjectUri</td><td><a href="'+baseUrl+encodeURIComponent(obj[i].changeSubjectUri)+'">'+obj[i].changeSubjectUri+'</a></td><tr>'
+      console.log(obj[i].changeName);
+      console.log(colorObject[obj[i].changeName]);
 
-      //Link to OLS -   base + ontologies/go/terms?iri= + changeSubjectUri
-      console.log(obj[i].changeProperties);
-      console.log(keys);
-      console.log(keys.length);
 
-      if (obj[i].changeProperties!==null)
-      {
-        var f;
-        //Add line for every property in key
-        for (f=0;f<keys.length;f++)
-          {
-            if (!keys[f].startsWith("predicate"))
-              {
-                var tmpPropList=obj[i].changeProperties[keys[f]]
+      htmlString='<table><tr><td>Change Name</td><td>'+obj[i].changeName+'</td><td bgcolor="'+colorObject[obj[i].changeName]+'" width="20px"></td><tr>'
+      htmlString+='<tr><td width="80px">ChangeSubjectUri</td><td><a href="'+baseUrl+encodeURIComponent(obj[i].changeSubjectUri)+'">'+obj[i].changeSubjectUri+'</a></td><tr>'
 
-                //If there are multiple values for a key, go through the values and print the whole array
-                if(tmpPropList.length>1){
-                  htmlString+='<tr><td>'+keys[f]+'</td><td>'
-                  for (var tmpi=0;tmpi<tmpPropList.length;tmpi++)
-                  {
-                    htmlString+='- '+tmpPropList[tmpi]+'<br>'
-                  }
 
+
+
+
+/* THIS would have to be handled with tokens AGAIN
+      var OLSurl="http://www.ebi.ac.uk/ols/beta/api/ontologies/"+ontologyName+"/terms?iri="+obj[i].changeSubjectUri
+      $.getJSON(OLSurl, function(olsdata){})
+      .fail(function(){console.log("Failed to do webservice call! Please try again later or make sure the "+OLSurl+" exists!"); return null})
+      .done(function(olsdata){
+
+      olsdata=olsdata["_embedded"]["terms"]
+      var label=olsdata[0].label;
+
+
+      console.log("Durchlauf Number "+i);
+      console.log(label);
+
+    }) END of part that should be handled with tokens*/
+
+
+    if (obj[i].changeProperties!==null)
+    {
+      var f;
+      //Add line for every property in key
+      for (f=0;f<keys.length;f++)
+        {
+          if (!keys[f].startsWith("predicate"))
+            {
+              var tmpPropList=obj[i].changeProperties[keys[f]]
+
+              //If there are multiple values for a key, go through the values and print the whole array
+              if(tmpPropList.length>1){
+                htmlString+='<tr><td>'+keys[f]+'</td><td>'
+                for (var tmpi=0;tmpi<tmpPropList.length;tmpi++)
+                {
+                  htmlString+='- '+tmpPropList[tmpi]+'<br>'
                 }
 
-                //If there is only ONE Value for the key, print this value
-                if(tmpPropList.length===1){
-                  htmlString+='<tr><td>'+keys[f]+'</td><td>'+obj[i].changeProperties[keys[f]]+'</td><tr>'
-                }
               }
 
+              //If there is only ONE Value for the key, print this value
+              if(tmpPropList.length===1){
+                htmlString+='<tr><td>'+keys[f]+'</td><td>'+obj[i].changeProperties[keys[f]]+'</td><tr>'
+              }
+            }
 
-          }
-      }
 
-      htmlString+='</table><br>'
-      $("#"+divname).append(htmlString)
+        }
+    }
+
+    htmlString+='</table><br>'
+    $("#"+divname).append(htmlString)
+
+
     }
 
   })
