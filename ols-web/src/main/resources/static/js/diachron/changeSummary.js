@@ -48,7 +48,8 @@ $("#diachron-link").on('click', function(){
 
 
     URL=constructURL(document.URL)
-    
+
+
 
     date=new Date();
     dateBefore=date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
@@ -384,51 +385,74 @@ function drawBarTable(divname, changename, data){
 
 
 
+
 function parseResult(obj){
   var categories=[];
   var tmpdata=[];
   var data=[];
 
-  /* Preparing the data */
-  for (var i=0;obj.length>i;i++)
+  var keys=_.keys(colorObject)
+  console.log("Parse Results");
+
+
+  console.log(obj.length);
+  //Fill the categories array with all potential dates we can find in the object
+  for (var i=0;i<obj.length;i++)
   {
-
-
+      console.log(obj[i]);
       var tmp=obj[i].changeDate;
-      //console.log(tmp);
-
       if (! _.contains(categories, tmp))
         {
           categories.push(tmp)
         }
-      if (!_.findWhere(tmpdata, {"name":obj[i].changeName}))
-        {
-          tmpdata.push({"name": obj[i].changeName, "data" : [obj[i].count], "color":colorObject[obj[i].changeName]})
-          //console.log("Pushed to tmpdata "+obj[i].changeName+" "+obj[i].count);
-        }
-      else {
-        //console.log("Term already found so I have to push to data");
-        //console.log(_.findWhere(tmpdata, {"name":obj[i].changeName}));
-        _.findWhere(tmpdata, {"name":obj[i].changeName})["data"].push(obj[i].count)
-      }
   }
 
 
-  console.log("parse Results");
-  console.log(tmpdata);
-  //curation of data
-   //for (var i=0; tmpdata.length>i; i++)
-  //{
-  //  tmpdata[i].data=tmpdata[i].data.reverse();
-  //}
-  //categories=categories.reverse();
+  //Create an empty data opject with the length of categories, filled with 0s
+  var data=[];
+  for (var i=0;i<categories.length;i++)
+  {      data.push(0) }
 
-  // - leads to wrong  results - var returndata={"categories": categories.reverse(), "series": tmpdata.reverse()} -- so delete this --
+
+  //Get all the keys as they represent all potential names in the object
+  for (var i=0;i<keys.length;i++)
+  {      tmpdata.push({"name": keys[i], "color": colorObject[keys[i]], "data":data.slice(0)})  }  //every tmpdata is supposed to get his own data array filled with 0
+
+console.log(categories);
+
+  //Go through the object, and save count at the position of the array corresponding to the position of changeDate in the categories array
+  for (var i=0;i<obj.length;i++)
+  {
+        console.log("For the date "+obj[i].changeDate+" and the name "+obj[i].changeName);
+        var index=stringCompare(categories, obj[i].changeDate)    //Find the index of the object data in the categories
+        var tmpentry=_.findWhere(tmpdata, {"name":obj[i].changeName}) //Find the object with the right name
+        console.log(tmpentry);
+        if (tmpentry!=undefined && index!=-1)
+          {
+            console.log(tmpentry.data[index]);
+            tmpentry.data[index]=obj[i].count;    //save the value/count at the right position in the data array of the object
+            console.log(obj[i].count);
+            console.log(tmpentry.data[index]);
+          }
+ }
 
   var returndata={"categories": categories, "series": tmpdata}
   return returndata
 }
 
+//Look for the index of b in the array a, return the index once found
+function stringCompare(a,b){
+  console.log(b);
+  for (var i=0;i<a.length;i++)
+    {
+        if (a[i]===b)
+          {
+            console.log("TRUE, index: ", i);
+            return i
+          }
+    }
+    return -1
+}
 
 
 function lineChartData(){
@@ -444,7 +468,6 @@ function lineChartData(){
     .done(function(obj){
 
       var returndata=parseResult(obj);
-      console.log(returndata);
       linechart("graphpart",returndata);
     })
 }
@@ -452,9 +475,7 @@ function lineChartData(){
 linechart = function(divname, returndata)
 {
     var title= "All changes per type between "+ dateAfter+" and "+dateBefore;
-    console.log("In LINE CHART");
     //var returndata=lineChartData();
-    console.log(returndata);
     console.log(returndata.categories);
     console.log(returndata.series);
     /* Now designing the chart */
