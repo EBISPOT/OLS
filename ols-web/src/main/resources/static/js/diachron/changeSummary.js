@@ -23,15 +23,21 @@ var colorObject={
 //tmp function!
 function constructURL(urlToProcess){
 console.log(urlToProcess);
-var tmp=urlToProcess.slice(0,urlToProcess.indexOf("uk:"))
+var tmp=urlToProcess.slice(0,urlToProcess.indexOf("ols")+3)
 console.log(tmp);
-tmp+="uk:9080/changes-api/"
+tmp+="/diachron/changes-api/"
 console.log(tmp);
 return tmp;
 }
 
-
 $(document).ready(function() {
+//Register onclicks for other tab links to hide the Legend when leaving ontology history
+$("#tree-link").on('click', hideLegend)
+$("#property-link").on('click', hideLegend)
+$("#meta-link").on('click', hideLegend)
+
+
+$("#diachron-link").on('click', function(){
 
     ontologyName = $("#diachron-tab").data("olsontology");
     var serviceURL= $("#diachron-tab").data("selectpath");
@@ -42,7 +48,6 @@ $(document).ready(function() {
 
 
     URL=constructURL(document.URL)
-
 
 
     date=new Date();
@@ -60,16 +65,13 @@ $(document).ready(function() {
         dateAfter=obj[obj.length-1]["changeDate"]
 
         //Append general structur of window
-        $("#diachron-wrapper").append("<div id='datepicker'><div>")
         $("#diachron-wrapper").append("<div id='graphpart'><div>")
-        $("#diachron-wrapper").append("<div id='optionfield'><div>")
-
+        $("#diachron-wrapper").append("<div id='datepicker' style='text-align:center;'><div>")
+        $("#diachron-wrapper").append("<div id='optionfield' style='text-align:center; margin-top:20px;'><div>")
         //Append datepicker
 
-        $("#datepicker").html('<br><div>Show data from <input type="text" size="9" id="dateAfter" value="'+dateAfter+'"> to <input type="text" size="9" id="dateBefore" value="'+dateBefore+'"> --> <input id="changeDateSubmit" type="submit" value="Update Data!"></div><br>')
-        $("#optionfield").html('<br><button id="overTime" class="primary" type="button">Show data over Timeframe</button> <button id="pieChart" class="primary" type="button">Show Pie Chart Summary</button>');
-
-        //$("#optionfield").html('<br><button id="pieChart" type="button">Show Pie Chart Summary</button> <button id="overTime" type="button">Show data over Timeframe</button>');
+        $("#datepicker").html('Show data from <input type="text" size="9" id="dateAfter" value="'+dateAfter+'"> to <input type="text" size="9" id="dateBefore" value="'+dateBefore+'"> <input id="changeDateSubmit" type="submit" value="Update Data!">')
+        $("#optionfield").html('<hr><button id="overTime" class="primary" type="button">Show data over time as linechart</button> <button id="pieChart" class="primary" type="button">Show summary as pie chart</button>');
 
         var pickerAfter = new Pikaday(
         {
@@ -118,9 +120,20 @@ $(document).ready(function() {
 
           update();
 
+          if ($(document).find("#LegendDiv").length === 0)
+          {    buildLegend(); }
+          else {              $("#LegendDiv").show();     }
+
+
     })
   })
+})
 
+
+
+function hideLegend(){
+    $("#LegendDiv").hide();
+}
 
 function update(){
   if (status==="pie")
@@ -134,6 +147,20 @@ function update(){
     //updatedetailview("graphpart", name, date);  // DOES THIS MAKE SENSE? SO FAR, DETAILVIEW IS ONE DATE
 }
 
+
+function buildLegend(){
+  var keys=_.keys(colorObject)
+  var htmlString='<div id="LegendDiv" class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title">Legend</h3></div><div id="LegendBody" class="panel-body">'
+  htmlString+="<table>";
+
+  for (var i=0; keys.length>i; i++)
+  {
+    htmlString+='<tr><td>'+keys[i]+'</td><td bgcolor="'+colorObject[keys[i]]+'"></td></tr>'
+  }
+  htmlString+="</table></div></div>"
+  console.log(htmlString);
+  $("#right_info_box").append(htmlString)
+}
 
 function pieChartData(){
     var tmpURL=URL+"changesummaries/search/findByOntologyNameAndChangeDateBetween";
@@ -372,11 +399,9 @@ function parseResult(obj){
   /* Preparing the data */
   for (var i=0;obj.length>i;i++)
   {
-      console.log(obj[i].changeName);
-      console.log(obj[i].changeDate)
-      console.log(obj[i].count)
+
+
       var tmp=obj[i].changeDate;
-      //tmp=formatDate(tmp)
       console.log(tmp);
 
       if (! _.contains(categories, tmp))
@@ -395,7 +420,19 @@ function parseResult(obj){
       }
   }
 
-  var returndata={"categories": categories.reverse(), "series": tmpdata.reverse()}
+
+  console.log("parse Results");
+  console.log(tmpdata);
+  //curation of data
+   for (var i=0; tmpdata.length>i; i++)
+  {
+    tmpdata[i].data=tmpdata[i].data.reverse();
+  }
+  categories=categories.reverse();
+
+  // - leads to wrong  results - var returndata={"categories": categories.reverse(), "series": tmpdata.reverse()} -- so delete this --
+
+  var returndata={"categories": categories, "series": tmpdata}
   return returndata
 }
 
@@ -491,39 +528,12 @@ function callWebserviceForDateView(inputURL){
     var i;
     obj=obj["_embedded"]["changes"]
 
-
       for (i=0;i<obj.length;i++){
-
-
-          /*  Fking asynchronious calling * /
-          var OLSurl="http://www.ebi.ac.uk/ols/beta/api/ontologies/"+ontologyName+"/terms?iri="+obj[i].changeSubjectUri
-          $.getJSON(OLSurl, function(olsdata){})
-          .fail(function(){console.log("Failed to do webservice call! Please try again later or make sure the "+OLSurl+" exists!"); return null})
-          .done(function(olsdata){
-
-          console.log("Run through number " ,i);
-          console.log(obj[i]);
-          console.log(obj[i].changeName);
-
-          olsdata=olsdata["_embedded"]["terms"]
-          var label=olsdata.label;
-
-          //console.log(obj[i]);
-          //console.log(label);
-          masterdata.push({"changeName": obj[i].changeName, "changeSubjectURI": obj[i].changeSubjectUri, "label": label,"changeProperties": obj[i].changeProperties})
-        })*/
-
-
-
-        //no label here!
         masterdata.push({"changeName": obj[i].changeName, "changeSubjectURI": obj[i].changeSubjectUri,"changeProperties": obj[i].changeProperties})
-
       }
 
       token.resolve();
-
   })
-
   return token;
 }
 
@@ -539,16 +549,17 @@ function detailDateView(divname, date){
   htmlString+="<h3>Changes for <strong>"+date+"</strong></h3>";
 
   //Transform Date to two dates (before and after day)
-  var x=new Date(date);
+  /*var x=new Date(date);
   var tmpdateafter=x.getFullYear()+'-'+(x.getMonth()+1)+'-'+(x.getDate()-1);
   var tmpdatebefore=x.getFullYear()+'-'+(x.getMonth()+1)+'-'+(x.getDate()+1);
 
   tmpURL=URL+"changes/search/findByOntologyNameAndChangeDateBetween"
   tmpURL=tmpURL+"?ontologyName="+ontologyName+"&after="+tmpdateafter+"&before="+tmpdatebefore
+*/
 
   //No between
-  //tmpURL=URL+"changes/search/findByOntologyNameAndChangeDate"
-  //tmpURL=tmpURL+"?ontologyName="+ontologyName+"&changeDate="+date
+  tmpURL=URL+"changes/search/findByOntologyNameAndChangeDate"
+  tmpURL=tmpURL+"?ontologyName="+ontologyName+"&date="+date
 
 
 
@@ -573,19 +584,9 @@ function detailDateView(divname, date){
     }
 
 
-
-
-
+//This is exectued after all token are resolved - which means the diachron webservice calls are finished
     $.when.apply($,tokenArray).done(function() {
-          console.log("Collected all data! So let's Test the results");
-          console.log("Total Elements ",totalElements);
-          console.log("Length masterdata", masterdata.length);
-
           tableData=ConstructDataTable(masterdata)
-          console.log("This is what tableData looks like");
-          console.log(tableData);
-
-
           /*This part is for the second asynchronious webservice call round!*/
           var tokenArrayTwo=[]
           for (var i=0;i<tableData.length;i++)
@@ -593,10 +594,9 @@ function detailDateView(divname, date){
           tokenArrayTwo.push(callOLSforLabel(tableData[i].id))
           }
 
+          //This is executed after all OLS calls for our results from diachron are finshed - now I finally can build a table with all information that I need
           $.when.apply($,tokenArrayTwo).done(function() {
             console.log("All other webservice Calls finished, finally done!");
-
-
 
                       var htmlString2=''
 
@@ -609,15 +609,32 @@ function detailDateView(divname, date){
                       /*htmlString2+='- Click on a row to expand and see the details!<br>'*/
 
                       htmlString2+='<table id="test" class="display" cellspacing="0" width="100%">'
-                      htmlString2+='<thead><tr><th>id</th><th>Label</th><th># of changes</th></tr></thead>'
+                      htmlString2+='<thead><tr><th>id</th><th>Label</th><th># and types of changes</th><th></th></tr></thead>'
                       htmlString2+='<tbody>'
 
                       var baseUrl=document.URL;
                       baseUrl+="/terms?iri=";
 
+                      //Go through every entry within the tableData
                       for (var i=0;i<tableData.length;i++)
                       {
-                          htmlString2+='<tr id="'+i+'" class="mainrow"><td><a href="'+baseUrl+encodeURIComponent(tableData[i].id)+'">'+tableData[i].id+'</a></td><td>'+tableData[i].Label+'</td><td>'+tableData[i].changes.length+' <img src="../img/eye.png" alt="Click me" title="Click on a row to see more results!"/></td></tr>'
+                        var tmpchangetypes=[];
+                        var tmpchangefield=tableData[i].changes
+                        console.log(tmpchangefield);
+
+                        //Go through all changes of every object and save the changename, so it can be displayed in the main table (for search)
+                          for (var tcounter=0; tmpchangefield.length>tcounter; tcounter++)
+                            {
+                              console.log(tmpchangefield);
+                              console.log(tmpchangefield[tcounter].changeName);
+
+                                // Only push the changeName if it's not already in the array, we want unique terms
+                              if (! _.contains(tmpchangetypes, tmpchangefield[tcounter].changeName))
+                              {
+                                tmpchangetypes.push(tmpchangefield[tcounter].changeName)
+                              }
+                            }
+                          htmlString2+='<tr id="'+i+'" class="mainrow"><td><small><a href="'+baseUrl+encodeURIComponent(tableData[i].id)+'">'+tableData[i].id+'</a></small></td><td>'+tableData[i].Label+'</td><td>'+tableData[i].changes.length+' - <small>'+tmpchangetypes+'</small></td><td><img style="cursor:pointer;" src="../img/eye.png" alt="Click me" title="Click on a row to see more results!"/></td></tr>'
                       }
 
 
@@ -626,7 +643,14 @@ function detailDateView(divname, date){
 
 
                       $("#"+divname).append(htmlString2);
-                      var table=$("#test").DataTable();
+                      var table=$("#test").DataTable({
+                        "aoColumns" : [
+                          false,
+                          false,
+                          false,
+                          {"bSortable":false}
+                        ]
+                      });
 
                       $('#test tbody').on('click', 'tr.mainrow', function() {
                       //console.log('clicked on ', this, $(this).closest('tr'));
@@ -837,10 +861,7 @@ function detailview(divname, changeName, date){
       htmlString+='<tr><td width="80px">ChangeSubjectUri</td><td><a href="'+baseUrl+encodeURIComponent(obj[i].changeSubjectUri)+'">'+obj[i].changeSubjectUri+'</a></td><tr>'
 
 
-
-
-
-/* THIS would have to be handled with tokens AGAIN
+      /* THIS would have to be handled with tokens AGAIN
       var OLSurl="http://www.ebi.ac.uk/ols/beta/api/ontologies/"+ontologyName+"/terms?iri="+obj[i].changeSubjectUri
       $.getJSON(OLSurl, function(olsdata){})
       .fail(function(){console.log("Failed to do webservice call! Please try again later or make sure the "+OLSurl+" exists!"); return null})

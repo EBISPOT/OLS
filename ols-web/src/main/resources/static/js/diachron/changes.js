@@ -22,9 +22,9 @@ var colorObject={
 //tmp function!
 function constructURL(urlToProcess){
   console.log(urlToProcess);
-  var tmp=urlToProcess.slice(0,urlToProcess.indexOf("uk:"))
+  var tmp=urlToProcess.slice(0,urlToProcess.indexOf("ols")+3)
   console.log(tmp);
-  tmp+="uk:9080/changes-api/"
+  tmp+="/diachron/changes-api/"
   console.log(tmp);
   return tmp;
 }
