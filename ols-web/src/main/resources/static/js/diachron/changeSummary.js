@@ -48,7 +48,7 @@ $("#diachron-link").on('click', function(){
 
 
     URL=constructURL(document.URL)
-
+    
 
     date=new Date();
     dateBefore=date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
@@ -71,7 +71,7 @@ $("#diachron-link").on('click', function(){
         //Append datepicker
 
         $("#datepicker").html('Show data from <input type="text" size="9" id="dateAfter" value="'+dateAfter+'"> to <input type="text" size="9" id="dateBefore" value="'+dateBefore+'"> <input id="changeDateSubmit" type="submit" value="Update Data!">')
-        $("#optionfield").html('<hr><button id="overTime" class="primary" type="button">Show data over time as linechart</button> <button id="pieChart" class="primary" type="button">Show summary as pie chart</button>');
+        $("#optionfield").html('<hr><button id="overTime" class="primary" type="button">Show data over time as line chart</button> <button id="pieChart" class="primary" type="button">Show summary as pie chart</button>');
 
         var pickerAfter = new Pikaday(
         {
@@ -158,7 +158,6 @@ function buildLegend(){
     htmlString+='<tr><td>'+keys[i]+'</td><td bgcolor="'+colorObject[keys[i]]+'"></td></tr>'
   }
   htmlString+="</table></div></div>"
-  console.log(htmlString);
   $("#right_info_box").append(htmlString)
 }
 
@@ -190,11 +189,9 @@ function pieChartData(){
       var data=[]
       for (var i=0;tmp.length>i ;i++)
           {
-            console.log(tmp[i])
-            console.log(colorObject[tmp[i]]);
+
             data[i]={"name":tmp[i], "y":value[i], "color": colorObject[tmp[i]] }    }
 
-          console.log(data);
         piechart("graphpart", data);
     })
   }
@@ -253,7 +250,6 @@ function piechart(divname, data){
 
 function drawPieTable(divname, data)
 {
-    console.log("Imagin this to replace the chart", data);
     //  $("#"+divname).append("Well imagin a table to be here!");
 
       var i;
@@ -264,7 +260,6 @@ function drawPieTable(divname, data)
       {
         sum+=data[i].y
       }
-      console.log("And the sum of it all is "+sum);
 
       htmlString+="<h3>Change Summary for '"+ontologyName+"' between "+dateAfter+" and "+dateBefore+"</h3>"
       htmlString+='<table id="testTable" class="display" cellspacing="0" width="100%">'
@@ -275,7 +270,7 @@ function drawPieTable(divname, data)
         htmlString+="<tr><td>"+data[i].name+"</td><td>"+data[i].y+"</td><td>"+Math.round(data[i].y/sum*100)+"</td></tr>"
       }
       htmlString+="</tbody></table>"
-      console.log(htmlString);
+
 
       $("#"+divname).append(htmlString)
       $("#testTable").DataTable({"order" : [[2, "desc"]]})
@@ -378,8 +373,6 @@ function drawBarTable(divname, changename, data){
 
   var i;
   for (i=0;i<data.categories.length ;i++){
-    console.log(data.categories[i]);
-    console.log(data.series[0].data[i]);
   htmlString+="<tr><td>"+data.categories[i]+"</td><td>"+data.series[0].data[i]+"</td></tr>"
   }
 
@@ -402,7 +395,7 @@ function parseResult(obj){
 
 
       var tmp=obj[i].changeDate;
-      console.log(tmp);
+      //console.log(tmp);
 
       if (! _.contains(categories, tmp))
         {
@@ -411,11 +404,11 @@ function parseResult(obj){
       if (!_.findWhere(tmpdata, {"name":obj[i].changeName}))
         {
           tmpdata.push({"name": obj[i].changeName, "data" : [obj[i].count], "color":colorObject[obj[i].changeName]})
-          console.log("Pushed to tmpdata "+obj[i].changeName+" "+obj[i].count);
+          //console.log("Pushed to tmpdata "+obj[i].changeName+" "+obj[i].count);
         }
       else {
-        console.log("Term already found so I have to push to data");
-        console.log(_.findWhere(tmpdata, {"name":obj[i].changeName}));
+        //console.log("Term already found so I have to push to data");
+        //console.log(_.findWhere(tmpdata, {"name":obj[i].changeName}));
         _.findWhere(tmpdata, {"name":obj[i].changeName})["data"].push(obj[i].count)
       }
   }
@@ -620,13 +613,13 @@ function detailDateView(divname, date){
                       {
                         var tmpchangetypes=[];
                         var tmpchangefield=tableData[i].changes
-                        console.log(tmpchangefield);
+                        //console.log(tmpchangefield);
 
                         //Go through all changes of every object and save the changename, so it can be displayed in the main table (for search)
                           for (var tcounter=0; tmpchangefield.length>tcounter; tcounter++)
                             {
-                              console.log(tmpchangefield);
-                              console.log(tmpchangefield[tcounter].changeName);
+                              //console.log(tmpchangefield);
+                              //console.log(tmpchangefield[tcounter].changeName);
 
                                 // Only push the changeName if it's not already in the array, we want unique terms
                               if (! _.contains(tmpchangetypes, tmpchangefield[tcounter].changeName))
@@ -745,18 +738,19 @@ function callOLSforLabel(iri){
     var OLSurl="http://www.ebi.ac.uk/ols/beta/api/ontologies/"+ontologyName+"/terms?iri="+iri
 
   $.getJSON(OLSurl, function(olsdata){})
-    .fail(function(){console.log("Failed to do webservice call! Please try again later or make sure the "+OLSurl+" exists!"); return null})
+    .fail(function(olsdata){
+      console.log(olsdata);
+      console.log("Failed to do webservice call! Please try again later or make sure the "+OLSurl+" exists!");
+
+      return token.resolve();
+    })
     .done(function(olsdata){
 
-      console.log("Doing other webservice calls");
       olsdata=olsdata["_embedded"]["terms"]
       var label=olsdata[0].label;
-      console.log(olsdata);
-      console.log(label);
       var tmp=_.findWhere(tableData, {"id":iri})
-      console.log(tmp);
       tmp.Label=label
-      console.log(tmp);
+
 
     return token.resolve();
   })
@@ -768,7 +762,7 @@ return token;
 
 /* Construction the Data for the data table */
 function ConstructDataTable(masterdata){
-  console.log("In construct Data Table");
+
   var dataObject=[];
 
   var i;
@@ -782,11 +776,10 @@ function ConstructDataTable(masterdata){
 
     if (index=== -1){
               tmpChanges={"changeName": masterdata[i].changeName, "changeProperties": masterdata[i].changeProperties}
-              dataObject.push({"id":tmp, "Label": "Get dynamically from OLS", "changes":[tmpChanges]} );
+              dataObject.push({"id":tmp, "Label": "-", "changes":[tmpChanges]} );
       }
 
     else {
-        console.log("Finally in ELSE")
         tmpcounter++;
 
         var tmpProps=dataObject[index].changes;
@@ -811,10 +804,7 @@ function ConstructDataTable(masterdata){
 /* Detail view for CHANGE NAME at a certain DATE  */
 function detailview(divname, changeName, date){
 
-  console.log("Let's try to hide the datepicker");
   $('#datepicker').hide();
-
-  console.log("Show information for "+changeName+" on the date of "+date);
   status="detail"
 
   $("#"+divname).highcharts().destroy();
@@ -853,9 +843,8 @@ function detailview(divname, changeName, date){
     {
       var keys=_.keys(obj[i].changeProperties)
 
-      console.log(obj[i].changeName);
-      console.log(colorObject[obj[i].changeName]);
-
+      //console.log(obj[i].changeName);
+      //console.log(colorObject[obj[i].changeName]);
 
       htmlString='<table><tr><td>Change Name</td><td>'+obj[i].changeName+'</td><td bgcolor="'+colorObject[obj[i].changeName]+'" width="20px"></td><tr>'
       htmlString+='<tr><td width="80px">ChangeSubjectUri</td><td><a href="'+baseUrl+encodeURIComponent(obj[i].changeSubjectUri)+'">'+obj[i].changeSubjectUri+'</a></td><tr>'
