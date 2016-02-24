@@ -42,9 +42,14 @@
 
 
     <link rel="stylesheet" href="../static/css/diachron/pikaday.css" th:href="@{../css/diachron/pikaday.css}" type="text/css" media="screen"/>
-    <!--<link rel="stylesheet" href="../static/css/diachron/site.css" th:href="@{../css/diachron/site.css}" type="text/css" media="screen"/> -->
+    <!-- <link rel="stylesheet" href="../static/css/diachron/site.css" th:href="@{../css/diachron/site.css}" type="text/css" media="screen"/> -->
 
 
+    <!-- TABLE css  -->
+    <link rel="stylesheet" href="../static/css/diachron/tablesort-blue/style.css" th:href="@{../css/diachron/tablesort-blue/style.css}" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.css"/>
+
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css"/>
 
     <!-- for production the above can be replaced with -->
     <!--
@@ -221,10 +226,10 @@
                 <div class="grid_24 clearfix">
                     <div class="grid_14 alpha">
                         <ul  class="nav nav-tabs">
-                            <li role="presentation" class="active"><a data-toggle="tab" href="#tree-tab">Tree view</a></li>
-                            <li role="presentation"><a data-toggle="tab" href="#property-tree-tab">Property view</a></li>
-                            <li role="presentation"><a data-toggle="tab" href="#meta-tab">Ontology metadata</a></li>
-                            <li role="presentation"><a data-toggle="tab" href="#diachron-tab">Ontology History</a></li>
+                            <li role="presentation" class="active"><a id="tree-link" data-toggle="tab" href="#tree-tab">Tree view</a></li>
+                            <li role="presentation"><a id="property-link" data-toggle="tab" href="#property-tree-tab">Property view</a></li>
+                            <li role="presentation"><a id="meta-link" data-toggle="tab" href="#meta-tab">Ontology metadata</a></li>
+                            <li role="presentation"><a id="diachron-link"  data-toggle="tab" href="#diachron-tab">Ontology history</a></li>
                             <!--<li role="presentation"><a data-toggle="tab"  href="#graph-tab">Graph view</a></li>-->
                         </ul>
 
@@ -267,7 +272,7 @@
                         </div>
 
                     </div>
-                    <div class="grid_10 beta">
+                    <div id="right_info_box" class="grid_10 beta">
 
                         <div class="panel panel-primary">
 
@@ -295,7 +300,11 @@
                                 </div>
 
                             </div>
+
+
                         </div>
+
+
 
                     </div>
 
@@ -383,6 +392,13 @@
 <script src="../static/js/diachron/changeSummary.js" th:src="@{../js/diachron/changeSummary.js}"></script>
 <script src="../static/js/diachron/moment.js" th:src="@{../js/diachron/moment.js}"></script>
 <script src="../static/js/diachron/pikaday.js" th:src="@{../js/diachron/pikaday.js}"></script>
+<script src="../static/js/diachron/tablesorter.min.js" th:src="@{../js/diachron/tablesorter.min.js}"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/locale/bootstrap-table-en-US.min.js"></script>
+
+<script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+
 <!-- END OF THE DIACHRON INCLUDE TAGS-->
 
 <script>
