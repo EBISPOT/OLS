@@ -417,11 +417,11 @@ function parseResult(obj){
   console.log("parse Results");
   console.log(tmpdata);
   //curation of data
-   for (var i=0; tmpdata.length>i; i++)
-  {
-    tmpdata[i].data=tmpdata[i].data.reverse();
-  }
-  categories=categories.reverse();
+   //for (var i=0; tmpdata.length>i; i++)
+  //{
+  //  tmpdata[i].data=tmpdata[i].data.reverse();
+  //}
+  //categories=categories.reverse();
 
   // - leads to wrong  results - var returndata={"categories": categories.reverse(), "series": tmpdata.reverse()} -- so delete this --
 
