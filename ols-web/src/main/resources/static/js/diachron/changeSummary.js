@@ -20,11 +20,8 @@ var colorObject={
 
 //tmp function!
 function constructURL(urlToProcess){
-console.log(urlToProcess);
 var tmp=urlToProcess.slice(0,urlToProcess.indexOf("ols")+3)
-console.log(tmp);
 tmp+="/diachron/changes-api/"
-console.log(tmp);
 return tmp;
 }
 
@@ -39,14 +36,8 @@ $("#diachron-link").on('click', function(){
 
     ontologyName = $("#diachron-tab").data("olsontology");
     var serviceURL= $("#diachron-tab").data("selectpath");
-    console.log("construction of the URL");
-    console.log(document.URL);
-    console.log(serviceURL);
-    console.log(ontologyName);
-
 
     URL=constructURL(document.URL)
-    URL="http://snarf.ebi.ac.uk:8880/ols/diachron/changes-api/"
 
     date=new Date();
     dateBefore=date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
@@ -68,58 +59,7 @@ $("#diachron-link").on('click', function(){
         //$("#diachron-wrapper").append("<div id='datepicker' style='text-align:center;'><div>")
         $("#diachron-wrapper").append("<div id='buttonBox' style='text-align:center; margin-top:20px;'><div>")
         //Append datepicker
-
-      //  $("#datepicker").html('Show data from <input type="text" size="9" id="dateAfter" value="'+dateAfter+'"> to <input type="text" size="9" id="dateBefore" value="'+dateBefore+'"> <input id="changeDateSubmit" type="submit" value="Update Data!">')
-        //$("#optionfield").html('<hr><button id="overTime" class="primary" type="button">Show data over time as line chart</button> <button id="pieChart" class="primary" type="button">Show summary as pie chart</button>');
-
-
-/*
-        var pickerAfter = new Pikaday(
-        {
-            field: document.getElementById('dateAfter'),
-            format: 'YYYY-MM-DD',
-            firstDay: 1,
-            minDate: new Date(2000, 0, 1),
-            maxDate: new Date(2020, 12, 31),
-            yearRange: [2000, 2020],
-            bound: true,
-            container: document.getElementById('container'),
-        });
-
-        var pickerBefore = new Pikaday(
-        {
-            field: document.getElementById('dateBefore'),
-            format: 'YYYY-MM-DD',
-            firstDay: 1,
-            minDate: new Date(2000, 0, 1),
-            maxDate: new Date(2020, 12, 31),
-            yearRange: [2000, 2020],
-            bound: true,
-            container: document.getElementById('container'),
-        });
-
-
-        //Onclick event for the getDataButton
-        $("#changeDateSubmit").on('click', function(e){
-          e.preventDefault();
-          dateBefore=$("#dateBefore").val()
-          dateAfter=$("#dateAfter").val()
-          update();
-        })*/
-
-        /*
-        $("#pieChart").on('click', function() {
-              status="pie";
-              $('#datepicker').show();
-              pieChartData();})
-
-        $("#overTime").on('click', function() {
-              status="line";
-              $('#datepicker').show();
-              lineChartData()
-        })*/
-
-
+        
           update();
 
           if ($(document).find("#LegendDiv").length === 0)
@@ -267,102 +207,8 @@ function piechartview(divname, date){
 
 
 
-
-
-/*START OLD STUFF
-function pieChartData(){
-    var tmpURL=URL+"changesummaries/search/findByOntologyNameAndChangeDateBetween";
-    tmpURL=tmpURL+"?ontologyName="+ontologyName+"&before="+dateBefore+"&after="+dateAfter;
-
-    $.getJSON(tmpURL, function(obj){})
-    .fail(function(){   console.log("Failed to do webservice call!"); console.log(tmpURL); return null })
-    .done(function(obj){
-
-      var tmp=[];
-      var value=[];
-
-      for (var i=0; obj.length>i; i++)
-      {
-          if (! _.contains(tmp, obj[i].changeName))
-            {
-              tmp.push(obj[i].changeName)
-              value.push(obj[i].count)
-
-            }
-          else {
-              var index=_.indexOf(tmp,obj[i].changeName);
-              value[index]=value[index]+obj[i].count;
-          }
-      }
-
-      var data=[]
-      for (var i=0;tmp.length>i ;i++)
-          {
-
-            data[i]={"name":tmp[i], "y":value[i], "color": colorObject[tmp[i]] }    }
-
-        piechart("graphpart", data);
-    })
-  }
-
-
-
-function piechart(divname, data){
-        var title="Changes between "+dateAfter+" and "+dateBefore
-
-        var chartoptions={
-            chart: {
-               type: 'pie',
-           },
-           credits:{enabled:false},
-           title: {
-               text: title
-           },
-           series:[{
-              name:"Total per type",
-              data: data,
-              point:{events: {click: function(e){name=this.name;BarChart(divname, this.name) }}}
-          }],
-
-
-          exporting:{
-              buttons:{
-                customButton:{
-                  x:-50,
-                  //menuItems: [ {text: "Show this data as table", onclick: function(){alert("123")} } ],
-                  onclick : function(){
-
-                      $("#"+divname).highcharts().destroy();
-                      drawPieTable(divname, data)
-                  },
-                    symbol: "menu",
-                    _titleKey : "tooltip",
-                  },
-                  contextButton: {
-                      enabled: false
-                    }
-      }},
-
-          lang: { noData: "No data to display", tooltip: "Now that is a tooltip"},
-          noData: {
-            style: {
-               fontWeight: 'bold',
-               fontSize: '15px',
-               color: '#303030'
-              }
-            }
-         };
-
-         Highcharts.chart(divname, chartoptions)
-}
-/*END OLD STUFF*/
-
-
-
 function drawPieTable(divname, data, date)
 {
-    //  $("#"+divname).append("Well imagin a table to be here!");
-
       var i;
       var htmlString='';
       // Count the sum quickly
@@ -395,115 +241,6 @@ function drawPieTable(divname, data, date)
 }
 
 
-
-
-/*
-function BarChart(divname, name){
-  //$("#"+divname).highcharts().destroy();
-  status="bar"
-
-  var tmpURL=URL+"changesummaries/search/findByOntologyNameAndChangeNameAndChangeDateBetween";
-
-  var title="Changes for type "+name+" between "+dateAfter+" and "+dateBefore
-
-  //Construction the URL dynamically
-  tmpURL=tmpURL+"?ontologyName="+ontologyName+"&changeName="+name+"&before="+dateBefore+"&after="+dateAfter;
-  console.log(tmpURL);
-  $.getJSON(tmpURL, function(obj){})
-  .fail(function(){console.log("Failed to do webservice call!"); return null})
-  .done(function(obj){
-
-    console.log("BarChartData");
-    console.log(obj);
-    var data=parseResult(obj);
-
-    console.log(data);
-
-    var title="Distribution of "+name
-
-    var chartoptions={
-      chart: {
-         type: 'column',
-     },
-     exporting: { enabled: false },
-     credits:{enabled:false},
-     title: {
-         text: title
-     },
-     xAxis: {
-         categories: data.categories
-     },
-      yAxis: {
-          title: {
-              text: title
-           }
-       },
-       plotOptions:{
-         series:{point: {
-             events:{
-               click: function(){
-                 date=this.category;
-                 detailview(divname, name, this.category);
-               }
-             }
-           }
-         }
-       },
-     series:data.series,
-     exporting:{
-         buttons:{
-           customButton:{
-             x:-50,
-             //menuItems: [ {text: "Show this data as table", onclick: function(){alert("123")} } ],
-             onclick : function(){
-
-                 $("#"+divname).highcharts().destroy();
-                 drawBarTable(divname, name, data)
-             },
-               symbol: "menu",
-               _titleKey : "tooltip",
-             },
-             contextButton: {
-                 enabled: false
-               }
-      }},
-
-     lang: { noData: "No data to display", tootltip: "Click this button to display data as table"},
-     noData: {
-       style: {
-          fontWeight: 'bold',
-          fontSize: '15px',
-          color: '#303030'
-         }
-       }
-    };
-       Highcharts.chart(divname, chartoptions)
-  })
-}
-*/
-
-
-
-/*
-function drawBarTable(divname, changename, data){
-  console.log("In drawBarTable", data);
-  var htmlString="";
-  htmlString+="<h3>Detail view for '"+ontologyName+", "+changename+" between "+dateAfter+" and "+dateBefore+"</h3>";
-  htmlString+="<table id='testTable' class='display' cellspacing='0' width='100%'>"
-  htmlString+="<thead><tr><th>Date</th><th>Number of changes</th></tr></thead>"
-  htmlString+="<tbody>"
-
-  var i;
-  for (i=0;i<data.categories.length ;i++){
-  htmlString+="<tr><td>"+data.categories[i]+"</td><td>"+data.series[0].data[i]+"</td></tr>"
-  }
-
-  htmlString+="</tbody></table>"
-  console.log(htmlString);
-  $("#"+divname).append(htmlString)
-  $("#testTable").DataTable({"order":[[1,"desc"]]})
-}
-*/
 
 
 
@@ -748,10 +485,6 @@ function callWebserviceForDateView(inputURL){
   return token;
 }
 
-
-/*
-function detailDateAndClassView(divname, date, name){
-}*/
 
 
 
@@ -1054,110 +787,3 @@ function ConstructDataTable(masterdata){
 
    return dataObject;
 }
-
-
-
-/* Detail view for CHANGE NAME at a certain DATE
-function detailview(divname, changeName, date){
-
-  $('#datepicker').hide();
-  status="detail"
-
-  $("#"+divname).highcharts().destroy();
-  $("#"+divname).html("<h3>Changes for <strong>"+changeName+"</strong> on the <strong>"+date+"</strong></h3>")
-
-  //Transform Date to two dates (before and after day)
-  //var x=new Date(date);
-  //var tmpdateafter=x.getFullYear()+'-'+(x.getMonth()+1)+'-'+(x.getDate()-1);
-  //var tmpdatebefore=x.getFullYear()+'-'+(x.getMonth()+1)+'-'+(x.getDate()+1);
-
-  //Using between
-  //tmpURL=URL+"changes/search/findByOntologyNameAndChangeNameAndChangeDateBetween"
-  //tmpURL=tmpURL+"?ontologyName="+ontologyName+"&changeName="+changeName+"&after="+tmpdateafter+"&before="+tmpdatebefore
-
-  //  New version with new webservice
-
-  var tmpURL=URL+"changes/search/findByOntologyNameAndChangeNameAndChangeDate"
-  tmpURL=tmpURL+"?ontologyName="+ontologyName+"&changeName="+changeName+"&date="+date
-
-  console.log("Attention, tmp URL - still hardcoded?");
-  console.log(tmpURL);
-
-  $.getJSON(tmpURL, function(obj){})
-  .fail(function(){console.log("Failed to do webservice call!"); return null})
-  .done(function(obj){
-    console.log(obj);
-
-    var baseUrl=document.URL;
-    baseUrl+="/terms?iri=";
-
-    obj=obj["_embedded"]["changes"]
-
-    var i=0;
-    var htmlString='';
-
-    for (i=0 ; i<obj.length ; i++)
-    {
-      var keys=_.keys(obj[i].changeProperties)
-
-      //console.log(obj[i].changeName);
-      //console.log(colorObject[obj[i].changeName]);
-
-      htmlString='<table><tr><td>Change Name</td><td>'+obj[i].changeName+'</td><td bgcolor="'+colorObject[obj[i].changeName]+'" width="20px"></td><tr>'
-      htmlString+='<tr><td width="80px">ChangeSubjectUri</td><td><a href="'+baseUrl+encodeURIComponent(obj[i].changeSubjectUri)+'">'+obj[i].changeSubjectUri+'</a></td><tr>'
-
-
-      /* THIS would have to be handled with tokens AGAIN
-      var OLSurl="http://www.ebi.ac.uk/ols/beta/api/ontologies/"+ontologyName+"/terms?iri="+obj[i].changeSubjectUri
-      $.getJSON(OLSurl, function(olsdata){})
-      .fail(function(){console.log("Failed to do webservice call! Please try again later or make sure the "+OLSurl+" exists!"); return null})
-      .done(function(olsdata){
-
-      olsdata=olsdata["_embedded"]["terms"]
-      var label=olsdata[0].label;
-
-
-      console.log("Durchlauf Number "+i);
-      console.log(label);
-
-    }) END of part that should be handled with tokens* /
-
-
-    if (obj[i].changeProperties!==null)
-    {
-      var f;
-      //Add line for every property in key
-      for (f=0;f<keys.length;f++)
-        {
-          if (!keys[f].startsWith("predicate"))
-            {
-              var tmpPropList=obj[i].changeProperties[keys[f]]
-
-              //If there are multiple values for a key, go through the values and print the whole array
-              if(tmpPropList.length>1){
-                htmlString+='<tr><td>'+keys[f]+'</td><td>'
-                for (var tmpi=0;tmpi<tmpPropList.length;tmpi++)
-                {
-                  htmlString+='- '+tmpPropList[tmpi]+'<br>'
-                }
-
-              }
-
-              //If there is only ONE Value for the key, print this value
-              if(tmpPropList.length===1){
-                htmlString+='<tr><td>'+keys[f]+'</td><td>'+obj[i].changeProperties[keys[f]]+'</td><tr>'
-              }
-            }
-
-
-        }
-    }
-
-    htmlString+='</table><br>'
-    $("#"+divname).append(htmlString)
-
-    }
-
-  })
-
-}*/
