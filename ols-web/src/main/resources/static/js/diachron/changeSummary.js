@@ -5,8 +5,6 @@ var name='';
 var status='line';
 var date='';
 var URL='';
-//var semaphore=false;
-//var showDatepicker=true;
 
 var colorObject={
 "ADD CLASS": "#66bd63",
@@ -48,8 +46,7 @@ $("#diachron-link").on('click', function(){
 
 
     URL=constructURL(document.URL)
-
-
+    URL="http://snarf.ebi.ac.uk:8880/ols/diachron/changes-api/"
 
     date=new Date();
     dateBefore=date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
@@ -67,13 +64,16 @@ $("#diachron-link").on('click', function(){
 
         //Append general structur of window
         $("#diachron-wrapper").append("<div id='graphpart'><div>")
-        $("#diachron-wrapper").append("<div id='datepicker' style='text-align:center;'><div>")
-        $("#diachron-wrapper").append("<div id='optionfield' style='text-align:center; margin-top:20px;'><div>")
+
+        //$("#diachron-wrapper").append("<div id='datepicker' style='text-align:center;'><div>")
+        $("#diachron-wrapper").append("<div id='buttonBox' style='text-align:center; margin-top:20px;'><div>")
         //Append datepicker
 
-        $("#datepicker").html('Show data from <input type="text" size="9" id="dateAfter" value="'+dateAfter+'"> to <input type="text" size="9" id="dateBefore" value="'+dateBefore+'"> <input id="changeDateSubmit" type="submit" value="Update Data!">')
-        $("#optionfield").html('<hr><button id="overTime" class="primary" type="button">Show data over time as line chart</button> <button id="pieChart" class="primary" type="button">Show summary as pie chart</button>');
+      //  $("#datepicker").html('Show data from <input type="text" size="9" id="dateAfter" value="'+dateAfter+'"> to <input type="text" size="9" id="dateBefore" value="'+dateBefore+'"> <input id="changeDateSubmit" type="submit" value="Update Data!">')
+        //$("#optionfield").html('<hr><button id="overTime" class="primary" type="button">Show data over time as line chart</button> <button id="pieChart" class="primary" type="button">Show summary as pie chart</button>');
 
+
+/*
         var pickerAfter = new Pikaday(
         {
             field: document.getElementById('dateAfter'),
@@ -105,8 +105,9 @@ $("#diachron-link").on('click', function(){
           dateBefore=$("#dateBefore").val()
           dateAfter=$("#dateAfter").val()
           update();
-        })
+        })*/
 
+        /*
         $("#pieChart").on('click', function() {
               status="pie";
               $('#datepicker').show();
@@ -116,7 +117,7 @@ $("#diachron-link").on('click', function(){
               status="line";
               $('#datepicker').show();
               lineChartData()
-        })
+        })*/
 
 
           update();
@@ -124,12 +125,9 @@ $("#diachron-link").on('click', function(){
           if ($(document).find("#LegendDiv").length === 0)
           {    buildLegend(); }
           else {              $("#LegendDiv").show();     }
-
-
     })
   })
 })
-
 
 
 function hideLegend(){
@@ -143,9 +141,6 @@ function update(){
     lineChartData();
   if(status==="bar")
     BarChart("graphpart", name);
-
-  //if(status==="detail")
-    //updatedetailview("graphpart", name, date);  // DOES THIS MAKE SENSE? SO FAR, DETAILVIEW IS ONE DATE
 }
 
 
@@ -162,6 +157,119 @@ function buildLegend(){
   $("#right_info_box").append(htmlString)
 }
 
+
+
+
+
+function createpiechart(divname, date, data){
+  console.log(date);
+  console.log(data);
+  var title="Changes for "+date
+
+  var chartoptions={
+      chart: {
+         type: 'pie',
+     },
+     credits:{enabled:false},
+     title: {
+         text: title
+     },
+     series:[{
+        name:"Total per type",
+        data: data,
+        point:{events: {click: function(e){
+          $("#buttonBox").empty(); //Try to get rid of it
+          detailDateView(divname, date, this.name)
+        }}}
+    }],
+
+    exporting:{
+        buttons:{
+          customButton:{
+            x:-80,
+            onclick : function(){
+                $("#"+divname).highcharts().destroy();
+                drawPieTable(divname, data, date)
+            },
+              text: "Show data as table",
+              _titleKey : "tooltip",
+            },
+            contextButton: {
+                enabled: false
+              }
+}},
+
+    lang: { noData: "No data to display", tooltip: "Show the data of the piechart as table"},
+    noData: {
+      style: {
+         fontWeight: 'bold',
+         fontSize: '15px',
+         color: '#303030'
+        }
+      }
+   };
+
+   Highcharts.chart(divname, chartoptions)
+
+
+   var htmlString="<div style='text-align:center; margin-top:25px;'><button id='back' class='primary'> Back </button></div>"
+   $("#buttonBox").html(htmlString)
+   $("#back").on('click', function(){lineChartData()})
+
+}
+
+
+
+function piechartview(divname, date){
+
+  //Transform Date to two dates (before and after day)
+  var x=new Date(date);
+  var tmpdateafter=x.getFullYear()+'-'+(x.getMonth()+1)+'-'+(x.getDate()-1);
+  var tmpdatebefore=x.getFullYear()+'-'+(x.getMonth()+1)+'-'+(x.getDate()+1);
+
+  //Using between
+  var tmpURL=URL+"changesummaries/search/findByOntologyNameAndChangeDateBetween";
+  tmpURL=tmpURL+"?ontologyName="+ontologyName+"&after="+tmpdateafter+"&before="+tmpdatebefore
+
+
+
+  $.getJSON(tmpURL, function(obj){})
+  .fail(function(){   console.log("Failed to do webservice call!"); console.log(tmpURL); return null })
+  .done(function(obj){
+
+    console.log(obj);
+    var tmp=[];
+    var value=[];
+
+    for (var i=0; obj.length>i; i++)
+    {
+        if (! _.contains(tmp, obj[i].changeName))
+          {
+            tmp.push(obj[i].changeName)
+            value.push(obj[i].count)
+
+          }
+        else {
+            var index=_.indexOf(tmp,obj[i].changeName);
+            value[index]=value[index]+obj[i].count;
+        }
+    }
+
+    var data=[]
+    for (var i=0;tmp.length>i ;i++)
+        {
+
+          data[i]={"name":tmp[i], "y":value[i], "color": colorObject[tmp[i]] }    }
+
+    createpiechart(divname, date, data)
+    })
+}
+
+
+
+
+
+/*START OLD STUFF
 function pieChartData(){
     var tmpURL=URL+"changesummaries/search/findByOntologyNameAndChangeDateBetween";
     tmpURL=tmpURL+"?ontologyName="+ontologyName+"&before="+dateBefore+"&after="+dateAfter;
@@ -247,9 +355,11 @@ function piechart(divname, data){
 
          Highcharts.chart(divname, chartoptions)
 }
+/*END OLD STUFF*/
 
 
-function drawPieTable(divname, data)
+
+function drawPieTable(divname, data, date)
 {
     //  $("#"+divname).append("Well imagin a table to be here!");
 
@@ -262,7 +372,8 @@ function drawPieTable(divname, data)
         sum+=data[i].y
       }
 
-      htmlString+="<h3>Change Summary for '"+ontologyName+"' between "+dateAfter+" and "+dateBefore+"</h3>"
+
+      htmlString+="<h3>Summary for '"+date+"</h3>"
       htmlString+='<table id="testTable" class="display" cellspacing="0" width="100%">'
       htmlString+="<thead><tr><th>Change Name</th><th>Total</th><th>Percentage</th></tr></thead>"
       htmlString+="<tbody>"
@@ -272,12 +383,21 @@ function drawPieTable(divname, data)
       }
       htmlString+="</tbody></table>"
 
-
       $("#"+divname).append(htmlString)
+
+
+
+      htmlString="<div style='text-align:center'><button id='back' class='primary'> Back to the piechart </button></div>"
+
+      $("#buttonBox").html(htmlString)
+      $("#back").on('click', function(){piechartview(divname,date)})
       $("#testTable").DataTable({"order" : [[2, "desc"]]})
 }
 
 
+
+
+/*
 function BarChart(divname, name){
   //$("#"+divname).highcharts().destroy();
   status="bar"
@@ -360,10 +480,11 @@ function BarChart(divname, name){
        Highcharts.chart(divname, chartoptions)
   })
 }
+*/
 
 
 
-
+/*
 function drawBarTable(divname, changename, data){
   console.log("In drawBarTable", data);
   var htmlString="";
@@ -382,7 +503,7 @@ function drawBarTable(divname, changename, data){
   $("#"+divname).append(htmlString)
   $("#testTable").DataTable({"order":[[1,"desc"]]})
 }
-
+*/
 
 
 
@@ -392,21 +513,16 @@ function parseResult(obj){
   var data=[];
 
   var keys=_.keys(colorObject)
-  console.log("Parse Results");
 
-
-  console.log(obj.length);
   //Fill the categories array with all potential dates we can find in the object
   for (var i=0;i<obj.length;i++)
   {
-      console.log(obj[i]);
       var tmp=obj[i].changeDate;
       if (! _.contains(categories, tmp))
         {
           categories.push(tmp)
         }
   }
-
 
   //Create an empty data opject with the length of categories, filled with 0s
   var data=[];
@@ -418,29 +534,41 @@ function parseResult(obj){
   for (var i=0;i<keys.length;i++)
   {      tmpdata.push({"name": keys[i], "color": colorObject[keys[i]], "data":data.slice(0)})  }  //every tmpdata is supposed to get his own data array filled with 0
 
-console.log(categories);
-
   //Go through the object, and save count at the position of the array corresponding to the position of changeDate in the categories array
   for (var i=0;i<obj.length;i++)
   {
-        console.log("For the date "+obj[i].changeDate+" and the name "+obj[i].changeName);
         var index=stringCompare(categories, obj[i].changeDate)    //Find the index of the object data in the categories
         var tmpentry=_.findWhere(tmpdata, {"name":obj[i].changeName}) //Find the object with the right name
-        console.log(tmpentry);
         if (tmpentry!=undefined && index!=-1)
           {
-            console.log(tmpentry.data[index]);
             tmpentry.data[index]=obj[i].count;    //save the value/count at the right position in the data array of the object
-            console.log(obj[i].count);
-            console.log(tmpentry.data[index]);
           }
  }
 
-  var returndata={"categories": categories, "series": tmpdata}
+
+//Check if a series is empty and if so, remove it (=don't add it to the controll[])
+  var control=[];
+
+  for (var i=0; i<tmpdata.length; i++)
+  {
+    var sum=0;
+    for (var j=0;j<tmpdata[i].data.length;j++)
+      {
+        sum+=tmpdata[i].data[j]
+      }
+
+      //If the summ after the for loop is not 0, we add the series to the control[]
+      if (sum!==0)
+      {
+        control.push(tmpdata[i])
+      }
+  }
+  var returndata={"categories": categories, "series": control}
   return returndata
 }
 
-//Look for the index of b in the array a, return the index once found
+
+//Look for the index of b in the array a, return the index once found - this function is a helper function for the parse function
 function stringCompare(a,b){
   console.log(b);
   for (var i=0;i<a.length;i++)
@@ -455,8 +583,9 @@ function stringCompare(a,b){
 }
 
 
+
+
 function lineChartData(){
-    //console.log("In lineChartData!");
     var tmpURL=URL+"changesummaries/search/findByOntologyNameAndChangeDateBetween";
 
     //Construction the URL dynamically
@@ -474,10 +603,9 @@ function lineChartData(){
 
 linechart = function(divname, returndata)
 {
+    $("#buttonBox").empty()
     var title= "All changes per type between "+ dateAfter+" and "+dateBefore;
     //var returndata=lineChartData();
-    console.log(returndata.categories);
-    console.log(returndata.series);
     /* Now designing the chart */
     var chartoptions={
       chart: {
@@ -489,7 +617,13 @@ linechart = function(divname, returndata)
          text: title
      },
      xAxis: {
-         categories: returndata.categories
+         categories: returndata.categories,
+         labels: {
+           useHTML: true,
+           formatter: function(){
+             return '<p class="link">'+this.value+'<p>';
+           }
+         }
      },
       yAxis: {
           title: {
@@ -497,7 +631,9 @@ linechart = function(divname, returndata)
            }
        },
        plotOptions:{
-         series:{point: {
+         series:{
+           cursor: 'pointer',
+            point: {
              events:{
                click: function(){
                  //alert("onclick event")
@@ -506,12 +642,23 @@ linechart = function(divname, returndata)
                     //{ sempahore=true;
 
                       //detailDateView(divname,this.category, stats) /*Add stats to the method*/
-                      detailDateView(divname,this.category)
+
+
+                      //console.log("Temp trying to understand wtf is going on here");
+                      //console.log(this.series)
+                      //console.log(this.name);
+
+                      $("#datepicker").empty();
+                      console.log(this.series.name);
+                      detailDateView(divname,this.category, this.series.name)
+
+
+
+                      //THIS is the necessary info for the detailview
+                      //New version end
+                      //detailDateAndClassView(divname, this.category, this.series.name);
                       /*ADD stats*/
-
-
                     //} - End semaphore - potential target to delete
-
                 //detailview(divname, this.series.name, this.category)
               }}}}},
      series:returndata.series,
@@ -524,8 +671,58 @@ linechart = function(divname, returndata)
          }
        }
     };
+
        Highcharts.chart(divname, chartoptions)
+
+       /* Register onclick event for the xAxis*/
+       $('.link').on('click', function () {
+         console.log($(this).text());
+         console.log($(this));
+         $("#datepicker").empty();
+         piechartview(divname, $(this).text())
+       });
+
+
+       //Append datepicker to the linechartview
+       $("#"+divname).append("<div id='datepicker' style='text-align:center;'></div>")
+       $("#datepicker").html('<hr style="width:30%; margin-left:35%">Show data from <input type="text" size="9" id="dateAfter" value="'+dateAfter+'"> to <input type="text" size="9" id="dateBefore" value="'+dateBefore+'"> <input id="changeDateSubmit" type="submit" value="Update Data!">')
+
+       var pickerAfter = new Pikaday(
+       {
+           field: document.getElementById('dateAfter'),
+           format: 'YYYY-MM-DD',
+           firstDay: 1,
+           minDate: new Date(2000, 0, 1),
+           maxDate: new Date(2020, 12, 31),
+           yearRange: [2000, 2020],
+           bound: true,
+           container: document.getElementById('container'),
+       });
+
+       var pickerBefore = new Pikaday(
+       {
+           field: document.getElementById('dateBefore'),
+           format: 'YYYY-MM-DD',
+           firstDay: 1,
+           minDate: new Date(2000, 0, 1),
+           maxDate: new Date(2020, 12, 31),
+           yearRange: [2000, 2020],
+           bound: true,
+           container: document.getElementById('container'),
+       });
+
+
+       //Onclick event for the getDataButton
+       $("#changeDateSubmit").on('click', function(e){
+         e.preventDefault();
+         dateBefore=$("#dateBefore").val()
+         dateAfter=$("#dateAfter").val()
+         update();
+       })
+
 }
+
+
 
 
 
@@ -552,47 +749,66 @@ function callWebserviceForDateView(inputURL){
 }
 
 
+/*
+function detailDateAndClassView(divname, date, name){
+}*/
+
+
 
 
 var tableData=[];
-function detailDateView(divname, date){
+function detailDateView(divname, date, className){
+  var searchbar='<div style="text-align: center;" id="searching"><img th:src="@{../img/loading1.gif}" src="../img/loading1.gif" alt="Search loading..."/><span>Loading, please wait...</span></div>'
+  $("#"+divname).html(searchbar);
+
   masterdata=[];
-  console.log("Let's do this for a certain date");
   var htmlString='';
-  $("#"+divname).highcharts().destroy();
-  htmlString+="<h3>Changes for <strong>"+date+"</strong></h3>";
+  if ($("#"+divname).highcharts()!==undefined)
+    {$("#"+divname).highcharts().destroy();}
+
 
   //Transform Date to two dates (before and after day)
   /*var x=new Date(date);
   var tmpdateafter=x.getFullYear()+'-'+(x.getMonth()+1)+'-'+(x.getDate()-1);
   var tmpdatebefore=x.getFullYear()+'-'+(x.getMonth()+1)+'-'+(x.getDate()+1);
-
   tmpURL=URL+"changes/search/findByOntologyNameAndChangeDateBetween"
   tmpURL=tmpURL+"?ontologyName="+ontologyName+"&after="+tmpdateafter+"&before="+tmpdatebefore
 */
 
   //No between
-  tmpURL=URL+"changes/search/findByOntologyNameAndChangeDate"
-  tmpURL=tmpURL+"?ontologyName="+ontologyName+"&date="+date
+  var tmpURL;
+  var view='';
 
+  //if no className is provided, then look for data by date
+  if (className==="")
+  {
+    console.log("Fetching all data ", className);
+    tmpURL=URL+"changes/search/findByOntologyNameAndChangeDate"
+    tmpURL=tmpURL+"?ontologyName="+ontologyName+"&date="+date
+    htmlString+="<h3 class='dataTableHeadline'>All changes for <strong>"+date+"</strong></h3>";
+  }
 
+  // if there is a className, than only fetch data for this classname at this date
+else {
+    console.log("Fetching filtered data ",className);
+    tmpURL=URL+"changes/search/findByOntologyNameAndChangeNameAndChangeDate"
+    tmpURL=tmpURL+"?ontologyName="+ontologyName+"&date="+date+"&changeName="+className
+    htmlString+="<h3 class='dataTableHeadline'>Changes for <strong>"+className+"</strong> on the <strong>"+date+"</strong></h3>";
+}
 
   console.log(tmpURL);
-
   var tokenArray=[];
 
   $.getJSON(tmpURL, function(obj){})
   .fail(function(){console.log("Failed to do webservice call!"); return null})
   .done(function(obj){
 
-    console.log(obj);
     var totalElements=obj["page"].totalElements;
     var totalPages=obj["page"].totalPages;
 
     var i;
     for (i=0;i<totalPages;i++)
     {
-      console.log(tmpURL+"&page="+i);
       pagingURL=tmpURL+"&page="+i;
       tokenArray.push(callWebserviceForDateView(pagingURL));
     }
@@ -609,9 +825,7 @@ function detailDateView(divname, date){
           }
 
           //This is executed after all OLS calls for our results from diachron are finshed - now I finally can build a table with all information that I need
-          $.when.apply($,tokenArrayTwo).done(function() {
-            console.log("All other webservice Calls finished, finally done!");
-
+          $.when.apply($,tokenArrayTwo).done(function(){
                       var htmlString2=''
 
                       /* Stats for table * /
@@ -648,7 +862,7 @@ function detailDateView(divname, date){
                                 tmpchangetypes.push(tmpchangefield[tcounter].changeName)
                               }
                             }
-                          htmlString2+='<tr id="'+i+'" class="mainrow"><td><small><a href="'+baseUrl+encodeURIComponent(tableData[i].id)+'">'+tableData[i].id+'</a></small></td><td>'+tableData[i].Label+'</td><td>'+tableData[i].changes.length+' - <small>'+tmpchangetypes+'</small></td><td><img style="cursor:pointer;" src="../img/eye.png" alt="Click me" title="Click on a row to see more results!"/></td></tr>'
+                          htmlString2+='<tr id="'+i+'" class="mainrow"><td><small><a href="'+baseUrl+encodeURIComponent(tableData[i].id)+'">'+tableData[i].id+'</a></small></td><td>'+tableData[i].Label+'</td><td>'+tableData[i].changes.length+' - <small>'+tmpchangetypes+'</small></td><td style="cursor:pointer;"><img src="../img/eye.png" alt="Click me" title="Click on a row to see more results!"/></td></tr>'
                       }
 
 
@@ -656,7 +870,34 @@ function detailDateView(divname, date){
                       htmlString2+='</tbody></table>'
 
 
+
+                      $("#searching").hide();
+                      $("#"+divname).html(htmlString);
+
+                      //In case we are in a partial view, we offer a button to 'Show all data' in the datatable
+                      if (className!=="")
+                      {
+                      htmlString2+='<div style="text-align:left; margin-bottom:20px;"><button id="allData" type="button"> Show all changes </button></div>'
                       $("#"+divname).append(htmlString2);
+                      $('#allData').on('click', function(){
+                        $("#buttonBox").empty();
+                        detailDateView(divname, date, "")
+                      })
+
+                      }
+                      else {
+                        $("#"+divname).append(htmlString2);
+                      }
+
+
+
+                      /* Add Button Box and event listener */
+                      var button="<div style='text-align:center; margin-top:25px;'><button id='back' class='primary'> Back </button></div>"
+                      $("#buttonBox").html(button)
+                      $("#back").on('click', function(){lineChartData()})
+                      /* Add Button BACK to the line chart in every case (Should we change that)*/
+
+
                       var table=$("#test").DataTable({
                         "aoColumns" : [
                           false,
@@ -811,18 +1052,12 @@ function ConstructDataTable(masterdata){
       }
     }
 
-    //console.log(masterdata.length);
-    //console.log(dataObject.length);
-    //console.log(tmpcounter);
-    //console.log(dataObject.length+tmpcounter);
-    //console.log(dataObject);
-
    return dataObject;
 }
 
 
 
-/* Detail view for CHANGE NAME at a certain DATE  */
+/* Detail view for CHANGE NAME at a certain DATE
 function detailview(divname, changeName, date){
 
   $('#datepicker').hide();
@@ -841,6 +1076,7 @@ function detailview(divname, changeName, date){
   //tmpURL=tmpURL+"?ontologyName="+ontologyName+"&changeName="+changeName+"&after="+tmpdateafter+"&before="+tmpdatebefore
 
   //  New version with new webservice
+
   var tmpURL=URL+"changes/search/findByOntologyNameAndChangeNameAndChangeDate"
   tmpURL=tmpURL+"?ontologyName="+ontologyName+"&changeName="+changeName+"&date="+date
 
@@ -884,7 +1120,7 @@ function detailview(divname, changeName, date){
       console.log("Durchlauf Number "+i);
       console.log(label);
 
-    }) END of part that should be handled with tokens*/
+    }) END of part that should be handled with tokens* /
 
 
     if (obj[i].changeProperties!==null)
@@ -920,9 +1156,8 @@ function detailview(divname, changeName, date){
     htmlString+='</table><br>'
     $("#"+divname).append(htmlString)
 
-
     }
 
   })
 
-}
+}*/

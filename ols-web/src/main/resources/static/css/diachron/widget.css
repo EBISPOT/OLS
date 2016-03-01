@@ -1,0 +1,36 @@
+
+#diachron-wrapper{
+  margin-top:25px;
+}
+
+#datepicker{
+  margin-top:10px;
+  font-family: Verdana,sans-serif;
+}
+
+#LegendBody table{
+  border: 0px solid;
+}
+
+.highcharts-title{
+    font-family: 'HelveticaNeueLT Pro','Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+
+.dataTableHeadline{
+  font-family: 'HelveticaNeueLT Pro','Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-size: 18px;
+  margin-bottom: 5px;
+  text-align:center;
+}
+
+
+.link {
+    cursor: default;
+}
+
+
+.link:hover{
+    cursor: pointer;
+}
