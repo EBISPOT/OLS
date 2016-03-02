@@ -39,6 +39,7 @@ $("#diachron-link").on('click', function(){
 
     URL=constructURL(document.URL)
 
+
     date=new Date();
     dateBefore=date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
     //Default date if webservice call is not successful
@@ -55,13 +56,11 @@ $("#diachron-link").on('click', function(){
 
         //Append general structur of window
         $("#diachron-wrapper").append("<div id='graphpart'><div>")
-
-        //$("#diachron-wrapper").append("<div id='datepicker' style='text-align:center;'><div>")
         $("#diachron-wrapper").append("<div id='buttonBox' style='text-align:center; margin-top:20px;'><div>")
         //Append datepicker
-        
-          update();
 
+
+          lineChartData();
           if ($(document).find("#LegendDiv").length === 0)
           {    buildLegend(); }
           else {              $("#LegendDiv").show();     }
@@ -73,16 +72,6 @@ $("#diachron-link").on('click', function(){
 function hideLegend(){
     $("#LegendDiv").hide();
 }
-
-function update(){
-  if (status==="pie")
-    pieChartData();
-  if (status==="line")
-    lineChartData();
-  if(status==="bar")
-    BarChart("graphpart", name);
-}
-
 
 function buildLegend(){
   var keys=_.keys(colorObject)
@@ -131,7 +120,7 @@ function createpiechart(divname, date, data){
                 $("#"+divname).highcharts().destroy();
                 drawPieTable(divname, data, date)
             },
-              text: "Show data as table",
+              text: "Show datatable",
               _titleKey : "tooltip",
             },
             contextButton: {
@@ -171,6 +160,7 @@ function piechartview(divname, date){
   var tmpURL=URL+"changesummaries/search/findByOntologyNameAndChangeDateBetween";
   tmpURL=tmpURL+"?ontologyName="+ontologyName+"&after="+tmpdateafter+"&before="+tmpdatebefore
 
+  //Using the exact endpoint
 
 
   $.getJSON(tmpURL, function(obj){})
@@ -233,14 +223,40 @@ function drawPieTable(divname, data, date)
 
 
 
-      htmlString="<div style='text-align:center'><button id='back' class='primary'> Back to the piechart </button></div>"
-
+      htmlString="<div style='text-align:center'><button id='back' class='primary'> Back </button></div>"
       $("#buttonBox").html(htmlString)
       $("#back").on('click', function(){piechartview(divname,date)})
       $("#testTable").DataTable({"order" : [[2, "desc"]]})
 }
 
 
+function drawLineTable(divname, obj)
+{
+  var htmlString='';
+  htmlString+='<h3>Summary of all changes from</h3>';
+  htmlString+='<table id="testTable" class="display" cellspacing="0" width="100%">'
+  htmlString+='<thead><tr><th>ChangeType</th><th>Date</th><th>Number of changes</th></tr></thead>'
+  htmlString+='<tbody>'
+
+  for (var j=0;obj.series.length>j;j++)
+    {
+    for (var i=0; obj.categories.length>i;i++){
+    htmlString+="<tr><td>"+obj.series[j].name+"</td><td>"+obj.categories[i]+"</td><td>"+obj.series[j].data[i]+"</td></tr>"
+    }
+  }
+
+  htmlString+="</tbody></table>"
+
+  $("#"+divname).html(htmlString)
+
+  htmlString="<div style='text-align:center'><button id='back' class='primary'> Back </button></div>"
+  $("#buttonBox").html(htmlString)
+  $("#back").on('click', function(){linechart(divname, obj)})
+
+  $("#testTable").DataTable({"order" : [[1, "desc"]]})
+
+
+}
 
 
 
@@ -342,11 +358,10 @@ linechart = function(divname, returndata)
 {
     $("#buttonBox").empty()
     var title= "All changes per type between "+ dateAfter+" and "+dateBefore;
-    //var returndata=lineChartData();
     /* Now designing the chart */
     var chartoptions={
       chart: {
-         type: 'line',
+         type: 'line'
      },
      exporting: { enabled: false },
      credits:{enabled:false},
@@ -370,36 +385,34 @@ linechart = function(divname, returndata)
        plotOptions:{
          series:{
            cursor: 'pointer',
-            point: {
+        point: {
              events:{
                click: function(){
-                 //alert("onclick event")
-                 date=this.category;
-                 //if (semaphore===false)
-                    //{ sempahore=true;
-
-                      //detailDateView(divname,this.category, stats) /*Add stats to the method*/
-
-
-                      //console.log("Temp trying to understand wtf is going on here");
-                      //console.log(this.series)
-                      //console.log(this.name);
-
-                      $("#datepicker").empty();
-                      console.log(this.series.name);
-                      detailDateView(divname,this.category, this.series.name)
-
-
-
-                      //THIS is the necessary info for the detailview
-                      //New version end
-                      //detailDateAndClassView(divname, this.category, this.series.name);
-                      /*ADD stats*/
-                    //} - End semaphore - potential target to delete
-                //detailview(divname, this.series.name, this.category)
-              }}}}},
+                    date=this.category;
+                    $("#datepicker").empty();
+                    detailDateView(divname,this.category, this.series.name)
+              }
+          }}}
+        },
      series:returndata.series,
-     lang: { noData: "No data to display"},
+     exporting: {
+      buttons:{
+      customButton:{
+        x:0,
+        y:0,
+        onclick : function (){
+
+          $("#"+divname).highcharts().destroy();
+          drawLineTable(divname, returndata)
+        },
+        text: "Show datatable",
+        _titleKey : "tooltip",
+      },
+      contextButton: {
+          enabled: false
+        }
+      }},
+     lang: { noData: "No data to display",  tooltip: "Show the data of the linechart as table"},
      noData: {
        style: {
           fontWeight: 'bold',
@@ -413,16 +426,22 @@ linechart = function(divname, returndata)
 
        /* Register onclick event for the xAxis*/
        $('.link').on('click', function () {
-         console.log($(this).text());
-         console.log($(this));
          $("#datepicker").empty();
          piechartview(divname, $(this).text())
        });
 
+       $('.highcharts-legend-item').on('click', function(){
+        //IF A Legend Item is clicked, we have to re-register the onclick event
+         $('.link').on('click', function () {
+           $("#datepicker").empty();
+           piechartview(divname, $(this).text())
+          })
+        })
+        /*End of registering onclick events for XAxis elements*/
 
        //Append datepicker to the linechartview
        $("#"+divname).append("<div id='datepicker' style='text-align:center;'></div>")
-       $("#datepicker").html('<hr style="width:30%; margin-left:35%">Show data from <input type="text" size="9" id="dateAfter" value="'+dateAfter+'"> to <input type="text" size="9" id="dateBefore" value="'+dateBefore+'"> <input id="changeDateSubmit" type="submit" value="Update Data!">')
+       $("#datepicker").html('<hr style="width:30%; margin-left:35%">Show data from <input type="text" size="9" id="dateAfter" value="'+dateAfter+'"> to <input type="text" size="9" id="dateBefore" value="'+dateBefore+'"> <input id="changeDateSubmit" type="submit" value="Update Data!" title="Adjust the dates on the left to the timeframe you want to compare and hit this update button to display the accurant data">')
 
        var pickerAfter = new Pikaday(
        {
@@ -454,7 +473,8 @@ linechart = function(divname, returndata)
          e.preventDefault();
          dateBefore=$("#dateBefore").val()
          dateAfter=$("#dateAfter").val()
-         update();
+         //update();
+         lineChartData()
        })
 
 }
@@ -491,22 +511,13 @@ function callWebserviceForDateView(inputURL){
 
 var tableData=[];
 function detailDateView(divname, date, className){
-  var searchbar='<div style="text-align: center;" id="searching"><img th:src="@{../img/loading1.gif}" src="../img/loading1.gif" alt="Search loading..."/><span>Loading, please wait...</span></div>'
+  var searchbar='<div style="text-align: center;" id="searching"><img th:src="@{../img/loading1.gif}" src="../img/loading1.gif" alt="Search loading..."/><span> Loading, please wait... </span></div>'
   $("#"+divname).html(searchbar);
 
   masterdata=[];
   var htmlString='';
   if ($("#"+divname).highcharts()!==undefined)
     {$("#"+divname).highcharts().destroy();}
-
-
-  //Transform Date to two dates (before and after day)
-  /*var x=new Date(date);
-  var tmpdateafter=x.getFullYear()+'-'+(x.getMonth()+1)+'-'+(x.getDate()-1);
-  var tmpdatebefore=x.getFullYear()+'-'+(x.getMonth()+1)+'-'+(x.getDate()+1);
-  tmpURL=URL+"changes/search/findByOntologyNameAndChangeDateBetween"
-  tmpURL=tmpURL+"?ontologyName="+ontologyName+"&after="+tmpdateafter+"&before="+tmpdatebefore
-*/
 
   //No between
   var tmpURL;
@@ -560,14 +571,6 @@ else {
           //This is executed after all OLS calls for our results from diachron are finshed - now I finally can build a table with all information that I need
           $.when.apply($,tokenArrayTwo).done(function(){
                       var htmlString2=''
-
-                      /* Stats for table * /
-                      htmlString2+='<div id="stats">Total number of terms wich changes found: '+tableData.length
-                      htmlString2+='<br>'
-                      htmlString2+='</div><br>'
-                      / * */
-
-                      /*htmlString2+='- Click on a row to expand and see the details!<br>'*/
 
                       htmlString2+='<table id="test" class="display" cellspacing="0" width="100%">'
                       htmlString2+='<thead><tr><th>id</th><th>Label</th><th># and types of changes</th><th></th></tr></thead>'

@@ -29,9 +29,17 @@ function constructURL(urlToProcess){
   return tmp;
 }
 
+function hideLegend(){
+    $("#LegendDiv").hide();
+}
 
 
 $(document).ready(function() {
+
+  $("#tree-link").on('click', hideLegend)
+  $("#meta-link").on('click', hideLegend)
+
+
     ontologyName = $("#diachron-tab").data("olsontology");
     var serviceURL= $("#diachron-tab").data("selectpath");
 
@@ -44,19 +52,16 @@ $(document).ready(function() {
     var termType = getUrlType(  $( "div[data-olswidget='tree']" ).data("ols-termtype"));
     var termIri =   $( "div[data-olswidget='tree']" ).data("ols-iri");
 
-
-    console.log("Init tree for: " + ontologyName + " - " + termIri + " - " + termType);
-
     URL=constructURL(document.URL)
-
-
-    //URL for static dev
-    //var tmpURL="http://www.ebi.ac.uk/ols/beta/api/ontologies?page=1&size=1"
 
     //URL for later on
     var tmpURL=URL+"changes/search/findByOntologyNameAndChangeSubjectUri?ontologyName="+ontologyName+"&subject="+termIri
 
+    //TMP DEV
 
+
+   //Load data when the diachron-link is clicked (lazy loading)
+    $("#diachron-link").on('click', function(){
 
     $.getJSON(tmpURL, function(obj){})
     .fail(function(){   console.log("Failed to do webservice call!"); console.log(tmpURL); return null })
@@ -68,6 +73,13 @@ $(document).ready(function() {
 
       //Only need for static dev
       //obj=tmpdata["_embedded"]["changes"] //tmp development
+
+
+      if ($(document).find("#LegendDiv").length === 0)
+      {    buildLegend(); }
+      else {  $("#LegendDiv").show();     }
+
+
 
       if (obj.length===0)
       {
@@ -151,7 +163,25 @@ $(document).ready(function() {
 
     })
 
+  })
+
 })
+
+
+function buildLegend(){
+  console.log("build legend is called");
+  var keys=_.keys(colorObject)
+  var htmlString='<div id="LegendDiv" class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title">Legend</h3></div><div id="LegendBody" class="panel-body">'
+  htmlString+="<table>";
+
+  for (var i=0; keys.length>i; i++)
+  {
+    htmlString+='<tr><td>'+keys[i]+'</td><td bgcolor="'+colorObject[keys[i]]+'"></td></tr>'
+  }
+  htmlString+="</table></div></div>"
+  $("#right_info_box").append(htmlString)
+}
+
 
 /*
 function sortTable(obj)
