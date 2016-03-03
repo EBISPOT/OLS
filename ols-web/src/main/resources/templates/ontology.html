@@ -41,6 +41,16 @@
     <link rel="stylesheet" href="../static/css/ols-colors.css" th:href="@{../css/ols-colors.css}" type="text/css" media="screen"/>
 
 
+    <link rel="stylesheet" href="../static/css/diachron/pikaday.css" th:href="@{../css/diachron/pikaday.css}" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="../static/css/diachron/widget.css" th:href="@{../css/diachron/widget.css}" type="text/css" media="screen"/>
+    <!-- <link rel="stylesheet" href="../static/css/diachron/site.css" th:href="@{../css/diachron/site.css}" type="text/css" media="screen"/> -->
+
+
+    <!-- TABLE css  -->
+    <link rel="stylesheet" href="../static/css/diachron/tablesort-blue/style.css" th:href="@{../css/diachron/tablesort-blue/style.css}" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.css"/>
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css"/>
+
     <!-- for production the above can be replaced with -->
     <!--
     <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/mini/ebi-fluid-embl.css">
@@ -216,9 +226,10 @@
                 <div class="grid_24 clearfix">
                     <div class="grid_14 alpha">
                         <ul  class="nav nav-tabs">
-                            <li role="presentation" class="active"><a data-toggle="tab" href="#tree-tab">Tree view</a></li>
-                            <li role="presentation"><a data-toggle="tab" href="#property-tree-tab">Property view</a></li>
-                            <li role="presentation"><a data-toggle="tab" href="#meta-tab">Ontology metadata</a></li>
+                            <li role="presentation" class="active"><a id="tree-link" data-toggle="tab" href="#tree-tab">Tree view</a></li>
+                            <li role="presentation"><a id="property-link" data-toggle="tab" href="#property-tree-tab">Property view</a></li>
+                            <li role="presentation"><a id="meta-link" data-toggle="tab" href="#meta-tab">Ontology metadata</a></li>
+                            <li role="presentation"><a id="diachron-link" data-toggle="tab" href="#diachron-tab">Ontology history</a></li>
                             <!--<li role="presentation"><a data-toggle="tab"  href="#graph-tab">Graph view</a></li>-->
                         </ul>
 
@@ -251,7 +262,9 @@
 
                             </div>
 
-
+                            <div role="tabpanel" class="tab-pane" id="diachron-tab" data-selectpath="../" th:attr="data-olsontology=${ontologyDocument.getOntologyId()}">
+                                <div id="diachron-wrapper"></div>
+                            </div>
 
                             <!--<div role="tabpanel" class="tab-pane" id="graph-tab">-->
                             <!--graph goes here-->
@@ -259,7 +272,7 @@
                         </div>
 
                     </div>
-                    <div class="grid_10 beta">
+                    <div id="right_info_box" class="grid_10 beta">
 
                         <div class="panel panel-primary">
 
@@ -280,14 +293,18 @@
                                     <b>Last loaded: </b> <span th:text="${ontologyDocument.getLoaded()}">NCBI_9606</span>
                                 </div>
                                 <div th:if="${ontologyDocument.getConfig().getMailingList() != null}">
-                                    <b>Contact E-mail: </b> <span th:text="${ontologyDocument.getConfig().getMailingList()}">NCBI:9606</span>
+                                    <b>Contact: </b> <span th:text="${ontologyDocument.getConfig().getMailingList()}">NCBI:9606</span>
                                 </div>
                                 <div th:each="creator : ${ontologyDocument.getConfig().getCreators()}">
                                     <b>Creator: </b> <span th:text="${creator}">NCBI:9606</span>
                                 </div>
 
                             </div>
+
+
                         </div>
+
+
 
                     </div>
 
@@ -364,6 +381,26 @@
 <script src="../static/js/jstree/jstree.min.js" th:src="@{../js/jstree/jstree.min.js}"></script>
 <script type="text/javascript" src="../static/js/ols-termselect.js" th:src="@{../js/ols-termselect.js}"></script>
 <script type="text/javascript" src="../static/js/ols-tree.js" th:src="@{../js/ols-tree.js}"></script>
+
+
+<!-- Include tags for the new CHARTS we have for the DIACHRON part of the ontology view-->
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/no-data-to-display.js"></script>
+<script src="../static/js/diachron/underscore-min.js" th:src="@{../js/diachron/underscore-min.js}"></script>
+<script src="../static/js/diachron/changeSummary.js" th:src="@{../js/diachron/changeSummary.js}"></script>
+<script src="../static/js/diachron/moment.js" th:src="@{../js/diachron/moment.js}"></script>
+<script src="../static/js/diachron/pikaday.js" th:src="@{../js/diachron/pikaday.js}"></script>
+<script src="../static/js/diachron/tablesorter.min.js" th:src="@{../js/diachron/tablesorter.min.js}"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/locale/bootstrap-table-en-US.min.js"></script>
+
+<script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+
+<!-- END OF THE DIACHRON INCLUDE TAGS-->
+
 <script>
     $(document).ready(function() {
         $('.mansyntax').each(function ()
@@ -381,6 +418,7 @@
                 $(this).attr("href", getUrlType('individual') + '?iri=' + encodeURIComponent(href));
             }
         });
+
     });
 </script>
 

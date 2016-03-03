@@ -1,5 +1,7 @@
 package uk.ac.ebi.spot.ols.loader;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import org.neo4j.graphdb.*;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
@@ -19,6 +21,9 @@ import org.springframework.stereotype.Component;
 import uk.ac.ebi.spot.ols.config.OlsNeo4jConfiguration;
 import uk.ac.ebi.spot.ols.exception.IndexingException;
 import uk.ac.ebi.spot.ols.model.OntologyIndexer;
+import uk.ac.ebi.spot.ols.util.OBODefinitionCitation;
+import uk.ac.ebi.spot.ols.util.OBOSynonym;
+import uk.ac.ebi.spot.ols.util.OBOXref;
 
 import java.io.File;
 import java.util.*;
@@ -78,7 +83,6 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
     }
 
     private Long getOrCreateNode(BatchInserter inserter, Map<String, Long> nodeMap, OntologyLoader loader, IRI classIri, Label ... nodeLabel) {
-
 
         if (!nodeMap.containsKey(classIri.toString())) {
             Map<String, Object> properties = new HashMap<>();
@@ -159,6 +163,45 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
                     properties.put("annotation-" + annotationLabel, value);
                 }
             }
+
+            ObjectMapper mapper = new ObjectMapper();
+            Collection<OBODefinitionCitation> definitionCitations = loader.getOBODefinitionCitations(classIri);
+            if (!definitionCitations.isEmpty()) {
+                List<String> defs = new ArrayList<>();
+                for (OBODefinitionCitation citation : definitionCitations) {
+                    try {
+                        defs.add(mapper.writeValueAsString(citation));
+                    } catch (JsonProcessingException e) {
+
+                    }
+                }
+                properties.put("obo_definition_citation",  defs.toArray(new String [defs.size()]));
+            }
+
+            Collection<OBOSynonym> oboSynonyms = loader.getOBOSynonyms(classIri);
+            if (!oboSynonyms.isEmpty()) {
+                List<String> syns = new ArrayList<>();
+                for (OBOSynonym synonym : oboSynonyms) {
+                    try {
+                        syns.add(mapper.writeValueAsString(synonym));
+                    } catch (JsonProcessingException e) {
+                    }
+                }
+                properties.put("obo_synonym", syns.toArray(new String [syns.size()]));
+            }
+
+            Collection<OBOXref> xrefs = loader.getOBOXrefs(classIri);
+            if (!xrefs.isEmpty()) {
+                List<String> refs = new ArrayList<>();
+                for (OBOXref xref : xrefs) {
+                    try {
+                        refs.add(mapper.writeValueAsString(xref));
+                    } catch (JsonProcessingException e) {
+                    }
+                }
+                properties.put("obo_xref", refs.toArray(new String [refs.size()]));
+            }
+
 
             long classNode;
             if (loader.isObsoleteTerm(classIri)) {

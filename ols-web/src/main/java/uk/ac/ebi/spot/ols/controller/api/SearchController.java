@@ -1,5 +1,6 @@
 package uk.ac.ebi.spot.ols.controller.api;
 
+import org.apache.http.HttpHeaders;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -27,6 +28,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import static org.springframework.http.MediaType.*;
 
 /**
  * @author Simon Jupp
@@ -74,7 +77,7 @@ public class SearchController {
 
     }
 
-    @RequestMapping(path = "/api/search", method = RequestMethod.GET)
+    @RequestMapping(path = "/api/search", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     public void search(
             @RequestParam("q") String query,
             @RequestParam(value = "ontology", required = false) Collection<String> ontologies,
@@ -184,7 +187,8 @@ public class SearchController {
         solrQuery.add("wt", format);
 
         StringBuilder solrSearchBuilder = buildBaseSearchRequest(solrQuery.toString());
-        dispatchSearch(solrSearchBuilder.toString(), response.getOutputStream());
+    //  dispatchSearch(solrSearchBuilder.toString(), response.getOutputStream());
+        dispatchSearch(solrSearchBuilder.toString(), response);
     }
 
     Function<String,String> addQuotes = new Function<String,String>() {
@@ -232,7 +236,7 @@ public class SearchController {
         return builder.toString();
     }
 
-    @RequestMapping(path = "/api/select", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
+    @RequestMapping(path = "/api/select", produces = {APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     public void select(
             @RequestParam("q") String query,
             @RequestParam(value = "ontology", required = false) Collection<String> ontologies,
@@ -305,11 +309,11 @@ public class SearchController {
         solrQuery.addHighlightField("synonym");
 
         StringBuilder solrSearchBuilder = buildBaseSearchRequest(solrQuery.toString());
-        dispatchSearch(solrSearchBuilder.toString(), response.getOutputStream());
-
+        //dispatchSearch(solrSearchBuilder.toString(), response.getOutputStream());
+        dispatchSearch(solrSearchBuilder.toString(), response);
     }
 
-    @RequestMapping(path = "/api/suggest", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
+    @RequestMapping(path = "/api/suggest", produces = {APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     public void suggest(
             @RequestParam("q") String query,
             @RequestParam(value = "ontology", required = false) Collection<String> ontologies,
@@ -345,12 +349,16 @@ public class SearchController {
         solrQuery.addHighlightField("autosuggest");
 
         StringBuilder solrSearchBuilder = buildBaseSuggestRequest(solrQuery.toString());
-        dispatchSearch(solrSearchBuilder.toString(), response.getOutputStream());
+        //dispatchSearch(solrSearchBuilder.toString(), response.getOutputStream());
 
+        dispatchSearch(solrSearchBuilder.toString(), response);
     }
 
-    private void dispatchSearch(String searchString, OutputStream out) throws IOException {
-//        System.out.println(searchString);
+    private void dispatchSearch(String searchString, HttpServletResponse httpresponse) throws IOException {
+
+        //httpresponse.setHeader(); //Do we need to put something else into the header?
+        httpresponse.setContentType("application/json");
+        OutputStream out=httpresponse.getOutputStream();
 
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet(searchString);
@@ -368,7 +376,10 @@ public class SearchController {
 
         try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
 //            getLog().debug("Received HTTP response: " + response.getStatusLine().toString());
+
             org.apache.http.HttpEntity entity = response.getEntity();
+
+
             entity.writeTo(out);
             EntityUtils.consume(entity);
         }

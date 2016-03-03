@@ -125,6 +125,40 @@ public class OntologyTermController {
         }
     }
 
+    @RequestMapping(path = "/{onto}/terms/{id}/hierarchicalParents", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
+    HttpEntity<PagedResources<Term>> getHierarchicalParents(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId, Pageable pageable,
+                                                PagedResourcesAssembler assembler) {
+        ontologyId = ontologyId.toLowerCase();
+
+        try {
+            String decoded = UriUtils.decode(termId, "UTF-8");
+            Page<Term> parents = ontologyTermGraphService.getHierarchicalParents(ontologyId, decoded, pageable);
+            if (parents == null) throw  new ResourceNotFoundException();
+
+            return new ResponseEntity<>( assembler.toResource(parents, termAssembler), HttpStatus.OK);
+        }
+        catch (UnsupportedEncodingException e) {
+            throw new ResourceNotFoundException();
+        }
+    }
+
+    @RequestMapping(path = "/{onto}/terms/{id}/hierarchicalAncestors", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
+    HttpEntity<PagedResources<Term>> getHierarchicalAncestors(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId, Pageable pageable,
+                                                PagedResourcesAssembler assembler) {
+        ontologyId = ontologyId.toLowerCase();
+
+        try {
+            String decoded = UriUtils.decode(termId, "UTF-8");
+            Page<Term> parents = ontologyTermGraphService.getHierarchicalAncestors(ontologyId, decoded, pageable);
+            if (parents == null) throw  new ResourceNotFoundException();
+
+            return new ResponseEntity<>( assembler.toResource(parents, termAssembler), HttpStatus.OK);
+        }
+        catch (UnsupportedEncodingException e) {
+            throw new ResourceNotFoundException();
+        }
+    }
+
     @RequestMapping(path = "/{onto}/terms/{id}/children", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<PagedResources<Term>> children(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId, Pageable pageable,
                                               PagedResourcesAssembler assembler) {
@@ -133,6 +167,40 @@ public class OntologyTermController {
         try {
             String decoded = UriUtils.decode(termId, "UTF-8");
             Page<Term> children = ontologyTermGraphService.getChildren(ontologyId, decoded, pageable);
+            if (children == null) throw  new ResourceNotFoundException();
+
+            return new ResponseEntity<>( assembler.toResource(children, termAssembler), HttpStatus.OK);
+        }
+        catch (UnsupportedEncodingException e) {
+            throw new ResourceNotFoundException();
+        }
+    }
+
+    @RequestMapping(path = "/{onto}/terms/{id}/hierarchicalChildren", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
+    HttpEntity<PagedResources<Term>> getHierarchicalChildren(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId, Pageable pageable,
+                                              PagedResourcesAssembler assembler) {
+        ontologyId = ontologyId.toLowerCase();
+
+        try {
+            String decoded = UriUtils.decode(termId, "UTF-8");
+            Page<Term> children = ontologyTermGraphService.getHierarchicalChildren(ontologyId, decoded, pageable);
+            if (children == null) throw  new ResourceNotFoundException();
+
+            return new ResponseEntity<>( assembler.toResource(children, termAssembler), HttpStatus.OK);
+        }
+        catch (UnsupportedEncodingException e) {
+            throw new ResourceNotFoundException();
+        }
+    }
+
+    @RequestMapping(path = "/{onto}/terms/{id}/hierarchicalDescendants", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
+    HttpEntity<PagedResources<Term>> getHierarchicalDescendants(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId, Pageable pageable,
+                                              PagedResourcesAssembler assembler) {
+        ontologyId = ontologyId.toLowerCase();
+
+        try {
+            String decoded = UriUtils.decode(termId, "UTF-8");
+            Page<Term> children = ontologyTermGraphService.getHierarchicalDescendants(ontologyId, decoded, pageable);
             if (children == null) throw  new ResourceNotFoundException();
 
             return new ResponseEntity<>( assembler.toResource(children, termAssembler), HttpStatus.OK);

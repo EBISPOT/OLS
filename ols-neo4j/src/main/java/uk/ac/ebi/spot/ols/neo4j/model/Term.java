@@ -2,11 +2,16 @@ package uk.ac.ebi.spot.ols.neo4j.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRawValue;
+import com.fasterxml.jackson.annotation.ObjectIdGenerator;
 import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.neo4j.annotation.*;
 import org.springframework.data.neo4j.fieldaccess.DynamicProperties;
 import org.springframework.data.neo4j.fieldaccess.DynamicPropertiesContainer;
 import org.springframework.hateoas.core.Relation;
+import uk.ac.ebi.spot.ols.util.OBODefinitionCitation;
+import uk.ac.ebi.spot.ols.util.OBOSynonym;
+import uk.ac.ebi.spot.ols.util.OBOXref;
 
 import java.util.*;
 
@@ -82,6 +87,21 @@ public class Term {
 //    private List<String> subsets;
 
     private DynamicProperties annotation = new DynamicPropertiesContainer();
+
+    @GraphProperty(propertyName="obo_definition_citation")
+    @JsonProperty(value = "obo_definition_citation")
+    @JsonRawValue
+    private Set<String> oboDefinitionCitations;
+
+    @GraphProperty(propertyName="obo_xref")
+    @JsonProperty(value = "obo_xref")
+    @JsonRawValue
+    private Set<String> oboXrefs;
+
+    @GraphProperty(propertyName="obo_synonym")
+    @JsonProperty(value = "obo_synonym")
+    @JsonRawValue
+    private Set<String> oboSynonyms;
 
     @JsonIgnore
     @RelatedToVia

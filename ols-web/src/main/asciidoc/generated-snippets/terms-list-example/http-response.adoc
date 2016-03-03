@@ -43,6 +43,9 @@ Content-Type: application/json
       "is_root" : false,
       "short_form" : "UBERON_0013702",
       "obo_id" : "UBERON:0013702",
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
       "_links" : {
         "self" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0013702"
@@ -52,6 +55,12 @@ Content-Type: application/json
         },
         "ancestors" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0013702/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0013702/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0013702/hierarchicalAncestors"
         },
         "jstree" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0013702/jstree"
@@ -78,6 +87,9 @@ Content-Type: application/json
       "is_root" : false,
       "short_form" : "EFO_0000787",
       "obo_id" : "EFO:0000787",
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
       "_links" : {
         "self" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787"
@@ -88,6 +100,12 @@ Content-Type: application/json
         "ancestors" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787/ancestors"
         },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787/hierarchicalAncestors"
+        },
         "jstree" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787/jstree"
         },
@@ -96,6 +114,12 @@ Content-Type: application/json
         },
         "descendants" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787/hierarchicalDescendants"
         },
         "graph" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787/graph"
@@ -116,6 +140,9 @@ Content-Type: application/json
       "is_root" : false,
       "short_form" : "Orphanet_308459",
       "obo_id" : "Orphanet:308459",
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
       "_links" : {
         "self" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459"
@@ -126,6 +153,12 @@ Content-Type: application/json
         "ancestors" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459/ancestors"
         },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459/hierarchicalAncestors"
+        },
         "jstree" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459/jstree"
         },
@@ -134,6 +167,12 @@ Content-Type: application/json
         },
         "descendants" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459/hierarchicalDescendants"
         },
         "graph" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459/graph"
@@ -157,6 +196,9 @@ Content-Type: application/json
       "is_root" : false,
       "short_form" : "Orphanet_79161",
       "obo_id" : "Orphanet:79161",
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
       "_links" : {
         "self" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161"
@@ -167,6 +209,12 @@ Content-Type: application/json
         "ancestors" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161/ancestors"
         },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161/hierarchicalAncestors"
+        },
         "jstree" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161/jstree"
         },
@@ -175,6 +223,12 @@ Content-Type: application/json
         },
         "descendants" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161/hierarchicalDescendants"
         },
         "graph" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161/graph"
@@ -199,6 +253,9 @@ Content-Type: application/json
       "is_root" : false,
       "short_form" : "Orphanet_309789",
       "obo_id" : "Orphanet:309789",
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
       "_links" : {
         "self" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_309789"
@@ -208,6 +265,12 @@ Content-Type: application/json
         },
         "ancestors" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_309789/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_309789/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_309789/hierarchicalAncestors"
         },
         "jstree" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_309789/jstree"
@@ -236,6 +299,9 @@ Content-Type: application/json
       "is_root" : false,
       "short_form" : "Orphanet_177",
       "obo_id" : "Orphanet:177",
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
       "_links" : {
         "self" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_177"
@@ -246,6 +312,12 @@ Content-Type: application/json
         "ancestors" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_177/ancestors"
         },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_177/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_177/hierarchicalAncestors"
+        },
         "jstree" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_177/jstree"
         },
@@ -254,6 +326,12 @@ Content-Type: application/json
         },
         "descendants" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_177/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_177/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_177/hierarchicalDescendants"
         },
         "graph" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_177/graph"
@@ -280,6 +358,9 @@ Content-Type: application/json
       "is_root" : false,
       "short_form" : "NCBITaxon_134821",
       "obo_id" : "NCBITaxon:134821",
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
       "_links" : {
         "self" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_134821"
@@ -289,6 +370,12 @@ Content-Type: application/json
         },
         "ancestors" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_134821/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_134821/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_134821/hierarchicalAncestors"
         },
         "jstree" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_134821/jstree"
@@ -320,6 +407,9 @@ Content-Type: application/json
       "is_root" : false,
       "short_form" : "NCBITaxon_2",
       "obo_id" : "NCBITaxon:2",
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
       "_links" : {
         "self" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2"
@@ -330,6 +420,12 @@ Content-Type: application/json
         "ancestors" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2/ancestors"
         },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2/hierarchicalAncestors"
+        },
         "jstree" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2/jstree"
         },
@@ -338,6 +434,12 @@ Content-Type: application/json
         },
         "descendants" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2/hierarchicalDescendants"
         },
         "graph" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2/graph"
@@ -382,6 +484,9 @@ Content-Type: application/json
       "is_root" : false,
       "short_form" : "UBERON_0001715",
       "obo_id" : "UBERON:0001715",
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
       "_links" : {
         "self" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001715"
@@ -392,17 +497,23 @@ Content-Type: application/json
         "ancestors" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001715/ancestors"
         },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001715/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001715/hierarchicalAncestors"
+        },
         "jstree" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001715/jstree"
         },
         "graph" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001715/graph"
         },
-        "part_of" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001715/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
-        },
         "develops_from" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001715/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0002202"
+        },
+        "part_of" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001715/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
         }
       }
     }, {
@@ -429,6 +540,9 @@ Content-Type: application/json
       "is_root" : false,
       "short_form" : "UBERON_0010285",
       "obo_id" : "UBERON:0010285",
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
       "_links" : {
         "self" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0010285"
@@ -439,6 +553,12 @@ Content-Type: application/json
         "ancestors" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0010285/ancestors"
         },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0010285/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0010285/hierarchicalAncestors"
+        },
         "jstree" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0010285/jstree"
         },
@@ -447,6 +567,12 @@ Content-Type: application/json
         },
         "descendants" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0010285/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0010285/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0010285/hierarchicalDescendants"
         },
         "graph" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0010285/graph"
@@ -508,6 +634,9 @@ Content-Type: application/json
       "is_root" : false,
       "short_form" : "UBERON_0001891",
       "obo_id" : "UBERON:0001891",
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
       "_links" : {
         "self" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891"
@@ -518,6 +647,12 @@ Content-Type: application/json
         "ancestors" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/ancestors"
         },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/hierarchicalAncestors"
+        },
         "jstree" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/jstree"
         },
@@ -527,14 +662,20 @@ Content-Type: application/json
         "descendants" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/descendants"
         },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/hierarchicalDescendants"
+        },
         "graph" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/graph"
         },
-        "develops_from" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0002202"
-        },
         "part_of" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
+        },
+        "develops_from" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0002202"
         }
       }
     }, {
@@ -578,6 +719,9 @@ Content-Type: application/json
       "is_root" : false,
       "short_form" : "UBERON_0002298",
       "obo_id" : "UBERON:0002298",
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
       "_links" : {
         "self" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0002298"
@@ -588,6 +732,12 @@ Content-Type: application/json
         "ancestors" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0002298/ancestors"
         },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0002298/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0002298/hierarchicalAncestors"
+        },
         "jstree" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0002298/jstree"
         },
@@ -596,6 +746,12 @@ Content-Type: application/json
         },
         "descendants" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0002298/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0002298/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0002298/hierarchicalDescendants"
         },
         "graph" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0002298/graph"
@@ -622,6 +778,9 @@ Content-Type: application/json
       "is_root" : false,
       "short_form" : "UBERON_0001711",
       "obo_id" : "UBERON:0001711",
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
       "_links" : {
         "self" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001711"
@@ -631,6 +790,12 @@ Content-Type: application/json
         },
         "ancestors" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001711/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001711/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001711/hierarchicalAncestors"
         },
         "jstree" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001711/jstree"
@@ -677,6 +842,9 @@ Content-Type: application/json
       "is_root" : false,
       "short_form" : "UBERON_0000970",
       "obo_id" : "UBERON:0000970",
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
       "_links" : {
         "self" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000970"
@@ -687,6 +855,12 @@ Content-Type: application/json
         "ancestors" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000970/ancestors"
         },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000970/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000970/hierarchicalAncestors"
+        },
         "jstree" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000970/jstree"
         },
@@ -695,6 +869,12 @@ Content-Type: application/json
         },
         "descendants" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000970/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000970/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000970/hierarchicalDescendants"
         },
         "graph" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000970/graph"
@@ -722,6 +902,9 @@ Content-Type: application/json
       "is_root" : false,
       "short_form" : "Orphanet_309796",
       "obo_id" : "Orphanet:309796",
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
       "_links" : {
         "self" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_309796"
@@ -731,6 +914,12 @@ Content-Type: application/json
         },
         "ancestors" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_309796/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_309796/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_309796/hierarchicalAncestors"
         },
         "jstree" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_309796/jstree"
@@ -759,6 +948,9 @@ Content-Type: application/json
       "is_root" : false,
       "short_form" : "NCBITaxon_300275",
       "obo_id" : "NCBITaxon:300275",
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
       "_links" : {
         "self" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_300275"
@@ -768,6 +960,12 @@ Content-Type: application/json
         },
         "ancestors" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_300275/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_300275/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_300275/hierarchicalAncestors"
         },
         "jstree" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_300275/jstree"
@@ -797,6 +995,9 @@ Content-Type: application/json
       "is_root" : false,
       "short_form" : "NCBITaxon_4890",
       "obo_id" : "NCBITaxon:4890",
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
       "_links" : {
         "self" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_4890"
@@ -807,6 +1008,12 @@ Content-Type: application/json
         "ancestors" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_4890/ancestors"
         },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_4890/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_4890/hierarchicalAncestors"
+        },
         "jstree" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_4890/jstree"
         },
@@ -815,6 +1022,12 @@ Content-Type: application/json
         },
         "descendants" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_4890/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_4890/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_4890/hierarchicalDescendants"
         },
         "graph" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_4890/graph"
@@ -838,6 +1051,9 @@ Content-Type: application/json
       "is_root" : false,
       "short_form" : "Orphanet_308463",
       "obo_id" : "Orphanet:308463",
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
       "_links" : {
         "self" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308463"
@@ -848,6 +1064,12 @@ Content-Type: application/json
         "ancestors" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308463/ancestors"
         },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308463/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308463/hierarchicalAncestors"
+        },
         "jstree" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308463/jstree"
         },
@@ -856,6 +1078,12 @@ Content-Type: application/json
         },
         "descendants" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308463/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308463/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308463/hierarchicalDescendants"
         },
         "graph" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308463/graph"
@@ -897,6 +1125,9 @@ Content-Type: application/json
       "is_root" : false,
       "short_form" : "UBERON_0001714",
       "obo_id" : "UBERON:0001714",
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
       "_links" : {
         "self" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001714"
@@ -907,6 +1138,12 @@ Content-Type: application/json
         "ancestors" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001714/ancestors"
         },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001714/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001714/hierarchicalAncestors"
+        },
         "jstree" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001714/jstree"
         },
@@ -915,6 +1152,12 @@ Content-Type: application/json
         },
         "descendants" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001714/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001714/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001714/hierarchicalDescendants"
         },
         "graph" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001714/graph"
@@ -972,6 +1215,9 @@ Content-Type: application/json
       "is_root" : false,
       "short_form" : "UBERON_0000045",
       "obo_id" : "UBERON:0000045",
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
       "_links" : {
         "self" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000045"
@@ -982,6 +1228,12 @@ Content-Type: application/json
         "ancestors" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000045/ancestors"
         },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000045/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000045/hierarchicalAncestors"
+        },
         "jstree" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000045/jstree"
         },
@@ -990,6 +1242,12 @@ Content-Type: application/json
         },
         "descendants" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000045/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000045/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000045/hierarchicalDescendants"
         },
         "graph" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000045/graph"

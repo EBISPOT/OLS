@@ -458,7 +458,7 @@ Content-Type: application/json
           "label" : [ "Ancestry Ontology" ]
         },
         "fileLocation" : "https://raw.githubusercontent.com/EBISPOT/ancestro/master/ancestro.owl",
-        "reasonerType" : "NONE",
+        "reasonerType" : "OWL2",
         "oboSlims" : false,
         "labelProperty" : "http://www.w3.org/2000/01/rdf-schema#label",
         "definitionProperties" : [ "http://purl.obolibrary.org/obo/IAO_0000115" ],
@@ -947,7 +947,7 @@ Content-Type: application/json
   },
   "page" : {
     "size" : 20,
-    "totalElements" : 143,
+    "totalElements" : 145,
     "totalPages" : 8,
     "number" : 0
   }

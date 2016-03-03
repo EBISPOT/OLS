@@ -38,12 +38,16 @@ public class TermAssembler implements ResourceAssembler<Term, Resource<Term>> {
             if (!term.isRoot()) {
                 resource.add(lb.slash("parents").withRel("parents"));
                 resource.add(lb.slash("ancestors").withRel("ancestors"));
+                resource.add(lb.slash("hierarchicalParents").withRel("hierarchicalParents"));
+                resource.add(lb.slash("hierarchicalAncestors").withRel("hierarchicalAncestors"));
                 resource.add(lb.slash("jstree").withRel("jstree"));
             }
 
             if (term.hasChildren()) {
                 resource.add(lb.slash("children").withRel("children"));
                 resource.add(lb.slash("descendants").withRel("descendants"));
+                resource.add(lb.slash("hierarchicalChildren").withRel("hierarchicalChildren"));
+                resource.add(lb.slash("hierarchicalDescendants").withRel("hierarchicalDescendants"));
             }
 
             resource.add(lb.slash("graph").withRel("graph"));
