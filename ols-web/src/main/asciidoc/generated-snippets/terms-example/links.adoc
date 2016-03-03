@@ -7,11 +7,23 @@
 |parents
 |Link to the direct parent resources for this term
 
+|hierarchicalParents
+|Link to the direct hierarchical parent resources for this term. Hierarchical parents include is-a and other related parents, such as part-of/develops-from, that imply a hierarchical relationship
+
+|hierarchicalAncestors
+|Link to all hierarchical ancestors (all parents's parents) resources for this term. Hierarchical ancestors include is-a and other related parents, such as part-of/develops-from, that imply a hierarchical relationship
+
 |ancestors
 |Link to all parent resources for this term
 
 |children
 |Link to the direct children resources for this term
+
+|hierarchicalChildren
+|Link to the direct hierarchical children resources for this term. Hierarchical children include is-a and other related children, such as part-of/develops-from, that imply a hierarchical relationship
+
+|hierarchicalDescendants
+|Link to all hierarchical children resources for this term. Hierarchical children include is-a and other related children, such as part-of/develops-from, that imply a hierarchical relationship
 
 |descendants
 |Link to all child resources for this term

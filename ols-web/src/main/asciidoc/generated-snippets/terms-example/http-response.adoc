@@ -23,6 +23,9 @@ Content-Type: application/json
   "is_root" : false,
   "short_form" : "GO_0043226",
   "obo_id" : "GO:0043226",
+  "obo_definition_citation" : null,
+  "obo_xref" : null,
+  "obo_synonym" : null,
   "_links" : {
     "self" : {
       "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226"
@@ -33,6 +36,12 @@ Content-Type: application/json
     "ancestors" : {
       "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/ancestors"
     },
+    "hierarchicalParents" : {
+      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/hierarchicalParents"
+    },
+    "hierarchicalAncestors" : {
+      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/hierarchicalAncestors"
+    },
     "jstree" : {
       "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/jstree"
     },
@@ -41,6 +50,12 @@ Content-Type: application/json
     },
     "descendants" : {
       "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/descendants"
+    },
+    "hierarchicalChildren" : {
+      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/hierarchicalChildren"
+    },
+    "hierarchicalDescendants" : {
+      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/hierarchicalDescendants"
     },
     "graph" : {
       "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/graph"

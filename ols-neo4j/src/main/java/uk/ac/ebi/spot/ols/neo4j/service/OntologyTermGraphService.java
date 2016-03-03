@@ -92,6 +92,22 @@ public class OntologyTermGraphService {
         return termRepository.getChildren(ontologyName, iri, pageable);
     }
 
+    public Page<Term> getHierarchicalChildren(String ontologyName, String iri, Pageable pageable) {
+        return termRepository.getHierarchicalChildren(ontologyName, iri, pageable);
+    }
+
+    public Page<Term> getHierarchicalDescendants(String ontologyName, String iri, Pageable pageable) {
+        return termRepository.getHierarchicalDescendants(ontologyName, iri, pageable);
+    }
+
+    public Page<Term> getHierarchicalParents(String ontologyName, String iri, Pageable pageable) {
+        return termRepository.getHierarchicalParents(ontologyName, iri, pageable);
+    }
+
+    public Page<Term> getHierarchicalAncestors(String ontologyName, String iri, Pageable pageable) {
+        return termRepository.getHierarchicalAncestors(ontologyName, iri, pageable);
+    }
+
     public Page<Term> getDescendants(String ontologyName, String iri, Pageable pageable) {
         return termRepository.getDescendants(ontologyName, iri, pageable);
     }
