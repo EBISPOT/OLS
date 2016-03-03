@@ -74,7 +74,7 @@ public class SearchController {
 
     }
 
-    @RequestMapping(path = "/api/search", method = RequestMethod.GET)
+    @RequestMapping(path = "/api/search", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
     public void search(
             @RequestParam("q") String query,
             @RequestParam(value = "ontology", required = false) Collection<String> ontologies,

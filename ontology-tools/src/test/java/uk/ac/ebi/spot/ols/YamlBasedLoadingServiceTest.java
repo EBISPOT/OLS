@@ -175,7 +175,7 @@ public class YamlBasedLoadingServiceTest extends TestCase {
         yamlBasedLoadingService = new YamlBasedLoadingService(ontology, "http://foobar.com/", true);
         try {
             assertTrue(yamlBasedLoadingService.getConfiguration().getSynonymProperties().size() == 1);
-            assertTrue(yamlBasedLoadingService.getConfiguration().getSynonymProperties().contains(URI.create(OboDefaults.SYNONYM)));
+            assertTrue(yamlBasedLoadingService.getConfiguration().getSynonymProperties().contains(URI.create(OboDefaults.EXACT_SYNONYM)));
         } catch (ConfigParsingException e) {
             fail();
         }

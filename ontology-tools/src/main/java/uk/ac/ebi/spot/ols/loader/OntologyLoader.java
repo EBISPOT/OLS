@@ -8,6 +8,9 @@ package uk.ac.ebi.spot.ols.loader;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.springframework.core.io.Resource;
+import uk.ac.ebi.spot.ols.util.OBODefinitionCitation;
+import uk.ac.ebi.spot.ols.util.OBOSynonym;
+import uk.ac.ebi.spot.ols.util.OBOXref;
 
 import java.util.Collection;
 import java.util.Map;
@@ -118,6 +121,13 @@ public interface OntologyLoader {
     Collection<String> getSubsets(IRI ontologyTermIRI);
 
     Map<IRI, Collection<String>> getAnnotations(IRI entityIRI);
+
+    Collection<OBODefinitionCitation> getOBODefinitionCitations(IRI entityIRI);
+
+    Collection<OBOXref> getOBOXrefs(IRI entityIRI);
+
+    Collection<OBOSynonym> getOBOSynonyms(IRI entityIRI);
+
 
     /**
      * Get a map of IRI definitions

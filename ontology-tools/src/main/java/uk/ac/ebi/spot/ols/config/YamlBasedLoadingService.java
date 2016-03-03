@@ -99,7 +99,7 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
             builder.setSynonymProperties(synonymsUris);
         }
         else if (isObo) {
-            builder.setSynonymProperties(Collections.singleton(URI.create(OboDefaults.SYNONYM)));
+            builder.setSynonymProperties(Collections.singleton(URI.create(OboDefaults.EXACT_SYNONYM)));
         }
 
         if (ontology.containsKey("hidden_property"))  {
