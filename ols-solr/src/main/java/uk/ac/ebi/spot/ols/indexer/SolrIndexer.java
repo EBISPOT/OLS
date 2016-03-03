@@ -111,6 +111,10 @@ public class SolrIndexer implements OntologyIndexer {
                 }
             }
 
+            // index ontology meta data
+            TermDocumentBuilder builder = extractOntologyFeature(loader);
+            documents.add(builder.createTermDocument());
+
 
             long endTime = System.currentTimeMillis();
             long duration = (endTime - startTime) / 1000; // time in seconds
@@ -181,6 +185,24 @@ public class SolrIndexer implements OntologyIndexer {
             long duration = (endTime - startTime) / 1000; // time in seconds
             getLog().info(loader.getOntologyName() + " removed from solr in " + duration + " seconds");
         }
+    }
+
+    private TermDocumentBuilder extractOntologyFeature (OntologyLoader loader) {
+
+        TermDocumentBuilder builder = new TermDocumentBuilder();
+        builder.setOntologyName(loader.getOntologyName())
+                .setOntologyPrefix(loader.getPreferredPrefix())
+                .setOntologyUri(loader.getOntologyIRI().toString())
+                .setId(generateId(loader.getOntologyName(), ""))
+                .setUri(loader.getOntologyIRI().toString())
+                .setUri_key(generateAnnotationId(loader.getOntologyName()).hashCode())
+                .setLabel(loader.getTitle())
+                .setDescription(Collections.singleton(loader.getOntologyDescription()))
+                .setShortForm(loader.getOntologyName())
+                .setType("ontology");
+
+        return builder;
+
     }
 
     private TermDocumentBuilder extractFeatures(OntologyLoader loader, IRI termIRI) {

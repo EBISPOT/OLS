@@ -113,7 +113,7 @@ public class SearchController {
                 solrQuery.set("defType", "edismax");
                 solrQuery.setQuery(query);
                 solrQuery.set("qf", "label^5 synonym^3 description short_form^2 obo_id^2 annotations logical_description iri");
-                solrQuery.set("bq", "is_defining_ontology:true^100 label_s:\"" + query.toLowerCase() + "\"^5 synonym_s:\"" + query.toLowerCase() + "\"^3 annotations_trimmed:\"" + query.toLowerCase() + "\"");
+                solrQuery.set("bq", "type:ontology^100.0 is_defining_ontology:true^100 label_s:\"" + query.toLowerCase() + "\"^5 synonym_s:\"" + query.toLowerCase() + "\"^3 annotations_trimmed:\"" + query.toLowerCase() + "\"");
             }
         }
         else {
@@ -260,7 +260,7 @@ public class SearchController {
         solrQuery.setQuery(query);
         solrQuery.set("defType", "edismax");
         solrQuery.set("qf", "label synonym label_autosuggest_e label_autosuggest synonym_autosuggest_e synonym_autosuggest shortform_autosuggest");
-        solrQuery.set("bq", "is_defining_ontology:true^100.0 label_s:\"" + queryLc + "\"^1000  label_autosuggest_e:\"" + queryLc + "\"^500 synonym_s:\"" + queryLc + "\" synonym_autosuggest_e:\"" + queryLc + "\"^100");
+        solrQuery.set("bq", "type:ontology^100.0 is_defining_ontology:true^100.0 label_s:\"" + queryLc + "\"^1000  label_autosuggest_e:\"" + queryLc + "\"^500 synonym_s:\"" + queryLc + "\" synonym_autosuggest_e:\"" + queryLc + "\"^100");
         solrQuery.set("wt", "json");
 
         if (fieldList == null) {
