@@ -80,6 +80,11 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
 
         builder.setPreferredPrefix(prefix);
 
+        if (ontology.containsKey("label_property"))  {
+            String labelProperty = (String) ontology.get("label_property");
+            builder.setLabelProperty(URI.create(labelProperty));
+        }
+
         if (ontology.containsKey("definition_property"))  {
             Collection<URI> definitionUris = new HashSet<>();
             for (String definition : (ArrayList<String>) ontology.get("definition_property")) {
