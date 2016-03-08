@@ -146,51 +146,34 @@
                 <section class="grid_19">
 
                     <!-- Main jumbotron for a primary marketing message or call to action -->
-                    <div class="jumbotron background-color-primary-accent">
-                        <div class="container">
-                            <div>
-                                <h1>Ontology Lookup Service</h1>
 
-                                <h3>Repository of ontologies for healthcare and the life sciences</h3>
+                    <div>
+                        <form name="local-search" action="search" method="get">
+                            <fieldset><div class="left">
+                                <label>
+                                    <input style="width: 100%" autofocus="autofocus" type="text" name="q" data-olswidget="suggest" data-olsontology="" id="local-searchbox" placeholder="What are you looking for today?" class="ac_input">
+                                    </input>
+                                </label>
 
-                                <!-- search box goes here -->
-                                <form>
-
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search the catalog" id="search-box" />
-                                                   <span class="input-group-btn">
-                                                       <button class="btn btn-default" type="button" id="search-button">
-                                                           <span class="glyphicon glyphicon-search"></span>
-                                                       </button>
-                                                   </span>
-                                </div>
-                                </form>
-                                <span class="examples">Examples: <a href="search?q=cancer">cancer</a>,
-                                <a href="search?q=GO:0098743">GO:0098743</a>,
-                                </span>
                             </div>
-                        </div>
+                                <div class="right">
+                                    <input type="submit" value="Search" class="submit">
+                                    </input>
+                                </div>
+                            </fieldset>
+                            <div>
+                                <input type="checkbox">Search obsoletes</input>
+                            </div>
+                        </form>
+                        <span class="examples">Examples: <a href="search?q=cancer">cancer</a>,
+                        <a href="search?q=GO:0098743">GO:0098743</a>
+                        </span>
                     </div>
 
                     <p class="intro">Welcome to the EMBL-EBI Ontology Lookup Service (OLS). Use OLS to search and visualise over 100 Biomedical ontologies or use the <a href="docs/api">OLS API</a> to integrate OLS ontologies into your own applications.
                         OLS updates nightly to always provide the latest ontology versions and can be configured to load any ontology available in OBO or OWL format. </p>
 
-                    <!--<div>-->
-                    <!--<form name="local-search" action="search" method="get">-->
-                    <!--<fieldset><div class="left">-->
-                    <!--<label>-->
-                    <!--<input autofocus="autofocus" type="text" name="q" data-olswidget="select" data-olsontology="" id="local-searchbox" placeholder="What are you looking for today?" class="ac_input">-->
-                    <!--</input>-->
-                    <!--</label>-->
 
-                    <!--</div>-->
-                    <!--<div class="right">-->
-                    <!--<input type="submit" value="Search" class="submit">-->
-                    <!--</input>-->
-                    <!--</div>-->
-                    <!--</fieldset>-->
-                    <!--</form>-->
-                    <!--</div>-->
 
                     <div style="font-size: larger;" class="bootstrap-alert alert-info">
                         <img src="//www.ebi.ac.uk/web_guidelines/images/icons/EBI-Generic/Generic%20icons/Beta.png"/>This is a beta site under active development, please see the <a href="roadmap.html">OLS roadmap</a> for our development timelines. Please contact the <a href="contact">support desk</a> with with any feedback or suggestions.
