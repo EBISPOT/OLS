@@ -195,9 +195,12 @@
 
 
                     <div class="grid_24 clearfix">
-                        <span style="font-size: small;color: grey;padding: 9px;" th:text="${ontologyTerm.getIri()}">http://www.example.com/onto/id</span>
+                        <span id="test" style="font-size: small;color: grey;padding: 9px;" th:text="${ontologyTerm.getIri()}">http://www.example.com/onto/id</span>
                         <a th:href="@{${ontologyTerm.getIri()}}" class="nounderline" target="blank"><img th:src="@{../../img/external_link.png}" src="../static/img/external_link.png" alt="^" title="Go to external page"/></a>
                         <a style="float:right;" th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__}" th:text="${ontologyName}">ontology</a>
+                        <p style="display:inline;"><button id='copyThis' data-clipboard-action="copy" data-clipboard-target="#test" type="button">Copy to clipboard</button></p>
+                        <p id="citeThis" style="display:inline;"><button type="button" title="Click here">Cite this</button></p>
+                        <p id="overlay" style="display:inline;"></p>
                     </div>
                     <div class="grid_24 alpha clearfix">
 
@@ -450,6 +453,9 @@
 <script type="text/javascript" src="../static/js/ols-termselect.js" th:src="@{../../js/ols-termselect.js}"></script>
 <script type="text/javascript" src="../static/js/ols-tree.js" th:src="@{../../js/ols-tree.js}"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="../static/js/clipboard.min.js" th:src="@{../../js/clipboard.min.js}"></script>
+
 <script>
     $(document).ready(function() {
         $('.mansyntax').each(function ()
@@ -466,6 +472,13 @@
                 $(this).attr("href", getUrlType('individual') + '?iri=' + encodeURIComponent(href));
             }
         });
+
+        $('#citeThis').on('click', function (){
+            $('#overlay').html('<p id="overlay" style="display:inline; opacity:0.5; background:light-gray;">Imaging here to be text to be cited we still think about the layout <a id="close" href="">close</a></p>')
+            $('#close').on('click', function(){  $("#overlay").hide();})
+        })
+
+        new Clipboard('#copyThis')
     });
 </script>
 

@@ -1,6 +1,7 @@
 
 #diachron-wrapper{
   margin-top:25px;
+  width:99%:
 }
 
 #datepicker{
@@ -11,6 +12,11 @@
 #LegendBody table{
   border: 0px solid;
 }
+
+#testTable{
+    border: 0px solid   !important;
+}
+
 
 .highcharts-title{
     font-family: 'HelveticaNeueLT Pro','Helvetica Neue',Helvetica,Arial,sans-serif;

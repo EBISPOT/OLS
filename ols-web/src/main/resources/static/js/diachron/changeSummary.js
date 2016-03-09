@@ -32,13 +32,30 @@ $("#property-link").on('click', hideLegend)
 $("#meta-link").on('click', hideLegend)
 
 
+
+
+$(document).on("pagecontainerbeforechange", function (e, data) {
+      if (typeof data.toPage == "string" && data.options.direction == "back" && data.prevPage[0].id == "PageX") {
+        alert("Back event")
+          data.toPage = "#pageY"; /* redirect to pageY */
+          data.options.transition = "flip"; /* optional */
+      }
+  });
+
+ //window.onbeforeunload = function() { return "You work will be lost."; };
+window.onpopstate = function () {alert("back")}
+
 $("#diachron-link").on('click', function(){
+
+
+
+
 
     ontologyName = $("#diachron-tab").data("olsontology");
     var serviceURL= $("#diachron-tab").data("selectpath");
 
     URL=constructURL(document.URL)
-
+    URL="http://snarf.ebi.ac.uk:8880/ols/diachron/changes-api/"
 
     date=new Date();
     dateBefore=date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
@@ -115,7 +132,8 @@ function createpiechart(divname, date, data){
     exporting:{
         buttons:{
           customButton:{
-            x:-80,
+            x:0,
+            y:0,
             onclick : function(){
                 $("#"+divname).highcharts().destroy();
                 drawPieTable(divname, data, date)
@@ -124,10 +142,11 @@ function createpiechart(divname, date, data){
               _titleKey : "tooltip",
             },
             contextButton: {
-                enabled: false
+                enabled: true,
+                x:0,
+                y:26
               }
 }},
-
     lang: { noData: "No data to display", tooltip: "Show the data of the piechart as table"},
     noData: {
       style: {
@@ -409,7 +428,9 @@ linechart = function(divname, returndata)
         _titleKey : "tooltip",
       },
       contextButton: {
-          enabled: false
+          enabled: true,
+          x:0,
+          y:26
         }
       }},
      lang: { noData: "No data to display",  tooltip: "Show the data of the linechart as table"},
@@ -572,7 +593,7 @@ else {
           $.when.apply($,tokenArrayTwo).done(function(){
                       var htmlString2=''
 
-                      htmlString2+='<table id="test" class="display" cellspacing="0" width="100%">'
+                      htmlString2+='<table id="testTable" class="display" cellspacing="0" width="100%">'
                       htmlString2+='<thead><tr><th>id</th><th>Label</th><th># and types of changes</th><th></th></tr></thead>'
                       htmlString2+='<tbody>'
 
@@ -634,7 +655,7 @@ else {
                       /* Add Button BACK to the line chart in every case (Should we change that)*/
 
 
-                      var table=$("#test").DataTable({
+                      var table=$("#testTable").DataTable({
                         "aoColumns" : [
                           false,
                           false,
@@ -643,7 +664,7 @@ else {
                         ]
                       });
 
-                      $('#test tbody').on('click', 'tr.mainrow', function() {
+                      $('#testTable tbody').on('click', 'tr.mainrow', function() {
                       //console.log('clicked on ', this, $(this).closest('tr'));
                         var tr=$(this).closest('tr')
                         var row=table.row(tr)
@@ -790,3 +811,8 @@ function ConstructDataTable(masterdata){
 
    return dataObject;
 }
+
+
+/*
+* Back button: http://stackoverflow.com/questions/18211984/how-to-control-back-button-event-in-jquery-mobile
+*/
