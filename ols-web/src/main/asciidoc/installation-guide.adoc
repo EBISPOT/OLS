@@ -121,7 +121,7 @@ b. If this is run a subsequent time it will check the latest download to the las
 
 For this to work you need to make sure your Mongo and SOLR servers are running. You don't need a Neo4J server as OLS uses an embedded Neo4J database. If you already have a tomcat server running with OLS deployed and it is using the same index files as SOLR and Neo4J, it is advised to shutdown the tomcat before running this script.
 
-To invoke the indexer process you can run the file ols-loading-app.jar (`java -jar ols-loading-app.jar`) in the folder OLS/ols-apps/ols-loading-app/target.
+To invoke the indexer process you can run the file ols-indexer.jar (`java -jar ols-loading-app.jar`) in the folder OLS/ols-apps/ols-loading-app/target.
 
 This script has two optional arguments:
 

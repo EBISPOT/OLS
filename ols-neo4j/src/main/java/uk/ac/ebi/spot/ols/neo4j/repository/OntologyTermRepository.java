@@ -28,9 +28,28 @@ public interface OntologyTermRepository extends GraphRepository<Term> {
             value = "MATCH (n:Class)-[:SUBCLASSOF]->(parent) WHERE n.ontology_name = {0} AND n.iri = {1} RETURN parent")
     Page<Term> getParents(String ontologyName, String iri, Pageable pageable);
 
+    @Query(
+            countQuery = "MATCH (n:Class)-[:SUBCLASSOF|RelatedTree]->(parent) WHERE n.ontology_name = {0} AND n.iri = {1} RETURN count(parent)",
+            value = "MATCH (n:Class)-[:SUBCLASSOF|RelatedTree]->(parent) WHERE n.ontology_name = {0} AND n.iri = {1} RETURN parent")
+    Page<Term> getHierarchicalParents(String ontologyName, String iri, Pageable pageable);
+
+    @Query(
+            countQuery = "MATCH (n:Class)-[:SUBCLASSOF|RelatedTree*]->(parent) WHERE n.ontology_name = {0} AND n.iri = {1} RETURN count(parent)",
+            value = "MATCH (n:Class)-[:SUBCLASSOF|RelatedTree*]->(parent) WHERE n.ontology_name = {0} AND n.iri = {1} RETURN parent")
+    Page<Term> getHierarchicalAncestors(String ontologyName, String iri, Pageable pageable);
+
     @Query( countQuery = "MATCH (n:Class)<-[:SUBCLASSOF]-(child) WHERE n.ontology_name = {0} AND n.iri = {1} RETURN count(child)",
             value = "MATCH (n:Class)<-[:SUBCLASSOF]-(child) WHERE n.ontology_name = {0} AND n.iri = {1} RETURN child")
     Page<Term> getChildren(String ontologyName, String iri, Pageable pageable);
+
+    @Query( countQuery = "MATCH (n:Class)<-[:SUBCLASSOF|RelatedTree]-(child) WHERE n.ontology_name = {0} AND n.iri = {1} RETURN count(child)",
+            value = "MATCH (n:Class)<-[:SUBCLASSOF|RelatedTree]-(child) WHERE n.ontology_name = {0} AND n.iri = {1} RETURN child")
+    Page<Term> getHierarchicalChildren(String ontologyName, String iri, Pageable pageable);
+
+    @Query( countQuery = "MATCH (n:Class)<-[:SUBCLASSOF|RelatedTree*]-(child) WHERE n.ontology_name = {0} AND n.iri = {1} RETURN count(child)",
+            value = "MATCH (n:Class)<-[:SUBCLASSOF|RelatedTree]-(child) WHERE n.ontology_name = {0} AND n.iri = {1} RETURN child")
+    Page<Term> getHierarchicalDescendants(String ontologyName, String iri, Pageable pageable);
+
 
     @Query(countQuery = "MATCH (n:Class)<-[:SUBCLASSOF*]-(child) WHERE n.ontology_name = {0} AND n.iri = {1} RETURN count(child)",
             value = "MATCH (n:Class)<-[:SUBCLASSOF*]-(child) WHERE n.ontology_name = {0} AND n.iri = {1} RETURN child")

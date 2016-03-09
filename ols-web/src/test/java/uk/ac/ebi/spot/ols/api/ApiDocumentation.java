@@ -264,8 +264,12 @@ public class ApiDocumentation {
                 links(halLinks(),
                         linkWithRel("self").description("Link to this resource"),
                         linkWithRel("parents").description("Link to the direct parent resources for this term"),
+                        linkWithRel("hierarchicalParents").description("Link to the direct hierarchical parent resources for this term. Hierarchical parents include is-a and other related parents, such as part-of/develops-from, that imply a hierarchical relationship"),
+                        linkWithRel("hierarchicalAncestors").description("Link to all hierarchical ancestors (all parents's parents) resources for this term. Hierarchical ancestors include is-a and other related parents, such as part-of/develops-from, that imply a hierarchical relationship"),
                         linkWithRel("ancestors").description("Link to all parent resources for this term"),
                         linkWithRel("children").description("Link to the direct children resources for this term"),
+                        linkWithRel("hierarchicalChildren").description("Link to the direct hierarchical children resources for this term. Hierarchical children include is-a and other related children, such as part-of/develops-from, that imply a hierarchical relationship"),
+                        linkWithRel("hierarchicalDescendants").description("Link to all hierarchical children resources for this term. Hierarchical children include is-a and other related children, such as part-of/develops-from, that imply a hierarchical relationship"),
                         linkWithRel("descendants").description("Link to all child resources for this term"),
                         linkWithRel("jstree").description("A JSON tree structure of the term hierarchy"),
                         linkWithRel("graph").description("A JSON graph structure of the immediately related nodes")));

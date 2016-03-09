@@ -22,7 +22,10 @@ Content-Type: application/json
     "has_children" : false,
     "is_root" : true,
     "short_form" : "Thing",
-    "obo_id" : null
+    "obo_id" : null,
+    "obo_definition_citation" : null,
+    "obo_xref" : null,
+    "obo_synonym" : null
   } ],
   "synonyms" : null,
   "ontology_name" : "ro",

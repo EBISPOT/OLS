@@ -4,19 +4,17 @@ import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
-import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleIRIMapper;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.util.StringUtils;
+import uk.ac.ebi.spot.ols.config.OboDefaults;
 import uk.ac.ebi.spot.ols.config.OntologyDefaults;
 import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
 import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
 import uk.ac.ebi.spot.ols.renderer.OWLHTMLVisitor;
-import uk.ac.ebi.spot.ols.util.Namespaces;
-import uk.ac.ebi.spot.ols.util.Initializable;
+import uk.ac.ebi.spot.ols.util.*;
 import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxOWLObjectRendererImpl;
 
 import java.io.PrintWriter;
@@ -98,6 +96,11 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
     private Map<IRI, Map<IRI,Collection<IRI>>> relatedParentTerms = new HashMap<>();
     private Map<IRI, Collection<IRI>> relatedChildTerms = new HashMap<>();
     private Map<IRI, Map<IRI,Collection<IRI>>> allRelatedTerms = new HashMap<>();
+
+    private Map<IRI, Collection<OBODefinitionCitation>> oboDefinitionCitations = new HashMap<>();
+    private Map<IRI, Collection<OBOXref>> oboXrefs = new HashMap<>();
+    private Map<IRI, Collection<OBOSynonym>> oboSynonyms = new HashMap<>();
+
 
     private Collection<IRI> hierarchicalRels = new HashSet<>();
     private Collection<String> internalMetadataProperties = new HashSet<>();
@@ -238,7 +241,7 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
             IRI ontologyIRI = ontology.getOntologyID().getOntologyIRI();
 
             if (ontology.getOntologyID().getVersionIRI() != null) {
-                ontologyVersionIRI = ontologyVersionIRI;
+                ontologyVersionIRI = ontology.getOntologyID().getVersionIRI();
             }
             if (getOntologyName() == null) {
                 String name = extractShortForm(ontologyIRI).get();
@@ -349,16 +352,9 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
 
         getLog().debug("Starting to index " + entities.size() + " entities");
 
-//        int count = 0;
         for (OWLEntity entity: entities) {
             // get all the annotation properties
             evaluateAllAnnotationsValues(entity);
-
-//            if (count == 1000) {
-//                System.out.println("Processed a thousand...");
-//                count =0;
-//            }
-//            count++;
 
             // add the class accession for this entity
             Optional<String> shortForm = extractShortForm(entity.getIRI());
@@ -691,9 +687,13 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
         Set<String> definitions = new HashSet<>();
         Set<String> slims = new HashSet<>();
 
+        Collection<OBODefinitionCitation> definitionCitations = new HashSet<>();
+        Collection<OBOSynonym> oboSynonyms = new HashSet<>();
+        Collection<OBOXref> oboEntityXrefs = new HashSet<>();
+
         // loop through other annotations in the imports closure
         for (OWLOntology ontology1 : getManager().getOntologies()) {
-            for (OWLAnnotation annotation : owlEntity.getAnnotations(ontology1)) {
+            for (OWLAnnotationAssertionAxiom annotation : owlEntity.getAnnotationAssertionAxioms(ontology1)) {
                 OWLAnnotationProperty property = annotation.getProperty();
                 IRI propertyIRI = property.getIRI();
 
@@ -729,7 +729,87 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
                     }
                 }
 
+                // collect any obo definition xrefs
+                if (annotation.getProperty().getIRI().toString().equals(OboDefaults.DEFINITION)) {
+                    if (!annotation.getAnnotations().isEmpty()) {
+
+                        OBODefinitionCitation definitionCitation = new OBODefinitionCitation();
+                        Collection<OBOXref> oboXrefs = new HashSet<>();
+                        for (OWLAnnotation owlAnnotation : annotation.getAnnotations()) {
+                            OBOXref xref = new OBOXref();
+                            xref.setId(getOWLAnnotationValueAsString(owlAnnotation.getValue()).get());
+                            oboXrefs.add(xref);
+                        }
+                        definitionCitation.setDefinition(getOWLAnnotationValueAsString(annotation.getValue()).get());
+                        definitionCitation.setOboXrefs(oboXrefs);
+                        definitionCitations.add(definitionCitation);
+                    }
+                }
+
+                // collect any obo synonym xrefs
+                if (
+                        annotation.getProperty().getIRI().toString().equals(OboDefaults.EXACT_SYNONYM)
+                                || annotation.getProperty().getIRI().toString().equals(OboDefaults.RELATED_SYNONYM)
+                                || annotation.getProperty().getIRI().toString().equals(OboDefaults.NARROW_SYNONYM)
+                                || annotation.getProperty().getIRI().toString().equals(OboDefaults.BROAD_SYNONYM)
+
+                        ) {
+                    if (!annotation.getAnnotations().isEmpty()) {
+
+                        OBOSynonym synonymCitation = new OBOSynonym();
+                        Collection<OBOXref> oboXrefs = new HashSet<>();
+                        for (OWLAnnotation owlAnnotation : annotation.getAnnotations()) {
+                            if (owlAnnotation.getProperty().isOWLAnnotationProperty()) {
+                                OBOXref xref = new OBOXref();
+                                if (owlAnnotation.getProperty().asOWLAnnotationProperty().getIRI().toString().equals(OboDefaults.SYNONYM_TYPE)) {
+                                    synonymCitation.setType(getOWLAnnotationValueAsString(owlAnnotation.getValue()).get());
+                                }
+                                else {
+                                    xref.setId(getOWLAnnotationValueAsString(owlAnnotation.getValue()).get());
+                                    oboXrefs.add(xref);
+                                }
+
+                            }
+                        }
+                        synonymCitation.setName(getOWLAnnotationValueAsString(annotation.getValue()).get());
+                        synonymCitation.setScope(annotation.getProperty().getIRI().getShortForm());
+                        synonymCitation.setXrefs(oboXrefs);
+                        oboSynonyms.add(synonymCitation);
+                    }
+                }
+
+                // collect any obo  xrefs
+                if (
+                        annotation.getProperty().getIRI().toString().equals(OboDefaults.DBXREF)
+                        ) {
+                    if (!annotation.getAnnotations().isEmpty()) {
+
+                        Collection<OBOXref> oboXrefs = new HashSet<>();
+                        for (OWLAnnotation owlAnnotation : annotation.getAnnotations()) {
+                            OBOXref xref = new OBOXref();
+                            xref.setId(getOWLAnnotationValueAsString(annotation.getValue()).get());
+                            xref.setDatabase(getOWLAnnotationValueAsString(owlAnnotation.getValue()).get());
+                            oboXrefs.add(xref);
+                        }
+
+                        oboEntityXrefs.addAll(oboXrefs);
+
+                    }
+                }
+
             }
+        }
+
+        if (definitionCitations.size() > 0) {
+            addOboDefinitionCitation(owlEntityIRI, definitionCitations);
+        }
+
+        if (oboSynonyms.size() >0 ) {
+            addOboSynonym(owlEntityIRI, oboSynonyms);
+        }
+
+        if (oboEntityXrefs.size() >0 ) {
+            addOboXref(owlEntityIRI, oboEntityXrefs);
         }
 
         if (synonyms.size() > 0) {
@@ -799,6 +879,15 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
         this.allRelatedTerms.put(termIRI, relatedTerms);
     }
 
+    protected void addOboDefinitionCitation (IRI termIri, Collection<OBODefinitionCitation> definitionCitations) {
+        this.oboDefinitionCitations.put(termIri, definitionCitations);
+    }
+    protected void addOboXref (IRI termIri, Collection<OBOXref> xrefs) {
+        this.oboXrefs.put(termIri, xrefs);
+    }
+    protected void addOboSynonym (IRI termIri, Collection<OBOSynonym> synonyms) {
+        this.oboSynonyms.put(termIri, synonyms);
+    }
 
     protected void addSuperClassDescriptions(IRI termIRI, Set<String> relatedSuperDescriptions) {
         this.superclassExpressionsAsString.put(termIRI, relatedSuperDescriptions);
@@ -1101,6 +1190,30 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
             return termAnnotations.get(entityIRI);
         }
         return Collections.emptyMap();
+    }
+
+    @Override
+    public Collection<OBODefinitionCitation> getOBODefinitionCitations(IRI entityIRI) {
+        if (this.oboDefinitionCitations.containsKey(entityIRI)) {
+            return this.oboDefinitionCitations.get(entityIRI);
+        }
+        return Collections.emptySet();
+    }
+
+    @Override
+    public Collection<OBOXref> getOBOXrefs(IRI entityIRI) {
+        if (this.oboXrefs.containsKey(entityIRI)) {
+            return this.oboXrefs.get(entityIRI);
+        }
+        return Collections.emptySet();
+    }
+
+    @Override
+    public Collection<OBOSynonym> getOBOSynonyms(IRI entityIRI) {
+        if (this.oboSynonyms.containsKey(entityIRI)) {
+            return this.oboSynonyms.get(entityIRI);
+        }
+        return Collections.emptySet();
     }
 
     public void setOntologyIRI(IRI ontologyIRI) {

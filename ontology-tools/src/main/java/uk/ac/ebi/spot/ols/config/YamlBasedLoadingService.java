@@ -80,6 +80,11 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
 
         builder.setPreferredPrefix(prefix);
 
+        if (ontology.containsKey("label_property"))  {
+            String labelProperty = (String) ontology.get("label_property");
+            builder.setLabelProperty(URI.create(labelProperty));
+        }
+
         if (ontology.containsKey("definition_property"))  {
             Collection<URI> definitionUris = new HashSet<>();
             for (String definition : (ArrayList<String>) ontology.get("definition_property")) {
@@ -99,7 +104,7 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
             builder.setSynonymProperties(synonymsUris);
         }
         else if (isObo) {
-            builder.setSynonymProperties(Collections.singleton(URI.create(OboDefaults.SYNONYM)));
+            builder.setSynonymProperties(Collections.singleton(URI.create(OboDefaults.EXACT_SYNONYM)));
         }
 
         if (ontology.containsKey("hidden_property"))  {
