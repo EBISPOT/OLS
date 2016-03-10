@@ -18,7 +18,7 @@ Content-Type: application/json
       "href" : "http://www.ebi.ac.uk/api/ontologies?page=2&size=1"
     },
     "last" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies?page=142&size=1"
+      "href" : "http://www.ebi.ac.uk/api/ontologies?page=145&size=1"
     }
   },
   "_embedded" : {
@@ -72,8 +72,8 @@ Content-Type: application/json
   },
   "page" : {
     "size" : 1,
-    "totalElements" : 143,
-    "totalPages" : 143,
+    "totalElements" : 146,
+    "totalPages" : 146,
     "number" : 1
   }
 }

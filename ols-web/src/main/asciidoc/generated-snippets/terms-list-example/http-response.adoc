@@ -310,7 +310,7 @@ Content-Type: application/json
         "has_rank" : [ "NCBITaxon_superkingdom" ],
         "id" : [ "NCBITaxon:2" ]
       },
-      "synonyms" : [ "prokaryotes", "bacteria", "Procaryotae", "eubacteria", "Prokaryotae", "Monera", "not Bacteria Haeckel 1894", "Prokaryota" ],
+      "synonyms" : [ "prokaryotes", "bacteria", "Procaryotae", "eubacteria", "Prokaryotae", "Monera", "Prokaryota", "not Bacteria Haeckel 1894" ],
       "ontology_name" : "efo",
       "ontology_prefix" : "EFO",
       "ontology_iri" : "http://www.ebi.ac.uk/efo",
@@ -372,7 +372,7 @@ Content-Type: application/json
         "in_subset" : [ "uberon_slim", "efo_slim", "vertebrate_core" ],
         "spatially_disjoint_from" : [ "UBERON_0002438", "UBERON_0003040", "UBERON_0001944", "UBERON_0001966", "UBERON_0001947", "UBERON_0002691", "UBERON_0002141", "UBERON_0002696", "UBERON_0002995", "UBERON_0002722" ]
       },
-      "synonyms" : [ "oculomotor III nucleus", "motor nucleus III", "Entire oculomotor nucleus", "nIII", "nucleus nervi oculomotorii", "nucleus of oculomotor nerve", "nucleus of third cranial nerve", "oculomotor nucleus", "third cranial nerve nucleus" ],
+      "synonyms" : [ "motor nucleus III", "oculomotor III nucleus", "Entire oculomotor nucleus", "nIII", "nucleus nervi oculomotorii", "nucleus of oculomotor nerve", "nucleus of third cranial nerve", "oculomotor nucleus", "third cranial nerve nucleus" ],
       "ontology_name" : "efo",
       "ontology_prefix" : "EFO",
       "ontology_iri" : "http://www.ebi.ac.uk/efo",
@@ -498,7 +498,7 @@ Content-Type: application/json
         "in_subset" : [ "uberon_slim", "efo_slim", "vertebrate_core" ],
         "spatially_disjoint_from" : [ "UBERON_0001894", "UBERON_0002028" ]
       },
-      "synonyms" : [ "Entire midbrain", "mesencephalon" ],
+      "synonyms" : [ "mesencephalon", "Entire midbrain" ],
       "ontology_name" : "efo",
       "ontology_prefix" : "EFO",
       "ontology_iri" : "http://www.ebi.ac.uk/efo",
@@ -565,7 +565,7 @@ Content-Type: application/json
         "has_obo_namespace" : [ "uberon" ],
         "homologous_in" : [ "NCBITaxon_7742" ],
         "id" : [ "UBERON:0002298" ],
-        "in_subset" : [ "uberon_slim", "efo_slim", "vertebrate_core", "loose_concept" ],
+        "in_subset" : [ "uberon_slim", "efo_slim", "loose_concept", "vertebrate_core" ],
         "spatially_disjoint_from" : [ "UBERON_0002037" ]
       },
       "synonyms" : [ "truncus encephali", "brain stem", "truncus encephalicus", "Entire brainstem" ],
@@ -887,7 +887,7 @@ Content-Type: application/json
         "id" : [ "UBERON:0001714" ],
         "in_subset" : [ "uberon_slim", "efo_slim", "vertebrate_core" ]
       },
-      "synonyms" : [ "head ganglion", "cranial neural ganglion", "ganglion of cranial neural tree organ", "presumptive cranial ganglia", "cranial nerve ganglion", "cranial neural tree organ ganglion", "Entire cranial nerve ganglion", "cranial ganglion", "cranial ganglia", "ganglion of cranial nerve", "cranial ganglion/nerve" ],
+      "synonyms" : [ "head ganglion", "cranial neural ganglion", "ganglion of cranial neural tree organ", "presumptive cranial ganglia", "cranial nerve ganglion", "cranial neural tree organ ganglion", "Entire cranial nerve ganglion", "cranial ganglion", "cranial ganglia", "cranial ganglion/nerve", "ganglion of cranial nerve" ],
       "ontology_name" : "efo",
       "ontology_prefix" : "EFO",
       "ontology_iri" : "http://www.ebi.ac.uk/efo",
