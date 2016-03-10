@@ -3,7 +3,7 @@
 === What are you looking for?
 
 link:website[Website documentation]:: Documentation on how to use the OLS website
-link:developer[Developer documentation]:: Documentation for developers inclduing how to use the OLS REST API, how to use the OLS widgets and how to install a local OLS
+link:developer[Developer documentation]:: Documentation for developers including how to use the OLS REST API, how to use the OLS widgets and how to install a local OLS
 
 == FAQ
 

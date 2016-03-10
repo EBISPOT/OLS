@@ -22,6 +22,7 @@
 
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
 
+    <!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" type="text/css" media="screen"/>-->
 
 
     <!-- CSS: implied media=all -->
@@ -43,7 +44,7 @@
     <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/mini/ebi-fluid-embl.css">
     -->
     <!-- Bootstrap table css -->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.css"/>
+    <!--<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.css"/>-->
 
     <style type="text/css">
         /* You have the option of setting a maximum width for your page, and making sure everything is centered */
@@ -108,7 +109,7 @@
             <!-- local-title -->
             <!-- NB: for additional title style patterns, see http://frontier.ebi.ac.uk/web/style/patterns -->
 
-            <div id="local-title" class="grid_14 alpha logo-title">
+            <div id="local-title" class="alpha logo-title">
                 <a href="index" title="Back to OLS homepage">
                     <img style="width: 80px" th:src="@{img/ols-logo.jpg}" src="../static/img/ols-logo.jpg" alt="OLS logo"/></a>
                 <span><h1>Ontology Lookup Service</h1></span>
@@ -145,33 +146,53 @@
 
                 <section class="grid_19">
 
-                    <!-- Main jumbotron for a primary marketing message or call to action -->
+                    <div class="jumbotron">
+                        <!--<h1>Welcome to the OLS</h1>-->
+                        <!--<p>Use OLS to search and visualise biomedical ontologies</p>-->
+                        <h4>Welcome to the EMBL-EBI Ontology Lookup Service.</h4>
+                        <div>
+                            <form name="local-search" action="search" method="get">
+                                <div id="bloodhound" class="input-group">
+                                    <input style="margin: 0em 0em 0em 0em;" autofocus="autofocus" type="text" name="q" data-olswidget="multisearch" data-olsontology=""  placeholder="What are you looking for today?"  class="typeahead form-control" aria-describedby="basic-addon1"/>
 
-                    <div>
-                        <form name="local-search" action="search" method="get">
-                            <fieldset><div class="left">
-                                <label>
-                                    <input style="width: 100%" autofocus="autofocus" type="text" name="q" data-olswidget="suggest" data-olsontology="" id="local-searchbox" placeholder="What are you looking for today?" class="ac_input">
-                                    </input>
-                                </label>
+                                                  <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button">Go!</button>
+                                                  </span>
 
-                            </div>
-                                <div class="right">
-                                    <input type="submit" value="Search" class="submit">
-                                    </input>
-                                </div>
-                            </fieldset>
-                            <div>
-                                <input type="checkbox">Search obsoletes</input>
-                            </div>
-                        </form>
-                        <span class="examples">Examples: <a href="search?q=cancer">cancer</a>,
-                        <a href="search?q=GO:0098743">GO:0098743</a>
-                        </span>
+                                </div><!-- /input-group -->
+                            </form>
+                        </div><!-- /.col-lg-6 -->
+
                     </div>
 
-                    <p class="intro">Welcome to the EMBL-EBI Ontology Lookup Service (OLS). Use OLS to search and visualise over 100 Biomedical ontologies or use the <a href="docs/api">OLS API</a> to integrate OLS ontologies into your own applications.
-                        OLS updates nightly to always provide the latest ontology versions and can be configured to load any ontology available in OBO or OWL format. </p>
+
+
+
+                    <!--<div>-->
+                    <!--<form name="local-search" action="search" method="get">-->
+                    <!--<fieldset><div class="left">-->
+                    <!--<label>-->
+                    <!--<input >-->
+                    <!--</input>-->
+                    <!--</label>-->
+
+                    <!--</div>-->
+                    <!--<div class="right">-->
+                    <!--<input type="submit" value="Search" class="submit">-->
+                    <!--</input>-->
+                    <!--</div>-->
+                    <!--</fieldset>-->
+                    <!--<div>-->
+                    <!--<input type="checkbox">Search obsoletes</input>-->
+                    <!--</div>-->
+                    <!--</form>-->
+                    <!--<span class="examples">Examples: <a href="search?q=cancer">cancer</a>,-->
+                    <!--<a href="search?q=GO:0098743">GO:0098743</a>-->
+                    <!--</span>-->
+                    <!--</div>-->
+
+                    <!--<p class="intro">Welcome to the EMBL-EBI Ontology Lookup Service (OLS). Use OLS to search and visualise over 100 Biomedical ontologies or use the <a href="docs/api">OLS API</a> to integrate OLS ontologies into your own applications.-->
+                    <!--OLS updates nightly to always provide the latest ontology versions and can be configured to load any ontology available in OBO or OWL format. </p>-->
 
 
 
@@ -248,12 +269,16 @@
 
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script type="text/javascript" src="../static/js/jquery/jquery.autocomplete.min.js" th:src="@{js/jquery/jquery.autocomplete.min.js}"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<!--<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
+<script src="//twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.min.js"></script>
+
+<!--<script type="text/javascript" src="../static/js/jquery/jquery.autocomplete.min.js" th:src="@{js/jquery/jquery.autocomplete.min.js}"></script>-->
 <script type="text/javascript" src="../static/js/ols.js" th:src="@{js/ols.js}"></script>
-<script type="text/javascript" src="../static/js/ols-termselect.js" th:src="@{js/ols-termselect.js}"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/locale/bootstrap-table-en-US.min.js"></script>
+<script type="text/javascript" src="../static/js/ols-termselect2.js" th:src="@{js/ols-termselect2.js}"></script>
+<!--<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.js"></script>-->
+<!--<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/locale/bootstrap-table-en-US.min.js"></script>-->
 
 <!--<script>-->
 <!--$(document).ready(function() {-->
