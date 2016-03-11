@@ -198,9 +198,9 @@
                         <span id="test" style="font-size: small;color: grey;padding: 9px;" th:text="${ontologyTerm.getIri()}">http://www.example.com/onto/id</span>
                         <a th:href="@{${ontologyTerm.getIri()}}" class="nounderline" target="blank"><img th:src="@{../../img/external_link.png}" src="../static/img/external_link.png" alt="^" title="Go to external page"/></a>
                         <a style="float:right;" th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__}" th:text="${ontologyName}">ontology</a>
-                        <p style="display:inline;"><button id='copyThis' data-clipboard-action="copy" data-clipboard-target="#test" type="button">Copy to clipboard</button></p>
+                        <!--<p style="display:inline;"><button id='copyThis' data-clipboard-action="copy" data-clipboard-target="#test" type="button">Copy to clipboard</button></p>
                         <p id="citeThis" style="display:inline;"><button type="button" title="Click here">Cite this</button></p>
-                        <p id="overlay" style="display:inline;"></p>
+                        <p id="overlay" style="display:inline;"></p> -->
                     </div>
                     <div class="grid_24 alpha clearfix">
 
@@ -261,6 +261,10 @@
             </section>
 
             <section>
+
+
+
+
                 <div class="grid_24 clearfix">
                     <div class="grid_14 alpha">
                         <ul  class="nav nav-tabs">
@@ -323,6 +327,7 @@
                         </div>
 
                     </div>
+
                     <div id="right_info_box" class="grid_10 beta">
 
                         <div class="panel panel-primary">
@@ -386,11 +391,43 @@
 
                     </div>
 
-                </div>
 
+
+                <!-- Redesign Start-->
+                    <!-- <div id="metadata" class="grid_10 beta" style="float:right">
+
+                         <div class="panel panel-primary">
+
+                             <div class="panel-heading">
+                                 <h3 style="padding: 0" class="panel-title">Meta data</h3>
+                             </div>
+                             <div class="panel-body">
+                                 <div>
+                                     <span>Short id: </span>
+                                     <p th:text="${ontologyTerm.getShortForm()}">NCBI_9606</p>
+                                 </div>
+
+                                 <div th:if="${ontologyTerm.getOboId() != null}">
+                                     <span>OBO id: </span>
+                                     <p th:text="${ontologyTerm.getOboId()}">NCBI:9606</p>
+                                 </div>
+
+                                 <div th:each="annotations: ${ontologyTerm.getAnnotation()}">
+                                     <b>
+                                         <a href="#" th:href="@{../../search(q=${annotations.key},exact='true', type=property, ontology=${ontologyTerm.ontologyName})}" th:text="${annotations.key.replaceAll('_', ' ')}">property name</a>
+                                     </b>
+                                     <p style="margin-left:9px;" th:text="${#strings.setJoin(annotations.value, ',')}">NCBI_9606</p>
+                                 </div>
+                             </div>
+                         </div>
+                     </div> -->
+                     <!-- Redesign test End-->
+
+                </div>
             </section>
 
             <!--</div>-->
+
         </div>
 
     </div>
@@ -473,10 +510,10 @@
             }
         });
 
-        $('#citeThis').on('click', function (){
+        /*$('#citeThis').on('click', function (){
             $('#overlay').html('<p id="overlay" style="display:inline; opacity:0.5; background:light-gray;">Imaging here to be text to be cited we still think about the layout <a id="close" href="">close</a></p>')
             $('#close').on('click', function(){  $("#overlay").hide();})
-        })
+        })*/
 
         new Clipboard('#copyThis')
     });
