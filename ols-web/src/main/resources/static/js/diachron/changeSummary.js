@@ -31,31 +31,12 @@ $("#tree-link").on('click', hideLegend)
 $("#property-link").on('click', hideLegend)
 $("#meta-link").on('click', hideLegend)
 
-
-
-
-$(document).on("pagecontainerbeforechange", function (e, data) {
-      if (typeof data.toPage == "string" && data.options.direction == "back" && data.prevPage[0].id == "PageX") {
-        alert("Back event")
-          data.toPage = "#pageY"; /* redirect to pageY */
-          data.options.transition = "flip"; /* optional */
-      }
-  });
-
- //window.onbeforeunload = function() { return "You work will be lost."; };
-window.onpopstate = function () {alert("back")}
-
 $("#diachron-link").on('click', function(){
-
-
-
-
 
     ontologyName = $("#diachron-tab").data("olsontology");
     var serviceURL= $("#diachron-tab").data("selectpath");
 
     URL=constructURL(document.URL)
-    URL="http://snarf.ebi.ac.uk:8880/ols/diachron/changes-api/"
 
     date=new Date();
     dateBefore=date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
@@ -75,7 +56,6 @@ $("#diachron-link").on('click', function(){
         $("#diachron-wrapper").append("<div id='graphpart'><div>")
         $("#diachron-wrapper").append("<div id='buttonBox' style='text-align:center; margin-top:20px;'><div>")
         //Append datepicker
-
 
           lineChartData();
           if ($(document).find("#LegendDiv").length === 0)
@@ -102,9 +82,6 @@ function buildLegend(){
   htmlString+="</table></div></div>"
   $("#right_info_box").append(htmlString)
 }
-
-
-
 
 
 function createpiechart(divname, date, data){
@@ -159,11 +136,9 @@ function createpiechart(divname, date, data){
 
    Highcharts.chart(divname, chartoptions)
 
-
    var htmlString="<div style='text-align:center; margin-top:25px;'><button id='back' class='primary'> Back </button></div>"
    $("#buttonBox").html(htmlString)
    $("#back").on('click', function(){lineChartData()})
-
 }
 
 
@@ -180,8 +155,6 @@ function piechartview(divname, date){
   tmpURL=tmpURL+"?ontologyName="+ontologyName+"&after="+tmpdateafter+"&before="+tmpdatebefore
 
   //Using the exact endpoint
-
-
   $.getJSON(tmpURL, function(obj){})
   .fail(function(){   console.log("Failed to do webservice call!"); console.log(tmpURL); return null })
   .done(function(obj){
@@ -227,7 +200,6 @@ function drawPieTable(divname, data, date)
         sum+=data[i].y
       }
 
-
       htmlString+="<h3>Summary for '"+date+"</h3>"
       htmlString+='<table id="testTable" class="display" cellspacing="0" width="100%">'
       htmlString+="<thead><tr><th>Change Name</th><th>Total</th><th>Percentage</th></tr></thead>"
@@ -239,8 +211,6 @@ function drawPieTable(divname, data, date)
       htmlString+="</tbody></table>"
 
       $("#"+divname).append(htmlString)
-
-
 
       htmlString="<div style='text-align:center'><button id='back' class='primary'> Back </button></div>"
       $("#buttonBox").html(htmlString)
@@ -273,10 +243,7 @@ function drawLineTable(divname, obj)
   $("#back").on('click', function(){linechart(divname, obj)})
 
   $("#testTable").DataTable({"order" : [[1, "desc"]]})
-
-
 }
-
 
 
 function parseResult(obj){
@@ -353,8 +320,6 @@ function stringCompare(a,b){
     }
     return -1
 }
-
-
 
 
 function lineChartData(){
@@ -501,9 +466,6 @@ linechart = function(divname, returndata)
 }
 
 
-
-
-
 var masterdata=[];
 var OLSterms=[];
 function callWebserviceForDateView(inputURL){
@@ -525,9 +487,6 @@ function callWebserviceForDateView(inputURL){
   })
   return token;
 }
-
-
-
 
 
 var tableData=[];
@@ -811,8 +770,3 @@ function ConstructDataTable(masterdata){
 
    return dataObject;
 }
-
-
-/*
-* Back button: http://stackoverflow.com/questions/18211984/how-to-control-back-button-event-in-jquery-mobile
-*/
