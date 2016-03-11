@@ -20,10 +20,11 @@ var colorObject={
 
 //tmp function!
 function constructURL(urlToProcess){
-var tmp=urlToProcess.slice(0,urlToProcess.indexOf("ols")+3)
-tmp+="/diachron/changes-api/"
+var tmp=urlToProcess.slice(0, urlToProcess.indexOf("ols"))
+tmp+="spot/dino/changes-api/"
 return tmp;
 }
+
 
 $(document).ready(function() {
 //Register onclicks for other tab links to hide the Legend when leaving ontology history
@@ -85,8 +86,6 @@ function buildLegend(){
 
 
 function createpiechart(divname, date, data){
-  console.log(date);
-  console.log(data);
   var title="Changes for "+date
 
   var chartoptions={
@@ -158,8 +157,6 @@ function piechartview(divname, date){
   $.getJSON(tmpURL, function(obj){})
   .fail(function(){   console.log("Failed to do webservice call!"); console.log(tmpURL); return null })
   .done(function(obj){
-
-    console.log(obj);
     var tmp=[];
     var value=[];
 
@@ -309,7 +306,6 @@ function parseResult(obj){
 
 //Look for the index of b in the array a, return the index once found - this function is a helper function for the parse function
 function stringCompare(a,b){
-  console.log(b);
   for (var i=0;i<a.length;i++)
     {
         if (a[i]===b)
