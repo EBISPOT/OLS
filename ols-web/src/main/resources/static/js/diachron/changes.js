@@ -21,10 +21,8 @@ var colorObject={
 
 //tmp function!
 function constructURL(urlToProcess){
-  console.log(urlToProcess);
-  var tmp=urlToProcess.slice(0,urlToProcess.indexOf("ols")+3)
-  console.log(tmp);
-  tmp+="/diachron/changes-api/"
+  var tmp=urlToProcess.slice(0,urlToProcess.indexOf("ols"))
+  tmp+="spot/dino/changes-api/"
   console.log(tmp);
   return tmp;
 }
@@ -42,11 +40,6 @@ $(document).ready(function() {
 
     ontologyName = $("#diachron-tab").data("olsontology");
     var serviceURL= $("#diachron-tab").data("selectpath");
-
-
-    console.log("construction of the URL");
-    console.log(document.URL);
-
 
     ontologyName =   $( "div[data-olswidget='tree']" ).data("olsontology");
     var termType = getUrlType(  $( "div[data-olswidget='tree']" ).data("ols-termtype"));
