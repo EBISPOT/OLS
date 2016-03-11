@@ -164,13 +164,13 @@
     <!--@thymesVar id="ontologyName" type="String"-->
     <!--@thymesVar id="parentTerms" type="Set"-->
     <!--@thymesVar id="relatedFroms" type="Set"-->
-    <div id="content" role="main" class="grid_24 clearfix">
+    <div vocab="http://schema.org/" typeof="MedicalCode" id="content" role="main" class="grid_24 clearfix">
 
         <nav id="breadcrumb">
             <p>
                 <a href="../../index">OLS</a> &gt;
-                <a href="#" style="border-bottom-width: 0px;"><span class="ontology-source"  th:onclick="'javascript:goTo(\'' + @{../../ontologies/__${ontologyTerm.getOntologyName()}__} + '\')'" th:text="${ontologyTerm.getOntologyPrefix()}">parent 1</span></a>   &gt;
-                <span th:text="${ontologyTerm.getShortForm()}">id</span>
+                <a property="codingSystem" th:attr="content=${ontologyTerm.getOntologyName()}" href="#" style="border-bottom-width: 0px;"><span class="ontology-source"  th:onclick="'javascript:goTo(\'' + @{../../ontologies/__${ontologyTerm.getOntologyName()}__} + '\')'" th:text="${ontologyTerm.getOntologyPrefix()}">parent 1</span></a>   &gt;
+                <span  property="codeValue" th:text="${ontologyTerm.getShortForm()}">id</span>
 
             </p>
         </nav>
@@ -183,7 +183,7 @@
                 <div class="grid_24 clearfix">
                     <div class="grid_24 clearfix">
                         <div class="grid_20 alpha">
-                            <h1 style="margin: 0px;" th:text="${ontologyTerm.getLabel()}">Term Label</h1>
+                            <h1 property="name"  style="margin: 0px;" th:text="${ontologyTerm.getLabel()}">Term Label</h1>
                         </div>
 
                         <div class="grid_4 clearfix">
@@ -195,7 +195,7 @@
 
 
                     <div class="grid_24 clearfix">
-                        <span id="test" style="font-size: small;color: grey;padding: 9px;" th:text="${ontologyTerm.getIri()}">http://www.example.com/onto/id</span>
+                        <span property="url" style="font-size: small;color: grey;padding: 9px;" th:text="${ontologyTerm.getIri()}">http://www.example.com/onto/id</span>
                         <a th:href="@{${ontologyTerm.getIri()}}" class="nounderline" target="blank"><img th:src="@{../../img/external_link.png}" src="../static/img/external_link.png" alt="^" title="Go to external page"/></a>
                         <a style="float:right;" th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__}" th:text="${ontologyName}">ontology</a>
                         <!--<p style="display:inline;"><button id='copyThis' data-clipboard-action="copy" data-clipboard-target="#test" type="button">Copy to clipboard</button></p>
@@ -240,15 +240,15 @@
                             </div>
 
                         </div>
-
-                        <p th:each="description : ${ontologyTerm.getDescription()}" th:text="${description}">
-
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget <nulla class=""></nulla>                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum.
-                        </p>
+                        <div property="description">
+                            <p th:each="description : ${ontologyTerm.getDescription()}" th:text="${description}">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget <nulla class=""></nulla>                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum.
+                            </p>
+                        </div>
 
                         <div th:if="${ontologyTerm.getSynonyms() !=null}">
                             <p><b>Synonyms:</b>
-                                <span style="margin-left:9px;" th:text="${#strings.setJoin(ontologyTerm.getSynonyms(), ', ')}">NCBI_9606</span>
+                                <span property="alternateName" style="margin-left:9px;" th:text="${#strings.setJoin(ontologyTerm.getSynonyms(), ', ')}">NCBI_9606</span>
                             </p>
                         </div>
 
