@@ -55,7 +55,7 @@
     </dependencies>
 
     <properties>
-        <snippetsDirectory>${project.basedir}/src/main/asciidoc/generated-snippets</snippetsDirectory>
+        <snippetsDirectory>${project.basedir}/ols-web/src/main/asciidoc/generated-snippets</snippetsDirectory>
     </properties>
 
     <packaging>war</packaging>
@@ -103,7 +103,7 @@
                 </executions>
                 <configuration>
                     <sourceDirectory>src/main/asciidoc</sourceDirectory>
-                    <outputDirectory>${project.basedir}/src/main/resources/static/documents/</outputDirectory>
+                    <outputDirectory>${project.basedir}/ols-web/src/main/resources/static/documents/</outputDirectory>
                     <backend>html</backend>
                     <doctype>book</doctype>
                     <attributes>

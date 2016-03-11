@@ -20,10 +20,11 @@ var colorObject={
 
 //tmp function!
 function constructURL(urlToProcess){
-var tmp=urlToProcess.slice(0,urlToProcess.indexOf("ols")+3)
-tmp+="/diachron/changes-api/"
+var tmp=urlToProcess.slice(0, urlToProcess.indexOf("ols"))
+tmp+="spot/dino/changes-api/"
 return tmp;
 }
+
 
 $(document).ready(function() {
 //Register onclicks for other tab links to hide the Legend when leaving ontology history
@@ -31,14 +32,12 @@ $("#tree-link").on('click', hideLegend)
 $("#property-link").on('click', hideLegend)
 $("#meta-link").on('click', hideLegend)
 
-
 $("#diachron-link").on('click', function(){
 
     ontologyName = $("#diachron-tab").data("olsontology");
     var serviceURL= $("#diachron-tab").data("selectpath");
 
     URL=constructURL(document.URL)
-
 
     date=new Date();
     dateBefore=date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
@@ -58,7 +57,6 @@ $("#diachron-link").on('click', function(){
         $("#diachron-wrapper").append("<div id='graphpart'><div>")
         $("#diachron-wrapper").append("<div id='buttonBox' style='text-align:center; margin-top:20px;'><div>")
         //Append datepicker
-
 
           lineChartData();
           if ($(document).find("#LegendDiv").length === 0)
@@ -87,12 +85,7 @@ function buildLegend(){
 }
 
 
-
-
-
 function createpiechart(divname, date, data){
-  console.log(date);
-  console.log(data);
   var title="Changes for "+date
 
   var chartoptions={
@@ -115,7 +108,8 @@ function createpiechart(divname, date, data){
     exporting:{
         buttons:{
           customButton:{
-            x:-80,
+            x:0,
+            y:0,
             onclick : function(){
                 $("#"+divname).highcharts().destroy();
                 drawPieTable(divname, data, date)
@@ -124,10 +118,11 @@ function createpiechart(divname, date, data){
               _titleKey : "tooltip",
             },
             contextButton: {
-                enabled: false
+                enabled: true,
+                x:0,
+                y:26
               }
 }},
-
     lang: { noData: "No data to display", tooltip: "Show the data of the piechart as table"},
     noData: {
       style: {
@@ -140,11 +135,9 @@ function createpiechart(divname, date, data){
 
    Highcharts.chart(divname, chartoptions)
 
-
    var htmlString="<div style='text-align:center; margin-top:25px;'><button id='back' class='primary'> Back </button></div>"
    $("#buttonBox").html(htmlString)
    $("#back").on('click', function(){lineChartData()})
-
 }
 
 
@@ -161,13 +154,9 @@ function piechartview(divname, date){
   tmpURL=tmpURL+"?ontologyName="+ontologyName+"&after="+tmpdateafter+"&before="+tmpdatebefore
 
   //Using the exact endpoint
-
-
   $.getJSON(tmpURL, function(obj){})
   .fail(function(){   console.log("Failed to do webservice call!"); console.log(tmpURL); return null })
   .done(function(obj){
-
-    console.log(obj);
     var tmp=[];
     var value=[];
 
@@ -208,7 +197,6 @@ function drawPieTable(divname, data, date)
         sum+=data[i].y
       }
 
-
       htmlString+="<h3>Summary for '"+date+"</h3>"
       htmlString+='<table id="testTable" class="display" cellspacing="0" width="100%">'
       htmlString+="<thead><tr><th>Change Name</th><th>Total</th><th>Percentage</th></tr></thead>"
@@ -220,8 +208,6 @@ function drawPieTable(divname, data, date)
       htmlString+="</tbody></table>"
 
       $("#"+divname).append(htmlString)
-
-
 
       htmlString="<div style='text-align:center'><button id='back' class='primary'> Back </button></div>"
       $("#buttonBox").html(htmlString)
@@ -254,10 +240,7 @@ function drawLineTable(divname, obj)
   $("#back").on('click', function(){linechart(divname, obj)})
 
   $("#testTable").DataTable({"order" : [[1, "desc"]]})
-
-
 }
-
 
 
 function parseResult(obj){
@@ -323,7 +306,6 @@ function parseResult(obj){
 
 //Look for the index of b in the array a, return the index once found - this function is a helper function for the parse function
 function stringCompare(a,b){
-  console.log(b);
   for (var i=0;i<a.length;i++)
     {
         if (a[i]===b)
@@ -334,8 +316,6 @@ function stringCompare(a,b){
     }
     return -1
 }
-
-
 
 
 function lineChartData(){
@@ -409,7 +389,9 @@ linechart = function(divname, returndata)
         _titleKey : "tooltip",
       },
       contextButton: {
-          enabled: false
+          enabled: true,
+          x:0,
+          y:26
         }
       }},
      lang: { noData: "No data to display",  tooltip: "Show the data of the linechart as table"},
@@ -480,9 +462,6 @@ linechart = function(divname, returndata)
 }
 
 
-
-
-
 var masterdata=[];
 var OLSterms=[];
 function callWebserviceForDateView(inputURL){
@@ -504,9 +483,6 @@ function callWebserviceForDateView(inputURL){
   })
   return token;
 }
-
-
-
 
 
 var tableData=[];
@@ -572,7 +548,7 @@ else {
           $.when.apply($,tokenArrayTwo).done(function(){
                       var htmlString2=''
 
-                      htmlString2+='<table id="test" class="display" cellspacing="0" width="100%">'
+                      htmlString2+='<table id="testTable" class="display" cellspacing="0" width="100%">'
                       htmlString2+='<thead><tr><th>id</th><th>Label</th><th># and types of changes</th><th></th></tr></thead>'
                       htmlString2+='<tbody>'
 
@@ -634,7 +610,7 @@ else {
                       /* Add Button BACK to the line chart in every case (Should we change that)*/
 
 
-                      var table=$("#test").DataTable({
+                      var table=$("#testTable").DataTable({
                         "aoColumns" : [
                           false,
                           false,
@@ -643,7 +619,7 @@ else {
                         ]
                       });
 
-                      $('#test tbody').on('click', 'tr.mainrow', function() {
+                      $('#testTable tbody').on('click', 'tr.mainrow', function() {
                       //console.log('clicked on ', this, $(this).closest('tr'));
                         var tr=$(this).closest('tr')
                         var row=table.row(tr)
