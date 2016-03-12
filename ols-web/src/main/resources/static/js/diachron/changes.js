@@ -52,7 +52,7 @@ $(document).ready(function() {
     var tmpURL=URL+"changes/search/findByOntologyNameAndChangeSubjectUri?ontologyName="+ontologyName+"&subject="+termIri
 
     //TMP DEV
-    var searchbar='<div style="text-align: center;" id="searching"><img th:src="@{../img/loading1.gif}" src="../img/loading1.gif" alt="Search loading..."/><span> Loading, please wait... </span></div>'
+    var searchbar='<div style="text-align: center;" id="searching"><img th:src="@{../../img/loading1.gif}" src="../../img/loading1.gif" alt="Search loading..."/><span> Loading, please wait... </span></div>'
     $("#diachron-wrapper").html(searchbar);
 
 
@@ -60,7 +60,12 @@ $(document).ready(function() {
     $("#diachron-link").on('click', function(){
 
     $.getJSON(tmpURL, function(obj){})
-    .fail(function(){   console.log("Failed to do webservice call!"); console.log(tmpURL); return null })
+    .fail(function(){
+      console.log("Failed to do webservice call!"); console.log(tmpURL);
+      $("#searching").hide();
+      $("#diachron-wrapper").html("<h3>Sorry, failed to call webservice. </h3>Maybe the server is down. Check the console for additional information.")
+      return null
+  })
     .done(function(obj){
 
       obj=obj["_embedded"]["changes"]

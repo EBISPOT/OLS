@@ -49,7 +49,11 @@ $("#diachron-link").on('click', function(){
     var dateSize=10;
     var DateURL=URL+"changesummaries/search/dates?size="+dateSize+"&ontologyName="+ontologyName
     $.getJSON(DateURL, function(obj){})
-      .fail(function(){console.log("Failed to do webservice call! Please try again later or make sure the "+DateURL+" exists!"); return null})
+      .fail(function(){console.log("Failed to do webservice call! Please try again later or make sure the "+DateURL+" exists!");
+      $("#searching").hide();
+      $("#diachron-wrapper").html("<h3>Sorry, failed to call webservice. </h3>Maybe the server is down. Check the console for additional information.")
+       return null
+     })
       .done(function(obj){
       if (obj.length!==0)
         dateAfter=obj[obj.length-1]["changeDate"]
@@ -700,7 +704,8 @@ function callOLSforLabel(iri){
   $.getJSON(OLSurl, function(olsdata){})
     .fail(function(olsdata){
       console.log("Failed to do webservice call! Please try again later or make sure the "+OLSurl+" exists!");
-
+      $("#searching").hide();
+      $("#diachron-wrapper").html("<h3>Sorry, failed to call webservice. </h3>Maybe the server is down. Check the console for additional information.")
       return token.resolve();
     })
     .done(function(olsdata){
