@@ -47,10 +47,13 @@ $(document).ready(function() {
 
     URL=constructURL(document.URL)
 
+
     //URL for later on
     var tmpURL=URL+"changes/search/findByOntologyNameAndChangeSubjectUri?ontologyName="+ontologyName+"&subject="+termIri
 
     //TMP DEV
+    var searchbar='<div style="text-align: center;" id="searching"><img th:src="@{../img/loading1.gif}" src="../img/loading1.gif" alt="Search loading..."/><span> Loading, please wait... </span></div>'
+    $("#diachron-wrapper").html(searchbar);
 
 
    //Load data when the diachron-link is clicked (lazy loading)
@@ -59,7 +62,6 @@ $(document).ready(function() {
     $.getJSON(tmpURL, function(obj){})
     .fail(function(){   console.log("Failed to do webservice call!"); console.log(tmpURL); return null })
     .done(function(obj){
-      console.log(obj);
 
       obj=obj["_embedded"]["changes"]
 
@@ -83,7 +85,7 @@ $(document).ready(function() {
           var i;
           var htmlString='';
 
-          htmlString+='<table id="termtable" class="display" cellspacing="0" width="100%">'
+          htmlString+='<table id="testTable" class="display" cellspacing="0" width="100%">'
           htmlString+='<thead><tr><th>date</th><th>change</th><th>Info</th><th></th></tr></thead>'
 
           for (i=0;i<obj.length;i++)
@@ -132,8 +134,9 @@ $(document).ready(function() {
           htmlString+='</table>'
 
         //console.log(htmlString);
+        $("#searching").hide();
         $("#diachron-wrapper").html(htmlString)
-        $("#termtable").DataTable({
+        $("#testTable").DataTable({
           "aoColumns" :[
             false,
             false,
