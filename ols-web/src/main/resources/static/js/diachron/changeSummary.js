@@ -39,6 +39,7 @@ $("#diachron-link").on('click', function(){
 
     URL=constructURL(document.URL)
 
+
     date=new Date();
     dateBefore=date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
     //Default date if webservice call is not successful
@@ -48,7 +49,11 @@ $("#diachron-link").on('click', function(){
     var dateSize=10;
     var DateURL=URL+"changesummaries/search/dates?size="+dateSize+"&ontologyName="+ontologyName
     $.getJSON(DateURL, function(obj){})
-      .fail(function(){console.log("Failed to do webservice call! Please try again later or make sure the "+DateURL+" exists!"); return null})
+      .fail(function(){console.log("Failed to do webservice call! Please try again later or make sure the "+DateURL+" exists!");
+      $("#searching").hide();
+      $("#diachron-wrapper").html("<h3>Sorry, failed to call webservice. </h3>Maybe the server is down. Check the console for additional information.")
+       return null
+     })
       .done(function(obj){
       if (obj.length!==0)
         dateAfter=obj[obj.length-1]["changeDate"]
@@ -310,7 +315,6 @@ function stringCompare(a,b){
     {
         if (a[i]===b)
           {
-            console.log("TRUE, index: ", i);
             return i
           }
     }
@@ -502,7 +506,6 @@ function detailDateView(divname, date, className){
   //if no className is provided, then look for data by date
   if (className==="")
   {
-    console.log("Fetching all data ", className);
     tmpURL=URL+"changes/search/findByOntologyNameAndChangeDate"
     tmpURL=tmpURL+"?ontologyName="+ontologyName+"&date="+date
     htmlString+="<h3 class='dataTableHeadline'>All changes for <strong>"+date+"</strong></h3>";
@@ -510,13 +513,11 @@ function detailDateView(divname, date, className){
 
   // if there is a className, than only fetch data for this classname at this date
 else {
-    console.log("Fetching filtered data ",className);
     tmpURL=URL+"changes/search/findByOntologyNameAndChangeNameAndChangeDate"
     tmpURL=tmpURL+"?ontologyName="+ontologyName+"&date="+date+"&changeName="+className
     htmlString+="<h3 class='dataTableHeadline'>Changes for <strong>"+className+"</strong> on the <strong>"+date+"</strong></h3>";
 }
 
-  console.log(tmpURL);
   var tokenArray=[];
 
   $.getJSON(tmpURL, function(obj){})
@@ -560,13 +561,10 @@ else {
                       {
                         var tmpchangetypes=[];
                         var tmpchangefield=tableData[i].changes
-                        //console.log(tmpchangefield);
 
                         //Go through all changes of every object and save the changename, so it can be displayed in the main table (for search)
                           for (var tcounter=0; tmpchangefield.length>tcounter; tcounter++)
                             {
-                              //console.log(tmpchangefield);
-                              //console.log(tmpchangefield[tcounter].changeName);
 
                                 // Only push the changeName if it's not already in the array, we want unique terms
                               if (! _.contains(tmpchangetypes, tmpchangefield[tcounter].changeName))
@@ -620,7 +618,6 @@ else {
                       });
 
                       $('#testTable tbody').on('click', 'tr.mainrow', function() {
-                      //console.log('clicked on ', this, $(this).closest('tr'));
                         var tr=$(this).closest('tr')
                         var row=table.row(tr)
 
@@ -636,14 +633,7 @@ else {
 
                           var rowid=tr.attr('id');
                           var tmpchanges=tableData[rowid].changes;
-
-                          console.log(rowid);
-                          console.log(tableData);
-                          console.log(tableData[rowid]);
-
                           var childHTML='';
-
-                          console.log(tmpchanges);
                           for (var f=0;f<tmpchanges.length;f++)
                           {
                             childHTML+='<table><tr><td width="80px">Change Name</td><td>'+tmpchanges[f].changeName+'</td><td bgcolor="'+colorObject[tmpchanges[f].changeName]+'" width="20px"></td></tr>'
@@ -713,9 +703,9 @@ function callOLSforLabel(iri){
 
   $.getJSON(OLSurl, function(olsdata){})
     .fail(function(olsdata){
-      console.log(olsdata);
       console.log("Failed to do webservice call! Please try again later or make sure the "+OLSurl+" exists!");
-
+      $("#searching").hide();
+      $("#diachron-wrapper").html("<h3>Sorry, failed to call webservice. </h3>Maybe the server is down. Check the console for additional information.")
       return token.resolve();
     })
     .done(function(olsdata){
