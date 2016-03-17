@@ -46,6 +46,9 @@ th {
   color: white;
 }
 
+.info-box {
+  float:right;
+}
 .ontology-source{
   background-color: #5FBDCE;
   padding:2px;

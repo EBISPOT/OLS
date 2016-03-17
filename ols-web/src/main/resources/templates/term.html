@@ -44,6 +44,7 @@
 
     <link rel="stylesheet" href="../static/css/ols-colors.css" th:href="@{../../css/ols-colors.css}" type="text/css" media="screen"/>
     <link rel="stylesheet" href="../static/css/ols.css" th:href="@{../../css/ols.css}" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="../static/css/typeahead/typeaheadjs.css" th:href="@{../../css/typeahead/typeaheadjs.css}" type="text/css" media="screen"/>
 
     <!-- Css lionk for dataTable -->
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css"/>
@@ -56,6 +57,10 @@
     <style type="text/css">
         /* You have the option of setting a maximum width for your page, and making sure everything is centered */
         /* body { max-width: 1600px; margin: 0 auto; } */
+        .tt-menu {
+          left: auto !important;
+          right: 0 !important;
+        }
     </style>
 
 
@@ -203,9 +208,9 @@
                         </div>
 
                         <div class="grid_6">
-                            <form name="local-search" action="search" method="get">
+                            <form name="local-search" action="../../search" method="get">
                                 <div id="bloodhound" class="input-group">
-                                    <input style="margin-bottom: 0.1em;" class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="multisearch" data-olsontology=""  placeholder="Enter search term" aria-describedby="basic-addon1"/>
+                                    <input style="margin-bottom: 0.1em;" class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="multisearch" data-olsontology=""  data-selectpath="../../" placeholder="Enter search term" aria-describedby="basic-addon1"/>
 
                                     <span class="input-group-btn">
                                       <button class="btn btn-default glyphicon glyphicon-search" type="submit">
@@ -331,7 +336,7 @@
                     </div>
 
 
-                    <div id="right_meta_box" class="grid_10 beta">
+                    <div class="grid_10 info-box">
 
                         <div class="panel panel-primary">
 
@@ -341,15 +346,15 @@
                             <div class="panel-body">
 
 
-                                <div>
-                                    <span>Short id: </span>
-                                    <p th:text="${ontologyTerm.getShortForm()}">NCBI_9606</p>
-                                </div>
+                                <!--<div>-->
+                                    <!--<span>Short id: </span>-->
+                                    <!--<p th:text="${ontologyTerm.getShortForm()}">NCBI_9606</p>-->
+                                <!--</div>-->
 
-                                <div th:if="${ontologyTerm.getOboId() != null}">
-                                    <span>OBO id: </span>
-                                    <p th:text="${ontologyTerm.getOboId()}">NCBI:9606</p>
-                                </div>
+                                <!--<div th:if="${ontologyTerm.getOboId() != null}">-->
+                                    <!--<span>OBO id: </span>-->
+                                    <!--<p th:text="${ontologyTerm.getOboId()}">NCBI:9606</p>-->
+                                <!--</div>-->
 
                                 <div th:each="annotations: ${ontologyTerm.getAnnotation()}">
                                     <b>
@@ -364,7 +369,7 @@
                     </div>
 
 
-                    <div id="right_info_box" class="grid_10 beta">
+                    <div class="grid_10 info-box">
 
                         <div class="panel panel-primary">
 
@@ -487,11 +492,14 @@
 </div>
 
 <script type="text/javascript" src="../static/js/jquery/1.11.1/jquery.min.js" th:src="@{../../js/jquery/1.11.1/jquery.min.js}"></script>
-<script type="text/javascript" src="../static/js/jquery/jquery.autocomplete.min.js" th:src="@{../../js/jquery/jquery.autocomplete.min.js}"></script>
+<script type="text/javascript" src="../static/js/typeahead/typeahead.bundle.js" th:src="@{../../js/typeahead/typeahead.bundle.js}"></script>
+<script type="text/javascript" src="../static/js/handlebars/4.0.5/handlebars.min.js" th:src="@{../../js/handlebars/4.0.5/handlebars.min.js}"></script>
+
+
 <script type="text/javascript" src="../static/js/ols.js" th:src="@{../../js/ols.js}"></script>
 <script src="../static/js/jstree/jstree.min.js" th:src="@{../../js/jstree/jstree.min.js}"></script>
 
-<script type="text/javascript" src="../static/js/ols-termselect.js" th:src="@{../../js/ols-termselect.js}"></script>
+<script type="text/javascript" src="../static/js/ols-termselect2.js" th:src="@{../../js/ols-termselect2.js}"></script>
 <script type="text/javascript" src="../static/js/ols-tree.js" th:src="@{../../js/ols-tree.js}"></script>
 <script type="text/javascript" src="../static/js/bootstrap/bootstrap.min.js" th:src="@{../../js/bootstrap/bootstrap.min.js}"></script>
 
