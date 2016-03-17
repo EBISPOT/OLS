@@ -51,16 +51,41 @@ th {
   padding:2px;
   padding-right:4px;
   color: white;
-  font-size: larger;
+  /*font-size: larger;*/
   border-radius: 3px;
   display: inline-block;
   margin-right: 4px;
   vertical-align: middle;
 }
 
-.ontology-source:hover {
-  box-shadow: 5px 5px 2px #888888;
+a .ontology-source {
+  background-color: #5FBDCE;
+  padding:2px;
+  padding-right:4px;
+  color: white;
+  /*font-size: larger;*/
+  border-radius: 3px;
+  display: inline-block;
+  margin-right: 4px;
+  vertical-align: middle;
+  border-bottom: none;
 }
+
+.term-source{
+  background-color: #ffac1b;
+  padding:2px;
+  padding-right:4px;
+  color: white;
+  /*font-size: larger;*/
+  border-radius: 3px;
+  display: inline-block;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+/*.ontology-source:hover {*/
+  /*box-shadow: 5px 5px 2px #888888;*/
+/*}*/
 
 .loaded{
   background-color: #00bf00;
@@ -150,11 +175,11 @@ th {
 }
 
 a.nounderline {
-  border-bottom-style: none;
+  text-decoration: none;
 }
 
 a:hover.nounderline {
-  border-bottom-style: none;
+  text-decoration: none;
 }
 
 .sub-text {

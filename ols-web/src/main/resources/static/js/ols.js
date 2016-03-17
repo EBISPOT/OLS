@@ -9,6 +9,9 @@ function getUrlType (type) {
     else if (type == 'individual') {
         urlType= 'individuals';
     }
+    else if (type == 'ontology') {
+        urlType= 'ontology';
+    }
     return urlType;
 }
 

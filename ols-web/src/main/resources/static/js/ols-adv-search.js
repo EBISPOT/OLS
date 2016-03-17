@@ -1,25 +1,31 @@
 $(document).ready(function() {
-    $('.ontology-select').select2();
-    $('.type-select').select2();
+    $('.ontology-select').select2({placeholder: "Filter by ontology"})
+        .on('select2:select', function (e) {
+            $("#ontology-id").append($('<option/>', {
+                value: e.target.value.toLowerCase(),
+                text : e.target.value.toLowerCase(),
+                selected : 'selected'
+            }));
 
+            //always restart start when faceting
+            $('#start').val(0);
+            $("#filter_form").submit();
+        })
+        .on('select2:unselecting', function (e) {
 
-    $('#local-search').on ('submit', function (e) {
-        e.preventDefault();
-        var queryTerm = $('#local-searchbox').val();
+            $("#ontology-id").find("[value=\"" + e.target.value.toLowerCase() + "\"]").remove();
+            //always restart start when faceting
+            $('#start').val(0);
+            $("#filter_form").submit();
+        });
 
-        if (queryTerm != '') {
-            console.log("new search for " + queryTerm)
-            $('#query-id').val(queryTerm);
-            var query =$('#filter_form').serialize();
-            $('#filter_form').submit();
-        }
-
-    });
+    $('.typeahead').typeahead('val', $('#query-id').val());
+    $('.typeahead').typeahead('close');
 
     ontologyList = new Object();
     $('#ontology-select-id option').each(function(){
-        ontologyList[this.value]=this.text;
-     });
+        ontologyList[this.value]=$(this).attr('data-ontology-title');
+    });
 
     try {
         loadResults();
@@ -29,20 +35,20 @@ $(document).ready(function() {
 });
 
 var ontologyList;
+//var ontologyTitle;
 
 function clearFilter() {
     $('#ontology-select-id').val('');
+    $('#ontology-id').val('');
     $('#ontology-type-id').val('');
     $('#group-id').attr('checked', false);
     $('#exact-id').attr('checked', false);
     $('#obsolete-id').attr('checked', false);
-    $('#local-searchbox').submit();
+    $('#filter_form').submit();
 
 }
 
 function loadResults() {
-
-    //var query = $("#query-id").text();
 
     var query =$('#filter_form').serialize()
     console.log("Loading results for " + query);
@@ -97,10 +103,10 @@ function processData(data) {
     $('#total-display').text(total);
 
     if (start > 0) {
-        $('#prev-button').removeAttr('disabled');
+        $('#prev-button').removeClass('disabled');
     }
     if (end < total) {
-        $('#next-button').removeAttr('disabled');
+        $('#next-button').removeClass('disabled');
     }
 
 
@@ -112,65 +118,72 @@ function processData(data) {
     // render search results
     var searchResult = $('#search-results');
     $.each(docs, function(index, row) {
-        var encodedUri = encodeURIComponent(row.iri);
-        var type = getUrlType(row.type);
 
-        var link = $('<a>',{
-            class: 'search-results-label',
-            text: row.label,
-            title: row.label,
-            href: 'ontologies/' + row.ontology_name + "/" + type + "?iri=" + encodedUri
-        });
-
+        var link = getTermLink(row.label,row.ontology_name, row.type, row.iri);
         var description = row.description;
         if (description != undefined) {
             description = row.description[0];
 
             if (description.length > 300) {
-                description = description.substr(0, 300) + '…';
+                description = description.substr(0, 500) + '…';
             }
-        }
-
-        /*IS this ever executed? DO we need this*/
-        if (data.expanded != undefined) {
-            if (data.expanded[row.iri] != undefined) {
-
-                $.each (data.expanded[row.iri].docs, function (expandedIndex, expandedRow) {
-                    $("<div class='ontology-source'>" + expandedRow.ontology_prefix + "</div>").insertAfter(ontologies);
-                })
-
-            }
-
-
         }
 
         var resultHtml = $('<section></section>');
         resultHtml = resultHtml.append(link);
         resultHtml = resultHtml.append('&nbsp;&nbsp;');
 
+
+        var shortId = row.obo_id;
+        if (shortId == undefined) {
+            shortId = row.short_form;
+        }
+        var termShortId = $("<div class='term-source'>" + shortId + "</div>");
+        resultHtml = resultHtml.append(termShortId);
+
+        resultHtml = resultHtml.append('<br/>');
+        resultHtml = resultHtml.append($('<span class="search-results-url"></span>').text(row.iri));
+        resultHtml = resultHtml.append('<br/>');
+        if (description != undefined) {
+            resultHtml = resultHtml.append($('<span class="search-results-description"></span>').text(description));
+            resultHtml = resultHtml.append('<br/>');
+        }
+
+        resultHtml = resultHtml.append('<b>Ontology: </b>');
+
+        var ontologyTitle = ontologyList[row.ontology_name];
+        var ontologyLink = $('<a>',{
+            class: 'nounderline',
+            text: ontologyTitle,
+            href: 'ontologies/' + row.ontology_name
+        });
+        resultHtml = resultHtml.append(ontologyLink);
+        resultHtml = resultHtml.append('&nbsp;');
         var ontologies = $("<div class='ontology-source' title='"+ontologyList[row.ontology_name]+"'>" + row.ontology_prefix + "</div>");
         resultHtml = resultHtml.append(ontologies);
+        resultHtml = resultHtml.append('<br/>');
 
-
-
-
-        /*IS this ever executed? Do we need this*/
         if (data.expanded != undefined) {
             if (data.expanded[row.iri] != undefined) {
+                resultHtml = resultHtml.append('<b>Also in: </b>');
+
+                // <a href="#" style="border-bottom-width: 0px;"><span class="ontology-source"  th:onclick="'javascript:goTo(\'' + @{../../ontologies/__${ontologyTerm.getOntologyName()}__} + '\')'" th:text="${ontologyTerm.getOntologyPrefix()}">parent 1</span></a>   &gt;
 
                 $.each (data.expanded[row.iri].docs, function (expandedIndex, expandedRow) {
-                    resultHtml.append($("<div class='ontology-source'>" + expandedRow.ontology_prefix + "</div>"));
+                    var exLink = getTermLink(expandedRow.ontology_prefix, expandedRow.ontology_name,expandedRow.type, expandedRow.iri )
+
+                    var ontoLink = $("<a title='"+ontologyList[expandedRow.ontology_name]+"' href='" + exLink.attr('href') + "' style='border-bottom-width: 0px;'></a>")
+                        .append($("<span class='ontology-source'></span>").text(exLink.text()))
+                    resultHtml.append(ontoLink);
+
+                    //resultHtml.append($("<div class='ontology-source'></div>").append($(exLink)));
                 })
 
             }
         }
 
-
         resultHtml = resultHtml.append('<br/>');
-        resultHtml = resultHtml.append($('<span class="search-results-url"></span>').text(row.iri));
         resultHtml = resultHtml.append('<br/>');
-        resultHtml = resultHtml.append($('<span class="search-results-description"></span>').text(description));
-        resultHtml = resultHtml.append('<br/><hr/>');
 
         searchResult.append(resultHtml);
     });
@@ -180,61 +193,102 @@ function processData(data) {
 
     var facets = data.facet_counts.facet_fields;
 
-    var searchSummary = $('#results-summary');
+    var typeSummary = $('#type-summary');
+    var ontologySummary = $('#ontology-summary');
 
-    renderFacetField(facets.ontology_prefix, "Ontologies", searchSummary);
-    renderFacetField(facets.type, "Type", searchSummary);
+    renderTypesFacetField(facets.type, typeSummary);
+    renderOntologyFacetField(facets.ontology_prefix, ontologySummary);
     //renderFacetField(facets.is_defining_ontology, "Defining ontology", searchSummary);
     //renderFacetField(facets.is_obsolete, "Is Obsolete", searchSummary);
     //renderFacetField(facets.subset, "Susbsets", searchSummary);
 
 }
 
-function renderFacetField (facetArray, inputName, searchSummary) {
+function getTermLink (label, ontology, type, uri ) {
+    var encodedUri = encodeURIComponent(uri);
+    var _type = getUrlType(type);
 
+    return $('<a>',{
+        class: 'search-results-label nounderline',
+        text: label,
+        title: label,
+        href: 'ontologies/' + ontology + "/" + _type + "?iri=" + encodedUri
+    });
+}
+
+function renderTypesFacetField (facetArray, searchSummary) {
     if (facetArray != undefined) {
 
         var numberOfFacets = 0;
-
-        var facet = $('<h3></h3>').text(inputName);
-        var fieldList = $('<ul></ul>');
+        var fieldList = $('<div class="list-group"></div>');
 
         for (var x = 0 ; x < facetArray.length; x = x + 2) {
             var name = facetArray[x];
             var count = facetArray[x + 1];
 
             if (count > 0) {
-
-               if (inputName==="Ontologies")
-                        {   fieldList.append('<li><a href="#" id="'+name+'" class="onto_list" title="'+ontologyList[name.toLowerCase()]+'">'+name+ '</a> (' + count + ')</li>');         }
-                else
-                        {   fieldList.append('<li><a href="#" id="'+name+'" class="type_list">'+name+ '</a> (' + count + ')</li>');         }
-                    //    {   fieldList.append(  $('<li></li>').text(name+ " (" + count + ")"));  }
-
+                fieldList.append('<button type=\'button\' id="'+name+'" class="type_list list-group-item">'+name+ '<span class="badge">' + count + '</span></button>');
                 numberOfFacets++;
             }
 
         }
 
-        if (numberOfFacets > 1) {
-            $('#summary').attr('visibility', 'visible');
+        if (numberOfFacets > 0) {
+            var facet = $('<h3></h3>').text('Types');
             searchSummary.append(facet);
+            searchSummary.append(fieldList);
+        }
+
+        $(".type_list").on('click', function(e){
+            //$('#ontology-select-id').val('');
+            $("#ontology-type-id").append($('<option/>', {
+                value: e.target.id.toLowerCase(),
+                text : e.target.id.toLowerCase(),
+                selected : 'selected'
+            }));
+
+            //always restart start when faceting
+            $('#start').val(0);
+            $("#filter_form").submit();
+        });
+    }
+}
+
+function renderOntologyFacetField (facetArray, searchSummary) {
+
+    if (facetArray != undefined) {
+
+        var numberOfFacets = 0;
+
+        var fieldList = $('<div class="list-group"></div>');
+
+        for (var x = 0 ; x < facetArray.length; x = x + 2) {
+            var name = facetArray[x];
+            var count = facetArray[x + 1];
+
+            if (count > 0) {
+                fieldList.append('<button type=\'button\' id="'+name+'" class="onto_list list-group-item" title="'+ontologyList[name.toLowerCase()]+'">'+name+ '<span class="badge">' + count + '</span></button>');
+                numberOfFacets++;
+            }
+
+        }
+
+        if (numberOfFacets > 0) {
             searchSummary.append(fieldList);
         }
 
         //Register click event for ontology list
         $(".onto_list").on('click', function(e){
-            $('#ontology-select-id').val('');
-            $("#ontology-select-id option[value='"+e.target.id.toLowerCase()+"']").prop('selected', true);
+            //$('#ontology-select-id').val('');
+            $("#ontology-id").append($('<option/>', {
+                value: e.target.id.toLowerCase(),
+                text : e.target.id.toLowerCase(),
+                selected : 'selected'
+            }));
+
+            //always restart start when faceting
+            $('#start').val(0);
             $("#filter_form").submit();
         });
-
-        $(".type_list").on('click', function(e){
-            $('#ontology-type-id').val('');
-            $('#ontology-type-id option[value="'+e.target.id.toLowerCase()+'"]').prop('selected', true);;
-            $("#filter_form").submit();
-        });
-
-
     }
 }

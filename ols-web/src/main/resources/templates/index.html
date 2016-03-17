@@ -22,8 +22,7 @@
 
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
 
-    <!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" type="text/css" media="screen"/>-->
-
+    <link rel="stylesheet" href="../static/css/bootstrap/3.3/css/bootstrap.min.css" th:href="@{css/bootstrap/3.3/css/bootstrap.min.css}" type="text/css" media="screen"/>
 
     <!-- CSS: implied media=all -->
     <!-- CSS concatenated and minified via ant build script-->
@@ -38,6 +37,7 @@
 
     <link rel="stylesheet" href="../static/css/ols.css" th:href="@{css/ols.css}" type="text/css" media="screen"/>
     <link rel="stylesheet" href="../static/css/ols-colors.css" th:href="@{css/ols-colors.css}" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="../static/css/typeahead/typeaheadjs.css" th:href="@{css/typeahead/typeaheadjs.css}" type="text/css" media="screen"/>
 
     <!-- for production the above can be replaced with -->
     <!--
@@ -51,9 +51,6 @@
         /* body { max-width: 1600px; margin: 0 auto; } */
     </style>
 
-
-    <!--<link rel="stylesheet" type="text/css" href="css/spacelab.bootstrap.min.css" th:href="@{../css/spacelab.bootstrap.min.css}"/>-->
-    <!--<link rel="stylesheet" type="text/css" href="css/main.css" th:href="@{../css/main.css}"/>-->
 
     <!-- end CSS-->
 
@@ -124,7 +121,6 @@
                 <ul class="grid_24" id="local-nav">
                     <li class="first active"><a href="index">Home</a></li>
                     <li><a href="browse">Ontologies</a></li>
-                    <li><a href="docs/api">API</a></li>
                     <li><a href="docs">Documentation</a></li>
                     <li class="last" ><a href="about">About</a></li>
                     <li class="functional last"><a href="contact" class="icon icon-generic" data-icon="C">Contact Us</a></li>
@@ -153,47 +149,19 @@
                         <div>
                             <form name="local-search" action="search" method="get">
                                 <div id="bloodhound" class="input-group">
-                                    <input style="margin: 0em 0em 0em 0em;" autofocus="autofocus" type="text" name="q" data-olswidget="multisearch" data-olsontology=""  placeholder="What are you looking for today?"  class="typeahead form-control" aria-describedby="basic-addon1"/>
+                                    <input style="margin: 0em;" class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="multisearch" data-olsontology=""  placeholder="What are you looking for today?" aria-describedby="basic-addon1"/>
 
-                                                  <span class="input-group-btn">
-                                                    <button class="btn btn-default" type="button">Go!</button>
-                                                  </span>
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                                    </div>
+
+                                    <input id="group-id" name="groupField" type="hidden" value="iri"/>
 
                                 </div><!-- /input-group -->
                             </form>
                         </div><!-- /.col-lg-6 -->
 
                     </div>
-
-
-
-
-                    <!--<div>-->
-                    <!--<form name="local-search" action="search" method="get">-->
-                    <!--<fieldset><div class="left">-->
-                    <!--<label>-->
-                    <!--<input >-->
-                    <!--</input>-->
-                    <!--</label>-->
-
-                    <!--</div>-->
-                    <!--<div class="right">-->
-                    <!--<input type="submit" value="Search" class="submit">-->
-                    <!--</input>-->
-                    <!--</div>-->
-                    <!--</fieldset>-->
-                    <!--<div>-->
-                    <!--<input type="checkbox">Search obsoletes</input>-->
-                    <!--</div>-->
-                    <!--</form>-->
-                    <!--<span class="examples">Examples: <a href="search?q=cancer">cancer</a>,-->
-                    <!--<a href="search?q=GO:0098743">GO:0098743</a>-->
-                    <!--</span>-->
-                    <!--</div>-->
-
-                    <!--<p class="intro">Welcome to the EMBL-EBI Ontology Lookup Service (OLS). Use OLS to search and visualise over 100 Biomedical ontologies or use the <a href="docs/api">OLS API</a> to integrate OLS ontologies into your own applications.-->
-                    <!--OLS updates nightly to always provide the latest ontology versions and can be configured to load any ontology available in OBO or OWL format. </p>-->
-
 
 
                     <div style="font-size: larger;" class="bootstrap-alert alert-info">
@@ -221,11 +189,7 @@
 
     <footer>
         <!-- Optional local footer (insert citation / project-specific copyright / etc here -->
-        <!--
-        <div id="local-footer" class="grid_24 clearfix">
-          <p>How to reference this page: ...</p>
-        </div>
-        -->
+
         <!-- End optional local footer -->
 
         <div id="global-footer" class="grid_24 clearfix">
@@ -269,16 +233,15 @@
 
 </div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" src="../static/js/jquery/1.11.1/jquery.min.js" th:src="@{js/jquery/1.11.1/jquery.min.js}"></script>
 
 <!--<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
-<script src="//twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.min.js"></script>
+<script type="text/javascript" src="../static/js/typeahead/typeahead.bundle.js" th:src="@{js/typeahead/typeahead.bundle.js}"></script>
+<script type="text/javascript" src="../static/js/handlebars/4.0.5/handlebars.min.js" th:src="@{js/handlebars/4.0.5/handlebars.min.js}"></script>
 
-<!--<script type="text/javascript" src="../static/js/jquery/jquery.autocomplete.min.js" th:src="@{js/jquery/jquery.autocomplete.min.js}"></script>-->
 <script type="text/javascript" src="../static/js/ols.js" th:src="@{js/ols.js}"></script>
 <script type="text/javascript" src="../static/js/ols-termselect2.js" th:src="@{js/ols-termselect2.js}"></script>
-<!--<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.js"></script>-->
-<!--<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/locale/bootstrap-table-en-US.min.js"></script>-->
+
 
 <!--<script>-->
 <!--$(document).ready(function() {-->

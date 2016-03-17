@@ -22,6 +22,8 @@ OLS makes use of many public and freely available software resources - we would 
 * link:http://www.hermit-reasoner.com[HermiT]: OWL reasoner
 * https://www.cs.ox.ac.uk/isg/tools/ELK/[Elk]: OWL reasoner
 * link:http://neo4j.com[Neo4j]: Graph database
+* link:http://getbootstrap.com: Bootstrap CSS components
+* link:http://glyphicons.com: Glyphicons for Bootstrap
 * link:http://lucene.apache.org/solr/[Solr]: Search server
 * link:https://www.mongodb.org[MongoDB]: Document store
 * link:http://virtuoso.openlinksw.com[OpenLink Virtuoso]: RDF triple store provider for SPARQL endpoint

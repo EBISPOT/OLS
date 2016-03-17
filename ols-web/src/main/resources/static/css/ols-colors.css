@@ -44,14 +44,14 @@ a:visited { border-bottom-color: #0B61A4; }
 a:hover,
 a:focus,
 a:active {
-    color: #0B61A4;
-    border-bottom: 1px solid #0B61A4;
+    /*color: #0B61A4;*/
+    /*border-bottom: 1px solid #0B61A4;*/
 }
 a.special:hover,
 a.special:focus,
 a.special:active {
-    color:#0B61A4;
-    border-bottom: 3px double #0B61A4;
+    /*color:#0B61A4;*/
+    /*border-bottom: 3px double #0B61A4;*/
 }
 a:link { color: #052C6E; }
 a:hover,
