@@ -80,8 +80,6 @@ public class YamlLoader implements CommandLineRunner {
                 getLog().warn("Resource '" + olsResource + "' could not be found and will not be loaded");
             }
         }
-
-
     }
 
     public void updateDocument(YamlConfigParser yamlConfigParser) throws IOException {
@@ -92,12 +90,15 @@ public class YamlLoader implements CommandLineRunner {
                 OntologyDocument mongoOntologyDocument = ontologyRepositoryService.get(ontologyResourceConfig.getNamespace());
                 if (mongoOntologyDocument == null) {
                     getLog().info("New ontology document to load found " + ontologyResourceConfig.getNamespace());
-                    OntologyDocument ontologyDocument = new OntologyDocument(ontologyResourceConfig.getNamespace(), ontologyResourceConfig);
-                    ontologyDocument.setStatus(Status.TOLOAD);
+                    if (ontologyResourceConfig.getFileLocation() != null) {
+                        OntologyDocument ontologyDocument = new OntologyDocument(ontologyResourceConfig.getNamespace(), ontologyResourceConfig);
+                        ontologyDocument.setStatus(Status.TOLOAD);
 
-                    ontologyRepositoryService.create(ontologyDocument);
-
-
+                        ontologyRepositoryService.create(ontologyDocument);
+                    }
+                    else {
+                        getLog().warn("Not loading " + ontologyResourceConfig.getNamespace() + " as no location specified");
+                    }
                 } else {
 
                     mongoOntologyDocument = DocumentUpdater.updateFields(mongoOntologyDocument, ontologyResourceConfig);

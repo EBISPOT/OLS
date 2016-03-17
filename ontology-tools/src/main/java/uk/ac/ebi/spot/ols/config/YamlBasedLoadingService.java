@@ -38,155 +38,158 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
 
     @Override
     public OntologyResourceConfig getConfiguration() throws ConfigParsingException {
-
         String id = ((String)ontology.get("id")); // e.g. Uberon
-        String prefix = id.toUpperCase();
-        if (ontology.containsKey("preferredPrefix"))  {
-            prefix =  (String) ontology.get("preferredPrefix");
-        }
 
+        try {
 
-        String ontologyTitle = (String)ontology.get("title");
-
-        if (ontologyTitle == null) {
-            ontologyTitle = id;
-        }
-
-
-        String location;
-
-        if (ontology.containsKey("ontology_purl")) {
-            location = (String) ontology.get("ontology_purl");
-        }
-        else {
-            throw new ConfigParsingException("No ontology purl defined for " + ontologyTitle);
-        }
-
-        String uri;
-        if (ontology.containsKey("uri")) {
-            uri = (String) ontology.get("uri");
-        }
-        else if (base != null) {
-            uri = base + id;
-        }
-        else {
-            uri = location;
-        }
-
-
-        //Build the OntologyResourceConfig and add it to the Collection.
-        OntologyResourceConfig.OntologyResourceConfigBuilder builder = new  OntologyResourceConfig.OntologyResourceConfigBuilder(uri, ontologyTitle, id, URI.create(location));
-
-
-        builder.setPreferredPrefix(prefix);
-
-        if (ontology.containsKey("label_property"))  {
-            String labelProperty = (String) ontology.get("label_property");
-            builder.setLabelProperty(URI.create(labelProperty));
-        }
-
-        if (ontology.containsKey("definition_property"))  {
-            Collection<URI> definitionUris = new HashSet<>();
-            for (String definition : (ArrayList<String>) ontology.get("definition_property")) {
-                definitionUris.add(URI.create(definition));
+            String prefix = id.toUpperCase();
+            if (ontology.containsKey("preferredPrefix"))  {
+                prefix =  (String) ontology.get("preferredPrefix");
             }
-            builder.setDefinitionProperties(definitionUris);
-        }
-        else if (isObo) {
-            builder.setDefinitionProperties(Collections.singleton(URI.create(OboDefaults.DEFINITION)));
-        }
 
-        if (ontology.containsKey("synonym_property"))  {
-            Set<URI> synonymsUris = new HashSet<>();
-            for (String synonym_property :  (ArrayList<String>) ontology.get("synonym_property")) {
-                synonymsUris.add(URI.create(synonym_property));
+
+            String ontologyTitle = (String)ontology.get("title");
+
+            if (ontologyTitle == null) {
+                ontologyTitle = id;
             }
-            builder.setSynonymProperties(synonymsUris);
-        }
-        else if (isObo) {
-            builder.setSynonymProperties(Collections.singleton(URI.create(OboDefaults.EXACT_SYNONYM)));
-        }
 
-        if (ontology.containsKey("hidden_property"))  {
-            Set<URI> hiddenUris = new HashSet<>();
-            for (String hidden :  (ArrayList<String>) ontology.get("hidden_property")) {
-                hiddenUris.add(URI.create(hidden));
+
+            URI location = null;
+
+            if (ontology.containsKey("ontology_purl")) {
+                location = URI.create((String) ontology.get("ontology_purl"));
             }
-            builder.setHiddenProperties(hiddenUris);
-        }
 
-        if (ontology.containsKey("hierarchical_property"))  {
-            Set<URI> hierarchicalUris = new HashSet<>();
-            for (String hierarchical :  (ArrayList<String>) ontology.get("hierarchical_property")) {
-                hierarchicalUris.add(URI.create(hierarchical));
+            String uri;
+            if (ontology.containsKey("uri")) {
+                uri = (String) ontology.get("uri");
             }
-            builder.setHierarchicalProperties(hierarchicalUris);
-        }
-        else  {
-            builder.setHierarchicalProperties(OboDefaults.hierarchical_relations);
-        }
-
-        if (ontology.containsKey("base_uri"))  {
-            Set<String> baseUris = new HashSet<>();
-            for (String baseUri :  (ArrayList<String>) ontology.get("base_uri")) {
-                baseUris.add(baseUri);
+            else if (base != null) {
+                uri = base + id;
             }
-            builder.setBaseUris(baseUris);
-        }
-        else if (isObo) {
-            builder.setBaseUris(Collections.singleton(base + id.toUpperCase() + "_"));
-        }
-        else {
-            builder.setBaseUris(Collections.singleton(uri));
-        }
+            else {
+                uri = location.toString();
+            }
 
-        if (ontology.containsKey("reasoner")) {
-            String reasonerType = (String) ontology.get("reasoner");
-            ReasonerType type = ReasonerType.valueOf(reasonerType.toUpperCase());
-            if (type == null) {
-                log.warn("Unknown reasoner type, defaulting to structural reasoner " + reasonerType);
+
+            //Build the OntologyResourceConfig and add it to the Collection.
+            OntologyResourceConfig.OntologyResourceConfigBuilder builder = new  OntologyResourceConfig.OntologyResourceConfigBuilder(uri, ontologyTitle, id, location);
+
+
+            builder.setPreferredPrefix(prefix);
+
+            if (ontology.containsKey("label_property"))  {
+                String labelProperty = (String) ontology.get("label_property");
+                builder.setLabelProperty(URI.create(labelProperty));
+            }
+
+            if (ontology.containsKey("definition_property"))  {
+                Collection<URI> definitionUris = new HashSet<>();
+                for (String definition : (ArrayList<String>) ontology.get("definition_property")) {
+                    definitionUris.add(URI.create(definition));
+                }
+                builder.setDefinitionProperties(definitionUris);
+            }
+            else if (isObo) {
+                builder.setDefinitionProperties(Collections.singleton(URI.create(OboDefaults.DEFINITION)));
+            }
+
+            if (ontology.containsKey("synonym_property"))  {
+                Set<URI> synonymsUris = new HashSet<>();
+                for (String synonym_property :  (ArrayList<String>) ontology.get("synonym_property")) {
+                    synonymsUris.add(URI.create(synonym_property));
+                }
+                builder.setSynonymProperties(synonymsUris);
+            }
+            else if (isObo) {
+                builder.setSynonymProperties(Collections.singleton(URI.create(OboDefaults.EXACT_SYNONYM)));
+            }
+
+            if (ontology.containsKey("hidden_property"))  {
+                Set<URI> hiddenUris = new HashSet<>();
+                for (String hidden :  (ArrayList<String>) ontology.get("hidden_property")) {
+                    hiddenUris.add(URI.create(hidden));
+                }
+                builder.setHiddenProperties(hiddenUris);
+            }
+
+            if (ontology.containsKey("hierarchical_property"))  {
+                Set<URI> hierarchicalUris = new HashSet<>();
+                for (String hierarchical :  (ArrayList<String>) ontology.get("hierarchical_property")) {
+                    hierarchicalUris.add(URI.create(hierarchical));
+                }
+                builder.setHierarchicalProperties(hierarchicalUris);
             }
             else  {
-                builder.setReasonerType(type);
+                builder.setHierarchicalProperties(OboDefaults.hierarchical_relations);
             }
-        }
-        else if (isObo) {
-            builder.setReasonerType(ReasonerType.EL);
-        }
 
-        if (ontology.containsKey("oboSlims")) {
-            builder.setOboSlims((boolean) ontology.get("oboSlims"));
-        }
-        else if (isObo) {
-            builder.setOboSlims(true);
-        }
-
-        if (ontology.containsKey("description")) {
-            builder.setDescription((String) ontology.get("description"));
-        }
-
-        if (ontology.containsKey("homepage")) {
-            if (ontology.get("homepage") instanceof ArrayList) {
-                ArrayList pages = (ArrayList) ontology.get("homepage");
-                builder.setHomepage((String) pages.get(0));
-            } else {
-                builder.setHomepage((String) ontology.get("homepage"));
+            if (ontology.containsKey("base_uri"))  {
+                Set<String> baseUris = new HashSet<>();
+                for (String baseUri :  (ArrayList<String>) ontology.get("base_uri")) {
+                    baseUris.add(baseUri);
+                }
+                builder.setBaseUris(baseUris);
             }
-        }
-
-        if (ontology.containsKey("mailing_list")) {
-            builder.setMailingList((String) ontology.get("mailing_list"));
-        }
-
-        if (ontology.containsKey("creator"))  {
-            Set<String> creators = new HashSet<>();
-            for (String creator :  (ArrayList<String>) ontology.get("creator")) {
-                creators.add(creator);
+            else if (isObo) {
+                builder.setBaseUris(Collections.singleton(base + id.toUpperCase() + "_"));
             }
-            builder.setCreators(creators);
-        }
+            else {
+                builder.setBaseUris(Collections.singleton(uri));
+            }
 
-        return builder.build();
+            if (ontology.containsKey("reasoner")) {
+                String reasonerType = (String) ontology.get("reasoner");
+                ReasonerType type = ReasonerType.valueOf(reasonerType.toUpperCase());
+                if (type == null) {
+                    log.warn("Unknown reasoner type, defaulting to structural reasoner " + reasonerType);
+                }
+                else  {
+                    builder.setReasonerType(type);
+                }
+            }
+            else if (isObo) {
+                builder.setReasonerType(ReasonerType.EL);
+            }
+
+            if (ontology.containsKey("oboSlims")) {
+                builder.setOboSlims((boolean) ontology.get("oboSlims"));
+            }
+            else if (isObo) {
+                builder.setOboSlims(true);
+            }
+
+            if (ontology.containsKey("description")) {
+                builder.setDescription((String) ontology.get("description"));
+            }
+
+            if (ontology.containsKey("homepage")) {
+                if (ontology.get("homepage") instanceof ArrayList) {
+                    ArrayList pages = (ArrayList) ontology.get("homepage");
+                    builder.setHomepage((String) pages.get(0));
+                } else {
+                    builder.setHomepage((String) ontology.get("homepage"));
+                }
+            }
+
+            if (ontology.containsKey("mailing_list")) {
+                builder.setMailingList((String) ontology.get("mailing_list"));
+            }
+
+            if (ontology.containsKey("creator"))  {
+                Set<String> creators = new HashSet<>();
+                for (String creator :  (ArrayList<String>) ontology.get("creator")) {
+                    creators.add(creator);
+                }
+                builder.setCreators(creators);
+            }
+
+            return builder.build();
+        }
+        catch (Exception e) {
+            throw new ConfigParsingException("problem parsing yaml for " + id);
+        }
 
     }
 }

@@ -23,6 +23,8 @@
 
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
 
+    <link rel="stylesheet" href="../static/css/bootstrap/3.3/css/bootstrap.min.css" th:href="@{../../css/bootstrap/3.3/css/bootstrap.min.css}" type="text/css" media="screen"/>
+
     <!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>-->
     <!--<link rel="stylesheet" href="../static/css/bootstrap/bootstrap.css" th:href="@{../../../css/bootstrap/bootstrap.css}" type="text/css" media="screen" />-->
 
@@ -114,7 +116,7 @@
             <!-- local-title -->
             <!-- NB: for additional title style patterns, see http://frontier.ebi.ac.uk/web/style/patterns -->
 
-            <div id="local-title" class="grid_14 alpha logo-title">
+            <div id="local-title" class=" alpha logo-title">
                 <a href="../../index" title="Back to OLS homepage">
                     <img style="width: 80px" th:src="@{../../img/ols-logo.jpg}" src="../static/img/ols-logo.jpg" alt="OLS logo"/></a>
                 <span><h1>Ontology Lookup Service</h1></span>
@@ -123,33 +125,32 @@
             <!-- /local-title -->
 
             <!-- -->
-            <div class="grid_10 omega">
-                <form id="local-search" name="local-search" action="../../search" method="get">
-                    <fieldset><div class="left">
-                        <label>
-                            <input style="font-weight: normal;" type="text" name="q" data-olswidget="select" th:attr="data-olsontology=${ontologyTerm.getOntologyName()}" data-olsontology="urr" data-selectpath="../../" id="local-searchbox" placeholder="Enter the term you are looking for" class="ac_input">
-                            </input>
-                        </label>
-                        <span class="examples">Examples: <a href="../../search?q=cancer">cancer</a>,
-                            <a href="../../search?q=GO:0098743">GO:0098743</a>,
-                        </span>
-                    </div>
-                        <div class="right">
-                            <input type="submit" value="Search" class="submit">
-                            </input>
-                            <span class="adv">
-                                <a href="../../search" id="adv-search" title="Advanced">Advanced</a>
-                            </span>
-                        </div>
-                    </fieldset>
-                </form>
-            </div>
+            <!--<div class="grid_10 omega">-->
+                <!--<form id="local-search" name="local-search" action="../../search" method="get">-->
+                    <!--<fieldset><div class="left">-->
+                        <!--<label>-->
+                            <!--<input style="font-weight: normal;" type="text" name="q" data-olswidget="select" th:attr="data-olsontology=${ontologyTerm.getOntologyName()}" data-olsontology="urr" data-selectpath="../../" id="local-searchbox" placeholder="Enter the term you are looking for" class="ac_input">-->
+                            <!--</input>-->
+                        <!--</label>-->
+                        <!--<span class="examples">Examples: <a href="../../search?q=cancer">cancer</a>,-->
+                            <!--<a href="../../search?q=GO:0098743">GO:0098743</a>,-->
+                        <!--</span>-->
+                    <!--</div>-->
+                        <!--<div class="right">-->
+                            <!--<input type="submit" value="Search" class="submit">-->
+                            <!--</input>-->
+                            <!--<span class="adv">-->
+                                <!--<a href="../../search" id="adv-search" title="Advanced">Advanced</a>-->
+                            <!--</span>-->
+                        <!--</div>-->
+                    <!--</fieldset>-->
+                <!--</form>-->
+            <!--</div>-->
 
             <nav>
                 <ul class="grid_24" id="local-nav">
                     <li class="first active"><a href="../../index">Home</a></li>
-                    <li><a href="../../docs/api">API</a></li>
-                    <li><a href="../../sparql">SPARQL</a></li>
+                    <li><a href="../../ontologies">Ontologies</a></li>
                     <li><a href="../../docs">Documentation</a></li>
                     <li class="last" ><a href="../../about">About</a></li>
                     <li class="functional last"><a href="../../contact" class="icon icon-generic" data-icon="C">Contact Us</a></li>
@@ -164,16 +165,31 @@
     <!--@thymesVar id="ontologyName" type="String"-->
     <!--@thymesVar id="parentTerms" type="Set"-->
     <!--@thymesVar id="relatedFroms" type="Set"-->
+
+
+
     <div vocab="http://schema.org/" typeof="MedicalCode" id="content" role="main" class="grid_24 clearfix">
+
+        <div style="float:right;padding-right: 5px;">
+            <a style="float:right; border-bottom: none;" th:href="@{../../api/ontologies/__${ontologyTerm.getOntologyName()}__/terms (iri=${ontologyTerm.getIri()})}"  href="#">
+                <img th:src="@{../../img/file_JSON.png}" src="../static/img/file_JSON.png" alt="JSON" title="Get data as JSON"/>
+            </a>
+        </div>
 
         <nav id="breadcrumb">
             <p>
                 <a href="../../index">OLS</a> &gt;
-                <a property="codingSystem" th:attr="content=${ontologyTerm.getOntologyName()}" href="#" style="border-bottom-width: 0px;"><span class="ontology-source"  th:onclick="'javascript:goTo(\'' + @{../../ontologies/__${ontologyTerm.getOntologyName()}__} + '\')'" th:text="${ontologyTerm.getOntologyPrefix()}">parent 1</span></a>   &gt;
-                <span  property="codeValue" th:text="${ontologyTerm.getShortForm()}">id</span>
+                <a class="nounderline" th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__}" th:text="${ontologyName}">ontology</a>
+                &nbsp;
+                <a class="nounderline" property="codingSystem" th:attr="content=${ontologyTerm.getOntologyName()}" href="#" style="border-bottom-width: 0px;">
+                    <span class="ontology-source" th:text="${ontologyTerm.getOntologyPrefix()}">parent 1</span>
+                </a>   &gt;
+                <span th:if="${ontologyTerm.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyTerm.getOboId()}">id</span>
+                <span th:unless="${ontologyTerm.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyTerm.getShortForm()}">id</span>
 
             </p>
         </nav>
+
 
 
         <div class="container" style="margin:9px;">
@@ -182,22 +198,32 @@
             <section>
                 <div class="grid_24 clearfix">
                     <div class="grid_24 clearfix">
-                        <div class="grid_20 alpha">
+                        <div class="grid_18 alpha">
                             <h1 property="name"  style="margin: 0px;" th:text="${ontologyTerm.getLabel()}">Term Label</h1>
                         </div>
 
-                        <div class="grid_4 clearfix">
-                            <a style="float:right;" th:href="@{../../api/ontologies/__${ontologyTerm.getOntologyName()}__/terms (iri=${ontologyTerm.getIri()})}" class="nounderline" href="#">
-                                <img th:src="@{../../img/file_JSON.png}" src="../static/img/file_JSON.png" alt="JSON" title="Get data as JSON"/>
-                            </a>
+                        <div class="grid_6">
+                            <form name="local-search" action="search" method="get">
+                                <div id="bloodhound" class="input-group">
+                                    <input style="margin-bottom: 0.1em;" class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="multisearch" data-olsontology=""  placeholder="Enter search term" aria-describedby="basic-addon1"/>
+
+                                    <span class="input-group-btn">
+                                      <button class="btn btn-default glyphicon glyphicon-search" type="submit">
+                                      </button>
+                                    </span>
+
+                                    <input id="group-id" name="groupField" type="hidden" value="iri"/>
+
+                                </div><!-- /input-group -->
+                            </form>
                         </div>
+
                     </div>
 
 
                     <div class="grid_24 clearfix">
                         <span property="url" style="font-size: small;color: grey;padding: 9px;" th:text="${ontologyTerm.getIri()}">http://www.example.com/onto/id</span>
                         <a th:href="@{${ontologyTerm.getIri()}}" class="nounderline" target="blank"><img th:src="@{../../img/external_link.png}" src="../static/img/external_link.png" alt="^" title="Go to external page"/></a>
-                        <a style="float:right;" th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__}" th:text="${ontologyName}">ontology</a>
                         <!--<p style="display:inline;"><button id='copyThis' data-clipboard-action="copy" data-clipboard-target="#test" type="button">Copy to clipboard</button></p>
                         <p id="citeThis" style="display:inline;"><button type="button" title="Click here">Cite this</button></p>
                         <p id="overlay" style="display:inline;"></p> -->
@@ -269,7 +295,6 @@
                     <div class="grid_14 alpha">
                         <ul  class="nav nav-tabs">
                             <li role="presentation" class="active"><a data-toggle="tab" id="tree-link" href="#tree-tab">Tree view</a></li>
-                            <li role="presentation"><a data-toggle="tab" id="meta-link" href="#meta-tab">Term metadata</a></li>
                             <li role="presentation"><a data-toggle="tab" id="diachron-link" href="#diachron-tab">Term history</a></li>
 
                             <!--<li role="presentation"><a data-toggle="tab" href="#graph-tab"  th:onclick="'window.open(\'@{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})\'})'" th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})}" target="_blank">Visualisation</a></li>-->
@@ -297,9 +322,25 @@
 
                             </div>
 
-                            <div role="tabpanel" class="tab-pane" id="meta-tab">
+                            <div role="tabpanel" class="tab-pane" id="diachron-tab">
+                                <div id="diachron-wrapper"></div>
+                            </div>
 
-                                <br/>
+                        </div>
+
+                    </div>
+
+
+                    <div id="right_meta_box" class="grid_10 beta">
+
+                        <div class="panel panel-primary">
+
+                            <div class="panel-heading">
+                                <h3 style="padding: 0" class="panel-title">Class info</h3>
+                            </div>
+                            <div class="panel-body">
+
+
                                 <div>
                                     <span>Short id: </span>
                                     <p th:text="${ontologyTerm.getShortForm()}">NCBI_9606</p>
@@ -318,15 +359,10 @@
                                 </div>
 
                             </div>
-
-
-                            <div role="tabpanel" class="tab-pane" id="diachron-tab">
-                                <div id="diachron-wrapper"></div>
-                            </div>
-
                         </div>
 
                     </div>
+
 
                     <div id="right_info_box" class="grid_10 beta">
 
@@ -391,38 +427,6 @@
 
                     </div>
 
-
-
-                <!-- Redesign Start-->
-                    <!-- <div id="metadata" class="grid_10 beta" style="float:right">
-
-                         <div class="panel panel-primary">
-
-                             <div class="panel-heading">
-                                 <h3 style="padding: 0" class="panel-title">Meta data</h3>
-                             </div>
-                             <div class="panel-body">
-                                 <div>
-                                     <span>Short id: </span>
-                                     <p th:text="${ontologyTerm.getShortForm()}">NCBI_9606</p>
-                                 </div>
-
-                                 <div th:if="${ontologyTerm.getOboId() != null}">
-                                     <span>OBO id: </span>
-                                     <p th:text="${ontologyTerm.getOboId()}">NCBI:9606</p>
-                                 </div>
-
-                                 <div th:each="annotations: ${ontologyTerm.getAnnotation()}">
-                                     <b>
-                                         <a href="#" th:href="@{../../search(q=${annotations.key},exact='true', type=property, ontology=${ontologyTerm.ontologyName})}" th:text="${annotations.key.replaceAll('_', ' ')}">property name</a>
-                                     </b>
-                                     <p style="margin-left:9px;" th:text="${#strings.setJoin(annotations.value, ',')}">NCBI_9606</p>
-                                 </div>
-                             </div>
-                         </div>
-                     </div> -->
-                     <!-- Redesign test End-->
-
                 </div>
             </section>
 
@@ -482,14 +486,14 @@
 
 </div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" src="../static/js/jquery/1.11.1/jquery.min.js" th:src="@{../../js/jquery/1.11.1/jquery.min.js}"></script>
 <script type="text/javascript" src="../static/js/jquery/jquery.autocomplete.min.js" th:src="@{../../js/jquery/jquery.autocomplete.min.js}"></script>
 <script type="text/javascript" src="../static/js/ols.js" th:src="@{../../js/ols.js}"></script>
 <script src="../static/js/jstree/jstree.min.js" th:src="@{../../js/jstree/jstree.min.js}"></script>
 
 <script type="text/javascript" src="../static/js/ols-termselect.js" th:src="@{../../js/ols-termselect.js}"></script>
 <script type="text/javascript" src="../static/js/ols-tree.js" th:src="@{../../js/ols-tree.js}"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../static/js/bootstrap/bootstrap.min.js" th:src="@{../../js/bootstrap/bootstrap.min.js}"></script>
 
 <script type="text/javascript" src="../static/js/clipboard.min.js" th:src="@{../../js/clipboard.min.js}"></script>
 

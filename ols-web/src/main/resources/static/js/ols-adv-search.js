@@ -119,7 +119,17 @@ function processData(data) {
     var searchResult = $('#search-results');
     $.each(docs, function(index, row) {
 
-        var link = getTermLink(row.label,row.ontology_name, row.type, row.iri);
+        var isOntology = (row.type == 'ontology');
+        var link;
+
+        if (isOntology) {
+            link = getOntologyLink(row.label, row.ontology_name);
+        }
+        else {
+            link = getTermLink(row.label,row.ontology_name, row.type, row.iri);
+        }
+
+
         var description = row.description;
         if (description != undefined) {
             description = row.description[0];
@@ -138,7 +148,15 @@ function processData(data) {
         if (shortId == undefined) {
             shortId = row.short_form;
         }
-        var termShortId = $("<div class='term-source'>" + shortId + "</div>");
+
+        var termShortId;
+        if (isOntology) {
+            termShortId = $("<div class='ontology-source'>" + row.ontology_prefix + "</div>");
+        }
+        else {
+            termShortId= $("<div class='term-source'>" + shortId + "</div>");
+        }
+
         resultHtml = resultHtml.append(termShortId);
 
         resultHtml = resultHtml.append('<br/>');
@@ -149,38 +167,41 @@ function processData(data) {
             resultHtml = resultHtml.append('<br/>');
         }
 
-        resultHtml = resultHtml.append('<b>Ontology: </b>');
+        if (!isOntology) {
+            resultHtml = resultHtml.append('<b>Ontology: </b>');
 
-        var ontologyTitle = ontologyList[row.ontology_name];
-        var ontologyLink = $('<a>',{
-            class: 'nounderline',
-            text: ontologyTitle,
-            href: 'ontologies/' + row.ontology_name
-        });
-        resultHtml = resultHtml.append(ontologyLink);
-        resultHtml = resultHtml.append('&nbsp;');
-        var ontologies = $("<div class='ontology-source' title='"+ontologyList[row.ontology_name]+"'>" + row.ontology_prefix + "</div>");
-        resultHtml = resultHtml.append(ontologies);
-        resultHtml = resultHtml.append('<br/>');
+            var ontologyTitle = ontologyList[row.ontology_name];
+            var ontologyLink = $('<a>',{
+                class: 'nounderline',
+                text: ontologyTitle,
+                href: 'ontologies/' + row.ontology_name
+            });
+            resultHtml = resultHtml.append(ontologyLink);
+            resultHtml = resultHtml.append('&nbsp;');
+            var ontologies = $("<div class='ontology-source' title='"+ontologyList[row.ontology_name]+"'>" + row.ontology_prefix + "</div>");
+            resultHtml = resultHtml.append(ontologies);
+            resultHtml = resultHtml.append('<br/>');
 
-        if (data.expanded != undefined) {
-            if (data.expanded[row.iri] != undefined) {
-                resultHtml = resultHtml.append('<b>Also in: </b>');
+            if (data.expanded != undefined) {
+                if (data.expanded[row.iri] != undefined) {
+                    resultHtml = resultHtml.append('<b>Also in: </b>');
 
-                // <a href="#" style="border-bottom-width: 0px;"><span class="ontology-source"  th:onclick="'javascript:goTo(\'' + @{../../ontologies/__${ontologyTerm.getOntologyName()}__} + '\')'" th:text="${ontologyTerm.getOntologyPrefix()}">parent 1</span></a>   &gt;
+                    // <a href="#" style="border-bottom-width: 0px;"><span class="ontology-source"  th:onclick="'javascript:goTo(\'' + @{../../ontologies/__${ontologyTerm.getOntologyName()}__} + '\')'" th:text="${ontologyTerm.getOntologyPrefix()}">parent 1</span></a>   &gt;
 
-                $.each (data.expanded[row.iri].docs, function (expandedIndex, expandedRow) {
-                    var exLink = getTermLink(expandedRow.ontology_prefix, expandedRow.ontology_name,expandedRow.type, expandedRow.iri )
+                    $.each (data.expanded[row.iri].docs, function (expandedIndex, expandedRow) {
+                        var exLink = getTermLink(expandedRow.ontology_prefix, expandedRow.ontology_name,expandedRow.type, expandedRow.iri )
 
-                    var ontoLink = $("<a title='"+ontologyList[expandedRow.ontology_name]+"' href='" + exLink.attr('href') + "' style='border-bottom-width: 0px;'></a>")
-                        .append($("<span class='ontology-source'></span>").text(exLink.text()))
-                    resultHtml.append(ontoLink);
+                        var ontoLink = $("<a title='"+ontologyList[expandedRow.ontology_name]+"' href='" + exLink.attr('href') + "' style='border-bottom-width: 0px;'></a>")
+                            .append($("<span class='ontology-source'></span>").text(exLink.text()))
+                        resultHtml.append(ontoLink);
 
-                    //resultHtml.append($("<div class='ontology-source'></div>").append($(exLink)));
-                })
+                        //resultHtml.append($("<div class='ontology-source'></div>").append($(exLink)));
+                    })
 
+                }
             }
         }
+
 
         resultHtml = resultHtml.append('<br/>');
         resultHtml = resultHtml.append('<br/>');
@@ -203,6 +224,16 @@ function processData(data) {
     //renderFacetField(facets.subset, "Susbsets", searchSummary);
 
 }
+
+function getOntologyLink (label, ontology ) {
+    return $('<a>',{
+        class: 'search-results-label nounderline',
+        text: label,
+        title: label,
+        href: 'ontologies/' + ontology
+    });
+}
+
 
 function getTermLink (label, ontology, type, uri ) {
     var encodedUri = encodeURIComponent(uri);

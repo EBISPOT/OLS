@@ -156,12 +156,16 @@
                 <div style="text-align: left;">
                     <form id="filter_form" name="local-search" action="search" method="get">
                         <div id="bloodhound" class="input-group">
-                            <input name="q" style="margin: 0em;" class="form-control typeahead" autofocus="autofocus" type="text" data-olswidget="multisearch" data-olsontology=""  placeholder="What are you looking for today?" aria-describedby="basic-addon1"/>
+                            <input style="margin-bottom: 0.1em;" name="q" class="form-control typeahead" autofocus="autofocus" type="text" data-olswidget="multisearch" data-olsontology=""  placeholder="What are you looking for today?" aria-describedby="basic-addon1"/>
                             <input id="group-id" name="groupField" type="hidden" value="iri"/>
 
-                            <div class="input-group-btn">
-                                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
-                            </div>
+                            <!--<div class="input-group-btn">-->
+                                <!--<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>-->
+                            <!--</div>-->
+                            <!---->
+                            <span class="input-group-btn">
+                              <button class="btn btn-default glyphicon glyphicon-search" type="submit"></button>
+                            </span>
 
                         </div><!-- /input-group -->
                         <div style="text-align: left" class="input-group">
