@@ -58,8 +58,8 @@
         /* You have the option of setting a maximum width for your page, and making sure everything is centered */
         /* body { max-width: 1600px; margin: 0 auto; } */
         .tt-menu {
-          left: auto !important;
-          right: 0 !important;
+            left: auto !important;
+            right: 0 !important;
         }
     </style>
 
@@ -129,28 +129,12 @@
 
             <!-- /local-title -->
 
+            <!-- fix to remove search box -->
+            <div style="visibility: hidden">
+                <form id="local-search">
+                </form>
+            </div>
             <!-- -->
-            <!--<div class="grid_10 omega">-->
-                <!--<form id="local-search" name="local-search" action="../../search" method="get">-->
-                    <!--<fieldset><div class="left">-->
-                        <!--<label>-->
-                            <!--<input style="font-weight: normal;" type="text" name="q" data-olswidget="select" th:attr="data-olsontology=${ontologyTerm.getOntologyName()}" data-olsontology="urr" data-selectpath="../../" id="local-searchbox" placeholder="Enter the term you are looking for" class="ac_input">-->
-                            <!--</input>-->
-                        <!--</label>-->
-                        <!--<span class="examples">Examples: <a href="../../search?q=cancer">cancer</a>,-->
-                            <!--<a href="../../search?q=GO:0098743">GO:0098743</a>,-->
-                        <!--</span>-->
-                    <!--</div>-->
-                        <!--<div class="right">-->
-                            <!--<input type="submit" value="Search" class="submit">-->
-                            <!--</input>-->
-                            <!--<span class="adv">-->
-                                <!--<a href="../../search" id="adv-search" title="Advanced">Advanced</a>-->
-                            <!--</span>-->
-                        <!--</div>-->
-                    <!--</fieldset>-->
-                <!--</form>-->
-            <!--</div>-->
 
             <nav>
                 <ul class="grid_24" id="local-nav">
@@ -170,6 +154,7 @@
     <!--@thymesVar id="ontologyName" type="String"-->
     <!--@thymesVar id="parentTerms" type="Set"-->
     <!--@thymesVar id="relatedFroms" type="Set"-->
+    <!--@thymesVar id="definitionCitations" type="Set<uk.ac.ebi.spot.ols.util.OBODefinitionCitation>"-->
 
 
 
@@ -210,7 +195,7 @@
                         <div class="grid_6">
                             <form name="local-search" action="../../search" method="get">
                                 <div id="bloodhound" class="input-group">
-                                    <input style="margin-bottom: 0.1em;" class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="multisearch" data-olsontology=""  data-selectpath="../../" placeholder="Enter search term" aria-describedby="basic-addon1"/>
+                                    <input style="margin-bottom: 0.1em;" class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="multisearch" th:attr="data-olsontology=${ontologyTerm.getOntologyName()}" data-olsontology=""  data-selectpath="../../" placeholder="Search OLS" aria-describedby="basic-addon1"/>
 
                                     <span class="input-group-btn">
                                       <button class="btn btn-default glyphicon glyphicon-search" type="submit">
@@ -272,7 +257,27 @@
 
                         </div>
                         <div property="description">
-                            <p th:each="description : ${ontologyTerm.getDescription()}" th:text="${description}">
+
+                            <!--@thymesVar id="definitionCitation" type="uk.ac.ebi.spot.ols.util.OBODefinitionCitation"-->
+
+                            <div th:each="definitionCitation : ${definitionCitations}">
+
+                                <p>
+                                    <span th:text="${definitionCitation.getDefinition()}">
+
+                                    </span>
+                                    [
+                                    <span th:each="oboXref : ${definitionCitation.getOboXrefs()}">
+
+                                        <span th:if="${oboXref.getDatabase() != null}" th:text="${oboXref.getDatabase()}"></span>
+                                        <span th:if="${oboXref.getId() != null}" th:text="${oboXref.getId()}"></span>
+
+                                    </span>
+                                    ]
+                                </p>
+                            </div>
+
+                            <p th:unless="${definitionCitations}" th:each="description : ${ontologyTerm.getDescription()}" th:text="${description}">
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget <nulla class=""></nulla>                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum.
                             </p>
                         </div>
@@ -311,15 +316,14 @@
 
                             <div role="tabpanel" class="tab-pane active" id="tree-tab">
 
-                                <div style="float: right;padding-top:5px;">
-                                    <button class="primary" value="true" onclick="toggleSiblings(this)">Show siblings</button>
+                                <div class="btn-group btn-group-vertical" style="float: right;padding-top:5px;">
+                                    <!--<a class ="nounderline "  style="border-bottom:none;float:right; margin-right:10px;" th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})}" target="_blank">-->
+                                    <button class="icon icon-conceptual  btn  btn-default" data-icon ="o" th:onclick="'javascript:goTo(\'' + @{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})} + '\')'" title="Visualisation of this term">Graph view</button>
+                                    <!--</a>-->
+
+                                    <button class="btn  btn-default" value="true" title="Expand the tree to show sibling terms" onclick="toggleSiblings(this)">Show siblings</button>
                                 </div>
 
-                                <div style="float: right;padding-top:5px;">
-                                  <a style="float:right; margin-right:10px;" th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})}" class="nounderline" target="_blank">
-                                      <button class="primary" title="Visualisation of this term">Visualisation</button>
-                                    </a>
-                                </div>
 
                                 <div id="term-tree" data-olswidget="tree" th:attr="data-olsontology=${ontologyTerm.getOntologyName()},data-ols-iri=${ontologyTerm.getIri()}" data-selectpath="../../" data-ols-termtype="class" data-olsontology="" data-ols-iri=""  >
                                 </div>
@@ -341,20 +345,50 @@
                         <div class="panel panel-primary">
 
                             <div class="panel-heading">
-                                <h3 style="padding: 0" class="panel-title">Class info</h3>
+                                <h3 style="padding: 0" class="panel-title">Term info</h3>
                             </div>
                             <div class="panel-body">
 
 
                                 <!--<div>-->
-                                    <!--<span>Short id: </span>-->
-                                    <!--<p th:text="${ontologyTerm.getShortForm()}">NCBI_9606</p>-->
+                                <!--<span>Short id: </span>-->
+                                <!--<p th:text="${ontologyTerm.getShortForm()}">NCBI_9606</p>-->
                                 <!--</div>-->
 
                                 <!--<div th:if="${ontologyTerm.getOboId() != null}">-->
-                                    <!--<span>OBO id: </span>-->
-                                    <!--<p th:text="${ontologyTerm.getOboId()}">NCBI:9606</p>-->
+                                <!--<span>OBO id: </span>-->
+                                <!--<p th:text="${ontologyTerm.getOboId()}">NCBI:9606</p>-->
                                 <!--</div>-->
+
+                                <div th:if="synonyms != null">
+                                    <div th:each="synonym: ${synonyms}">
+                                        <span style="font-weight: bold;" th:text="${synonym.getType()}"></span>
+                                        <div style="margin-left:9px;">
+                                            <span th:text="${synonym.getName()}"></span>
+
+                                            [
+                                            <span th:each="oboXref: ${synonym.getXrefs()}">
+
+                                                <span th:if="${oboXref.getDatabase() != null}" th:text="${oboXref.getDatabase()}"></span>
+                                                <span th:if="${oboXref.getId() != null}" th:text="${oboXref.getId()}"></span>
+                                            </span>
+                                            ]
+                                        </div>
+                                    </div>
+                                    <br/>
+                                </div>
+
+
+
+                                <div th:if="xrefs != null">
+                                    <b>OBO cross-reference: </b>
+                                    <div style="margin-left:9px;" th:each="oboXref: ${xrefs}">
+
+                                        <span th:if="${oboXref.getDatabase() != null}" th:text="${oboXref.getDatabase()}"></span>
+                                        <span th:if="${oboXref.getId() != null}" th:text="${oboXref.getId()}"></span>
+                                    </div>
+                                    <br/>
+                                </div>
 
                                 <div th:each="annotations: ${ontologyTerm.getAnnotation()}">
                                     <b>
@@ -366,15 +400,10 @@
                             </div>
                         </div>
 
-                    </div>
-
-
-                    <div class="grid_10 info-box">
-
                         <div class="panel panel-primary">
 
                             <div class="panel-heading">
-                                <h3 style="padding: 0" class="panel-title">Class relations</h3>
+                                <h3 style="padding: 0" class="panel-title">Term relations</h3>
                             </div>
                             <div class="panel-body">
 
@@ -419,10 +448,10 @@
                                             </li>
 
                                         </ul>
-                                            <!--<span th:each="term,iterStat: ${relation.value}">-->
-                                                <!--<a href="#" th:href="@{terms (iri=${term.iri})}" th:text="${term.label}">parent 1</a>-->
-                                                <!--<span th:if="${iterStat.count &lt; iterStat.size}">, </span>-->
-                                            <!--</span>-->
+                                        <!--<span th:each="term,iterStat: ${relation.value}">-->
+                                        <!--<a href="#" th:href="@{terms (iri=${term.iri})}" th:text="${term.label}">parent 1</a>-->
+                                        <!--<span th:if="${iterStat.count &lt; iterStat.size}">, </span>-->
+                                        <!--</span>-->
                                     </div>
                                 </div>
 
@@ -430,7 +459,12 @@
                             </div>
                         </div>
 
+
                     </div>
+
+
+
+
 
                 </div>
             </section>
@@ -523,9 +557,9 @@
         });
 
         /*$('#citeThis').on('click', function (){
-            $('#overlay').html('<p id="overlay" style="display:inline; opacity:0.5; background:light-gray;">Imaging here to be text to be cited we still think about the layout <a id="close" href="">close</a></p>')
-            $('#close').on('click', function(){  $("#overlay").hide();})
-        })*/
+         $('#overlay').html('<p id="overlay" style="display:inline; opacity:0.5; background:light-gray;">Imaging here to be text to be cited we still think about the layout <a id="close" href="">close</a></p>')
+         $('#close').on('click', function(){  $("#overlay").hide();})
+         })*/
 
         new Clipboard('#copyThis')
     });
@@ -550,12 +584,12 @@
 <!-- END Diachron scripts-->
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-69391170-1', 'auto');
-  ga('send', 'pageview');
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-69391170-1', 'auto');
+    ga('send', 'pageview');
 </script>
 </body>
 </html>

@@ -16,6 +16,9 @@
 }
 /****/
 
+.examples {
+margin-left: 0.2em;
+}
 .search-results-count {
   font-style: italic;
 }
@@ -177,11 +180,11 @@ a .ontology-source {
   font-size: smaller;
 }
 
-a.nounderline {
+a {
   text-decoration: none;
 }
 
-a:hover.nounderline {
+a:hover {
   text-decoration: none;
 }
 
@@ -193,6 +196,10 @@ a:hover.nounderline {
 
 .jstree-proton {
   font-family: Verdana,sans-serif;
+}
+
+.panel-body  {
+   word-break:break-all
 }
 
 /* keywords - default cyan */

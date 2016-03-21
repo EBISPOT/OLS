@@ -1,5 +1,8 @@
 package uk.ac.ebi.spot.ols.controller.ui;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -16,11 +19,12 @@ import uk.ac.ebi.spot.ols.neo4j.model.Related;
 import uk.ac.ebi.spot.ols.neo4j.model.Term;
 import uk.ac.ebi.spot.ols.neo4j.service.OntologyTermGraphService;
 import uk.ac.ebi.spot.ols.service.OntologyRepositoryService;
+import uk.ac.ebi.spot.ols.util.OBODefinitionCitation;
+import uk.ac.ebi.spot.ols.util.OBOSynonym;
+import uk.ac.ebi.spot.ols.util.OBOXref;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * @author Simon Jupp
@@ -71,6 +75,39 @@ public class TermControllerUI {
 
         String title = repositoryService.get(ontologyId).getConfig().getTitle();
         model.addAttribute("ontologyName", title);
+
+        Collection<OBODefinitionCitation> definitionCitations = new HashSet<>();
+        try {
+            for (String s : term.getOboDefinitionCitations()) {
+                ObjectMapper mapper = new ObjectMapper();
+                OBODefinitionCitation obj = mapper.readValue(s, OBODefinitionCitation.class);
+                definitionCitations.add(obj);
+            }
+            model.addAttribute("definitionCitations", definitionCitations);
+        } catch (Exception e) {
+        }
+
+        Collection<OBOXref> xrefs = new HashSet<>();
+        try {
+            for (String s : term.getOboXrefs()) {
+                ObjectMapper mapper = new ObjectMapper();
+                OBOXref obj = mapper.readValue(s, OBOXref.class);
+                xrefs.add(obj);
+            }
+            model.addAttribute("xrefs", xrefs);
+        } catch (Exception e) {
+        }
+
+        Collection<OBOSynonym> synonyms = new HashSet<>();
+        try {
+            for (String s : term.getOboSynonyms()) {
+                ObjectMapper mapper = new ObjectMapper();
+                OBOSynonym obj = mapper.readValue(s, OBOSynonym.class);
+                synonyms.add(obj);
+            }
+            model.addAttribute("synonyms", synonyms);
+        } catch (Exception e) {
+        }
 
         return "term";
     }

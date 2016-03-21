@@ -226,6 +226,17 @@ public class Term {
         this.oboId = oboId;
     }
 
+    public Set<String> getOboDefinitionCitations() {
+        return oboDefinitionCitations;
+    }
+
+    public Set<String> getOboXrefs() {
+        return oboXrefs;
+    }
+
+    public Set<String> getOboSynonyms() {
+        return oboSynonyms;
+    }
 
     public Set<String> getSuperClassDescription() {
         return superClassDescription;

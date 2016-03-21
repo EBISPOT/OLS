@@ -15,7 +15,7 @@ $(document).ready(function() {
               },
               {
                 name: 'selection',
-                source: getSelectHound(relativePath),
+                source: getSelectHound(relativePath, ontology),
                 display: 'value',
                 templates: getSuggestTemplate()
               }];
@@ -90,13 +90,19 @@ function getSuggestTemplate () {
   };
 }
 
-function getSelectHound (relativePath) {
+function getSelectHound (relativePath, ontology) {
+
+
+  var ontologyParam ='';
+  if (ontology) {
+    ontologyParam = '&ontology=' + ontology;
+  }
   return new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.whitespace,
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     identify: function(obj) { return obj.id; },
     remote: {
-      url: relativePath + 'api/select?q=%QUERY',
+      url: relativePath + 'api/select?q=%QUERY' + ontologyParam,
       wildcard: "%QUERY",
       transform: function (response) {
           return selectResponse(response)

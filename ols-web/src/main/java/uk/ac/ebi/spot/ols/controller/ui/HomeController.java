@@ -140,11 +140,11 @@ public class HomeController {
         return "docs-template";
     }
 
-//    @RequestMapping({"docs/api"})
-//    public String showApiDocs() {
-//
-//        return "forward:../docs/api-template.html";
-//    }
+    @RequestMapping({"/ontologiesi"})
+    public String showOntologies() {
+
+        return "ontologies";
+    }
 
     private class SummaryInfo {
         Date lastUpdated;
