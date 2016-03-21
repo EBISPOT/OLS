@@ -2,13 +2,9 @@
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json
+Content-Length: 3403
 
 {
-  "_links" : {
-    "self" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms?iri=http://purl.obolibrary.org/obo/GO_0043226"
-    }
-  },
   "_embedded" : {
     "terms" : [ {
       "iri" : "http://purl.obolibrary.org/obo/GO_0043226",
@@ -69,6 +65,11 @@ Content-Type: application/json
         }
       }
     } ]
+  },
+  "_links" : {
+    "self" : {
+      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms?iri=http://purl.obolibrary.org/obo/GO_0043226"
+    }
   },
   "page" : {
     "size" : 0,

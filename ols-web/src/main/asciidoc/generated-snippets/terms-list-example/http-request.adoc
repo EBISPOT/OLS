@@ -1,7 +1,7 @@
 [source,http]
 ----
 GET /ols/beta/api/ontologies/efo/terms HTTP/1.1
-Host: www.ebi.ac.uk
 Accept: application/json
+Host: www.ebi.ac.uk
 
 ----

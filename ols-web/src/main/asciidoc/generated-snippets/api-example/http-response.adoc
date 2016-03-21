@@ -1,7 +1,8 @@
 [source,http]
 ----
 HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
+Content-Type: application/json
+Content-Length: 412
 
 {
   "_links" : {
@@ -16,6 +17,9 @@ Content-Type: application/json;charset=UTF-8
     },
     "terms" : {
       "href" : "http://www.ebi.ac.uk/api/terms"
+    },
+    "profile" : {
+      "href" : "http://www.ebi.ac.uk/api/profile"
     }
   }
 }

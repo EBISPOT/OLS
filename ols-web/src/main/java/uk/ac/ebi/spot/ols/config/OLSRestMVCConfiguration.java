@@ -2,6 +2,7 @@ package uk.ac.ebi.spot.ols.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
+import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 import org.springframework.http.MediaType;
 
@@ -13,11 +14,12 @@ import java.net.URI;
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
 @Configuration
-public class OLSRestMVCConfiguration extends RepositoryRestMvcConfiguration {
+public class OLSRestMVCConfiguration extends RepositoryRestConfigurerAdapter {
+
 
     @Override
-    protected void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-        config.metadataConfiguration().setAlpsEnabled(false);
+    public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
+        config.getMetadataConfiguration().setAlpsEnabled(false);
         config.setBasePath("/api");
     }
 

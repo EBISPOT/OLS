@@ -2,22 +2,9 @@
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json
+Content-Length: 39531
 
 {
-  "_links" : {
-    "first" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies?page=0&size=20"
-    },
-    "self" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies"
-    },
-    "next" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies?page=1&size=20"
-    },
-    "last" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies?page=7&size=20"
-    }
-  },
   "_embedded" : {
     "ontologies" : [ {
       "loaded" : null,
@@ -944,6 +931,20 @@ Content-Type: application/json
         }
       }
     } ]
+  },
+  "_links" : {
+    "first" : {
+      "href" : "http://www.ebi.ac.uk/api/ontologies?page=0&size=20"
+    },
+    "self" : {
+      "href" : "http://www.ebi.ac.uk/api/ontologies"
+    },
+    "next" : {
+      "href" : "http://www.ebi.ac.uk/api/ontologies?page=1&size=20"
+    },
+    "last" : {
+      "href" : "http://www.ebi.ac.uk/api/ontologies?page=7&size=20"
+    }
   },
   "page" : {
     "size" : 20,

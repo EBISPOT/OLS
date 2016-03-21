@@ -2,9 +2,10 @@
 ----
 HTTP/1.1 404 Not Found
 Content-Type: application/json;charset=UTF-8
+Content-Length: 149
 
 {
-  "timestamp" : 1457618607967,
+  "timestamp" : 1458603843359,
   "status" : 404,
   "error" : "Not Found",
   "message" : "Resource not found",

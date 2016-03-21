@@ -2,22 +2,9 @@
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json
+Content-Length: 71623
 
 {
-  "_links" : {
-    "first" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms?page=0&size=20"
-    },
-    "self" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms"
-    },
-    "next" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms?page=1&size=20"
-    },
-    "last" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms?page=863&size=20"
-    }
-  },
   "_embedded" : {
     "terms" : [ {
       "iri" : "http://purl.obolibrary.org/obo/UBERON_0013702",
@@ -509,11 +496,11 @@ Content-Type: application/json
         "graph" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001715/graph"
         },
-        "develops_from" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001715/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0002202"
-        },
         "part_of" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001715/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
+        },
+        "develops_from" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001715/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0002202"
         }
       }
     }, {
@@ -1257,6 +1244,20 @@ Content-Type: application/json
         }
       }
     } ]
+  },
+  "_links" : {
+    "first" : {
+      "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms?page=0&size=20"
+    },
+    "self" : {
+      "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms"
+    },
+    "next" : {
+      "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms?page=1&size=20"
+    },
+    "last" : {
+      "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms?page=863&size=20"
+    }
   },
   "page" : {
     "size" : 20,

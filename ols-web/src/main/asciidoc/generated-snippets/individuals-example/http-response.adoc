@@ -1,7 +1,9 @@
 [source,http]
 ----
 HTTP/1.1 200 OK
+Content-Disposition: inline;filename=f.txt
 Content-Type: application/json
+Content-Length: 2324
 
 {
   "iri" : "http://purl.obolibrary.org/obo/RO_0001901",

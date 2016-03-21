@@ -134,7 +134,8 @@ public class ApiDocumentation {
                         linkWithRel("ontologies").description("Link to the ontologies in OLS"),
                         linkWithRel("terms").description("Link to all the terms in OLS"),
                         linkWithRel("properties").description("Link to all the properties in OLS"),
-                        linkWithRel("individuals").description("Link to all the individuals in OLS")
+                        linkWithRel("individuals").description("Link to all the individuals in OLS"),
+                        linkWithRel("profile").description("ALPS is not currently supported")
                         )
         );
         this.mockMvc.perform(get("/api").accept(MediaType.APPLICATION_JSON))

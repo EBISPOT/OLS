@@ -13,4 +13,7 @@
 |individuals
 |Link to all the individuals in OLS
 
+|profile
+|ALPS is not currently supported
+
 |===

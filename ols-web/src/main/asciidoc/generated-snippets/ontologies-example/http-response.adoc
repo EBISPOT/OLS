@@ -2,10 +2,11 @@
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json
+Content-Length: 5117
 
 {
-  "loaded" : "2016-02-04T15:40:31.594+0000",
-  "updated" : "2016-02-04T15:40:31.594+0000",
+  "loaded" : "2016-03-03T22:25:58.708+0000",
+  "updated" : "2016-03-03T22:25:58.708+0000",
   "status" : "LOADED",
   "message" : "",
   "version" : null,
