@@ -35,7 +35,7 @@ public class IndividualControllerUI {
     @Autowired
     private OntologyIndividualService ontologyIndividualService;
 
-    @RequestMapping(path = "/{onto}/individuals", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
+    @RequestMapping(path = "/{onto}/individuals", method = RequestMethod.GET)
     String getIndividuals(
             @PathVariable("onto") String ontologyId,
             @RequestParam(value = "iri", required = false) String termIri,

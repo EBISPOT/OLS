@@ -71,7 +71,7 @@ public class GraphControllerUI {
         }*/
 
 
-    @RequestMapping(path = "{onto}/terms/graph", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
+    @RequestMapping(path = "{onto}/terms/graph", method = RequestMethod.GET)
     String getTerm(
             @PathVariable("onto") String ontologyId,
             @RequestParam(value = "iri", required = false) String termIri,

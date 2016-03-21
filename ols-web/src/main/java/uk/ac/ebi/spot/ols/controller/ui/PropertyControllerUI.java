@@ -35,7 +35,7 @@ public class PropertyControllerUI {
     @Autowired
     private OntologyPropertyGraphService ontologyPropertyGraphService;
 
-    @RequestMapping(path = "/{onto}/properties", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
+    @RequestMapping(path = "/{onto}/properties", method = RequestMethod.GET)
     String getProperty(
             @PathVariable("onto") String ontologyId,
             @RequestParam(value = "iri", required = false) String termIri,

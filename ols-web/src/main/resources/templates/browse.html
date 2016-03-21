@@ -179,7 +179,7 @@
                                 <!--</td>-->
                                 <td>
                                     <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="'search?ontology=' + ${onto.getConfig().getNamespace()}" href="search">Search</a><br/>
-                                    <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="'browseOntologyTerms?ontology=' + ${onto.getConfig().getNamespace()}">Browse Terms</a><br/>
+                                    <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="@{ontologies/__${onto.getConfig().getNamespace()}__/terms}">Browse Terms</a><br/>
                                     <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="${{onto.getConfig().getId()}}">Download</a><br/>
                                     <!--<a href="#">Project homepage</a><br/>-->
                                 </td>

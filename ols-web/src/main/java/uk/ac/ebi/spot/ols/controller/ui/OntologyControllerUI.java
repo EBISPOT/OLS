@@ -50,7 +50,7 @@ public class OntologyControllerUI {
 
     @RequestMapping(path = "", method = RequestMethod.GET)
     String getAll(Model model) {
-        List list = repositoryService.getAllDocumentsByStatus(Status.LOADED, new Sort(new Sort.Order(Sort.Direction.ASC, "ontologyId")));
+        List list = repositoryService.getAllDocuments(new Sort(new Sort.Order(Sort.Direction.ASC, "ontologyId")));
         model.addAttribute("all_ontologies", list);
         return "browse";
     }
