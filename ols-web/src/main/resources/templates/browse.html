@@ -146,11 +146,12 @@
 
                         <div style="padding: 9px;">
 
-                        <table data-toggle="table" data-search="false" data-locale="en-US" class="table table-striped table-hover ">
+                        <table data-toggle="table" data-search="true" data-locale="en-US" class="table table-striped table-hover ">
                             <thead>
                             <tr>
                                 <th data-width="40%" style="width: 50%;" data-sortable="true">Ontology Name</th>
                                 <th data-sortable="true">Short name</th>
+                                <th data-sortable="true">Description</th>
                                 <th data-sortable="true">Loaded</th>
                                 <!--<th data-sortable="true">Status</th>-->
                                 <th>Action</th>
@@ -165,6 +166,7 @@
                                     <span th:if="${{onto.getStatus() ==  T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:text="${{onto.getConfig().getTitle()}}">Ontology name</span>
                                 </td>
                                 <td th:text="${{onto.getConfig().getPreferredPrefix()}}">0</td>
+                                <td th:text="${{onto.getConfig().getDescription()}}">0</td>
                                 <td th:text="${{onto.getLoaded()}}">0</td>
                                 <!--<td style="text-align: center;">-->
                                     <!--<div th:if="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).LOADED}}"  th:class="${{onto.getStatus().toString().toLowerCase()}}" class="loaded">-->
