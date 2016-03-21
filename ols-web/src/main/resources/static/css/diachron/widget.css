@@ -2,7 +2,10 @@
 #diachron-wrapper{
   margin-top:25px;
   width:99%;
-  overflow-x:hidden;
+}
+
+#diachron-tab{
+overflow-x: hidden;
 }
 
 #datepicker{
