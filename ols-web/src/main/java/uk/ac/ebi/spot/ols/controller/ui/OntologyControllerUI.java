@@ -10,9 +10,11 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Sort;
 import uk.ac.ebi.spot.ols.exception.ErrorMessage;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
 import uk.ac.ebi.spot.ols.neo4j.model.Term;
+import uk.ac.ebi.spot.ols.model.Status;
 import uk.ac.ebi.spot.ols.neo4j.service.OntologyTermGraphService;
 import uk.ac.ebi.spot.ols.service.OntologyRepositoryService;
 import uk.ac.ebi.spot.ols.util.OLSEnv;
@@ -23,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * @author Simon Jupp
@@ -46,7 +49,18 @@ public class OntologyControllerUI {
 
 
     @RequestMapping(path = "", method = RequestMethod.GET)
-    String getAll() {
+    String getAll(Model model) {
+
+       // @ModelAttribute("all_ontologies")
+        //public List<OntologyDocument> getOntologies() {
+         //   return repositoryService.getAllDocumentsByStatus(Status.LOADED, new Sort(new Sort.Order(Sort.Direction.ASC, "ontologyId")));
+        //}
+
+        //  model.addAttribute()
+
+
+        List list = repositoryService.getAllDocumentsByStatus(Status.LOADED, new Sort(new Sort.Order(Sort.Direction.ASC, "ontologyId")));
+        model.addAttribute("all_ontologies", list);
         return "browse";
     }
 
