@@ -217,10 +217,9 @@
             <nav>
                 <ul class="grid_24" id="local-nav">
                     <li class="first"><a href="../index">Home</a></li>
-                    <li th:class="${ page == 'api' ? 'active' : ''}"><a href="../docs/api">API</a></li>
-                    <li><a href="../sparql">SPARQL</a></li>
-                    <li th:class="${ page != 'api' and page != 'about' ? 'active' : ''}"><a href="../docs">Documentation</a></li>
-                    <li class="last" th:class="${ page == 'about' ? 'last active' : 'last'}"><a href="../about">About</a></li>
+                    <li><a href="../ontologies">Ontologies</a></li>
+                    <li><a href="" class="first active">Documentation</a></li>
+                    <li class="last" ><a href="about">About</a></li>
                     <li class="functional last"><a href="../contact" class="icon icon-generic" data-icon="C">Contact Us</a></li>
                 </ul>
             </nav>

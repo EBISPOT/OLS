@@ -587,64 +587,15 @@ use of HTTP status codes.</p>
 <p>Whenever an error response (status code &gt;= 400) is returned, the body will contain a JSON object
 that describes the problem. The error object has the following structure:</p>
 </div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33%;">
-<col style="width: 33%;">
-<col style="width: 33%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Path</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">error</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The HTTP error that occurred, e.g. <code>Bad Request</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">message</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A description of the cause of the error</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">path</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The path to which the request was made</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The HTTP status code, e.g. <code>400</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">timestamp</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The time, in milliseconds, at which the error occurred</p></td>
-</tr>
-</tbody>
-</table>
+<div class="paragraph">
+<p>Unresolved directive in api.adoc - include::/Users/tliener/OLS/OLS/ols-web/ols-web/src/main/asciidoc/generated-snippets/error-example/response-fields.adoc[]</p>
+</div>
 <div class="paragraph">
 <p>For example, a request that attempts to apply a non-existent tag to a resource will produce a
 <code>400 Bad Request</code> response:</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-http" data-lang="http">HTTP/1.1 404 Not Found
-Content-Type: application/json;charset=UTF-8
-
-{
-  "timestamp" : 1457618178170,
-  "status" : 404,
-  "error" : "Not Found",
-  "message" : "Resource not found",
-  "path" : "/api/ontologies/foobar"
-}</code></pre>
-</div>
+<div class="paragraph">
+<p>Unresolved directive in api.adoc - include::/Users/tliener/OLS/OLS/ols-web/ols-web/src/main/asciidoc/generated-snippets/error-example/http-response.adoc[]</p>
 </div>
 </div>
 </div>
@@ -675,10 +626,8 @@ parameter for accessing a specific page of items.</p>
 </div>
 <div class="sect3">
 <h4 id="_example_request"><a class="anchor" href="#_example_request"></a>Example request</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://www.ebi.ac.uk/ols/beta/api/ontologies?page=1&amp;size=1' -i</code></pre>
-</div>
+<div class="paragraph">
+<p>Unresolved directive in api.adoc - include::/Users/tliener/OLS/OLS/ols-web/ols-web/src/main/asciidoc/generated-snippets/page-example/curl-request.adoc[]</p>
 </div>
 </div>
 <div class="sect3">
@@ -721,89 +670,15 @@ Content-Type: application/json
 </div>
 <div class="sect3">
 <h4 id="_response_structure"><a class="anchor" href="#_response_structure"></a>Response structure</h4>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33%;">
-<col style="width: 33%;">
-<col style="width: 33%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Path</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">_links</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Object</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#resources-page-links">Links</a> to other resources</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">_embedded</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Object</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The list of resources</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">page.size</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The number of resources in this page</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">page.totalElements</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The total number of resources</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">page.totalPages</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The total number of pages</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">page.number</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The page number</p></td>
-</tr>
-</tbody>
-</table>
+<div class="paragraph">
+<p>Unresolved directive in api.adoc - include::/Users/tliener/OLS/OLS/ols-web/ols-web/src/main/asciidoc/generated-snippets/page-example/response-fields.adoc[]</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="resources-page-links"><a class="anchor" href="#resources-page-links"></a>Links</h4>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Relation</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">self</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">This resource list</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">first</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The first page in the resource list</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">next</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The next page in the resource list</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">prev</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The previous page in the resource list</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">last</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The last page in the resource list</p></td>
-</tr>
-</tbody>
-</table>
+<div class="paragraph">
+<p>Unresolved directive in api.adoc - include::/Users/tliener/OLS/OLS/ols-web/ols-web/src/main/asciidoc/generated-snippets/page-example/links.adoc[]</p>
+</div>
 </div>
 </div>
 </div>
@@ -822,94 +697,27 @@ Content-Type: application/json
 </div>
 <div class="sect3">
 <h4 id="_example_request_2"><a class="anchor" href="#_example_request_2"></a>Example request</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://www.ebi.ac.uk/ols/beta/api' -i -H 'Accept: application/json'</code></pre>
-</div>
+<div class="paragraph">
+<p>Unresolved directive in api.adoc - include::/Users/tliener/OLS/OLS/ols-web/ols-web/src/main/asciidoc/generated-snippets/api-example/curl-request.adoc[]</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_response_structure_2"><a class="anchor" href="#_response_structure_2"></a>Response structure</h4>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33%;">
-<col style="width: 33%;">
-<col style="width: 33%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Path</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">_links</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Object</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#resources-ontologies-links">Links</a> to other resources</p></td>
-</tr>
-</tbody>
-</table>
+<div class="paragraph">
+<p>Unresolved directive in api.adoc - include::/Users/tliener/OLS/OLS/ols-web/ols-web/src/main/asciidoc/generated-snippets/api-example/response-fields.adoc[]</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="_example_response_2"><a class="anchor" href="#_example_response_2"></a>Example response</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
-Content-Type: application/json;charset=UTF-8
-
-{
-  "_links" : {
-    "individuals" : {
-      "href" : "http://www.ebi.ac.uk/api/individuals"
-    },
-    "ontologies" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies"
-    },
-    "properties" : {
-      "href" : "http://www.ebi.ac.uk/api/properties"
-    },
-    "terms" : {
-      "href" : "http://www.ebi.ac.uk/api/terms"
-    }
-  }
-}</code></pre>
-</div>
+<div class="paragraph">
+<p>Unresolved directive in api.adoc - include::/Users/tliener/OLS/OLS/ols-web/ols-web/src/main/asciidoc/generated-snippets/api-example/http-response.adoc[]</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="resources-api-links"><a class="anchor" href="#resources-api-links"></a>Links</h4>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Relation</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ontologies</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Link to the ontologies in OLS</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">terms</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Link to all the terms in OLS</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">properties</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Link to all the properties in OLS</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">individuals</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Link to all the individuals in OLS</p></td>
-</tr>
-</tbody>
-</table>
+<div class="paragraph">
+<p>Unresolved directive in api.adoc - include::/Users/tliener/OLS/OLS/ols-web/ols-web/src/main/asciidoc/generated-snippets/api-example/links.adoc[]</p>
+</div>
 </div>
 </div>
 </div>
@@ -927,10 +735,8 @@ Content-Type: application/json;charset=UTF-8
 </div>
 <div class="sect3">
 <h4 id="_example_request_3"><a class="anchor" href="#_example_request_3"></a>Example request</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://www.ebi.ac.uk/ols/beta/api/ontologies' -i -H 'Accept: application/json'</code></pre>
-</div>
+<div class="paragraph">
+<p>Unresolved directive in api.adoc - include::/Users/tliener/OLS/OLS/ols-web/ols-web/src/main/asciidoc/generated-snippets/ontologies-list-example/curl-request.adoc[]</p>
 </div>
 </div>
 <div class="sect3">
@@ -947,161 +753,35 @@ Content-Type: application/json;charset=UTF-8
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_retrieve_an_ontology"><a class="anchor" href="#_retrieve_an_ontology"></a>Retrieve an ontology</h3>
-<div class="listingblock">
-<div class="content">
-<pre>GET /api/ontologies/{ontology_id}</pre>
+<div class="paragraph">
+<p>Unresolved directive in api.adoc - include::/Users/tliener/OLS/OLS/ols-web/ols-web/src/main/asciidoc/generated-snippets/ontologies-example/path-parameters.adoc[]</p>
 </div>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Parameter</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ontology_id</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The ontology id in OLS</p></td>
-</tr>
-</tbody>
-</table>
 <div class="sect3">
 <h4 id="_example_request_4"><a class="anchor" href="#_example_request_4"></a>Example request</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://www.ebi.ac.uk/ols/beta/api/ontologies/efo' -i -H 'Accept: application/json'</code></pre>
-</div>
+<div class="paragraph">
+<p>Unresolved directive in api.adoc - include::/Users/tliener/OLS/OLS/ols-web/ols-web/src/main/asciidoc/generated-snippets/ontologies-example/curl-request.adoc[]</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_example_response_3"><a class="anchor" href="#_example_response_3"></a>Example response</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
-Content-Type: application/json
-
-{
-  "loaded" : "2016-03-03T22:25:58.708+0000",
-  "updated" : "2016-03-03T22:25:58.708+0000",
-  "status" : "LOADED",
-  "message" : "",
-  "version" : null,
-  "numberOfTerms" : 17263,
-  "numberOfProperties" : 300,
-  "numberOfIndividuals" : 0,
-  "config" : {
-    "versionIri" : null,
-    "title" : "Experimental Factor Ontology",
-    "namespace" : "efo",
-    "preferredPrefix" : "EFO",
-    "description" : "The Experimental Factor Ontology (EFO) provides a systematic description of many experimental variables available in EBI databases, and for external projects such as the NHGRI GWAS catalogue. It combines parts of several biological ontologies, such as anatomy, disease and chemical compounds. The scope of EFO is to support the annotation, analysis and visualization of data handled by many groups at the EBI and as the core ontology for the Centre for Therapeutic Validation (CTTV)",
-    "homepage" : "http://www.ebi.ac.uk/efo",
-    "version" : "2.68",
-    "mailingList" : "efo-users@lists.sourceforge.net",
-    "creators" : [ ],
-    "annotations" : {
-      "license" : [ "www.apache.org/licenses/LICENSE-2.0" ],
-      "creator" : [ "Simon Jupp", "Jon Ison", "Helen Parkinson", "Eleanor Williams", "James Malone", "Sirarat Sarntivijai", "Catherine Leroy", "Ele Holloway", "Tomasz Adamusiak", "Emma Kate Hastings", "Natalja Kurbatova", "Dani Welter", "Drashtti Vasant" ],
-      "rights" : [ "Copyright [2014] EMBL - European Bioinformatics Institute \nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the \nLicense. " ],
-      "format-version" : [ "1.4" ],
-      "comment" : [ "Date: 18th January 2016", "Bioportal mappings to Human disease (DOID) ver", "Bioportal mappings to NCI Thesaurus (NCIt) ver11.01e", "Bioportal mappings to MGED Ontology (MO) ver1.3.1.1", "Bioportal mappings to Phenotypic quality (PATO) vernull", "Bioportal mappings to Teleost anatomy and development (TAO) ver1.158", "Bioportal mappings to Units of measurement (UO) vernull", "Bioportal mappings to BRENDA tissue / enzyme source (BTO) verunknown", "Mappings: CRISP Thesaurus Version 2.5.2.0", "Bioportal mappings to Teleost Anatomy Ontology (TAO) vernull", "Bioportal mappings to NIFSTD (nif) ver2.2 - December 20, 2010", "Bioportal mappings to SNOMED Clinical Terms (SNOMEDCT) ver2010_07_31", "Bioportal mappings to Chemical entities of biological interest (CHEBI) verunknown", "Mappings to Plant structure (PO)", "Bioportal mappings to Gene Ontology (GO) ver1.886", "Mappings:The Arabidopsis Information Resource (TAIR)", "Bioportal mappings to Drosophila gross anatomy (FBbt) ver2011-02-10", "Bioportal mappings to International Classification of Diseases (ICD-9) ver9", "Bioportal mappings to Foundational Model of Anatomy (FMA) ver3.1", "Bioportal mappings to Malaria Ontology (IDOMAL) ver1.22", "Bioportal mappings to Medical Subject Headings (MSH) ver2011_2010_08_30", "Ontology containing axioms that describe relationships between orphanet disease ontology classes and efo classes.", "Bioportal mappings to Zebrafish anatomy and development (ZFA) verunknown", "Bioportal mappings to NCBI organismal classification (NCBITaxon) ver1.2", "Bioportal mappings to Mosquito gross anatomy (TGMA) version unknown", "Bioportal mappings to Mammalian phenotype (MP) vernull", "Bioportal mappings to Minimal anatomical terminology (MAT) ver1.1", "Mappings: The Jackson Lab", "Bioportal mappings to Cell type (CL) verunknown", "Bioportal mappings to Microarray experimental conditions (MO) ver1.3.1.1", "Bioportal mappings to Ontology for Biomedical Investigations (OBI) ver2010-10-26 Vancouver 2010 release, RC2" ]
-    },
-    "fileLocation" : "http://www.ebi.ac.uk/efo/efo.owl",
-    "reasonerType" : "OWL2",
-    "oboSlims" : false,
-    "labelProperty" : "http://www.w3.org/2000/01/rdf-schema#label",
-    "definitionProperties" : [ "http://www.ebi.ac.uk/efo/definition" ],
-    "synonymProperties" : [ "http://www.ebi.ac.uk/efo/alternative_term" ],
-    "hierarchicalProperties" : [ "http://purl.obolibrary.org/obo/RO_0002202", "http://purl.obolibrary.org/obo/BFO_0000050" ],
-    "baseUris" : [ "http://www.ebi.ac.uk/efo/EFO_" ],
-    "hiddenProperties" : [ "http://www.ebi.ac.uk/efo/has_flag" ],
-    "internalMetadataProperties" : [ "http://www.w3.org/2002/07/owl#versionInfo" ],
-    "skos" : false
-  },
-  "_links" : {
-    "self" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/efo"
-    },
-    "terms" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms"
-    },
-    "properties" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/efo/properties"
-    },
-    "individuals" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/efo/individuals"
-    }
-  }
-}</code></pre>
-</div>
+<div class="paragraph">
+<p>Unresolved directive in api.adoc - include::/Users/tliener/OLS/OLS/ols-web/ols-web/src/main/asciidoc/generated-snippets/ontologies-example/http-response.adoc[]</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="resources-ontology-links"><a class="anchor" href="#resources-ontology-links"></a>Links</h4>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Relation</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">self</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">This ontology</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">terms</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#overview-pagination">Paginated</a> list of <a href="#resources-terms">terms</a> in the ontology</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">properties</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#overview-pagination">Paginated</a> list of <a href="#properties-resources">properties</a> in the ontology</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">individuals</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#overview-pagination">Paginated</a> list of <a href="#individuals-resources">individuals</a> in the ontology</p></td>
-</tr>
-</tbody>
-</table>
+<div class="paragraph">
+<p>Unresolved directive in api.adoc - include::/Users/tliener/OLS/OLS/ols-web/ols-web/src/main/asciidoc/generated-snippets/ontologies-example/links.adoc[]</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="resources-ontology-roots"><a class="anchor" href="#resources-ontology-roots"></a>Roots terms</h4>
 <div class="paragraph">
 <p>You can access the root terms or properties in an ontology hierarchy with the following</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre>GET /api/ontologies/{ontology_id}/terms/roots</pre>
+<div class="paragraph">
+<p>Unresolved directive in api.adoc - include::/Users/tliener/OLS/OLS/ols-web/ols-web/src/main/asciidoc/generated-snippets/roots-example/path-parameters.adoc[]</p>
 </div>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Parameter</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ontology_id</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The ontology id in OLS</p></td>
-</tr>
-</tbody>
-</table>
 </div>
 </div>
 </div>
@@ -1114,29 +794,9 @@ Content-Type: application/json
 </div>
 <div class="sect2">
 <h3 id="resources-terms-list"><a class="anchor" href="#resources-terms-list"></a>Listing ontology terms</h3>
-<div class="listingblock">
-<div class="content">
-<pre>GET /api/ontologies/{ontology_id}/terms</pre>
+<div class="paragraph">
+<p>Unresolved directive in api.adoc - include::/Users/tliener/OLS/OLS/ols-web/ols-web/src/main/asciidoc/generated-snippets/terms-list-example/path-parameters.adoc[]</p>
 </div>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Parameter</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ontology_id</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The ontology id in OLS</p></td>
-</tr>
-</tbody>
-</table>
 <div class="sect3">
 <h4 id="_optional_parameters"><a class="anchor" href="#_optional_parameters"></a>Optional parameters</h4>
 <table class="tableblock frame-all grid-all spread">
@@ -1168,10 +828,8 @@ Content-Type: application/json
 </div>
 <div class="sect3">
 <h4 id="_example_request_5"><a class="anchor" href="#_example_request_5"></a>Example request</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://www.ebi.ac.uk/ols/beta/api/ontologies/efo/terms' -i -H 'Accept: application/json'</code></pre>
-</div>
+<div class="paragraph">
+<p>Unresolved directive in api.adoc - include::/Users/tliener/OLS/OLS/ols-web/ols-web/src/main/asciidoc/generated-snippets/terms-list-example/curl-request.adoc[]</p>
 </div>
 </div>
 <div class="sect3">
@@ -1190,140 +848,27 @@ Content-Type: application/json
 <h3 id="_retrieve_an_term"><a class="anchor" href="#_retrieve_an_term"></a>Retrieve an term</h3>
 <div class="sect3">
 <h4 id="_example_request_6"><a class="anchor" href="#_example_request_6"></a>Example request</h4>
-<div class="listingblock">
-<div class="content">
-<pre>GET /api/ontologies/{ontology}/terms/{iri}</pre>
+<div class="paragraph">
+<p>Unresolved directive in api.adoc - include::/Users/tliener/OLS/OLS/ols-web/ols-web/src/main/asciidoc/generated-snippets/terms-example/path-parameters.adoc[]</p>
 </div>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Parameter</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ontology</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The OLS ontology id e.g. go</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">iri</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The IRI of the terms, this value must be double URL encoded</p></td>
-</tr>
-</tbody>
-</table>
 </div>
 <div class="sect3">
 <h4 id="_example_request_7"><a class="anchor" href="#_example_request_7"></a>Example request</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://www.ebi.ac.uk/ols/beta/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226' -i -H 'Accept: application/json'</code></pre>
-</div>
+<div class="paragraph">
+<p>Unresolved directive in api.adoc - include::/Users/tliener/OLS/OLS/ols-web/ols-web/src/main/asciidoc/generated-snippets/terms-example/curl-request.adoc[]</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_example_response_4"><a class="anchor" href="#_example_response_4"></a>Example response</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
-Content-Type: application/json
-
-{
-  "iri" : "http://purl.obolibrary.org/obo/GO_0043226",
-  "label" : "organelle",
-  "description" : [ "Organized structure of distinctive morphology and function. Includes the nucleus, mitochondria, plastids, vacuoles, vesicles, ribosomes and the cytoskeleton, and prokaryotic structures such as anammoxosomes and pirellulosomes. Excludes the plasma membrane." ],
-  "annotation" : {
-    "database_cross_reference" : [ "NIF_Subcellular:sao1539965131", "Wikipedia:Organelle" ],
-    "has_obo_namespace" : [ "cellular_component" ],
-    "id" : [ "GO:0043226" ],
-    "in_subset" : [ "goslim_chembl", "goslim_generic", "goslim_pir", "gosubset_prok" ]
-  },
-  "synonyms" : null,
-  "ontology_name" : "go",
-  "ontology_prefix" : "GO",
-  "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
-  "is_obsolete" : false,
-  "is_defining_ontology" : true,
-  "has_children" : true,
-  "is_root" : false,
-  "short_form" : "GO_0043226",
-  "obo_id" : "GO:0043226",
-  "_links" : {
-    "self" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226"
-    },
-    "parents" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/parents"
-    },
-    "ancestors" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/ancestors"
-    },
-    "jstree" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/jstree"
-    },
-    "children" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/children"
-    },
-    "descendants" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/descendants"
-    },
-    "graph" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/graph"
-    }
-  }
-}</code></pre>
-</div>
+<div class="paragraph">
+<p>Unresolved directive in api.adoc - include::/Users/tliener/OLS/OLS/ols-web/ols-web/src/main/asciidoc/generated-snippets/terms-example/http-response.adoc[]</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="resources-terms-links"><a class="anchor" href="#resources-terms-links"></a>Links</h4>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Relation</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">self</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Link to this resource</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">parents</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Link to the direct parent resources for this term</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ancestors</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Link to all parent resources for this term</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">children</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Link to the direct children resources for this term</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">descendants</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Link to all child resources for this term</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">jstree</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A JSON tree structure of the term hierarchy</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">graph</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A JSON graph structure of the immediately related nodes</p></td>
-</tr>
-</tbody>
-</table>
+<div class="paragraph">
+<p>Unresolved directive in api.adoc - include::/Users/tliener/OLS/OLS/ols-web/ols-web/src/main/asciidoc/generated-snippets/terms-example/links.adoc[]</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="_related_terms"><a class="anchor" href="#_related_terms"></a>Related terms</h4>
@@ -1348,63 +893,15 @@ terms can be accessed directly with this API.</p>
 </div>
 <div class="sect2">
 <h3 id="_retrieve_an_property"><a class="anchor" href="#_retrieve_an_property"></a>Retrieve an property</h3>
-<div class="listingblock">
-<div class="content">
-<pre>GET /api/ontologies/{ontology}/properties/{iri}</pre>
+<div class="paragraph">
+<p>Unresolved directive in api.adoc - include::/Users/tliener/OLS/OLS/ols-web/ols-web/src/main/asciidoc/generated-snippets/properties-example/path-parameters.adoc[]</p>
 </div>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Parameter</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ontology</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The OLS ontology id e.g. go</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">iri</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The IRI of the relation, this value must be double URL encoded</p></td>
-</tr>
-</tbody>
-</table>
 </div>
 <div class="sect2">
 <h3 id="_retrieve_an_individual"><a class="anchor" href="#_retrieve_an_individual"></a>Retrieve an individual</h3>
-<div class="listingblock">
-<div class="content">
-<pre>GET /api/ontologies/{ontology}/individuals/{iri}</pre>
+<div class="paragraph">
+<p>Unresolved directive in api.adoc - include::/Users/tliener/OLS/OLS/ols-web/ols-web/src/main/asciidoc/generated-snippets/individuals-example/path-parameters.adoc[]</p>
 </div>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Parameter</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ontology</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The OLS ontology id e.g. go</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">iri</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The IRI of the individual, this value must be double URL encoded</p></td>
-</tr>
-</tbody>
-</table>
 </div>
 </div>
 </div>
@@ -1615,7 +1112,7 @@ applications such as autocomplete.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-01-25 23:26:23 CET
+Last updated 2016-02-04 10:28:21 +00:00
 </div>
 </div>
 </body>

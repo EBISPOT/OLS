@@ -121,7 +121,7 @@
             <nav>
                 <ul class="grid_24" id="local-nav">
                     <li class="first"><a href="index">Home</a></li>
-                    <li class="active"><a href="docs/api">Browse</a></li>
+                    <li class="active"><a href="">Ontologies</a></li>
                     <li><a href="docs">Documentation</a></li>
                     <li class="last" ><a href="about">About</a></li>
                     <li class="functional last"><a href="contact" class="icon icon-generic" data-icon="C">Contact Us</a></li>
@@ -142,7 +142,7 @@
                     <div class="ontologies" th:unless="${#lists.isEmpty(all_ontologies)}">
 
 
-                        <h2 class="strapline">List of ontologies in OLS</h2>
+                        <h2 class="strapline">List of all ontologies in OLS</h2>
 
                         <div style="padding: 9px;">
 
@@ -177,8 +177,9 @@
                                         <!--Not loaded-->
                                     <!--</div>-->
                                 <!--</td>-->
-                                <td >
+                                <td>
                                     <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="'search?ontology=' + ${onto.getConfig().getNamespace()}" href="search">Search</a><br/>
+                                    <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="'browseOntologyTerms?ontology=' + ${onto.getConfig().getNamespace()}">Browse Terms</a><br/>
                                     <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="${{onto.getConfig().getId()}}">Download</a><br/>
                                     <!--<a href="#">Project homepage</a><br/>-->
                                 </td>
@@ -187,9 +188,7 @@
                         </table>
 
                         </div>
-
                     </div>
-
                 </section>
 
 
