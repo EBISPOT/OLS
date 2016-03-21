@@ -29,7 +29,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
+            <!--<scope>provided</scope>-->
         </dependency>
 
         <dependency>
@@ -55,7 +55,7 @@
     </dependencies>
 
     <properties>
-        <snippetsDirectory>${project.basedir}/ols-web/src/main/asciidoc/generated-snippets</snippetsDirectory>
+        <snippetsDirectory>${project.basedir}/src/main/asciidoc/generated-snippets</snippetsDirectory>
     </properties>
 
     <packaging>war</packaging>
