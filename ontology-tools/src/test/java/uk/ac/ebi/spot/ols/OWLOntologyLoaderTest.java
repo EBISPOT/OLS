@@ -1,6 +1,7 @@
 package uk.ac.ebi.spot.ols;
 
 import org.semanticweb.owlapi.model.IRI;
+import uk.ac.ebi.spot.ols.loader.AbstractOWLOntologyLoader;
 import uk.ac.ebi.spot.ols.loader.OntologyLoader;
 import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
 import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
@@ -79,6 +80,17 @@ public class OWLOntologyLoaderTest {
             }
 
         }
+    }
+
+    public static void testOboVersionIriDate ( ) {
+
+        String versionsIri = "http://purl.obolibrary.org/obo/obi/2009-11-06/obi.owl";
+
+        String version = AbstractOWLOntologyLoader.parseOboVersion(IRI.create(versionsIri));
+
+        System.out.println(version);
+
+
     }
 
 }

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import uk.ac.ebi.spot.ols.neo4j.model.Individual;
 import uk.ac.ebi.spot.ols.neo4j.model.Related;
 import uk.ac.ebi.spot.ols.neo4j.model.Term;
 import uk.ac.ebi.spot.ols.neo4j.repository.OntologyTermRepository;
@@ -39,6 +40,7 @@ public class OntologyTermGraphService {
     String relatedFromQuery =  "MATCH (x)-[r:Related]->(n:Class) WHERE n.ontology_name = {0} AND n.iri = {1} RETURN r.label as relation, collect( {iri: x.iri, label: x.label}) as terms limit 100";
 
     String usageQuery = "MATCH (n:Resource)<-[r:REFERSTO]-(x) WHERE n.iri = {0} RETURN distinct ({name: x.ontology_name, prefix: x.ontology_prefix}) as usage";
+    private Collection<Individual> instances;
 
 
     public Object getGraphJson(String ontologyName, String iri) {
@@ -161,5 +163,9 @@ public class OntologyTermGraphService {
 
     public Page<Term> getRoots(String ontologyId, boolean includeObsoletes, Pageable pageable) {
         return termRepository.getRoots(ontologyId, includeObsoletes, pageable);
+    }
+
+    public Collection<Individual> getInstances(String ontologyId, String iri) {
+        return termRepository.getInstances(ontologyId, iri);
     }
 }

@@ -3,9 +3,11 @@ package uk.ac.ebi.spot.ols;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
+import org.semanticweb.owlapi.model.IRI;
 import uk.ac.ebi.spot.ols.config.OboDefaults;
 import uk.ac.ebi.spot.ols.config.YamlBasedLoadingService;
 import uk.ac.ebi.spot.ols.exception.ConfigParsingException;
+import uk.ac.ebi.spot.ols.loader.AbstractOWLOntologyLoader;
 
 import java.net.URI;
 import java.util.*;
@@ -213,5 +215,17 @@ public class YamlBasedLoadingServiceTest extends TestCase {
         } catch (ConfigParsingException e) {
             fail();
         }
+    }
+
+    @Test
+    public static void testOboVersionIriDate ( ) {
+
+        String versionsIri = "http://purl.obolibrary.org/obo/obi/2009-11-06/obi.owl";
+
+        String version = AbstractOWLOntologyLoader.parseOboVersion(IRI.create(versionsIri));
+
+        assertEquals("2009-11-06", version);
+
+
     }
 }

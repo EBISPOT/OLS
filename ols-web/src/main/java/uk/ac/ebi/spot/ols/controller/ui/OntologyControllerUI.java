@@ -17,6 +17,8 @@ import uk.ac.ebi.spot.ols.neo4j.service.OntologyTermGraphService;
 import uk.ac.ebi.spot.ols.service.OntologyRepositoryService;
 import uk.ac.ebi.spot.ols.util.OLSEnv;
 
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -42,7 +44,13 @@ public class OntologyControllerUI {
     @Value("${ols.downloads.folder:}")
     private String downloadsFolder;
 
-    @RequestMapping(path = "/{onto}", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
+
+    @RequestMapping(path = "", method = RequestMethod.GET)
+    String getAll() {
+        return "browse";
+    }
+
+    @RequestMapping(path = "/{onto}", method = RequestMethod.GET)
     String getTerm(
             @PathVariable("onto") String ontologyId,
             Model model) throws ResourceNotFoundException {
@@ -53,6 +61,16 @@ public class OntologyControllerUI {
             if (document == null) {
                 throw new ResourceNotFoundException("Ontology called " + ontologyId + " not found");
             }
+
+            String contact = document.getConfig().getMailingList();
+            try {
+                InternetAddress address = new InternetAddress(contact, true);
+                contact = "mailto:" + contact;
+            } catch (Exception e) {
+              // only thrown if not valid e-mail, so contact must be URL of some sort
+            }
+            model.addAttribute("contact", contact);
+
             model.addAttribute("ontologyDocument", document);
         }
         else {

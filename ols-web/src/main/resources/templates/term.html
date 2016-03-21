@@ -195,15 +195,12 @@
                         <div class="grid_6">
                             <form name="local-search" action="../../search" method="get">
                                 <div id="bloodhound" class="input-group">
-                                    <input style="margin-bottom: 0.1em;" class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="multisearch" th:attr="data-olsontology=${ontologyTerm.getOntologyName()}" data-olsontology=""  data-selectpath="../../" placeholder="Search OLS" aria-describedby="basic-addon1"/>
+                                    <input style="margin-bottom: 0.1em;" class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="select" th:placeholder="'Search ' + ${ontologyTerm.getOntologyPrefix()}" th:attr="data-olsontology=${ontologyTerm.getOntologyName()}" data-olsontology=""  data-selectpath="../../" placeholder="Search OLS" aria-describedby="basic-addon1"/>
 
                                     <span class="input-group-btn">
                                       <button class="btn btn-default glyphicon glyphicon-search" type="submit">
                                       </button>
                                     </span>
-
-                                    <input id="group-id" name="groupField" type="hidden" value="iri"/>
-
                                 </div><!-- /input-group -->
                             </form>
                         </div>
@@ -212,8 +209,8 @@
 
 
                     <div class="grid_24 clearfix">
-                        <span property="url" style="font-size: small;color: grey;padding: 9px;" th:text="${ontologyTerm.getIri()}">http://www.example.com/onto/id</span>
-                        <a th:href="@{${ontologyTerm.getIri()}}" class="nounderline" target="blank"><img th:src="@{../../img/external_link.png}" src="../static/img/external_link.png" alt="^" title="Go to external page"/></a>
+                        <a style="padding: 9px;border-bottom: none;" th:href="@{${ontologyTerm.getIri()}}" class="nounderline" target="blank"><img th:src="@{../../img/external_link.png}" src="../static/img/external_link.png" alt="^" title="Go to external page"/></a>
+                        <span property="url" style="font-size: small;color: grey;" th:text="${ontologyTerm.getIri()}">http://www.example.com/onto/id</span>
                         <!--<p style="display:inline;"><button id='copyThis' data-clipboard-action="copy" data-clipboard-target="#test" type="button">Copy to clipboard</button></p>
                         <p id="citeThis" style="display:inline;"><button type="button" title="Click here">Cite this</button></p>
                         <p id="overlay" style="display:inline;"></p> -->
@@ -288,9 +285,6 @@
                             </p>
                         </div>
 
-
-
-
                     </div>
 
                 </div>
@@ -304,8 +298,8 @@
                 <div class="grid_24 clearfix">
                     <div class="grid_14 alpha">
                         <ul  class="nav nav-tabs">
-                            <li role="presentation" class="active"><a data-toggle="tab" id="tree-link" href="#tree-tab">Tree view</a></li>
-                            <li role="presentation"><a data-toggle="tab" id="diachron-link" href="#diachron-tab">Term history</a></li>
+                            <li role="presentation" class="active"><a data-toggle="tab" class="icon icon-functional" data-icon="h" id="tree-link" href="#tree-tab">Tree view</a></li>
+                            <li role="presentation"><a data-toggle="tab" id="diachron-link"  class="icon icon-generic" data-icon="g" href="#diachron-tab">Term history</a></li>
 
                             <!--<li role="presentation"><a data-toggle="tab" href="#graph-tab"  th:onclick="'window.open(\'@{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})\'})'" th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})}" target="_blank">Visualisation</a></li>-->
                             <!--<li role="presentation"><a data-toggle="tab"  href="#graph-tab">Graph view</a></li>-->
@@ -360,7 +354,9 @@
                                 <!--<p th:text="${ontologyTerm.getOboId()}">NCBI:9606</p>-->
                                 <!--</div>-->
 
-                                <div th:if="synonyms != null">
+                                <div th:if="${not #sets.isEmpty(synonyms)}">
+                                    <b>OBO synonyms: </b>
+
                                     <div th:each="synonym: ${synonyms}">
                                         <span style="font-weight: bold;" th:text="${synonym.getType()}"></span>
                                         <div style="margin-left:9px;">
@@ -380,7 +376,7 @@
 
 
 
-                                <div th:if="xrefs != null">
+                                <div th:if="${not #sets.isEmpty(xrefs)}">
                                     <b>OBO cross-reference: </b>
                                     <div style="margin-left:9px;" th:each="oboXref: ${xrefs}">
 
@@ -455,24 +451,20 @@
                                     </div>
                                 </div>
 
-
+                                <div th:if="${not #sets.isEmpty(instances)}"> 
+                                    <b>Instances</b> 
+                                    <ul> 
+                                        <li th:each="instance : ${instances}">
+                                                         <a href="#" th:title="${instance.iri}" th:href="@{individuals (iri=${instance.iri})}" th:text="${instance.label}">parent 1</a> 
+                                        </li>  
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-
-
                     </div>
-
-
-
-
-
                 </div>
             </section>
-
-            <!--</div>-->
-
         </div>
-
     </div>
 
     <footer>

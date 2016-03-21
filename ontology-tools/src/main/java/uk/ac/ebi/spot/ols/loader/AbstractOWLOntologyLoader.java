@@ -20,6 +20,8 @@ import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxOWLOb
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.regex.Matcher;
@@ -38,7 +40,8 @@ import java.util.stream.Collectors;
  *
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
-public abstract class AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
+public abstract class
+AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
     private static final Pattern oboIdFragmentPattern = Pattern.compile("(([A-Za-z_]*)_(\\d+))");
 
@@ -242,6 +245,12 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
 
             if (ontology.getOntologyID().getVersionIRI() != null) {
                 ontologyVersionIRI = ontology.getOntologyID().getVersionIRI();
+
+                String oboVersion = parseOboVersion(ontologyVersionIRI);
+                if (oboVersion != null) {
+                    setOntologyVersion(oboVersion);
+                }
+
             }
             if (getOntologyName() == null) {
                 String name = extractShortForm(ontologyIRI).get();
@@ -285,6 +294,24 @@ public abstract class AbstractOWLOntologyLoader extends Initializable implements
             setReady(true);
             discardReasoner(ontology);
         }
+    }
+
+    public static String parseOboVersion(IRI ontologyVersionIRI) {
+        Pattern p = Pattern.compile(".*\\/(\\d{4}-\\d{2}-\\d{2})\\/.*");
+        String DATE_FORMAT = "yyyy-MM-dd";
+        String iriAsString = ontologyVersionIRI.toString();
+        Matcher m = p.matcher(iriAsString);
+        if (m.matches()) {
+            String versionDate = m.group(1);
+
+            SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+            try {
+                sdf.parse(versionDate);
+                return versionDate;
+            } catch (ParseException e) {
+            }
+        }
+        return null;
     }
 
     private void indexOntologyAnnotations(Set<OWLAnnotation> owlAnnotations) {

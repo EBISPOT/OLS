@@ -6,6 +6,7 @@ import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import uk.ac.ebi.spot.ols.neo4j.model.Individual;
 import uk.ac.ebi.spot.ols.neo4j.model.Related;
 import uk.ac.ebi.spot.ols.neo4j.model.Term;
 
@@ -95,4 +96,8 @@ public interface OntologyTermRepository extends GraphRepository<Term> {
     @Query (countQuery = "MATCH (n:Class) WHERE n.obo_id = {0} RETURN count(n)",
             value = "MATCH (n:Class) WHERE n.obo_id = {0} RETURN n")
     Page<Term> findAllByOboId(String oboId, Pageable pageable);
+
+    @Query (countQuery = "MATCH (i:Individual)-[INSTANCEOF]->(c:Class) WHERE i.ontology_name = {0} AND c.iri = {1} RETURN count(i)",
+            value = "MATCH (i:Individual)-[INSTANCEOF]->(c:Class) WHERE i.ontology_name = {0} AND c.iri = {1} RETURN i")
+    Collection<Individual> getInstances(String ontologyId, String iri);
 }

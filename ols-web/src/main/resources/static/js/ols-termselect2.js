@@ -22,6 +22,21 @@ $(document).ready(function() {
     createTypeAhead($(this), relativePath, source);
   });
 
+  $( "input[data-olswidget='select']" ).each(function() {
+
+    var relativePath = $(this).data("selectpath") ? $(this).data("selectpath") : '';
+    var ontology =   $(this).data("olsontology") ? $(this).data("olsontology") : '';
+
+    var source = [
+              {
+                name: 'selection',
+                source: getSelectHound(relativePath, ontology),
+                display: 'value',
+                templates: getSuggestTemplate()
+              }];
+    createTypeAhead($(this), relativePath, source);
+  });
+
 
 });
 

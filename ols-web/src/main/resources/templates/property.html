@@ -22,6 +22,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
 
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
+    <link rel="stylesheet" href="../static/css/bootstrap/3.3/css/bootstrap.min.css" th:href="@{../../css/bootstrap/3.3/css/bootstrap.min.css}" type="text/css" media="screen"/>
 
     <!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>-->
     <link rel="stylesheet" href="../static/js/jstree/themes/proton/style.min.css" th:href="@{../../js/jstree/themes/proton/style.min.css}" type="text/css" media="screen" />
@@ -40,6 +41,7 @@
 
     <link rel="stylesheet" href="../static/css/ols.css" th:href="@{../../css/ols.css}" type="text/css" media="screen"/>
     <link rel="stylesheet" href="../static/css/ols-colors.css" th:href="@{../../css/ols-colors.css}" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="../static/css/typeahead/typeaheadjs.css" th:href="@{../../css/typeahead/typeaheadjs.css}" type="text/css" media="screen"/>
 
 
     <!-- for production the above can be replaced with -->
@@ -50,6 +52,10 @@
     <style type="text/css">
         /* You have the option of setting a maximum width for your page, and making sure everything is centered */
         /* body { max-width: 1600px; margin: 0 auto; } */
+        .tt-menu {
+            left: auto !important;
+            right: 0 !important;
+        }
     </style>
 
 
@@ -110,7 +116,7 @@
             <!-- local-title -->
             <!-- NB: for additional title style patterns, see http://frontier.ebi.ac.uk/web/style/patterns -->
 
-            <div id="local-title" class="grid_14 alpha logo-title">
+            <div id="local-title" class="alpha logo-title">
                 <a href="index" title="Back to OLS homepage">
                     <img style="width: 80px" th:src="@{../../img/ols-logo.jpg}" src="../static/img/ols-logo.jpg" alt="OLS logo"/></a>
                 <span><h1>Ontology Lookup Service</h1></span>
@@ -118,35 +124,16 @@
 
             <!-- /local-title -->
 
-            <!-- -->
-            <div class="grid_10 omega">
-                <form id="local-search" name="local-search" action="../../search" method="get">
-                    <fieldset>
-                        <div class="left">
-                            <label>
-                                <input style="font-weight: normal;" type="text" name="q" data-olswidget="select" th:attr="data-olsontology=${ontologyProperty.getOntologyName()}" data-selectpath="../../" id="local-searchbox" class="ac_input">
-                                </input>
-                            </label>
-                        <span class="examples">Examples: <a href="../../search?q=cancer">cancer</a>,
-                            <a href="../../search?q=GO:0098743">GO:0098743</a>,
-                        </span>
-                        </div>
-                        <div class="right">
-                            <input type="submit" value="Search" class="submit">
-                            </input>
-                            <span class="adv">
-                                <a href="../../search" id="adv-search" title="Advanced">Advanced</a>
-                            </span>
-                        </div>
-                    </fieldset>
+            <!-- fix to remove search box -->
+            <div style="visibility: hidden">
+                <form id="local-search">
                 </form>
             </div>
 
             <nav>
                 <ul class="grid_24" id="local-nav">
                     <li class="first active"><a href="../../index">Home</a></li>
-                    <li><a href="../../docs/api">API</a></li>
-                    <li><a href="../../sparql">SPARQL</a></li>
+                    <li><a href="../../ontologies">Ontologies</a></li>
                     <li><a href="../../docs">Documentation</a></li>
                     <li class="last" ><a href="../../about">About</a></li>
                     <li class="functional last"><a href="../../contact" class="icon icon-generic" data-icon="C">Contact Us</a></li>
@@ -160,17 +147,27 @@
     <!--@thymesVar id="ontologyProperty" type="uk.ac.ebi.spot.ols.neo4j.model.Property"-->
     <!--@thymesVar id="ontologyName" type="String"-->
     <!--@thymesVar id="parentProperties" type="Set"-->
-    <div id="content" role="main" class="grid_24 clearfix">
+    <div vocab="http://schema.org/" typeof="MedicalCode" id="content" role="main" class="grid_24 clearfix">
+
+        <div style="float:right;padding-right: 5px;">
+            <a style="float:right; border-bottom: none;" th:href="@{../../api/ontologies/__${ontologyProperty.getOntologyName()}__/properties (iri=${ontologyProperty.getIri()})}"  href="#">
+                <img th:src="@{../../img/file_JSON.png}" src="../static/img/file_JSON.png" alt="JSON" title="Get data as JSON"/>
+            </a>
+        </div>
 
         <nav id="breadcrumb">
             <p>
                 <a href="../../index">OLS</a> &gt;
-                <span class="ontology-source"  th:onclick="'javascript:goTo(\'' + @{../../ontologies/__${ontologyProperty.getOntologyName()}__} + '\')'" th:text="${ontologyProperty.getOntologyPrefix()}">parent 1</span>   &gt;
-                <span th:text="${ontologyProperty.getShortForm()}">id</span>
+                <a th:href="@{../../ontologies/__${ontologyProperty.getOntologyName()}__}" th:text="${ontologyName}">ontology</a>
+                &nbsp;
+                <a property="codingSystem" th:attr="content=${ontologyProperty.getOntologyName()}" href="#" style="border-bottom-width: 0px;">
+                    <span class="ontology-source" th:text="${ontologyProperty.getOntologyPrefix()}">parent 1</span>
+                </a>   &gt;
+                <span th:if="${ontologyProperty.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyProperty.getOboId()}">id</span>
+                <span th:unless="${ontologyProperty.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyProperty.getShortForm()}">id</span>
 
             </p>
         </nav>
-
 
         <div class="container" style="margin:9px;">
             <!--<div class="grid_24 alpha">-->
@@ -178,32 +175,40 @@
             <section>
                 <div class="grid_24 clearfix">
                     <div class="grid_24 clearfix">
-                        <div class="grid_22 alpha">
-                            <h1 style="margin: 0px;" th:text="${ontologyProperty.getLabel()}">Term label</h1>
+                        <div class="grid_18 alpha">
+                            <h1 property="name"  style="margin: 0px;" th:text="${ontologyProperty.getLabel()}">Term label</h1>
                         </div>
-                        <div class="grid_2 beta">
-                            <a style="float:right;" th:href="@{../../api/ontologies/__${ontologyProperty.getOntologyName()}__/properties (iri=${ontologyProperty.getIri()})}" class="nounderline" href="#">
-                                <img th:src="@{../../img/file_JSON.png}" src="../static/img/file_JSON.png" alt="JSON" title="Get data as JSON"/>
-                            </a>
+                        <div class="grid_6">
+                            <form name="local-search" action="../../search" method="get">
+                                <div id="bloodhound" class="input-group">
+                                    <input style="margin-bottom: 0.1em;" class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="select" th:placeholder="'Search ' + ${ontologyProperty.getOntologyPrefix()}" th:attr="data-olsontology=${ontologyProperty.getOntologyName()}" data-olsontology=""  data-selectpath="../../" placeholder="Search OLS" aria-describedby="basic-addon1"/>
+
+                                    <span class="input-group-btn">
+                                      <button class="btn btn-default glyphicon glyphicon-search" type="submit">
+                                      </button>
+                                    </span>
+                                </div><!-- /input-group -->
+                            </form>
                         </div>
                     </div>
+
                     <div class="grid_24 clearfix">
-                        <span style="font-size: small;color: grey;padding: 9px;" th:text="${ontologyProperty.getIri()}">http://www.example.com/onto/id</span>
-                        <a th:href="@{${ontologyProperty.getIri()}}" class="nounderline" target="blank"><img th:src="@{../../img/external_link.png}" src="../static/img/external_link.png" alt="^" title="Go to external page"/></a>
-                        <a style="float:right;" th:href="@{../../ontologies/__${ontologyProperty.getOntologyName()}__}" th:text="${ontologyName}">ontology</a>
+                        <a style="padding: 9px;border-bottom: none;" th:href="@{${ontologyProperty.getIri()}}" class="nounderline" target="blank"><img th:src="@{../../img/external_link.png}" src="../static/img/external_link.png" alt="^" title="Go to external page"/></a>
+                        <span property="url" style="font-size: small;color: grey;" th:text="${ontologyProperty.getIri()}">http://www.example.com/onto/id</span>
                     </div>
                     <div class="grid_24 alpha clearfix">
 
                         <hr style="margin-left: 9px;"/>
 
-                        <p th:each="description : ${ontologyProperty.getDescription()}" th:text="${description}">
-
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget <nulla class=""></nulla>                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum.
-                        </p>
+                        <div property="description">
+                            <p th:each="description : ${ontologyProperty.getDescription()}" th:text="${description}">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget <nulla class=""></nulla>                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum.
+                            </p>
+                        </div>
 
                         <div th:if="${ontologyProperty.getSynonyms() !=null}">
                             <p><b>Synonyms:</b>
-                                <span style="margin-left:9px;" th:text="${#strings.setJoin(ontologyProperty.getSynonyms(), ', ')}">NCBI_9606</span>
+                                <span property="alternateName" style="margin-left:9px;" th:text="${#strings.setJoin(ontologyProperty.getSynonyms(), ', ')}">NCBI_9606</span>
                             </p>
 
                         </div>
@@ -219,8 +224,7 @@
                     <div class="grid_14 alpha clearfix">
 
                         <ul  class="nav nav-tabs">
-                            <li role="presentation" class="active"><a data-toggle="tab" href="#tree-tab">Tree view</a></li>
-                            <li role="presentation"><a data-toggle="tab" href="#meta-tab">Property metadata</a></li>
+                            <li role="presentation" class="active"><a class="icon icon-functional" data-icon="h" data-toggle="tab" href="#tree-tab">Tree view</a></li>
                             <!--<li role="presentation"><a data-toggle="tab"  href="#graph-tab">Graph view</a></li>-->
                         </ul>
 
@@ -237,18 +241,20 @@
 
                             </div>
 
-                            <div role="tabpanel" class="tab-pane" id="meta-tab">
+                            <!--<div role="tabpanel" class="tab-pane" id="graph-tab">-->
+                            <!--graph goes here-->
+                            <!--</div>-->
+                        </div>
+                    </div>
 
-                                <br/>
-                                <div>
-                                    <span>Short id: </span>
-                                    <p th:text="${ontologyProperty.getShortForm()}">NCBI_9606</p>
-                                </div>
+                    <div class="grid_10 info-box">
 
-                                <div th:if="${ontologyProperty.getOboId() != null}">
-                                    <span>OBO id: </span>
-                                    <p th:text="${ontologyProperty.getOboId()}">NCBI:9606</p>
-                                </div>
+                        <div class="panel panel-primary">
+
+                            <div class="panel-heading">
+                                <h3 style="padding: 0" class="panel-title">Property info</h3>
+                            </div>
+                            <div class="panel-body">
 
                                 <div th:each="annotations: ${ontologyProperty.getAnnotation()}">
                                     <b>
@@ -257,17 +263,10 @@
                                     <p style="margin-left:9px;" th:text="${#strings.setJoin(annotations.value, ',')}">NCBI_9606</p>
                                 </div>
 
+
                             </div>
-
-
-
-                            <!--<div role="tabpanel" class="tab-pane" id="graph-tab">-->
-                            <!--graph goes here-->
-                            <!--</div>-->
                         </div>
-                    </div>
 
-                    <div class="grid_10 beta">
 
                         <div class="panel panel-primary">
 
@@ -345,14 +344,16 @@
 
 </div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script type="text/javascript" src="../static/js/jquery/jquery.autocomplete.min.js" th:src="@{../../js/jquery/jquery.autocomplete.min.js}"></script>
+<script type="text/javascript" src="../static/js/jquery/1.11.1/jquery.min.js" th:src="@{../../js/jquery/1.11.1/jquery.min.js}"></script>
+<script type="text/javascript" src="../static/js/typeahead/typeahead.bundle.js" th:src="@{../../js/typeahead/typeahead.bundle.js}"></script>
+<script type="text/javascript" src="../static/js/handlebars/4.0.5/handlebars.min.js" th:src="@{../../js/handlebars/4.0.5/handlebars.min.js}"></script>
+
 <script type="text/javascript" src="../static/js/ols.js" th:src="@{../../js/ols.js}"></script>
 <script src="../static/js/jstree/jstree.min.js" th:src="@{../../js/jstree/jstree.min.js}"></script>
 
-<script type="text/javascript" src="../static/js/ols-termselect.js" th:src="@{../../js/ols-termselect.js}"></script>
+<script type="text/javascript" src="../static/js/ols-termselect.js" th:src="@{../../js/ols-termselect2.js}"></script>
 <script type="text/javascript" src="../static/js/ols-tree.js" th:src="@{../../js/ols-tree.js}"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../static/js/bootstrap/bootstrap.min.js" th:src="@{../../js/bootstrap/bootstrap.min.js}"></script>
 <script>
     $(document).ready(function() {
         $('.mansyntax').each(function ()
