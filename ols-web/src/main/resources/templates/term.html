@@ -178,7 +178,7 @@
                 <span id='shortForm' th:if="${ontologyTerm.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyTerm.getOboId()}">id</span>
                 <span id='shortForm' th:unless="${ontologyTerm.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyTerm.getShortForm()}">id</span>
 
-                <button id='copyShortForm' data-clipboard-action="copy" data-clipboard-target="#shortForm" type="button">C</button>
+                <button title="Copy id to clipboard" id='copyShortForm' data-clipboard-action="copy" data-clipboard-target="#shortForm" class="glyphicon glyphicon-copy" type="button"></button>
             </p>
         </nav>
 
@@ -199,6 +199,8 @@
                                 <div id="bloodhound" class="input-group">
                                     <input style="margin-bottom: 0.1em;" class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="select" th:placeholder="'Search ' + ${ontologyTerm.getOntologyPrefix()}" th:attr="data-olsontology=${ontologyTerm.getOntologyName()}" data-olsontology=""  data-selectpath="../../" placeholder="Search OLS" aria-describedby="basic-addon1"/>
 
+                                    <input type="hidden" name="ontology" th:value="${ontologyTerm.getOntologyName()}"/>
+
                                     <span class="input-group-btn">
                                       <button class="btn btn-default glyphicon glyphicon-search" type="submit">
                                       </button>
@@ -213,7 +215,7 @@
                     <div class="grid_24 clearfix">
                         <a style="padding: 9px;border-bottom: none;" th:href="@{${ontologyTerm.getIri()}}" class="nounderline" target="blank"><img th:src="@{../../img/external_link.png}" src="../static/img/external_link.png" alt="^" title="Go to external page"/></a>
                         <span property="url" id="OLS_ID" style="font-size: small;color: grey;" th:text="${ontologyTerm.getIri()}">http://www.example.com/onto/id</span>
-                        <p style="display:inline;"><button id='copyThis' data-clipboard-action="copy" data-clipboard-target="#OLS_ID" type="button">C</button></p>
+                        <p style="display:inline;"><button title="Copy id to clipboard" id='copyThis' data-clipboard-action="copy" data-clipboard-target="#OLS_ID" class="glyphicon glyphicon-copy" type="button"></button></p>
 
                         <!--<p style="display:inline;"><button id='copyThis' data-clipboard-action="copy" data-clipboard-target="#test" type="button">Copy to clipboard</button></p>
                         <p id="citeThis" style="display:inline;"><button type="button" title="Click here">Cite this</button></p>
@@ -435,7 +437,7 @@
 
 
                                 <div th:if="${not #maps.isEmpty(relatedFroms)}">
-                                    <b>Related from</b>
+                                    <b>Related from:</b>
                                     <br/>
                                     <div th:each="relation : ${relatedFroms}">
                                         <a class="ObjectProperty" th:href="@{../../search(q=${relation.key},exact='true', type=property, ontology=${ontologyTerm.ontologyName})}" th:text="${relation.key}"></a>
@@ -453,10 +455,10 @@
                                 </div>
 
                                 <div th:if="${not #sets.isEmpty(instances)}"> 
-                                    <b>Instances</b> 
+                                    <b>Instances:</b> 
                                     <ul> 
                                         <li th:each="instance : ${instances}">
-                                                         <a href="#" th:title="${instance.iri}" th:href="@{individuals (iri=${instance.iri})}" th:text="${instance.label}">parent 1</a> 
+                                            <a href="#" th:title="${instance.iri}" th:href="@{individuals (iri=${instance.iri})}" th:text="${instance.label}">parent 1</a> 
                                         </li>  
                                     </ul>
                                 </div>

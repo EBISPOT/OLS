@@ -177,9 +177,7 @@
                     <div class="ontologies" th:unless="${#lists.isEmpty(allterms)}">
 
 
-                        <h2 th:text="'All terms in ' + ${ontologyPrefix}" class="strapline">List of all ontologies in OLS</h2>
-
-
+                        <h2 th:text="'All terms in ' + ${ontologyPrefix}" class="strapline">List of all terms in X</h2>
 
                         <div>
                             <div style="float:right;" class="grid_6">
@@ -187,6 +185,7 @@
                                     <div id="bloodhound" class="input-group">
                                         <input style="margin-bottom: 0.1em;" class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="select" th:placeholder="'Search ' + ${ontologyPrefix}" th:attr="data-olsontology=${ontologyName}" data-olsontology=""  data-selectpath="../../" placeholder="Search OLS" aria-describedby="basic-addon1"/>
 
+                                        <input type="hidden" name="ontology" th:value="${ontologyName}"/>
                                         <span class="input-group-btn">
                                           <button class="btn btn-default glyphicon glyphicon-search" type="submit">
                                           </button>

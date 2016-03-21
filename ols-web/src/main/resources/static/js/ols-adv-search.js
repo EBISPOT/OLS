@@ -19,6 +19,26 @@ $(document).ready(function() {
             $("#filter_form").submit();
         });
 
+    $('.type-select').select2({placeholder: "Filter by type"})
+        .on('select2:select', function (e) {
+            $("#ontology-type-id").append($('<option/>', {
+                value: e.target.value.toLowerCase(),
+                text : e.target.value.toLowerCase(),
+                selected : 'selected'
+            }));
+
+            //always restart start when faceting
+            $('#start').val(0);
+            $("#filter_form").submit();
+        })
+        .on('select2:unselecting', function (e) {
+
+            $("#ontology-type-id").find("[value=\"" + e.target.value.toLowerCase() + "\"]").remove();
+            //always restart start when faceting
+            $('#start').val(0);
+            $("#filter_form").submit();
+        });
+
     $('.typeahead').typeahead('val', $('#query-id').val());
     $('.typeahead').typeahead('close');
 
@@ -41,6 +61,7 @@ function clearFilter() {
     $('#ontology-select-id').val('');
     $('#ontology-id').val('');
     $('#ontology-type-id').val('');
+    $('#ontology-select-type-id').val('');
     $('#group-id').attr('checked', false);
     $('#exact-id').attr('checked', false);
     $('#obsolete-id').attr('checked', false);
@@ -186,30 +207,23 @@ function processData(data) {
                 if (data.expanded[row.iri] != undefined) {
                     resultHtml = resultHtml.append('<b>Also in: </b>');
 
-                    // <a href="#" style="border-bottom-width: 0px;"><span class="ontology-source"  th:onclick="'javascript:goTo(\'' + @{../../ontologies/__${ontologyTerm.getOntologyName()}__} + '\')'" th:text="${ontologyTerm.getOntologyPrefix()}">parent 1</span></a>   &gt;
-
                     $.each (data.expanded[row.iri].docs, function (expandedIndex, expandedRow) {
                         var exLink = getTermLink(expandedRow.ontology_prefix, expandedRow.ontology_name,expandedRow.type, expandedRow.iri )
 
                         var ontoLink = $("<a title='"+ontologyList[expandedRow.ontology_name]+"' href='" + exLink.attr('href') + "' style='border-bottom-width: 0px;'></a>")
                             .append($("<span class='ontology-source'></span>").text(exLink.text()))
                         resultHtml.append(ontoLink);
-
-                        //resultHtml.append($("<div class='ontology-source'></div>").append($(exLink)));
                     })
 
                 }
             }
         }
 
-
         resultHtml = resultHtml.append('<br/>');
         resultHtml = resultHtml.append('<br/>');
 
         searchResult.append(resultHtml);
     });
-
-
 
 
     var facets = data.facet_counts.facet_fields;
@@ -265,8 +279,6 @@ function renderTypesFacetField (facetArray, searchSummary) {
         }
 
         if (numberOfFacets > 0) {
-            var facet = $('<h3></h3>').text('Types');
-            searchSummary.append(facet);
             searchSummary.append(fieldList);
         }
 

@@ -22,6 +22,7 @@
 
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
 
+    <link rel="stylesheet" href="../static/css/bootstrap/3.3/css/bootstrap.min.css" th:href="@{css/bootstrap/3.3/css/bootstrap.min.css}" type="text/css" media="screen"/>
 
 
     <!-- CSS: implied media=all -->
@@ -37,6 +38,8 @@
 
     <link rel="stylesheet" href="../static/css/ols.css" th:href="@{css/ols.css}" type="text/css" media="screen"/>
     <link rel="stylesheet" href="../static/css/ols-colors.css" th:href="@{css/ols-colors.css}" type="text/css" media="screen"/>
+
+    <link rel="stylesheet" href="../static/css/typeahead/typeaheadjs.css" th:href="@{css/typeahead/typeaheadjs.css}" type="text/css" media="screen"/>
 
     <!-- for production the above can be replaced with -->
     <!--
@@ -108,7 +111,7 @@
             <!-- local-title -->
             <!-- NB: for additional title style patterns, see http://frontier.ebi.ac.uk/web/style/patterns -->
 
-            <div id="local-title" class="grid_14 alpha logo-title">
+            <div id="local-title" class="alpha logo-title">
                 <a href="index" title="Back to OLS homepage">
                     <img style="width: 80px" th:src="@{img/ols-logo.jpg}" src="../static/img/ols-logo.jpg" alt="OLS logo"/></a>
                 <span><h1>Ontology Lookup Service</h1></span>
@@ -138,56 +141,59 @@
             <!--@thymesVar id="summary" type="uk.ac.ebi.spot.ols.controller.ui.HomeController.SummaryInfo"-->
             <div class="grid_24 alpha">
 
-                <section class="grid_19 alpha intro">
-                    <div class="ontologies" th:unless="${#lists.isEmpty(all_ontologies)}">
+                <section class="alpha">
+                    <div class="ontologies">
 
 
                         <h2 class="strapline">List of all ontologies in OLS</h2>
 
-                        <div style="padding: 9px;">
+                        <div class="grid_10">
+                            <form style="padding-left: 0px;" name="local-search" action="search" method="get">
+                                <div id="bloodhound" class="input-group">
+                                    <input style="margin-bottom: 0.1em;" class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olstype="ontology" data-olswidget="select" data-olsontology=""  data-selectpath="../../" placeholder="Enter an Ontology name" aria-describedby="basic-addon1"/>
 
-                        <table data-toggle="table" data-search="true" data-locale="en-US" class="table table-striped table-hover ">
-                            <thead>
-                            <tr>
-                                <th data-width="40%" style="width: 50%;" data-sortable="true">Ontology Name</th>
-                                <th data-sortable="true">Short name</th>
-                                <th data-sortable="true">Description</th>
-                                <th data-sortable="true">Loaded</th>
-                                <!--<th data-sortable="true">Status</th>-->
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="onto : ${all_ontologies}">
+                                    <input type="hidden" name="type" value="ontology"/>
+                                    <span class="input-group-btn">
+                                      <button class="btn btn-default glyphicon glyphicon-search" type="submit">
+                                      </button>
+                                    </span>
+                                </div><!-- /input-group -->
+                            </form>
+                        </div>
 
-                                <td  data-width="50%" style="width: 50%;" >
-                                    <!--@thymesVar id="onto" type="OntologyDocument"-->
-                                    <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="@{/ontologies/__${onto.getConfig().getNamespace()}__}" th:text="${{onto.getConfig().getTitle()}}">Ontology name</a>
-                                    <span th:if="${{onto.getStatus() ==  T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:text="${{onto.getConfig().getTitle()}}">Ontology name</span>
-                                </td>
-                                <td th:text="${{onto.getConfig().getPreferredPrefix()}}">0</td>
-                                <td th:text="${{onto.getConfig().getDescription()}}">0</td>
-                                <td th:text="${{onto.getLoaded()}}">0</td>
-                                <!--<td style="text-align: center;">-->
-                                    <!--<div th:if="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).LOADED}}"  th:class="${{onto.getStatus().toString().toLowerCase()}}" class="loaded">-->
-                                        <!--OK-->
-                                    <!--</div>-->
-                                    <!--<div th:if="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).FAILED}}"  th:class="${{onto.getStatus().toString().toLowerCase()}}" class="loaded">-->
-                                        <!--Failed-->
-                                    <!--</div>-->
-                                    <!--<div th:if="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}"  th:class="${{onto.getStatus().toString().toLowerCase()}}" class="loaded">-->
-                                        <!--Not loaded-->
-                                    <!--</div>-->
-                                <!--</td>-->
-                                <td>
-                                    <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="'search?ontology=' + ${onto.getConfig().getNamespace()}" href="search">Search</a><br/>
-                                    <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="@{ontologies/__${onto.getConfig().getNamespace()}__/terms}">Browse Terms</a><br/>
-                                    <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="${{onto.getConfig().getId()}}">Download</a><br/>
-                                    <!--<a href="#">Project homepage</a><br/>-->
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                        <div style="padding-left: 9px;">
+
+                            <table data-toggle="table" data-search="false" data-locale="en-US" class="table table-striped table-hover ">
+                                <thead>
+                                <tr>
+                                    <th data-width="30%" style="width: 50%;" data-sortable="true">Ontology Name</th>
+                                    <th data-sortable="true">Short name</th>
+                                    <th data-sortable="true">Description</th>
+                                    <th data-sortable="true">Loaded</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="onto : ${all_ontologies}">
+
+                                    <td  data-width="30%" style="width: 50%;" >
+                                        <!--@thymesVar id="onto" type="OntologyDocument"-->
+                                        <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="@{/ontologies/__${onto.getConfig().getNamespace()}__}" th:text="${{onto.getConfig().getTitle()}}">Ontology name</a>
+                                        <span th:if="${{onto.getStatus() ==  T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:text="${{onto.getConfig().getTitle()}}">Ontology name</span>
+                                    </td>
+                                    <td><span class="ontology-source" th:text="${{onto.getConfig().getPreferredPrefix()}}"></span></td>
+                                    <td th:text="${{onto.getConfig().getDescription()}}">0</td>
+                                    <td th:text="${{onto.getLoaded()}}">0</td>
+                                    <td>
+                                        <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="'search?ontology=' + ${onto.getConfig().getNamespace()}" href="search">Search</a><br/>
+                                        <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="@{ontologies/__${onto.getConfig().getNamespace()}__/terms}">Terms</a><br/>
+                                        <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="@{ontologies/__${onto.getConfig().getNamespace()}__/properties}">Properties</a><br/>
+                                        <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="@{ontologies/__${onto.getConfig().getNamespace()}__/individuals}">Individuals</a><br/>
+                                        <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="${{onto.getConfig().getId()}}">Download</a><br/>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
 
                         </div>
                     </div>
@@ -252,32 +258,34 @@
 
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script type="text/javascript" src="../static/js/jquery/jquery.autocomplete.min.js" th:src="@{js/jquery/jquery.autocomplete.min.js}"></script>
+<script type="text/javascript" src="../static/js/jquery/1.11.1/jquery.min.js" th:src="@{js/jquery/1.11.1/jquery.min.js}"></script>
+<script type="text/javascript" src="../static/js/typeahead/typeahead.bundle.js" th:src="@{js/typeahead/typeahead.bundle.js}"></script>
+<script type="text/javascript" src="../static/js/handlebars/4.0.5/handlebars.min.js" th:src="@{js/handlebars/4.0.5/handlebars.min.js}"></script>
+
 <script type="text/javascript" src="../static/js/ols.js" th:src="@{js/ols.js}"></script>
-<script type="text/javascript" src="../static/js/ols-termselect.js" th:src="@{js/ols-termselect.js}"></script>
+<script type="text/javascript" src="../static/js/ols-termselect2.js" th:src="@{js/ols-termselect2.js}"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/locale/bootstrap-table-en-US.min.js"></script>
 
 <!--<script>-->
-    <!--$(document).ready(function() {-->
-        <!--$('ontology-table').bootstrapTable(-->
-                <!--{locale:'en-UK', search: true}-->
-        <!--);-->
-    <!--});-->
+<!--$(document).ready(function() {-->
+<!--$('ontology-table').bootstrapTable(-->
+<!--{locale:'en-UK', search: true}-->
+<!--);-->
+<!--});-->
 <!--</script>-->
 
 <script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/cookiebanner.js"></script>
 <script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/foot.js"></script>
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-69391170-1', 'auto');
-  ga('send', 'pageview');
+    ga('create', 'UA-69391170-1', 'auto');
+    ga('send', 'pageview');
 
 </script>
 </body>

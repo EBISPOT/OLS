@@ -166,7 +166,11 @@
         <nav id="breadcrumb">
             <p>
                 <a href="../index">OLS</a> &gt;
-                <a property="alternateName" th:attr="content=${ontologyDocument.getConfig().getPreferredPrefix()}" href="#" style="border-bottom-width: 0px;"><span class="ontology-source" th:text="${ontologyDocument.getConfig().getPreferredPrefix()}">ontology</span></a>
+                &nbsp;
+                <span property="codingSystem" th:attr="content=${ontologyDocument.getConfig().getTitle()}" th:text="${ontologyDocument.getConfig().getTitle()}">
+                </span>
+                <span property="alternateName" th:attr="content=${ontologyDocument.getConfig().getPreferredPrefix()}" class="ontology-source" th:text="${ontologyDocument.getConfig().getPreferredPrefix()}">parent 1</span>
+
             </p>
         </nav>
 
@@ -197,11 +201,12 @@
                         <form style="padding-left: 0;" name="local-search" action="../search" method="get">
                             <div id="bloodhound" class="input-group">
                                 <input style="margin-bottom: 0.1em;" class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="select" th:attr="data-olsontology=${ontologyDocument.getOntologyId()}" data-olsontology=""  data-selectpath="../" th:placeholder="'Search ' + ${ontologyDocument.getConfig().getPreferredPrefix()}" placeholder="Search OLS" aria-describedby="basic-addon1"/>
+                                <input type="hidden" name="ontology" th:value="${ontologyDocument.getOntologyId()}"/>
 
-                                                                                    <span class="input-group-btn">
-                                                                                      <button class="btn btn-default glyphicon glyphicon-search" type="submit">
-                                                                                      </button>
-                                                                                    </span>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default glyphicon glyphicon-search" type="submit">
+                                    </button>
+                                </span>
                             </div><!-- /input-group -->
                         </form>
                     </div>

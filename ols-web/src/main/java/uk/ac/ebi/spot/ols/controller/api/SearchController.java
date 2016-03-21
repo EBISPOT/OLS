@@ -241,6 +241,7 @@ public class SearchController {
     public void select(
             @RequestParam("q") String query,
             @RequestParam(value = "ontology", required = false) Collection<String> ontologies,
+            @RequestParam(value = "type", required = false) Collection<String> types,
             @RequestParam(value= "slim", required = false) Collection<String> slims,
             @RequestParam(value = "fieldList", required = false) Collection<String> fieldList,
             @RequestParam(value = "obsoletes", defaultValue = "false") boolean queryObsoletes,
@@ -282,6 +283,10 @@ public class SearchController {
 
         if (ontologies != null && !ontologies.isEmpty()) {
             solrQuery.addFilterQuery("ontology_name: (" + String.join(" OR ", ontologies) + ")");
+        }
+
+        if (types != null) {
+            solrQuery.addFilterQuery("type: (" + String.join(" OR ", types) + ")");
         }
 
         if (slims != null) {

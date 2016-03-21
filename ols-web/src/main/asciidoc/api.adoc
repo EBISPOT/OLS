@@ -314,7 +314,7 @@ GET /api/search?q={query}&queryFields={label,synonym}
 |Restrict a search to a set of ontologies e.g. `ontology=uberon,ma`
 
 |type
-|Restrict a search to an entity type, one of {term,property,individual}
+|Restrict a search to an entity type, one of {term,property,individual,ontology}
 
 |slim
 |Restrict a search to an particular set of slims by name
@@ -362,6 +362,9 @@ GET /api/select?q={query}
 
 |ontology
 |Restrict a search to a set of ontologies e.g. `ontology=uberon,ma`
+
+|type
+|Restrict a search to an entity type, one of {term,property,individual,ontology}
 
 |slim
 |Restrict a search to an particular set of slims by name

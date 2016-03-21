@@ -36,7 +36,9 @@ public interface OntologyPropertyRepository extends GraphRepository<Property> {
     @Query (value = "MATCH (n:Property) WHERE n.ontology_name = {0} AND n.iri = {1} RETURN n")
     Property findByOntologyAndIri(String ontologyName, String iri);
 
-    @Query (value = "MATCH (n:Property {ontology_name : {0}}) RETURN n")
+    @Query (
+            countQuery = "MATCH (n:Property) WHERE n.ontology_name = {0} RETURN count(n)",
+            value = "MATCH (n:Property {ontology_name : {0}}) RETURN n")
     Page<Property> findAllByOntology(String ontologyName, Pageable pageable);
 
     @Query (value = "MATCH (n:Property) WHERE n.ontology_name = {0} AND n.short_form = {1} RETURN n")

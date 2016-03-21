@@ -7,6 +7,7 @@ $(document).ready(function() {
 
     var relativePath = $(this).data("selectpath") ? $(this).data("selectpath") : '';
     var ontology =   $(this).data("olsontology") ? $(this).data("olsontology") : '';
+    var type =   $(this).data("olstype") ? $(this).data("olstype") : '';
 
     var source = [{
                 name: 'suggestion',
@@ -15,7 +16,7 @@ $(document).ready(function() {
               },
               {
                 name: 'selection',
-                source: getSelectHound(relativePath, ontology),
+                source: getSelectHound(relativePath, ontology, type),
                 display: 'value',
                 templates: getSuggestTemplate()
               }];
@@ -26,11 +27,12 @@ $(document).ready(function() {
 
     var relativePath = $(this).data("selectpath") ? $(this).data("selectpath") : '';
     var ontology =   $(this).data("olsontology") ? $(this).data("olsontology") : '';
+    var type =   $(this).data("olstype") ? $(this).data("olstype") : '';
 
     var source = [
               {
                 name: 'selection',
-                source: getSelectHound(relativePath, ontology),
+                source: getSelectHound(relativePath, ontology, type),
                 display: 'value',
                 templates: getSuggestTemplate()
               }];
@@ -105,12 +107,15 @@ function getSuggestTemplate () {
   };
 }
 
-function getSelectHound (relativePath, ontology) {
+function getSelectHound (relativePath, ontology, type) {
 
 
   var ontologyParam ='';
   if (ontology) {
     ontologyParam = '&ontology=' + ontology;
+  }
+  if (type) {
+    ontologyParam += '&type=' + type;
   }
   return new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.whitespace,

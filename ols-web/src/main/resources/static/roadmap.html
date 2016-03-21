@@ -122,8 +122,7 @@
             <nav>
                 <ul class="grid_24" id="local-nav">
                     <li class="first active"><a href="index">Home</a></li>
-                    <li><a href="docs/api">API</a></li>
-                    <li><a href="sparql">SPARQL</a></li>
+                    <li><a href="ontologies">Ontologies</a></li>
                     <li><a href="docs">Documentation</a></li>
                     <li class="last" ><a href="about">About</a></li>
                     <li class="functional last"><a href="contact" class="icon icon-generic" data-icon="C">Contact Us</a></li>
@@ -141,10 +140,10 @@
             <div class="grid_24 alpha">
 
                 <section class="grid_19 alpha intro">
-                    <h2>Ontology Lookup Service roadmap</h2>
+                    <h2>Ontology Lookup Service version 3 roadmap</h2>
                     <p class="intro">
-                        This new version of OLS is a complete re-write of the code and includes some significant changes to how we index and serve up ontology data. This includes an all new API for programmatic access to the data.
-                        The old OLS service is no longer able to update the ontologies and we plan to deprecate the service entirely in 2016. This document outlines the road map for releasing the new OLS service and provides a guide for migrating from the old SOAP API
+                        OLS 3 is a complete re-write of the code and includes some significant changes to how we index and serve up ontology data. This includes an all new API for programmatic access to the data.
+                        The old OLS 2 service is no longer able to update the ontologies and we plan to deprecate the service entirely in October 2016. This document outlines the road map for releasing the new OLS service and provides a guide for migrating from the old SOAP API
                         to the new REST API.
                     </p>
 
@@ -162,19 +161,19 @@
 
                     <h2>Timeline</h2>
                     <ul>
-                        <li><b>October 27th 2015</b>
+                        <li><b style="text-decoration: line-through">October 27th 2015</b>
                             <ul>
                                 <li>OLS beta announced running at <a href="http://www.ebi.ac.uk/ols/beta">http://www.ebi.ac.uk/ols/beta</a></li>
                                 <li>Announcement of deprecation of old OLS services running at <a href="http://www.ebi.ac.uk/ontology-lookup">http://www.ebi.ac.uk/ontology-lookup</a> (also redirects from http://www.ebi.ac.uk/ols)</li>
                                 <li>Freeze data in old OLS and stop nightly update of ontologies</li>
                             </ul>
                         </li>
-                        <li><b>January 31st 2016</b>
+                        <li><b style="text-decoration: line-through">January 31st 2016</b>
                             <ul>
                                 <li>We will start an instance of the old OLS at http://www.ebi.ac.uk/ontology-lookup/v2. This will serve the old services and data until October 1st 2016</li>
                             </ul>
                         </li>
-                        <li><b>March 1st 2016</b>
+                        <li><b>April 18th 2016</b>
                             <ul>
                                 <li>We will move new OLS to production and serve from http://www.ebi.ac.uk/ols</li>
                                 <li>http://www.ebi.ac.uk/ontology-lookup will redirect to http://www.ebi.ac.uk/ols</li>
@@ -193,8 +192,8 @@
 
                     <h2>What will be deprecated</h2>
                     <ul>
-                        <li>As of March 1st 2016 we will no longer provide a MySQL dump of OLS</li>
-                        <li>As of March 1st 2016 the SOAP API will no longer be accessible from http://www.ebi.ac.uk/ontology-lookup/OntologyQuery and only available from http://www.ebi.ac.uk/ols/v2/OntologyQuery until October 1st 2016</li>
+                        <li>As of April 18 2016 we will no longer provide a MySQL dump of OLS</li>
+                        <li>As of April 18 2016 the SOAP API will no longer be accessible from http://www.ebi.ac.uk/ontology-lookup/OntologyQuery and only available from http://www.ebi.ac.uk/ols/v2/OntologyQuery until October 1st 2016</li>
                     </ul>
 
                     <p>

@@ -134,7 +134,7 @@
             <nav>
                 <ul class="grid_24" id="local-nav">
                     <li class="first active"><a href="index">Home</a></li>
-                    <li><a href="browse">Ontolgies</a></li>
+                    <li><a href="ontologies">Ontologies</a></li>
                     <li><a href="docs">Documentation</a></li>
                     <li class="last" ><a href="about">About</a></li>
                     <li class="functional last"><a href="contact" class="icon icon-generic" data-icon="C">Contact Us</a></li>
@@ -166,7 +166,7 @@
                             <input id="group-id" name="groupField" type="hidden" value="iri"/>
 
                             <!--<div class="input-group-btn">-->
-                                <!--<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>-->
+                            <!--<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>-->
                             <!--</div>-->
                             <!---->
                             <span class="input-group-btn">
@@ -187,7 +187,9 @@
                             </div>
 
                         </div>
+
                         <input id="query-id" type="hidden" th:value="${searchOptions.query}"/>
+                        <input id="start" type="hidden" name="start" value="0" th:value="${searchOptions.start}"/>
 
                         <div style="visibility:hidden;position:absolute;">
                             <!--@thymesVar id="ontology" type="OntologyDocument"-->
@@ -200,7 +202,6 @@
                                 </option>
                             </select>
                         </div>
-                        <input id="start" type="hidden" name="start" value="0" th:value="${searchOptions.start}"/>
 
                         <div style="visibility:hidden;position:absolute;">
                             <select  id="ontology-type-id" name="type" multiple="multiple">
@@ -224,9 +225,27 @@
                         <fieldset>
                             <legend><span class="glyphicon glyphicon-filter">Filters</span></legend>
 
-                            <div id="type-summary">
+                            <h3>Term type</h3>
 
+                            <div>
+                                <select id="ontology-select-type-id" name="type" class="type-select" multiple="multiple" style="width:100%"
+                                        th:with="types=${searchOptions.getTypes()}"
+                                >
+                                    <option value="class"
+                                            th:selected="${#sets.contains(types , 'class')}">Class</option>
+                                    <option value="property"
+                                            th:selected="${#sets.contains(types , 'property')}">Property</option>
+                                    <option value="individual"
+                                            th:selected="${#sets.contains(types , 'individual')}">Individual</option>
+                                    <option value="Ontology"
+                                            th:selected="${#sets.contains(types , 'individual')}">Ontology</option>
+                                </select>
+                                <div id="type-summary">
+
+                                </div>
                             </div>
+
+
 
                             <h3>Ontologies</h3>
 
@@ -246,12 +265,8 @@
                                 <div id="ontology-summary">
 
                                 </div>
-
                             </div>
-                            <!--<p>-->
-                            <!--<button style="float:left;" type="submit" class="submit">Apply Filter</button>-->
                             <button type="button" class="btn btn-default" onclick="clearFilter()">Clear filters</button>
-                            <!--</p>-->
 
                         </fieldset>
                     </form>

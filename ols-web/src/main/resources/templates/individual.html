@@ -182,6 +182,7 @@
                             <form name="local-search" action="../../search" method="get">
                                 <div id="bloodhound" class="input-group">
                                     <input style="margin-bottom: 0.1em;" class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="select" th:placeholder="'Search ' + ${ontologyIndividual.getOntologyPrefix()}" th:attr="data-olsontology=${ontologyIndividual.getOntologyName()}" data-olsontology=""  data-selectpath="../../" placeholder="Search OLS" aria-describedby="basic-addon1"/>
+                                    <input type="hidden" name="ontology" th:value="${ontologyIndividual.getOntologyName()}"/>
 
                                     <span class="input-group-btn">
                                       <button class="btn btn-default glyphicon glyphicon-search" type="submit">
