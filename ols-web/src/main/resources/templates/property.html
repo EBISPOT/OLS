@@ -163,8 +163,10 @@
                 <a property="codingSystem" th:attr="content=${ontologyProperty.getOntologyName()}" href="#" style="border-bottom-width: 0px;">
                     <span class="ontology-source" th:text="${ontologyProperty.getOntologyPrefix()}">parent 1</span>
                 </a>   &gt;
-                <span th:if="${ontologyProperty.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyProperty.getOboId()}">id</span>
-                <span th:unless="${ontologyProperty.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyProperty.getShortForm()}">id</span>
+                <span id="shortForm" th:if="${ontologyProperty.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyProperty.getOboId()}">id</span>
+                <span id="shortForm" th:unless="${ontologyProperty.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyProperty.getShortForm()}">id</span>
+
+                <button id='copyShortForm' data-clipboard-action="copy" data-clipboard-target="#shortForm" type="button">C</button>
 
             </p>
         </nav>
@@ -194,7 +196,9 @@
 
                     <div class="grid_24 clearfix">
                         <a style="padding: 9px;border-bottom: none;" th:href="@{${ontologyProperty.getIri()}}" class="nounderline" target="blank"><img th:src="@{../../img/external_link.png}" src="../static/img/external_link.png" alt="^" title="Go to external page"/></a>
-                        <span property="url" style="font-size: small;color: grey;" th:text="${ontologyProperty.getIri()}">http://www.example.com/onto/id</span>
+                        <span id="OLS_ID"  property="url" style="font-size: small;color: grey;" th:text="${ontologyProperty.getIri()}">http://www.example.com/onto/id</span>
+                        <p style="display:inline;"><button id='copyThis' data-clipboard-action="copy" data-clipboard-target="#OLS_ID" type="button">C</button></p>
+
                     </div>
                     <div class="grid_24 alpha clearfix">
 
@@ -354,6 +358,9 @@
 <script type="text/javascript" src="../static/js/ols-termselect.js" th:src="@{../../js/ols-termselect2.js}"></script>
 <script type="text/javascript" src="../static/js/ols-tree.js" th:src="@{../../js/ols-tree.js}"></script>
 <script type="text/javascript" src="../static/js/bootstrap/bootstrap.min.js" th:src="@{../../js/bootstrap/bootstrap.min.js}"></script>
+
+<script type="text/javascript" src="../static/js/clipboard.min.js" th:src="@{../../js/clipboard.min.js}"></script>
+
 <script>
     $(document).ready(function() {
         $('.mansyntax').each(function ()
@@ -370,6 +377,9 @@
             else if ($(this).hasClass('Individual')) {
                 $(this).attr("href", getUrlType('individual') + '?iri=' + encodeURIComponent(href));
             }
+
+            new Clipboard('#copyThis')
+            new Clipboard('#copyShortForm')
         });
     });
 </script>
