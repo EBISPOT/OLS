@@ -166,17 +166,19 @@
             </a>
         </div>
 
-        <nav id="breadcrumb">
-            <p>
+        <nav id="breadcrumb"  >
+            <p style="display:inline;">
                 <a href="../../index">OLS</a> &gt;
                 <a class="nounderline" th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__}" th:text="${ontologyName}">ontology</a>
                 &nbsp;
-                <a class="nounderline" property="codingSystem" th:attr="content=${ontologyTerm.getOntologyName()}" href="#" style="border-bottom-width: 0px;">
+                <a class="nounderline" property="codingSystem" th:attr="content=${ontologyTerm.getOntologyName()}" th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__}" href="#" style="border-bottom-width: 0px;">
                     <span class="ontology-source" th:text="${ontologyTerm.getOntologyPrefix()}">parent 1</span>
                 </a>   &gt;
-                <span th:if="${ontologyTerm.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyTerm.getOboId()}">id</span>
-                <span th:unless="${ontologyTerm.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyTerm.getShortForm()}">id</span>
 
+                <span id='shortForm' th:if="${ontologyTerm.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyTerm.getOboId()}">id</span>
+                <span id='shortForm' th:unless="${ontologyTerm.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyTerm.getShortForm()}">id</span>
+
+            <button id='copyShortForm' data-clipboard-action="copy" data-clipboard-target="#shortForm" type="button">C</button>
             </p>
         </nav>
 
@@ -210,7 +212,9 @@
 
                     <div class="grid_24 clearfix">
                         <a style="padding: 9px;border-bottom: none;" th:href="@{${ontologyTerm.getIri()}}" class="nounderline" target="blank"><img th:src="@{../../img/external_link.png}" src="../static/img/external_link.png" alt="^" title="Go to external page"/></a>
-                        <span property="url" style="font-size: small;color: grey;" th:text="${ontologyTerm.getIri()}">http://www.example.com/onto/id</span>
+                        <span property="url" id="OLS_ID" style="font-size: small;color: grey;" th:text="${ontologyTerm.getIri()}">http://www.example.com/onto/id</span>
+                        <p style="display:inline;"><button id='copyThis' data-clipboard-action="copy" data-clipboard-target="#OLS_ID" type="button">C</button></p>
+
                         <!--<p style="display:inline;"><button id='copyThis' data-clipboard-action="copy" data-clipboard-target="#test" type="button">Copy to clipboard</button></p>
                         <p id="citeThis" style="display:inline;"><button type="button" title="Click here">Cite this</button></p>
                         <p id="overlay" style="display:inline;"></p> -->
@@ -334,9 +338,9 @@
                     </div>
 
 
-                    <div class="grid_10 info-box">
+                    <div id="right_info_box" class="grid_10 info-box">
 
-                        <div class="panel panel-primary">
+                        <div id="term_info_box" class="panel panel-primary">
 
                             <div class="panel-heading">
                                 <h3 style="padding: 0" class="panel-title">Term info</h3>
@@ -396,7 +400,7 @@
                             </div>
                         </div>
 
-                        <div class="panel panel-primary">
+                        <div id="term_relation_box" class="panel panel-primary">
 
                             <div class="panel-heading">
                                 <h3 style="padding: 0" class="panel-title">Term relations</h3>

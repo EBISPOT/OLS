@@ -28,14 +28,21 @@ function constructURL(urlToProcess){
 }
 
 function hideLegend(){
-    $("#LegendDiv").hide();
+
+  $("#LegendDiv").fadeOut();
+  $("#term_info_box").fadeIn();
+  $("#term_relation_box").fadeIn();
+
+  //  $("#term_info_box").show()
+  //  $("#term_relation_box").show()
+  //  $("#LegendDiv").hide();
 }
 
 
 $(document).ready(function() {
 
   $("#tree-link").on('click', hideLegend)
-  $("#meta-link").on('click', hideLegend)
+  //$("#meta-link").on('click', hideLegend) // not existing anymore
 
 
     ontologyName = $("#diachron-tab").data("olsontology");
@@ -46,7 +53,7 @@ $(document).ready(function() {
     var termIri =   $( "div[data-olswidget='tree']" ).data("ols-iri");
 
     URL=constructURL(document.URL)
-
+  
 
     //URL for later on
     var tmpURL=URL+"changes/search/findByOntologyNameAndChangeSubjectUri?ontologyName="+ontologyName+"&subject="+termIri
@@ -71,14 +78,21 @@ $(document).ready(function() {
       obj=obj["_embedded"]["changes"]
 
 
-      //Only need for static dev
-      //obj=tmpdata["_embedded"]["changes"] //tmp development
+      $("#term_info_box").fadeOut()
+      $("#term_relation_box").fadeOut()
+      //$("#term_info_box").hide()
+      //$("#term_relation_box").hide()
 
 
       if ($(document).find("#LegendDiv").length === 0)
-      {    buildLegend(); }
-      else {  $("#LegendDiv").show();     }
+        {
+            buildLegend(); }
 
+      else {
+        //$("#LegendDiv").show();
+        $("#LegendDiv").fadeIn()
+
+         }
 
 
       if (obj.length===0)
