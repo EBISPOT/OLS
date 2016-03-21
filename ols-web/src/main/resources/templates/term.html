@@ -316,10 +316,9 @@
 
                                 <div class="btn-group btn-group-vertical" style="float: right;padding-top:5px;">
                                     <!--<a class ="nounderline "  style="border-bottom:none;float:right; margin-right:10px;" th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})}" target="_blank">-->
-                                    <button class="icon icon-conceptual  btn  btn-default" data-icon ="o" th:onclick="'javascript:goTo(\'' + @{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})} + '\')'" title="Visualisation of this term">Graph view</button>
+                                    <button class="icon icon-conceptual btn btn-default special" data-icon ="o" th:onclick="'javascript:goTo(\'' + @{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})} + '\')'" title="Visualisation of this term">Graph view</button>
                                     <!--</a>-->
-
-                                    <button class="btn  btn-default" value="true" title="Expand the tree to show sibling terms" onclick="toggleSiblings(this)">Show siblings</button>
+                                    <button class="icon icon-functional btn btn-default special" data-icon="b" value="true" title="Expand the tree to show sibling terms" onclick="toggleSiblings(this)">Show siblings</button>
                                 </div>
 
 

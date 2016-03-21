@@ -145,6 +145,17 @@ a .ontology-source {
 }
 
 
+/*
+* css for buttons on term page, overwriting size stuff so the buttons are correctly sized
+*/
+
+.special{
+    width: 130px !important;
+    height: 42px !important;
+}
+
+
+
 
 /**
   * autocomplete css
