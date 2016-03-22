@@ -38,6 +38,7 @@ $("#diachron-link").on('click', function(){
     var serviceURL= $("#diachron-tab").data("selectpath");
 
     URL=constructURL(document.URL)
+    URL=constructURL("http://snarf.ebi.ac.uk:8880/ols-beta/")
 
 
     date=new Date();
@@ -64,16 +65,28 @@ $("#diachron-link").on('click', function(){
         //Append datepicker
 
           lineChartData();
+
+          // $("#ontology_info_box").fadeOut();
+          //$("#ontology_info_box").hide();
+
+
           if ($(document).find("#LegendDiv").length === 0)
           {    buildLegend(); }
-          else {              $("#LegendDiv").show();     }
+
+          $("#ontology_info_box").fadeOut(400, function(){
+          $("#LegendDiv").fadeIn();
+         });
+
     })
   })
 })
 
 
 function hideLegend(){
-    $("#LegendDiv").hide();
+    //$("#LegendDiv").hide();
+    $("#LegendDiv").fadeOut(400, function() {
+    $("#ontology_info_box").fadeIn();
+  });
 }
 
 function buildLegend(){
@@ -86,7 +99,8 @@ function buildLegend(){
     htmlString+='<tr><td>'+keys[i]+'</td><td bgcolor="'+colorObject[keys[i]]+'"></td></tr>'
   }
   htmlString+="</table></div></div>"
-  $("#right_info_box").append(htmlString)
+  $("#right_info_box").append(htmlString);
+  $("#LegendDiv").hide();
 }
 
 
@@ -341,7 +355,7 @@ function lineChartData(){
 linechart = function(divname, returndata)
 {
     $("#buttonBox").empty()
-    var title= "All changes per type between "+ dateAfter+" and "+dateBefore;
+    var title= "All changes between "+ dateAfter+" and "+dateBefore;
     /* Now designing the chart */
     var chartoptions={
       chart: {
@@ -427,7 +441,7 @@ linechart = function(divname, returndata)
 
        //Append datepicker to the linechartview
        $("#"+divname).append("<div id='datepicker' style='text-align:center;'></div>")
-       $("#datepicker").html('<hr style="width:30%; margin-left:35%">Show data from <input type="text" size="9" id="dateAfter" value="'+dateAfter+'"> to <input type="text" size="9" id="dateBefore" value="'+dateBefore+'"> <input id="changeDateSubmit" type="submit" value="Update Data!" title="Adjust the dates on the left to the timeframe you want to compare and hit this update button to display the accurant data">')
+       $("#datepicker").html('<hr style="width:30%; margin-left:35%">Show data from <input type="text" size="9" id="dateAfter" value="'+dateAfter+'"> to <input type="text" size="9" id="dateBefore" value="'+dateBefore+'"> <input id="changeDateSubmit" class="btn  btn-default" type="submit" value="Update Data!" title="Adjust the dates on the left to the timeframe you want to compare and hit this update button to display the accurant data">')
 
        var pickerAfter = new Pikaday(
        {

@@ -29,9 +29,11 @@ function constructURL(urlToProcess){
 
 function hideLegend(){
 
-  $("#LegendDiv").fadeOut();
+  $("#LegendDiv").fadeOut(400, function() {
   $("#term_info_box").fadeIn();
   $("#term_relation_box").fadeIn();
+  });
+
 
   //  $("#term_info_box").show()
   //  $("#term_relation_box").show()
@@ -44,7 +46,6 @@ $(document).ready(function() {
   $("#tree-link").on('click', hideLegend)
   //$("#meta-link").on('click', hideLegend) // not existing anymore
 
-
     ontologyName = $("#diachron-tab").data("olsontology");
     var serviceURL= $("#diachron-tab").data("selectpath");
 
@@ -53,7 +54,7 @@ $(document).ready(function() {
     var termIri =   $( "div[data-olswidget='tree']" ).data("ols-iri");
 
     URL=constructURL(document.URL)
-  
+    URL=constructURL("http://snarf.ebi.ac.uk:8880/ols-beta/")
 
     //URL for later on
     var tmpURL=URL+"changes/search/findByOntologyNameAndChangeSubjectUri?ontologyName="+ontologyName+"&subject="+termIri
@@ -78,8 +79,8 @@ $(document).ready(function() {
       obj=obj["_embedded"]["changes"]
 
 
-      $("#term_info_box").fadeOut()
-      $("#term_relation_box").fadeOut()
+      //$("#term_info_box").fadeOut()
+      //$("#term_relation_box").fadeOut()
       //$("#term_info_box").hide()
       //$("#term_relation_box").hide()
 
@@ -88,11 +89,10 @@ $(document).ready(function() {
         {
             buildLegend(); }
 
-      else {
-        //$("#LegendDiv").show();
-        $("#LegendDiv").fadeIn()
-
-         }
+         $("#term_info_box").fadeOut()
+         $("#term_relation_box").fadeOut(400, function(){
+         $("#LegendDiv").fadeIn()
+         })
 
 
       if (obj.length===0)
@@ -184,7 +184,6 @@ $(document).ready(function() {
 
 
 function buildLegend(){
-  console.log("build legend is called");
   var keys=_.keys(colorObject)
   var htmlString='<div id="LegendDiv" class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title">Legend</h3></div><div id="LegendBody" class="panel-body">'
   htmlString+="<table>";
@@ -195,6 +194,7 @@ function buildLegend(){
   }
   htmlString+="</table></div></div>"
   $("#right_info_box").append(htmlString)
+  $("#LegendDiv").hide();
 }
 
 

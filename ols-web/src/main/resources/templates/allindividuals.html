@@ -174,23 +174,25 @@
         <div class="container" style="margin:9px;">
             <div class="grid_24 alpha">
                 <section class="alpha">
-                    <div class="ontologies" th:unless="${#lists.isEmpty(allindividuals)}">
+                    <div class="ontologies" th:unless="${allindividualsize != null}">
+
+                        <!--  <div class="ontologies" th:if="${allindividualsize != null}"> -->
 
 
-                        <h2 th:text="'All individuals in ' + ${ontologyPrefix}" class="strapline">List of all individuals in X</h2>
+                            <h2 th:text="'All individuals in ' + ${ontologyPrefix}" class="strapline">List of all individuals in X</h2>
 
-                        <div>
-                            <div style="float:right;" class="grid_6">
-                                <form name="local-search" action="../../search" method="get">
-                                    <div id="bloodhound" class="input-group">
-                                        <input style="margin-bottom: 0.1em;" class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="select" th:placeholder="'Search ' + ${ontologyPrefix}" th:attr="data-olsontology=${ontologyName}" data-olsontology=""  data-selectpath="../../" placeholder="Search OLS" aria-describedby="basic-addon1"/>
+                            <div>
+                                <div style="float:right;" class="grid_6">
+                                    <form name="local-search" action="../../search" method="get">
+                                        <div id="bloodhound" class="input-group">
+                                            <input style="margin-bottom: 0.1em;" class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="select" th:placeholder="'Search ' + ${ontologyPrefix}" th:attr="data-olsontology=${ontologyName}" data-olsontology=""  data-selectpath="../../" placeholder="Search OLS" aria-describedby="basic-addon1"/>
 
-                                        <input type="hidden" name="ontology" th:value="${ontologyName}"/>
-                                        <span class="input-group-btn">
-                                          <button class="btn btn-default glyphicon glyphicon-search" type="submit">
-                                          </button>
-                                        </span>
-                                    </div><!-- /input-group -->
+                                            <input type="hidden" name="ontology" th:value="${ontologyName}"/>
+                                            <span class="input-group-btn">
+                                              <button class="btn btn-default glyphicon glyphicon-search" type="submit">
+                                              </button>
+                                            </span>
+                                        </div><!-- /input-group -->
                                 </form>
                             </div>
 
@@ -250,6 +252,13 @@
 
                         </div>
                     </div>
+
+
+                    <!--
+                    <div class="ontologies" th:if="${allindividualsize == null}">
+                        <h4>There are no individuals in this ontology</h4>
+                    </div> -->
+
                 </section>
             </div>
 

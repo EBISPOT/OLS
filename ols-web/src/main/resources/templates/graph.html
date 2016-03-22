@@ -18,15 +18,17 @@
     <meta name="keywords" content="ontology, ontologies, bioinformatics, europe, institute"/><!-- A few keywords that relate to the content of THIS PAGE (not the whol project) -->
     <meta name="author" content="EMBL-EBI Ontology Lookup Service"/><!-- Your [project-name] here -->
 
-
     <!-- Mobile viewport optimized: j.mp/bplateviewport -->
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
 
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
+
+    <link rel="stylesheet" href="../static/css/bootstrap/3.3/css/bootstrap.min.css" th:href="@{../../../css/bootstrap/3.3/css/bootstrap.min.css}" type="text/css" media="screen"/>
+
     <!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>-->
     <!--<link rel="stylesheet" href="../static/css/bootstrap/bootstrap.css" th:href="@{../../../css/bootstrap/bootstrap.css}" type="text/css" media="screen" />-->
 
-    <!--<link rel="stylesheet" href="../static/js/jstree/themes/proton/style.min.css" th:href="@{../../../js/jstree/themes/proton/style.min.css}" type="text/css" media="screen" /> -->
+    <link rel="stylesheet" href="../static/js/jstree/themes/proton/style.min.css" th:href="@{../../../js/jstree/themes/proton/style.min.css}" type="text/css" media="screen" />
 
     <!-- CSS: implied media=all -->
     <!-- CSS concatenated and minified via ant build script-->
@@ -42,11 +44,15 @@
 
     <link rel="stylesheet" href="../static/css/ols-colors.css" th:href="@{../../../css/ols-colors.css}" type="text/css" media="screen"/>
     <link rel="stylesheet" href="../static/css/ols.css" th:href="@{../../../css/ols.css}" type="text/css" media="screen"/>
+  <!--  <link rel="stylesheet" href="../static/css/typeahead/typeaheadjs.css" th:href="@{../../css/typeahead/typeaheadjs.css}" type="text/css" media="screen"/> -->
+
 
     <link rel="stylesheet" href="../static/css/ontology_vis_plugin/awesomplete.css" th:href="@{../../../css/ontology_vis_plugin/awesomplete.css}" type="text/css" />
     <link rel="stylesheet" href="../static/css/ontology_vis_plugin/ontology_vis_plugin.css" th:href="@{../../../css/ontology_vis_plugin/ontology_vis_plugin.css}" type="text/css" media="screen" />
-    <link rel="stylesheet" href="../static/css/ontology_vis_plugin/vis.css" th:href="@{../../../css/ontology_vis_plugin/vis.css}" type="text/css" />	<!-- THIS is for the VIS BUTTONS-->
+    <link rel="stylesheet" href="../static/css/ontology_vis_plugin/vis.css" th:href="@{../../../css/ontology_vis_plugin/vis.css}" type="text/css" />   <!-- THIS is for the VIS BUTTONS-->
 
+    <!-- Css lionk for dataTable -->
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css"/>
 
     <!-- for production the above can be replaced with -->
     <!--
@@ -56,6 +62,10 @@
     <style type="text/css">
         /* You have the option of setting a maximum width for your page, and making sure everything is centered */
         /* body { max-width: 1600px; margin: 0 auto; } */
+        .tt-menu {
+            left: auto !important;
+            right: 0 !important;
+        }
     </style>
 
 
@@ -88,6 +98,9 @@
         <li><a href="#global-nav-expanded">Skip to expanded EBI global navigation menu (includes all sub-sections)</a></li>
     </ul>
 </div>
+
+
+
 
 <div id="wrapper" class="container_24">
 
@@ -124,7 +137,7 @@
 
             <!-- /local-title -->
 
-            <!-- -->
+            <!--
             <div class="grid_10 omega">
                 <form id="local-search" name="local-search" action="../../../search" method="get">
                     <fieldset><div class="left">
@@ -145,7 +158,7 @@
                         </div>
                     </fieldset>
                 </form>
-            </div>
+            </div>-->
 
             <nav>
                 <ul class="grid_24" id="local-nav">
@@ -184,8 +197,8 @@
                         <div class="grid_24 clearfix">
                             <span style="font-size: small;color: grey;padding: 9px;" th:text="${'Visualized term: '+ontologyTerm.getLabel()+' ('+ontologyTerm.getIri()+')'}" >http://www.example.com/onto/id</span>
                             <a id="dataElement" th:data="${ontologyTerm.getIri()}" th:href="@{${ontologyTerm.getIri()}}" class="nounderline" target="blank"><img th:src="@{../../../img/external_link.png}" src="../static/img/external_link.png" alt="^" title="Go to external page"/></a>
-                            <a style="float:right;" class="nounderline"  th:href="@{../../../ontologies/__${ontologyTerm.getOntologyName()}__}" th:text="${'ontology: '+{ontologyTerm.ontologyName}+' ('+ontologyName+')'}">ontology</a>
-                          <hr style="margin-left: 9px;"/>
+                           <!-- <a style="float:right;" class="nounderline"  th:href="@{../../../ontologies/__${ontologyTerm.getOntologyName()}__}" th:text="${'ontology: '+{ontologyTerm.ontologyName}+' ('+ontologyName+')'}">ontology</a>
+                          <hr style="margin-left: 9px;"/>-->
                         </div>
 
 
@@ -256,11 +269,11 @@
 </div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script type="text/javascript" src="../static/js/jquery/jquery.autocomplete.min.js" th:src="@{../../js/jquery/jquery.autocomplete.min.js}"></script>
-<script type="text/javascript" src="../static/js/ols.js" th:src="@{../../js/ols.js}"></script>
+<script type="text/javascript" src="../static/js/jquery/jquery.autocomplete.min.js" th:src="@{../../../js/jquery/jquery.autocomplete.min.js}"></script>
+<script type="text/javascript" src="../static/js/ols.js" th:src="@{../../../js/ols.js}"></script>
 <!--<script src="../static/js/jstree/jstree.min.js" th:src="@{../../js/jstree/jstree.min.js}"></script>-->
 
-<script type="text/javascript" src="../static/js/ols-termselect.js" th:src="@{../../js/ols-termselect.js}"></script>
+<script type="text/javascript" src="../static/js/ols-termselect.js" th:src="@{../../../js/ols-termselect.js}"></script>
 <!--<script type="text/javascript" src="../static/js/ols-tree.js" th:src="@{../../js/ols-tree.js}"></script>-->
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script>
@@ -295,29 +308,52 @@
             // console.log("Fetching data from...."+webserviceURL);
         /*End of webserviceURL construction, can see result with console log above if interested*/
 
-        /*Define options and call the visualisation for the corresponding div element*/
+
+
+        /*Define options and call the visualisation for the corresponding div element* /
         var networkOptions={webservice : {URL:webserviceURL, OLSschema:true}};
         var visoptions={};
         var term=$("#dataElement").attr("data");
         $("#ontology_vis").visstart(term, networkOptions, visoptions);
+        */
+
+
+        /*Variante 2*/
+
+
+        var tmpnetworkOptions={ webservice : {URL: webserviceURL, OLSschema:true}}
+        var term=$("#dataElement").attr("data");
+
+        var app = require("ols-graphview");
+        var instance = new app();
+        instance.visstart("ontology_vis", term, tmpnetworkOptions,{})
+
+
 
     });
 </script>
 
     <script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/cookiebanner.js"></script>
     <script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/foot.js"></script>
+
+
+<!--
 	<script src="../static/js/ontology_vis_plugin/vis.min.js" th:src="@{../../../js/ontology_vis_plugin/vis.min.js}"></script>
 	<script src="../static/js/ontology_vis_plugin/ontology_vis_plugin.js" th:src="@{../../../js/ontology_vis_plugin/ontology_vis_plugin.js}"></script>
 	<script src="../static/js/ontology_vis_plugin/underscore-min.js" th:src="@{../../../js/ontology_vis_plugin/underscore-min.js}"></script>
 	<script src="../static/js/ontology_vis_plugin/awesomplete.min.js" th:src="@{../../../js/ontology_vis_plugin/awesomplete.min.js}"></script>
+-->
+
+ <script src="../static/js/ols-graphview.js" th:src="@{../../../js/ontology_vis_plugin/ols-graphview.js}"></script>
+
 
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-69391170-1', 'auto');
-  ga('send', 'pageview');
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-69391170-1', 'auto');
+ga('send', 'pageview');
 </script>
 </body>
 </html>
