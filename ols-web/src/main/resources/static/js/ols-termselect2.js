@@ -102,7 +102,7 @@ function getSuggestTemplate () {
       //Handlebars.compile('<div><strong>{{value}}</strong> – {{data.ontology}}</div>');
 
     },
-    footer:  Handlebars.compile('<hr/><div style="text-align: right;" class="tt-suggestion tt-selectable">Search OLS for <b>{{query}}</b></div>')
+    footer:  Handlebars.compile('<hr/><div onclick="$(this).closest(\'form\').submit()" style="text-align: right;" class="tt-suggestion tt-selectable">Search OLS for <b>{{query}}</b></div>')
 
   };
 }
