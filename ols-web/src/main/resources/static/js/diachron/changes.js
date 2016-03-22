@@ -54,7 +54,6 @@ $(document).ready(function() {
     var termIri =   $( "div[data-olswidget='tree']" ).data("ols-iri");
 
     URL=constructURL(document.URL)
-    URL=constructURL("http://snarf.ebi.ac.uk:8880/ols-beta/")
 
     //URL for later on
     var tmpURL=URL+"changes/search/findByOntologyNameAndChangeSubjectUri?ontologyName="+ontologyName+"&subject="+termIri

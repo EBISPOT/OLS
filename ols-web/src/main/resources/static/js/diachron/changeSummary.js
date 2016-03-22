@@ -38,8 +38,6 @@ $("#diachron-link").on('click', function(){
     var serviceURL= $("#diachron-tab").data("selectpath");
 
     URL=constructURL(document.URL)
-    URL=constructURL("http://snarf.ebi.ac.uk:8880/ols-beta/")
-
 
     date=new Date();
     dateBefore=date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
