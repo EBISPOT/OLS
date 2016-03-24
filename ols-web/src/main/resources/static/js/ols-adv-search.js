@@ -39,8 +39,7 @@ $(document).ready(function() {
             $("#filter_form").submit();
         });
 
-    $('.typeahead').typeahead('val', $('#query-id').val());
-    $('.typeahead').typeahead('close');
+    $('.typeahead').typeahead('val', $('#query-id').val(), false).typeahead('close');
 
     ontologyList = new Object();
     $('#ontology-select-id option').each(function(){
@@ -52,6 +51,7 @@ $(document).ready(function() {
     } catch (err) {
 
     }
+
 });
 
 var ontologyList;
@@ -239,6 +239,9 @@ function processData(data) {
     //renderFacetField(facets.is_defining_ontology, "Defining ontology", searchSummary);
     //renderFacetField(facets.is_obsolete, "Is Obsolete", searchSummary);
     //renderFacetField(facets.subset, "Susbsets", searchSummary);
+
+    // IE hack to force closing of autocomplete after search result drawn
+    $('.typeahead').typeahead('close');
 
 }
 
