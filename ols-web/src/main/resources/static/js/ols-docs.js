@@ -15,6 +15,13 @@ $(document).ready(function() {
     $("#docs-content").load (url);
     $("#docs-footer").load (url_footer);
 
+    if (pagename == 'about') {
+         $('#local-nav-about').addClass('active');
+    } else {
+        $('#local-nav-docs').addClass('active');
+
+    }
+
     // load the page content
 //    $.get(url, loadDocumentation(pagename, content)).fail(console.log("Failed to get content from " + url));
 });

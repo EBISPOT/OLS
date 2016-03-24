@@ -88,19 +88,22 @@ function solrSearch(queryTerm) {
 
 
 function clickPrev() {
-
-    var start = $('#start-display').text() - 11;
-    $('#start').val(start);
-    $('#filter_form').submit();
+    if (! $( "#prev-button" ).hasClass( "disabled" )) {
+        var start = $('#start-display').text() - 11;
+        $('#start').val(start);
+        $('#filter_form').submit();
+    }
 
 
 }
 
 function clickNext() {
-    var end = $('#end-display').text();
-    $('#start').val(end);
-    $('#filter_form').submit();
 
+    if (!$( "#next-button" ).hasClass( "disabled" )) {
+        var end = $('#end-display').text();
+        $('#start').val(end);
+        $('#filter_form').submit();
+    }
 }
 
 function processData(data) {

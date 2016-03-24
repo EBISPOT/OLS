@@ -317,7 +317,7 @@
                             <div role="tabpanel" class="tab-pane active" id="tree-tab">
 
                                 <div class="btn-group btn-group-vertical" style="float: right;padding-top:5px;">
-                                    <button class="icon icon-conceptual  btn  btn-default" data-icon ="o" th:onclick="'javascript:goTo(\'' + @{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})} + '\')'" title="Visualisation of this term">Graph view</button>
+                                    <button class="icon icon-conceptual  btn  btn-default" data-icon ="o" th:onclick="'javascript:window.open(\'' + @{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})} + '\')'" title="Visualisation of this term">Graph view</button>
                                     <button class="btn  btn-default" value="true" title="Expand the tree to show sibling terms" onclick="toggleSiblings(this)">Show siblings</button>
                                 </div>
 
