@@ -154,7 +154,11 @@ a .ontology-source {
   height: 42px !important;
 }
 
+/* Add a pointer/cursor to the button of the search page*/
 
+#prev-button, #next-button{
+  cursor:pointer;
+}
 
 
 /**
