@@ -38,6 +38,7 @@ $("#diachron-link").on('click', function(){
     var serviceURL= $("#diachron-tab").data("selectpath");
 
     URL=constructURL(document.URL)
+    URL=constructURL("http://wwwdev.ebi.ac.uk/ols/beta")
 
     date=new Date();
     dateBefore=date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
@@ -711,7 +712,13 @@ else {
 function callOLSforLabel(iri){
 
     var token=$.Deferred();
-    var OLSurl="http://www.ebi.ac.uk/ols/beta/api/ontologies/"+ontologyName+"/terms?iri="+iri
+
+    //hardcoded Link to ebi site/webservice for the labels
+    //var OLSurl="http://www.ebi.ac.uk/ols/beta/api/ontologies/"+ontologyName+"/terms?iri="+iri
+
+    var OLSurl=document.URL.slice(0, document.URL.indexOf("ols")+3)
+    OLSurl=OLSurl+"/beta/api/ontologie/"+ontologyName+"/terms?iri="+iri
+
 
   $.getJSON(OLSurl, function(olsdata){})
     .fail(function(olsdata){
