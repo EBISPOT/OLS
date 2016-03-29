@@ -44,6 +44,9 @@
 
     <link rel="stylesheet" href="../static/css/ols-colors.css" th:href="@{../../css/ols-colors.css}" type="text/css" media="screen"/>
     <link rel="stylesheet" href="../static/css/ols.css" th:href="@{../../css/ols.css}" type="text/css" media="screen"/>
+
+    <link rel="stylesheet" href="../static/css/diachron/widget.css" th:href="@{../../css/diachron/widget.css}" type="text/css" media="screen"/>
+
     <link rel="stylesheet" href="../static/css/typeahead/typeaheadjs.css" th:href="@{../../css/typeahead/typeaheadjs.css}" type="text/css" media="screen"/>
 
     <!-- Css lionk for dataTable -->
@@ -393,7 +396,7 @@
                                     <b>
                                         <a href="#" th:href="@{../../search(q=${annotations.key},exact='true', type=property, ontology=${ontologyTerm.ontologyName})}" th:text="${annotations.key.replaceAll('_', ' ')}">property name</a>
                                     </b>
-                                    <p style="margin-left:9px;" th:text="${#strings.setJoin(annotations.value, ',')}">NCBI_9606</p>
+                                    <p style="margin-left:9px;" th:text="${#strings.setJoin(annotations.value, ', ')}">NCBI_9606</p>
                                 </div>
 
                             </div>

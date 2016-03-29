@@ -29,7 +29,7 @@ function constructURL(urlToProcess){
 
 function hideLegend(){
 
-  $("#LegendDiv").fadeOut(400, function() {
+  $("#LegendDiv").fadeOut(200, function() {
   $("#term_info_box").fadeIn();
   $("#term_relation_box").fadeIn();
   });
@@ -89,7 +89,7 @@ $(document).ready(function() {
             buildLegend(); }
 
          $("#term_info_box").fadeOut()
-         $("#term_relation_box").fadeOut(400, function(){
+         $("#term_relation_box").fadeOut(200, function(){
          $("#LegendDiv").fadeIn()
          })
 

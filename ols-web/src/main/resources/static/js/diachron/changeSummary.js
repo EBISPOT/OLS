@@ -65,16 +65,16 @@ $("#diachron-link").on('click', function(){
 
           lineChartData();
 
-          // $("#ontology_info_box").fadeOut();
+          //$("#ontology_info_box").fadeOut();
           //$("#ontology_info_box").hide();
 
 
           if ($(document).find("#LegendDiv").length === 0)
           {    buildLegend(); }
 
-          $("#ontology_info_box").fadeOut(400, function(){
+          $("#ontology_info_box").fadeOut(200, function(){
           $("#LegendDiv").fadeIn();
-         });
+          });
 
     })
   })
@@ -83,9 +83,9 @@ $("#diachron-link").on('click', function(){
 
 function hideLegend(){
     //$("#LegendDiv").hide();
-    $("#LegendDiv").fadeOut(400, function() {
+    $("#LegendDiv").fadeOut(200, function() {
     $("#ontology_info_box").fadeIn();
-  });
+    });
 }
 
 function buildLegend(){
