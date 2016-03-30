@@ -482,7 +482,6 @@ linechart = function(divname, returndata)
 var masterdata=[];
 var OLSterms=[];
 function callWebserviceForDateView(inputURL){
-  console.log("IN callWebserviceForDateView");
   var token=$.Deferred();
 
   $.getJSON(inputURL, function(obj){})

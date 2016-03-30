@@ -23,7 +23,6 @@ var colorObject={
 function constructURL(urlToProcess){
   var tmp=urlToProcess.slice(0,urlToProcess.indexOf("ols"))
   tmp+="spot/dino/changes-api/"
-  console.log(tmp);
   return tmp;
 }
 
@@ -151,7 +150,6 @@ $(document).ready(function() {
         }
           htmlString+='</table>'
 
-        //console.log(htmlString);
         $("#searching").hide();
         $("#diachron-wrapper").html(htmlString)
         $("#testTable").DataTable({
@@ -163,15 +161,6 @@ $(document).ready(function() {
           ]
 
         });
-
-
-        /*All the things below might go away - maybe I can do something with the chart, maybe not*/
-        /*sortTable(obj)
-        $("#diachron-wrapper").append("<div id='graph'></div>");
-        var data=delieverBubbleChartData(obj)
-        console.log(data);
-        bubble('graph', data)*/
-
       }
 
 
@@ -195,92 +184,3 @@ function buildLegend(){
   $("#right_info_box").append(htmlString)
   $("#LegendDiv").hide();
 }
-
-
-/*
-function sortTable(obj)
-{
-
-  var htmlString="<table id='testTable' class='tablesorter'><thead><tr>"
-  htmlString+="<th>changeDate</th><th>changeName</th></tr></thead>"
-  htmlString+="<tbody>"
-  for (i=0;i<obj.length;i++)
-  {
-  htmlString+="<tr><td>"+obj[i]["changeDate"]+"</td>"
-  htmlString+="<td>"+obj[i]["changeName"]+"</td>"
-
-
-  htmlString+="</tr>"
-  }
-
-  htmlString+="</tbody></table>"
-
-  $("#diachron-wrapper").append(htmlString);
-  $("#testTable").tablesorter()
-}
-
-
-
-
-/*
-function delieverBubbleChartData(obj)
-    //{ x: 95, y: 95, z: 13.8, name: 'BE', country: 'Belgium' }
-    {
-      console.log("in deliever Bubble Chart");
-      console.log(obj);
-
-      var returndata=[];
-      for (var i=0;obj.length>i;i++)
-      {
-
-        var tmpDate=new Date(obj[i].changeDate)
-        console.log(obj[i].changeDate);
-        console.log(tmpDate);
-
-        /*
-        if (option==="day")
-          tmpDate=tmpDate.getDay()
-        if (option==="month")
-          tmpDate=tmpDate.getMonth()
-        if (option==="year")
-          tmpDate=tmpDate.getFullYear()* /
-
-        returndata.push({"x": tmpDate, "y":0, "z": 3, "name":obj[i].changeName, "info":obj[i].changeSubjectUri })
-      }
-
-      console.log("After processing data");
-      console.log(returndata);
-      return returndata;
-    }
-
-
-
-
-   function bubble(divname, Rdata){
-
-        //Static dev
-        //var Rdata=delieverBubbleChartData(tmpdata["_embedded"]["changes"], "month");
-
-        console.log("Data before drawing");
-        console.log(Rdata);
-        var chartoptions = {
-          chart:{
-            type: 'bubble',
-            zoomtype: 'xy'
-          },
-          title: {text: 'Bubble for changesummaryjson'},
-          plotOptions: {
-            bubble: {
-                dataLabels: {
-                    enabled: true,
-                    format: '{point.name}'
-                }
-            }
-        },
-        tooltip:{  pointFormat:'{point.info}'},
-    series: [{"data":Rdata}]
-        };
-
-
-        Highcharts.chart(divname, chartoptions);
-  }*/
