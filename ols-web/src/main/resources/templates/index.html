@@ -244,6 +244,7 @@
 </div>
 
 <script type="text/javascript" src="../static/js/jquery/1.11.1/jquery.min.js" th:src="@{js/jquery/1.11.1/jquery.min.js}"></script>
+<script type="text/javascript" src="../static/js/jquery.browser.min.js" th:src="@{js/browser_warning/jquery.browser.min.js}"></script>
 
 <!--<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
 <script type="text/javascript" src="../static/js/typeahead/typeahead.bundle.js" th:src="@{js/typeahead/typeahead.bundle.js}"></script>
@@ -263,6 +264,50 @@
 
 <script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/cookiebanner.js"></script>
 <script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/foot.js"></script>
+
+
+
+<script>
+    // See https://github.com/gabceb/jquery-browser-plugin for futher details how to use the plugin
+    var version;
+    var htmlString='';
+
+    //Get the browser version
+    version=$.browser.version;
+    //Slicing the first part of the number, which represents the version number of the browser
+    version=version.slice(0,version.indexOf("."));
+    //Parse the string to an int
+    version=parseInt(version);
+
+    //IE messages
+    if ($.browser.msie === true)
+    {
+        //Message for people with IE6 or 7
+        if (version===7 || version===6) {
+            htmlString = htmlString + '<div id="browser_warning"><h3 style="background:red; text-align:center;">Your browser is not up to date. You can NOT use this service with your version!</h3></div>';
+            $("#content").prepend(htmlString);
+        }
+
+        //Message for people using IE8
+        if (version===8)
+        {
+            htmlString = htmlString + '<div id="browser_warning"><h3 style="background:red; text-align:center;">Your browser is not up to date. You can try to use the service but some things might not work as expected!</h3></div>';
+            $("#content").prepend(htmlString);
+        }
+
+    }
+
+    //Message for WebKit browsers
+    // if ($.browser.webkit === true) {     }
+
+    //Message for mozilla browsers
+    //if ($.browser.mozilla === true) {     }
+
+    //Message to all mobile devices trying to use OLS
+    //if ($.browser.mobile ===true) {       }
+</script>
+
+
 
 <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
