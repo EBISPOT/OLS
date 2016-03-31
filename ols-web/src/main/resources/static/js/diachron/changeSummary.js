@@ -335,7 +335,6 @@ function lineChartData(){
 
     //Construction the URL dynamically
     tmpURL=tmpURL+"?ontologyName="+ontologyName+"&before="+dateBefore+"&after="+dateAfter;
-    console.log(tmpURL);
 
     $.getJSON(tmpURL, function(obj){})
     .fail(function(){console.log("Failed to do webservice call!"); return null})
@@ -708,9 +707,8 @@ function callOLSforLabel(iri){
     var token=$.Deferred();
 
     var OLSurl=document.URL.slice(0, document.URL.indexOf("ontologies"))
-    console.log(OLSurl);
     OLSurl=OLSurl+"api/ontologies/"+ontologyName+"/terms?iri="+iri
-    console.log(OLSurl);
+
 
   $.getJSON(OLSurl, function(olsdata){})
     .fail(function(olsdata){
