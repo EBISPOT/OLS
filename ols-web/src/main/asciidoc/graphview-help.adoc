@@ -8,7 +8,8 @@
 :source-highlighter: highlightjs
 
 == Introduction
-The visualisation offers a new and innovative way to explore a given ontology. Its primary purpose is to offer an alternative viewpoint for ontologies stored in the OLS. The visualisation is interactive, enabling the users to dynamically expand the number of nodes, zoom in/out, search for nodes as well as changing the displayed layout or hide specific relationships. Besides the the possibility of exploring an ontology and retrieve term information, the tool offers a convenient way to take screenshots for presentations. All buttons and elements of the visualisation are equiped with tooltips, so if you are unsure of the functionality, hover over them!
+The visualisation offers a new and innovative way to explore a given ontology. Its primary purpose is to offer an alternative viewpoint for ontologies stored in the OLS. The visualisation is interactive, enabling the users to dynamically expand the number of nodes, zoom in/out, search for nodes as well as changing the displayed layout or hide specific relationships. Besides the possibility of exploring an ontology and retrieve term information, the tool offers a convenient way to take screenshots for presentations. All buttons and elements of the visualisation are equipped with tooltips, so if you are unsure of the functionality, hover over them!
+
 Below the main window, a couple of buttons offer additional options to interact with the visualisation. These are explained here in detail:
 
 * "Create clusters" - By clicking on this button, multiple nodes are grouped by relationship type AND parent to a cluster. This should help with the overview if a network gets too big or a node has many children/parents.
@@ -17,14 +18,20 @@ Below the main window, a couple of buttons offer additional options to interact 
 * "Search Node" - If you look for a node in a larger network, you can search for it by using the textbox and click on the button.
 
 == The main window
-The main window shows the selected term and its relationships. The general navigation options are represented by the green buttons at the bottom of the window. On the left side, the arrow icons help to adjust the viewpoint. On the right side, the plus and the minus let you zoom in and out, while the third button fits your viewpoint to your network - so that all nodes of the network are visible.<br>
-By clicking on a node, the information window is updated. Double clicking on a node expands the node, which means that all nodes connected to it are added to the network and the legend is updated accordingly.
+The main window shows the selected term and its relationships. The general navigation options are represented by the green buttons at the bottom of the window. On the left side, the arrow icons help to adjust the viewpoint. On the right side, the plus and the minus let you zoom in and out, while the third button fits your viewpoint to your network - so that all nodes of the network are visible.
+
+* By clicking on a node, the information window is updated.
+* Double clicking on a node expands the node, which means that all nodes connected to it are downloaded and the legend is updated accordingly. **By default, only is-a relationships (=children/parents) are shown!** By using the checkboxes of the legend window, all types of relationships can be displayed or hidden! This functionality should provide a better overview for the user while offering the option to display all other relationships as necessary.
+* By double clicking on a previously expanded node, the children of this node are hidden (removed) from the graph. The node itself reduced in size to indicate this.
+
 
 == The legend
-On the right side, the legend is shown. Every relationship type of the graph is displayed with a unique color. The row "visibility" allows you to display or hide nodes and edges by the relationship types. Extended nodes are threaded special, because it is assumed that the user is interested in these nodes (after all, these nodes got extended). Therefore, "extended nodes" can not be hidden and are always displayed.
+On the right side, the legend is shown. Every relationship type of the graph is displayed with a unique colour. The row "visibility" allows you to display or hide nodes and edges by the relationship types. Extended nodes are threaded special, because it is assumed that the user is interested in these nodes (after all, these nodes got extended). Therefore, "extended nodes" can not be hidden and are always displayed.
 
 == The information window
-Depending on the item you selected, the information window is updated. All available information is displayed - for example the description or synonyms or cross references. The buttons at the bottom the the information window offer some functionally for the selected node, namely "Expand this node" (same as double click), "Zoom to this node" and "Find this term in OLS" (Link back to the treeview in OLS).
+Depending on the node/edge you selected, the information window is updated. All available information is displayed - for example the description or synonyms or cross-references. The buttons at the bottom the information window offer some functionally for the selected node, namely "Expand this node" (same as double click), "Zoom to this node" and "Find this term in OLS" (Link back to the tree view in OLS).
 
 == Contact
 For more questions or feedback, please use the "contact us" button on the right side on the top of the page.
+
+The ontology visualisation plugin is open source and can easily be integrated on your own homepage and/or be customized. It is available on https://github.com/LLTommy/OLS-graphview[github], https://www.npmjs.com/package/ols-graphview[npm] and http://www.biojs.io/d/ols-graphview[biojs] - please check the links for more information.
