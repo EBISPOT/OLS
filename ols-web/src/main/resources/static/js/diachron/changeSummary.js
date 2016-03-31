@@ -716,7 +716,7 @@ function callOLSforLabel(iri){
     //var OLSurl="http://www.ebi.ac.uk/ols/beta/api/ontologies/"+ontologyName+"/terms?iri="+iri
 
     var OLSurl=document.URL.slice(0, document.URL.indexOf("ols")+3)
-    OLSurl=OLSurl+"/beta/api/ontologie/"+ontologyName+"/terms?iri="+iri
+    OLSurl=OLSurl+"/beta/api/ontologies/"+ontologyName+"/terms?iri="+iri
 
 
   $.getJSON(OLSurl, function(olsdata){})
