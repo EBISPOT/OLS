@@ -18,7 +18,7 @@ function toggleSiblings(elm) {
 
     }
     showTree(buttonValue)
-    console.log(buttonValue);
+    //console.log(buttonValue);
 
 }
 
@@ -35,7 +35,7 @@ function showTree(siblings) {
         var termIri = $(this).data("ols-iri");
         var relativePath = $(this).data("selectpath") ? $(this).data("selectpath") : '';
 
-        console.log("Init tree for: " + ontologyName + " - " + termIri + " - " + termType);
+        //console.log("Init tree for: " + ontologyName + " - " + termIri + " - " + termType);
         // show errors if above not defined
 
         // build tree
@@ -48,14 +48,14 @@ function showTree(siblings) {
         var url = baseUrl + encodeURIComponent(encodeURIComponent(termIri)) + '/jstree' ;
         if (siblings) {
             url += '?siblings=true';
-            console.log("rebuild tree with siblings " + url)
+           // console.log("rebuild tree with siblings " + url)
         }
-        console.log("tree url " + url)
+        //console.log("tree url " + url)
         var treeDiv = $('<div></div>')
             .jstree({
                 'core' : {
                     'data': function (node, cb) {
-                        console.log("node id: " + node.id + " term " + termIri);
+                        //console.log("node id: " + node.id + " term " + termIri);
 
                         if (node.id === '#' && termIri != '') {
                             $.getJSON(url, function (data) {
@@ -122,7 +122,7 @@ function _processOlsData (data, parentId, termType) {
 
     if (data._embedded != undefined) {
         if (termType == "properties") {
-            console.log("getting term type:" + termType);
+            //console.log("getting term type:" + termType);
             results = data._embedded.properties;
         }
         else if (termType == "individuals") {
