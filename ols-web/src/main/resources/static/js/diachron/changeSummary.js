@@ -64,10 +64,6 @@ $("#diachron-link").on('click', function(){
 
           lineChartData();
 
-          //$("#ontology_info_box").fadeOut();
-          //$("#ontology_info_box").hide();
-
-
           if ($(document).find("#LegendDiv").length === 0)
           {    buildLegend(); }
 
@@ -711,12 +707,10 @@ function callOLSforLabel(iri){
 
     var token=$.Deferred();
 
-    //hardcoded Link to ebi site/webservice for the labels
-    //var OLSurl="http://www.ebi.ac.uk/ols/beta/api/ontologies/"+ontologyName+"/terms?iri="+iri
-
-    var OLSurl=document.URL.slice(0, document.URL.indexOf("ols")+3)
-    OLSurl=OLSurl+"/beta/api/ontologies/"+ontologyName+"/terms?iri="+iri
-
+    var OLSurl=document.URL.slice(0, document.URL.indexOf("ontologies"))
+    console.log(OLSurl);
+    OLSurl=OLSurl+"api/ontologies/"+ontologyName+"/terms?iri="+iri
+    console.log(OLSurl);
 
   $.getJSON(OLSurl, function(olsdata){})
     .fail(function(olsdata){
