@@ -17,21 +17,21 @@ public class RedirectFilter {
 
     public static final String REWRITE_FILTER_CONF_PATH = "urlrewrite.xml";
 
-    @Bean
-     public FilterRegistrationBean filterRegistrationBean(final ServletContext servletContext)
-     {
-         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
-
-         registrationBean.setName("UrlRewriteFilter");
-         registrationBean.setFilter(new UrlRewriteFilter());
-         registrationBean.addUrlPatterns("*");
-         registrationBean.addInitParameter("confPath", REWRITE_FILTER_CONF_PATH);
-
-         registrationBean.addInitParameter("confReloadCheckInterval", "5");
-         registrationBean.addInitParameter("logLevel", "INFO");
-
-         return registrationBean;
-     }
+//    @Bean
+//     public FilterRegistrationBean filterRegistrationBean(final ServletContext servletContext)
+//     {
+//         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+//
+//         registrationBean.setName("UrlRewriteFilter");
+//         registrationBean.setFilter(new UrlRewriteFilter());
+//         registrationBean.addUrlPatterns("*");
+//         registrationBean.addInitParameter("confPath", REWRITE_FILTER_CONF_PATH);
+//
+//         registrationBean.addInitParameter("confReloadCheckInterval", "5");
+//         registrationBean.addInitParameter("logLevel", "INFO");
+//
+//         return registrationBean;
+//     }
 
 
 }
