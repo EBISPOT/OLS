@@ -745,9 +745,9 @@ function callOLSforLabel(iri){
   $.getJSON(OLSurl, function(olsdata){})
     .fail(function(event, jqxhr, exception){
 
-      console.log("Failed with these params");
-      console.log(event);
-      console.log(event.status);
+      //console.log("Failed with these params");
+      //console.log(event);
+      //console.log(event.status);
 
     /*If calling Ols for the label and getting 404 back, means that we are looking for a deleted Class
     Since we won't find a delete class in OLS, we need to catch this case and work around it. */

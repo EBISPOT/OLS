@@ -72,14 +72,14 @@ function clearFilter() {
 function loadResults() {
 
     var query =$('#filter_form').serialize()
-    console.log("Loading results for " + query);
+    //console.log("Loading results for " + query);
 
     solrSearch(query)
 
 }
 
 function solrSearch(queryTerm) {
-    console.log("Solr search request received for " + queryTerm);
+    //console.log("Solr search request received for " + queryTerm);
     $.getJSON('api/search?' + queryTerm)
         .done(function (data) {
             processData(data);

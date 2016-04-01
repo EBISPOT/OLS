@@ -9,7 +9,7 @@ $(document).ready(function() {
     var url_header = "../documents/".concat(pagename).concat(".html #header");
     var url_footer = "../documents/".concat(pagename).concat(".html #footer");
     var url = "../documents/".concat(pagename).concat(".html #content");
-    console.log("Documentation should be loaded from " + url + "...");
+    //console.log("Documentation should be loaded from " + url + "...");
 
     $("#docs-header").load (url_header);
     $("#docs-content").load (url);
