@@ -38,6 +38,8 @@ $("#diachron-link").on('click', function(){
     var serviceURL= $("#diachron-tab").data("selectpath");
 
     URL=constructURL(document.URL)
+    //hardcoded
+    //URL=constructURL("http://www.ebi.ac.uk/ols/beta")
 
     date=new Date();
     dateBefore=date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
@@ -159,14 +161,31 @@ function piechartview(divname, date){
 
   //Transform Date to two dates (before and after day)
   var x=new Date(date);
-  var tmpdateafter=x.getFullYear()+'-'+(x.getMonth()+1)+'-'+(x.getDate()-1);
-  var tmpdatebefore=x.getFullYear()+'-'+(x.getMonth()+1)+'-'+(x.getDate()+1);
+  var tmpdateafter=x.getFullYear()+'-'+(x.getMonth()+1)+'-'+(x.getDate());
+  var tmpdatebefore=x.getFullYear()+'-'+(x.getMonth()+1)+'-'+(x.getDate());
+
+  /*
+  var momentdate=moment(tmpdateafter);
+  XXtmpdateafter=momentdate.subtract(1,'days');
+  XXtmpdatebefore=momentdate.add(1,'days');
+
+  console.log("Datestuff: ");
+  console.log(tmpdateafter);
+  console.log(tmpdatebefore);
+  console.log(XXtmpdateafter);
+  console.log(XXtmpdatebefore);
+  console.log(XXtmpdateafter.format('YYYY-MM-DD'));
+  console.log(XXtmpdatebefore.format('YYYY-MM-DD'));*/
+
 
   //Using between
   var tmpURL=URL+"changesummaries/search/findByOntologyNameAndChangeDateBetween";
   tmpURL=tmpURL+"?ontologyName="+ontologyName+"&after="+tmpdateafter+"&before="+tmpdatebefore
 
   //Using the exact endpoint
+
+
+
   $.getJSON(tmpURL, function(obj){})
   .fail(function(){   console.log("Failed to do webservice call!"); console.log(tmpURL); return null })
   .done(function(obj){
@@ -709,12 +728,30 @@ function callOLSforLabel(iri){
     var OLSurl=document.URL.slice(0, document.URL.indexOf("ontologies"))
     OLSurl=OLSurl+"api/ontologies/"+ontologyName+"/terms?iri="+iri
 
+    //hardcoded
+    //var OLSurl="http://www.ebi.ac.uk/ols/beta/"+"api/ontologies/"+ontologyName+"/terms?iri="+iri
 
   $.getJSON(OLSurl, function(olsdata){})
-    .fail(function(olsdata){
+    .fail(function(event, jqxhr, exception){
+
+      console.log("Failed with these params");
+      console.log(event);
+      console.log(jqxhr);
+      console.log(jqxhr.status);
+      console.log(exception);
+
+    /*If calling Ols for the label and getting 404 back, means that we are looking for a deleted Class
+    Since we won't find a delete class in OLS, we need to catch this case and work around it. */
+   if (jqxhr.status === 404){
+      var tmp=_.findWhere(tableData, {"id":iri})
+      tmp.Label="Deleted Class";
+      }
+    /* In case that we have another error that 404, we still display the error message*/
+    else{
       console.log("Failed to do webservice call! Please try again later or make sure the "+OLSurl+" exists!");
       $("#searching").hide();
       $("#diachron-wrapper").html("<h3>Sorry, failed to call webservice. </h3>Maybe the server is down. Check the console for additional information.")
+    }
       return token.resolve();
     })
     .done(function(olsdata){
