@@ -39,6 +39,11 @@ public class MongoAppConfig {
 *
 */
 
+//    @Bean
+//    MongoClientOptions mongoOption( ) {
+//
+//    }
+
     @Bean
     MongoClientFactoryBean mongoFactory() throws UnknownHostException {
 
