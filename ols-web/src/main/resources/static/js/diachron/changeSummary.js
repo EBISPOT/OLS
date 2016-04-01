@@ -597,7 +597,18 @@ else {
                                 tmpchangetypes.push(tmpchangefield[tcounter].changeName)
                               }
                             }
+
+
+                        // Usually, the first case will be true and be executed. This adds a row in the datatable
+                          if (tableData[i].Label !== "Deleted Class")
+                          {
                           htmlString2+='<tr id="'+i+'" class="mainrow"><td><small><a href="'+baseUrl+encodeURIComponent(tableData[i].id)+'">'+tableData[i].id+'</a></small></td><td>'+tableData[i].Label+'</td><td>'+tableData[i].changes.length+' - <small>'+tmpchangetypes+'</small></td><td style="cursor:pointer;"><img src="../img/eye.png" alt="Click me" title="Click on a row to see more results!"/></td></tr>'
+                          }
+                        // The entry is about a 'Deleted Class' - that is why we might want to replace the label in the future and remove the link (because it does no exist no more!)
+                        else {
+                          htmlString2+='<tr id="'+i+'" class="mainrow"><td><small>'+tableData[i].id+'</small></td><td>'+tableData[i].Label+'</td><td>'+tableData[i].changes.length+' - <small>'+tmpchangetypes+'</small></td><td style="cursor:pointer;"><img src="../img/eye.png" alt="Click me" title="Click on a row to see more results!"/></td></tr>'
+                        }
+
                       }
 
 
@@ -736,13 +747,11 @@ function callOLSforLabel(iri){
 
       console.log("Failed with these params");
       console.log(event);
-      console.log(jqxhr);
-      console.log(jqxhr.status);
-      console.log(exception);
+      console.log(event.status);
 
     /*If calling Ols for the label and getting 404 back, means that we are looking for a deleted Class
     Since we won't find a delete class in OLS, we need to catch this case and work around it. */
-   if (jqxhr.status === 404){
+   if (event.status === 404){
       var tmp=_.findWhere(tableData, {"id":iri})
       tmp.Label="Deleted Class";
       }
