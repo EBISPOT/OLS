@@ -42,7 +42,11 @@ public class HomeController {
         return repositoryService.getAllDocumentsByStatus(Status.LOADED, new Sort(new Sort.Order(Sort.Direction.ASC, "ontologyId")));
     }
 
-    @RequestMapping({"", "/index"})
+    @RequestMapping({""})
+    public String goHome () {
+        return "redirect:index";
+    }
+    @RequestMapping({"/index"})
     public String showHome(Model model) {
 
         Date lastUpdated = repositoryService.getLastUpdated();

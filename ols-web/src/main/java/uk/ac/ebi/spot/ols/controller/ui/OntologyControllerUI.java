@@ -88,7 +88,6 @@ public class OntologyControllerUI {
     }
 
     @RequestMapping(path = "/{onto}", produces = "application/rdf+xml", method = RequestMethod.GET)
-
     public @ResponseBody FileSystemResource getOntologyDirectDownload(@PathVariable("onto") String ontologyId) throws ResourceNotFoundException {
         return getDownloadOntology(ontologyId);
     }

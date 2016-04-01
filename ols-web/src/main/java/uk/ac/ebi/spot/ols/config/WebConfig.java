@@ -31,11 +31,14 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         configurer
             .setUseSuffixPatternMatch(false);
 
+
     }
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**").allowedOrigins("*").allowedHeaders("*").allowedMethods("GET");
     }
+
+
 
 }
