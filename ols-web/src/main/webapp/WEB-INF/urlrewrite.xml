@@ -8,15 +8,17 @@
     http://www.tuckey.org/urlrewrite/
 
 -->
-<urlrewrite>
+<urlrewrite use-context="true">
 
     <rule>
+        <name>Remove slash</name>
         <note>
-            Permamently remove trailing slashes
+            Permanently remove trailing slashes
         </note>
-        <from>(/.*)/(\?.*)?$</from>
-        <to encode="false" type="permanent-redirect">$1$2</to>
+        <from>(ontologies.*)/$</from>
+        <to type="redirect">$1</to>
     </rule>
+
 
     <!--
 

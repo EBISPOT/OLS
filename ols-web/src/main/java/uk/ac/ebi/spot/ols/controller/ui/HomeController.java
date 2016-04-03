@@ -42,10 +42,11 @@ public class HomeController {
         return repositoryService.getAllDocumentsByStatus(Status.LOADED, new Sort(new Sort.Order(Sort.Direction.ASC, "ontologyId")));
     }
 
-    @RequestMapping({""})
+    @RequestMapping({"", "/"})
     public String goHome () {
         return "redirect:index";
     }
+//
     @RequestMapping({"/index"})
     public String showHome(Model model) {
 
