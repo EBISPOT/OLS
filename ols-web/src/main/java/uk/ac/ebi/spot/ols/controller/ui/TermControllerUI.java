@@ -108,41 +108,50 @@ public class TermControllerUI {
         String title = repositoryService.get(ontologyId).getConfig().getTitle();
         model.addAttribute("ontologyName", title);
 
-        Collection<OBODefinitionCitation> definitionCitations = new HashSet<>();
-        try {
-            for (String s : term.getOboDefinitionCitations()) {
-                ObjectMapper mapper = new ObjectMapper();
-                OBODefinitionCitation obj = mapper.readValue(s, OBODefinitionCitation.class);
-                definitionCitations.add(obj);
+        if (term.getOboDefinitionCitations() != null) {
+            Collection<OBODefinitionCitation> definitionCitations = new HashSet<>();
+            try {
+                for (String s : term.getOboDefinitionCitations()) {
+                    ObjectMapper mapper = new ObjectMapper();
+                    OBODefinitionCitation obj = mapper.readValue(s, OBODefinitionCitation.class);
+                    definitionCitations.add(obj);
+                }
+                model.addAttribute("definitionCitations", definitionCitations);
+            } catch (IOException e) {
+                log.error("Failed to read and parse JSON for definition citations: data may be missing from the view", e);
             }
-            model.addAttribute("definitionCitations", definitionCitations);
-        } catch (IOException e) {
-            log.error("Failed to read and parse JSON for definition citations: data may be missing from the view", e);
         }
 
-        Collection<OBOXref> xrefs = new HashSet<>();
-        try {
-            for (String s : term.getOboXrefs()) {
-                ObjectMapper mapper = new ObjectMapper();
-                OBOXref obj = mapper.readValue(s, OBOXref.class);
-                xrefs.add(obj);
+
+        if (term.getOboXrefs() != null ) {
+            Collection<OBOXref> xrefs = new HashSet<>();
+            try {
+                for (String s : term.getOboXrefs()) {
+                    ObjectMapper mapper = new ObjectMapper();
+                    OBOXref obj = mapper.readValue(s, OBOXref.class);
+                    xrefs.add(obj);
+                }
+                model.addAttribute("xrefs", xrefs);
+            } catch (IOException e) {
+                log.error("Failed to read and parse JSON for definition citations: data may be missing from the view", e);
             }
-            model.addAttribute("xrefs", xrefs);
-        } catch (IOException e) {
-            log.error("Failed to read and parse JSON for definition citations: data may be missing from the view", e);
         }
 
-        Collection<OBOSynonym> synonyms = new HashSet<>();
-        try {
-            for (String s : term.getOboSynonyms()) {
-                ObjectMapper mapper = new ObjectMapper();
-                OBOSynonym obj = mapper.readValue(s, OBOSynonym.class);
-                synonyms.add(obj);
+        if (term.getOboSynonyms() != null) {
+            Collection<OBOSynonym> synonyms = new HashSet<>();
+            try {
+                for (String s : term.getOboSynonyms()) {
+                    ObjectMapper mapper = new ObjectMapper();
+                    OBOSynonym obj = mapper.readValue(s, OBOSynonym.class);
+                    synonyms.add(obj);
+                }
+                model.addAttribute("synonyms", synonyms);
+            } catch (IOException e) {
+                log.error("Failed to read and parse JSON for definition citations: data may be missing from the view", e);
             }
-            model.addAttribute("synonyms", synonyms);
-        } catch (IOException e) {
-            log.error("Failed to read and parse JSON for definition citations: data may be missing from the view", e);
         }
+
+
 
         return "term";
     }
