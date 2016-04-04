@@ -1,12 +1,14 @@
 package uk.ac.ebi.spot.ols.controller.ui;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
 import uk.ac.ebi.spot.ols.neo4j.model.Individual;
-import uk.ac.ebi.spot.ols.neo4j.model.Related;
 import uk.ac.ebi.spot.ols.neo4j.model.Term;
 import uk.ac.ebi.spot.ols.neo4j.service.OntologyTermGraphService;
 import uk.ac.ebi.spot.ols.service.OntologyRepositoryService;
@@ -23,9 +24,10 @@ import uk.ac.ebi.spot.ols.util.OBODefinitionCitation;
 import uk.ac.ebi.spot.ols.util.OBOSynonym;
 import uk.ac.ebi.spot.ols.util.OBOXref;
 
-import javax.swing.*;
 import java.io.IOException;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Map;
 
 /**
  * @author Simon Jupp
@@ -41,6 +43,12 @@ public class TermControllerUI {
 
     @Autowired
     private OntologyTermGraphService ontologyTermGraphService;
+
+    private final Logger log = LoggerFactory.getLogger(getClass());
+
+    protected Logger getLog() {
+        return log;
+    }
 
     @RequestMapping(path = "/{onto}/terms", method = RequestMethod.GET)
     String getTerm(
@@ -88,7 +96,7 @@ public class TermControllerUI {
 
         Map<String, Collection<Map<String, String>>> relatedFroms = ontologyTermGraphService.getRelatedFrom(ontologyId, term.getIri());
 
-        Collection<Individual> individuals = ontologyTermGraphService.getInstances(ontologyId, termIri);
+        Collection<Individual> individuals = ontologyTermGraphService.getInstances(ontologyId, term.getIri());
         model.addAttribute("instances", individuals);
 
 
@@ -108,7 +116,8 @@ public class TermControllerUI {
                 definitionCitations.add(obj);
             }
             model.addAttribute("definitionCitations", definitionCitations);
-        } catch (Exception e) {
+        } catch (IOException e) {
+            log.error("Failed to read and parse JSON for definition citations: data may be missing from the view", e);
         }
 
         Collection<OBOXref> xrefs = new HashSet<>();
@@ -119,7 +128,8 @@ public class TermControllerUI {
                 xrefs.add(obj);
             }
             model.addAttribute("xrefs", xrefs);
-        } catch (Exception e) {
+        } catch (IOException e) {
+            log.error("Failed to read and parse JSON for definition citations: data may be missing from the view", e);
         }
 
         Collection<OBOSynonym> synonyms = new HashSet<>();
@@ -130,7 +140,8 @@ public class TermControllerUI {
                 synonyms.add(obj);
             }
             model.addAttribute("synonyms", synonyms);
-        } catch (Exception e) {
+        } catch (IOException e) {
+            log.error("Failed to read and parse JSON for definition citations: data may be missing from the view", e);
         }
 
         return "term";
