@@ -1,5 +1,5 @@
 #searchBox{
-	float:left
+	float:left;
 	border:1px solid black;
 	margin-bottom:10px;
 }
@@ -12,6 +12,25 @@
 	border-radius: 5px;
 	float:left;
 }
+
+#spinner{
+	min-height:700px;
+	width:74%;
+	border:1px solid ;
+	border-color: #337ab7;
+	border-radius: 5px;
+	float:left;
+}
+
+#loadingIMG{
+	display:block;
+	margin:auto;
+	margin-top: 300px;
+	width:75px;
+	height: 75px;
+
+}
+
 
 #Legend{
 	width:25%;
@@ -36,7 +55,7 @@
 
 #LookUpNodeTextfield{
  	position: relative;
-    top: 0px; 
+    top: 0px;
     /*Round corners ... if we want to have that */
     -webkit-border-radius: 5px;
 		-moz-border-radius: 5px;

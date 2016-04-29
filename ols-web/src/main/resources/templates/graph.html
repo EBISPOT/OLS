@@ -321,7 +321,9 @@
         /*Variante 2*/
 
 
-        var tmpnetworkOptions={ webservice : {URL: webserviceURL, OLSschema:true}}
+        var tmpnetworkOptions={ webservice : {URL: webserviceURL, OLSschema:true},
+        loadingBar:{pictureURL:"../../../img/loading1.gif"}
+        }
         var term=$("#dataElement").attr("data");
 
         var app = require("ols-graphview");
