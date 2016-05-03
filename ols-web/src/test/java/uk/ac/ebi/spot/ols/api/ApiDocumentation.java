@@ -43,7 +43,7 @@ import static org.springframework.restdocs.request.RequestDocumentation.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = OlsWebApp.class)
 @WebAppConfiguration
-//@Ignore
+@Ignore
 public class ApiDocumentation {
 
     @Rule
