@@ -115,7 +115,7 @@
                 </executions>
                 <configuration>
                     <sourceDirectory>src/main/asciidoc</sourceDirectory>
-                    <outputDirectory>${project.basedir}/src/main/resources/static/documents/</outputDirectory>
+                    <outputDirectory>src/main/resources/static/documents/</outputDirectory>
                     <backend>html</backend>
                     <doctype>book</doctype>
                     <attributes>

@@ -658,11 +658,11 @@ Content-Length: 71623
         "graph" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/graph"
         },
-        "part_of" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
-        },
         "develops_from" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0002202"
+        },
+        "part_of" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
         }
       }
     }, {

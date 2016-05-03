@@ -5,7 +5,7 @@
 * You can obtain the source code at https://github.com/EBISPOT/OLS
 
 === OLS REST API
-* Information about the API access to our services can be found at (http://www.ebi.ac.uk/ols/beta/docs/api)
+* Information about the API access to our services can be found at (http://www.ebi.ac.uk/ols/docs/api)
 
 === OLS javascript widgets
 * Links to different OLS widgets (coming soon)

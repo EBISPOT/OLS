@@ -68,13 +68,13 @@ Content-Length: 2447
       "href" : "http://www.ebi.ac.uk/api/ontologies?page=2&size=1"
     },
     "last" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies?page=145&size=1"
+      "href" : "http://www.ebi.ac.uk/api/ontologies?page=146&size=1"
     }
   },
   "page" : {
     "size" : 1,
-    "totalElements" : 146,
-    "totalPages" : 146,
+    "totalElements" : 147,
+    "totalPages" : 147,
     "number" : 1
   }
 }

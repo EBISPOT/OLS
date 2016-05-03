@@ -6,29 +6,24 @@ package uk.ac.ebi.spot.ols.controller.ui;
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
 
-import org.neo4j.graphdb.GraphDatabaseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.boot.bind.PropertiesConfigurationFactory;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import uk.ac.ebi.spot.ols.indexer.OntologySolrRepository;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
 import uk.ac.ebi.spot.ols.model.Status;
-import uk.ac.ebi.spot.ols.neo4j.repository.OntologyTermRepository;
-import uk.ac.ebi.spot.ols.neo4j.service.OntologyTermGraphService;
 import uk.ac.ebi.spot.ols.service.OntologyRepositoryService;
 
-import java.text.DecimalFormat;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("")
@@ -36,6 +31,9 @@ public class HomeController {
 
     @Autowired
     OntologyRepositoryService repositoryService;
+
+    @Autowired
+    Environment environment;
 
     @ModelAttribute("all_ontologies")
     public List<OntologyDocument> getOntologies() {
@@ -46,7 +44,7 @@ public class HomeController {
     public String goHome () {
         return "redirect:index";
     }
-//
+    //
     @RequestMapping({"/index"})
     public String showHome(Model model) {
 
@@ -62,6 +60,23 @@ public class HomeController {
         return "index";
     }
 
+    @RequestMapping("/browse.do")
+    public ModelAndView redirectOldUrls (
+            @RequestParam(value = "ontName", required = true) String ontologyName,
+            @RequestParam(value = "termId", required = false) String termId,
+            Model model
+    )  {
+
+        ontologyName = ontologyName.toLowerCase();
+        String url = "ontologies/" + ontologyName;
+        if (termId != null) {
+            url = "ontologies/" + ontologyName + "/terms?obo_id=" + termId;
+        }
+        RedirectView rv = new RedirectView(url);
+        rv.setStatusCode(HttpStatus.MOVED_PERMANENTLY);
+        rv.setUrl(url);
+        return new ModelAndView(rv);
+    }
 
     @RequestMapping("/search")
     public String doSearch(
@@ -79,7 +94,7 @@ public class HomeController {
             @RequestParam(value = "start", defaultValue = "0") Integer start,
             Model model
 
-            ) {
+    ) {
 
         AdvancedSearchOptions searchOptions = new AdvancedSearchOptions(
                 query,

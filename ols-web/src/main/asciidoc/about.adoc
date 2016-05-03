@@ -1,10 +1,10 @@
 
 == About OLS
-OLS is developed and maintained by the link:http://www.ebi.ac.uk/about/spot-team[Samples, Phenotypes and Ontologies Team] at EMBL-EBI.
+The Ontology Lookup Service (OLS) is a repository for biomedical ontologies that aims to provide a single point of access to the latest ontology versions. The user can browse the ontologies through the website as well as programmatically via the OLS API. OLS is developed and maintained by the link:http://www.ebi.ac.uk/about/spot-team[Samples, Phenotypes and Ontologies Team] at EMBL-EBI.
 
 == Funding
 
-OLS is supported in part by CORBEL funded by the  EU's Horizon 2020 research and innovation programme (2014–2020) under grant agreement number 654248 and by DIACHRON, EU FP7 Capacities Specific Programme,/grant/agreement/number/284209.
+OLS is supported in part by CORBEL funded by the EU's Horizon 2020 research and innovation programme (2014–2020) under grant agreement number 654248 and previously by link:http://www.diachron-fp7.eu[DIACHRON], EU FP7 Capacities Specific Programme,/grant/agreement/number/284209.
 
 == Contact
 * For feedback, enquiries or suggestion about OLS or to request a new ontology please contact ols-support@ebi.ac.uk

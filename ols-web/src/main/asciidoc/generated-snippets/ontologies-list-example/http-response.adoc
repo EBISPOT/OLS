@@ -2,7 +2,7 @@
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 39531
+Content-Length: 40026
 
 {
   "_embedded" : {
@@ -471,25 +471,31 @@ Content-Length: 39531
         }
       }
     }, {
-      "loaded" : null,
-      "updated" : "2016-01-19T11:34:58.055+0000",
-      "status" : "TOLOAD",
-      "message" : "No ontology loaded",
+      "loaded" : "2016-05-03T09:12:49.604+0000",
+      "updated" : "2016-05-03T09:12:49.604+0000",
+      "status" : "LOADED",
+      "message" : "",
       "version" : null,
-      "numberOfTerms" : 0,
-      "numberOfProperties" : 0,
+      "numberOfTerms" : 102424,
+      "numberOfProperties" : 35,
       "numberOfIndividuals" : 0,
       "config" : {
-        "versionIri" : null,
+        "versionIri" : "http://purl.obolibrary.org/obo/chebi/139/chebi.owl",
         "title" : "Chemical Entities of Biological Interest",
         "namespace" : "chebi",
         "preferredPrefix" : "CHEBI",
         "description" : "A structured classification of molecular entities of biological interest focusing on 'small' chemical compounds.",
         "homepage" : "http://www.ebi.ac.uk/chebi",
-        "version" : null,
+        "version" : "03-05-2016",
         "mailingList" : null,
         "creators" : [ ],
-        "annotations" : { },
+        "annotations" : {
+          "date" : [ "01:05:2016 03:50" ],
+          "saved-by" : [ "chebi" ],
+          "default-namespace" : [ "chebi_ontology" ],
+          "has_obo_format_version" : [ "1.2" ],
+          "comment" : [ "Author: ChEBI curation team", "developed by Michael Ashburner & Pankaj Jaiswal.", "ChEBI Release version 139", "For any queries contact chebi-help@ebi.ac.uk", "ChEBI subsumes and replaces the Chemical Ontology first" ]
+        },
         "fileLocation" : "http://purl.obolibrary.org/obo/chebi.owl",
         "reasonerType" : "EL",
         "oboSlims" : true,
@@ -531,7 +537,7 @@ Content-Length: 39531
         "namespace" : "doid",
         "preferredPrefix" : "DOID",
         "description" : "An ontology for describing the classification of human diseases organized by etiology.",
-        "homepage" : "http://diseaseontology.sourceforge.net/",
+        "homepage" : "http://www.disease-ontology.org",
         "version" : null,
         "mailingList" : null,
         "creators" : [ ],
@@ -760,7 +766,7 @@ Content-Length: 39531
         "title" : "PRotein Ontology (PRO)",
         "namespace" : "pr",
         "preferredPrefix" : "PR",
-        "description" : "an ontological representation of protein-related entities",
+        "description" : "An ontological representation of protein-related entities",
         "homepage" : "http://proconsortium.org",
         "version" : null,
         "mailingList" : null,
@@ -948,7 +954,7 @@ Content-Length: 39531
   },
   "page" : {
     "size" : 20,
-    "totalElements" : 146,
+    "totalElements" : 147,
     "totalPages" : 8,
     "number" : 0
   }

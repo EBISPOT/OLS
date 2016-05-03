@@ -89,19 +89,19 @@ Content-Type: application/json
 {
   "_links" : {
     "first" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies?page=0&size=1"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies?page=0&size=1"
     },
     "prev" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies?page=0&size=1"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies?page=0&size=1"
     },
     "self" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies"
     },
     "next" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies?page=2&size=1"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies?page=2&size=1"
     },
     "last" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies?page=140&size=1"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies?page=140&size=1"
     }
   },
   "_embedded" : {

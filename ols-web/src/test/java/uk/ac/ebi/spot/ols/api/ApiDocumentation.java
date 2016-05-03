@@ -43,7 +43,7 @@ import static org.springframework.restdocs.request.RequestDocumentation.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = OlsWebApp.class)
 @WebAppConfiguration
-@Ignore
+//@Ignore
 public class ApiDocumentation {
 
     @Rule
@@ -67,9 +67,8 @@ public class ApiDocumentation {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.context)
                 .apply(documentationConfiguration(this.restDocumentation).uris()
                                 .withScheme("http")
-                                .withHost("www.ebi.ac.uk/ols/beta")
+                                .withHost("www.ebi.ac.uk/ols")
                                 .withPort(80)
-
                 )
                 .alwaysDo(this.document)
                 .build();

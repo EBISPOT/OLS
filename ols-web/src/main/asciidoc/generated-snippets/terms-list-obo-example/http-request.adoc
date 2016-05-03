@@ -1,6 +1,6 @@
 [source,http]
 ----
-GET /ols/beta/api/ontologies/go/terms?obo_id=GO:0043226 HTTP/1.1
+GET /ols/api/ontologies/go/terms?obo_id=GO:0043226 HTTP/1.1
 Accept: application/json
 Host: www.ebi.ac.uk
 

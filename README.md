@@ -1,10 +1,10 @@
 # OLS
 Ontology Lookup Service from SPOT at EBI. 
 
-* OLS is currently live in beta at the EBI here http://www.ebi.ac.uk/ols/beta
-* A REST API for OLS is described here http://www.ebi.ac.uk/ols/beta/docs/api
-* Instruction on how to build a local OLS installation are here http://www.ebi.ac.uk/ols/beta/docs/installation-guide 
-* Further OLS documentation can be found here http://www.ebi.ac.uk/ols/beta/docs
+* OLS is currently live at the EBI here http://www.ebi.ac.uk/ols/beta
+* A REST API for OLS is described here http://www.ebi.ac.uk/ols/docs/api
+* Instruction on how to build a local OLS installation are here http://www.ebi.ac.uk/ols/docs/installation-guide
+* Further OLS documentation can be found here http://www.ebi.ac.uk/ols/docs
 
 ## Overview
 

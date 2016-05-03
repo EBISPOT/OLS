@@ -189,26 +189,28 @@
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget <nulla class=""></nulla>                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum.
                             </p>
                         </div>
+
+                        <form style="padding-left: 0;" name="local-search" action="../search" method="get">
+                                                    <div id="bloodhound" class="input-group">
+                                                        <input style="margin-bottom: 0.1em;" class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="select" th:attr="data-olsontology=${ontologyDocument.getOntologyId()}" data-olsontology=""  data-selectpath="../" th:placeholder="'Search ' + ${ontologyDocument.getConfig().getPreferredPrefix()}" placeholder="Search OLS" aria-describedby="basic-addon1"/>
+                                                        <input type="hidden" name="ontology" th:value="${ontologyDocument.getOntologyId()}"/>
+
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-default glyphicon glyphicon-search" type="submit">
+                                                            </button>
+                                                        </span>
+                                                    </div><!-- /input-group -->
+                                                </form>
+
                         <p>
                         <div class="btn-group">
+                            <button class ="btn btn-default btn-lg icon icon-functional" role="button" data-icon ="b" th:onclick="'javascript:goTo(\'' + @{__${ontologyDocument.getOntologyId()}__/terms} + '\')'">Terms</button>
                             <button class ="btn btn-default btn-lg icon icon-functional" role="button" data-icon ="=" th:onclick="'javascript:goTo(\'' + @{__${ontologyDocument.getOntologyId()}__/download} + '\')'">Download</button>
                             <button th:if="${ontologyDocument.getConfig().getHomepage() != null}" class ="btn btn-default btn-lg icon icon-generic"  th:title="${ontologyDocument.getConfig().getHomepage()}" role="button" data-icon ="H"  th:onclick="'javascript:goTo(\'' + @{${ontologyDocument.getConfig().getHomepage()}} + '\')'">Ontology Homepage</button>
                             <button th:if="${contact != null}" class ="btn btn-default btn-lg icon icon-generic"  role="button" data-icon ="C" th:title="${contact}" th:onclick="'javascript:goTo(\'' + @{${contact}} + '\')'">Contact</button>
                         </div>
-
-
                         </p>
-                        <form style="padding-left: 0;" name="local-search" action="../search" method="get">
-                            <div id="bloodhound" class="input-group">
-                                <input style="margin-bottom: 0.1em;" class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="select" th:attr="data-olsontology=${ontologyDocument.getOntologyId()}" data-olsontology=""  data-selectpath="../" th:placeholder="'Search ' + ${ontologyDocument.getConfig().getPreferredPrefix()}" placeholder="Search OLS" aria-describedby="basic-addon1"/>
-                                <input type="hidden" name="ontology" th:value="${ontologyDocument.getOntologyId()}"/>
 
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default glyphicon glyphicon-search" type="submit">
-                                    </button>
-                                </span>
-                            </div><!-- /input-group -->
-                        </form>
                     </div>
 
                 </div>

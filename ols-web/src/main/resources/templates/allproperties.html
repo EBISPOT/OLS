@@ -200,7 +200,7 @@
                                 <ul style="text-align: left;" class="pager">
 
                                     <li th:if="${pageable.hasPrevious()}" class="btn-group" id="prev-button" >
-                                        <a href="#" th:href="@{properties (page=${pageable.getPageNumber()} - 1)}" >Previous</a>
+                                        <a rel="prev" href="#" th:href="@{properties (page=${pageable.getPageNumber()} - 1)}" >Previous</a>
                                     </li>
                                     <li th:unless="${pageable.hasPrevious()}" class="btn-group disabled" id="prev-button" >
                                         <a href="#" >Previous</a>
@@ -215,7 +215,7 @@
                                         <a href="#" >Next</a>
                                     </li>
                                     <li th:if=" (${pageable.getOffset()} + ${pageable.getPageSize()}) lt ${allpropertiessize}" class="btn-group" id="next-button" >
-                                        <a href="#" th:href="@{properties (page=${pageable.next().getPageNumber()})}" >Next</a>
+                                        <a rel="next" href="#" th:href="@{properties (page=${pageable.next().getPageNumber()})}" >Next</a>
                                     </li>
                                 </ul>
 
