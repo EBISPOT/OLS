@@ -1,40 +1,40 @@
-= Neo4J and OLS
+= Neo4j and OLS
 :doctype: book
 :toc: left
-:toc-title: OLS Neo4J documentation
+:toc-title: OLS Neo4j documentation
 :sectanchors:
 :sectlinks:
 :toclevels: 4
 :source-highlighter: highlightjs
 
-OLS uses a Neo4J database to store ontologies. You can use the OLS code to build a standalone Neo4J index for any valid OWL ontology.
+OLS uses a Neo4j database to store ontologies. You can use the OLS code to build a standalone Neo4j index for any valid OWL ontology.
 
-Instructions for building a Neo4J index can be found on https://github.com/EBISPOT/OLS/tree/master/ols-apps/ols-neo4j-app
+Instructions for building a Neo4j index can be found on https://github.com/EBISPOT/OLS/tree/master/ols-apps/ols-neo4j-app
 
-We wanted a simple and fast graph database for storing an absracted representation of ontologies. Neo4J was chosen becuase of its simplicity, speed and integration with the Spring data framework. This allows us to take advantage of the excellent Spring suport for building web applications and REST APIs on top of a Neo4J database. We also find the Cypher query language to be very
+We wanted a simple and fast graph database for storing an absracted representation of ontologies. Neo4j was chosen becuase of its simplicity, speed and integration with the Spring data framework. This allows us to take advantage of the excellent Spring suport for building web applications and REST APIs on top of a Neo4j database. We also find the Cypher query language to be very
 intuitive and powerful.
 
-== OLS Neo4J schema
+== OLS Neo4j schema
 
-OLS provides a way to represent an OWL ontology as a simple graph in Neo4J. OWL ontologies aren't graphs, but rather a collection of axioms. However, graph based serialisations of OWL exists, such as the the Resource Description Framework (RDF) serilaisation of OWL. The RDF serialisation of OWL requires extensive reification and uses blank nodes in order to represent the OWL axioms as a graph. This can make working with OWL in RDF rather cumbersome, but it does at least provide a complete description of OWL in RDF. If you want to work with the OWL RDF representation we recommend loading OWL RDF files directly into a dedicated RDF databse (such as Virtuoso), where you will be able to query the RDF graph with SPARQL.
+OLS provides a way to represent an OWL ontology as a simple graph in Neo4j. OWL ontologies aren't graphs, but rather a collection of axioms. However, graph based serialisations of OWL exists, such as the the Resource Description Framework (RDF) serilaisation of OWL. The RDF serialisation of OWL requires extensive reification and uses blank nodes in order to represent the OWL axioms as a graph. This can make working with OWL in RDF rather cumbersome, but it does at least provide a complete description of OWL in RDF. If you want to work with the OWL RDF representation we recommend loading OWL RDF files directly into a dedicated RDF databse (such as Virtuoso), where you will be able to query the RDF graph with SPARQL.
 
-The Neo4J representation of OWL used by OLS is a custom translation of OWL to a graph schema that is designed to support some common use cases, and does not aim to be a full translation of the OWL axioms into a Neo4J graph model. OLS aims to provide convenient access to ontologies and support the common ontology queries required by our users. Our Neo4J ontology schema includes node types for classes, properties and individuals.
+The Neo4j representation of OWL used by OLS is a custom translation of OWL to a graph schema that is designed to support some common use cases, and does not aim to be a full translation of the OWL axioms into a Neo4j graph model. OLS aims to provide convenient access to ontologies and support the common ontology queries required by our users. Our Neo4j ontology schema includes node types for classes, properties and individuals.
 
 
 === Class node
 
-Each class in the ontology is represented as a unique node in Neo4J. Every class node is typed with a label called "Class". We also add onother label which is the short name of the ontology. e.g. every class from the Gene Ontology (GO) will be labeled with "GO". In a multi ontology respository like OLS, this additional label creates specific indexes for individual ontology for efficient querying. e.g. we can query for all nodes from the Gene Ontology in cypher with
+Each class in the ontology is represented as a unique node in Neo4j. Every class node is typed with a label called "Class". We also add onother label which is the short name of the ontology. e.g. every class from the Gene Ontology (GO) will be labeled with "GO". In a multi ontology respository like OLS, this additional label creates specific indexes for individual ontology for efficient querying. e.g. we can query for all nodes from the Gene Ontology in cypher with
 
 ```
 MATCH (n:GO) RETURN n LIMIT 10
 ```
 
-Each node has a number of properties that represent metadata and annotations on a term. Note, Neo4J allows the use of properties (or attributes) on nodes. This isn't to be confused with properties (or relations) in RDF. Relationships between nodes in Neo4J are edges between nodes (which can also have their own properties).
+Each node has a number of properties that represent metadata and annotations on a term. Note, Neo4j allows the use of properties (or attributes) on nodes. This isn't to be confused with properties (or relations) in RDF. Relationships between nodes in Neo4j are edges between nodes (which can also have their own properties).
 
 ===== Class properties
 
 ```
-id - Uniqiue id for the node in Neo4J
+id - Uniqiue id for the node in Neo4j
 iri - International Resource Identifiers (IRI) for the class e.g. http://purl.obolibrary.org/obo/GO_0044832
 olsId - A unique id for this IRI in a particular ontology created from the ontology name and the term IRI e.g. go:http://purl.obolibrary.org/obo/GO_0044832
 short_form - short id for the term, usually the URI fragment e.g. GO_0044832
@@ -46,11 +46,11 @@ description - free text description of the term
 label - unique label for the term
 is_defining_ontology - boolean to indicate if this terms "belongs" in this ontology. e.g. A GO term in GO would be true, a PATO term in GO would be false
 is_root - convenient boolean to indicate if the term is a root concept in the class hierarchy
-is_obsolete - convenient boolean to indicate is the term is obsolete. Note Obsolete terms are also labelled with "Obsolete" in the Neo4J index
+is_obsolete - convenient boolean to indicate is the term is obsolete. Note Obsolete terms are also labelled with "Obsolete" in the Neo4j index
 ontology_iri - unique identifier for the ontology e.g. http://purl.obolibrary.org/obo/go.owl
 superClassDescription - A manchester syntax rendering of the logical superclass description with HTML markup
 equivalentClassDescription - - A manchester syntax rendering of the logical equivalent class description with HTML markup
-annotation-* - All annotation properties on a class are indexed in a dynamic filed. E.g. if a class has a has_obo_namespace annotation, in neo4j this would be a property called annotation-has_obo_namespace
+annotation-* - All annotation properties on a class are indexed in a dynamic filed. E.g. if a class has a has_obo_namespace annotation, in Neo4j this would be a property called annotation-has_obo_namespace
 ```
 
 To get the label for http://purl.obolibrary.org/obo/GO_0044832 from GO with Cypher you could query
@@ -61,18 +61,18 @@ MATCH (n:GO {iri : "http://purl.obolibrary.org/obo/GO_0044832"}) return n.label
 
 ==== Class relationships
 
-Classes are related to other classes using edges or relations in Neo4J. The default relation is indexed by OLS is te subclass of (or is a) relation that represents a parent child relationship. We also index simple existential relationships. In OWL these are sublass axioms with a single existential to a named class. For example, if the ontology contained an axiom like
+Classes are related to other classes using edges or relations in Neo4j. The default relation is indexed by OLS is te subclass of (or is a) relation that represents a parent child relationship. We also index simple existential relationships. In OWL these are sublass axioms with a single existential to a named class. For example, if the ontology contained an axiom like
 ```
 "heart" subclassOf (part_of some "cardiovascular system")
 ```
 
-, we would translate this axiom into a simple relationship in Neo4J where
+, we would translate this axiom into a simple relationship in Neo4j where
 
 ```
 (n:Class {label : "heart"})-> [r:Related {label : "part_of"] -> (n2:Class { label:"cardiovascular system"})
 ```
 
-If the class description is more complex and contains anonymous classes, then it will not be indexed as a relationship in Neo4J.
+If the class description is more complex and contains anonymous classes, then it will not be indexed as a relationship in Neo4j.
 
 To query for parent nodes for http://purl.obolibrary.org/obo/GO_0044832 in GO with Cypher
 
@@ -88,10 +88,10 @@ MATCH (n:GO {iri : "http://purl.obolibrary.org/obo/GO_0044832"})-[r:SUBCLASSOF*]
 
 ==== Class relationship properties
 
-All subclass relations are relationships in Neo4J labelled with "SUBCLASSOF". All other realtionships are labelled with "Related".
+All subclass relations are relationships in Neo4j labelled with "SUBCLASSOF". All other realtionships are labelled with "Related".
 
 ```
-id - Uniqiue id for the relationship in Neo4J
+id - Uniqiue id for the relationship in Neo4j
 uri - Unique Resource Identifiers (URI) for the relationship e.g. http://purl.obolibrary.org/obo/aeo#has_part
 ontology_name - short unique name for the ontology e.g. go
 label - unique label for the relationship
@@ -99,14 +99,14 @@ label - unique label for the relationship
 
 === Property node
 
-Apologies if the mixing of OWL and Neo4J terminology is getting confusing! A property node represents an OWL Annotation, Object or Data property. We index these as first class nodes in Neo4j. So an object property like obo:part_of in OWL might be used as a relation between two class nodes as described above, but there will also be a unique node for the object property itself. This is required because in OWL properties can also be related to other properties e.g. via the subObjectProperty or subAnnotationProperty relation. We describe property hierarchies as graph in the OLS Neo4J schema.
+Apologies if the mixing of OWL and Neo4j terminology is getting confusing! A property node represents an OWL Annotation, Object or Data property. We index these as first class nodes in Neo4j. So an object property like obo:part_of in OWL might be used as a relation between two class nodes as described above, but there will also be a unique node for the object property itself. This is required because in OWL properties can also be related to other properties e.g. via the subObjectProperty or subAnnotationProperty relation. We describe property hierarchies as graph in the OLS Neo4j schema.
 
 ===== Property properties
 
 OLS does not make a distinction between OWL annotation, object or data properties and simply treats them as a property and have a label "Property"
 
 ```
-id - Uniqiue id for the property node in Neo4J
+id - Uniqiue id for the property node in Neo4j
 iri - International Resource Identifiers (IRI) for the property e.g. http://purl.obolibrary.org/obo/aeo#has_part
 olsId - A unique id for this IRI in a particular ontology created from the ontology name and the term IRI e.g. go:http://purl.obolibrary.org/obo/aeo#has_part
 short_form - short id for the term, usually the URI fragment e.g. has_part
@@ -118,20 +118,20 @@ description - free text description of the property
 label - unique label for the property
 is_defining_ontology - boolean to indicate if this terms "belongs" in this ontology. e.g. A GO term in GO would be true, a PATO term in GO would be false
 is_root - convenient boolean to indicate if the term is a root concept in the property hierarchy
-is_obsolete - convenient boolean to indicate is the term is obsolete. Note Obsolete terms are also labelled with "Obsolete" in the Neo4J index
+is_obsolete - convenient boolean to indicate is the term is obsolete. Note Obsolete terms are also labelled with "Obsolete" in the Neo4j index
 ontology_iri - unique identifier for the ontology e.g. http://purl.obolibrary.org/obo/go.owl
-annotation-* - All annotation properties on a class are indexed in a dynamic filed. E.g. if a class has a has_obo_namespace annotation, in neo4j this would be a property called annotation-has_obo_namespace
+annotation-* - All annotation properties on a class are indexed in a dynamic filed. E.g. if a class has a has_obo_namespace annotation, in Neo4j this would be a property called annotation-has_obo_namespace
 ```
 
 ==== Property relationship
 
-Property relationships are restricted to subPropertyOf so that we can represent property hierarchies as a Neo4J graph.  For example
+Property relationships are restricted to subPropertyOf so that we can represent property hierarchies as a Neo4j graph.  For example
 
 ```
 "overlaps" subPropertyOf "part of"
 ```
 
-, we would translate this axiom into a simple relationship in Neo4J where
+, we would translate this axiom into a simple relationship in Neo4j where
 
 ```
 (n:Property {label : "overlaps"})-> [r:SUBPROPERTYOF] -> (n2:Property { label:"part of"})
@@ -139,14 +139,14 @@ Property relationships are restricted to subPropertyOf so that we can represent 
 
 === Individual node
 
-Some ontologies contain OWL individuals, although most don't. We index any individuals we find in an ontology file in the Neo4J index. Individuals represents specific instances of classes. For example, in OWL you might have a class called Person, and an instance of that could a specific person possibly identified by their national insurance number.
+Some ontologies contain OWL individuals, although most don't. We index any individuals we find in an ontology file in the Neo4j index. Individuals represents specific instances of classes. For example, in OWL you might have a class called Person, and an instance of that could a specific person possibly identified by their national insurance number.
 
 ===== Individual properties
 
-All individuals are labeled with "Individual" in the Neo4J index.
+All individuals are labeled with "Individual" in the Neo4j index.
 
 ```
-id - Uniqiue id for the property node in Neo4J
+id - Uniqiue id for the property node in Neo4j
 iri - International Resource Identifiers (IRI) for the property e.g. http://purl.obolibrary.org/obo/aeo#has_part
 olsId - A unique id for this IRI in a particular ontology created from the ontology name and the term IRI e.g. go:http://purl.obolibrary.org/obo/aeo#has_part
 short_form - short id for the term, usually the URI fragment e.g. has_part
@@ -158,9 +158,9 @@ description - free text description of the property
 label - unique label for the property
 is_defining_ontology - boolean to indicate if this terms "belongs" in this ontology. e.g. A GO term in GO would be true, a PATO term in GO would be false
 is_root - convenient boolean to indicate if the term is a root concept in the property hierarchy
-is_obsolete - convenient boolean to indicate is the term is obsolete. Note Obsolete terms are also labelled with "Obsolete" in the Neo4J index
+is_obsolete - convenient boolean to indicate is the term is obsolete. Note Obsolete terms are also labelled with "Obsolete" in the Neo4j index
 ontology_iri - unique identifier for the ontology e.g. http://purl.obolibrary.org/obo/go.owl
-annotation-* - All annotation properties on a class are indexed in a dynamic filed. E.g. if a class has a has_obo_namespace annotation, in neo4j this would be a property called annotation-has_obo_namespace
+annotation-* - All annotation properties on a class are indexed in a dynamic filed. E.g. if a class has a has_obo_namespace annotation, in Neo4j this would be a property called annotation-has_obo_namespace
 ```
 
 ==== Individual relationship
@@ -179,14 +179,14 @@ Individuals may also be related to class nodes via a "INSTANCEOF" relation e.g.
 
 === Resource node
 
-You may notice an additional node type in the Neo4J index. Every node, class, property or individual ir related to a node labelled "Resource" using a "REFERSTO" labelled relation. This represents a unique resource independent of any ontology. It is common among the biomedical ontology for multiple ontologies to refer to the same resources. We use the resource node as a way of connecting all term usage together.
+You may notice an additional node type in the Neo4j index. Every node, class, property or individual ir related to a node labelled "Resource" using a "REFERSTO" labelled relation. This represents a unique resource independent of any ontology. It is common among the biomedical ontology for multiple ontologies to refer to the same resources. We use the resource node as a way of connecting all term usage together.
 
 
 For example, in OLS the term http://purl.obolibrary.org/obo/CL_0000445 "apoptosis fated cell" is used in four different ontologies; namely CL, AEO, EHDAA2 and CTENO. The resource node is used to connect these terms together to indicate that they are the same. This is there for convenience so that you can quickly lookup a Resource by IRI and find out where it is used and reference across the ontologies in OLS. Resources only have a few properties, mainly the IRI, short form, obo id and a label. The label is chosen at random from any one of the ontologies that reference the node.
 
-== Neo4J schema indexes
+== Neo4j schema indexes
 
-We've mentioned the use of labelling nodes in the Neo4J index. Label represent indexes in Neo4J that can be used for rapid lookup of nodes. You can create additional indexes on node properties in Neo4J for providing instance lookup on different fields. In the Neo4J web console you can type :schema as a query to see all the indexes. The following additional indexes are created in the OLS Neo4J index for convenience.
+We've mentioned the use of labelling nodes in the Neo4j index. Label represent indexes in Neo4j that can be used for rapid lookup of nodes. You can create additional indexes on node properties in Neo4j for providing instance lookup on different fields. In the Neo4j web console you can type :schema as a query to see all the indexes. The following additional indexes are created in the OLS Neo4j index for convenience.
 
 
 ```

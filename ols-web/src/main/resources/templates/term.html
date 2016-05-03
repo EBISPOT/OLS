@@ -360,28 +360,6 @@
                                 <!--<p th:text="${ontologyTerm.getOboId()}">NCBI:9606</p>-->
                                 <!--</div>-->
 
-                                <div th:if="${not #sets.isEmpty(synonyms)}">
-                                    <b>OBO synonyms: </b>
-
-                                    <div th:each="synonym: ${synonyms}">
-                                        <span style="font-weight: bold;" th:text="${synonym.getType()}"></span>
-                                        <div style="margin-left:9px;">
-                                            <span th:text="${synonym.getName()}"></span>
-
-                                            [
-                                            <span th:each="oboXref: ${synonym.getXrefs()}">
-
-                                                <span th:if="${oboXref.getDatabase() != null}" th:text="${oboXref.getDatabase()}"></span>
-                                                <span th:if="${oboXref.getId() != null}" th:text="${oboXref.getId()}"></span>
-                                            </span>
-                                            ]
-                                        </div>
-                                    </div>
-                                    <br/>
-                                </div>
-
-
-
                                 <div th:if="${not #sets.isEmpty(xrefs)}">
                                     <b>OBO cross-reference: </b>
                                     <div style="margin-left:9px;" th:each="oboXref: ${xrefs}">
@@ -390,6 +368,25 @@
                                         <span th:if="${oboXref.getId() != null}" th:text="${oboXref.getId()}"></span>
                                     </div>
                                     <br/>
+                                </div>
+
+                                <div th:if="${not #sets.isEmpty(synonyms)}">
+                                    <div th:each="synonym: ${synonyms}">
+                                        <div th:if="${synonym.getType()}">
+                                            <a href="#" th:href="@{../../search(q=${synonym.getType()}, type=property, ontology=${ontologyTerm.ontologyName})}" th:text="${synonym.getType().replaceAll('_', ' ')}">property name</a>
+                                            <div style="margin-left:9px;">
+                                                <span th:text="${synonym.getName()}"></span>
+                                                <span th:if="${not #sets.isEmpty(synonym.getXrefs())}">[</span>
+                                                <span th:each="oboXref: ${synonym.getXrefs()}">
+
+                                                    <span th:if="${oboXref.getDatabase() != null}" th:text="${oboXref.getDatabase()}"></span>
+                                                    <span th:if="${oboXref.getId() != null}" th:text="${oboXref.getId()}"></span>
+                                                </span>
+                                                <span th:if="${not #sets.isEmpty(synonym.getXrefs())}">]</span>
+                                            </div>
+                                            <br/>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div th:each="annotations: ${ontologyTerm.getAnnotation()}">

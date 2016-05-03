@@ -1,0 +1,18 @@
+= Solr and OLS
+:doctype: book
+:toc: left
+:toc-title: OLS Solr documentation
+:sectanchors:
+:sectlinks:
+:toclevels: 4
+:source-highlighter: highlightjs
+
+OLS uses Apache Solr for indexing ontologies for text search. You can use the OLS code to build a standalone Solr index for any valid OWL ontology.
+
+Instructions for building a Solr index can be found on https://github.com/EBISPOT/OLS/tree/master/ols-apps/ols-solr-app
+
+== OLS Solr schema
+
+OLS uses two Solr cores, one for storing unique values for autosuggest and the other for storing documents for ontology and term meta-data. The schemas can be viewed here https://github.com/EBISPOT/OLS/tree/master/ols-solr/src/main/solr-5-config.
+
+More details to follow...

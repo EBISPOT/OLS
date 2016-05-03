@@ -102,9 +102,10 @@ public class SearchController {
         if (queryFields == null) {
             // if exact just search the supplied fields for exact matches
             if (exact) {
+                // todo remove shortform_s once indexes have rebuilt - see https://helpdesk.ebi.ac.uk/Ticket/Display.html?id=75961
                 solrQuery.setQuery(
                         "((" +
-                                createUnionQuery(query.toLowerCase(), "label_s", "synonym_s", "shortform_s", "obo_id_s", "iri_s", "annotations_trimmed")
+                                createUnionQuery(query.toLowerCase(), "label_s", "synonym_s", "shortform_s", "short_form_s", "obo_id_s", "iri_s", "annotations_trimmed")
                                 + ") AND (is_defining_ontology:true^100 OR is_defining_ontology:false^0))"
                 );
 
@@ -200,6 +201,12 @@ public class SearchController {
 
     Function<String,String> addStringField = new Function<String,String>() {
         @Override public String apply(String s) {
+
+            // todo - need to support shortform_s for time being while https://helpdesk.ebi.ac.uk/Ticket/Display.html?id=75961 is updated
+            if (s.equals("short_form")) {
+                s = "shortform";
+            }
+
             return new StringBuilder(s.length()+2).append(s).append("_").append('s').toString();
         }
     };

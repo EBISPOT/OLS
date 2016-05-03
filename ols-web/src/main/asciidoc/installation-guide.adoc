@@ -99,7 +99,7 @@ At this point the config should be loaded into your mongo db database called ols
 
 If you need to update any config or reload the config, simply re-run the config-loader.jar as required.
 
-=== Building the Neo4J and SOLR indexes
+=== Building the Neo4J and Solr indexes
 OLS provides a single application for indexing ontologies. When run this program does a few things:
 
 ---
@@ -108,11 +108,11 @@ OLS provides a single application for indexing ontologies. When run this program
 2. Download each file to a local directory
 a. If this is the first time it will set the ontology status to 'TO LOAD' in the mongo database.
 b. If this is run a subsequent time it will check the latest download to the last file it downloaded. If these files are different it will set the ontology status 'TOLOAD' in the mongo database.
-3. All ontologies in the mongo database that have status 'TOLOAD' will get stored in both the SOLR and Neo4J index. Any older versions indexed will be deleted first.
+3. All ontologies in the mongo database that have status 'TOLOAD' will get stored in both the Solr and Neo4J index. Any older versions indexed will be deleted first.
 
 ---
 
-For this to work you need to make sure your Mongo and SOLR servers are running. You don't need a Neo4J server as OLS uses an embedded Neo4J database. If you already have a tomcat server running with OLS deployed and it is using the same index files as SOLR and Neo4J, it is advised to shutdown the tomcat before running this script.
+For this to work you need to make sure your Mongo and Solr servers are running. You don't need a Neo4J server as OLS uses an embedded Neo4J database. If you already have a tomcat server running with OLS deployed and it is using the same index files as Solr and Neo4J, it is advised to shutdown the tomcat before running this script.
 
 To invoke the indexer process you can run the file ols-indexer.jar (`java -jar ols-loading-app.jar`) in the folder OLS/ols-apps/ols-loading-app/target.
 
@@ -126,7 +126,7 @@ Additional configuration can be specified in the `application.properties` file b
 ----------------
 spring.data.mongodb.database ols # mongo db name, default is ols
 
-# SOLR (SolrProperties)
+# Solr (SolrProperties)
 spring.data.solr.host=http://127.0.0.1:8983/solr # Solr host. Ignored if "zk-host" is set.
 ols.solr.search.core ontology
 ols.solr.suggest.core autosuggest

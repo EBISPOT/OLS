@@ -13,12 +13,12 @@
 === Local OLS installation
 * Details on how to build a local OLS can be found link:../docs/installation-guide[here]
 
-=== Neo4J schema
+=== Neo4j schema
 
-* link:../docs/neo4j-schema[Description of the OLS Neo4J schema]
-* link:https://github.com/EBISPOT/OLS/tree/master/ols-apps/ols-neo4j-app[How to build a standalone Neo4J index for an ontology]
+* link:../docs/neo4j-schema[Description of the OLS Neo4j schema]
+* link:https://github.com/EBISPOT/OLS/tree/master/ols-apps/ols-neo4j-app[How to build a standalone Neo4j index for an ontology]
 
-=== SOLR schema
-* link:solr-schema[Description of the OLS SOLR schema]
-* link:https://github.com/EBISPOT/OLS/tree/master/ols-apps/ols-solr-app[How to build a standalone SOLR index for an ontology]
+=== Solr schema
+* link:solr-schema[Description of the OLS Solr schema]
+* link:https://github.com/EBISPOT/OLS/tree/master/ols-apps/ols-solr-app[How to build a standalone Solr index for an ontology]
 

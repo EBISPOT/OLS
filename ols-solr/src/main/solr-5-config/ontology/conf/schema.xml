@@ -158,6 +158,7 @@
     <copyField source="label" dest="label_s"/>;
     <copyField source="synonym" dest="synonym_s"/>;
     <copyField source="short_form" dest="shortform_s"/>;
+    <copyField source="short_form" dest="short_form_s"/>;
     <copyField source="obo_id" dest="obo_id_s"/>;
     <copyField source="iri" dest="iri_s"/>;
     <copyField source="*_annotation" dest="annotations_trimmed"/>

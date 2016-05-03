@@ -293,3 +293,10 @@ make the ATOL ontology as operational as possible and closely related to measure
       - http://purl.obolibrary.org/obo/pride_cv.obo#part_of
     oboSlims: false
     ontology_purl : https://raw.githubusercontent.com/PRIDE-Utilities/pride-ontology/master/pride_cv.obo
+
+## BTO overide
+
+  - id: ncbitaxon
+    is_foundry: true
+    ontology_purl: http://purl.obolibrary.org/obo/ncbitaxon.owl
+    reasoner: NONE
