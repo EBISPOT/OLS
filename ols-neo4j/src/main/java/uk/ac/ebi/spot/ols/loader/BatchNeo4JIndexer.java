@@ -1,11 +1,14 @@
 package uk.ac.ebi.spot.ols.loader;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.json.PackageVersion;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import org.neo4j.graphdb.*;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.neo4j.graphdb.index.IndexHits;
+import org.neo4j.graphdb.schema.IndexDefinition;
+import org.neo4j.graphdb.schema.Schema;
 import org.neo4j.helpers.collection.MapUtil;
 import org.neo4j.index.lucene.unsafe.batchinsert.LuceneBatchInserterIndexProvider;
 import org.neo4j.kernel.DefaultFileSystemAbstraction;
@@ -17,9 +20,11 @@ import org.semanticweb.owlapi.model.IRI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.neo4j.core.GraphDatabase;
 import org.springframework.stereotype.Component;
 import uk.ac.ebi.spot.ols.config.OlsNeo4jConfiguration;
 import uk.ac.ebi.spot.ols.exception.IndexingException;
+import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
 import uk.ac.ebi.spot.ols.model.OntologyIndexer;
 import uk.ac.ebi.spot.ols.util.OBODefinitionCitation;
 import uk.ac.ebi.spot.ols.util.OBOSynonym;
@@ -27,6 +32,7 @@ import uk.ac.ebi.spot.ols.util.OBOXref;
 
 import java.io.File;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Simon Jupp
@@ -42,6 +48,7 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
     public Logger getLog() {
         return log;
     }
+
     @Autowired
     private GraphDatabaseService db;
 
@@ -262,6 +269,30 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
                 file.getAbsolutePath(),
                 new DefaultFileSystemAbstraction());
 
+        createSchemaIndexes(inserter);
+
+        isaProperties.put("uri", "http://www.w3.org/2000/01/rdf-schema#subClassOf");
+        isaProperties.put("label", "is a");
+        isaProperties.put("ontology_name", ontologyName);
+        isaProperties.put("__type__", "SubClassOf");
+
+        subPropertyProperties.put("uri", "http://www.w3.org/2000/01/rdf-schema#subPropertyOf");
+        subPropertyProperties.put("label", "sub property of");
+        subPropertyProperties.put("ontology_name", ontologyName);
+        subPropertyProperties.put("__type__", "SubPropertyOf");
+
+        rdfTypeProperties.put("uri", "http://www.w3.org/1999/02/22-rdf-syntax-ns#>");
+        rdfTypeProperties.put("label", "type");
+        rdfTypeProperties.put("ontology_name", ontologyName);
+        rdfTypeProperties.put("__type__", "Type");
+
+        entities = getBatchInserterIndex(getIndexProvider(inserter));
+
+        return inserter;
+
+    }
+
+    private void createSchemaIndexes(BatchInserter inserter) {
         // create schema for classes if not exists
         createSchemaIndexIfNotExists(inserter, mergedClassLabel, "iri");
         createSchemaIndexIfNotExists(inserter, nodeLabel, "olsId");
@@ -283,25 +314,6 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
         createSchemaIndexIfNotExists(inserter, instanceLabel, "short_form");
         createSchemaIndexIfNotExists(inserter, instanceLabel, "obo_id");
         createSchemaIndexIfNotExists(inserter, instanceLabel, "ontology_name");
-
-        isaProperties.put("uri", "http://www.w3.org/2000/01/rdf-schema#subClassOf");
-        isaProperties.put("label", "is a");
-        isaProperties.put("ontology_name", ontologyName);
-        isaProperties.put("__type__", "SubClassOf");
-
-        subPropertyProperties.put("uri", "http://www.w3.org/2000/01/rdf-schema#subPropertyOf");
-        subPropertyProperties.put("label", "sub property of");
-        subPropertyProperties.put("ontology_name", ontologyName);
-        subPropertyProperties.put("__type__", "SubPropertyOf");
-
-        rdfTypeProperties.put("uri", "http://www.w3.org/1999/02/22-rdf-syntax-ns#>");
-        rdfTypeProperties.put("label", "type");
-        rdfTypeProperties.put("ontology_name", ontologyName);
-        rdfTypeProperties.put("__type__", "Type");
-
-        entities = getBatchInserterIndex(getIndexProvider(inserter));
-
-        return inserter;
 
     }
 
@@ -477,6 +489,7 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
 
 
         for (OntologyLoader loader : loaders) {
+
             BatchInserter inserter = getBatchIndexer(loader.getOntologyName());
             setOntologyLabel(loader.getOntologyName());
             // index classes
@@ -486,6 +499,8 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
             // index individuals
             indexIndividuals(inserter, loader, individualNodeMap, mergedNodeMap, classNodeMap);
 
+            createSchemaIndexes(inserter);
+
             getLog().info("Neo4j index for " + loader.getAllClasses().size() + " classes complete");
             getLog().info("Neo4j index for " + loader.getAllObjectPropertyIRIs().size() + " object properties complete");
             getLog().info("Neo4j index for " + loader.getAllAnnotationPropertyIRIs().size() + " annotation  properties complete");
@@ -494,17 +509,54 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
 
             indexProvider.shutdown();
             inserter.shutdown();
+        }
 
+
+        // check indexes online
+
+        db.shutdown();
+        db = getGraphDatabase();
+
+        Transaction tx = db.beginTx();
+
+        try {
+            for (IndexDefinition indexDefinition : db.schema().getIndexes()) {
+                Schema.IndexState state = db.schema().getIndexState(indexDefinition);
+                if (state.equals(Schema.IndexState.POPULATING)) {
+                    log.warn("One of the indexes has failed, attempting to rebuild: " + indexDefinition.getLabel().name());
+                    try {
+                        db.schema().awaitIndexOnline(indexDefinition, 10, TimeUnit.MINUTES);
+                    } catch (IllegalStateException e) {
+                        throw new IndexingException("Building Neo4j index failed as the schema index didn't finish in time", e);
+                    }
+                }
+                else if (state.equals(Schema.IndexState.FAILED)) {
+                    throw new Exception("Index failed: " + indexDefinition.getLabel().name());
+                }
+            }
+
+            tx.success();
+        }
+        catch (Exception e) {
+            tx.failure();
+            throw new IndexingException("Building Neo4j index failed as the schema index creation failed", e);
+        }
+        finally {
+            tx.close();
+            db.shutdown();
         }
     }
 
+    private GraphDatabaseService getGraphDatabase () {
+        return new GraphDatabaseFactory().newEmbeddedDatabase(neo4jConfiguration.getNeo4JPath());
+    }
 
     @Override
     public void dropIndex(OntologyLoader loader) throws IndexingException {
 
         // shutdown any autowired graph dbs for batch loading
         db.shutdown();
-        db = new GraphDatabaseFactory().newEmbeddedDatabase(neo4jConfiguration.getNeo4JPath());
+        db = getGraphDatabase();
 
         deleteNodes(loader.getOntologyName());
 //        deleteRoots(loader.getOntologyName());
