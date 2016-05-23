@@ -764,7 +764,12 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                         Collection<OBOXref> oboXrefs = new HashSet<>();
                         for (OWLAnnotation owlAnnotation : annotation.getAnnotations()) {
                             OBOXref xref = new OBOXref();
-                            xref.setId(getOWLAnnotationValueAsString(owlAnnotation.getValue()).get());
+                            String xrefValue = getOWLAnnotationValueAsString(owlAnnotation.getValue()).get();
+                            xref.setId(xrefValue);
+                            if (xrefValue.split(":").length == 2) {
+                                xref.setDatabase(xrefValue.split(":")[0]);
+                                xref.setId(xrefValue.split(":")[1]);
+                            }
                             oboXrefs.add(xref);
                         }
                         definitionCitation.setDefinition(getOWLAnnotationValueAsString(annotation.getValue()).get());
@@ -792,7 +797,12 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                                     synonymCitation.setType(getOWLAnnotationValueAsString(owlAnnotation.getValue()).get());
                                 }
                                 else {
-                                    xref.setId(getOWLAnnotationValueAsString(owlAnnotation.getValue()).get());
+                                    String xrefValue = getOWLAnnotationValueAsString(owlAnnotation.getValue()).get();
+                                    xref.setId(xrefValue);
+                                    if (xrefValue.split(":").length == 2) {
+                                        xref.setDatabase(xrefValue.split(":")[0]);
+                                        xref.setId(xrefValue.split(":")[1]);
+                                    }
                                     oboXrefs.add(xref);
                                 }
 
@@ -814,8 +824,13 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                         Collection<OBOXref> oboXrefs = new HashSet<>();
                         for (OWLAnnotation owlAnnotation : annotation.getAnnotations()) {
                             OBOXref xref = new OBOXref();
-                            xref.setId(getOWLAnnotationValueAsString(annotation.getValue()).get());
-                            xref.setDatabase(getOWLAnnotationValueAsString(owlAnnotation.getValue()).get());
+                            String xrefValue = getOWLAnnotationValueAsString(annotation.getValue()).get();
+                            xref.setId(xrefValue);
+                            if (xrefValue.split(":").length == 2) {
+                                xref.setDatabase(xrefValue.split(":")[0]);
+                                xref.setId(xrefValue.split(":")[1]);
+                            }
+                            xref.setDescription(getOWLAnnotationValueAsString(owlAnnotation.getValue()).get());
                             oboXrefs.add(xref);
                         }
 
