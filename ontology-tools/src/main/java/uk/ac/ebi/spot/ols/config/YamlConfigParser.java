@@ -52,8 +52,9 @@ public class YamlConfigParser {
 
         for (LinkedHashMap ontology : ontologies) {
 
+            boolean _isObo = isObo;
             if ( ontology.containsKey("is_foundry")) {
-                isObo = ((Boolean)ontology.get("is_foundry"));
+                _isObo = ((Boolean)ontology.get("is_foundry"));
             }
 
             boolean obsolete = false;
@@ -61,12 +62,12 @@ public class YamlConfigParser {
                 obsolete = ((Boolean)ontology.get("is_obsolete"));
             }
 
-            if  (base == null && isObo) {
+            if  (base == null && _isObo) {
                 base = "http://purl.obolibrary.org/obo/";
             }
 
             if (!obsolete) {
-                YamlBasedLoadingService yamlBasedLoadingService = new YamlBasedLoadingService(ontology, base, isObo);
+                YamlBasedLoadingService yamlBasedLoadingService = new YamlBasedLoadingService(ontology, base, _isObo);
                 documentLoadingServices.add(yamlBasedLoadingService);
             }
 

@@ -58,7 +58,7 @@ public class YamlLoader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        // load from externaly imported yaml files (this is mainly from OBO now, but could be others in the future
+        // load from externally imported yaml files (this is mainly from OBO now, but could be others in the future
         getLog().info("OBO Ontologies will be imported using config at '" + oboYamlPath + "'");
         Resource oboResource = resourceLoader.getResource(oboYamlPath);
         if (oboResource.exists()) {

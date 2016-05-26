@@ -2,13 +2,14 @@
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 2447
+Content-Length: 3141
 
 {
   "_embedded" : {
     "ontologies" : [ {
+      "ontologyId" : "ordo",
       "loaded" : null,
-      "updated" : "2016-01-19T11:34:57.354+0000",
+      "updated" : "2016-01-19T11:34:57.351+0000",
       "status" : "TOLOAD",
       "message" : "No ontology loaded",
       "version" : null,
@@ -16,40 +17,41 @@ Content-Length: 2447
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
       "config" : {
+        "id" : "http://www.orpha.net/ontology/orphanet.owl",
         "versionIri" : null,
-        "title" : "Terminology for Description of Dynamics",
-        "namespace" : "teddy",
-        "preferredPrefix" : "TEDDY",
-        "description" : "TEDDY is an ontology for dynamical behaviours, observable dynamical phenomena, and control elements of bio-models and biological systems in Systems and Synthetic Biology.",
+        "title" : "Orphanet Rare Disease Ontolog",
+        "namespace" : "ordo",
+        "preferredPrefix" : "ORDO",
+        "description" : "The Orphanet Rare Disease ontology (ORDO) is jointly developed by Orphanet and the EBI to provide a structured vocabulary for rare diseases capturing relationships between diseases, genes and other relevant features which will form a useful resource for the computational analysis of rare diseases. It derived from the Orphanet database (www.orpha.net ) , a multilingual database dedicated to rare diseases populated from literature and validated by international experts. It integrates a nosology (classification of rare diseases), relationships (gene-disease relations, epiemological data) and connections with other terminologies (MeSH, UMLS, MedDRA),databases (OMIM, UniProtKB, HGNC, ensembl, Reactome, IUPHAR, Geantlas) or classifications (ICD10).",
         "homepage" : null,
         "version" : null,
         "mailingList" : null,
         "creators" : [ ],
         "annotations" : { },
-        "fileLocation" : "http://www.biomodels.net/teddy/TEDDY",
-        "reasonerType" : "NONE",
+        "fileLocation" : "http://www.orphadata.org/data/ORDO/ordo_orphanet.owl",
+        "reasonerType" : "OWL2",
         "oboSlims" : false,
         "labelProperty" : "http://www.w3.org/2000/01/rdf-schema#label",
-        "definitionProperties" : [ "http://www.w3.org/2004/02/skos/core#definition" ],
-        "synonymProperties" : [ "http://www.w3.org/2004/02/skos/core#altLabel" ],
+        "definitionProperties" : [ "http://www.ebi.ac.uk/efo/definition" ],
+        "synonymProperties" : [ "http://www.ebi.ac.uk/efo/alternative_term" ],
         "hierarchicalProperties" : [ "http://purl.obolibrary.org/obo/BFO_0000050" ],
-        "baseUris" : [ "http://identifiers.org/teddy/TEDDY_" ],
-        "hiddenProperties" : [ ],
+        "baseUris" : [ "http://www.orpha.net/ORDO/Orphanet_" ],
+        "hiddenProperties" : [ "http://www.ebi.ac.uk/efo/has_flag" ],
         "internalMetadataProperties" : [ ],
         "skos" : false
       },
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/teddy"
+          "href" : "http://www.ebi.ac.uk/api/ontologies/ordo"
         },
         "terms" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/teddy/terms"
+          "href" : "http://www.ebi.ac.uk/api/ontologies/ordo/terms"
         },
         "properties" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/teddy/properties"
+          "href" : "http://www.ebi.ac.uk/api/ontologies/ordo/properties"
         },
         "individuals" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/teddy/individuals"
+          "href" : "http://www.ebi.ac.uk/api/ontologies/ordo/individuals"
         }
       }
     } ]
@@ -68,13 +70,13 @@ Content-Length: 2447
       "href" : "http://www.ebi.ac.uk/api/ontologies?page=2&size=1"
     },
     "last" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies?page=146&size=1"
+      "href" : "http://www.ebi.ac.uk/api/ontologies?page=147&size=1"
     }
   },
   "page" : {
     "size" : 1,
-    "totalElements" : 147,
-    "totalPages" : 147,
+    "totalElements" : 148,
+    "totalPages" : 148,
     "number" : 1
   }
 }

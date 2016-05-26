@@ -25,7 +25,7 @@ public class OWLOntologyLoaderTest {
                         "http://www.ebi.ac.uk/ols/test1.owl",
                         "Test 1",
                         "TEST1",
-                        URI.create("file:///Users/jupp/tmp/mi/mi.obo")
+                        URI.create("http://www.ebi.ac.uk/ols/ontologies/ehdaa2")
 
                 );
 

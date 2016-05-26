@@ -7,6 +7,10 @@
 === OLS REST API
 * Information about the API access to our services can be found at (http://www.ebi.ac.uk/ols/docs/api)
 
+=== OLS community
+* Java client to OLS developed by the EMBL-EBI PRIDE team https://github.com/PRIDE-Utilities/ols-client
+* R client to the OLS https://github.com/lgatto/rols/
+
 === OLS javascript widgets
 * Links to different OLS widgets (coming soon)
 

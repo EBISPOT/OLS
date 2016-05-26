@@ -79,7 +79,7 @@ public class DocumentUpdater {
 
         originalDocument.getConfig().setHierarchicalProperties(newDocument.getHierarchicalProperties());
 
-        if (newDocument.getBaseUris() != null) {
+        if (!newDocument.getBaseUris().isEmpty()) {
             originalDocument.getConfig().setBaseUris(newDocument.getBaseUris());
         }
 

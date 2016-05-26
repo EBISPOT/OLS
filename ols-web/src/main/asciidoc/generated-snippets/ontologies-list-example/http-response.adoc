@@ -2,11 +2,60 @@
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 40026
+Content-Length: 41452
 
 {
   "_embedded" : {
     "ontologies" : [ {
+      "ontologyId" : "vto",
+      "loaded" : null,
+      "updated" : "2016-01-19T11:34:58.247+0000",
+      "status" : "TOLOAD",
+      "message" : "No ontology loaded",
+      "version" : null,
+      "numberOfTerms" : 0,
+      "numberOfProperties" : 0,
+      "numberOfIndividuals" : 0,
+      "config" : {
+        "id" : "http://purl.obolibrary.org/obo/vto.owl",
+        "versionIri" : null,
+        "title" : "Vertebrate Taxonomy Ontology",
+        "namespace" : "vto",
+        "preferredPrefix" : "VTO",
+        "description" : "Comprehensive hierarchy of extinct and extant vertebrate taxa.",
+        "homepage" : null,
+        "version" : null,
+        "mailingList" : null,
+        "creators" : [ ],
+        "annotations" : { },
+        "fileLocation" : "http://purl.obolibrary.org/obo/vto.owl",
+        "reasonerType" : "EL",
+        "oboSlims" : true,
+        "labelProperty" : "http://www.w3.org/2000/01/rdf-schema#label",
+        "definitionProperties" : [ "http://purl.obolibrary.org/obo/IAO_0000115" ],
+        "synonymProperties" : [ "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym" ],
+        "hierarchicalProperties" : [ "http://purl.obolibrary.org/obo/BFO_0000050" ],
+        "baseUris" : [ "http://purl.obolibrary.org/obo/VTO_" ],
+        "hiddenProperties" : [ ],
+        "internalMetadataProperties" : [ ],
+        "skos" : false
+      },
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/vto"
+        },
+        "terms" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/vto/terms"
+        },
+        "properties" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/vto/properties"
+        },
+        "individuals" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/vto/individuals"
+        }
+      }
+    }, {
+      "ontologyId" : "ordo",
       "loaded" : null,
       "updated" : "2016-01-19T11:34:57.351+0000",
       "status" : "TOLOAD",
@@ -16,6 +65,7 @@ Content-Length: 40026
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
       "config" : {
+        "id" : "http://www.orpha.net/ontology/orphanet.owl",
         "versionIri" : null,
         "title" : "Orphanet Rare Disease Ontolog",
         "namespace" : "ordo",
@@ -53,6 +103,7 @@ Content-Length: 40026
         }
       }
     }, {
+      "ontologyId" : "teddy",
       "loaded" : null,
       "updated" : "2016-01-19T11:34:57.354+0000",
       "status" : "TOLOAD",
@@ -62,6 +113,7 @@ Content-Length: 40026
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
       "config" : {
+        "id" : "http://identifiers.org/teddy/",
         "versionIri" : null,
         "title" : "Terminology for Description of Dynamics",
         "namespace" : "teddy",
@@ -99,52 +151,7 @@ Content-Length: 40026
         }
       }
     }, {
-      "loaded" : null,
-      "updated" : "2016-01-19T11:34:57.356+0000",
-      "status" : "TOLOAD",
-      "message" : "No ontology loaded",
-      "version" : null,
-      "numberOfTerms" : 0,
-      "numberOfProperties" : 0,
-      "numberOfIndividuals" : 0,
-      "config" : {
-        "versionIri" : null,
-        "title" : "EDAM bioinformatics ontology",
-        "namespace" : "edam",
-        "preferredPrefix" : "EDAM",
-        "description" : "EDAM is a simple ontology of well established, familiar concepts that are prevalent within bioinformatics, including types of data and data identifiers, data formats, operations and topics. EDAM provides a set of terms with synonyms and definitions - organised into an intuitive hierarchy for convenient use.",
-        "homepage" : "http://edamontology.org",
-        "version" : null,
-        "mailingList" : "edam@elixir-dk.org",
-        "creators" : [ ],
-        "annotations" : { },
-        "fileLocation" : "http://edamontology.org/EDAM.owl",
-        "reasonerType" : "NONE",
-        "oboSlims" : false,
-        "labelProperty" : "http://www.w3.org/2000/01/rdf-schema#label",
-        "definitionProperties" : [ "http://www.geneontology.org/formats/oboInOwl#hasDefinition" ],
-        "synonymProperties" : [ "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym" ],
-        "hierarchicalProperties" : [ "http://purl.obolibrary.org/obo/BFO_0000050" ],
-        "baseUris" : [ "http://edamontology.org/data_" ],
-        "hiddenProperties" : [ ],
-        "internalMetadataProperties" : [ ],
-        "skos" : false
-      },
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/edam"
-        },
-        "terms" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/edam/terms"
-        },
-        "properties" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/edam/properties"
-        },
-        "individuals" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/edam/individuals"
-        }
-      }
-    }, {
+      "ontologyId" : "cco",
       "loaded" : null,
       "updated" : "2016-01-19T11:34:57.359+0000",
       "status" : "TOLOAD",
@@ -154,6 +161,7 @@ Content-Length: 40026
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
       "config" : {
+        "id" : "http://purl.obolibrary.org/obo/cco",
         "versionIri" : null,
         "title" : "Cell Cycle Ontology",
         "namespace" : "cco",
@@ -191,6 +199,7 @@ Content-Length: 40026
         }
       }
     }, {
+      "ontologyId" : "cmpo",
       "loaded" : null,
       "updated" : "2016-01-19T11:34:57.360+0000",
       "status" : "TOLOAD",
@@ -200,6 +209,7 @@ Content-Length: 40026
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
       "config" : {
+        "id" : "http://www.ebi.ac.uk/cmpo",
         "versionIri" : null,
         "title" : "Cellular Microscopy Phenotype Ontology",
         "namespace" : "cmpo",
@@ -237,6 +247,7 @@ Content-Length: 40026
         }
       }
     }, {
+      "ontologyId" : "enm",
       "loaded" : null,
       "updated" : "2016-01-19T11:34:57.363+0000",
       "status" : "TOLOAD",
@@ -246,6 +257,7 @@ Content-Length: 40026
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
       "config" : {
+        "id" : "http://purl.enanomapper.org/onto/enanomapper.owl",
         "versionIri" : null,
         "title" : "eNanoMapper Ontology",
         "namespace" : "enm",
@@ -283,6 +295,7 @@ Content-Length: 40026
         }
       }
     }, {
+      "ontologyId" : "atol",
       "loaded" : null,
       "updated" : "2016-01-19T11:34:57.365+0000",
       "status" : "TOLOAD",
@@ -292,6 +305,7 @@ Content-Length: 40026
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
       "config" : {
+        "id" : "file:/C:/Lea/ontologies/versions%20ATOL/atol_v3.0.obo",
         "versionIri" : null,
         "title" : "Animal Trait Ontology for Livestock",
         "namespace" : "atol",
@@ -329,6 +343,7 @@ Content-Length: 40026
         }
       }
     }, {
+      "ontologyId" : "eol",
       "loaded" : null,
       "updated" : "2016-01-19T11:34:57.367+0000",
       "status" : "TOLOAD",
@@ -338,6 +353,7 @@ Content-Length: 40026
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
       "config" : {
+        "id" : "file:/C:/Lea/ontologies/environnement/leo.obo",
         "versionIri" : null,
         "title" : "Environment Ontology for Livestock",
         "namespace" : "eol",
@@ -375,6 +391,7 @@ Content-Length: 40026
         }
       }
     }, {
+      "ontologyId" : "lbo",
       "loaded" : null,
       "updated" : "2016-01-19T11:34:57.369+0000",
       "status" : "TOLOAD",
@@ -384,6 +401,7 @@ Content-Length: 40026
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
       "config" : {
+        "id" : "file:/C:/Lea/ontologies/environnement/leo.obo",
         "versionIri" : null,
         "title" : "Livestock Breed Ontology",
         "namespace" : "lbo",
@@ -421,6 +439,7 @@ Content-Length: 40026
         }
       }
     }, {
+      "ontologyId" : "ancestro",
       "loaded" : "2016-01-25T19:16:17.027+0000",
       "updated" : "2016-01-25T19:16:17.027+0000",
       "status" : "LOADED",
@@ -430,6 +449,7 @@ Content-Length: 40026
       "numberOfProperties" : 18,
       "numberOfIndividuals" : 0,
       "config" : {
+        "id" : "http://www.ebi.ac.uk/ancestro",
         "versionIri" : null,
         "title" : "Ancestry Ontology",
         "namespace" : "ancestro",
@@ -471,6 +491,7 @@ Content-Length: 40026
         }
       }
     }, {
+      "ontologyId" : "chebi",
       "loaded" : "2016-05-03T09:12:49.604+0000",
       "updated" : "2016-05-03T09:12:49.604+0000",
       "status" : "LOADED",
@@ -480,6 +501,7 @@ Content-Length: 40026
       "numberOfProperties" : 35,
       "numberOfIndividuals" : 0,
       "config" : {
+        "id" : "http://purl.obolibrary.org/obo/chebi.owl",
         "versionIri" : "http://purl.obolibrary.org/obo/chebi/139/chebi.owl",
         "title" : "Chemical Entities of Biological Interest",
         "namespace" : "chebi",
@@ -523,6 +545,7 @@ Content-Length: 40026
         }
       }
     }, {
+      "ontologyId" : "doid",
       "loaded" : null,
       "updated" : "2016-01-19T11:34:58.058+0000",
       "status" : "TOLOAD",
@@ -532,6 +555,7 @@ Content-Length: 40026
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
       "config" : {
+        "id" : "http://purl.obolibrary.org/obo/doid.owl",
         "versionIri" : null,
         "title" : "Human Disease Ontology",
         "namespace" : "doid",
@@ -569,6 +593,7 @@ Content-Length: 40026
         }
       }
     }, {
+      "ontologyId" : "obi",
       "loaded" : null,
       "updated" : "2016-01-19T11:34:58.062+0000",
       "status" : "TOLOAD",
@@ -578,6 +603,7 @@ Content-Length: 40026
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
       "config" : {
+        "id" : "http://purl.obolibrary.org/obo/obi.owl",
         "versionIri" : null,
         "title" : "Ontology for Biomedical Investigations",
         "namespace" : "obi",
@@ -615,6 +641,7 @@ Content-Length: 40026
         }
       }
     }, {
+      "ontologyId" : "pato",
       "loaded" : null,
       "updated" : "2016-01-19T11:34:58.064+0000",
       "status" : "TOLOAD",
@@ -624,6 +651,7 @@ Content-Length: 40026
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
       "config" : {
+        "id" : "http://purl.obolibrary.org/obo/pato.owl",
         "versionIri" : null,
         "title" : "Phenotypic quality",
         "namespace" : "pato",
@@ -661,6 +689,7 @@ Content-Length: 40026
         }
       }
     }, {
+      "ontologyId" : "po",
       "loaded" : null,
       "updated" : "2016-01-19T11:34:58.066+0000",
       "status" : "TOLOAD",
@@ -670,6 +699,7 @@ Content-Length: 40026
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
       "config" : {
+        "id" : "http://purl.obolibrary.org/obo/po.owl",
         "versionIri" : null,
         "title" : "Plant Ontology",
         "namespace" : "po",
@@ -707,6 +737,7 @@ Content-Length: 40026
         }
       }
     }, {
+      "ontologyId" : "flu",
       "loaded" : null,
       "updated" : "2016-01-19T11:34:58.138+0000",
       "status" : "TOLOAD",
@@ -716,6 +747,7 @@ Content-Length: 40026
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
       "config" : {
+        "id" : "http://purl.obolibrary.org/obo/flu.owl",
         "versionIri" : null,
         "title" : "Influenza Ontology",
         "namespace" : "flu",
@@ -753,6 +785,7 @@ Content-Length: 40026
         }
       }
     }, {
+      "ontologyId" : "pr",
       "loaded" : null,
       "updated" : "2016-01-19T11:34:58.068+0000",
       "status" : "TOLOAD",
@@ -762,6 +795,7 @@ Content-Length: 40026
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
       "config" : {
+        "id" : "http://purl.obolibrary.org/obo/pr.owl",
         "versionIri" : null,
         "title" : "PRotein Ontology (PRO)",
         "namespace" : "pr",
@@ -799,6 +833,7 @@ Content-Length: 40026
         }
       }
     }, {
+      "ontologyId" : "xao",
       "loaded" : null,
       "updated" : "2016-01-19T11:34:58.069+0000",
       "status" : "TOLOAD",
@@ -808,6 +843,7 @@ Content-Length: 40026
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
       "config" : {
+        "id" : "http://purl.obolibrary.org/obo/xao.owl",
         "versionIri" : null,
         "title" : "Xenopus anatomy and development",
         "namespace" : "xao",
@@ -845,6 +881,7 @@ Content-Length: 40026
         }
       }
     }, {
+      "ontologyId" : "zfa",
       "loaded" : null,
       "updated" : "2016-01-19T11:34:58.071+0000",
       "status" : "TOLOAD",
@@ -854,6 +891,7 @@ Content-Length: 40026
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
       "config" : {
+        "id" : "http://purl.obolibrary.org/obo/zfa.owl",
         "versionIri" : null,
         "title" : "Zebrafish anatomy and development",
         "namespace" : "zfa",
@@ -891,6 +929,7 @@ Content-Length: 40026
         }
       }
     }, {
+      "ontologyId" : "aeo",
       "loaded" : null,
       "updated" : "2016-01-19T11:34:58.073+0000",
       "status" : "TOLOAD",
@@ -900,6 +939,7 @@ Content-Length: 40026
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
       "config" : {
+        "id" : "http://purl.obolibrary.org/obo/aeo.owl",
         "versionIri" : null,
         "title" : "Anatomical Entity Ontology",
         "namespace" : "aeo",
@@ -954,7 +994,7 @@ Content-Length: 40026
   },
   "page" : {
     "size" : 20,
-    "totalElements" : 147,
+    "totalElements" : 148,
     "totalPages" : 8,
     "number" : 0
   }

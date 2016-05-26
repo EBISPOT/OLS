@@ -9,9 +9,13 @@ OLS is supported in part by CORBEL funded by the EU's Horizon 2020 research and 
 == Contact
 * For feedback, enquiries or suggestion about OLS or to request a new ontology please contact ols-support@ebi.ac.uk
 * For bugs or problems with the code or API please create a GitHub issue (https://github.com/EBISPOT/OLS)
+* For announcements relating to OLS (low traffic), such as new releases and new features sign up to the OLS announce mailing list https://listserver.ebi.ac.uk/mailman/listinfo/ols-announce
 
 == License
 Apache version 2.0 (https://github.com/EBISPOT/OLS/blob/master/LICENSE). See also EBI term of use http://www.ebi.ac.uk/about/terms-of-use
+
+== How to cite OLS
+We are currently preparing a manuscript for the new OLS. In the meantime you can cite "Jupp S. et al. (2015) A new Ontology Lookup Service at EMBL-EBI. In: Malone, J. et al. (eds.) Proceedings of SWAT4LS International Conference 2015".
 
 == Thanks
 

@@ -135,9 +135,6 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
             else if (isObo) {
                 builder.setBaseUris(Collections.singleton(base + id.toUpperCase() + "_"));
             }
-            else {
-                builder.setBaseUris(Collections.singleton(uri));
-            }
 
             if (ontology.containsKey("reasoner")) {
                 String reasonerType = (String) ontology.get("reasoner");

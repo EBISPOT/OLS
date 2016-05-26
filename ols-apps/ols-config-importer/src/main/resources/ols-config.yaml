@@ -81,6 +81,9 @@ ontologies:
      - http://www.geneontology.org/formats/oboInOwl#hasExactSynonym
     base_uri:
       - http://edamontology.org/data_
+      - http://edamontology.org/identifier_
+      - http://edamontology.org/topic_
+      - http://edamontology.org/format_
     oboSlims: false
     ontology_purl : http://edamontology.org/EDAM.owl   ### This is the download URL
 
@@ -300,3 +303,9 @@ make the ATOL ontology as operational as possible and closely related to measure
     is_foundry: true
     ontology_purl: http://purl.obolibrary.org/obo/ncbitaxon.owl
     reasoner: NONE
+
+## EDAM overide
+
+  - id: edam
+    title: Ontology of bioinformatics topics, operations, identifiers, and formats
+    reasoner: EL

@@ -3,9 +3,12 @@ package uk.ac.ebi.spot.ols.loader;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
+import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
+import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleIRIMapper;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.util.StringUtils;
@@ -20,6 +23,8 @@ import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxOWLOb
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -43,7 +48,7 @@ import java.util.stream.Collectors;
 public abstract class
 AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
-    private static final Pattern oboIdFragmentPattern = Pattern.compile("(([A-Za-z_]*)_(\\d+))");
+    private static final Pattern oboIdFragmentPattern = Pattern.compile("(([A-Za-z1-9_]*)_(\\d+))");
 
     private IRI ontologyIRI;
     private IRI ontologyVersionIRI;
@@ -69,6 +74,8 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     private Collection<IRI> synonymIRIs = new HashSet<IRI>();
     private Collection<IRI> definitionIRIs  = new HashSet<IRI>();
     private Collection<IRI> hiddenIRIs  = new HashSet<IRI>();
+
+    private Collection<IRI> unsatisfiableIris  = new HashSet<IRI>();
 
     private IRI exclusionClassIRI;
     private IRI exclusionAnnotationIRI;
@@ -653,10 +660,10 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         String termURI = entityIRI.toString();
 
         // we want the "final part" of the URI...
-        if (!StringUtils.isEmpty(entityIRI.getFragment())) {
+        if (!StringUtils.isEmpty(entityIRI.toURI().getFragment())) {
             // a uri with a non-null fragment, so use this...
-            getLog().trace("Extracting fragment name using URI fragment (" + entityIRI.getFragment() + ")");
-            return Optional.of(entityIRI.getFragment());
+            getLog().trace("Extracting fragment name using URI fragment (" + entityIRI.toURI().getFragment() + ")");
+            return Optional.of(entityIRI.toURI().getFragment());
         }
         else if (entityIRI.toURI().getPath() != null) {
             // no fragment, but there is a path so try and extract the final part...
@@ -762,15 +769,8 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
                         OBODefinitionCitation definitionCitation = new OBODefinitionCitation();
                         Collection<OBOXref> oboXrefs = new HashSet<>();
-                        for (OWLAnnotation owlAnnotation : annotation.getAnnotations()) {
-                            OBOXref xref = new OBOXref();
-                            String xrefValue = getOWLAnnotationValueAsString(owlAnnotation.getValue()).get();
-                            xref.setId(xrefValue);
-                            if (xrefValue.split(":").length == 2) {
-                                xref.setDatabase(xrefValue.split(":")[0]);
-                                xref.setId(xrefValue.split(":")[1]);
-                            }
-                            oboXrefs.add(xref);
+                        for (OWLAnnotation defAnnotation : annotation.getAnnotations()) {
+                            oboXrefs.add(extractOBOXrefs(defAnnotation));
                         }
                         definitionCitation.setDefinition(getOWLAnnotationValueAsString(annotation.getValue()).get());
                         definitionCitation.setOboXrefs(oboXrefs);
@@ -789,54 +789,42 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                     if (!annotation.getAnnotations().isEmpty()) {
 
                         OBOSynonym synonymCitation = new OBOSynonym();
-                        Collection<OBOXref> oboXrefs = new HashSet<>();
-                        for (OWLAnnotation owlAnnotation : annotation.getAnnotations()) {
-                            if (owlAnnotation.getProperty().isOWLAnnotationProperty()) {
-                                OBOXref xref = new OBOXref();
-                                if (owlAnnotation.getProperty().asOWLAnnotationProperty().getIRI().toString().equals(OboDefaults.SYNONYM_TYPE)) {
-                                    synonymCitation.setType(getOWLAnnotationValueAsString(owlAnnotation.getValue()).get());
-                                }
-                                else {
-                                    String xrefValue = getOWLAnnotationValueAsString(owlAnnotation.getValue()).get();
-                                    xref.setId(xrefValue);
-                                    if (xrefValue.split(":").length == 2) {
-                                        xref.setDatabase(xrefValue.split(":")[0]);
-                                        xref.setId(xrefValue.split(":")[1]);
-                                    }
-                                    oboXrefs.add(xref);
-                                }
 
-                            }
-                        }
                         synonymCitation.setName(getOWLAnnotationValueAsString(annotation.getValue()).get());
                         synonymCitation.setScope(annotation.getProperty().getIRI().getShortForm());
+                        String type;
+                        Collection<OBOXref> oboXrefs = new HashSet<>();
+                        for (OWLAnnotation annotationAxiomAnnotation : annotation.getAnnotations()) {
+                            if (annotationAxiomAnnotation.getProperty().getIRI().toString().equals(OboDefaults.SYNONYM_TYPE)) {
+                                OWLAnnotationValue value = annotationAxiomAnnotation.getValue();
+                                if (value instanceof IRI) {
+                                    for (OWLAnnotation valueAnnotation : factory.getOWLAnnotationProperty((IRI) value).getAnnotations(ontology)) {
+                                        if (valueAnnotation.getProperty().getIRI().equals(OWLRDFVocabulary.RDFS_LABEL.getIRI())) {
+                                            type = getOWLAnnotationValueAsString(valueAnnotation.getValue()).get();
+                                            synonymCitation.setType(type);
+                                        }
+                                    }
+                                }
+                            }
+                            if (annotationAxiomAnnotation.getProperty().getIRI().toString().equals(OboDefaults.DBXREF)) {
+                                oboXrefs.add(extractOBOXrefs(annotationAxiomAnnotation));
+                            }
+                        }
                         synonymCitation.setXrefs(oboXrefs);
                         oboSynonyms.add(synonymCitation);
                     }
                 }
 
                 // collect any obo  xrefs
-                if (
-                        annotation.getProperty().getIRI().toString().equals(OboDefaults.DBXREF)
-                        ) {
+                if (annotation.getProperty().getIRI().toString().equals(OboDefaults.DBXREF)) {
+                    OBOXref oboXrefs = extractOBOXrefs(annotation.getAnnotation());
                     if (!annotation.getAnnotations().isEmpty()) {
-
-                        Collection<OBOXref> oboXrefs = new HashSet<>();
-                        for (OWLAnnotation owlAnnotation : annotation.getAnnotations()) {
-                            OBOXref xref = new OBOXref();
-                            String xrefValue = getOWLAnnotationValueAsString(annotation.getValue()).get();
-                            xref.setId(xrefValue);
-                            if (xrefValue.split(":").length == 2) {
-                                xref.setDatabase(xrefValue.split(":")[0]);
-                                xref.setId(xrefValue.split(":")[1]);
-                            }
-                            xref.setDescription(getOWLAnnotationValueAsString(owlAnnotation.getValue()).get());
-                            oboXrefs.add(xref);
+                        for (OWLAnnotation axiomAnnotation : annotation.getAnnotations()) {
+                            String description = getOWLAnnotationValueAsString(axiomAnnotation.getValue()).get();
+                            oboXrefs.setDescription(description);
                         }
-
-                        oboEntityXrefs.addAll(oboXrefs);
-
                     }
+                    oboEntityXrefs.add(oboXrefs);
                 }
 
             }
@@ -865,6 +853,30 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         }
     }
 
+    private OBOXref extractOBOXrefs (OWLAnnotation annotation) {
+
+        OBOXref xref = new OBOXref();
+        String xrefValue = getOWLAnnotationValueAsString(annotation.getValue()).get();
+
+        String database = null;
+        String id = xrefValue;
+
+        if (xrefValue.contains(":")) {
+            database = xrefValue.substring(0, xrefValue.indexOf(":"));
+            id = xrefValue.substring(xrefValue.indexOf(":") + 1, xrefValue.length() );
+        }
+
+        xref.setDatabase(database);
+        xref.setId(id);
+        if (!annotation.getAnnotations().isEmpty()) {
+            for (OWLAnnotation axiomAnnotation : annotation.getAnnotations()) {
+                String description = getOWLAnnotationValueAsString(axiomAnnotation.getValue()).get();
+                xref.setDescription(description);
+            }
+        }
+
+        return xref;
+    }
 
     private Optional<String> getOWLAnnotationValueAsString (OWLAnnotationValue value) {
 
@@ -1224,6 +1236,14 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
     @Override public Map<IRI, Collection<String>> getTermDefinitions() {
         return lazyGet(() -> ontologyDefinitions);
+    }
+
+    public Collection<IRI> getUnsatisfiableIris() {
+        return unsatisfiableIris;
+    }
+
+    public void setUnsatisfiableIris(Collection<IRI> unsatisfiableIris) {
+        this.unsatisfiableIris = unsatisfiableIris;
     }
 
     @Override

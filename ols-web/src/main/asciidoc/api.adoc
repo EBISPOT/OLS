@@ -370,7 +370,7 @@ GET /api/select?q={query}
 |Restrict a search to an particular set of slims by name
 
 |fieldList
-|Specifcy the fields to return, the defaults are {iri,label,short_form,obo_id,ontology_name,ontology_prefix,description,type}
+|Specify the fields to return, the defaults are {iri,label,short_form,obo_id,ontology_name,ontology_prefix,description,type}
 
 |obsoletes
 |Set to true to include obsoleted terms in the results

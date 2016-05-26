@@ -46,6 +46,8 @@ public class HermitOWLOntologyLoader extends AbstractOWLOntologyLoader {
             if (reasoner.getUnsatisfiableClasses().getEntitiesMinusBottom().size() > 0) {
                 getLog().warn(
                         "Once classified, unsatisfiable classes were detected in '" + getOntologyIRI() + "'");
+                OWLReasonerFactory structuralReasonerFactory = new StructuralReasonerFactory();
+                reasoner = structuralReasonerFactory.createReasoner(ontology);
             }
             else {
                 getLog().debug("Reasoning complete! ");

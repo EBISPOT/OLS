@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
 import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
 
+import java.util.stream.Collectors;
+
 
 /**
  * Loads an ontology using the OWLAPI, and considers only axioms that are asserted in the loaded ontology when
@@ -51,7 +53,9 @@ public class ELKOWLOntologyLoader extends AbstractOWLOntologyLoader {
             getLog().debug("Checking for unsatisfiable classes...");
             if (reasoner.getUnsatisfiableClasses().getEntitiesMinusBottom().size() > 0) {
                 getLog().warn(
-                        "Once classified, unsatisfiable classes were detected in '" + getOntologyIRI() + "'");
+                        "Once classified, unsatisfiable classes were detected in '" + getOntologyIRI() + ", reverting to structural reasoner'");
+                OWLReasonerFactory structuralReasonerFactory = new StructuralReasonerFactory();
+                reasoner = structuralReasonerFactory.createReasoner(ontology);
             }
             else {
                 getLog().debug("Reasoning complete! ");

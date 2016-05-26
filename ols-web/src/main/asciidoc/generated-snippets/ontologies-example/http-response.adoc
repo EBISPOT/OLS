@@ -2,11 +2,12 @@
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 5117
+Content-Length: 5180
 
 {
-  "loaded" : "2016-03-23T10:39:56.564+0000",
-  "updated" : "2016-03-23T10:39:56.564+0000",
+  "ontologyId" : "efo",
+  "loaded" : "2016-05-10T16:13:45.735+0000",
+  "updated" : "2016-05-10T16:13:45.735+0000",
   "status" : "LOADED",
   "message" : "",
   "version" : null,
@@ -14,6 +15,7 @@ Content-Length: 5117
   "numberOfProperties" : 300,
   "numberOfIndividuals" : 0,
   "config" : {
+    "id" : "http://www.ebi.ac.uk/efo",
     "versionIri" : null,
     "title" : "Experimental Factor Ontology",
     "namespace" : "efo",

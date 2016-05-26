@@ -1,5 +1,6 @@
 package uk.ac.ebi.spot.ols.controller.ui;
 
+import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
@@ -22,6 +23,7 @@ import uk.ac.ebi.spot.ols.util.OLSEnv;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Collections;
@@ -88,15 +90,15 @@ public class OntologyControllerUI {
     }
 
     @RequestMapping(path = "/{onto}", produces = "application/rdf+xml", method = RequestMethod.GET)
-    public @ResponseBody FileSystemResource getOntologyDirectDownload(@PathVariable("onto") String ontologyId) throws ResourceNotFoundException {
-        return getDownloadOntology(ontologyId);
+    public @ResponseBody FileSystemResource getOntologyDirectDownload(@PathVariable("onto") String ontologyId, HttpServletResponse response) throws ResourceNotFoundException {
+        return getDownloadOntology(ontologyId, response);
     }
 
 
     @RequestMapping(path = "/{onto}/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE, method = RequestMethod.GET)
-
-    public @ResponseBody  FileSystemResource getDownloadOntology(@PathVariable("onto") String ontologyId) throws ResourceNotFoundException {
+    public @ResponseBody  FileSystemResource getDownloadOntology(@PathVariable("onto") String ontologyId, HttpServletResponse response) throws ResourceNotFoundException {
         try {
+            response.setHeader( "Content-Disposition", "filename=" + ontologyId + ".owl" );
             return new FileSystemResource(getDownloadFile(ontologyId));
         } catch (FileNotFoundException e) {
             throw new ResourceNotFoundException("This ontology is not available for download");

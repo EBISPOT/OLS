@@ -5,6 +5,7 @@ import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 import org.springframework.http.MediaType;
+import uk.ac.ebi.spot.ols.model.OntologyDocument;
 
 import java.net.URI;
 
@@ -21,6 +22,8 @@ public class OLSRestMVCConfiguration extends RepositoryRestConfigurerAdapter {
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
         config.getMetadataConfiguration().setAlpsEnabled(false);
         config.setBasePath("/api");
+        config.exposeIdsFor(OntologyDocument.class, OntologyResourceConfig.class);
+
     }
 
 }

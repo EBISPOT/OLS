@@ -5,6 +5,10 @@
 |Object
 |<<ontologies-links,Links>> to other resources
 
+|ontologyId
+|String
+|The short unique id for the ontology
+
 |updated
 |String
 |Date the ontology was checked for updates

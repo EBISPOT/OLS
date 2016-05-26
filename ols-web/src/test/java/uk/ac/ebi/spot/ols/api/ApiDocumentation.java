@@ -159,6 +159,7 @@ public class ApiDocumentation {
 
                 responseFields(
                         fieldWithPath("_links").description("<<ontologies-links,Links>> to other resources"),
+                        fieldWithPath("ontologyId").description("The short unique id for the ontology"),
                         fieldWithPath("updated").description("Date the ontology was checked for updates"),
                         fieldWithPath("loaded").description("Date the ontology was succesfully loaded"),
                         fieldWithPath("version").description("Version name associated with the ontology"),
