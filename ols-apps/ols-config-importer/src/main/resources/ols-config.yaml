@@ -309,3 +309,22 @@ make the ATOL ontology as operational as possible and closely related to measure
   - id: edam
     title: Ontology of bioinformatics topics, operations, identifiers, and formats
     reasoner: EL
+
+## ReXo
+
+  - id: rexo
+    preferredPrefix: ReXO
+    title: Regulation of Gene Expression Ontology
+    uri: http://www.bio.ntnu.no/ontology/ReXO/rexo.owl
+    description: "Regulation of Gene Expression"
+    homepage: http://www.semantic-systems-biology.org/apo
+    mailing_list: vladimir.n.mironov@gmail.com
+    label_property: http://www.w3.org/2004/02/skos/core#prefLabel
+    definition_property:
+      - http://www.w3.org/2004/02/skos/core#definition
+    synonym_property:
+      - http://www.geneontology.org/formats/oboInOwl#hasExactSynonym
+    base_uri:
+      - http://purl.obolibrary.org/obo/ReXO_
+    oboSlims: true
+    ontology_purl : http://www.bio.ntnu.no/ontology/ReXO/rexo.owl   ### This is the download URL

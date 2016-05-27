@@ -665,6 +665,9 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
             getLog().trace("Extracting fragment name using URI fragment (" + entityIRI.toURI().getFragment() + ")");
             return Optional.of(entityIRI.toURI().getFragment());
         }
+        else if (entityIRI.getRemainder().isPresent()) {
+            return Optional.of(entityIRI.getRemainder().get());
+        }
         else if (entityIRI.toURI().getPath() != null) {
             // no fragment, but there is a path so try and extract the final part...
             if (entityIRI.toURI().getPath().contains("/")) {
