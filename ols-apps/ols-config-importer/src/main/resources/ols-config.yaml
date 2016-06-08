@@ -169,7 +169,7 @@ make the ATOL ontology as operational as possible and closely related to measure
     base_uri:
       - http://purl.org/obo/owlATOL_
     oboSlims: false
-    ontology_purl : http://www.atol-ontology.com/ontology/12092013/atol_v6.owl
+    ontology_purl : http://www.atol-ontology.com/public/telechargement/atol_v6.owl
 
 ## EOL
 

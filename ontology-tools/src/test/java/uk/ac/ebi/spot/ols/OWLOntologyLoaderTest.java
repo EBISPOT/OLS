@@ -1,11 +1,9 @@
 package uk.ac.ebi.spot.ols;
 
 import org.semanticweb.owlapi.model.IRI;
-import uk.ac.ebi.spot.ols.loader.AbstractOWLOntologyLoader;
-import uk.ac.ebi.spot.ols.loader.OntologyLoader;
+import uk.ac.ebi.spot.ols.loader.*;
 import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
 import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
-import uk.ac.ebi.spot.ols.loader.HermitOWLOntologyLoader;
 
 import java.net.URI;
 import java.util.Collection;
@@ -22,10 +20,10 @@ public class OWLOntologyLoaderTest {
 
         OntologyResourceConfig.OntologyResourceConfigBuilder builder =
                 new OntologyResourceConfig.OntologyResourceConfigBuilder(
-                        "http://www.ebi.ac.uk/ols/test1.owl",
-                        "Test 1",
-                        "TEST1",
-                        URI.create("http://www.ebi.ac.uk/ols/ontologies/ehdaa2")
+                        "http://www.bio.ntnu.no/ontology/ReXO/rexo.owl",
+                        "rexo",
+                        "REXO",
+                        URI.create("http://www.bio.ntnu.no/ontology/ReXO/rexo.owl")
 
                 );
 
@@ -38,7 +36,7 @@ public class OWLOntologyLoaderTest {
 
         OntologyLoader loader = null;
         try {
-            loader = new HermitOWLOntologyLoader(config);
+            loader = new StructuralOWLOntologyLoader(config);
         } catch (OntologyLoadingException e) {
             e.printStackTrace();
             System.exit(0);

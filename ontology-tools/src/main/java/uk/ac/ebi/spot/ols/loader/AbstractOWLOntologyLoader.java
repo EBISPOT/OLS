@@ -433,11 +433,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                 @Override
                 public void visit(OWLObjectProperty property) {
                     objectProperties.add(property.getIRI());
-                    try {
-                        indexSubPropertyRelations(property);
-                    } catch (OWLOntologyCreationException e) {
-                        getLog().error("unable to index properties, unable to create reasoner");
-                    }
+                    indexSubPropertyRelations(property);
                 }
 
                 @Override
@@ -468,13 +464,28 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                 @Override
                 public void visit(OWLAnnotationProperty property) {
                     annotationProperties.add(property.getIRI());
+                    indexSubAnnotationPropertyRelations(property);
                 }
             });
         }
     }
 
+    private void indexSubAnnotationPropertyRelations(OWLAnnotationProperty property) {
 
-    private void indexSubPropertyRelations(OWLObjectProperty property) throws OWLOntologyCreationException {
+        Set<IRI> superProperties = new HashSet<>();
+        for (OWLAnnotationProperty owlProperty : property.getSuperProperties(ontology)) {
+           superProperties.add(owlProperty.asOWLAnnotationProperty().getIRI());
+       }
+        addDirectParents(property.getIRI(), superProperties);
+
+        Set<IRI> subProperties = new HashSet<>();
+        for (OWLAnnotationProperty owlProperty : property.getSubProperties(ontology)) {
+                subProperties.add(owlProperty.asOWLAnnotationProperty().getIRI());
+        }
+        addDirectChildren(property.getIRI(), subProperties);
+    }
+
+    private void indexSubPropertyRelations(OWLObjectProperty property) {
 
         Set<IRI> superProperties = new HashSet<>();
         for (OWLObjectPropertyExpression owlProperty : property.getSuperProperties(ontology)) {
@@ -743,7 +754,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                 else if (getDefinitionIRIs().contains(propertyIRI)) {
                     definitions.add(getOWLAnnotationValueAsString(annotation.getValue()).get());
                 }
-                else if (propertyIRI.equals(Namespaces.OBOINOWL.createIRI("subset_property"))) {
+                else if (propertyIRI.equals(Namespaces.OBOINOWL.createIRI("inSubset"))) {
                     slims.add(getOWLAnnotationValueAsString(annotation.getValue()).get());
                 }
                 else if (propertyIRI.equals(Namespaces.OWL.createIRI("deprecated"))) {
