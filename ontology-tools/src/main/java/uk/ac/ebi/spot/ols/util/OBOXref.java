@@ -10,6 +10,7 @@ public class OBOXref {
     String database;
     String id;
     String description;
+    String url;
 
     public OBOXref() {
     }
@@ -37,5 +38,13 @@ public class OBOXref {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

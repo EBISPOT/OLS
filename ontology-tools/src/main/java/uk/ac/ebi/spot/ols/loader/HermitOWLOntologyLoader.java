@@ -7,6 +7,7 @@ import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 import org.slf4j.Logger;
 import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
 import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
+import uk.ac.ebi.spot.ols.xrefs.DatabaseService;
 
 /**
  * Loads an ontology using the OWLAPI and a HermiT reasoner to classify the ontology.  This allows for richer typing
@@ -18,10 +19,12 @@ import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
  */
 public class HermitOWLOntologyLoader extends AbstractOWLOntologyLoader {
     OWLReasoner reasoner = null;
+    public HermitOWLOntologyLoader(OntologyResourceConfig config, DatabaseService databaseService) throws OntologyLoadingException {
+        super(config, databaseService);
+    }
     public HermitOWLOntologyLoader(OntologyResourceConfig config) throws OntologyLoadingException {
         super(config);
     }
-
     @Override
     protected OWLReasoner getOWLReasoner(OWLOntology ontology) throws OWLOntologyCreationException {
         if (reasoner == null) {

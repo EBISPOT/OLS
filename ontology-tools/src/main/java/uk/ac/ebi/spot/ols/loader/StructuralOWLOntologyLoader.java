@@ -7,6 +7,7 @@ import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 import org.slf4j.Logger;
 import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
 import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
+import uk.ac.ebi.spot.ols.xrefs.DatabaseService;
 
 /**
  * @author Simon Jupp
@@ -18,6 +19,9 @@ public class StructuralOWLOntologyLoader  extends AbstractOWLOntologyLoader {
     OWLReasoner reasoner = null;
     public StructuralOWLOntologyLoader(OntologyResourceConfig config)  throws OntologyLoadingException {
         super(config);
+    }
+    public StructuralOWLOntologyLoader(OntologyResourceConfig config, DatabaseService databaseService)  throws OntologyLoadingException {
+        super(config, databaseService);
     }
 
     protected OWLReasoner getOWLReasoner(OWLOntology ontology) throws OWLOntologyCreationException {

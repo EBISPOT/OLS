@@ -14,6 +14,7 @@ import uk.ac.ebi.spot.ols.loader.OntologyLoaderFactory;
 import uk.ac.ebi.spot.ols.model.Status;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
 import uk.ac.ebi.spot.ols.model.OntologyIndexer;
+import uk.ac.ebi.spot.ols.xrefs.DatabaseService;
 
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -41,6 +42,9 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
     @Autowired(required=false)
     List<OntologyIndexer> indexers;
 
+    @Autowired
+    DatabaseService databaseService;
+
     @Override
     public void indexOntologyDocument(OntologyDocument document) throws IndexingException {
 
@@ -52,7 +56,7 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
         Status status = Status.FAILED;
 
         try {
-            loader = OntologyLoaderFactory.getLoader(document.getConfig());
+            loader = OntologyLoaderFactory.getLoader(document.getConfig(), databaseService);
             if (document.getLocalPath() != null) {
                 // if updated get local path, and set location to local file
                 loader.setOntologyResource(new FileSystemResource(document.getLocalPath()));

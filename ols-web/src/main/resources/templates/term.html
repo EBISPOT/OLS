@@ -274,10 +274,11 @@
                                     </span>
                                     [
                                     <span th:each="oboXref : ${definitionCitation.getOboXrefs()}">
-
-                                        <span th:if="${oboXref.getDatabase() != null}" th:text="${oboXref.getDatabase()}"></span>
-                                        <span th:if="${oboXref.getId() != null}" th:text="${oboXref.getId()}"></span>
-
+                                        <a th:if="${oboXref.getUrl() != null}" target="_blank" th:href="${oboXref.getUrl()}" th:text="${oboXref.getUrl()}"></a>
+                                        <span th:if="${oboXref.getDatabase() != null and oboXref.getUrl() == null}" th:text="${oboXref.getDatabase()}"></span><!--
+                                        --><span th:if="${oboXref.getId() != null and oboXref.getDatabase() != null and oboXref.getUrl() == null}">:</span><!--
+                                        --><span th:if="${oboXref.getId() != null and oboXref.getUrl() == null}" th:text="${oboXref.getId()}"></span>
+                                        <span th:if="${oboXref.getDescription() != null}" th:text="'(' + ${oboXref.getDescription()} + ')'"></span>
                                     </span>
                                     ]
                                 </p>
@@ -361,13 +362,17 @@
                                 <!--</div>-->
 
                                 <div th:if="${not #sets.isEmpty(xrefs)}">
-                                    <b>OBO cross-reference: </b>
-                                    <div style="margin-left:9px;" th:each="oboXref: ${xrefs}">
-
-                                        <span th:if="${oboXref.getDatabase() != null}" th:text="${oboXref.getDatabase()}"></span>
-                                        <span th:if="${oboXref.getId() != null}" th:text="${oboXref.getId()}"></span>
-                                    </div>
-                                    <br/>
+                                    <a href="#" th:href="@{../../search(q='database_cross_reference',exact='true', type=property, ontology=${ontologyTerm.ontologyName})}">database cross reference</a>
+                                    <ul>
+                                        <li style="margin-left:9px;" th:each="oboXref: ${xrefs}">
+                                            <a th:if="${oboXref.getUrl() != null and oboXref.getDatabase() != null and oboXref.getId() != null}" target="_blank" th:href="${oboXref.getUrl()}" th:text="${oboXref.getDatabase() + ':' + oboXref.getId()}"></a>
+                                            <a th:if="${oboXref.getUrl() != null and oboXref.getDatabase() == null}" target="_blank" th:href="${oboXref.getUrl()}" th:text="${oboXref.getDatabase() + ':' + oboXref.getId()}"></a>
+                                            <span th:if="${oboXref.getDatabase() != null and oboXref.getUrl() == null}" th:text="${oboXref.getDatabase()}"></span><!--
+                                            --><span th:if="${oboXref.getId() != null and oboXref.getDatabase() != null and oboXref.getUrl() == null}">:</span><!--
+                                            --><span th:if="${oboXref.getId() != null and oboXref.getUrl() == null}" th:text="${oboXref.getId()}"></span>
+                                            <span th:if="${oboXref.getDescription() != null}" th:text="'(' + ${oboXref.getDescription()} + ')'"></span>
+                                        </li>
+                                    </ul>
                                 </div>
 
                                 <div th:if="${not #sets.isEmpty(synonyms)}">
@@ -378,9 +383,11 @@
                                                 <span th:text="${synonym.getName()}"></span>
                                                 <span th:if="${not #sets.isEmpty(synonym.getXrefs())}">[</span>
                                                 <span th:each="oboXref: ${synonym.getXrefs()}">
-
-                                                    <span th:if="${oboXref.getDatabase() != null}" th:text="${oboXref.getDatabase()}"></span>
-                                                    <span th:if="${oboXref.getId() != null}" th:text="${oboXref.getId()}"></span>
+                                                    <a th:if="${oboXref.getUrl() != null}" target="_blank" th:href="${oboXref.getUrl()}" th:text="${oboXref.getUrl()}"></a>
+                                                    <span th:if="${oboXref.getDatabase() != null and oboXref.getUrl() == null}" th:text="${oboXref.getDatabase()}"></span><!--
+                                                    --><span th:if="${oboXref.getId() != null and oboXref.getDatabase() != null and oboXref.getUrl() == null}">:</span><!--
+                                                    --><span th:if="${oboXref.getId() != null and oboXref.getUrl() == null}" th:text="${oboXref.getId()}"></span>
+                                                    <span th:if="${oboXref.getDescription() != null}" th:text="'(' + ${oboXref.getDescription()} + ')'"></span>
                                                 </span>
                                                 <span th:if="${not #sets.isEmpty(synonym.getXrefs())}">]</span>
                                             </div>
@@ -390,10 +397,13 @@
                                 </div>
 
                                 <div th:each="annotations: ${ontologyTerm.getAnnotation()}">
-                                    <b>
-                                        <a href="#" th:href="@{../../search(q=${annotations.key},exact='true', type=property, ontology=${ontologyTerm.ontologyName})}" th:text="${annotations.key.replaceAll('_', ' ')}">property name</a>
-                                    </b>
-                                    <p style="margin-left:9px;" th:text="${#strings.setJoin(annotations.value, ', ')}">NCBI_9606</p>
+                                    <div th:unless="${annotations.key} eq 'database_cross_reference'">
+                                        <b>
+                                            <a href="#" th:href="@{../../search(q=${annotations.key},exact='true', type=property, ontology=${ontologyTerm.ontologyName})}" th:text="${annotations.key.replaceAll('_', ' ')}">property name</a>
+                                        </b>
+                                        <p class="annotation-value" style="margin-left:9px;" th:text="${#strings.setJoin(annotations.value, ', ')}">NCBI_9606</p>
+                                    </div>
+
                                 </div>
 
                             </div>
@@ -549,6 +559,20 @@
             else if ($(this).hasClass('Individual')) {
                 $(this).attr("href", getUrlType('individual') + '?iri=' + encodeURIComponent(href));
             }
+        });
+
+        $('.annotation-value').each(function () {
+           var value = $(this).text();
+            if (value.match(/.+\.(gif|png|jpe?g)$/i))  {
+                $(this).text("");
+                var img = $('<img/>');
+                img.css('max-width', '200px');
+                img.css('width', '100%');
+                img.css('height', 'auto');
+                img.attr('src', value);
+                $(this).append(img)
+            }
+
         });
 
         /*$('#citeThis').on('click', function (){

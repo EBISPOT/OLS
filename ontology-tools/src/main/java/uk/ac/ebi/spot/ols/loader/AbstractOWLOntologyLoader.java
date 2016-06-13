@@ -3,8 +3,6 @@ package uk.ac.ebi.spot.ols.loader;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
-import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
-import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleIRIMapper;
@@ -18,12 +16,12 @@ import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
 import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
 import uk.ac.ebi.spot.ols.renderer.OWLHTMLVisitor;
 import uk.ac.ebi.spot.ols.util.*;
+import uk.ac.ebi.spot.ols.xrefs.DatabaseService;
 import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxOWLObjectRendererImpl;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,7 +38,7 @@ import java.util.stream.Collectors;
  *
  * This Abstract class provies an OWL API based implementation of an ontology loader. Ontologies are loaded
  * and various caches are created for extracting  common slices out of the ontology.
- * This class has being doing the round in various guises for a while now and had become a bit unwieldy
+ * This class has being doing the rounds in various guises for a while now and had become a bit unwieldy
  * todo refactor do include individual processors for various aspects of the ontology we want to extract
  *
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
@@ -122,8 +120,14 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     private Map<IRI, Collection<String>> superclassExpressionsAsString = new HashMap<>();
     private String preferredPrefix;
 
+    private DatabaseService databaseService;
 
     public AbstractOWLOntologyLoader(OntologyResourceConfig config) throws OntologyLoadingException {
+        this(config,null);
+    }
+
+    public AbstractOWLOntologyLoader(OntologyResourceConfig config, DatabaseService service) throws OntologyLoadingException {
+        databaseService = service;
         // read from config
         setOntologyIRI(IRI.create(config.getId()));
         setOntologyName(config.getNamespace());
@@ -623,6 +627,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         }
         return false;
     }
+
     private String renderHtml (OWLObject owlObject) {
         StringWriter stringWriter = new StringWriter();
         PrintWriter printWriter = new PrintWriter(stringWriter);
@@ -631,7 +636,6 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         owlObject.accept(owlhtmlVisitor);
         return stringWriter.toString();
     }
-
 
     private void addRelatedChildTerm(IRI parent, IRI child) {
         if (!relatedChildTerms.containsKey(parent)) {
@@ -653,7 +657,6 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
         for (OWLClassExpression expression : owlClass.getEquivalentClasses(getManager().getOntologies())) {
             if (expression.isAnonymous()) {
-//                relatedDescriptions.add(manSyntaxRenderer.render(expression));
                 relatedDescriptions.add(renderHtml(expression));
             }
         }
@@ -754,8 +757,10 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                 else if (getDefinitionIRIs().contains(propertyIRI)) {
                     definitions.add(getOWLAnnotationValueAsString(annotation.getValue()).get());
                 }
-                else if (propertyIRI.equals(Namespaces.OBOINOWL.createIRI("inSubset"))) {
-                    slims.add(getOWLAnnotationValueAsString(annotation.getValue()).get());
+                else if (propertyIRI.equals(Namespaces.OBOINOWL.createIRI("inSubset")) && annotation.getValue() instanceof IRI) {
+                    if (extractShortForm( (IRI) annotation.getValue()).isPresent()) {
+                        slims.add(extractShortForm( (IRI) annotation.getValue()).get());
+                    }
                 }
                 else if (propertyIRI.equals(Namespaces.OWL.createIRI("deprecated"))) {
                     addObsoleteTerms(owlEntityIRI);
@@ -773,7 +778,12 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                             termAnnotations.get(owlEntityIRI).put(propertyIRI, new HashSet<>());
                         }
 
-                        termAnnotations.get(owlEntityIRI).get(propertyIRI).add(getOWLAnnotationValueAsString(annotation.getValue()).get());
+                        if (annotation.getValue() instanceof IRI) {
+                            termAnnotations.get(owlEntityIRI).get(propertyIRI).add(annotation.getValue().toString());
+                        }
+                        else {
+                            termAnnotations.get(owlEntityIRI).get(propertyIRI).add(getOWLAnnotationValueAsString(annotation.getValue()).get());
+                        }
                     }
                 }
 
@@ -870,14 +880,41 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     private OBOXref extractOBOXrefs (OWLAnnotation annotation) {
 
         OBOXref xref = new OBOXref();
-        String xrefValue = getOWLAnnotationValueAsString(annotation.getValue()).get();
+        String xrefValue;
+        if (annotation.getValue() instanceof IRI) {
+            xrefValue = annotation.getValue().toString();
+        }
+        else {
+            xrefValue=getOWLAnnotationValueAsString(annotation.getValue()).get();
+        }
 
         String database = null;
         String id = xrefValue;
 
-        if (xrefValue.contains(":")) {
+        if (xrefValue.startsWith("http")) {
+            try {
+                URL descUrl = new URL(xrefValue);
+                xref.setUrl(descUrl.toString());
+            } catch (MalformedURLException e) {
+                // not a URL so ignore
+            }
+        }
+
+        if (xrefValue.contains(":") & xrefValue.split(":").length == 2) {
             database = xrefValue.substring(0, xrefValue.indexOf(":"));
             id = xrefValue.substring(xrefValue.indexOf(":") + 1, xrefValue.length() );
+
+            // check for Url
+            if (databaseService != null) {
+                if (databaseService.findByName(database).isPresent()) {
+                    try {
+                        URL url = databaseService.findByName(database).get().getUrlForId(id);
+                        xref.setUrl(url.toString());
+                    } catch (MalformedURLException e) {
+                        // not a URL so ignore
+                    }
+                }
+            }
         }
 
         xref.setDatabase(database);

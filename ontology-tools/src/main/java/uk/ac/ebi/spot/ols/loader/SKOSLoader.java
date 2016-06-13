@@ -5,6 +5,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
 import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
+import uk.ac.ebi.spot.ols.xrefs.DatabaseService;
 
 /**
  * @author Simon Jupp
@@ -12,6 +13,9 @@ import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
 public class SKOSLoader extends AbstractOWLOntologyLoader {
+    public SKOSLoader(OntologyResourceConfig config, DatabaseService databaseService) throws OntologyLoadingException {
+        super(config, databaseService);
+    }
     public SKOSLoader(OntologyResourceConfig config) throws OntologyLoadingException {
         super(config);
     }

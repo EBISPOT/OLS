@@ -8,6 +8,8 @@ import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 import org.slf4j.Logger;
 import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
 import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
+import uk.ac.ebi.spot.ols.xrefs.Database;
+import uk.ac.ebi.spot.ols.xrefs.DatabaseService;
 
 import java.util.stream.Collectors;
 
@@ -24,7 +26,10 @@ import java.util.stream.Collectors;
 public class ELKOWLOntologyLoader extends AbstractOWLOntologyLoader {
 
     OWLReasoner reasoner = null;
-    public ELKOWLOntologyLoader(OntologyResourceConfig config)  throws OntologyLoadingException {
+    public ELKOWLOntologyLoader(OntologyResourceConfig config, DatabaseService databaseService) throws OntologyLoadingException {
+        super(config, databaseService);
+    }
+    public ELKOWLOntologyLoader(OntologyResourceConfig config) throws OntologyLoadingException {
         super(config);
     }
 
