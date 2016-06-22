@@ -366,7 +366,7 @@
                                     <ul>
                                         <li style="margin-left:9px;" th:each="oboXref: ${xrefs}">
                                             <a th:if="${oboXref.getUrl() != null and oboXref.getDatabase() != null and oboXref.getId() != null}" target="_blank" th:href="${oboXref.getUrl()}" th:text="${oboXref.getDatabase() + ':' + oboXref.getId()}"></a>
-                                            <a th:if="${oboXref.getUrl() != null and oboXref.getDatabase() == null}" target="_blank" th:href="${oboXref.getUrl()}" th:text="${oboXref.getDatabase() + ':' + oboXref.getId()}"></a>
+                                            <a th:if="${oboXref.getUrl() != null and oboXref.getDatabase() == null}" target="_blank" th:href="${oboXref.getUrl()}" th:text="${oboXref.getId()}"></a>
                                             <span th:if="${oboXref.getDatabase() != null and oboXref.getUrl() == null}" th:text="${oboXref.getDatabase()}"></span><!--
                                             --><span th:if="${oboXref.getId() != null and oboXref.getDatabase() != null and oboXref.getUrl() == null}">:</span><!--
                                             --><span th:if="${oboXref.getId() != null and oboXref.getUrl() == null}" th:text="${oboXref.getId()}"></span>

@@ -391,6 +391,9 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         getLog().debug("Starting to index " + entities.size() + " entities");
 
         for (OWLEntity entity: entities) {
+            if (entity.getIRI().toString().startsWith("http://purl.obolibrary.org/obo/interacts_with_an_exposure")) {
+                System.out.println("hello");
+            }
             // get all the annotation properties
             evaluateAllAnnotationsValues(entity);
 
@@ -478,13 +481,13 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
         Set<IRI> superProperties = new HashSet<>();
         for (OWLAnnotationProperty owlProperty : property.getSuperProperties(ontology)) {
-           superProperties.add(owlProperty.asOWLAnnotationProperty().getIRI());
-       }
+            superProperties.add(owlProperty.asOWLAnnotationProperty().getIRI());
+        }
         addDirectParents(property.getIRI(), superProperties);
 
         Set<IRI> subProperties = new HashSet<>();
         for (OWLAnnotationProperty owlProperty : property.getSubProperties(ontology)) {
-                subProperties.add(owlProperty.asOWLAnnotationProperty().getIRI());
+            subProperties.add(owlProperty.asOWLAnnotationProperty().getIRI());
         }
         addDirectChildren(property.getIRI(), subProperties);
     }
@@ -674,12 +677,19 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         String termURI = entityIRI.toString();
 
         // we want the "final part" of the URI...
-        if (!StringUtils.isEmpty(entityIRI.toURI().getFragment())) {
-            // a uri with a non-null fragment, so use this...
-            getLog().trace("Extracting fragment name using URI fragment (" + entityIRI.toURI().getFragment() + ")");
-            return Optional.of(entityIRI.toURI().getFragment());
+
+        // oput in try block to catch any URL exceptins
+        try {
+            if (!StringUtils.isEmpty(entityIRI.toURI().getFragment())) {
+                // a uri with a non-null fragment, so use this...
+                getLog().trace("Extracting fragment name using URI fragment (" + entityIRI.toURI().getFragment() + ")");
+                return Optional.of(entityIRI.toURI().getFragment());
+            }
+        } catch (Exception e) {
+            // carry on and try some other strategies
         }
-        else if (entityIRI.getRemainder().isPresent()) {
+
+        if (entityIRI.getRemainder().isPresent()) {
             return Optional.of(entityIRI.getRemainder().get());
         }
         else if (entityIRI.toURI().getPath() != null) {
@@ -898,24 +908,25 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
             } catch (MalformedURLException e) {
                 // not a URL so ignore
             }
-        }
+        } else {
+            if (xrefValue.contains(":") & xrefValue.split(":").length <= 2) {
+                database = xrefValue.substring(0, xrefValue.indexOf(":"));
+                id = xrefValue.substring(xrefValue.indexOf(":") + 1, xrefValue.length() );
 
-        if (xrefValue.contains(":") & xrefValue.split(":").length == 2) {
-            database = xrefValue.substring(0, xrefValue.indexOf(":"));
-            id = xrefValue.substring(xrefValue.indexOf(":") + 1, xrefValue.length() );
-
-            // check for Url
-            if (databaseService != null) {
-                if (databaseService.findByName(database).isPresent()) {
-                    try {
-                        URL url = databaseService.findByName(database).get().getUrlForId(id);
-                        xref.setUrl(url.toString());
-                    } catch (MalformedURLException e) {
-                        // not a URL so ignore
+                // check for Url
+                if (databaseService != null) {
+                    if (databaseService.findByName(database).isPresent()) {
+                        try {
+                            URL url = databaseService.findByName(database).get().getUrlForId(id);
+                            xref.setUrl(url.toString());
+                        } catch (MalformedURLException e) {
+                            // not a URL so ignore
+                        }
                     }
                 }
             }
         }
+
 
         xref.setDatabase(database);
         xref.setId(id);
