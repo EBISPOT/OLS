@@ -328,3 +328,11 @@ make the ATOL ontology as operational as possible and closely related to measure
       - http://purl.obolibrary.org/obo/ReXO_
     oboSlims: true
     ontology_purl : http://www.bio.ntnu.no/ontology/ReXO/rexo.owl   ### This is the download URL
+
+## molecular interaction
+
+  - id: mi
+    is_foundry: true
+    ontology_purl: http://purl.obolibrary.org/obo/mi-test.owl
+    hierarchical_property:
+      - http://purl.obolibrary.org/obo/BFO_0000050
