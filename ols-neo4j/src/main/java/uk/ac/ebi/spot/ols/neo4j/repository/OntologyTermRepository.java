@@ -49,7 +49,7 @@ public interface OntologyTermRepository extends GraphRepository<Term> {
     Page<Term> getHierarchicalChildren(String ontologyName, String iri, Pageable pageable);
 
     @Query( countQuery = "MATCH (n:Class)<-[:SUBCLASSOF|RelatedTree*]-(child) WHERE n.ontology_name = {0} AND n.iri = {1} RETURN count(child)",
-            value = "MATCH (n:Class)<-[:SUBCLASSOF|RelatedTree]-(child) WHERE n.ontology_name = {0} AND n.iri = {1} RETURN child")
+            value = "MATCH (n:Class)<-[:SUBCLASSOF|RelatedTree*]-(child) WHERE n.ontology_name = {0} AND n.iri = {1} RETURN child")
     Page<Term> getHierarchicalDescendants(String ontologyName, String iri, Pageable pageable);
 
 
