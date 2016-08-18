@@ -1039,8 +1039,8 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
             }
         }
         // get any direct parents, then go up tree
-        if (allParentTerms.containsKey(entityIRI)) {
-            for (IRI value : allParentTerms.get(entityIRI)) {
+        if (directParentTerms.containsKey(entityIRI)) {
+            for (IRI value : directParentTerms.get(entityIRI)) {
                 allRelatedParents.addAll(fillAllRelatedParents(value));
             }
         }
@@ -1058,8 +1058,8 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
             }
         }
         // get any direct parents, then go up tree
-        if (allParentTerms.containsKey(entityIRI)) {
-            for (IRI value : allParentTerms.get(entityIRI)) {
+        if (directParentTerms.containsKey(entityIRI)) {
+            for (IRI value : directParentTerms.get(entityIRI)) {
                 newValues.addAll(fillAllRelatedParents(value));
             }
         }
