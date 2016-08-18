@@ -103,7 +103,7 @@ ontologies:
     base_uri:
       - http://purl.obolibrary.org/obo/CCO_
     oboSlims: true
-    ontology_purl : http://www.nt.ntnu.no/users/mironov/ontology/CCO/cco.obo   ### This is the download URL
+    ontology_purl : http://www.bio.ntnu.no/ontology/CCO/cco.owl   ### This is the download URL
 
 ## CMPO
 

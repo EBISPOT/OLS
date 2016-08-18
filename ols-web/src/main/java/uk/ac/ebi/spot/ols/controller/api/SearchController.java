@@ -69,6 +69,7 @@ public class SearchController {
             @RequestParam(value = "obsoletes", defaultValue = "false") boolean queryObsoletes,
             @RequestParam(value = "local", defaultValue = "false") boolean isLocal,
             @RequestParam(value = "childrenOf", required = false) Collection<String> childrenOf,
+            @RequestParam(value = "allChildrenOf", required = false) Collection<String> allChildrenOf,
             @RequestParam(value = "rows", defaultValue = "10") Integer rows,
             @RequestParam(value = "start", defaultValue = "0") Integer start,
             @RequestParam(value = "format", defaultValue = "json") String format,
@@ -90,6 +91,7 @@ public class SearchController {
             @RequestParam(value = "obsoletes", defaultValue = "false") boolean queryObsoletes,
             @RequestParam(value = "local", defaultValue = "false") boolean isLocal,
             @RequestParam(value = "childrenOf", required = false) Collection<String> childrenOf,
+            @RequestParam(value = "allChildrenOf", required = false) Collection<String> allChildrenOf,
             @RequestParam(value = "rows", defaultValue = "10") Integer rows,
             @RequestParam(value = "start", defaultValue = "0") Integer start,
             @RequestParam(value = "format", defaultValue = "json") String format,
@@ -175,6 +177,13 @@ public class SearchController {
             solrQuery.addFilterQuery("ancestor_iri: (" + result + ")");
         }
 
+        if (allChildrenOf != null) {
+            String result = allChildrenOf.stream()
+                    .map(addQuotes)
+                    .collect(Collectors.joining(" OR "));
+            solrQuery.addFilterQuery("hierarchical_ancestor_iri: (" + result + ")");
+        }
+
         solrQuery.addFilterQuery("is_obsolete:" + queryObsoletes);
         solrQuery.setStart(start);
         solrQuery.setRows(rows);
@@ -254,6 +263,7 @@ public class SearchController {
             @RequestParam(value = "obsoletes", defaultValue = "false") boolean queryObsoletes,
             @RequestParam(value = "local", defaultValue = "false") boolean isLocal,
             @RequestParam(value = "childrenOf", required = false) Collection<String> childrenOf,
+            @RequestParam(value = "allChildrenOf", required = false) Collection<String> allChildrenOf,
             @RequestParam(value = "rows", defaultValue = "10") Integer rows,
             @RequestParam(value = "start", defaultValue = "0") Integer start,
             HttpServletResponse response
@@ -309,6 +319,13 @@ public class SearchController {
                     .map(addQuotes)
                     .collect(Collectors.joining(" OR "));
             solrQuery.addFilterQuery("ancestor_iri: (" + result + ")");
+        }
+
+        if (allChildrenOf != null) {
+            String result = allChildrenOf.stream()
+                    .map(addQuotes)
+                    .collect(Collectors.joining(" OR "));
+            solrQuery.addFilterQuery("hierarchical_ancestor_iri: (" + result + ")");
         }
 
         solrQuery.addFilterQuery("is_obsolete:" + queryObsoletes);

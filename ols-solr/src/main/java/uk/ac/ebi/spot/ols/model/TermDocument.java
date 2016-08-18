@@ -97,6 +97,14 @@ public class TermDocument {
    	private List<String> descendants;
 
     @JsonIgnore
+    @Field("hierarchical_parent_iri")
+   	private List<String> hierarchical_parents;
+
+    @JsonIgnore
+    @Field("hierarchical_ancestor_iri")
+   	private List<String> hierarchical_ancestors;
+
+    @JsonIgnore
     @Field("*_related")
    	private Map<String, List<String>> related;
 
@@ -130,6 +138,8 @@ public class TermDocument {
             List<String> ancestors,
             List<String> children,
             List<String> descendants,
+            List<String> hierarchical_parents,
+            List<String> hierarchical_ancestors,
             Map<String, List<String>> related
            ) {
         this.id = id;
@@ -156,6 +166,8 @@ public class TermDocument {
         this.ancestors = ancestors;
         this.children = children;
         this.descendants = descendants;
+        this.hierarchical_parents = hierarchical_parents;
+        this.hierarchical_ancestors = hierarchical_ancestors;
         this.related = related;
     }
 
@@ -369,6 +381,22 @@ public class TermDocument {
 
     public void setRelated(Map<String, List<String>> related) {
         this.related = related;
+    }
+
+    public List<String> getHierarchical_parents() {
+        return hierarchical_parents;
+    }
+
+    public void setHierarchical_parents(List<String> hierarchical_parents) {
+        this.hierarchical_parents = hierarchical_parents;
+    }
+
+    public List<String> getHierarchical_ancestors() {
+        return hierarchical_ancestors;
+    }
+
+    public void setHierarchical_ancestors(List<String> hierarchical_ancestors) {
+        this.hierarchical_ancestors = hierarchical_ancestors;
     }
 
 }

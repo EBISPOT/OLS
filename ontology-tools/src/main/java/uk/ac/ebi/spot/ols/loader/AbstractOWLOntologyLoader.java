@@ -391,9 +391,6 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         getLog().debug("Starting to index " + entities.size() + " entities");
 
         for (OWLEntity entity: entities) {
-            if (entity.getIRI().toString().startsWith("http://purl.obolibrary.org/obo/interacts_with_an_exposure")) {
-                System.out.println("hello");
-            }
             // get all the annotation properties
             evaluateAllAnnotationsValues(entity);
 
@@ -1028,6 +1025,47 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
             return relatedParentTerms.get(entityIRI);
         }
         return Collections.emptyMap();
+    }
+
+
+    public Collection<IRI> getAllRelatedParentTerms(IRI entityIRI) {
+
+        Collection<IRI> allRelatedParents = new HashSet();
+
+        // get any related parents then go up tree
+        if (relatedParentTerms.containsKey(entityIRI)) {
+            for (IRI value : relatedParentTerms.get(entityIRI).values().stream().flatMap(Collection::stream).collect(Collectors.toSet())) {
+                allRelatedParents.addAll(fillAllRelatedParents(value));
+            }
+        }
+        // get any direct parents, then go up tree
+        if (allParentTerms.containsKey(entityIRI)) {
+            for (IRI value : allParentTerms.get(entityIRI)) {
+                allRelatedParents.addAll(fillAllRelatedParents(value));
+            }
+        }
+        return allRelatedParents;
+    }
+
+    private Collection<IRI> fillAllRelatedParents(IRI entityIRI) {
+
+        Set<IRI> newValues = new HashSet<>();
+        newValues.add(entityIRI);
+        // get any related parents then go up tree
+        if (relatedParentTerms.containsKey(entityIRI)) {
+            for (IRI value : relatedParentTerms.get(entityIRI).values().stream().flatMap(Collection::stream).collect(Collectors.toSet())) {
+                newValues.addAll(fillAllRelatedParents(value));
+            }
+        }
+        // get any direct parents, then go up tree
+        if (allParentTerms.containsKey(entityIRI)) {
+            for (IRI value : allParentTerms.get(entityIRI)) {
+                newValues.addAll(fillAllRelatedParents(value));
+            }
+        }
+
+        return newValues;
+
     }
 
     public Collection<IRI> getRelatedChildTerms(IRI entityIRI) {

@@ -14,6 +14,7 @@ import uk.ac.ebi.spot.ols.util.TermType;
 import uk.ac.ebi.spot.ols.model.OntologyIndexer;
 
 import java.util.*;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -254,8 +255,10 @@ public class SolrIndexer implements OntologyIndexer {
             builder.setDescription(loader.getTermDefinitions().get(termIRI));
         }
 
+        Collection<String> directParentTerms = new HashSet<>();
         if (loader.getDirectParentTerms().containsKey(termIRI)) {
-            builder.setParentUris(loader.getDirectParentTerms().get(termIRI).stream().map(IRI::toString).collect(Collectors.toSet()));
+            directParentTerms = loader.getDirectParentTerms().get(termIRI).stream().map(IRI::toString).collect(Collectors.toSet());
+            builder.setParentUris(directParentTerms);
         }
         else {
             builder.setIsRoot(true);
@@ -273,6 +276,22 @@ public class SolrIndexer implements OntologyIndexer {
         if (loader.getAllChildTerms().containsKey(termIRI)) {
             builder.setDescendantUris(loader.getAllChildTerms().get(termIRI).stream().map(IRI::toString).collect(Collectors.toSet()));
         }
+
+        // set hierarchical parents and children
+        Collection<String> directHierarchicalParents = loader.getRelatedParentTerms(termIRI).values().stream().flatMap(Collection::stream).map(IRI::toString).collect(Collectors.toSet());
+        // add direct superclasses
+        directHierarchicalParents.addAll(directParentTerms);
+
+        if (!directHierarchicalParents.isEmpty()) {
+            builder.setHierarchicalParentUris(directHierarchicalParents);
+        }
+
+        // get all transitive hierarchical parents
+        Collection<String> allHierarchicalParents = loader.getAllRelatedParentTerms(termIRI).stream().map(IRI::toString).collect(Collectors.toSet());
+        if (!allHierarchicalParents.isEmpty()) {
+            builder.setHierarchicalAncestorUris(allHierarchicalParents);
+        }
+
 
         if (!loader.getRelatedTerms(termIRI).isEmpty())    {
             Map<String, Collection<String>> relatedTerms = new HashMap<>();

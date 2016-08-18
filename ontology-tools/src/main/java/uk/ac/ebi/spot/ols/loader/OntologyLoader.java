@@ -199,11 +199,19 @@ public interface OntologyLoader {
     Map<IRI, Collection<IRI>> getRelatedTerms(IRI entityIRI);
 
     /**
-     * Returns all related terms that can be considered parents. Any relations that are considered hierarchical in nature (e.g. part-of, develops-from etc..)
+     * Returns all related terms that can be considered parents. Any relations that are considered hierarchical in nature (e.g. part-of, develops-from etc..). Excludes supeclass/is-a parents
      *
      * @return the relationship IRI and the set of related terms
      */
     Map<IRI, Collection<IRI>> getRelatedParentTerms(IRI entityIRI);
+
+    /**
+     * Returns all transitive related terms that can be considered parents. Any relations that are considered hierarchical in nature (e.g. part-of, develops-from etc..). This includes superclasses
+     *
+     * @return the relationship IRI and the set of related terms
+     */
+    Collection<IRI> getAllRelatedParentTerms(IRI entityIRI);
+
 
     /**
      * Returns all related terms that can be considered children. Any relations that are considered hierarchical in nature (e.g. part-of, develops-from etc..)
@@ -213,7 +221,6 @@ public interface OntologyLoader {
     Collection<IRI> getRelatedChildTerms(IRI entityIRI);
 
 
-//    Map<IRI, Collection<IRI>> getAllRelatedTerms(IRI entityIRI);
 
 
 

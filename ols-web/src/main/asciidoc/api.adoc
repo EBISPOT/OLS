@@ -314,7 +314,7 @@ GET /api/search?q={query}&queryFields={label,synonym}
 |Restrict a search to a set of ontologies e.g. `ontology=uberon,ma`
 
 |type
-|Restrict a search to an entity type, one of {term,property,individual,ontology}
+|Restrict a search to an entity type, one of {class,property,individual,ontology}
 
 |slim
 |Restrict a search to an particular set of slims by name
@@ -364,7 +364,7 @@ GET /api/select?q={query}
 |Restrict a search to a set of ontologies e.g. `ontology=uberon,ma`
 
 |type
-|Restrict a search to an entity type, one of {term,property,individual,ontology}
+|Restrict a search to an entity type, one of {class,property,individual,ontology}
 
 |slim
 |Restrict a search to an particular set of slims by name
@@ -379,7 +379,10 @@ GET /api/select?q={query}
 |Set to true to only return terms that are in a defining ontology e.g. Only return matches to gene ontology terms in the gene ontology, and exclude ontologies where those terms are also referenced
 
 |childrenOf
-|You can restrict a search to children of a given term. Supply a list of IRI for the terms that you want to search under
+|You can restrict a search to all children of a given term. Supply a list of IRI for the terms that you want to search under (subclassOf/is-a relation only)
+
+|allChildrenOf
+|You can restrict a search to all children of a given term. Supply a list of IRI for the terms that you want to search under  (subclassOf/is-a plus any hierarchical/transitive properties like 'part of' or 'develops from')
 
 |rows
 |How many results per page

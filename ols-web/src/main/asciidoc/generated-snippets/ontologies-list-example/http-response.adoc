@@ -2,7 +2,7 @@
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 41452
+Content-Length: 41742
 
 {
   "_embedded" : {
@@ -247,102 +247,6 @@ Content-Length: 41452
         }
       }
     }, {
-      "ontologyId" : "enm",
-      "loaded" : null,
-      "updated" : "2016-01-19T11:34:57.363+0000",
-      "status" : "TOLOAD",
-      "message" : "No ontology loaded",
-      "version" : null,
-      "numberOfTerms" : 0,
-      "numberOfProperties" : 0,
-      "numberOfIndividuals" : 0,
-      "config" : {
-        "id" : "http://purl.enanomapper.org/onto/enanomapper.owl",
-        "versionIri" : null,
-        "title" : "eNanoMapper Ontology",
-        "namespace" : "enm",
-        "preferredPrefix" : "ENM",
-        "description" : "The eNanoMapper project (www.enanomapper.net) is creating a pan-European computational infrastructure for toxicological data management for ENMs, based on semantic web standards and ontologies. > This ontology is an application ontology targeting the full domain of nanomaterial safety assessment. It re-uses several other ontologies including the NPO, CHEMINF, ChEBI, and ENVO. ",
-        "homepage" : "http://www.enanomapper.net/",
-        "version" : null,
-        "mailingList" : "https://github.com/enanomapper/ontologies",
-        "creators" : [ ],
-        "annotations" : { },
-        "fileLocation" : "http://purl.enanomapper.net/onto/enanomapper.owl",
-        "reasonerType" : "NONE",
-        "oboSlims" : false,
-        "labelProperty" : "http://www.w3.org/2000/01/rdf-schema#label",
-        "definitionProperties" : [ "http://purl.bioontology.org/ontology/npo#definition", "http://purl.org/dc/elements/1.1/description", "http://purl.obolibrary.org/obo#Definition", "http://www.ebi.ac.uk/efo/definition", "http://purl.obolibrary.org/obo/IAO_0000115" ],
-        "synonymProperties" : [ "http://www.ebi.ac.uk/efo/alternative_term", "http://purl.obolibrary.org/obo/IAO_0000118" ],
-        "hierarchicalProperties" : [ "http://www.bioassayontology.org/bao#BAO_0090002", "http://purl.bioontology.org/ontology/npo#part_of" ],
-        "baseUris" : [ "http://purl.enanomapper.org/onto/ENM_" ],
-        "hiddenProperties" : [ ],
-        "internalMetadataProperties" : [ ],
-        "skos" : false
-      },
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/enm"
-        },
-        "terms" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/enm/terms"
-        },
-        "properties" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/enm/properties"
-        },
-        "individuals" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/enm/individuals"
-        }
-      }
-    }, {
-      "ontologyId" : "atol",
-      "loaded" : null,
-      "updated" : "2016-01-19T11:34:57.365+0000",
-      "status" : "TOLOAD",
-      "message" : "No ontology loaded",
-      "version" : null,
-      "numberOfTerms" : 0,
-      "numberOfProperties" : 0,
-      "numberOfIndividuals" : 0,
-      "config" : {
-        "id" : "file:/C:/Lea/ontologies/versions%20ATOL/atol_v3.0.obo",
-        "versionIri" : null,
-        "title" : "Animal Trait Ontology for Livestock",
-        "namespace" : "atol",
-        "preferredPrefix" : "ATOL",
-        "description" : "ATOL (Animal Trait Ontology for Livestock) is an ontology of characteristics defining phenotypes of livestock in their environment (EOL). ATOL aims to: - provide a reference ontology of phenotypic traits of farm animals for the international scientificand educational - communities, farmers, etc.; - deliver this reference ontology in a language which can be used by computers in order to support database management, semantic analysis and modeling; - represent traits as generic as possible for livestock vertebrates; - make the ATOL ontology as operational as possible and closely related to measurement techniques; - structure the ontology in relation to animal production.",
-        "homepage" : "http://www.atol-ontology.com",
-        "version" : null,
-        "mailingList" : "pylebail@rennes.inra.fr",
-        "creators" : [ ],
-        "annotations" : { },
-        "fileLocation" : "http://www.atol-ontology.com/ontology/12092013/atol_v6.owl",
-        "reasonerType" : "NONE",
-        "oboSlims" : false,
-        "labelProperty" : "http://www.w3.org/2000/01/rdf-schema#label",
-        "definitionProperties" : [ "file:/C:/Lea/ontologies/versions%20ATOL/atol_v3.0.obo#definition" ],
-        "synonymProperties" : [ "file:/C:/Lea/ontologies/versions%20ATOL/atol_v3.0.obo#synonymExact" ],
-        "hierarchicalProperties" : [ "http://purl.obolibrary.org/obo/BFO_0000050" ],
-        "baseUris" : [ "http://purl.org/obo/owlATOL_" ],
-        "hiddenProperties" : [ ],
-        "internalMetadataProperties" : [ ],
-        "skos" : false
-      },
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/atol"
-        },
-        "terms" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/atol/terms"
-        },
-        "properties" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/atol/properties"
-        },
-        "individuals" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/atol/individuals"
-        }
-      }
-    }, {
       "ontologyId" : "eol",
       "loaded" : null,
       "updated" : "2016-01-19T11:34:57.367+0000",
@@ -546,26 +450,33 @@ Content-Length: 41452
       }
     }, {
       "ontologyId" : "doid",
-      "loaded" : null,
-      "updated" : "2016-01-19T11:34:58.058+0000",
-      "status" : "TOLOAD",
-      "message" : "No ontology loaded",
+      "loaded" : "2016-06-08T12:21:56.308+0000",
+      "updated" : "2016-06-08T12:21:56.308+0000",
+      "status" : "LOADED",
+      "message" : "",
       "version" : null,
-      "numberOfTerms" : 0,
-      "numberOfProperties" : 0,
+      "numberOfTerms" : 9247,
+      "numberOfProperties" : 46,
       "numberOfIndividuals" : 0,
       "config" : {
         "id" : "http://purl.obolibrary.org/obo/doid.owl",
-        "versionIri" : null,
+        "versionIri" : "http://purl.obolibrary.org/obo/doid/releases/2016-03-25/doid.owl",
         "title" : "Human Disease Ontology",
         "namespace" : "doid",
         "preferredPrefix" : "DOID",
         "description" : "An ontology for describing the classification of human diseases organized by etiology.",
         "homepage" : "http://www.disease-ontology.org",
-        "version" : null,
+        "version" : "2016-03-25",
         "mailingList" : null,
         "creators" : [ ],
-        "annotations" : { },
+        "annotations" : {
+          "date" : [ "25:03:2016 16:27" ],
+          "saved-by" : [ "elvira" ],
+          "default-namespace" : [ "disease_ontology" ],
+          "has_obo_format_version" : [ "1.2" ],
+          "auto-generated-by" : [ "OBO-Edit 2.3.1" ],
+          "comment" : [ "This work is licensed under a Creative Commons Attribution 3.0 Unported License http://creativecommons.org/licenses/by/3.0/." ]
+        },
         "fileLocation" : "http://purl.obolibrary.org/obo/doid.owl",
         "reasonerType" : "EL",
         "oboSlims" : true,
@@ -590,54 +501,6 @@ Content-Length: 41452
         },
         "individuals" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/doid/individuals"
-        }
-      }
-    }, {
-      "ontologyId" : "obi",
-      "loaded" : null,
-      "updated" : "2016-01-19T11:34:58.062+0000",
-      "status" : "TOLOAD",
-      "message" : "No ontology loaded",
-      "version" : null,
-      "numberOfTerms" : 0,
-      "numberOfProperties" : 0,
-      "numberOfIndividuals" : 0,
-      "config" : {
-        "id" : "http://purl.obolibrary.org/obo/obi.owl",
-        "versionIri" : null,
-        "title" : "Ontology for Biomedical Investigations",
-        "namespace" : "obi",
-        "preferredPrefix" : "OBI",
-        "description" : "An integrated ontology for the description of life-science and clinical investigations",
-        "homepage" : "http://obi-ontology.org",
-        "version" : null,
-        "mailingList" : "http://groups.google.com/group/obi-users",
-        "creators" : [ ],
-        "annotations" : { },
-        "fileLocation" : "http://purl.obolibrary.org/obo/obi.owl",
-        "reasonerType" : "EL",
-        "oboSlims" : true,
-        "labelProperty" : "http://www.w3.org/2000/01/rdf-schema#label",
-        "definitionProperties" : [ "http://purl.obolibrary.org/obo/IAO_0000115" ],
-        "synonymProperties" : [ "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym" ],
-        "hierarchicalProperties" : [ "http://purl.obolibrary.org/obo/BFO_0000050" ],
-        "baseUris" : [ "http://purl.obolibrary.org/obo/OBI_" ],
-        "hiddenProperties" : [ ],
-        "internalMetadataProperties" : [ ],
-        "skos" : false
-      },
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/obi"
-        },
-        "terms" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/obi/terms"
-        },
-        "properties" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/obi/properties"
-        },
-        "individuals" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/obi/individuals"
         }
       }
     }, {
@@ -782,6 +645,54 @@ Content-Length: 41452
         },
         "individuals" : {
           "href" : "http://www.ebi.ac.uk/api/ontologies/flu/individuals"
+        }
+      }
+    }, {
+      "ontologyId" : "rexo",
+      "loaded" : "2016-06-07T13:47:47.136+0000",
+      "updated" : "2016-06-07T13:47:47.136+0000",
+      "status" : "LOADED",
+      "message" : "",
+      "version" : null,
+      "numberOfTerms" : 158239,
+      "numberOfProperties" : 19,
+      "numberOfIndividuals" : 0,
+      "config" : {
+        "id" : "http://www.bio.ntnu.no/ontology/ReXO/rexo.owl",
+        "versionIri" : null,
+        "title" : "Regulation of Gene Expression Ontology",
+        "namespace" : "rexo",
+        "preferredPrefix" : "ReXO",
+        "description" : "Regulation of Gene Expression",
+        "homepage" : "http://www.semantic-systems-biology.org/apo",
+        "version" : "07-06-2016",
+        "mailingList" : "vladimir.n.mironov@gmail.com",
+        "creators" : [ ],
+        "annotations" : { },
+        "fileLocation" : "http://www.bio.ntnu.no/ontology/ReXO/rexo.owl",
+        "reasonerType" : "NONE",
+        "oboSlims" : true,
+        "labelProperty" : "http://www.w3.org/2004/02/skos/core#prefLabel",
+        "definitionProperties" : [ "http://www.w3.org/2004/02/skos/core#definition" ],
+        "synonymProperties" : [ "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym" ],
+        "hierarchicalProperties" : [ "http://purl.obolibrary.org/obo/BFO_0000050" ],
+        "baseUris" : [ "http://purl.obolibrary.org/obo/ReXO_" ],
+        "hiddenProperties" : [ ],
+        "internalMetadataProperties" : [ ],
+        "skos" : false
+      },
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/rexo"
+        },
+        "terms" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/rexo/terms"
+        },
+        "properties" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/rexo/properties"
+        },
+        "individuals" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/rexo/individuals"
         }
       }
     }, {
@@ -976,6 +887,105 @@ Content-Length: 41452
           "href" : "http://www.ebi.ac.uk/api/ontologies/aeo/individuals"
         }
       }
+    }, {
+      "ontologyId" : "aero",
+      "loaded" : "2016-05-27T09:51:11.982+0000",
+      "updated" : "2016-05-27T09:51:11.982+0000",
+      "status" : "LOADED",
+      "message" : "",
+      "version" : null,
+      "numberOfTerms" : 388,
+      "numberOfProperties" : 141,
+      "numberOfIndividuals" : 42,
+      "config" : {
+        "id" : "http://purl.obolibrary.org/obo/aero.owl",
+        "versionIri" : null,
+        "title" : "Adverse Event Reporting Ontology",
+        "namespace" : "aero",
+        "preferredPrefix" : "AERO",
+        "description" : "The Adverse Event Reporting Ontology (AERO) is an ontology aimed at supporting clinicians at the time of data entry, increasing quality and accuracy of reported adverse events",
+        "homepage" : "http://purl.obolibrary.org/obo/aero",
+        "version" : "27-05-2016",
+        "mailingList" : null,
+        "creators" : [ ],
+        "annotations" : {
+          "Contributor" : [ "Alan Ruttenberg", "Melanie Courtot" ],
+          "comment" : [ "The Adverse Event Reporting Ontology (AERO) is designed to facilitate the representation of adverse event reports and their evaluation in relation to clinical guidelines written by various authorities. We take a realist approach in which findings in reports are information artifacts and are related to instances or types that represent patient, symptoms, diseases, etc. We intend that use of this ontology will result in data that interoperates well with OBO Foundry ontologies as we directly use terms from OBO ontologies wherever appropriate.\n\nThe initial domain for this work are reports of adverse events following immunization (AEFIs). We represent the Brighton case definitions as our guidelines, show how findings can be assessed in terms of Brighton criteria and how diagnoses of adverse events with different levels of certainty can be obtained by use of the OWL reasoner." ]
+        },
+        "fileLocation" : "http://purl.obolibrary.org/obo/aero.owl",
+        "reasonerType" : "EL",
+        "oboSlims" : true,
+        "labelProperty" : "http://www.w3.org/2000/01/rdf-schema#label",
+        "definitionProperties" : [ "http://purl.obolibrary.org/obo/IAO_0000115" ],
+        "synonymProperties" : [ "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym" ],
+        "hierarchicalProperties" : [ "http://purl.obolibrary.org/obo/BFO_0000050" ],
+        "baseUris" : [ "http://purl.obolibrary.org/obo/AERO_" ],
+        "hiddenProperties" : [ ],
+        "internalMetadataProperties" : [ ],
+        "skos" : false
+      },
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/aero"
+        },
+        "terms" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/aero/terms"
+        },
+        "properties" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/aero/properties"
+        },
+        "individuals" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/aero/individuals"
+        }
+      }
+    }, {
+      "ontologyId" : "apo",
+      "loaded" : null,
+      "updated" : "2016-01-19T11:34:58.076+0000",
+      "status" : "TOLOAD",
+      "message" : "No ontology loaded",
+      "version" : null,
+      "numberOfTerms" : 0,
+      "numberOfProperties" : 0,
+      "numberOfIndividuals" : 0,
+      "config" : {
+        "id" : "http://purl.obolibrary.org/obo/apo.owl",
+        "versionIri" : null,
+        "title" : "Ascomycete phenotype ontology",
+        "namespace" : "apo",
+        "preferredPrefix" : "APO",
+        "description" : "A structured controlled vocabulary for the phenotypes of Ascomycete fungi",
+        "homepage" : "http://www.yeastgenome.org/",
+        "version" : null,
+        "mailingList" : null,
+        "creators" : [ ],
+        "annotations" : { },
+        "fileLocation" : "http://purl.obolibrary.org/obo/apo.owl",
+        "reasonerType" : "EL",
+        "oboSlims" : true,
+        "labelProperty" : "http://www.w3.org/2000/01/rdf-schema#label",
+        "definitionProperties" : [ "http://purl.obolibrary.org/obo/IAO_0000115" ],
+        "synonymProperties" : [ "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym" ],
+        "hierarchicalProperties" : [ "http://purl.obolibrary.org/obo/BFO_0000050" ],
+        "baseUris" : [ "http://purl.obolibrary.org/obo/APO_" ],
+        "hiddenProperties" : [ ],
+        "internalMetadataProperties" : [ ],
+        "skos" : false
+      },
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/apo"
+        },
+        "terms" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/apo/terms"
+        },
+        "properties" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/apo/properties"
+        },
+        "individuals" : {
+          "href" : "http://www.ebi.ac.uk/api/ontologies/apo/individuals"
+        }
+      }
     } ]
   },
   "_links" : {
@@ -994,7 +1004,7 @@ Content-Length: 41452
   },
   "page" : {
     "size" : 20,
-    "totalElements" : 148,
+    "totalElements" : 149,
     "totalPages" : 8,
     "number" : 0
   }

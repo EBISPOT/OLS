@@ -28,6 +28,8 @@ public class TermDocumentBuilder {
     private List<String> ancestors = new ArrayList<>();
     private List<String> children = new ArrayList<>();
     private List<String> descendants = new ArrayList<>();
+    private List<String> hierarchical_parents = new ArrayList<>();
+    private List<String> hierarchical_ancestors = new ArrayList<>();
     private Map<String, List<String>> relatedTerms = new HashMap<>();
 
     public TermDocumentBuilder setId(String id) {
@@ -146,6 +148,16 @@ public class TermDocumentBuilder {
         return this;
     }
 
+    public TermDocumentBuilder setHierarchicalParentUris(Collection<String> hierarchicalParentUris) {
+        this.hierarchical_parents = new ArrayList<>(hierarchicalParentUris);
+        return this;
+    }
+
+    public TermDocumentBuilder setHierarchicalAncestorUris(Collection<String> hierarchicalAncestorUris) {
+        this.hierarchical_ancestors = new ArrayList<>(hierarchicalAncestorUris);
+        return this;
+    }
+
     public TermDocumentBuilder setAnnotation(Map<String, Collection<String>> annotations) {
         for (String key : annotations.keySet()) {
             this.annotation.put(key, new ArrayList<>(annotations.get(key)));
@@ -186,6 +198,8 @@ public class TermDocumentBuilder {
                 ancestors,
                 children,
                 descendants,
+                hierarchical_parents,
+                hierarchical_ancestors,
                 relatedTerms
                 );
     }

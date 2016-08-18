@@ -639,7 +639,7 @@ Content-Type: application/json;charset=UTF-8
 Content-Length: 149
 
 {
-  "timestamp" : 1464271886949,
+  "timestamp" : 1471533066961,
   "status" : 404,
   "error" : "Not Found",
   "message" : "Resource not found",
@@ -1511,7 +1511,7 @@ terms can be accessed directly with this API.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">type</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Restrict a search to an entity type, one of {term,property,individual,ontology}</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Restrict a search to an entity type, one of {class,property,individual,ontology}</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">slim</p></td>
@@ -1588,7 +1588,7 @@ applications such as autocomplete.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">type</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Restrict a search to an entity type, one of {term,property,individual,ontology}</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Restrict a search to an entity type, one of {class,property,individual,ontology}</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">slim</p></td>
@@ -1608,7 +1608,11 @@ applications such as autocomplete.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">childrenOf</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">You can restrict a search to children of a given term. Supply a list of IRI for the terms that you want to search under</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">You can restrict a search to all children of a given term. Supply a list of IRI for the terms that you want to search under (subclassOf/is-a relation only)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">allChildrenOf</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">You can restrict a search to all children of a given term. Supply a list of IRI for the terms that you want to search under  (subclassOf/is-a plus any hierarchical/transitive properties like 'part of' or 'develops from')</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">rows</p></td>
@@ -1664,7 +1668,7 @@ applications such as autocomplete.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-05-27 19:23:10 JST
+Last updated 2016-08-18 16:10:18 BST
 </div>
 </div>
 </body>

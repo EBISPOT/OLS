@@ -143,6 +143,11 @@
     <field name="child_iri" type="string" indexed="true" stored="false" multiValued="true" />
     <field name="descendant_iri" type="string" indexed="true" stored="false" multiValued="true" />
 
+    <field name="hierarchical_parent_iri" type="string" indexed="true" stored="false" multiValued="true" />
+    <field name="hierarchical_ancestor_iri" type="string" indexed="true" stored="false" multiValued="true" />
+
+
+
     <!-- Dynamic field(s) holding relation types -->
     <dynamicField name="*_annotation" type="text_general" indexed="true" stored="true" multiValued="true" />
     <dynamicField name="*_related" type="string" indexed="true" stored="false" multiValued="true" />
