@@ -1034,7 +1034,15 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
         // get any related parents then go up tree
         if (relatedParentTerms.containsKey(entityIRI)) {
+
+            // if term is related to one of its children then ignore as this creates a cycle in the tree
             for (IRI value : relatedParentTerms.get(entityIRI).values().stream().flatMap(Collection::stream).collect(Collectors.toSet())) {
+                if (allChildTerms.containsKey(entityIRI)) {
+                    if (allChildTerms.get(entityIRI).contains(value)) {
+                        getLog().warn("Cycle detected where is " + entityIRI + " is related to one of its decendants");
+                        continue;
+                    }
+                }
                 allRelatedParents.addAll(fillAllRelatedParents(value));
             }
         }
@@ -1050,10 +1058,18 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     private Collection<IRI> fillAllRelatedParents(IRI entityIRI) {
 
         Set<IRI> newValues = new HashSet<>();
+
         newValues.add(entityIRI);
         // get any related parents then go up tree
         if (relatedParentTerms.containsKey(entityIRI)) {
+
             for (IRI value : relatedParentTerms.get(entityIRI).values().stream().flatMap(Collection::stream).collect(Collectors.toSet())) {
+                if (allChildTerms.containsKey(entityIRI)) {
+                    if (allChildTerms.get(entityIRI).contains(value)) {
+                        getLog().warn("Cycle detected where " + entityIRI + " is related to one of its decendants");
+                        continue;
+                    }
+                }
                 newValues.addAll(fillAllRelatedParents(value));
             }
         }

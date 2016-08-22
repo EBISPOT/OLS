@@ -449,3 +449,30 @@ ontologies:
     products:
       - id: pato.owl
       - id: pato.obo
+
+  - build: {checkout: 'git clone  https://github.com/AgriculturalSemantics/agro.git',
+      infallible: 1, method: vcs, path: ., system: git}
+    contact: {email: c.aubert@cgiar.org, github: celineaubert, label: Celine Aubert}
+    dependencies:
+    - {id: envo}
+    - {id: uo}
+    - {id: ro}
+    - {id: pato}
+    - {id: chebi}
+    - {id: iao}
+    description: Ontology of agronomic practices, agronomic techniques, and agronomic
+      variables used in agronomic experiments
+    domain: agronomy
+    homepage: https://github.com/AgriculturalSemantics/agro
+    id: agro
+    jobs:
+    - {id: 'https://travis-ci.org/AgriculturalSemantics/agro', type: travis-ci}
+    layout: ontology_detail
+    license: {label: CC-BY, logo: 'http://mirrors.creativecommons.org/presskit/buttons/80x15/png/by.png',
+      url: 'http://creativecommons.org/licenses/by/3.0/'}
+    mailing_list: https://groups.google.com/group/agronomyOntology
+    ontology_purl: http://purl.obolibrary.org/obo/agro.owl
+    products:
+    - {id: agro.owl, ontology_purl: 'http://purl.obolibrary.org/obo/agro.owl'}
+    title: Agronomy Ontology
+    tracker: https://github.com/AgriculturalSemantics/agro/issues/

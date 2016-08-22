@@ -177,6 +177,7 @@
                     <div style="font-size: larger;" class="bootstrap-alert alert-info">
                         <span class="icon icon-generic" data-icon="N">News</span>
 
+
                         <ul>
                             <li>
                                 May 4th, 2016 - New OLS website released! For information about the old site and migrating to the new please see <a href="roadmap.html">here</a>
@@ -185,6 +186,7 @@
 
                         <!--This is a beta site under active development, the full release date is curently scheduled for April 18th. Please see the <a href="roadmap.html">OLS roadmap</a> for our development timelines. Sign up for updates on the <a href="https://listserver.ebi.ac.uk/mailman/listinfo/ols-announce">ols-announce</a> mailing list of contact the <a href="contact">support desk</a> with any feedback or suggestions.-->
                     </div>
+
                 </section>
                 <aside class="grid_5 omega">
                     <h3 class="icon icon-generic" data-icon="g">Data Content</h3>
@@ -196,6 +198,9 @@
                         <li th:if="${summary.getNumberOfIndividuals() &gt; 0}"><span th:text="${#numbers.formatInteger(summary.getNumberOfIndividuals(),3,'COMMA')}">102</span> individuals</li>
                         <li th:if="${summary.getSoftwareVersion() != null}">Version <span th:text="${summary.getSoftwareVersion()}">102</span></li>
                     </ul>
+
+                    <a class="twitter-timeline" href="https://twitter.com/EBIOLS">Tweets by OLS</a> <script async="async" src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
                 </aside>
 
             </div>
@@ -314,8 +319,6 @@
     //Message to all mobile devices trying to use OLS
     //if ($.browser.mobile ===true) {       }
 </script>
-
-
 
 <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
