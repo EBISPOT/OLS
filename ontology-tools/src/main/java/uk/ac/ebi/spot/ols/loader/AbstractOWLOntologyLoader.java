@@ -1032,6 +1032,9 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
         Collection<IRI> allRelatedParents = new HashSet();
 
+        if (entityIRI.toString().equals("http://purl.enanomapper.org/onto/http://semanticscience.org/resource/CHEMINF_000123")) {
+            System.out.println(entityIRI.toString());
+        }
         // get any related parents then go up tree
         if (relatedParentTerms.containsKey(entityIRI)) {
 
@@ -1074,8 +1077,18 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
             }
         }
         // get any direct parents, then go up tree
+
+
         if (directParentTerms.containsKey(entityIRI)) {
             for (IRI value : directParentTerms.get(entityIRI)) {
+                // make sure no cycles
+                if (allParentTerms.containsKey(value)) {
+                    if (allParentTerms.get(value).contains(entityIRI)) {
+                        getLog().warn("Cycle detected where " + entityIRI + " is a subclass of itself");
+                        continue;
+                    }
+                }
+
                 newValues.addAll(fillAllRelatedParents(value));
             }
         }
@@ -1083,6 +1096,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         return newValues;
 
     }
+
 
     public Collection<IRI> getRelatedChildTerms(IRI entityIRI) {
         if (relatedChildTerms.containsKey(entityIRI)) {
