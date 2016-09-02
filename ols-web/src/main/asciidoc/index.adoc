@@ -8,13 +8,15 @@ link:developer[Developer documentation]:: Documentation for developers including
 == FAQ
 
 * How can I ask for a certain ontology to be included in OLS? +
-e-mail ols-support@ebi.ac.uk or open a github issue
+e-mail ols-support@ebi.ac.uk or open an issue on link:https://github.com/EBISPOT/OLS/issue[Github]
+* How can I hear about updates to the OLS? +
+Sign up to the link:https://listserver.ebi.ac.uk/mailman/listinfo/ols-announce[OLS announce mailing list] or follow us on link:https://twitter.com/EBIOLS[Twitter]
 * What ontology formats does OLS support? +
 OBO and OWL 2
 * What reasoners are supported by OLS? +
 Hermit and ELK
 * How does OLS handle OWL imports? +
-OWL imports are respects so any impoprted files will be indexes as part of the ontology. If any import fails these will be ignored
+OWL imports are followed so any imported files will be indexed as part of the ontology. If any import fails these will be ignored
 * How often does OLS check for updates in external ontology files? +
 OLS updates nightly to always provide the latest ontology versions
 * How can I use OLS in my own applications? +
