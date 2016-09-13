@@ -340,6 +340,9 @@ GET /api/search?q={query}&queryFields={label,synonym}
 |childrenOf
 |You can restrict a search to children of a given term. Supply a list of IRI for the terms that you want to search under
 
+|allChildrenOf
+|You can restrict a search to all children of a given term. Supply a list of IRI for the terms that you want to search under  (subclassOf/is-a plus any hierarchical/transitive properties like 'part of' or 'develops from')
+
 |rows
 |How many results per page
 

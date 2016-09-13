@@ -579,6 +579,9 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                     if (!someValuesFrom.getFiller().isAnonymous() && ! someValuesFrom.getProperty().isAnonymous()) {
                         IRI propertyIRI = someValuesFrom.getProperty().asOWLObjectProperty().getIRI();
                         IRI relatedTerm = someValuesFrom.getFiller().asOWLClass().getIRI();
+
+                        // skip terms that are related to themselves as this can cause nasty cycles
+
                         if (!relatedTerms.containsKey(propertyIRI)) {
                             relatedTerms.put(propertyIRI, new HashSet<>());
                         }
@@ -586,11 +589,17 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
                         // check if hierarchical
                         if (hierarchicalRels.contains(propertyIRI) || isPartOf(propertyIRI) ) {
-                            if (!relatedParentTerms.containsKey(propertyIRI)) {
-                                relatedParentTerms.put(propertyIRI, new HashSet<>());
+                            if (owlClass.getIRI().equals(relatedTerm)) {
+                                getLog().warn("Ignoring Iri that is related to itself: " + owlClass.getIRI());
+                            } else  {
+                                if (!relatedParentTerms.containsKey(propertyIRI)) {
+                                    relatedParentTerms.put(propertyIRI, new HashSet<>());
+                                }
+                                relatedParentTerms.get(propertyIRI).add(relatedTerm);
+                                addRelatedChildTerm(relatedTerm, owlClass.getIRI());
                             }
-                            relatedParentTerms.get(propertyIRI).add(relatedTerm);
-                            addRelatedChildTerm(relatedTerm, owlClass.getIRI());
+
+
                         }
 
                     }
@@ -1032,9 +1041,6 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
         Collection<IRI> allRelatedParents = new HashSet();
 
-        if (entityIRI.toString().equals("http://purl.enanomapper.org/onto/http://semanticscience.org/resource/CHEMINF_000123")) {
-            System.out.println(entityIRI.toString());
-        }
         // get any related parents then go up tree
         if (relatedParentTerms.containsKey(entityIRI)) {
 

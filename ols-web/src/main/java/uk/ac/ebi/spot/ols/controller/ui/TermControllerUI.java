@@ -25,9 +25,9 @@ import uk.ac.ebi.spot.ols.util.OBOSynonym;
 import uk.ac.ebi.spot.ols.util.OBOXref;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Map;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.*;
 
 /**
  * @author Simon Jupp
@@ -35,7 +35,6 @@ import java.util.Map;
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
 @Controller
-@RequestMapping("/ontologies")
 public class TermControllerUI {
 
     @Autowired
@@ -50,7 +49,7 @@ public class TermControllerUI {
         return log;
     }
 
-    @RequestMapping(path = "/{onto}/terms", method = RequestMethod.GET)
+    @RequestMapping(path = "/ontologies/{onto}/terms", method = RequestMethod.GET)
     String getTerm(
             @PathVariable("onto") String ontologyId,
             @RequestParam(value = "iri", required = false) String termIri,
@@ -154,5 +153,74 @@ public class TermControllerUI {
 
 
         return "term";
+    }
+
+    /**
+     * Resolve a term when no ontology is provided.
+     * @param termIri
+     * @param shortForm
+     * @param oboId
+     * @param model
+     * @return
+     */
+    @RequestMapping(path = "/terms", method = RequestMethod.GET)
+    String getTermResolver(
+            @RequestParam(value = "iri", required = false) String termIri,
+            @RequestParam(value = "short_form", required = false) String shortForm,
+            @RequestParam(value = "obo_id", required = false) String oboId,
+            @RequestParam(value = "id", required = false) String id,
+            Model model,
+            Pageable pageable
+    ) {
+
+        List<Term> terms = new ArrayList<>();
+
+        if (termIri != null) {
+            terms = ontologyTermGraphService.findAllByIri(termIri,pageable).getContent();
+        }
+        else if (shortForm != null) {
+            terms = ontologyTermGraphService.findAllByShortForm(shortForm,pageable).getContent();
+        }
+        else if (oboId != null) {
+            terms = ontologyTermGraphService.findAllByOboId(oboId,pageable).getContent();
+        }
+        else if (id != null) {
+            terms = ontologyTermGraphService.findAllByIri(id,pageable).getContent();
+            if (terms.isEmpty()) {
+                terms = ontologyTermGraphService.findAllByShortForm(id,pageable).getContent();
+                if (terms.isEmpty()) {
+                    terms = ontologyTermGraphService.findAllByOboId(id,pageable).getContent();
+                }
+            }
+        }
+
+        if (terms.size() == 1) {
+            try {
+                return "redirect:ontologies/" + terms.get(0).getOntologyPrefix() + "/terms?iri=" + URLEncoder.encode(terms.get(0).getIri(), "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                throw new RuntimeException("can't encode IRI");
+            }
+        } else {
+
+            for (Term t : terms) {
+                if (t.isLocal()) {
+                    try {
+                        return "redirect:ontologies/" + t.getOntologyPrefix() + "/terms?iri=" + URLEncoder.encode(t.getIri(), "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        throw new RuntimeException("can't encode IRI");
+                    }
+                }
+            }
+
+            if (terms.isEmpty()) {
+                throw new ResourceNotFoundException("Can't find any terms with that id");
+            }
+            // if we get here return search result
+            return "redirect:search?exact=true&q=" + terms.get(0).getShortForm();
+
+
+        }
+
+
     }
 }
