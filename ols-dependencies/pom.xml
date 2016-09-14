@@ -5,7 +5,7 @@
 
     <groupId>uk.ac.ebi.spot</groupId>
     <artifactId>ols-dependencies</artifactId>
-    <version>3.1.0-SNAPSHOT</version>
+    <version>3.1.0</version>
     <packaging>pom</packaging>
 
     <parent>
@@ -18,7 +18,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <properties>
-        <ols.version>3.1.0-SNAPSHOT</ols.version>
+        <ols.version>3.1.0</ols.version>
         <owlapi.version>3.5.2</owlapi.version>
         <HermiT.version>1.3.8.4</HermiT.version>
         <elk.version>0.4.2</elk.version>
