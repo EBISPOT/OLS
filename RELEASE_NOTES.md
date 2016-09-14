@@ -8,8 +8,7 @@ OLS 3.1.0 release notes
   - http://www.biojs.io/d/ols-autocomplete
   - http://www.biojs.io/d/ols-graphview
   - http://www.biojs.io/d/ols-treeview
-- Improved handling of OBO DB Xrefs, these are now correctly formatted and have links to external databases where available (https://github.com/EBISPOT/OLS/issues/85, https://g\
-ithub.com/EBISPOT/OLS/issues/83)
+- Improved handling of OBO DB Xrefs, these are now correctly formatted and have links to external databases where available (https://github.com/EBISPOT/OLS/issues/85, https://github.com/EBISPOT/OLS/issues/83)
 - Added support for rendering images e.g. http://www.ebi.ac.uk/ols/ontologies/uberon/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FUBERON_0002530
 - Fixed tree view bug where unsatisfiable classes were children of everything https://github.com/EBISPOT/OLS/issues/87
 - Download ontology now has ontology name as filename https://github.com/EBISPOT/OLS/issues/84
