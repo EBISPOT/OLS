@@ -7,7 +7,7 @@ package uk.ac.ebi.spot.ols.controller.ui;
  */
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.bind.PropertiesConfigurationFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
-import uk.ac.ebi.spot.ols.model.Status;
 import uk.ac.ebi.spot.ols.service.OntologyRepositoryService;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -35,9 +35,24 @@ public class HomeController {
     @Autowired
     Environment environment;
 
+    @Value("${ols.maintenance.start:#{null}}")
+    String start = null;
+
+
+    @Value("${ols.maintenance.end:#{null}}")
+    String end = null;
+
+
+    @Value("${ols.maintenance.message:#{null}}")
+    String message;
+
     @ModelAttribute("all_ontologies")
     public List<OntologyDocument> getOntologies() {
-        return repositoryService.getAllDocuments(new Sort(new Sort.Order(Sort.Direction.ASC, "ontologyId")));
+        try {
+            return repositoryService.getAllDocuments(new Sort(new Sort.Order(Sort.Direction.ASC, "ontologyId")));
+        } catch (Exception e) {
+            return Collections.emptyList();
+        }
     }
 
     @RequestMapping({"", "/"})
@@ -56,6 +71,15 @@ public class HomeController {
 
         SummaryInfo summaryInfo = new SummaryInfo(lastUpdated, numberOfOntologies, numberOfTerms, numberOfProperties, numberOfIndividuals, getClass().getPackage().getImplementationVersion());
 
+        try {
+            if (isMaintenancePlanned(start)) {
+                model.addAttribute("start", start);
+                model.addAttribute("end", end);
+                model.addAttribute("message", message);
+            }
+        } catch (Exception e) {
+            // couldn't determine if we are in maintenance mode..
+        }
         model.addAttribute("summary", summaryInfo);
         return "index";
     }
@@ -136,6 +160,21 @@ public class HomeController {
         return "contact";
     }
 
+    @RequestMapping({"maintenance"})
+    public String showMaintenance(Model model) {
+
+        try {
+            model.addAttribute("scheduled", isMaintenancePlanned(start));
+            model.addAttribute("maintenance", isMaintenanceMode(start, end));
+        } catch (Exception e) {
+            // can't determine if scheduled
+        }
+        model.addAttribute("start", start);
+        model.addAttribute("end", end);
+        model.addAttribute("message", message);
+        return "maintenance";
+    }
+
     @RequestMapping({"sparql"})
     public String showSparql() {
         return "comingsoon";
@@ -160,12 +199,43 @@ public class HomeController {
         return "docs-template";
     }
 
-    @RequestMapping({"/ontologiesi"})
-    public String showOntologies() {
 
-        return "ontologies";
+    private boolean isMaintenancePlanned
+            (String start) throws Exception {
+        if (start != null) {
+
+            try {
+                Calendar cal = Calendar.getInstance();
+                Date currenTime = cal.getTime();
+                SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date maintenanceStartTime = format1.parse( start );
+                return currenTime.before(maintenanceStartTime);
+            } catch (Exception e) {
+                throw new Exception("Can't parse maintenance mode start or end time");
+            }
+        }
+        return false;
+
     }
 
+    private boolean isMaintenanceMode
+            (String start, String end) throws Exception {
+        if (start != null && end != null) {
+
+            try {
+                Calendar cal = Calendar.getInstance();
+                Date currenTime = cal.getTime();
+                SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date maintenanceStartTime = format1.parse( start );
+                Date maintenanceEndTime = format1.parse( end );
+                return (currenTime.after(maintenanceStartTime) && currenTime.before(maintenanceEndTime));
+            } catch (Exception e) {
+                throw new Exception("Can't parse maintenance mode start or end time");
+            }
+        }
+        return false;
+
+    }
     private class SummaryInfo {
         Date lastUpdated;
         int numberOfOntologies;

@@ -1,5 +1,7 @@
 package uk.ac.ebi.spot.ols.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -33,6 +35,18 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
 
     }
+
+    @Bean
+    MaintenanceInterceptor getMaintenanceInterceptor() {
+        return new MaintenanceInterceptor();
+    }
+
+    @Autowired
+    MaintenanceInterceptor interceptor;
+    @Override
+     public void addInterceptors(InterceptorRegistry registry) {
+         registry.addInterceptor(interceptor);
+     }
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {

@@ -3,6 +3,7 @@ package uk.ac.ebi.spot.ols.config;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.neo4j.graphdb.factory.GraphDatabaseSettings;
+import org.neo4j.kernel.api.exceptions.index.ExceptionDuringFlipKernelException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -29,14 +30,19 @@ public class OlsNeo4jConfiguration extends Neo4jConfiguration {
 
     @Bean (destroyMethod = "shutdown")
     static GraphDatabaseService graphDatabaseService() {
+        GraphDatabaseService service = null;
+     try {
+         service =  new GraphDatabaseFactory().newEmbeddedDatabaseBuilder(getNeo4JPath())
+ //                .setConfig(GraphDatabaseSettings.read_only, "true")
+                 .setConfig( GraphDatabaseSettings.dump_configuration, "true" )
+                 .setConfig( GraphDatabaseSettings.keep_logical_logs, "false" )
+                 .newGraphDatabase();
 
-        GraphDatabaseService service =  new GraphDatabaseFactory().newEmbeddedDatabaseBuilder(getNeo4JPath())
-//                .setConfig(GraphDatabaseSettings.read_only, "true")
-                .setConfig( GraphDatabaseSettings.dump_configuration, "true" )
-                .setConfig( GraphDatabaseSettings.keep_logical_logs, "false" )
-                .newGraphDatabase();
+         registerShutdownHook(service);
 
-        registerShutdownHook(service);
+     }  catch (Exception e ) {
+         service =  new GraphDatabaseFactory().newEmbeddedDatabase(System.getProperty("java.io.tmpdir") + File.separator + "emptyOlsGraph");
+     }
         return service;
     }
 

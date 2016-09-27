@@ -121,7 +121,7 @@ a .ontology-source {
   border-color: #bce8f1;
 }
 
-.bootstrap-alert {
+.bootstrap-info {
   padding: 8px 35px 8px 14px;
   margin-bottom: 18px;
   color: #c09853;
@@ -131,6 +131,18 @@ a .ontology-source {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
+}
+
+.bootstrap-alert {
+  padding: 8px 35px 8px 14px;
+  margin-bottom: 18px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
 }
 
 .alert-heading {

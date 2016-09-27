@@ -5,7 +5,7 @@
     <parent>
         <groupId>uk.ac.ebi.spot</groupId>
         <artifactId>ols-parent</artifactId>
-        <version>3.1.0.RELEASE</version>
+        <version>3.1.1-SNAPSHOT</version>
         <relativePath>../ols-parent/pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -15,16 +15,16 @@
     <dependencies>
 
         <!--<dependency>-->
-            <!--&lt;!&ndash; Import dependency management from Spring Boot &ndash;&gt;-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starters</artifactId>-->
-            <!--<type>pom</type>-->
-            <!--<scope>import</scope>-->
+        <!--&lt;!&ndash; Import dependency management from Spring Boot &ndash;&gt;-->
+        <!--<groupId>org.springframework.boot</groupId>-->
+        <!--<artifactId>spring-boot-starters</artifactId>-->
+        <!--<type>pom</type>-->
+        <!--<scope>import</scope>-->
         <!--</dependency>-->
 
         <dependency>
-          <groupId>org.springframework.data</groupId>
-          <artifactId>spring-data-mongodb</artifactId>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-mongodb</artifactId>
         </dependency>
 
         <dependency>
