@@ -160,7 +160,7 @@
 
             <div class="grid_24">
                 <div style="text-align: left;">
-                    <form id="filter_form" name="local-search" action="search" method="get">
+                    <form id="filter_form" onsubmit="resetPage()" name="local-search" action="search" method="get">
                         <div id="bloodhound" class="input-group">
                             <input style="margin-bottom: 0.1em;" name="q" class="form-control typeahead" autofocus="autofocus" type="text" data-olswidget="multisearch" data-olsontology=""  placeholder="What are you looking for today?" aria-describedby="basic-addon1"/>
                             <input id="group-id" name="groupField" type="hidden" value="iri"/>
@@ -177,12 +177,12 @@
                         <div style="text-align: left" class="input-group">
                             <div class="checkbox-inline">
                                 <label>
-                                    <input id="exact-id" onclick="this.form.submit();" class="" name="exact" type="checkbox" th:checked="${searchOptions.isExact()}"/> Exact match
+                                    <input id="exact-id" onclick="$('#filter_form').submit();" class="" name="exact" type="checkbox" th:checked="${searchOptions.isExact()}"/> Exact match
                                 </label>
                             </div>
                             <div class="checkbox-inline">
                                 <label>
-                                    <input id="obsolete-id" onclick="this.form.submit();" class="" type="checkbox" name="obsoletes" th:checked="${searchOptions.isQueryObsoletes()}"/> Obsolete terms
+                                    <input id="obsolete-id" onclick="$('#filter_form').submit();" class="" type="checkbox" name="obsoletes" th:checked="${searchOptions.isQueryObsoletes()}"/> Obsolete terms
                                 </label>
                             </div>
 
@@ -284,21 +284,25 @@
                         <section>
                             <h2>Search results for <span class="searchterm" th:text="${searchOptions.query}">text</span>
                             </h2>
+
                             <nav>
                                 <ul style="text-align: left;" class="pager">
-                                    <li class="btn-group disabled" id="prev-button" ><a onclick="clickPrev()">Previous</a></li>
-                                    <span class="search-results-count">Showing <span id="start-display">0</span> to  <span id="end-display">10</span> of <span id="total-display">0</span> results</span>
-                                    <li class="btn-group disabled" id="next-button" ><a onclick="clickNext()">Next</a></li>
+                                    <li class="btn-group disabled prev-button"  ><a onclick="clickPrev()">Previous</a></li>
+                                    <span class="search-results-count">Showing <span class="start-display">0</span> to  <span class="end-display">10</span> of <span class="total-display">0</span> results</span>
+                                    <li class="btn-group disabled next-button"  ><a onclick="clickNext()">Next</a></li>
                                 </ul>
                             </nav>
-
                             <div id="search-results">
 
                             </div>
+                            <nav class="bottom-nav">
+                                <ul style="text-align: left;" class="pager">
+                                    <li class="btn-group disabled prev-button"><a onclick="clickPrev()">Previous</a></li>
+                                    <span class="search-results-count">Showing <span class="start-display">0</span> to  <span class="end-display">10</span> of <span class="total-display">0</span> results</span>
+                                    <li class="btn-group disabled next-button" ><a onclick="clickNext()">Next</a></li>
+                                </ul>
+                            </nav>
                         </section>
-
-
-
                     </div>
 
                 </section>
@@ -368,7 +372,7 @@
 
 <script type="text/javascript" src="../static/js/ols.js" th:src="@{js/ols.js}"></script>
 <script type="text/javascript" src="../static/js/ols-termselect2.js" th:src="@{js/ols-termselect2.js (beta=r1)}"></script>
-<script type="text/javascript" src="../static/js/ols-adv-search.js" th:src="@{js/ols-adv-search.js (beta=r1)}"></script>
+<script type="text/javascript" src="../static/js/ols-adv-search.js" th:src="@{js/ols-adv-search.js (beta=r2)}"></script>
 <script type="text/javascript" src="../static/js/select2/4.0.0/select2.min.js" th:src="@{js/select2/4.0.0/select2.min.js}"></script>
 
 <script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/cookiebanner.js"></script>

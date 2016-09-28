@@ -88,21 +88,19 @@ function solrSearch(queryTerm) {
 
 
 function clickPrev() {
-    if (! $( "#prev-button" ).hasClass( "disabled" )) {
-        var start = $('#start-display').text() - 11;
+    if (! $( ".prev-button" ).first().hasClass( "disabled" )) {
+        var start = $('.start-display').first().text() - 11;
         $('#start').val(start);
         $('#filter_form').submit();
     }
-
-
 }
 
 function clickNext() {
 
-    if (!$( "#next-button" ).hasClass( "disabled" )) {
-        var end = $('#end-display').text();
+    if (!$( ".next-button" ).first().hasClass( "disabled" )) {
+        var end = $('.end-display').first().text();
         $('#start').val(end);
-        $('#filter_form').submit();
+        $('#filter_form').removeAttr('onsubmit').submit();
     }
 }
 
@@ -116,21 +114,34 @@ function processData(data) {
 
     if (total == 0) {
         $('.search-results-count').text("No results!")
+        $('.bottom-nav').hide();
         // hide spinner
         $('#searching').hide();
         $('#search-results-summary').show();
 
         return;
     }
-    $('#start-display').text(start + 1);
-    $('#end-display').text(end);
-    $('#total-display').text(total);
+    $('.start-display').each(function () {
+        $(this).text(start + 1);
+    });
+
+    $('.end-display').each(function () {
+        $(this).text(end);
+    });
+
+    $('.total-display').each(function () {
+        $(this).text(total);
+    });
 
     if (start > 0) {
-        $('#prev-button').removeClass('disabled');
+        $('.prev-button').each(function () {
+            $(this).removeClass('disabled')
+        });
     }
     if (end < total) {
-        $('#next-button').removeClass('disabled');
+        $('.next-button').each(function () {
+            $(this).removeClass('disabled');
+        });
     }
 
 
@@ -340,4 +351,8 @@ function renderOntologyFacetField (facetArray, searchSummary) {
             $("#filter_form").submit();
         });
     }
+}
+
+function resetPage() {
+    $('#start').val(0);
 }
