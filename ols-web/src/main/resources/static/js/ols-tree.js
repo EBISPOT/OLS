@@ -1,3 +1,4 @@
+var instance;
 
 $(document).ready(function() {
     var div=$("#term-tree");
@@ -7,6 +8,6 @@ $(document).ready(function() {
     var relativePath = $("#term-tree").data("selectpath") ? $("#term-tree").data("selectpath") : '';
 
     var app = require("ols-treeview");
-    var instance = new app();
+    instance = new app();
     instance.draw(div, false, ontologyName, termType, termIri, relativePath, {});
 });
