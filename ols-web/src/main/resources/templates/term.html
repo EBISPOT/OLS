@@ -322,7 +322,7 @@
 
                                 <div class="btn-group btn-group-vertical" style="float: right;padding-top:5px;">
                                     <button class="icon icon-conceptual  btn  btn-default" data-icon ="o" th:onclick="'javascript:window.open(\'' + @{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})} + '\')'" title="Visualisation of this term">Graph view</button>
-                                    <button class="btn  btn-default" value="true" title="Expand the tree to show sibling terms" onclick="toggleSiblings(this)">Show siblings</button>
+                                    <button class="btn  btn-default" value="true" title="Expand the tree to show sibling terms" onclick="instance.toggleSiblings(this)">Show siblings</button>
                                 </div>
 
 
@@ -541,7 +541,7 @@
 <script type="text/javascript" src="../static/js/ols-termselect2.js" th:src="@{../../js/ols-termselect2.js (beta=r1)}"></script>
 <!-- <script type="text/javascript" src="../static/js/ols-tree.js" th:src="@{../../js/ols-tree.js(beta=r1)}"></script> -->
 <script type="text/javascript" src="../static/js/ols-treeview.js" th:src="@{../../js/ols-treeview.js}"></script>
-<script type="text/javascript" src="../static/js/ols-tree.js" th:src="@{../../js/ols-tree.js(v=r2)}"></script>
+<script type="text/javascript" src="../static/js/ols-tree.js" th:src="@{../../js/ols-tree.js(v=r3)}"></script>
 <script type="text/javascript" src="../static/js/bootstrap/bootstrap.min.js" th:src="@{../../js/bootstrap/bootstrap.min.js}"></script>
 
 <script type="text/javascript" src="../static/js/clipboard.min.js" th:src="@{../../js/clipboard.min.js}"></script>
