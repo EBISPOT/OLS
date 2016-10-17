@@ -2,8 +2,8 @@ $(document).ready(function() {
     $('.ontology-select').select2({placeholder: "Filter by ontology"})
         .on('select2:select', function (e) {
             $("#ontology-id").append($('<option/>', {
-                value: e.target.value.toLowerCase(),
-                text : e.target.value.toLowerCase(),
+                value: e.params.data.id.toLowerCase(),
+                text : e.params.data.id.toLowerCase(),
                 selected : 'selected'
             }));
 
@@ -22,8 +22,8 @@ $(document).ready(function() {
     $('.type-select').select2({placeholder: "Filter by type"})
         .on('select2:select', function (e) {
             $("#ontology-type-id").append($('<option/>', {
-                value: e.target.value.toLowerCase(),
-                text : e.target.value.toLowerCase(),
+                value: e.params.data.id.toLowerCase(),
+                text : e.params.data.id.toLowerCase(),
                 selected : 'selected'
             }));
 
@@ -53,6 +53,17 @@ $(document).ready(function() {
     }
 
 });
+
+function setSelectOptions (selectId, data) {
+
+    var data = $('.ontology-select').select2('data')
+    alert(data.text);
+
+
+    //
+    // $('#start').val(0);
+    // $("#filter_form").submit();
+}
 
 var ontologyList;
 //var ontologyTitle;
