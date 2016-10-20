@@ -11,9 +11,9 @@ $(document).ready(function() {
             $('#start').val(0);
             $("#filter_form").submit();
         })
-        .on('select2:unselecting', function (e) {
+        .on('select2:unselect', function (e) {
 
-            $("#ontology-id").find("[value=\"" + e.target.value.toLowerCase() + "\"]").remove();
+            $("#ontology-id").find("[value=\"" + e.params.data.id.toLowerCase() + "\"]").remove();
             //always restart start when faceting
             $('#start').val(0);
             $("#filter_form").submit();
@@ -31,9 +31,9 @@ $(document).ready(function() {
             $('#start').val(0);
             $("#filter_form").submit();
         })
-        .on('select2:unselecting', function (e) {
+        .on('select2:unselect', function (e) {
 
-            $("#ontology-type-id").find("[value=\"" + e.target.value.toLowerCase() + "\"]").remove();
+            $("#ontology-type-id").find("[value=\"" + e.params.data.id.toLowerCase() + "\"]").remove();
             //always restart start when faceting
             $('#start').val(0);
             $("#filter_form").submit();
