@@ -38,7 +38,7 @@ public class OntologyTermGraphService {
             "RETURN {nodes: collect( distinct {iri: p.iri, label: p.label}), edges: collect (distinct {source: startNode(r1).iri, target: endNode(r1).iri, label: r1.label, uri: r1.uri}  )} as result";
 
 
-    String relatedFromQuery =  "MATCH (x)-[r:Related]->(n:Class) WHERE n.ontology_name = {0} AND n.iri = {1} RETURN r.label as relation, collect( {iri: x.iri, label: x.label}) as terms limit 100";
+    String relatedFromQuery =  "MATCH (x)-[r:Related]->(n:Class) WHERE n.ontology_name = {0} AND n.iri = {1} RETURN r.label as relation, collect( {iri: x.iri, label: x.label})[0..99] as terms limit 100";
 
     String usageQuery = "MATCH (n:Resource)<-[r:REFERSTO]-(x) WHERE n.iri = {0} RETURN distinct ({name: x.ontology_name, prefix: x.ontology_prefix}) as usage";
     private Collection<Individual> instances;
