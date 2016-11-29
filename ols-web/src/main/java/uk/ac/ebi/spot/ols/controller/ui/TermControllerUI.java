@@ -74,7 +74,7 @@ public class TermControllerUI {
         if (termIri == null & shortForm == null & oboId == null) {
 
             if (pageable.getSort() == null) {
-                pageable = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), new Sort(new Sort.Order(Sort.Direction.ASC, "n.label")));
+                pageable = new PageRequest(pageable.getPageNumber(), pageable.getPageSize());
             }
 
             Page<Term> termsPage = ontologyTermGraphService.findAllByOntology(ontologyId, pageable);
