@@ -37,6 +37,7 @@ public class OboXrefLoader {
     }
     @Value("${obo.db.xrefs:}")
     private String oboxrefs;
+
     public OboXrefLoader(String oboXrefsPath) {
         this.oboxrefs = oboXrefsPath;
         databases = new HashMap<String, Database>();
@@ -48,7 +49,7 @@ public class OboXrefLoader {
             Yaml yaml = new Yaml();
             DefaultResourceLoader fileSystemResourceLoader = new DefaultResourceLoader();
             Resource resource = fileSystemResourceLoader.getResource(oboxrefs);
-            if (resource  != null) {
+            if (resource.isReadable()) {
                 try {
                     List xrefMap = (List) yaml.load(resource.getInputStream());
                     for (Object entry : xrefMap) {
