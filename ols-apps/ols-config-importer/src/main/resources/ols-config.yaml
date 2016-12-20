@@ -304,12 +304,6 @@ make the ATOL ontology as operational as possible and closely related to measure
     ontology_purl: http://purl.obolibrary.org/obo/ncbitaxon.owl
     reasoner: NONE
 
-## EDAM overide
-
-  - id: edam
-    title: Ontology of bioinformatics topics, operations, identifiers, and formats
-    reasoner: EL
-
 ## ReXo
 
   - id: rexo

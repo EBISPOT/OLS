@@ -322,7 +322,7 @@
 
                                 <div class="btn-group btn-group-vertical" style="float: right;padding-top:5px;">
                                     <button class="icon icon-conceptual  btn  btn-default" data-icon ="o" th:onclick="'javascript:window.open(\'' + @{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})} + '\')'" title="Visualisation of this term">Graph view</button>
-                                    <button class="btn  btn-default" value="true" title="Expand the tree to show sibling terms" onclick="instance.toggleSiblings(this)">Show siblings</button>
+                                    <button class="btn  btn-default" value="true" title="Expand the tree to show sibling terms" onclick="termInstance.toggleSiblings(this)">Show siblings</button>
                                 </div>
 
 
@@ -539,9 +539,7 @@
 <script src="../static/js/jstree/jstree.min.js" th:src="@{../../js/jstree/jstree.min.js}"></script>
 
 <script type="text/javascript" src="../static/js/ols-termselect2.js" th:src="@{../../js/ols-termselect2.js (beta=r1)}"></script>
-<!-- <script type="text/javascript" src="../static/js/ols-tree.js" th:src="@{../../js/ols-tree.js(beta=r1)}"></script> -->
-<script type="text/javascript" src="../static/js/ols-treeview.js" th:src="@{../../js/ols-treeview.js}"></script>
-<script type="text/javascript" src="../static/js/ols-tree.js" th:src="@{../../js/ols-tree.js(v=r3)}"></script>
+<script type="text/javascript" src="../static/js/ols-treeview.min.js" th:src="@{../../js/ols-treeview.min.js}"></script>
 <script type="text/javascript" src="../static/js/bootstrap/bootstrap.min.js" th:src="@{../../js/bootstrap/bootstrap.min.js}"></script>
 
 <script type="text/javascript" src="../static/js/clipboard.min.js" th:src="@{../../js/clipboard.min.js}"></script>
@@ -585,6 +583,20 @@
         new Clipboard('#copyThis')
         new Clipboard('#copyShortForm')
     });
+</script>
+
+<script>
+    // initialise the tree
+
+    var div=$("#term-tree");
+    var ontologyName = $("#term-tree").data("olsontology");
+    var termType = $("#term-tree").data("ols-termtype");
+    var termIri = $("#term-tree").data("ols-iri");
+    var relativePath = $("#term-tree").data("selectpath") ? $("#term-tree").data("selectpath") : '';
+
+    var app = require("ols-treeview");
+    var termInstance = new app();
+    termInstance.draw(div, false, ontologyName, termType, termIri, relativePath, {save_state: true});
 </script>
 
 <script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/cookiebanner.js"></script>

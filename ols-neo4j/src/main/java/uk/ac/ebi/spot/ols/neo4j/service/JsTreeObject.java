@@ -38,6 +38,8 @@ public class JsTreeObject {
         this.children = false;
         a_attr = new HashMap<>();
         a_attr.put("title", iri);
+        a_attr.put("iri", iri);
+        a_attr.put("ontology_name", ontologyName);
         a_attr.put("class", relation);
 
 

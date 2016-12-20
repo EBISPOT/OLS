@@ -360,9 +360,7 @@
 <script type="text/javascript" src="../static/js/ols.js" th:src="@{../js/ols.js}"></script>
 <script src="../static/js/jstree/jstree.min.js" th:src="@{../js/jstree/jstree.min.js}"></script>
 <script type="text/javascript" src="../static/js/ols-termselect.js" th:src="@{../js/ols-termselect2.js}"></script>
-<script type="text/javascript" src="../static/js/ols-treeview.js" th:src="@{../js/ols-treeview.js}"></script>
-<script type="text/javascript" src="../static/js/ols-tree.js" th:src="@{../js/ols-tree.js}"></script>
-
+<script type="text/javascript" src="../static/js/ols-treeview.min.js" th:src="@{../js/ols-treeview.min.js}"></script>
 
 <!-- Include tags for the new CHARTS we have for the DIACHRON part of the ontology view-->
 <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -400,8 +398,42 @@
             }
         });
 
+
+
     });
 </script>
+
+<script>
+    // initialise the tree
+    $(document).ready(function() {
+        var div=$("#term-tree");
+        var ontologyName = $("#term-tree").data("olsontology");
+        var termType = $("#term-tree").data("ols-termtype");
+        var termIri = $("#term-tree").data("ols-iri");
+        var relativePath = $("#term-tree").data("selectpath") ? $("#term-tree").data("selectpath") : '';
+
+        var app = require("ols-treeview");
+        var instance = new app();
+        instance.draw(div, false, ontologyName, termType, termIri, relativePath, {save_state: true});
+
+    });
+
+    $(document).ready(function() {
+
+        var div=$("#property-tree");
+        var ontologyName = $("#property-tree").data("olsontology");
+        var termType = $("#property-tree").data("ols-termtype");
+        var termIri = $("#property-tree").data("ols-iri");
+        var relativePath = $("#property-tree").data("selectpath") ? $("#property-tree").data("selectpath") : '';
+
+        var app = require("ols-treeview");
+        var propertyInstance = new app();
+        propertyInstance.draw(div, false, ontologyName, termType, termIri, relativePath, {save_state: true});
+
+
+    });
+</script>
+
 
 <script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/cookiebanner.js"></script>
 <script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/foot.js"></script>
