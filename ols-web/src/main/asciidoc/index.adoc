@@ -11,7 +11,7 @@ link:developer[Developer documentation]:: Documentation for developers including
 e-mail ols-support@ebi.ac.uk or open an issue on link:https://github.com/EBISPOT/OLS/issue[Github]
 * How can I hear about updates to the OLS? +
 Sign up to the link:https://listserver.ebi.ac.uk/mailman/listinfo/ols-announce[OLS announce mailing list] or follow us on link:https://twitter.com/EBIOLS[Twitter]
-* How do I migrate from the previous OLS version SOAP API
+* How do I migrate from the previous OLS version SOAP API? +
 The OLS API changed in 2016, details about these changes can be found link:http://www.ebi.ac.uk/ols/roadmap.html[here]
 * What ontology formats does OLS support? +
 OBO and OWL 2
