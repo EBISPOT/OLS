@@ -59,7 +59,7 @@ public class TermController implements
         } catch (UnsupportedEncodingException e) {
             throw new ResourceNotFoundException("Can't decode IRI: " + termId);
         }
-        return getTerms(decoded, null, null, pageable, assembler);
+        return getTerms(decoded, null, null,null, pageable, assembler);
     }
 
     @RequestMapping(path = "", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
@@ -67,6 +67,7 @@ public class TermController implements
             @RequestParam(value = "iri", required = false) String iri,
             @RequestParam(value = "short_form", required = false) String shortForm,
             @RequestParam(value = "obo_id", required = false) String oboId,
+            @RequestParam(value = "id", required = false) String id,
             Pageable pageable,
             PagedResourcesAssembler assembler) {
 
@@ -80,6 +81,15 @@ public class TermController implements
         }
         else if (oboId != null) {
             terms = ontologyTermGraphService.findAllByOboId(oboId, pageable);
+        }
+        else if (id != null) {
+            terms = ontologyTermGraphService.findAllByIri(id,pageable);
+            if (terms.getContent().isEmpty()) {
+                terms = ontologyTermGraphService.findAllByShortForm(id,pageable);
+                if (terms.getContent().isEmpty()) {
+                    terms = ontologyTermGraphService.findAllByOboId(id,pageable);
+                }
+            }
         }
         else {
             terms = ontologyTermGraphService.findAll(pageable);

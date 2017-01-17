@@ -92,6 +92,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     private Map<IRI, Map<IRI,Collection<String>>> termAnnotations = new HashMap<>();
     private Collection<IRI> obsoleteTerms = new HashSet<>();
     private Map<IRI, Collection<String>> slims = new HashMap<>();
+    private Map<IRI, String> termReplacedBy = new HashMap<>();
     private Collection<IRI> localTerms = new HashSet<>();
     private Collection<IRI> rootTerms = new HashSet<>();
 
@@ -803,6 +804,11 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                     }
                 }
 
+                // pull out term replaced by
+                if (propertyIRI.equals(Namespaces.OBO.createIRI("IAO_0100001"))) {
+                    addTermReplacedBy(owlEntityIRI, getOWLAnnotationValueAsString(annotation.getValue()).get());
+                }
+
                 // collect any obo definition xrefs
                 if (annotation.getProperty().getIRI().toString().equals(OboDefaults.DEFINITION)) {
                     if (!annotation.getAnnotations().isEmpty()) {
@@ -1440,6 +1446,15 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
     protected void addSlims(IRI clsIri, Set<String> slims) {
         this.slims.put(clsIri, slims);
+    }
+
+    @Override
+    public String getTermReplacedBy(IRI entityIRI) {
+        return termReplacedBy.get(entityIRI);
+    }
+
+    protected void addTermReplacedBy(IRI clsIri, String replacedBy) {
+        this.termReplacedBy.put(clsIri, replacedBy);
     }
 
     @Override public Collection<String> getSubsets(IRI termIri) {

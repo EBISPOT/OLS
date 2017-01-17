@@ -166,7 +166,7 @@ public class OntologyTermGraphService {
         return termRepository.getRoots(ontologyId, includeObsoletes, pageable);
     }
 
-    public Collection<Individual> getInstances(String ontologyId, String iri) {
-        return termRepository.getInstances(ontologyId, iri);
+    public Page<Individual> getInstances(String ontologyId, String iri, Pageable pageable) {
+        return termRepository.getInstances(ontologyId, iri, pageable);
     }
 }

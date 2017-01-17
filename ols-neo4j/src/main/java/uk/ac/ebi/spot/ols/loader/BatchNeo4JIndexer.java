@@ -145,6 +145,12 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
                 properties.put("synonym", synonyms);
             }
 
+            // add subsets
+            if (!loader.getSubsets(classIri).isEmpty()) {
+                String [] subsets = loader.getSubsets(classIri).toArray(new String [loader.getSubsets(classIri).size()]);
+                properties.put("in_subset", subsets);
+            }
+
             // add definitions
             if (loader.getTermDefinitions().containsKey(classIri)) {
                 String [] definition = loader.getTermDefinitions().get(classIri).toArray(new String [loader.getTermDefinitions().get(classIri).size()]);
@@ -169,6 +175,10 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
                     String [] value = annotations.get(keys).toArray(new String [annotations.get(keys).size()]);
                     properties.put("annotation-" + annotationLabel, value);
                 }
+            }
+
+            if (loader.getTermReplacedBy(classIri) != null) {
+                properties.put("term_replaced_by", loader.getTermReplacedBy(classIri).toString());
             }
 
             ObjectMapper mapper = new ObjectMapper();
@@ -484,6 +494,7 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
         Map<String, Long> classNodeMap = new HashMap<>();
         Map<String, Long> propertyNodeMap = new HashMap<>();
         Map<String, Long> individualNodeMap = new HashMap<>();
+
         // store a local cache of merged term nodes
         Map<String, Long> mergedNodeMap = new HashMap<>();
 
@@ -497,6 +508,10 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
             // index properties
             indexProperties(inserter, loader, propertyNodeMap, mergedNodeMap);
             // index individuals
+            // avoid duplicating Thing in the graph
+            if (classNodeMap.containsKey("http://www.w3.org/2002/07/owl#Thing")) {
+                individualNodeMap.put("http://www.w3.org/2002/07/owl#Thing", classNodeMap.get("http://www.w3.org/2002/07/owl#Thing"));
+            }
             indexIndividuals(inserter, loader, individualNodeMap, mergedNodeMap, classNodeMap);
 
             createSchemaIndexes(inserter);

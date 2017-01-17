@@ -100,5 +100,5 @@ public interface OntologyTermRepository extends GraphRepository<Term> {
 
     @Query (countQuery = "MATCH (i:Individual)-[INSTANCEOF]->(c:Class) WHERE i.ontology_name = {0} AND c.iri = {1} RETURN count(i)",
             value = "MATCH (i:Individual)-[INSTANCEOF]->(c:Class) WHERE i.ontology_name = {0} AND c.iri = {1} RETURN i")
-    Collection<Individual> getInstances(String ontologyId, String iri);
+    Page<Individual> getInstances(String ontologyId, String iri, Pageable pageable);
 }

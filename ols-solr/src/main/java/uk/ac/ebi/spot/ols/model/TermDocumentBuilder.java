@@ -13,6 +13,7 @@ public class TermDocumentBuilder {
     private String shortForm;
     private String oboId;
     private String ontologyName;
+    private String ontologyTitle;
     private String ontologyPrefix;
     private String ontologyUri;
     private String type;
@@ -75,6 +76,11 @@ public class TermDocumentBuilder {
 
     public TermDocumentBuilder setOntologyName(String ontologyName) {
         this.ontologyName = ontologyName;
+        return this;
+    }
+
+    public TermDocumentBuilder setOntologyTitle(String ontologyTitle) {
+        this.ontologyTitle = ontologyTitle;
         return this;
     }
 
@@ -183,6 +189,7 @@ public class TermDocumentBuilder {
                 shortForm,
                 oboId,
                 ontologyName,
+                ontologyTitle,
                 ontologyPrefix,
                 ontologyUri,
                 type,

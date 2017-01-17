@@ -54,7 +54,7 @@ public class WarmupIndexes {
             ontologyTermGraphService.getHierarchicalParents(t.getOntologyName(), t.getIri(), pageRequest);
 
             ontologyTermGraphService.getGraphJson(t.getOntologyName(), t.getIri());
-            ontologyTermGraphService.getInstances(t.getOntologyName(), t.getIri());
+            ontologyTermGraphService.getInstances(t.getOntologyName(), t.getIri(), pageRequest);
 
             ontologyTermGraphService.getRoots(t.getOntologyName(), false, pageRequest);
 

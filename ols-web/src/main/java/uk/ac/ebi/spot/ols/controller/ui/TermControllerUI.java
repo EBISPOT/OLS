@@ -95,7 +95,7 @@ public class TermControllerUI {
 
         Map<String, Collection<Map<String, String>>> relatedFroms = ontologyTermGraphService.getRelatedFrom(ontologyId, term.getIri());
 
-        Collection<Individual> individuals = ontologyTermGraphService.getInstances(ontologyId, term.getIri());
+        Collection<Individual> individuals = ontologyTermGraphService.getInstances(ontologyId, term.getIri(), new PageRequest(0, 50)).getContent();
         model.addAttribute("instances", individuals);
 
 

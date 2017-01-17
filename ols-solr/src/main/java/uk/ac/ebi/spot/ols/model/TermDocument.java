@@ -44,6 +44,9 @@ public class TermDocument {
     @Field("ontology_name")
     private String ontologyName;
 
+    @Field("ontology_title")
+    private String ontologyTitle;
+
     @Field("ontology_prefix")
     private String ontologyPrefix;
 
@@ -123,6 +126,7 @@ public class TermDocument {
             String shortForm,
             String oboId,
             String ontologyName,
+            String ontologyTitle,
             String ontologyPrefix,
             String ontologyUri,
             String type,
@@ -151,6 +155,7 @@ public class TermDocument {
         this.shortForm = shortForm;
         this.oboId = oboId;
         this.ontologyName = ontologyName;
+        this.ontologyTitle = ontologyTitle;
         this.ontologyPrefix = ontologyPrefix;
         this.ontologyUri = ontologyUri;
         this.type = type;
@@ -261,6 +266,14 @@ public class TermDocument {
 
     public void setOntologyName(String ontologyName) {
         this.ontologyName = ontologyName;
+    }
+
+    public String getOntologyTitle() {
+        return ontologyTitle;
+    }
+
+    public void setOntologyTitle(String ontologyTitle) {
+        this.ontologyTitle = ontologyTitle;
     }
 
     public String getOntologyUri() {
