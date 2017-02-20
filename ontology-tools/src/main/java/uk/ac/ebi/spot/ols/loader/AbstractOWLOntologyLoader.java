@@ -357,14 +357,20 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                 }
             }
             else if (propertyIri.toString().equals(OntologyDefaults.MAILINGLIST)) {
-                if (thevalue.isPresent()) {
+                if (value != null && value instanceof  IRI) {
+                    setOntologyHomePage( ((IRI) value).toString());
+                    internalMetadataProperties.add(OntologyDefaults.MAILINGLIST);
+                } else if (thevalue.isPresent()) {
                     setOntologyMailingList(thevalue.get());
                     internalMetadataProperties.add(OntologyDefaults.MAILINGLIST);
-
                 }
             }
             else if (propertyIri.toString().equals(OntologyDefaults.HOMEPAGE)) {
-                if (thevalue.isPresent()) {
+                if (value != null && value instanceof  IRI) {
+                    setOntologyHomePage( ((IRI) value).toString());
+                    internalMetadataProperties.add(OntologyDefaults.HOMEPAGE);
+                }
+                else if (thevalue.isPresent()) {
                     setOntologyHomePage(thevalue.get());
                     internalMetadataProperties.add(OntologyDefaults.HOMEPAGE);
                 }
