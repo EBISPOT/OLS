@@ -376,6 +376,28 @@
                                     </ul>
                                 </div>
 
+                                <div th:if="${ontologyTerm.getInSubsets()}">
+                                    <b>
+                                        Subsets
+                                    </b>
+                                    <p class="annotation-value" style="margin-left:9px;" th:text="${#strings.setJoin(ontologyTerm.getInSubsets(), ', ')}">NCBI_9606</p>
+                                </div>
+
+
+                                <div th:if="${not #sets.isEmpty(xrefs)}">
+                                    <a href="#" th:href="@{../../search(q='database_cross_reference',exact='true', type=property, ontology=${ontologyTerm.ontologyName})}">database cross reference</a>
+                                    <ul>
+                                        <li style="margin-left:9px;" th:each="oboXref: ${xrefs}">
+                                            <a th:if="${oboXref.getUrl() != null and oboXref.getDatabase() != null and oboXref.getId() != null}" target="_blank" th:href="${oboXref.getUrl()}" th:text="${oboXref.getDatabase() + ':' + oboXref.getId()}"></a>
+                                            <a th:if="${oboXref.getUrl() != null and oboXref.getDatabase() == null}" target="_blank" th:href="${oboXref.getUrl()}" th:text="${oboXref.getId()}"></a>
+                                            <span th:if="${oboXref.getDatabase() != null and oboXref.getUrl() == null}" th:text="${oboXref.getDatabase()}"></span><!--
+                                            --><span th:if="${oboXref.getId() != null and oboXref.getDatabase() != null and oboXref.getUrl() == null}">:</span><!--
+                                            --><span th:if="${oboXref.getId() != null and oboXref.getUrl() == null}" th:text="${oboXref.getId()}"></span>
+                                            <span th:if="${oboXref.getDescription() != null}" th:text="'(' + ${oboXref.getDescription()} + ')'"></span>
+                                        </li>
+                                    </ul>
+                                </div>
+
                                 <div th:if="${not #sets.isEmpty(synonyms)}">
                                     <div th:each="synonym: ${synonyms}">
                                         <div th:if="${synonym.getType()}">
@@ -404,7 +426,6 @@
                                         </b>
                                         <p class="annotation-value" style="margin-left:9px;" th:text="${#strings.setJoin(annotations.value, ', ')}">NCBI_9606</p>
                                     </div>
-
                                 </div>
 
                             </div>
@@ -563,7 +584,7 @@
         });
 
         $('.annotation-value').each(function () {
-           var value = $(this).text();
+            var value = $(this).text();
             if (value.match(/.+\.(gif|png|jpe?g)$/i))  {
                 $(this).text("");
                 var img = $('<img/>');
@@ -620,8 +641,8 @@
 
 <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
     ga('create', 'UA-69391170-1', 'auto');
     ga('send', 'pageview');
