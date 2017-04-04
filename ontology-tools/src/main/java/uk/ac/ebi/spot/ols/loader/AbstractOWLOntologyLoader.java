@@ -255,6 +255,8 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
             this.ontology = getManager().loadOntology(getOntologyIRI());
             IRI ontologyIRI = ontology.getOntologyID().getOntologyIRI();
 
+            setOntologyIRI(ontologyIRI);
+            
             if (ontology.getOntologyID().getVersionIRI() != null) {
                 ontologyVersionIRI = ontology.getOntologyID().getVersionIRI();
 
