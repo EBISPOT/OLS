@@ -65,6 +65,10 @@ public class Term {
     @JsonProperty(value = "is_obsolete")
     private boolean isObsolete;
 
+    @GraphProperty(propertyName="term_replaced_by")
+    @JsonProperty(value = "term_replaced_by")
+    private String termReplacedBy;
+
     @GraphProperty(propertyName="is_defining_ontology")
     @JsonProperty(value = "is_defining_ontology")
     private boolean isLocal;
@@ -84,7 +88,10 @@ public class Term {
     @GraphProperty(propertyName="obo_id")
     @JsonProperty(value = "obo_id")
     private String oboId;
-//    private List<String> subsets;
+
+    @GraphProperty(propertyName="in_subset")
+    @JsonProperty(value = "in_subset")
+    private Set<String> inSubsets;
 
     private DynamicProperties annotation = new DynamicPropertiesContainer();
 
@@ -186,6 +193,14 @@ public class Term {
         this.annotation = annotation;
     }
 
+    public String getTermReplacedBy() {
+        return termReplacedBy;
+    }
+
+    public void setTermReplacedBy(String termReplacedBy) {
+        this.termReplacedBy = termReplacedBy;
+    }
+
     @JsonProperty(value = "is_obsolete")
     public boolean isObsolete() {
         return isObsolete;
@@ -208,6 +223,14 @@ public class Term {
     @JsonProperty(value = "has_children")
     public boolean hasChildren() {
         return hasChildren;
+    }
+
+    public Set<String> getInSubsets() {
+        return inSubsets;
+    }
+
+    public void setInSubsets(Set<String> inSubsets) {
+        this.inSubsets = inSubsets;
     }
 
     public String getShortForm() {

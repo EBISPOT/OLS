@@ -1,4 +1,4 @@
-== Misson statement
+== Mission statement
 The OLS aims to be a comprehensive collection of biomedical ontologies for the life sciences.
 
 == Description of the service

@@ -4,6 +4,8 @@ import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.neo4j.graphdb.factory.GraphDatabaseSettings;
 import org.neo4j.kernel.api.exceptions.index.ExceptionDuringFlipKernelException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +26,11 @@ import java.nio.file.Files;
 @Configuration
 public class OlsNeo4jConfiguration extends Neo4jConfiguration {
 
+    private static Logger log = LoggerFactory.getLogger(OlsNeo4jConfiguration.class);
+    public Logger getLog() {
+        return log;
+    }
+
     public OlsNeo4jConfiguration() {
         setBasePackage("uk.ac.ebi.spot.ols");
     }
@@ -41,7 +48,9 @@ public class OlsNeo4jConfiguration extends Neo4jConfiguration {
          registerShutdownHook(service);
 
      }  catch (Exception e ) {
-         service =  new GraphDatabaseFactory().newEmbeddedDatabase(System.getProperty("java.io.tmpdir") + File.separator + "emptyOlsGraph");
+         String tmpDb = System.getProperty("java.io.tmpdir") + File.separator + "emptyOlsGraph";
+         log.error("Error connecting to Neo4j embedded database, defaulting to " + tmpDb + ". Note this will most likely be an empty Neo4j graph", e);
+         service =  new GraphDatabaseFactory().newEmbeddedDatabase(tmpDb);
      }
         return service;
     }

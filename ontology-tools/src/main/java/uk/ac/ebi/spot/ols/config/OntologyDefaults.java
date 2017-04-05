@@ -1,5 +1,10 @@
 package uk.ac.ebi.spot.ols.config;
 
+import java.net.URI;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * @author Simon Jupp
  * @date 29/01/2015

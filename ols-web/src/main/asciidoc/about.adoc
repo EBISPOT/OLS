@@ -1,6 +1,6 @@
 
 == About OLS
-The Ontology Lookup Service (OLS) is a repository for biomedical ontologies that aims to provide a single point of access to the latest ontology versions. The user can browse the ontologies through the website as well as programmatically via the OLS API. OLS is developed and maintained by the link:http://www.ebi.ac.uk/about/spot-team[Samples, Phenotypes and Ontologies Team] at EMBL-EBI.
+The Ontology Lookup Service (OLS) is a repository for biomedical ontologies that aims to provide a single point of access to the latest ontology versions. You can browse the ontologies through the website as well as programmatically via the OLS API. OLS is developed and maintained by the link:http://www.ebi.ac.uk/about/spot-team[Samples, Phenotypes and Ontologies Team] at EMBL-EBI.
 
 == Funding
 

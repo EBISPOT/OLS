@@ -143,3 +143,13 @@ Providing this script has run successfully, you can rerun this script to update 
 To deploy OLS on the local server, it is necessary to copy certain .war files from the OLS-web target directory (`OLS/ols-web/target`) into the webapps folder of the local tomcat server. After starting tomcat (via `startup.sh` in the bin folder), there should be a local version of OLS running at http://localhost:8080/ols-boot.
 
 Any configuration can be overridden using the same properties above. Put them in the application.properties file in the `ols-web/src/main/resource/application.properties` file before compiling that jar.
+
+== Memory and performance tuning
+
+If you are loading big ontologies e.g. greater than 10,000 terms, then the loading application may require more memory. For loading something like the NCBI taxonomy, which contains over a million terms, we recommend at least 8GB of memory. By default the OLS loader will use a reasoner to classify the ontology, again if the ontology is very big or logically complex, then the reasoning can take a long time. If the ontology has already been pre-classified, you can set the configuration for that ontology to 'reasoner: none' to skip this step.
+
+When deploying the OLS in a web server, we recommend you provide the tomcat with enough memory to cache the entire neo4j embedded database in memory. The Neo4j files are in  ~/.ols/neo4j by default, you should use the size of this directory as a guide for how much memory you should give the web application. For instance, if this directory in 5GB, we would recommend giving the web application 8GB of memory. This is enough to cache the Neo4j database and serving the main application. You can apply the same rules for the Solr sever, look at the size of the Solr data directories created by OLS and use this value as a guide setting the Solr heap space.
+
+Once the application is deployed you can warmup the Neo4j indexes at /ols/api/warmup. This will warmup the query planner so that queries are instantly optimised. It is also recommended to optimze the Solr indexes via the Solr admin interface. Select the solr core and there is an option to optimize the index. This can also be done via the Solr API.
+
+There are no specific requirements for the Mongo database as this is very small.

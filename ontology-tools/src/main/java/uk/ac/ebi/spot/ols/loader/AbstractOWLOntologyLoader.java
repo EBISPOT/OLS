@@ -92,6 +92,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     private Map<IRI, Map<IRI,Collection<String>>> termAnnotations = new HashMap<>();
     private Collection<IRI> obsoleteTerms = new HashSet<>();
     private Map<IRI, Collection<String>> slims = new HashMap<>();
+    private Map<IRI, String> termReplacedBy = new HashMap<>();
     private Collection<IRI> localTerms = new HashSet<>();
     private Collection<IRI> rootTerms = new HashSet<>();
 
@@ -254,6 +255,8 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
             this.ontology = getManager().loadOntology(getOntologyIRI());
             IRI ontologyIRI = ontology.getOntologyID().getOntologyIRI();
 
+            setOntologyIRI(ontologyIRI);
+            
             if (ontology.getOntologyID().getVersionIRI() != null) {
                 ontologyVersionIRI = ontology.getOntologyID().getVersionIRI();
 
@@ -356,14 +359,20 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                 }
             }
             else if (propertyIri.toString().equals(OntologyDefaults.MAILINGLIST)) {
-                if (thevalue.isPresent()) {
+                if (value != null && value instanceof  IRI) {
+                    setOntologyHomePage( ((IRI) value).toString());
+                    internalMetadataProperties.add(OntologyDefaults.MAILINGLIST);
+                } else if (thevalue.isPresent()) {
                     setOntologyMailingList(thevalue.get());
                     internalMetadataProperties.add(OntologyDefaults.MAILINGLIST);
-
                 }
             }
             else if (propertyIri.toString().equals(OntologyDefaults.HOMEPAGE)) {
-                if (thevalue.isPresent()) {
+                if (value != null && value instanceof  IRI) {
+                    setOntologyHomePage( ((IRI) value).toString());
+                    internalMetadataProperties.add(OntologyDefaults.HOMEPAGE);
+                }
+                else if (thevalue.isPresent()) {
                     setOntologyHomePage(thevalue.get());
                     internalMetadataProperties.add(OntologyDefaults.HOMEPAGE);
                 }
@@ -801,6 +810,11 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                             termAnnotations.get(owlEntityIRI).get(propertyIRI).add(getOWLAnnotationValueAsString(annotation.getValue()).get());
                         }
                     }
+                }
+
+                // pull out term replaced by
+                if (propertyIRI.equals(Namespaces.OBO.createIRI("IAO_0100001"))) {
+                    addTermReplacedBy(owlEntityIRI, getOWLAnnotationValueAsString(annotation.getValue()).get());
                 }
 
                 // collect any obo definition xrefs
@@ -1440,6 +1454,15 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
     protected void addSlims(IRI clsIri, Set<String> slims) {
         this.slims.put(clsIri, slims);
+    }
+
+    @Override
+    public String getTermReplacedBy(IRI entityIRI) {
+        return termReplacedBy.get(entityIRI);
+    }
+
+    protected void addTermReplacedBy(IRI clsIri, String replacedBy) {
+        this.termReplacedBy.put(clsIri, replacedBy);
     }
 
     @Override public Collection<String> getSubsets(IRI termIri) {

@@ -4,7 +4,7 @@ OLS 3.1.0 release notes
 
 - Added support for restricting searches using the API to hierarchical descendants of a term (i.e. all children including parts)
 - Fixed bug where API term links for hierarchical children wasn’t working
-- Updated UI widgets to use new standalone implementation based on BioJS. All UI components for search, graph and three view are in both NPM and BioJS
+- Updated UI widgets to use new standalone implementation based on BioJS. All UI components for search, graph and tree view are in both NPM and BioJS
   - http://www.biojs.io/d/ols-autocomplete
   - http://www.biojs.io/d/ols-graphview
   - http://www.biojs.io/d/ols-treeview

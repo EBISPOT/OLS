@@ -192,6 +192,7 @@ public class SolrIndexer implements OntologyIndexer {
 
         TermDocumentBuilder builder = new TermDocumentBuilder();
         builder.setOntologyName(loader.getOntologyName())
+                .setOntologyTitle(loader.getTitle())
                 .setOntologyPrefix(loader.getPreferredPrefix())
                 .setOntologyUri(loader.getOntologyIRI().toString())
                 .setId(generateId(loader.getOntologyName(), ""))
@@ -211,6 +212,7 @@ public class SolrIndexer implements OntologyIndexer {
         TermDocumentBuilder builder = new TermDocumentBuilder();
 
         builder.setOntologyName(loader.getOntologyName())
+                .setOntologyTitle(loader.getTitle())
                 .setOntologyPrefix(loader.getPreferredPrefix())
                 .setOntologyUri(loader.getOntologyIRI().toString())
                 .setId(generateId(loader.getOntologyName(), termIRI.toString()))

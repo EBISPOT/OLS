@@ -120,6 +120,8 @@ public interface OntologyLoader {
 
     Collection<String> getSubsets(IRI ontologyTermIRI);
 
+    String getTermReplacedBy(IRI entityIRI);
+
     Map<IRI, Collection<String>> getAnnotations(IRI entityIRI);
 
     Collection<OBODefinitionCitation> getOBODefinitionCitations(IRI entityIRI);

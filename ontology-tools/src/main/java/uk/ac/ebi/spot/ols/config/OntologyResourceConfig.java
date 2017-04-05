@@ -116,6 +116,10 @@ public class OntologyResourceConfig  {
         this.internalMetadataProperties = builder.internalMetadatProperties;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getId() {
         return id;
     }

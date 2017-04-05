@@ -2,8 +2,8 @@ $(document).ready(function() {
     $('.ontology-select').select2({placeholder: "Filter by ontology"})
         .on('select2:select', function (e) {
             $("#ontology-id").append($('<option/>', {
-                value: e.target.value.toLowerCase(),
-                text : e.target.value.toLowerCase(),
+                value: e.params.data.id.toLowerCase(),
+                text : e.params.data.id.toLowerCase(),
                 selected : 'selected'
             }));
 
@@ -11,9 +11,9 @@ $(document).ready(function() {
             $('#start').val(0);
             $("#filter_form").submit();
         })
-        .on('select2:unselecting', function (e) {
+        .on('select2:unselect', function (e) {
 
-            $("#ontology-id").find("[value=\"" + e.target.value.toLowerCase() + "\"]").remove();
+            $("#ontology-id").find("[value=\"" + e.params.data.id.toLowerCase() + "\"]").remove();
             //always restart start when faceting
             $('#start').val(0);
             $("#filter_form").submit();
@@ -22,8 +22,8 @@ $(document).ready(function() {
     $('.type-select').select2({placeholder: "Filter by type"})
         .on('select2:select', function (e) {
             $("#ontology-type-id").append($('<option/>', {
-                value: e.target.value.toLowerCase(),
-                text : e.target.value.toLowerCase(),
+                value: e.params.data.id.toLowerCase(),
+                text : e.params.data.id.toLowerCase(),
                 selected : 'selected'
             }));
 
@@ -31,9 +31,9 @@ $(document).ready(function() {
             $('#start').val(0);
             $("#filter_form").submit();
         })
-        .on('select2:unselecting', function (e) {
+        .on('select2:unselect', function (e) {
 
-            $("#ontology-type-id").find("[value=\"" + e.target.value.toLowerCase() + "\"]").remove();
+            $("#ontology-type-id").find("[value=\"" + e.params.data.id.toLowerCase() + "\"]").remove();
             //always restart start when faceting
             $('#start').val(0);
             $("#filter_form").submit();
@@ -53,6 +53,17 @@ $(document).ready(function() {
     }
 
 });
+
+function setSelectOptions (selectId, data) {
+
+    var data = $('.ontology-select').select2('data')
+    alert(data.text);
+
+
+    //
+    // $('#start').val(0);
+    // $("#filter_form").submit();
+}
 
 var ontologyList;
 //var ontologyTitle;

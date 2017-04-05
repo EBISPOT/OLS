@@ -12,7 +12,10 @@
 * R client to the OLS https://github.com/lgatto/rols/
 
 === OLS javascript widgets
-* Links to different OLS widgets (coming soon)
+* OLS autocomplete https://www.npmjs.com/package/ols-autocomplete
+* OLS tree view https://www.npmjs.com/package/ols-treeview
+* OLS graph view https://www.npmjs.com/package/ols-graphview
+
 
 === Local OLS installation
 * Details on how to build a local OLS can be found link:../docs/installation-guide[here]
