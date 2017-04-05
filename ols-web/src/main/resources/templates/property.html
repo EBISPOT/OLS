@@ -166,7 +166,7 @@
                 <span id="shortForm" th:if="${ontologyProperty.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyProperty.getOboId()}">id</span>
                 <span id="shortForm" th:unless="${ontologyProperty.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyProperty.getShortForm()}">id</span>
 
-                <button id='copyShortForm' data-clipboard-action="copy" data-clipboard-target="#shortForm" type="button">C</button>
+                <button id='copyShortForm' data-clipboard-action="copy" data-clipboard-target="#shortForm" type="button"></button>
 
             </p>
         </nav>
