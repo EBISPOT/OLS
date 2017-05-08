@@ -13,7 +13,7 @@
     <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> --> <!-- Not yet implemented -->
 
     <!--@thymesVar id="ontologyIndividual" type="uk.ac.ebi.spot.ols.neo4j.model.Individual"-->
-    <title th:text="${ontologyIndividual.getShortForm()} + ' &lt; Ontology Lookup Service &lt; EMBL-EBI'"> Term &lt; Ontology Lookup Service &lt; EMBL-EBI</title>
+    <title th:text="${ontologyIndividual.getLabel()}"> Term &lt; Ontology Lookup Service &lt; EMBL-EBI</title>
     <meta name="description" th:content="${ontologyIndividual.getDescription()}" content="EMBL-EBI"/><!-- Describe what this page is about -->
     <meta name="keywords" content="ontology, ontologies, bioinformatics, europe, institute"/><!-- A few keywords that relate to the content of THIS PAGE (not the whol project) -->
     <meta name="author" content="EMBL-EBI Ontology Lookup Service"/><!-- Your [project-name] here -->

@@ -46,7 +46,7 @@ import java.util.stream.Collectors;
 public abstract class
 AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
-    private static final Pattern oboIdFragmentPattern = Pattern.compile("(([A-Za-z1-9_]*)_(\\d+))");
+    private static final Pattern oboIdFragmentPattern = Pattern.compile("(^([A-Za-z1-9_]*)_(\\d+)$)");
 
     private IRI ontologyIRI;
     private IRI ontologyVersionIRI;
@@ -97,6 +97,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     private Collection<IRI> rootTerms = new HashSet<>();
 
     private Map<IRI, Collection<IRI>> directParentTerms = new HashMap<>();
+    private Map<IRI, Collection<IRI>> directTypes = new HashMap<>();
     private Map<IRI, Collection<IRI>> allParentTerms = new HashMap<>();
     private Map<IRI, Collection<IRI>> directChildTerms = new HashMap<>();
     private Map<IRI, Collection<IRI>> allChildTerms = new HashMap<>();
@@ -253,10 +254,15 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         try {
             getLog().debug("Loading ontology...");
             this.ontology = getManager().loadOntology(getOntologyIRI());
-            IRI ontologyIRI = ontology.getOntologyID().getOntologyIRI();
+            IRI actualOntologyIRI = ontology.getOntologyID().getOntologyIRI();
 
-            setOntologyIRI(ontologyIRI);
-            
+            // set
+            if (actualOntologyIRI!=null) {
+                if (!actualOntologyIRI.equals(IRI.create("http://purl.obolibrary.org/obo/TEMP"))) {
+                    setOntologyIRI(actualOntologyIRI);
+                }
+            }
+
             if (ontology.getOntologyID().getVersionIRI() != null) {
                 ontologyVersionIRI = ontology.getOntologyID().getVersionIRI();
 
@@ -267,14 +273,14 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
             }
             if (getOntologyName() == null) {
-                String name = extractShortForm(ontologyIRI).get();
-                if (name == null) {
-                    getLog().warn("Can't shorten the name for " + ontologyIRI.toString());
-                    name = ontologyIRI.toString();
+                Optional<String> name = extractShortForm(getOntologyIRI());
+                if (!name.isPresent()) {
+                    getLog().warn("Can't shorten the name for " + getOntologyIRI().toString());
+                    name = Optional.of(getOntologyIRI().toString());
                 }
-                setOntologyName(name);
+                setOntologyName(name.get());
             }
-            getLog().debug("Successfully loaded ontology " + ontologyIRI);
+            getLog().debug("Successfully loaded ontology " + getOntologyIRI());
 
             this.provider = new AnnotationValueShortFormProvider(
                     Collections.singletonList(factory.getOWLAnnotationProperty(getLabelIRI())),
@@ -465,7 +471,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                         }
                     }
                     if (!instanceTypes.isEmpty()) {
-                        addDirectParents(individual.getIRI(), instanceTypes);
+                        addDirectTypes(individual.getIRI(), instanceTypes);
                     }
                 }
 
@@ -733,6 +739,10 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
             String newId = matcher.group(2) + ":" + matcher.group(3);
             return Optional.of(newId);
         }
+        else if (fragment.split(":").length == 2 && fragment.split(":")[0].toLowerCase().equals(getOntologyName().toLowerCase())) {
+            // if the fragment already contains a :
+            return Optional.of(fragment);
+        }
         return Optional.empty();
     }
 
@@ -983,6 +993,9 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     protected void addDirectParents(IRI termIRI, Set<IRI> parents) {
         this.directParentTerms.put(termIRI, parents);
     }
+    protected void addDirectTypes(IRI termIRI, Set<IRI> parents) {
+        this.directTypes.put(termIRI, parents);
+    }
     protected void addAllParents(IRI termIRI, Set<IRI> allParents) {
         this.allParentTerms.put(termIRI, allParents);
     }
@@ -1098,7 +1111,6 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         }
         // get any direct parents, then go up tree
 
-
         if (directParentTerms.containsKey(entityIRI)) {
             for (IRI value : directParentTerms.get(entityIRI)) {
                 // make sure no cycles
@@ -1128,6 +1140,11 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     @Override
     public Map<IRI, Collection<IRI>> getDirectParentTerms() {
         return directParentTerms;
+    }
+
+    @Override
+    public Map<IRI, Collection<IRI>> getDirectTypes() {
+        return directTypes;
     }
 
     @Override

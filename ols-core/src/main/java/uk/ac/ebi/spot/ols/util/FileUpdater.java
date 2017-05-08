@@ -155,7 +155,7 @@ public class FileUpdater {
     private InputStream getFileInputStream(URL url) throws IOException {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setConnectTimeout(15000);
-        connection.setReadTimeout(15000);
+        connection.setReadTimeout(60000);
         connection.setInstanceFollowRedirects(true);
         connection.setRequestProperty("User-Agent", "Mozilla/5.0...");
 

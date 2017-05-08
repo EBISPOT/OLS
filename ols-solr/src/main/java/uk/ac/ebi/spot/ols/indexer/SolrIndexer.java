@@ -63,9 +63,13 @@ public class SolrIndexer implements OntologyIndexer {
             List<SuggestDocument> suggestDocuments = new ArrayList<>();
 
             for (IRI classTerm : loader.getAllClasses()) {
+                getLog().debug("solr indexing " + classTerm.toString());
 
                 TermDocumentBuilder builder = extractFeatures(loader, classTerm);
                 builder.setType(TermType.CLASS.toString().toLowerCase());
+                builder.setId(generateId(loader.getOntologyName(), "class", classTerm.toString()));
+                builder.setUri_key(generateAnnotationId(loader.getOntologyName() + classTerm.toString() + "class").hashCode());
+
                 documents.add(builder.createTermDocument());
 
                 if (documents.size() == 10000) {
@@ -91,19 +95,27 @@ public class SolrIndexer implements OntologyIndexer {
             for (IRI classTerm : loader.getAllObjectPropertyIRIs()) {
                 TermDocumentBuilder builder = extractFeatures(loader, classTerm);
                 builder.setType(TermType.PROPERTY.toString().toLowerCase());
+                builder.setId(generateId(loader.getOntologyName(), "property", classTerm.toString()));
+                builder.setUri_key(generateAnnotationId(loader.getOntologyName() + classTerm.toString() + "property").hashCode());
+
                 documents.add(builder.createTermDocument());
             }
 
             for (IRI classTerm : loader.getAllAnnotationPropertyIRIs()) {
                 TermDocumentBuilder builder = extractFeatures(loader, classTerm);
                 builder.setType(TermType.PROPERTY.toString().toLowerCase());
+                builder.setId(generateId(loader.getOntologyName(), "property", classTerm.toString()));
+                builder.setUri_key(generateAnnotationId(loader.getOntologyName() + classTerm.toString() + "property").hashCode());
                 documents.add(builder.createTermDocument());
             }
 
             for (IRI classTerm : loader.getAllIndividualIRIs()) {
                 TermDocumentBuilder builder = extractFeatures(loader, classTerm);
                 builder.setType(TermType.INDIVIDUAL.toString().toLowerCase());
+                builder.setId(generateId(loader.getOntologyName(), "individual", classTerm.toString()));
+                builder.setUri_key(generateAnnotationId(loader.getOntologyName() + classTerm.toString() + "individual").hashCode());
                 documents.add(builder.createTermDocument());
+
 
                 if (documents.size() == 10000) {
                     getLog().debug("Max reached - indexing terms");
@@ -195,7 +207,7 @@ public class SolrIndexer implements OntologyIndexer {
                 .setOntologyTitle(loader.getTitle())
                 .setOntologyPrefix(loader.getPreferredPrefix())
                 .setOntologyUri(loader.getOntologyIRI().toString())
-                .setId(generateId(loader.getOntologyName(), ""))
+                .setId(generateOntologyId(loader.getOntologyName(), ""))
                 .setUri(loader.getOntologyIRI().toString())
                 .setUri_key(generateAnnotationId(loader.getOntologyName()).hashCode())
                 .setLabel(loader.getTitle())
@@ -215,9 +227,7 @@ public class SolrIndexer implements OntologyIndexer {
                 .setOntologyTitle(loader.getTitle())
                 .setOntologyPrefix(loader.getPreferredPrefix())
                 .setOntologyUri(loader.getOntologyIRI().toString())
-                .setId(generateId(loader.getOntologyName(), termIRI.toString()))
                 .setUri(termIRI.toString())
-                .setUri_key(generateAnnotationId(loader.getOntologyName() + termIRI.toString()).hashCode())
                 .setIsDefiningOntology(loader.isLocalTerm(termIRI))
                 .setIsObsolete(loader.isObsoleteTerm(termIRI))
                 .setShortForm(loader.getShortForm(termIRI))
@@ -332,8 +342,11 @@ public class SolrIndexer implements OntologyIndexer {
         return DigestUtils.md5DigestAsHex(uri.getBytes());
     }
 
-    private String generateId(String ontologyName, String iri) {
-        return ontologyName.toLowerCase() + ":" + iri;
+    private String generateOntologyId(String ontologyName, String iri) {
+        return ontologyName.toLowerCase() +":" + iri;
+    }
+    private String generateId(String ontologyName, String type, String iri) {
+        return ontologyName.toLowerCase() +  ":" + type  +":" + iri;
     }
 
     public int getBatchSize() {

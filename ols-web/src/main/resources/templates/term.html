@@ -13,7 +13,7 @@
     <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> --> <!-- Not yet implemented -->
 
     <!--@thymesVar id="ontologyTerm" type="uk.ac.ebi.spot.ols.neo4j.model.Term"-->
-    <title th:text="${ontologyTerm.getShortForm()} + ' &lt; Ontology Lookup Service &lt; EMBL-EBI'"> Term &lt; Ontology Lookup Service &lt; EMBL-EBI</title>
+    <title th:text="${ontologyTerm.getLabel()}"> Term &lt; Ontology Lookup Service &lt; EMBL-EBI</title>
     <meta name="description" th:content="${ontologyTerm.getDescription()}"  content="EMBL-EBI"/><!-- Describe what this page is about -->
     <meta name="keywords" content="ontology, ontologies, bioinformatics, europe, institute"/><!-- A few keywords that relate to the content of THIS PAGE (not the whol project) -->
     <meta name="author" content="EMBL-EBI Ontology Lookup Service"/><!-- Your [project-name] here -->
@@ -48,6 +48,9 @@
     <link rel="stylesheet" href="../static/css/diachron/widget.css" th:href="@{../../css/diachron/widget.css}" type="text/css" media="screen"/>
 
     <link rel="stylesheet" href="../static/css/typeahead/typeaheadjs.css" th:href="@{../../css/typeahead/typeaheadjs.css}" type="text/css" media="screen"/>
+
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="//localhost:8081/oxo/webjars/bootstrap-slider/5.3.1/css/bootstrap-slider.min.css" type="text/css" media="screen"/>
 
     <!-- Css lionk for dataTable -->
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css"/>
@@ -309,6 +312,7 @@
                     <div class="grid_14 alpha">
                         <ul  class="nav nav-tabs">
                             <li role="presentation" class="active"><a data-toggle="tab" class="icon icon-functional" data-icon="h" id="tree-link" href="#tree-tab">Tree view</a></li>
+                            <li role="presentation"><a data-toggle="tab" id="oxo-link"  class="icon icon-generic" data-icon="g" href="#oxo-tab">Term mapings</a></li>
                             <li role="presentation"><a data-toggle="tab" id="diachron-link"  class="icon icon-generic" data-icon="g" href="#diachron-tab">Term history</a></li>
 
                             <!--<li role="presentation"><a data-toggle="tab" href="#graph-tab"  th:onclick="'window.open(\'@{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})\'})'" th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})}" target="_blank">Visualisation</a></li>-->
@@ -332,6 +336,27 @@
 
 
                             </div>
+
+                            <div role="tabpanel" class="tab-pane" id="oxo-tab">
+                                <div id="oxo-wrapper">
+                                    <form>
+                                        <span>Mapping Distance: </span>
+                                        <div style="margin-left: 15px;display: inline;">
+                                            <input  type="text" id="distance-slider" name="distance" data-slider-id='ex1Slider' data-slider-value="1" value="1"/>
+                                        </div>
+                                        <!--<input type="hidden" name="inputSource" th:value="${inputSource}"/>-->
+                                        <!--<input th:each="target : ${mappingTarget}" type="hidden" name="mappingTarget" th:value="${target}"/>-->
+                                        <input type="hidden" name="ids" th:value="${ontologyTerm.getShortForm()}"/>
+                                    </form>
+
+
+                                    <div>
+                                        <table id="example" style="border-collapse: collapse;" data-hide-from-col="true" data-hide-table-info="true" data-api-path="//localhost:8081/oxo/" data-with-progress="false" >
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
 
                             <div role="tabpanel" class="tab-pane" id="diachron-tab">
                                 <div id="diachron-wrapper"></div>
@@ -625,19 +650,47 @@
 <script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/foot.js"></script>
 
 <!-- Start Diachron include scripts-->
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/highcharts-more.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/no-data-to-display.js"></script>
+<script src="//code.highcharts.com/highcharts.js"></script>
+<script src="//code.highcharts.com/highcharts-more.js"></script>
+<script src="//code.highcharts.com/modules/exporting.js"></script>
+<script src="//code.highcharts.com/modules/no-data-to-display.js"></script>
 <script src="../../static/js/diachron/underscore-min.js" th:src="@{../../js/diachron/underscore-min.js}"></script>
 <script src="../../static/js/diachron/changes.js" th:src="@{../../js/diachron/changes.js}"></script>
 <script src="../../static/js/diachron/moment.js" th:src="@{../../js/diachron/moment.js}"></script>
 
+
 <!--<script src="../../static/js/diachron/tablesorter.min.js" th:src="@{../../js/diachron/tablesorter.min.js}"></script>-->
 
-<script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+<!-- oxo libs -->
+<script type="text/javascript" src="//cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="//www.ebi.ac.uk/spot/oxo/webjars/bootstrap-slider/5.3.1/bootstrap-slider.min.js"></script>
+<script type="text/javascript" th:src="@{../../js/oxo-search.js}"></script>
 
 <!-- END Diachron scripts-->
+
+<script>
+    $(document).ready(function() {
+
+//        $('#distance-slider').bootstrapSlider({
+//            step: 1, min: 1, max: 3,
+//            ticks: [1, 2, 3],
+//            ticks_labels: ['1', '2', '3'],
+//            ticks_snap_bounds: 50
+//        }).on('slideStop', function () {
+//            reinitialiseTable()
+////            drawGraph()
+//
+//        });
+        $('a[data-toggle = "tab"]').on('show.bs.tab', function (e) {
+            console.log("oxo loading...")
+            reinitialiseTable()
+        })
+    });
+
+
+
+</script>
+
 
 <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

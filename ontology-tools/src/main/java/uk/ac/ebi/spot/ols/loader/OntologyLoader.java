@@ -141,6 +141,12 @@ public interface OntologyLoader {
     Collection<IRI> getDirectParentTerms(IRI iri);
     Map<IRI, Collection<IRI>> getAllParentTerms();
 
+    /**
+     * Get direct type for owl individuals
+     * @return
+     */
+    Map<IRI, Collection<IRI>> getDirectTypes();
+
     Collection<String> getInternalMetadataProperties ();
 
     /**
