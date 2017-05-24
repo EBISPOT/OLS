@@ -49,11 +49,8 @@
 
     <link rel="stylesheet" href="../static/css/typeahead/typeaheadjs.css" th:href="@{../../css/typeahead/typeaheadjs.css}" type="text/css" media="screen"/>
 
-    <link rel="stylesheet" href="//cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" type="text/css" media="screen"/>
-    <link rel="stylesheet" href="//localhost:8081/oxo/webjars/bootstrap-slider/5.3.1/css/bootstrap-slider.min.css" type="text/css" media="screen"/>
-
-    <!-- Css lionk for dataTable -->
-    <link rel="stylesheet" href="//cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css"/>
+    <!--<link rel="stylesheet" href="//cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" type="text/css" media="screen"/>-->
+    <!--<link rel="stylesheet" href="//localhost:8081/oxo/webjars/bootstrap-slider/5.3.1/css/bootstrap-slider.min.css" type="text/css" media="screen"/>-->
 
     <!-- for production the above can be replaced with -->
     <!--
@@ -337,25 +334,25 @@
 
                             </div>
 
-                            <div role="tabpanel" class="tab-pane" id="oxo-tab">
-                                <div id="oxo-wrapper">
-                                    <form>
-                                        <span>Mapping Distance: </span>
-                                        <div style="margin-left: 15px;display: inline;">
-                                            <input  type="text" id="distance-slider" name="distance" data-slider-id='ex1Slider' data-slider-value="1" value="1"/>
-                                        </div>
-                                        <!--<input type="hidden" name="inputSource" th:value="${inputSource}"/>-->
-                                        <!--<input th:each="target : ${mappingTarget}" type="hidden" name="mappingTarget" th:value="${target}"/>-->
-                                        <input type="hidden" name="ids" th:value="${ontologyTerm.getShortForm()}"/>
-                                    </form>
+                            <!--<div role="tabpanel" class="tab-pane" id="oxo-tab">-->
+                                <!--<div id="oxo-wrapper">-->
+                                    <!--<form>-->
+                                        <!--<span>Mapping Distance: </span>-->
+                                        <!--<div style="margin-left: 15px;display: inline;">-->
+                                            <!--<input  type="text" id="distance-slider" name="distance" data-slider-id='ex1Slider' data-slider-value="1" value="1"/>-->
+                                        <!--</div>-->
+                                        <!--&lt;!&ndash;<input type="hidden" name="inputSource" th:value="${inputSource}"/>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<input th:each="target : ${mappingTarget}" type="hidden" name="mappingTarget" th:value="${target}"/>&ndash;&gt;-->
+                                        <!--<input type="hidden" name="ids" th:value="${ontologyTerm.getShortForm()}"/>-->
+                                    <!--</form>-->
 
 
-                                    <div>
-                                        <table id="example" style="border-collapse: collapse;" data-hide-from-col="true" data-hide-table-info="true" data-api-path="//localhost:8081/oxo/" data-with-progress="false" >
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
+                                    <!--<div>-->
+                                        <!--<table id="example" style="border-collapse: collapse;" data-hide-from-col="true" data-hide-table-info="true" data-api-path="//localhost:8081/oxo/" data-with-progress="false" >-->
+                                        <!--</table>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
 
 
                             <div role="tabpanel" class="tab-pane" id="diachron-tab">
@@ -662,9 +659,9 @@
 <!--<script src="../../static/js/diachron/tablesorter.min.js" th:src="@{../../js/diachron/tablesorter.min.js}"></script>-->
 
 <!-- oxo libs -->
-<script type="text/javascript" src="//cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="//www.ebi.ac.uk/spot/oxo/webjars/bootstrap-slider/5.3.1/bootstrap-slider.min.js"></script>
-<script type="text/javascript" th:src="@{../../js/oxo-search.js}"></script>
+<!--<script type="text/javascript" src="//cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>-->
+<!--<script type="text/javascript" src="//www.ebi.ac.uk/spot/oxo/webjars/bootstrap-slider/5.3.1/bootstrap-slider.min.js"></script>-->
+<!--<script type="text/javascript" th:src="@{../../js/oxo-search.js}"></script>-->
 
 <!-- END Diachron scripts-->
 
