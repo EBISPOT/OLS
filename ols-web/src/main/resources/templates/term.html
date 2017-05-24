@@ -309,7 +309,7 @@
                     <div class="grid_14 alpha">
                         <ul  class="nav nav-tabs">
                             <li role="presentation" class="active"><a data-toggle="tab" class="icon icon-functional" data-icon="h" id="tree-link" href="#tree-tab">Tree view</a></li>
-                            <li role="presentation"><a data-toggle="tab" id="oxo-link"  class="icon icon-generic" data-icon="g" href="#oxo-tab">Term mapings</a></li>
+                            <!--<li role="presentation"><a data-toggle="tab" id="oxo-link"  class="icon icon-generic" data-icon="g" href="#oxo-tab">Term mappings</a></li>-->
                             <li role="presentation"><a data-toggle="tab" id="diachron-link"  class="icon icon-generic" data-icon="g" href="#diachron-tab">Term history</a></li>
 
                             <!--<li role="presentation"><a data-toggle="tab" href="#graph-tab"  th:onclick="'window.open(\'@{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})\'})'" th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})}" target="_blank">Visualisation</a></li>-->
@@ -654,7 +654,7 @@
 <script src="../../static/js/diachron/underscore-min.js" th:src="@{../../js/diachron/underscore-min.js}"></script>
 <script src="../../static/js/diachron/changes.js" th:src="@{../../js/diachron/changes.js}"></script>
 <script src="../../static/js/diachron/moment.js" th:src="@{../../js/diachron/moment.js}"></script>
-
+<script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
 
 <!--<script src="../../static/js/diachron/tablesorter.min.js" th:src="@{../../js/diachron/tablesorter.min.js}"></script>-->
 
@@ -678,10 +678,10 @@
 ////            drawGraph()
 //
 //        });
-        $('a[data-toggle = "tab"]').on('show.bs.tab', function (e) {
-            console.log("oxo loading...")
-            reinitialiseTable()
-        })
+//        $('a[data-toggle = "tab"]').on('show.bs.tab', function (e) {
+//            console.log("oxo loading...")
+//            reinitialiseTable()
+//        })
     });
 
 
