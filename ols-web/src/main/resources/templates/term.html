@@ -405,21 +405,6 @@
                                     <p class="annotation-value" style="margin-left:9px;" th:text="${#strings.setJoin(ontologyTerm.getInSubsets(), ', ')}">NCBI_9606</p>
                                 </div>
 
-
-                                <div th:if="${not #sets.isEmpty(xrefs)}">
-                                    <a href="#" th:href="@{../../search(q='database_cross_reference',exact='true', type=property, ontology=${ontologyTerm.ontologyName})}">database cross reference</a>
-                                    <ul>
-                                        <li style="margin-left:9px;" th:each="oboXref: ${xrefs}">
-                                            <a th:if="${oboXref.getUrl() != null and oboXref.getDatabase() != null and oboXref.getId() != null}" target="_blank" th:href="${oboXref.getUrl()}" th:text="${oboXref.getDatabase() + ':' + oboXref.getId()}"></a>
-                                            <a th:if="${oboXref.getUrl() != null and oboXref.getDatabase() == null}" target="_blank" th:href="${oboXref.getUrl()}" th:text="${oboXref.getId()}"></a>
-                                            <span th:if="${oboXref.getDatabase() != null and oboXref.getUrl() == null}" th:text="${oboXref.getDatabase()}"></span><!--
-                                            --><span th:if="${oboXref.getId() != null and oboXref.getDatabase() != null and oboXref.getUrl() == null}">:</span><!--
-                                            --><span th:if="${oboXref.getId() != null and oboXref.getUrl() == null}" th:text="${oboXref.getId()}"></span>
-                                            <span th:if="${oboXref.getDescription() != null}" th:text="'(' + ${oboXref.getDescription()} + ')'"></span>
-                                        </li>
-                                    </ul>
-                                </div>
-
                                 <div th:if="${not #sets.isEmpty(synonyms)}">
                                     <div th:each="synonym: ${synonyms}">
                                         <div th:if="${synonym.getType()}">
