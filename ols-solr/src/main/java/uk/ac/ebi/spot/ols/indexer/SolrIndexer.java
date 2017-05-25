@@ -63,7 +63,7 @@ public class SolrIndexer implements OntologyIndexer {
             List<SuggestDocument> suggestDocuments = new ArrayList<>();
 
             for (IRI classTerm : loader.getAllClasses()) {
-                getLog().debug("solr indexing " + classTerm.toString());
+                getLog().trace("solr indexing " + classTerm.toString());
 
                 TermDocumentBuilder builder = extractFeatures(loader, classTerm);
                 builder.setType(TermType.CLASS.toString().toLowerCase());

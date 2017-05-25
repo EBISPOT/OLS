@@ -384,7 +384,7 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
             inserter.createRelationship( node, mergedNode, refersTo, null);
 
             // add parent nodes
-            if (!loader.getDirectTypes().containsKey(individualIri)) {
+            if (loader.getDirectTypes().containsKey(individualIri)) {
                 for (IRI parent : loader.getDirectTypes().get(individualIri)) {
                     Long parentNode =  getOrCreateNode(inserter, classNodeMap,loader, parent, nodeLabel,nodeOntologyLabel,  _nodeLabel);
                     // create local relationship
