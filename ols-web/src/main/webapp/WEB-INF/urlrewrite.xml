@@ -19,6 +19,38 @@
         <to type="redirect">$1</to>
     </rule>
 
+    <!--<rule>-->
+        <!--<name>RDF platform redirect</name>-->
+        <!--<note>This current redirect is for the redirecting IRIs to the EBI RDF platform</note>-->
+        <!--<condition name="Accept" type="header">text/turtle</condition>-->
+        <!--<from>.*iri=(.*)</from>-->
+        <!--<to type="redirect">/rdf/services/describe?uri=$1</to>-->
+    <!--</rule>-->
+
+
+    <!--“text/turtle” — Turtle-->
+    <!--“application/x-nice-turtle” — Turtle (beautified)-->
+    <!--“application/rdf+json” — RDF/JSON-->
+    <!--“application/rdf+xml” — RDF/XML-->
+    <!--“text/plain” — N-Triples-->
+    <!--“application/xhtml+xml” — XHTML+RDFa-->
+    <!--“application/atom+xml” — ATOM+XML-->
+    <!--”application/odata+json” — ODATA/JSON-->
+    <!--“application/x-json+ld” — JSON-LD-->
+    <!--“text/x-html+ul” — HTML (list)-->
+    <!--“text/x-html+tr” — HTML (table)-->
+    <!--”text/html” — HTML+Microdata (basic)-->
+    <!--“application/x-nice-microdata” — HTML+Microdata (table)-->
+    <!--“text/x-html-script-ld+json” — HTML+JSON-LD (basic)-->
+    <!--“text/x-html-script-turtle” — HTML+Turtle (basic)-->
+    <!--“text/x-html-nice-turtle” — Turtle (beautified — browsing oriented)-->
+    <!--”application/microdata+json” — Microdata/JSON-->
+    <!--“text/csv” — CSV-->
+    <!--“text/tab-separated-values” — TSV-->
+    <!--“application/x-trig” — TriG-->
+    <!--“text/cxml” — CXML (Pivotviewer Collection)-->
+    <!--“text/cxml+qrcode” — CXML (Pivotviewer Collection with QRcodes)-->
+
 
     <!--
 

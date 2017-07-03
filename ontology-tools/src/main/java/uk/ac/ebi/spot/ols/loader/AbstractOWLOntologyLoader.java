@@ -1098,7 +1098,6 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         newValues.add(entityIRI);
         // get any related parents then go up tree
         if (relatedParentTerms.containsKey(entityIRI)) {
-
             for (IRI value : relatedParentTerms.get(entityIRI).values().stream().flatMap(Collection::stream).collect(Collectors.toSet())) {
                 if (allChildTerms.containsKey(entityIRI)) {
                     if (allChildTerms.get(entityIRI).contains(value)) {
@@ -1106,6 +1105,14 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                         continue;
                     }
                 }
+                if (relatedParentTerms.containsKey(value)) {
+                    Set<IRI> parentsOfValue = relatedParentTerms.get(value).values().stream().flatMap(Collection::stream).collect(Collectors.toSet());
+                    if (parentsOfValue.contains(entityIRI)) {
+                        getLog().warn("Cycle detected  on relationship " + entityIRI + " is related to one of its decendants");
+                        continue;
+                    }
+                }
+
                 newValues.addAll(fillAllRelatedParents(value));
             }
         }

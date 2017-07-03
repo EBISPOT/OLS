@@ -92,6 +92,8 @@ public class SearchController {
             @RequestParam(value = "local", defaultValue = "false") boolean isLocal,
             @RequestParam(value = "childrenOf", required = false) Collection<String> childrenOf,
             @RequestParam(value = "allChildrenOf", required = false) Collection<String> allChildrenOf,
+            @RequestParam(value = "inclusive", required = false) boolean inclusive,
+            @RequestParam(value = "isLeaf", required = false) boolean isLeaf,
             @RequestParam(value = "rows", defaultValue = "10") Integer rows,
             @RequestParam(value = "start", defaultValue = "0") Integer start,
             @RequestParam(value = "format", defaultValue = "json") String format,
@@ -159,6 +161,10 @@ public class SearchController {
             solrQuery.addFilterQuery("is_defining_ontology:true");
         }
 
+        if (isLeaf) {
+            solrQuery.addFilterQuery("has_children:false");
+        }
+
         if (types != null) {
             solrQuery.addFilterQuery("type: (" + String.join(" OR ", types) + ")");
         }
@@ -174,14 +180,25 @@ public class SearchController {
             String result = childrenOf.stream()
                     .map(addQuotes)
                     .collect(Collectors.joining(" OR "));
-            solrQuery.addFilterQuery("ancestor_iri: (" + result + ")");
+
+            if (inclusive) {
+                solrQuery.addFilterQuery("filter( iri: (" + result + ")) filter(ancestor_iri: (" + result + "))" );
+            } else {
+                solrQuery.addFilterQuery("ancestor_iri: (" + result + ")");
+            }
+
         }
 
         if (allChildrenOf != null) {
             String result = allChildrenOf.stream()
                     .map(addQuotes)
                     .collect(Collectors.joining(" OR "));
-            solrQuery.addFilterQuery("hierarchical_ancestor_iri: (" + result + ")");
+
+            if (inclusive) {
+                solrQuery.addFilterQuery("filter( iri: (" + result + ")) filter(hierarchical_ancestor_iri: (" + result + "))" );
+            } else {
+                solrQuery.addFilterQuery("hierarchical_ancestor_iri: (" + result + ")");
+            }
         }
 
         solrQuery.addFilterQuery("is_obsolete:" + queryObsoletes);
