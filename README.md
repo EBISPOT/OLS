@@ -4,6 +4,7 @@ Ontology Lookup Service from SPOT at EBI.
 * OLS is currently live at the EBI here http://www.ebi.ac.uk/ols
 * A REST API for OLS is described here http://www.ebi.ac.uk/ols/docs/api
 * Instruction on how to build a local OLS installation are here http://www.ebi.ac.uk/ols/docs/installation-guide
+  * Run OLS with docker here https://github.com/MaastrichtUniversity/ols-docker
 * Further OLS documentation can be found here http://www.ebi.ac.uk/ols/docs
 
 ## Overview
