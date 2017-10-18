@@ -21,7 +21,7 @@ All of the apps are available under the ols-apps module.
 
 To run a complete local OLS installation you will need a mongodb database. This is a lightweight database that used to store all the ontology configuration and application state information. See here for more information http://www.ebi.ac.uk/ols/docs/installation-guide 
 
- * [ols-apps/ols-config-app](ols-apps/ols-config-app) - Spring boot application for loading config files into the mongodb database. This includes support for reading config files specified using the OBO foundry YAML format. 
+ * [ols-apps/ols-config-importer](ols-apps/ols-config-app) - Spring boot application for loading config files into the mongodb database. This includes support for reading config files specified using the OBO foundry YAML format. 
  * [ols-apps/ols-loading-app](ols-apps/ols-loading-app) - Spring boot application for that build the complete OLS indexes. This app fetches ontologies specified in the config files, checks if they have changed form a previous download, and if hey have changed it will create all the necessary SOLR and Neo4j indexes. 
 
  * [ols-web](ols-web) - This will contain the WAR file that can be deployed in tomcat to launch the OLS website and REST API. 
