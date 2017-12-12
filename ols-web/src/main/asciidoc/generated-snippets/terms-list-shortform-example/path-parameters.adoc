@@ -1,5 +1,5 @@
 ----
-GET /api/ontologies/{ontology_id}/terms
+GET /ols/api/ontologies/{ontology_id}/terms
 ----
 
 |===

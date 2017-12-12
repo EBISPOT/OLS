@@ -1,5 +1,5 @@
 ----
-GET /api/ontologies/{ontology}/properties/{iri}
+GET /ols/api/ontologies/{ontology}/properties/{iri}
 ----
 
 |===

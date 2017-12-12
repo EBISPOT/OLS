@@ -636,14 +636,14 @@ that describes the problem. The error object has the following structure:</p>
 <div class="content">
 <pre class="highlight"><code class="language-http" data-lang="http">HTTP/1.1 404 Not Found
 Content-Type: application/json;charset=UTF-8
-Content-Length: 149
+Content-Length: 153
 
 {
-  "timestamp" : 1471533066961,
+  "timestamp" : 1513093638663,
   "status" : 404,
   "error" : "Not Found",
   "message" : "Resource not found",
-  "path" : "/api/ontologies/foobar"
+  "path" : "/ols/api/ontologies/foobar"
 }</code></pre>
 </div>
 </div>
@@ -678,7 +678,7 @@ parameter for accessing a specific page of items.</p>
 <h4 id="_example_request"><a class="anchor" href="#_example_request"></a>Example request</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://www.ebi.ac.uk/ols/api/ontologies?page=1&amp;size=1' -i</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -L 'http://www.ebi.ac.uk/ols/api/ontologies?page=1&amp;size=1' -i</code></pre>
 </div>
 </div>
 </div>
@@ -825,7 +825,7 @@ Content-Type: application/json
 <h4 id="_example_request_2"><a class="anchor" href="#_example_request_2"></a>Example request</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://www.ebi.ac.uk/ols/api' -i -H 'Accept: application/json'</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -L 'http://www.ebi.ac.uk/ols/api' -i -H 'Accept: application/json'</code></pre>
 </div>
 </div>
 </div>
@@ -859,24 +859,24 @@ Content-Type: application/json
 <div class="content">
 <pre class="highlight"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 412
+Content-Length: 432
 
 {
   "_links" : {
     "individuals" : {
-      "href" : "http://www.ebi.ac.uk/api/individuals"
+      "href" : "http://www.ebi.ac.uk/ols/api/individuals"
     },
     "ontologies" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies"
     },
     "properties" : {
-      "href" : "http://www.ebi.ac.uk/api/properties"
+      "href" : "http://www.ebi.ac.uk/ols/api/properties"
     },
     "terms" : {
-      "href" : "http://www.ebi.ac.uk/api/terms"
+      "href" : "http://www.ebi.ac.uk/ols/api/terms"
     },
     "profile" : {
-      "href" : "http://www.ebi.ac.uk/api/profile"
+      "href" : "http://www.ebi.ac.uk/ols/api/profile"
     }
   }
 }</code></pre>
@@ -938,7 +938,7 @@ Content-Length: 412
 <h4 id="_example_request_3"><a class="anchor" href="#_example_request_3"></a>Example request</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://www.ebi.ac.uk/ols/api/ontologies' -i -H 'Accept: application/json'</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -L 'http://www.ebi.ac.uk/ols/api/ontologies' -i -H 'Accept: application/json'</code></pre>
 </div>
 </div>
 </div>
@@ -958,7 +958,7 @@ Content-Length: 412
 <h3 id="_retrieve_an_ontology"><a class="anchor" href="#_retrieve_an_ontology"></a>Retrieve an ontology</h3>
 <div class="listingblock">
 <div class="content">
-<pre>GET /api/ontologies/{ontology_id}</pre>
+<pre>GET /ols/api/ontologies/{ontology_id}</pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all spread">
@@ -983,7 +983,7 @@ Content-Length: 412
 <h4 id="_example_request_4"><a class="anchor" href="#_example_request_4"></a>Example request</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://www.ebi.ac.uk/ols/api/ontologies/efo' -i -H 'Accept: application/json'</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -L 'http://www.ebi.ac.uk/ols/api/ontologies/efo' -i -H 'Accept: application/json'</code></pre>
 </div>
 </div>
 </div>
@@ -993,17 +993,17 @@ Content-Length: 412
 <div class="content">
 <pre class="highlight"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 5180
+Content-Length: 5196
 
 {
   "ontologyId" : "efo",
-  "loaded" : "2016-05-10T16:13:45.735+0000",
-  "updated" : "2016-05-10T16:13:45.735+0000",
+  "loaded" : "2017-01-17T15:56:01.604+0000",
+  "updated" : "2017-04-12T12:07:06.814+0000",
   "status" : "LOADED",
   "message" : "",
   "version" : null,
-  "numberOfTerms" : 17263,
-  "numberOfProperties" : 300,
+  "numberOfTerms" : 19230,
+  "numberOfProperties" : 296,
   "numberOfIndividuals" : 0,
   "config" : {
     "id" : "http://www.ebi.ac.uk/efo",
@@ -1013,7 +1013,7 @@ Content-Length: 5180
     "preferredPrefix" : "EFO",
     "description" : "The Experimental Factor Ontology (EFO) provides a systematic description of many experimental variables available in EBI databases, and for external projects such as the NHGRI GWAS catalogue. It combines parts of several biological ontologies, such as anatomy, disease and chemical compounds. The scope of EFO is to support the annotation, analysis and visualization of data handled by many groups at the EBI and as the core ontology for the Centre for Therapeutic Validation (CTTV)",
     "homepage" : "http://www.ebi.ac.uk/efo",
-    "version" : "2.68",
+    "version" : "2.80",
     "mailingList" : "efo-users@lists.sourceforge.net",
     "creators" : [ ],
     "annotations" : {
@@ -1021,7 +1021,7 @@ Content-Length: 5180
       "creator" : [ "Simon Jupp", "Jon Ison", "Helen Parkinson", "Eleanor Williams", "James Malone", "Sirarat Sarntivijai", "Catherine Leroy", "Ele Holloway", "Tomasz Adamusiak", "Emma Kate Hastings", "Natalja Kurbatova", "Dani Welter", "Drashtti Vasant" ],
       "rights" : [ "Copyright [2014] EMBL - European Bioinformatics Institute \nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the \nLicense. " ],
       "format-version" : [ "1.4" ],
-      "comment" : [ "Date: 18th January 2016", "Bioportal mappings to Human disease (DOID) ver", "Bioportal mappings to NCI Thesaurus (NCIt) ver11.01e", "Bioportal mappings to MGED Ontology (MO) ver1.3.1.1", "Bioportal mappings to Phenotypic quality (PATO) vernull", "Bioportal mappings to Teleost anatomy and development (TAO) ver1.158", "Bioportal mappings to Units of measurement (UO) vernull", "Bioportal mappings to BRENDA tissue / enzyme source (BTO) verunknown", "Mappings: CRISP Thesaurus Version 2.5.2.0", "Bioportal mappings to Teleost Anatomy Ontology (TAO) vernull", "Bioportal mappings to NIFSTD (nif) ver2.2 - December 20, 2010", "Bioportal mappings to SNOMED Clinical Terms (SNOMEDCT) ver2010_07_31", "Bioportal mappings to Chemical entities of biological interest (CHEBI) verunknown", "Mappings to Plant structure (PO)", "Bioportal mappings to Gene Ontology (GO) ver1.886", "Mappings:The Arabidopsis Information Resource (TAIR)", "Bioportal mappings to Drosophila gross anatomy (FBbt) ver2011-02-10", "Bioportal mappings to International Classification of Diseases (ICD-9) ver9", "Bioportal mappings to Foundational Model of Anatomy (FMA) ver3.1", "Bioportal mappings to Malaria Ontology (IDOMAL) ver1.22", "Bioportal mappings to Medical Subject Headings (MSH) ver2011_2010_08_30", "Ontology containing axioms that describe relationships between orphanet disease ontology classes and efo classes.", "Bioportal mappings to Zebrafish anatomy and development (ZFA) verunknown", "Bioportal mappings to NCBI organismal classification (NCBITaxon) ver1.2", "Bioportal mappings to Mosquito gross anatomy (TGMA) version unknown", "Bioportal mappings to Mammalian phenotype (MP) vernull", "Bioportal mappings to Minimal anatomical terminology (MAT) ver1.1", "Mappings: The Jackson Lab", "Bioportal mappings to Cell type (CL) verunknown", "Bioportal mappings to Microarray experimental conditions (MO) ver1.3.1.1", "Bioportal mappings to Ontology for Biomedical Investigations (OBI) ver2010-10-26 Vancouver 2010 release, RC2" ]
+      "comment" : [ "Bioportal mappings to Human disease (DOID) ver", "Bioportal mappings to NCI Thesaurus (NCIt) ver11.01e", "Bioportal mappings to MGED Ontology (MO) ver1.3.1.1", "Bioportal mappings to Phenotypic quality (PATO) vernull", "Bioportal mappings to Teleost anatomy and development (TAO) ver1.158", "Bioportal mappings to Units of measurement (UO) vernull", "Bioportal mappings to BRENDA tissue / enzyme source (BTO) verunknown", "Mappings: CRISP Thesaurus Version 2.5.2.0", "Bioportal mappings to Teleost Anatomy Ontology (TAO) vernull", "Bioportal mappings to NIFSTD (nif) ver2.2 - December 20, 2010", "Bioportal mappings to SNOMED Clinical Terms (SNOMEDCT) ver2010_07_31", "Bioportal mappings to Chemical entities of biological interest (CHEBI) verunknown", "Mappings to Plant structure (PO)", "Bioportal mappings to Gene Ontology (GO) ver1.886", "Mappings:The Arabidopsis Information Resource (TAIR)", "Bioportal mappings to Drosophila gross anatomy (FBbt) ver2011-02-10", "Bioportal mappings to International Classification of Diseases (ICD-9) ver9", "Bioportal mappings to Foundational Model of Anatomy (FMA) ver3.1", "Date: 16th January 2017", "Bioportal mappings to Malaria Ontology (IDOMAL) ver1.22", "Bioportal mappings to Medical Subject Headings (MSH) ver2011_2010_08_30", "Ontology containing axioms that describe relationships between orphanet disease ontology classes and efo classes.", "Bioportal mappings to Zebrafish anatomy and development (ZFA) verunknown", "Bioportal mappings to NCBI organismal classification (NCBITaxon) ver1.2", "Bioportal mappings to Mosquito gross anatomy (TGMA) version unknown", "Bioportal mappings to Mammalian phenotype (MP) vernull", "Bioportal mappings to Minimal anatomical terminology (MAT) ver1.1", "Mappings: The Jackson Lab", "Bioportal mappings to Cell type (CL) verunknown", "Bioportal mappings to Microarray experimental conditions (MO) ver1.3.1.1", "Bioportal mappings to Ontology for Biomedical Investigations (OBI) ver2010-10-26 Vancouver 2010 release, RC2" ]
     },
     "fileLocation" : "http://www.ebi.ac.uk/efo/efo.owl",
     "reasonerType" : "OWL2",
@@ -1037,16 +1037,16 @@ Content-Length: 5180
   },
   "_links" : {
     "self" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/efo"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo"
     },
     "terms" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms"
     },
     "properties" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/efo/properties"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties"
     },
     "individuals" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/efo/individuals"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/individuals"
     }
   }
 }</code></pre>
@@ -1093,7 +1093,7 @@ Content-Length: 5180
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>GET /api/ontologies/{ontology_id}/terms/roots</pre>
+<pre>GET /ols/api/ontologies/{ontology_id}/terms/roots</pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all spread">
@@ -1128,7 +1128,7 @@ Content-Length: 5180
 <h3 id="resources-terms-list"><a class="anchor" href="#resources-terms-list"></a>Listing ontology terms</h3>
 <div class="listingblock">
 <div class="content">
-<pre>GET /api/ontologies/{ontology_id}/terms</pre>
+<pre>GET /ols/api/ontologies/{ontology_id}/terms</pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all spread">
@@ -1182,7 +1182,7 @@ Content-Length: 5180
 <h4 id="_example_request_5"><a class="anchor" href="#_example_request_5"></a>Example request</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://www.ebi.ac.uk/ols/api/ontologies/efo/terms' -i -H 'Accept: application/json'</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -L 'http://www.ebi.ac.uk/ols/api/ontologies/efo/terms' -i -H 'Accept: application/json'</code></pre>
 </div>
 </div>
 </div>
@@ -1204,7 +1204,7 @@ Content-Length: 5180
 <h4 id="_example_request_6"><a class="anchor" href="#_example_request_6"></a>Example request</h4>
 <div class="listingblock">
 <div class="content">
-<pre>GET /api/ontologies/{ontology}/terms/{iri}</pre>
+<pre>GET /ols/api/ontologies/{ontology}/terms/{iri}</pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all spread">
@@ -1234,7 +1234,7 @@ Content-Length: 5180
 <h4 id="_example_request_7"><a class="anchor" href="#_example_request_7"></a>Example request</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226' -i -H 'Accept: application/json'</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -L 'http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226' -i -H 'Accept: application/json'</code></pre>
 </div>
 </div>
 </div>
@@ -1245,7 +1245,7 @@ Content-Length: 5180
 <pre class="highlight"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Disposition: inline;filename=f.txt
 Content-Type: application/json
-Content-Length: 2880
+Content-Length: 3657
 
 {
   "iri" : "http://purl.obolibrary.org/obo/GO_0043226",
@@ -1254,55 +1254,74 @@ Content-Length: 2880
   "annotation" : {
     "database_cross_reference" : [ "NIF_Subcellular:sao1539965131", "Wikipedia:Organelle" ],
     "has_obo_namespace" : [ "cellular_component" ],
-    "id" : [ "GO:0043226" ],
-    "in_subset" : [ "goslim_chembl", "goslim_generic", "goslim_pir", "gosubset_prok" ]
+    "id" : [ "GO:0043226" ]
   },
   "synonyms" : null,
   "ontology_name" : "go",
   "ontology_prefix" : "GO",
   "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
   "is_obsolete" : false,
+  "term_replaced_by" : null,
   "is_defining_ontology" : true,
   "has_children" : true,
   "is_root" : false,
   "short_form" : "GO_0043226",
   "obo_id" : "GO:0043226",
-  "obo_definition_citation" : null,
-  "obo_xref" : null,
+  "in_subset" : [ "goslim_chembl", "goslim_generic", "goslim_pir", "gosubset_prok" ],
+  "obo_definition_citation" : [ {
+    "definition" : "Organized structure of distinctive morphology and function. Includes the nucleus, mitochondria, plastids, vacuoles, vesicles, ribosomes and the cytoskeleton, and prokaryotic structures such as anammoxosomes and pirellulosomes. Excludes the plasma membrane.",
+    "oboXrefs" : [ {
+      "database" : "GOC",
+      "id" : "go_curators",
+      "description" : null,
+      "url" : null
+    } ]
+  } ],
+  "obo_xref" : [ {
+    "database" : "Wikipedia",
+    "id" : "Organelle",
+    "description" : null,
+    "url" : "http://en.wikipedia.org/wiki/Organelle"
+  }, {
+    "database" : "NIF_Subcellular",
+    "id" : "sao1539965131",
+    "description" : null,
+    "url" : "http://www.neurolex.org/wiki/sao1539965131"
+  } ],
   "obo_synonym" : null,
   "_links" : {
     "self" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226"
     },
     "parents" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/parents"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/parents"
     },
     "ancestors" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/ancestors"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/ancestors"
     },
     "hierarchicalParents" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/hierarchicalParents"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/hierarchicalParents"
     },
     "hierarchicalAncestors" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/hierarchicalAncestors"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/hierarchicalAncestors"
     },
     "jstree" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/jstree"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/jstree"
     },
     "children" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/children"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/children"
     },
     "descendants" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/descendants"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/descendants"
     },
     "hierarchicalChildren" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/hierarchicalChildren"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/hierarchicalChildren"
     },
     "hierarchicalDescendants" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/hierarchicalDescendants"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/hierarchicalDescendants"
     },
     "graph" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/graph"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/graph"
     }
   }
 }</code></pre>
@@ -1395,7 +1414,7 @@ terms can be accessed directly with this API.</p>
 <h3 id="_retrieve_an_property"><a class="anchor" href="#_retrieve_an_property"></a>Retrieve an property</h3>
 <div class="listingblock">
 <div class="content">
-<pre>GET /api/ontologies/{ontology}/properties/{iri}</pre>
+<pre>GET /ols/api/ontologies/{ontology}/properties/{iri}</pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all spread">
@@ -1425,7 +1444,7 @@ terms can be accessed directly with this API.</p>
 <h3 id="_retrieve_an_individual"><a class="anchor" href="#_retrieve_an_individual"></a>Retrieve an individual</h3>
 <div class="listingblock">
 <div class="content">
-<pre>GET /api/ontologies/{ontology}/individuals/{iri}</pre>
+<pre>GET /ols/api/ontologies/{ontology}/individuals/{iri}</pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all spread">

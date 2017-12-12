@@ -3,7 +3,7 @@
 HTTP/1.1 200 OK
 Content-Disposition: inline;filename=f.txt
 Content-Type: application/json
-Content-Length: 772
+Content-Length: 776
 
 {
   "annotation" : {
@@ -28,7 +28,7 @@ Content-Length: 772
   "obo_id" : "BFO:0000050",
   "_links" : {
     "self" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/go/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
     }
   }
 }

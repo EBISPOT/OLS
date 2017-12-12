@@ -31,7 +31,7 @@ MATCH (n:GO) RETURN n LIMIT 10
 
 Each node has a number of properties that represent metadata and annotations on a term. Note, Neo4j allows the use of properties (or attributes) on nodes. This isn't to be confused with properties (or relations) in RDF. Relationships between nodes in Neo4j are edges between nodes (which can also have their own properties).
 
-===== Class properties
+==== Class properties
 
 ```
 id - Uniqiue id for the node in Neo4j
@@ -101,7 +101,7 @@ label - unique label for the relationship
 
 Apologies if the mixing of OWL and Neo4j terminology is getting confusing! A property node represents an OWL Annotation, Object or Data property. We index these as first class nodes in Neo4j. So an object property like obo:part_of in OWL might be used as a relation between two class nodes as described above, but there will also be a unique node for the object property itself. This is required because in OWL properties can also be related to other properties e.g. via the subObjectProperty or subAnnotationProperty relation. We describe property hierarchies as graph in the OLS Neo4j schema.
 
-===== Property properties
+==== Property properties
 
 OLS does not make a distinction between OWL annotation, object or data properties and simply treats them as a property and have a label "Property"
 
@@ -141,7 +141,7 @@ Property relationships are restricted to subPropertyOf so that we can represent 
 
 Some ontologies contain OWL individuals, although most don't. We index any individuals we find in an ontology file in the Neo4j index. Individuals represents specific instances of classes. For example, in OWL you might have a class called Person, and an instance of that could a specific person possibly identified by their national insurance number.
 
-===== Individual properties
+==== Individual properties
 
 All individuals are labeled with "Individual" in the Neo4j index.
 

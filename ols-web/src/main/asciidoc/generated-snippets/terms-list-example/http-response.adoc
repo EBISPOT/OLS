@@ -2,11 +2,341 @@
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 71623
+Content-Length: 69046
 
 {
   "_embedded" : {
     "terms" : [ {
+      "iri" : "http://www.ebi.ac.uk/efo/EFO_1000838",
+      "label" : "bile reflux",
+      "description" : [ "Retrograde bile flow. Reflux of bile can be from the duodenum to the stomach (DUODENOGASTRIC REFLUX); to the esophagus (GASTROESOPHAGEAL REFLUX); or to the PANCREAS." ],
+      "annotation" : {
+        "DOID_definition_citation" : [ "DOID:12237" ],
+        "MSH_definition_citation" : [ "MSH:D001655" ],
+        "term editor" : [ "Dani Welter" ]
+      },
+      "synonyms" : [ "Bile Reflux" ],
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "EFO_1000838",
+      "obo_id" : "EFO:1000838",
+      "in_subset" : null,
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000838"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000838/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000838/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000838/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000838/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000838/jstree"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000838/graph"
+        }
+      }
+    }, {
+      "iri" : "http://www.ebi.ac.uk/efo/EFO_0000405",
+      "label" : "digestive system disease",
+      "description" : [ "Chronic or recurrent gastrointestinal disorders without an identifiable structural or biochemical explanation by the routine diagnostic tests. Functional gastrointestinal disorders are classified according to the presumed site of the disorder, such as IRRITABLE BOWEL SYNDROME, non-ulcer DYSPEPSIA, and non-cardiac CHEST PAIN.", "Diseases in any segment of the GASTROINTESTINAL TRACT from ESOPHAGUS to RECTUM.", "Diseases in any part of the GASTROINTESTINAL TRACT or the accessory organs (LIVER; BILIARY TRACT; PANCREAS)." ],
+      "annotation" : {
+        "DOID_definition_citation" : [ "DOID:5295" ],
+        "ICD9_definition_citation" : [ "ICD9:569", "ICD9:520-579.99", "ICD9:564.4", "ICD9:570-579.99", "ICD9:575", "ICD9:564", "ICD9:569.4", "ICD9:569.49", "ICD9:560-569.99" ],
+        "MSH_definition_citation" : [ "MSH:D004066", "MSH:D007410", "MSH:D005767" ],
+        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:53619000" ],
+        "bioportal_provenance" : [ "Other gallbladder disorders NOS[accessedResource: SNOMEDCT:197435005][accessDate: 05-04-2011]", "Disease, Gastrointestinal[accessedResource: MSH:D005767][accessDate: 05-04-2011]", "POSTOP GI FUNCT DIS NEC[accessedResource: ICD9:564.4][accessDate: 05-04-2011]", "Other postoperative functional disorders[accessedResource: ICD9:564.4][accessDate: 05-04-2011]", "Other intestine disorders[accessedResource: SNOMEDCT:197209006][accessDate: 05-04-2011]", "Other gallbladder disorders (disorder)[accessedResource: SNOMEDCT:197407006][accessDate: 05-04-2011]", "GASTROINTESTINAL DIS[accessedResource: MSH:D005767][accessDate: 05-04-2011]", "Cholera Infantum[accessedResource: MSH:D005767][accessDate: 05-04-2011]", "Digestive system diseases NOS[accessedResource: SNOMEDCT:197575000][accessDate: 05-04-2011]", "RECTAL & ANAL DIS NEC[accessedResource: ICD9:569.49][accessDate: 05-04-2011]", "Digestive System Diseases[accessedResource: MSH:D004066][accessDate: 05-04-2011]", "acne nevus[accessedResource: DOID:27][accessDate: 05-04-2011]", "Other intestinal disorders NOS (disorder)[accessedResource: SNOMEDCT:197264003][accessDate: 05-04-2011]", "Other diseases of the intestines and peritoneum[accessedResource: SNOMEDCT:197043006][accessDate: 05-04-2011]", "Other gallbladder disorders[accessedResource: SNOMEDCT:197407006][accessDate: 05-04-2011]", "[X]Other specified diseases of anus and rectum (disorder)[accessedResource: SNOMEDCT:197543003][accessDate: 05-04-2011]", "Diseases in any segment of the GASTROINTESTINAL TRACT from ESOPHAGUS to RECTUM.[accessedResource: MSH:D005767][accessDate: 05-04-2011]", "DISEASES OF THE DIGESTIVE SYSTEM[accessedResource: ICD9:520-579.99][accessDate: 05-04-2011]", "Disease of digestive system (disorder)[accessedResource: SNOMEDCT:53619000][accessDate: 05-04-2011]", "Gastrointestinal Disorder, Functional[accessedResource: MSH:D005767][accessDate: 05-04-2011]", "[X]Other diseases of intestines[accessedResource: SNOMEDCT:197538005][accessDate: 05-04-2011]", "Chronic or recurrent gastrointestinal disorders without an identifiable structural or biochemical explanation by the routine diagnostic tests. Functional gastrointestinal disorders are classified according to the presumed site of the disorder, such as IRRITABLE BOWEL SYNDROME, non-ulcer DYSPEPSIA, and non-cardiac CHEST PAIN.[accessedResource: MSH:D005767][accessDate: 05-04-2011]", "Gastrointestinal and digestive disorder[accessedResource: SNOMEDCT:53619000][accessDate: 05-04-2011]", "Gastrointestinal Diseases[accessedResource: MSH:D005767][accessDate: 05-04-2011]", "Functional digestive disorders, not elsewhere classified[accessedResource: ICD9:564][accessDate: 05-04-2011]", "[X]Other diseases of the digestive system[accessedResource: SNOMEDCT:197569009][accessDate: 05-04-2011]", "Other gallbladder disorders NOS (disorder)[accessedResource: SNOMEDCT:197435005][accessDate: 05-04-2011]", "Disease, Digestive System[accessedResource: MSH:D004066][accessDate: 05-04-2011]", "Other diseases of the intestines and peritoneum (disorder)[accessedResource: SNOMEDCT:197043006][accessDate: 05-04-2011]", "Other disorders of intestine[accessedResource: ICD9:569][accessDate: 05-04-2011]", "nevus comedonicus (disorder)[accessedResource: DOID:27][accessDate: 05-04-2011]", "Other disorders of intestine (disorder)[accessedResource: SNOMEDCT:197209006][accessDate: 05-04-2011]", "Gastrointestinal Disorders, Functional[accessedResource: MSH:D005767][accessDate: 05-04-2011]", "Disorders, Functional Gastrointestinal[accessedResource: MSH:D005767][accessDate: 05-04-2011]", "[X]Other diseases of intestines (disorder)[accessedResource: SNOMEDCT:197538005][accessDate: 05-04-2011]", "Pilosebaceous Nevoid disorder[accessedResource: DOID:27][accessDate: 05-04-2011]", "OTHER DISEASES OF INTESTINES AND PERITONEUM[accessedResource: ICD9:560-569.99][accessDate: 05-04-2011]", "Digestive system diseases NOS (disorder)[accessedResource: SNOMEDCT:197575000][accessDate: 05-04-2011]", "Disease of digestive system, NOS[accessedResource: SNOMEDCT:53619000][accessDate: 05-04-2011]", "Diseases, Digestive System[accessedResource: MSH:D004066][accessDate: 05-04-2011]", "Other intestinal disorders NOS[accessedResource: SNOMEDCT:197264003][accessDate: 05-04-2011]", "System Disease, Digestive[accessedResource: MSH:D004066][accessDate: 05-04-2011]", "[X]Other diseases of the digestive system (disorder)[accessedResource: SNOMEDCT:197569009][accessDate: 05-04-2011]", "GIT diseases[accessedResource: SNOMEDCT:53619000][accessDate: 05-04-2011]", "Diseases, Gastrointestinal[accessedResource: MSH:D005767][accessDate: 05-04-2011]", "DIGESTIVE SYSTEM DIS[accessedResource: MSH:D004066][accessDate: 05-04-2011]", "Infantum, Cholera[accessedResource: MSH:D005767][accessDate: 05-04-2011]", "Other specified disorders of rectum and anus[accessedResource: ICD9:569.4][accessDate: 05-04-2011]", "Functional Gastrointestinal Disorders[accessedResource: MSH:D005767][accessDate: 05-04-2011]", "System Diseases, Digestive[accessedResource: MSH:D004066][accessDate: 05-04-2011]", "Functional Gastrointestinal Disorder[accessedResource: MSH:D005767][accessDate: 05-04-2011]", "[X]Other specified diseases of anus and rectum[accessedResource: SNOMEDCT:197543003][accessDate: 05-04-2011]", "Disease of digestive system[accessedResource: SNOMEDCT:53619000][accessDate: 05-04-2011]", "Disorder, Functional Gastrointestinal[accessedResource: MSH:D005767][accessDate: 05-04-2011]", "Disorder of digestive system (disorder)[accessedResource: SNOMEDCT:53619000][accessDate: 05-04-2011]", "Disorder of digestive system[accessedResource: SNOMEDCT:53619000][accessDate: 05-04-2011]", "Gastrointestinal Disease[accessedResource: MSH:D005767][accessDate: 05-04-2011]", "Diseases in any part of the GASTROINTESTINAL TRACT or the accessory organs (LIVER; BILIARY TRACT; PANCREAS).[accessedResource: MSH:D004066][accessDate: 05-04-2011]", "OTHER DISEASES OF DIGESTIVE SYSTEM[accessedResource: ICD9:570-579.99][accessDate: 05-04-2011]", "Other disorders of gallbladder[accessedResource: ICD9:575][accessDate: 05-04-2011]" ],
+        "gwas_trait" : [ "true" ],
+        "term editor" : [ "Tomasz Adamusiak", "James Malone" ]
+      },
+      "synonyms" : [ "Diseases, Digestive System", "OTHER DISEASES OF INTESTINES AND PERITONEUM", "Gastrointestinal Disease", "Other disorders of intestine", "Gastrointestinal Disorder, Functional", "Other disorders of gallbladder", "Other diseases of the intestines and peritoneum (disorder)", "Digestive system diseases NOS", "Other disorders of intestine (disorder)", "Diseases, Gastrointestinal", "[X]Other specified diseases of anus and rectum", "nevus comedonicus (disorder)", "Disorder of digestive system", "Functional Gastrointestinal Disorder", "DIGESTIVE SYSTEM DIS", "Disease of digestive system, NOS", "Gastrointestinal and digestive disorder", "DISEASES OF THE DIGESTIVE SYSTEM", "GIT diseases", "Pilosebaceous Nevoid disorder", "Other specified disorders of rectum and anus", "Functional digestive disorders, not elsewhere classified", "Digestive System Diseases", "Disease, Gastrointestinal", "Other gallbladder disorders NOS (disorder)", "Other gallbladder disorders (disorder)", "Other intestinal disorders NOS", "Disorders, Functional Gastrointestinal", "Gastrointestinal Diseases", "OTHER DISEASES OF DIGESTIVE SYSTEM", "GASTROINTESTINAL DIS", "intestinal disease", "Disease of digestive system (disorder)", "Other gallbladder disorders NOS", "Infantum, Cholera", "Disorder of digestive system (disorder)", "Other postoperative functional disorders", "Cholera Infantum", "Other diseases of the intestines and peritoneum", "Disease of digestive system", "[X]Other diseases of the digestive system", "System Disease, Digestive", "acne nevus", "Other intestine disorders", "Digestive system diseases NOS (disorder)", "[X]Other diseases of the digestive system (disorder)", "[X]Other diseases of intestines", "[X]Other specified diseases of anus and rectum (disorder)", "Other gallbladder disorders", "Gastrointestinal Disorders, Functional", "Disease, Digestive System", "RECTAL & ANAL DIS NEC", "POSTOP GI FUNCT DIS NEC", "[X]Other diseases of intestines (disorder)", "System Diseases, Digestive", "Disorder, Functional Gastrointestinal", "intestinal diseases", "Other intestinal disorders NOS (disorder)", "Functional Gastrointestinal Disorders" ],
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "EFO_0000405",
+      "obo_id" : "EFO:0000405",
+      "in_subset" : null,
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000405"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000405/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000405/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000405/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000405/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000405/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000405/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000405/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000405/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000405/hierarchicalDescendants"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000405/graph"
+        }
+      }
+    }, {
+      "iri" : "http://www.ebi.ac.uk/efo/EFO_1000839",
+      "label" : "bladder calculus",
+      "description" : [ "Stones in the URINARY BLADDER; also known as vesical calculi, bladder stones, or cystoliths." ],
+      "annotation" : {
+        "DOID_definition_citation" : [ "DOID:11355" ],
+        "MSH_definition_citation" : [ "MSH:D001744" ],
+        "MedDRA_definition_citation" : [ "MedDRA:10005001" ],
+        "NCI_Thesaurus_definition_citation" : [ "NCIt:C26707" ],
+        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:70650003" ],
+        "term editor" : [ "Sirarat Sarntivijai" ]
+      },
+      "synonyms" : [ "vesical calculi", "bladder stone", "cystoliths", "Urinary Bladder Calculi", "bladder stones" ],
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "EFO_1000839",
+      "obo_id" : "EFO:1000839",
+      "in_subset" : null,
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000839"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000839/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000839/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000839/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000839/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000839/jstree"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000839/graph"
+        }
+      }
+    }, {
+      "iri" : "http://www.ebi.ac.uk/efo/EFO_1000018",
+      "label" : "bladder disease",
+      "description" : [ "A disorder affecting the urinary bladder" ],
+      "annotation" : {
+        "DOID_definition_citation" : [ "DOID:365" ],
+        "NCI_Thesaurus_definition_citation" : [ "NCIt:C2900" ],
+        "UMLS_definition_citation" : [ "UMLS:C0005686" ]
+      },
+      "synonyms" : [ "urinary bladder disorder", "bladder disorder" ],
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "EFO_1000018",
+      "obo_id" : "EFO:1000018",
+      "in_subset" : null,
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000018"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000018/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000018/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000018/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000018/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000018/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000018/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000018/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000018/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000018/hierarchicalDescendants"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000018/graph"
+        }
+      }
+    }, {
+      "iri" : "http://www.ebi.ac.uk/efo/EFO_1000836",
+      "label" : "benign monoclonal gammopathy",
+      "description" : [ "Conditions characterized by the presence of M protein (Monoclonal protein) in serum or urine without clinical manifestations of plasma cell dyscrasia." ],
+      "annotation" : {
+        "DOID_definition_citation" : [ "DOID:3404" ],
+        "MSH_definition_citation" : [ "MSH:D008998" ],
+        "NCI_Thesaurus_definition_citation" : [ "NCIt:C3996" ],
+        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:58648008" ],
+        "term editor" : [ "Sirarat Sarntivijai" ]
+      },
+      "synonyms" : [ "benign Monoclonal Gammopathy", "benign monoclonal gammopathy (disorder)", "Monoclonal Gammopathy of Undetermined Significance", "BMH" ],
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "EFO_1000836",
+      "obo_id" : "EFO:1000836",
+      "in_subset" : null,
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000836"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000836/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000836/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000836/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000836/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000836/jstree"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000836/graph"
+        }
+      }
+    }, {
+      "iri" : "http://www.ebi.ac.uk/efo/EFO_0000203",
+      "label" : "monoclonal gammopathy",
+      "description" : [ "A plasma cell disorder in which an abnormal amount of a single immunoglobulin is present in the serum. Up to 25% of cases of monoclonal gammopathy of undetermined significance (MGUS) progress to a B-cell malignancy or myeloma. MGUS may occur in conjunction with various carcinomas, chronic inflammatory and infectious conditions, and other diseases." ],
+      "annotation" : {
+        "DOID_definition_citation" : [ "DOID:7442" ],
+        "MSH_definition_citation" : [ "MSH:D008998" ],
+        "NCI_Thesaurus_definition_citation" : [ "NCIt:C35548" ],
+        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:35601003", "SNOMEDCT:277577000", "SNOMEDCT:58648008" ],
+        "bioportal_provenance" : [ "monoclonal gammopathy of uncertain significance[accessedResource: DOID:7442][accessDate: 05-04-2011]", "MGUS - Monoclonal gammopathy of uncertain significance[accessedResource: SNOMEDCT:277577000][accessDate: 05-04-2011]", "Monoclonal gammopathy of undetermined significance (morphologic abnormality)[accessedResource: SNOMEDCT:35601003][accessDate: 05-04-2011]", "MGUS[accessedResource: DOID:7442][accessDate: 05-04-2011]", "Benign Monoclonal Gammopathy[accessedResource: NCIt:C3996][accessDate: 05-04-2011]", "Paraproteinaemia[accessedResource: SNOMEDCT:35601003][accessDate: 05-04-2011]", "Monoclonal Gammopathy of Unknown Significance[accessedResource: NCIt:C3996][accessDate: 05-04-2011]", "Monoclonal Gammopathy Of Undetermined Significance (MGUS)[accessedResource: NCIt:C3996][accessDate: 05-04-2011]", "A plasma cell disorder in which an abnormal amount of a single immunoglobulin is present in the serum. Up to 25% of cases of monoclonal gammopathy of undetermined significance (MGUS) progress to a B-cell malignancy or myeloma. MGUS may occur in conjunction with various carcinomas, chronic inflammatory and infectious conditions, and other diseases.[accessedResource: NCIt:C3996][accessDate: 05-04-2011]", "Paraproteinemia[accessedResource: SNOMEDCT:35601003][accessDate: 05-04-2011]", "Monoclonal gammopathy of undetermined significance[accessedResource: SNOMEDCT:35601003][accessDate: 05-04-2011]", "Monoclonal gammopathy of uncertain significance (disorder)[accessedResource: SNOMEDCT:277577000][accessDate: 05-04-2011]" ],
+        "term editor" : [ "James Malone" ]
+      },
+      "synonyms" : [ "MGUS - Monoclonal gammopathy of uncertain significance", "Paraproteinaemia", "Benign Monoclonal Gammopathy", "Monoclonal gammopathy of undetermined significance (morphologic abnormality)", "Monoclonal gammopathy of uncertain significance", "Paraproteinemia", "Monoclonal Gammopathy Of Undetermined Significance (MGUS)", "MGUS", "Monoclonal Gammopathy of Unknown Significance", "Monoclonal gammopathy of undetermined significance", "Monoclonal gammopathy of uncertain significance (disorder)" ],
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "EFO_0000203",
+      "obo_id" : "EFO:0000203",
+      "in_subset" : null,
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000203"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000203/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000203/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000203/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000203/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000203/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000203/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000203/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000203/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000203/hierarchicalDescendants"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000203/graph"
+        }
+      }
+    }, {
       "iri" : "http://purl.obolibrary.org/obo/UBERON_0013702",
       "label" : "body proper",
       "description" : null,
@@ -18,42 +348,44 @@ Content-Length: 71623
         "has_obo_namespace" : [ "uberon" ],
         "has_related_synonym" : [ "body" ],
         "id" : [ "UBERON:0013702" ],
-        "imported from" : [ "uberon.owl" ]
+        "imported from" : [ "http://purl.obolibrary.org/obo/uberon.owl" ]
       },
       "synonyms" : null,
       "ontology_name" : "efo",
       "ontology_prefix" : "EFO",
       "ontology_iri" : "http://www.ebi.ac.uk/efo",
       "is_obsolete" : false,
+      "term_replaced_by" : null,
       "is_defining_ontology" : false,
       "has_children" : false,
       "is_root" : false,
       "short_form" : "UBERON_0013702",
       "obo_id" : "UBERON:0013702",
+      "in_subset" : null,
       "obo_definition_citation" : null,
       "obo_xref" : null,
       "obo_synonym" : null,
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0013702"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0013702"
         },
         "parents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0013702/parents"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0013702/parents"
         },
         "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0013702/ancestors"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0013702/ancestors"
         },
         "hierarchicalParents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0013702/hierarchicalParents"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0013702/hierarchicalParents"
         },
         "hierarchicalAncestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0013702/hierarchicalAncestors"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0013702/hierarchicalAncestors"
         },
         "jstree" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0013702/jstree"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0013702/jstree"
         },
         "graph" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0013702/graph"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0013702/graph"
         }
       }
     }, {
@@ -62,54 +394,604 @@ Content-Length: 71623
       "description" : null,
       "annotation" : {
         "MAT_definition_citation" : [ "MAT:0000001" ],
-        "definition_editor" : [ "James Malone" ]
+        "term editor" : [ "James Malone" ]
       },
       "synonyms" : null,
       "ontology_name" : "efo",
       "ontology_prefix" : "EFO",
       "ontology_iri" : "http://www.ebi.ac.uk/efo",
       "is_obsolete" : false,
+      "term_replaced_by" : null,
       "is_defining_ontology" : true,
       "has_children" : true,
       "is_root" : false,
       "short_form" : "EFO_0000787",
       "obo_id" : "EFO:0000787",
+      "in_subset" : null,
       "obo_definition_citation" : null,
       "obo_xref" : null,
       "obo_synonym" : null,
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787"
         },
         "parents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787/parents"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787/parents"
         },
         "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787/ancestors"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787/ancestors"
         },
         "hierarchicalParents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787/hierarchicalParents"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787/hierarchicalParents"
         },
         "hierarchicalAncestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787/hierarchicalAncestors"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787/hierarchicalAncestors"
         },
         "jstree" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787/jstree"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787/jstree"
         },
         "children" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787/children"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787/children"
         },
         "descendants" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787/descendants"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787/descendants"
         },
         "hierarchicalChildren" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787/hierarchicalChildren"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787/hierarchicalChildren"
         },
         "hierarchicalDescendants" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787/hierarchicalDescendants"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787/hierarchicalDescendants"
         },
         "graph" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787/graph"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000787/graph"
+        }
+      }
+    }, {
+      "iri" : "http://www.ebi.ac.uk/efo/EFO_1000837",
+      "label" : "beriberi",
+      "description" : [ "A disease caused by a deficiency of thiamine (vitamin B1) and characterized by polyneuritis, cardiac pathology, and edema. The epidemic form is found primarily in areas in which white (polished) rice is the staple food, as in Japan, China, the Philippines, India, and other countries of southeast Asia. (Dorland, 27th ed)" ],
+      "annotation" : {
+        "DOID_definition_citation" : [ "DOID:13725" ],
+        "ICD10_definition_citation" : [ "ICD10:E51.1" ],
+        "MSH_definition_citation" : [ "MSH:D001602" ],
+        "MedDRA_definition_citation" : [ "MedDRA:10004482" ],
+        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:36656008" ],
+        "term editor" : [ "Dani Welter" ]
+      },
+      "synonyms" : [ "Beriberi" ],
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "EFO_1000837",
+      "obo_id" : "EFO:1000837",
+      "in_subset" : null,
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000837"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000837/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000837/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000837/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000837/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000837/jstree"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000837/graph"
+        }
+      }
+    }, {
+      "iri" : "http://www.ebi.ac.uk/efo/EFO_1001067",
+      "label" : "nutritional deficiency disease",
+      "description" : [ "Any condition resulting from the lack of one or more nutrients that the body needs to maintain healthy tissues and organ function" ],
+      "annotation" : {
+        "DOID_definition_citation" : [ "DOID:5113" ],
+        "MSH_definition_citation" : [ "MSH:D003677" ],
+        "MedDRA_definition_citation" : [ "MedDRA:10046058" ],
+        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:70241007" ],
+        "term editor" : [ "Dani Welter" ]
+      },
+      "synonyms" : null,
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "EFO_1001067",
+      "obo_id" : "EFO:1001067",
+      "in_subset" : null,
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1001067"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1001067/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1001067/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1001067/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1001067/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1001067/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1001067/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1001067/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1001067/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1001067/hierarchicalDescendants"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1001067/graph"
+        }
+      }
+    }, {
+      "iri" : "http://www.ebi.ac.uk/efo/EFO_1000834",
+      "label" : "basophil adenoma",
+      "description" : [ "A small tumor of the anterior lobe of the pituitary gland whose cells stain with basic dyes. It may give rise to excessive secretion of ACTH, resulting in CUSHING SYNDROME. (Dorland, 27th ed)" ],
+      "annotation" : {
+        "DOID_definition_citation" : [ "DOID:4542" ],
+        "MSH_definition_citation" : [ "MSH:D000237" ],
+        "NCI_Thesaurus_definition_citation" : [ "NCIt:C2856" ],
+        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:9436005" ],
+        "term editor" : [ "Sirarat Sarntivijai" ]
+      },
+      "synonyms" : [ "Pituitary gland Basophilic adenoma", "Adenoma, Basophil" ],
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "EFO_1000834",
+      "obo_id" : "EFO:1000834",
+      "in_subset" : null,
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000834"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000834/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000834/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000834/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000834/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000834/jstree"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000834/graph"
+        }
+      }
+    }, {
+      "iri" : "http://www.ebi.ac.uk/efo/EFO_1000478",
+      "label" : "Pituitary Gland Adenoma",
+      "description" : [ "A non-metastasizing tumor that arises from the adenohypophysial cells of the anterior lobe of the pituitary gland. The tumor can be hormonally functioning or not. The diagnosis can be based on imaging studies and/or radioimmunoassays. Due to its location in the sella turcica, expansion of the tumor mass can impinge on the optic chiasm or involve the temporal lobe, third ventricle and posterior fossa. A frequently associated physical finding is bitemporal hemianopsia which may progress to further visual loss." ],
+      "annotation" : {
+        "DOID_definition_citation" : [ "DOID:3829" ],
+        "MedDRA_definition_citation" : [ "MedDRA:10035079" ],
+        "NCI_Thesaurus_definition_citation" : [ "NCIt:C3329" ],
+        "OMIM_definition_citation" : [ "OMIM:MTHU016150" ],
+        "ORDO_definition_citation" : [ "ORDO:Orphanet_99408" ],
+        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:254956000" ]
+      },
+      "synonyms" : [ "pituitary adenoma" ],
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "EFO_1000478",
+      "obo_id" : "EFO:1000478",
+      "in_subset" : null,
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000478"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000478/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000478/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000478/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000478/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000478/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000478/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000478/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000478/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000478/hierarchicalDescendants"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000478/graph"
+        }
+      }
+    }, {
+      "iri" : "http://www.ebi.ac.uk/efo/EFO_1000835",
+      "label" : "benign fibrous mesothelioma",
+      "description" : [ "A rare neoplasm, usually benign, derived from mesenchymal fibroblasts located in the submesothelial lining of the PLEURA. It spite of its various synonyms, it has no features of mesothelial cells and is not related to malignant MESOTHELIOMA or asbestos exposure." ],
+      "annotation" : {
+        "DOID_definition_citation" : [ "DOID:2653" ],
+        "MSH_definition_citation" : [ "MSH:D054363" ],
+        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:15702005" ],
+        "term editor" : [ "Sirarat Sarntivijai" ]
+      },
+      "synonyms" : [ "localized benign fibrous Mesothelioma", "Solitary Fibrous Tumor, Pleural", "fibrous mesothelioma, benign (morphologic abnormality)" ],
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "EFO_1000835",
+      "obo_id" : "EFO:1000835",
+      "in_subset" : null,
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000835"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000835/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000835/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000835/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000835/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000835/jstree"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000835/graph"
+        }
+      }
+    }, {
+      "iri" : "http://www.ebi.ac.uk/efo/EFO_0000588",
+      "label" : "mesothelioma",
+      "description" : [ "A tumor derived from mesothelial tissue (peritoneum, pleura, pericardium). It appears as broad sheets of cells, with some regions containing spindle-shaped, sarcoma-like cells and other regions showing adenomatous patterns. Pleural mesotheliomas have been linked to exposure to asbestos. (Dorland, 27th ed)", "A usually malignant and aggressive neoplasm of the mesothelium which is often associated with exposure to asbestos." ],
+      "annotation" : {
+        "DOID_definition_citation" : [ "DOID:1790" ],
+        "MSH_definition_citation" : [ "MSH:D008654" ],
+        "NCI_Thesaurus_definition_citation" : [ "NCIt:C3234" ],
+        "OMIM_definition_citation" : [ "OMIM:156240" ],
+        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:62064005" ],
+        "bioportal_provenance" : [ "[M]Mesothelioma, unspecified[accessedResource: SNOMEDCT:189837000][accessDate: 05-04-2011]", "[X]Mesothelioma, unspecified[accessedResource: SNOMEDCT:190110008][accessDate: 05-04-2011]", "Mesotheliomas[accessedResource: MSH:D008654][accessDate: 05-04-2011]", "Mesothelioma, unspecified (disorder)[accessedResource: DOID:2645][accessDate: 05-04-2011]", "Mesothelioma, malignant (morphologic abnormality)[accessedResource: SNOMEDCT:62064005][accessDate: 05-04-2011]", "A usually malignant and aggressive neoplasm of the mesothelium which is often associated with exposure to asbestos.[accessedResource: NCIt:C3234][accessDate: 05-04-2011]", "Mesothelioma, malignant[accessedResource: SNOMEDCT:62064005][accessDate: 05-04-2011]", "A tumor derived from mesothelial tissue (peritoneum, pleura, pericardium). It appears as broad sheets of cells, with some regions containing spindle-shaped, sarcoma-like cells and other regions showing adenomatous patterns. Pleural mesotheliomas have been linked to exposure to asbestos. (Dorland, 27th ed)[accessedResource: MSH:D008654][accessDate: 05-04-2011]", "[M]Mesothelioma, unspecified (morphologic abnormality)[accessedResource: SNOMEDCT:189837000][accessDate: 05-04-2011]", "Mesothelioma, unspecified (morphologic abnormality)[accessedResource: DOID:2645][accessDate: 05-04-2011]", "[X]Mesothelioma, unspecified (disorder)[accessedResource: SNOMEDCT:190110008][accessDate: 05-04-2011]", "Mesothelioma, NOS[accessedResource: SNOMEDCT:62064005][accessDate: 05-04-2011]", "Malignant mesothelioma[accessedResource: SNOMEDCT:62064005][accessDate: 05-04-2011]" ],
+        "term editor" : [ "James Malone", "Tomasz Adamusiak" ]
+      },
+      "synonyms" : [ "Malignant mesothelioma", "[X]Mesothelioma, unspecified (disorder)", "Mesothelioma, malignant", "[M]Mesothelioma, unspecified", "Mesothelioma, unspecified (morphologic abnormality)", "Mesotheliomas", "Mesothelioma, unspecified (disorder)", "Mesothelioma, malignant (morphologic abnormality)", "Mesothelioma, NOS", "[M]Mesothelioma, unspecified (morphologic abnormality)", "[X]Mesothelioma, unspecified" ],
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "EFO_0000588",
+      "obo_id" : "EFO:0000588",
+      "in_subset" : null,
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000588"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000588/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000588/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000588/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000588/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000588/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000588/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000588/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000588/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000588/hierarchicalDescendants"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000588/graph"
+        }
+      }
+    }, {
+      "iri" : "http://www.ebi.ac.uk/efo/EFO_1000832",
+      "label" : "Bacteroides infectious disease",
+      "description" : [ "Infections with bacteria of the genus BACTEROIDES." ],
+      "annotation" : {
+        "DOID_definition_citation" : [ "DOID:4641" ],
+        "MSH_definition_citation" : [ "MSH:D001442" ],
+        "term editor" : [ "Sirarat Sarntivijai" ]
+      },
+      "synonyms" : [ "Bacteroides Infections" ],
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "EFO_1000832",
+      "obo_id" : "EFO:1000832",
+      "in_subset" : null,
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000832"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000832/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000832/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000832/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000832/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000832/jstree"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000832/graph"
+        }
+      }
+    }, {
+      "iri" : "http://www.ebi.ac.uk/efo/EFO_0000771",
+      "label" : "bacterial disease",
+      "description" : [ "A bacterial disease is a disease factor that is caused primarily by bacteria." ],
+      "annotation" : {
+        "term editor" : [ "James Malone" ]
+      },
+      "synonyms" : null,
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "EFO_0000771",
+      "obo_id" : "EFO:0000771",
+      "in_subset" : null,
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000771"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000771/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000771/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000771/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000771/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000771/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000771/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000771/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000771/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000771/hierarchicalDescendants"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000771/graph"
+        }
+      }
+    }, {
+      "iri" : "http://www.ebi.ac.uk/efo/EFO_1000833",
+      "label" : "balanitis",
+      "description" : [ "Inflammation of the head of the PENIS, glans penis." ],
+      "annotation" : {
+        "DOID_definition_citation" : [ "DOID:13033" ],
+        "MSH_definition_citation" : [ "MSH:D001446" ],
+        "MedDRA_definition_citation" : [ "MedDRA:10004073" ],
+        "NCI_Thesaurus_definition_citation" : [ "NCIt:C26705" ],
+        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:44882003" ],
+        "term editor" : [ "Dani Welter" ]
+      },
+      "synonyms" : [ "Balanitis", "Balanitis [Ambiguous]", "Balanitis (disorder)" ],
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "EFO_1000833",
+      "obo_id" : "EFO:1000833",
+      "in_subset" : null,
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000833"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000833/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000833/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000833/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000833/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000833/jstree"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_1000833/graph"
+        }
+      }
+    }, {
+      "iri" : "http://www.ebi.ac.uk/efo/EFO_0000512",
+      "label" : "reproductive system disease",
+      "description" : [ "any diease of the reproductive system" ],
+      "annotation" : {
+        "DOID_definition_citation" : [ "DOID:15" ],
+        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:362968007" ],
+        "Wikipedia_definition_citation" : [ "Wikipedia:Reproductive_system_disease" ],
+        "bioportal_provenance" : [ "Disorder of reproductive system[accessedResource: SNOMEDCT:362968007][accessDate: 05-04-2011]", "genital system disease[accessedResource: DOID:15][accessDate: 05-04-2011]", "Non-neoplastic Reproductive system disease[accessedResource: DOID:15][accessDate: 05-04-2011]", "Disorder of reproductive system (disorder)[accessedResource: SNOMEDCT:362968007][accessDate: 05-04-2011]" ],
+        "term editor" : [ "Sirarat Sarntivijai", "Tomasz Adamusiak", "James Malone" ]
+      },
+      "synonyms" : [ "Disorder of reproductive system", "Disorder of reproductive system (disorder)", "genital system disease", "Non-neoplastic Reproductive system disease" ],
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "EFO_0000512",
+      "obo_id" : "EFO:0000512",
+      "in_subset" : null,
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000512"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000512/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000512/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000512/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000512/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000512/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000512/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000512/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000512/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000512/hierarchicalDescendants"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000512/graph"
         }
       }
     }, {
@@ -122,47 +1004,49 @@ Content-Length: 71623
       "ontology_prefix" : "EFO",
       "ontology_iri" : "http://www.ebi.ac.uk/efo",
       "is_obsolete" : false,
+      "term_replaced_by" : null,
       "is_defining_ontology" : false,
       "has_children" : true,
       "is_root" : false,
       "short_form" : "Orphanet_308459",
       "obo_id" : "Orphanet:308459",
+      "in_subset" : null,
       "obo_definition_citation" : null,
       "obo_xref" : null,
       "obo_synonym" : null,
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459"
         },
         "parents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459/parents"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459/parents"
         },
         "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459/ancestors"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459/ancestors"
         },
         "hierarchicalParents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459/hierarchicalParents"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459/hierarchicalParents"
         },
         "hierarchicalAncestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459/hierarchicalAncestors"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459/hierarchicalAncestors"
         },
         "jstree" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459/jstree"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459/jstree"
         },
         "children" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459/children"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459/children"
         },
         "descendants" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459/descendants"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459/descendants"
         },
         "hierarchicalChildren" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459/hierarchicalChildren"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459/hierarchicalChildren"
         },
         "hierarchicalDescendants" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459/hierarchicalDescendants"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459/hierarchicalDescendants"
         },
         "graph" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459/graph"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308459/graph"
         }
       }
     }, {
@@ -178,1091 +1062,71 @@ Content-Length: 71623
       "ontology_prefix" : "EFO",
       "ontology_iri" : "http://www.ebi.ac.uk/efo",
       "is_obsolete" : false,
+      "term_replaced_by" : null,
       "is_defining_ontology" : false,
       "has_children" : true,
       "is_root" : false,
       "short_form" : "Orphanet_79161",
       "obo_id" : "Orphanet:79161",
+      "in_subset" : null,
       "obo_definition_citation" : null,
       "obo_xref" : null,
       "obo_synonym" : null,
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161"
         },
         "parents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161/parents"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161/parents"
         },
         "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161/ancestors"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161/ancestors"
         },
         "hierarchicalParents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161/hierarchicalParents"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161/hierarchicalParents"
         },
         "hierarchicalAncestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161/hierarchicalAncestors"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161/hierarchicalAncestors"
         },
         "jstree" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161/jstree"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161/jstree"
         },
         "children" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161/children"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161/children"
         },
         "descendants" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161/descendants"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161/descendants"
         },
         "hierarchicalChildren" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161/hierarchicalChildren"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161/hierarchicalChildren"
         },
         "hierarchicalDescendants" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161/hierarchicalDescendants"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161/hierarchicalDescendants"
         },
         "graph" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161/graph"
-        }
-      }
-    }, {
-      "iri" : "http://www.orpha.net/ORDO/Orphanet_309789",
-      "label" : "Rhizomelic chondrodysplasia punctata type 1",
-      "description" : null,
-      "annotation" : {
-        "ICD10_definition_citation" : [ "ICD10:Q77.3" ],
-        "OMIM_definition_citation" : [ "OMIM:215100" ],
-        "UMLS_definition_citation" : [ "UMLS:C1859133" ]
-      },
-      "synonyms" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo",
-      "is_obsolete" : false,
-      "is_defining_ontology" : false,
-      "has_children" : false,
-      "is_root" : false,
-      "short_form" : "Orphanet_309789",
-      "obo_id" : "Orphanet:309789",
-      "obo_definition_citation" : null,
-      "obo_xref" : null,
-      "obo_synonym" : null,
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_309789"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_309789/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_309789/ancestors"
-        },
-        "hierarchicalParents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_309789/hierarchicalParents"
-        },
-        "hierarchicalAncestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_309789/hierarchicalAncestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_309789/jstree"
-        },
-        "graph" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_309789/graph"
-        }
-      }
-    }, {
-      "iri" : "http://www.orpha.net/ORDO/Orphanet_177",
-      "label" : "Rhizomelic chondrodysplasia punctata",
-      "description" : null,
-      "annotation" : {
-        "ICD10_definition_citation" : [ "ICD10:Q77.3" ],
-        "MSH_definition_citation" : [ "MSH:D018902" ],
-        "OMIM_definition_citation" : [ "OMIM:222765", "OMIM:600121", "OMIM:215100" ],
-        "UMLS_definition_citation" : [ "UMLS:C0282529" ]
-      },
-      "synonyms" : [ "RCDP" ],
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo",
-      "is_obsolete" : false,
-      "is_defining_ontology" : false,
-      "has_children" : true,
-      "is_root" : false,
-      "short_form" : "Orphanet_177",
-      "obo_id" : "Orphanet:177",
-      "obo_definition_citation" : null,
-      "obo_xref" : null,
-      "obo_synonym" : null,
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_177"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_177/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_177/ancestors"
-        },
-        "hierarchicalParents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_177/hierarchicalParents"
-        },
-        "hierarchicalAncestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_177/hierarchicalAncestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_177/jstree"
-        },
-        "children" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_177/children"
-        },
-        "descendants" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_177/descendants"
-        },
-        "hierarchicalChildren" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_177/hierarchicalChildren"
-        },
-        "hierarchicalDescendants" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_177/hierarchicalDescendants"
-        },
-        "graph" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_177/graph"
-        }
-      }
-    }, {
-      "iri" : "http://purl.obolibrary.org/obo/NCBITaxon_134821",
-      "label" : "Ureaplasma parvum",
-      "description" : null,
-      "annotation" : {
-        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:438391000" ],
-        "definition_editor" : [ "Class imported / merged by efoimporter" ],
-        "has_obo_namespace" : [ "ncbi_taxonomy" ],
-        "has_rank" : [ "NCBITaxon_species" ],
-        "id" : [ "NCBITaxon:134821" ]
-      },
-      "synonyms" : [ "Ureaplasma urealyticum biovar 1" ],
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo",
-      "is_obsolete" : false,
-      "is_defining_ontology" : false,
-      "has_children" : false,
-      "is_root" : false,
-      "short_form" : "NCBITaxon_134821",
-      "obo_id" : "NCBITaxon:134821",
-      "obo_definition_citation" : null,
-      "obo_xref" : null,
-      "obo_synonym" : null,
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_134821"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_134821/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_134821/ancestors"
-        },
-        "hierarchicalParents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_134821/hierarchicalParents"
-        },
-        "hierarchicalAncestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_134821/hierarchicalAncestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_134821/jstree"
-        },
-        "graph" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_134821/graph"
-        }
-      }
-    }, {
-      "iri" : "http://purl.obolibrary.org/obo/NCBITaxon_2",
-      "label" : "Bacteria",
-      "description" : null,
-      "annotation" : {
-        "MSH_definition_citation" : [ "MSH:D001419" ],
-        "NCI_Thesaurus_definition_citation" : [ "NCIt:C14187" ],
-        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:41146007", "SNOMEDCT:409822003" ],
-        "definition_editor" : [ "Class imported / merged by efoimporter", "James Malone" ],
-        "has_obo_namespace" : [ "ncbi_taxonomy" ],
-        "has_rank" : [ "NCBITaxon_superkingdom" ],
-        "id" : [ "NCBITaxon:2" ]
-      },
-      "synonyms" : [ "prokaryotes", "bacteria", "Procaryotae", "eubacteria", "Prokaryotae", "Monera", "Prokaryota", "not Bacteria Haeckel 1894" ],
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo",
-      "is_obsolete" : false,
-      "is_defining_ontology" : false,
-      "has_children" : true,
-      "is_root" : false,
-      "short_form" : "NCBITaxon_2",
-      "obo_id" : "NCBITaxon:2",
-      "obo_definition_citation" : null,
-      "obo_xref" : null,
-      "obo_synonym" : null,
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2/ancestors"
-        },
-        "hierarchicalParents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2/hierarchicalParents"
-        },
-        "hierarchicalAncestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2/hierarchicalAncestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2/jstree"
-        },
-        "children" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2/children"
-        },
-        "descendants" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2/descendants"
-        },
-        "hierarchicalChildren" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2/hierarchicalChildren"
-        },
-        "hierarchicalDescendants" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2/hierarchicalDescendants"
-        },
-        "graph" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_2/graph"
-        }
-      }
-    }, {
-      "iri" : "http://purl.obolibrary.org/obo/UBERON_0001715",
-      "label" : "oculomotor nuclear complex",
-      "description" : [ "The fibers of the oculomotor nerve arise from a nucleus in the midbrain, which lies in the gray substance of the floor of the cerebral aqueduct and extends in front of the aqueduct for a short distance into the floor of the third ventricle. From this nucleus the fibers pass forward through the tegmentum, the red nucleus, and the medial part of the substantia nigra, forming a series of curves with a lateral convexity, and emerge from the oculomotor sulcus on the medial side of the cerebral peduncle. The nucleus of the oculomotor nerve does not consist of a continuous column of cells, but is broken up into a number of smaller nuclei, which are arranged in two groups, anterior and posterior. Those of the posterior group are six in number, five of which are symmetrical on the two sides of the middle line, while the sixth is centrally placed and is common to the nerves of both sides. The anterior group consists of two nuclei, an antero-medial and an antero-lateral . The nucleus of the oculomotor nerve, considered from a physiological standpoint, can be subdivided into several smaller groups of cells, each group controlling a particular muscle. A nearby nucleus, the Edinger-Westphal nucleus, is responsible for the autonomic functions of the oculomotor nerve, including pupillary constriction and lens accommodation. [WP,unvetted]." ],
-      "annotation" : {
-        "ABA_definition_citation" : [ "ABA:III" ],
-        "BM_definition_citation" : [ "BM:MB-III" ],
-        "EFO_definition_citation" : [ "EFO:0002468" ],
-        "EHDAA2_definition_citation" : [ "EHDAA2:0004211" ],
-        "EV_definition_citation" : [ "EV:0100250" ],
-        "FMA_definition_citation" : [ "FMA:54510" ],
-        "MA_definition_citation" : [ "MA:0001073" ],
-        "MSH_definition_citation" : [ "MSH:D065838" ],
-        "NCI_Thesaurus_definition_citation" : [ "NCIt:C12897" ],
-        "NIF_GrossAnatomy_definition_citation" : [ "NIF_GrossAnatomy:birnlex_1240" ],
-        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:362457000" ],
-        "TAO_definition_citation" : [ "TAO:0000553" ],
-        "UMLS_definition_citation" : [ "UMLS:C0228686" ],
-        "VHOG_definition_citation" : [ "VHOG:0001389" ],
-        "Wikipedia_definition_citation" : [ "Wikipedia:Nucleus_of_oculomotor_nerve" ],
-        "ZFA_definition_citation" : [ "ZFA:0000553" ],
-        "comment" : [ "This class was created automatically from a combination of ontologies" ],
-        "database_cross_reference" : [ "http://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Cn3nucleus.png/200px-Cn3nucleus.png" ],
-        "has_obo_namespace" : [ "uberon" ],
-        "homologous_in" : [ "NCBITaxon_7742" ],
-        "id" : [ "UBERON:0001715" ],
-        "in_subset" : [ "uberon_slim", "efo_slim", "vertebrate_core" ],
-        "spatially_disjoint_from" : [ "UBERON_0002438", "UBERON_0003040", "UBERON_0001944", "UBERON_0001966", "UBERON_0001947", "UBERON_0002691", "UBERON_0002141", "UBERON_0002696", "UBERON_0002995", "UBERON_0002722" ]
-      },
-      "synonyms" : [ "motor nucleus III", "oculomotor III nucleus", "Entire oculomotor nucleus", "nIII", "nucleus nervi oculomotorii", "nucleus of oculomotor nerve", "nucleus of third cranial nerve", "oculomotor nucleus", "third cranial nerve nucleus" ],
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo",
-      "is_obsolete" : false,
-      "is_defining_ontology" : false,
-      "has_children" : false,
-      "is_root" : false,
-      "short_form" : "UBERON_0001715",
-      "obo_id" : "UBERON:0001715",
-      "obo_definition_citation" : null,
-      "obo_xref" : null,
-      "obo_synonym" : null,
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001715"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001715/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001715/ancestors"
-        },
-        "hierarchicalParents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001715/hierarchicalParents"
-        },
-        "hierarchicalAncestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001715/hierarchicalAncestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001715/jstree"
-        },
-        "graph" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001715/graph"
-        },
-        "part_of" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001715/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
-        },
-        "develops_from" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001715/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0002202"
-        }
-      }
-    }, {
-      "iri" : "http://purl.obolibrary.org/obo/UBERON_0010285",
-      "label" : "midbrain basal plate",
-      "description" : [ "Portion of tissue that is dorsolateral to the floor plate and part of the midbrain." ],
-      "annotation" : {
-        "EHDAA2_definition_citation" : [ "EHDAA2:0004375" ],
-        "TAO_definition_citation" : [ "TAO:0000761" ],
-        "ZFA_definition_citation" : [ "ZFA:0000761" ],
-        "bioportal_provenance" : [ "Portion of tissue that is dorsolateral to the floor plate and part of the midbrain.[accessedResource: ZFA:0000761][accessDate: 05-04-2011]" ],
-        "definition_editor" : [ "Tomasz Adamusiak" ],
-        "has_obo_namespace" : [ "uberon" ],
-        "id" : [ "UBERON:0010285" ],
-        "in_subset" : [ "efo_slim" ]
-      },
-      "synonyms" : [ "basal plate midbrain region", "floor plate midbrain", "floorplate midbrain", "basal plate midbrain" ],
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo",
-      "is_obsolete" : false,
-      "is_defining_ontology" : false,
-      "has_children" : true,
-      "is_root" : false,
-      "short_form" : "UBERON_0010285",
-      "obo_id" : "UBERON:0010285",
-      "obo_definition_citation" : null,
-      "obo_xref" : null,
-      "obo_synonym" : null,
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0010285"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0010285/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0010285/ancestors"
-        },
-        "hierarchicalParents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0010285/hierarchicalParents"
-        },
-        "hierarchicalAncestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0010285/hierarchicalAncestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0010285/jstree"
-        },
-        "children" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0010285/children"
-        },
-        "descendants" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0010285/descendants"
-        },
-        "hierarchicalChildren" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0010285/hierarchicalChildren"
-        },
-        "hierarchicalDescendants" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0010285/hierarchicalDescendants"
-        },
-        "graph" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0010285/graph"
-        },
-        "part_of" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0010285/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
-        }
-      }
-    }, {
-      "iri" : "http://purl.obolibrary.org/obo/UBERON_0001891",
-      "label" : "midbrain",
-      "description" : [ "Organ component of neuraxis that has as its parts the tectum, cerebral peduncle, midbrain tegmentum and cerebral aqueduct[FMA]. The brain region between the forebrain anteriorly and the hindbrain posteriorly, including the tectum dorsally and the midbrain tegmentum ventrally[ZFA]. The midbrain is the middle division of the three primary divisions of the developing chordate brain or the corresponding part of the adult brain (in vertebrates, includes a ventral part containing the cerebral peduncles and a dorsal tectum containing the corpora quadrigemina and that surrounds the aqueduct of Sylvius connecting the third and fourth ventricles)[GO]." ],
-      "annotation" : {
-        "AAO_definition_citation" : [ "AAO:0010149" ],
-        "ABA_definition_citation" : [ "ABA:MB" ],
-        "BM_definition_citation" : [ "BM:MB" ],
-        "BTO_definition_citation" : [ "BTO:0000138" ],
-        "CALOHA_definition_citation" : [ "CALOHA:TS-0630" ],
-        "EFO_definition_citation" : [ "EFO:0000919" ],
-        "EHDAA2_definition_citation" : [ "EHDAA2:0001162" ],
-        "EHDAA_definition_citation" : [ "EHDAA:3694" ],
-        "EMAPA_definition_citation" : [ "EMAPA:16974" ],
-        "EV_definition_citation" : [ "EV:0100242" ],
-        "FMA_definition_citation" : [ "FMA:61993" ],
-        "MAT_definition_citation" : [ "MAT:0000106" ],
-        "MA_definition_citation" : [ "MA:0000207" ],
-        "MESH_definition_citation" : [ "MESH:A08.186.211.132.659" ],
-        "MIAA_definition_citation" : [ "MIAA:0000106" ],
-        "MSH_definition_citation" : [ "MSH:D008636" ],
-        "NCI_Thesaurus_definition_citation" : [ "NCIt:C12510" ],
-        "NIF_GrossAnatomy_definition_citation" : [ "NIF_GrossAnatomy:birnlex_1667" ],
-        "OpenCyc_definition_citation" : [ "OpenCyc:Mx4rvsBUqpwpEbGdrcN5Y29ycA" ],
-        "RETIRED_EHDAA2_definition_citation" : [ "RETIRED_EHDAA2:0001104" ],
-        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:279099009" ],
-        "TAO_definition_citation" : [ "TAO:0000128" ],
-        "UMLS_definition_citation" : [ "UMLS:C0025462" ],
-        "VHOG_definition_citation" : [ "VHOG:0000069" ],
-        "Wikipedia_definition_citation" : [ "Wikipedia:Midbrain" ],
-        "XAO_definition_citation" : [ "XAO:0000014" ],
-        "ZFA_definition_citation" : [ "ZFA:0000128" ],
-        "comment" : [ "Editors note: developmental relationships need revised. AO notes: part of brainstem in ABA - we reject this in favor of ISBN10:0471888893 which has an implicit overlaps relationships" ],
-        "database_cross_reference" : [ "http://upload.wikimedia.org/wikipedia/commons/f/f9/Human_brain_inferior_view_description.JPG", "http://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Human_brain_inferior_view_description.JPG/200px-Human_brain_inferior_view_description.JPG" ],
-        "external_definition" : [ "The brain region between the forebrain anteriorly and the hindbrain posteriorly, including the tectum dorsally and the midbrain tegmentum ventrally. Kimmel et al, 1995.[TAO]", "Middle part of the brain composed of the optic tectum and penducular region.[AAO]" ],
-        "has_obo_namespace" : [ "uberon" ],
-        "has_relational_adjective" : [ "mesencephalic" ],
-        "homologous_in" : [ "NCBITaxon_7742" ],
-        "homology_notes" : [ "Fine structural, computerized three-dimensional (3D) mapping of cell connectivity in the amphioxus nervous system and comparative molecular genetic studies of amphioxus and tunicates have provided recent insights into the phylogenetic origin of the vertebrate nervous system. The results suggest that several of the genetic mechanisms for establishing and patterning the vertebrate nervous system already operated in the ancestral chordate and that the nerve cord of the proximate invertebrate ancestor of the vertebrates included a diencephalon, midbrain, hindbrain, and spinal cord.[well established][VHOG]" ],
-        "id" : [ "UBERON:0001891" ],
-        "in_subset" : [ "uberon_slim", "efo_slim", "vertebrate_core" ],
-        "spatially_disjoint_from" : [ "UBERON_0001894", "UBERON_0002028" ]
-      },
-      "synonyms" : [ "mesencephalon", "Entire midbrain" ],
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo",
-      "is_obsolete" : false,
-      "is_defining_ontology" : false,
-      "has_children" : true,
-      "is_root" : false,
-      "short_form" : "UBERON_0001891",
-      "obo_id" : "UBERON:0001891",
-      "obo_definition_citation" : null,
-      "obo_xref" : null,
-      "obo_synonym" : null,
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/ancestors"
-        },
-        "hierarchicalParents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/hierarchicalParents"
-        },
-        "hierarchicalAncestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/hierarchicalAncestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/jstree"
-        },
-        "children" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/children"
-        },
-        "descendants" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/descendants"
-        },
-        "hierarchicalChildren" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/hierarchicalChildren"
-        },
-        "hierarchicalDescendants" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/hierarchicalDescendants"
-        },
-        "graph" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/graph"
-        },
-        "part_of" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
-        },
-        "develops_from" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001891/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0002202"
-        }
-      }
-    }, {
-      "iri" : "http://purl.obolibrary.org/obo/UBERON_0002298",
-      "label" : "brainstem",
-      "description" : [ "Multi-tissue structure that has as its parts the medulla oblongata of the hindbrain and the tegmentum of the midbrain[ZFA,adopted]." ],
-      "annotation" : {
-        "ABA_definition_citation" : [ "ABA:BS" ],
-        "BTO_definition_citation" : [ "BTO:0000146" ],
-        "CALOHA_definition_citation" : [ "CALOHA:TS-0093" ],
-        "EFO_definition_citation" : [ "EFO:0001962" ],
-        "EV_definition_citation" : [ "EV:0100241" ],
-        "FMA_definition_citation" : [ "FMA:79876" ],
-        "MA_definition_citation" : [ "MA:0000169" ],
-        "MESH_definition_citation" : [ "MESH:A08.186.211.132" ],
-        "MSH_definition_citation" : [ "MSH:D001933" ],
-        "NCI_Thesaurus_definition_citation" : [ "NCIt:C12441" ],
-        "NIF_GrossAnatomy_definition_citation" : [ "NIF_GrossAnatomy:birnlex_1565" ],
-        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:180925009" ],
-        "TAO_definition_citation" : [ "TAO:0002156" ],
-        "UMLS_definition_citation" : [ "UMLS:C0006121" ],
-        "VHOG_definition_citation" : [ "VHOG:0001457" ],
-        "Wikipedia_definition_citation" : [ "Wikipedia:Brainstem" ],
-        "ZFA_definition_citation" : [ "ZFA:0001707" ],
-        "comment" : [ "'brainstem' is a loose term that sometimes refers to the ventral parts o the brain except for any part of the telencephalon - sometimes it includes the diencephalon or subpallial telencephalon structures (ISBN10:0471888893). Here we use it in a more restriced sense, to include only the medulla oblongata, pons (when present) and the midbrain tegmentum (following the ZFA definitions)." ],
-        "database_cross_reference" : [ "http://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Gray719.png/200px-Gray719.png", "http://upload.wikimedia.org/wikipedia/commons/b/b7/Gray719.png" ],
-        "external_definition" : [ "Multi-tissue structure that has as its parts the medulla oblongata of the hindbrain and the tegmentum of the midbrain.[TAO]" ],
-        "has_obo_namespace" : [ "uberon" ],
-        "homologous_in" : [ "NCBITaxon_7742" ],
-        "id" : [ "UBERON:0002298" ],
-        "in_subset" : [ "uberon_slim", "efo_slim", "loose_concept", "vertebrate_core" ],
-        "spatially_disjoint_from" : [ "UBERON_0002037" ]
-      },
-      "synonyms" : [ "truncus encephali", "brain stem", "truncus encephalicus", "Entire brainstem" ],
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo",
-      "is_obsolete" : false,
-      "is_defining_ontology" : false,
-      "has_children" : true,
-      "is_root" : false,
-      "short_form" : "UBERON_0002298",
-      "obo_id" : "UBERON:0002298",
-      "obo_definition_citation" : null,
-      "obo_xref" : null,
-      "obo_synonym" : null,
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0002298"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0002298/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0002298/ancestors"
-        },
-        "hierarchicalParents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0002298/hierarchicalParents"
-        },
-        "hierarchicalAncestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0002298/hierarchicalAncestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0002298/jstree"
-        },
-        "children" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0002298/children"
-        },
-        "descendants" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0002298/descendants"
-        },
-        "hierarchicalChildren" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0002298/hierarchicalChildren"
-        },
-        "hierarchicalDescendants" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0002298/hierarchicalDescendants"
-        },
-        "graph" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0002298/graph"
-        },
-        "part_of" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0002298/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
-        }
-      }
-    }, {
-      "iri" : "http://purl.obolibrary.org/obo/UBERON_0001711",
-      "label" : "eyelid",
-      "description" : [ "An eyelid is a thin fold of skin that covers and protects an eyeball. With the exception of the prepuce and the labia minora, it has the thinnest skin of the whole body. The levator palpebrae superioris muscle retracts the eyelid to 'open' the eye. This can be either voluntarily or involuntarily. The human eyelid features a row of eyelashes which serve to heighten the protection of the eye from dust and foreign debris, as well as from perspiration. 'Palpebral' (and 'blepharo') means relating to the eyelids. Its key function is to regularly spread the tears and other secretion on the eye surface to keep it moist, since the cornea must be continuously moist. They keep the eyes from drying out when asleep. Moreover, the blink reflex protects the eye from foreign bodies. [WP,unvetted]. Each eyelid consists of the following layers, starting anteriorly: (1) skin, (2) a layer of subcutaneous connective tissue, (3) a layer of striated muscle fibres of the orbicularis muscle, (4) a layer of submuscular connective tissue, (5) a fibrous layer, including the tarsal plates, (6) a layer of smooth muscle, (7) the palpebral conjunctiva. AO notes: FMA divides this into skin, fascia, conjunctiva. Consider adding 'eye surface', like MA" ],
-      "annotation" : {
-        "BTO_definition_citation" : [ "BTO:0002241" ],
-        "NCI_Thesaurus_definition_citation" : [ "NCIt:C12713" ]
-      },
-      "synonyms" : [ "palpebra", "eye lid", "blepharon" ],
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo",
-      "is_obsolete" : false,
-      "is_defining_ontology" : false,
-      "has_children" : false,
-      "is_root" : false,
-      "short_form" : "UBERON_0001711",
-      "obo_id" : "UBERON:0001711",
-      "obo_definition_citation" : null,
-      "obo_xref" : null,
-      "obo_synonym" : null,
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001711"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001711/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001711/ancestors"
-        },
-        "hierarchicalParents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001711/hierarchicalParents"
-        },
-        "hierarchicalAncestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001711/hierarchicalAncestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001711/jstree"
-        },
-        "graph" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001711/graph"
-        },
-        "part_of" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001711/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
-        }
-      }
-    }, {
-      "iri" : "http://purl.obolibrary.org/obo/UBERON_0000970",
-      "label" : "eye",
-      "description" : [ "An organ that detects light." ],
-      "annotation" : {
-        "BILA_definition_citation" : [ "BILA:0000017" ],
-        "BTO_definition_citation" : [ "BTO:0000439" ],
-        "CALOHA_definition_citation" : [ "CALOHA:TS-0309" ],
-        "EFO_definition_citation" : [ "EFO:0000827" ],
-        "EV_definition_citation" : [ "EV:0100336" ],
-        "FBbt_definition_citation" : [ "FBbt:00005162" ],
-        "GAID_definition_citation" : [ "GAID:69" ],
-        "MAT_definition_citation" : [ "MAT:0000140" ],
-        "MESH_definition_citation" : [ "MESH:A01.456.505.420" ],
-        "MIAA_definition_citation" : [ "MIAA:0000140" ],
-        "MSH_definition_citation" : [ "MSH:D005123" ],
-        "NCI_Thesaurus_definition_citation" : [ "NCIt:C12401" ],
-        "OpenCyc_definition_citation" : [ "OpenCyc:Mx4rvViTvpwpEbGdrcN5Y29ycA" ],
-        "Wikipedia_definition_citation" : [ "Wikipedia:Eye" ],
-        "comment" : [ "Usage notes: This class encompasses a variety of light-detecting structures from different phyla with no implication of homology, from the compound insect eye to the vertebrate camera-type eye (distinct classes are provided for each). Structure notes: Note that whilst this is classified as an organ, it is in fact more of a unit composed of different structures: in Drosophila, it includes the interommatidial bristle as a part; we consider here the vertebrate eye to include the eyeball/eye proper as a part, with the eye having as parts (when present): eyelids, conjuctiva," ],
-        "has_obo_namespace" : [ "uberon" ],
-        "has_relational_adjective" : [ "optic", "ocular" ],
-        "id" : [ "UBERON:0000970" ],
-        "in_subset" : [ "uberon_slim", "efo_slim", "organ_slim", "functional_classification", "major_organ" ]
-      },
-      "synonyms" : [ "light-detecting organ", "photoreceptor", "visual apparatus" ],
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo",
-      "is_obsolete" : false,
-      "is_defining_ontology" : false,
-      "has_children" : true,
-      "is_root" : false,
-      "short_form" : "UBERON_0000970",
-      "obo_id" : "UBERON:0000970",
-      "obo_definition_citation" : null,
-      "obo_xref" : null,
-      "obo_synonym" : null,
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000970"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000970/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000970/ancestors"
-        },
-        "hierarchicalParents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000970/hierarchicalParents"
-        },
-        "hierarchicalAncestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000970/hierarchicalAncestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000970/jstree"
-        },
-        "children" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000970/children"
-        },
-        "descendants" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000970/descendants"
-        },
-        "hierarchicalChildren" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000970/hierarchicalChildren"
-        },
-        "hierarchicalDescendants" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000970/hierarchicalDescendants"
-        },
-        "graph" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000970/graph"
-        },
-        "part_of" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000970/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
-        }
-      }
-    }, {
-      "iri" : "http://www.orpha.net/ORDO/Orphanet_309796",
-      "label" : "Rhizomelic chondrodysplasia punctata type 2",
-      "description" : null,
-      "annotation" : {
-        "ICD10_definition_citation" : [ "ICD10:Q77.3" ],
-        "OMIM_definition_citation" : [ "OMIM:222765" ],
-        "UMLS_definition_citation" : [ "UMLS:C1857242" ]
-      },
-      "synonyms" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo",
-      "is_obsolete" : false,
-      "is_defining_ontology" : false,
-      "has_children" : false,
-      "is_root" : false,
-      "short_form" : "Orphanet_309796",
-      "obo_id" : "Orphanet:309796",
-      "obo_definition_citation" : null,
-      "obo_xref" : null,
-      "obo_synonym" : null,
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_309796"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_309796/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_309796/ancestors"
-        },
-        "hierarchicalParents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_309796/hierarchicalParents"
-        },
-        "hierarchicalAncestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_309796/hierarchicalAncestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_309796/jstree"
-        },
-        "graph" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_309796/graph"
-        }
-      }
-    }, {
-      "iri" : "http://purl.obolibrary.org/obo/NCBITaxon_300275",
-      "label" : "Lachancea",
-      "description" : null,
-      "annotation" : {
-        "definition_editor" : [ "Class imported / merged by efoimporter" ],
-        "has_obo_namespace" : [ "ncbi_taxonomy" ],
-        "has_rank" : [ "NCBITaxon_genus" ],
-        "id" : [ "NCBITaxon:300275" ]
-      },
-      "synonyms" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo",
-      "is_obsolete" : false,
-      "is_defining_ontology" : false,
-      "has_children" : false,
-      "is_root" : false,
-      "short_form" : "NCBITaxon_300275",
-      "obo_id" : "NCBITaxon:300275",
-      "obo_definition_citation" : null,
-      "obo_xref" : null,
-      "obo_synonym" : null,
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_300275"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_300275/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_300275/ancestors"
-        },
-        "hierarchicalParents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_300275/hierarchicalParents"
-        },
-        "hierarchicalAncestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_300275/hierarchicalAncestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_300275/jstree"
-        },
-        "graph" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_300275/graph"
-        }
-      }
-    }, {
-      "iri" : "http://purl.obolibrary.org/obo/NCBITaxon_4890",
-      "label" : "Ascomycota",
-      "description" : [ "Strain or line specific to yeast" ],
-      "annotation" : {
-        "EFO_URI" : [ "http://www.ebi.ac.uk/efo/EFO_0000740" ],
-        "MSH_definition_citation" : [ "MSH:D001203" ],
-        "NCI_Thesaurus_definition_citation" : [ "NCIt:C77167" ],
-        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:415098006" ],
-        "definition_editor" : [ "James Malone" ]
-      },
-      "synonyms" : [ "yeasts" ],
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo",
-      "is_obsolete" : false,
-      "is_defining_ontology" : false,
-      "has_children" : true,
-      "is_root" : false,
-      "short_form" : "NCBITaxon_4890",
-      "obo_id" : "NCBITaxon:4890",
-      "obo_definition_citation" : null,
-      "obo_xref" : null,
-      "obo_synonym" : null,
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_4890"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_4890/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_4890/ancestors"
-        },
-        "hierarchicalParents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_4890/hierarchicalParents"
-        },
-        "hierarchicalAncestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_4890/hierarchicalAncestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_4890/jstree"
-        },
-        "children" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_4890/children"
-        },
-        "descendants" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_4890/descendants"
-        },
-        "hierarchicalChildren" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_4890/hierarchicalChildren"
-        },
-        "hierarchicalDescendants" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_4890/hierarchicalDescendants"
-        },
-        "graph" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCBITaxon_4890/graph"
-        }
-      }
-    }, {
-      "iri" : "http://www.orpha.net/ORDO/Orphanet_308463",
-      "label" : "Disorder of fructose metabolism",
-      "description" : null,
-      "annotation" : {
-        "ICD10_definition_citation" : [ "ICD10:E74.1" ],
-        "UMLS_definition_citation" : [ "UMLS:C0342744" ]
-      },
-      "synonyms" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo",
-      "is_obsolete" : false,
-      "is_defining_ontology" : false,
-      "has_children" : true,
-      "is_root" : false,
-      "short_form" : "Orphanet_308463",
-      "obo_id" : "Orphanet:308463",
-      "obo_definition_citation" : null,
-      "obo_xref" : null,
-      "obo_synonym" : null,
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308463"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308463/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308463/ancestors"
-        },
-        "hierarchicalParents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308463/hierarchicalParents"
-        },
-        "hierarchicalAncestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308463/hierarchicalAncestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308463/jstree"
-        },
-        "children" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308463/children"
-        },
-        "descendants" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308463/descendants"
-        },
-        "hierarchicalChildren" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308463/hierarchicalChildren"
-        },
-        "hierarchicalDescendants" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308463/hierarchicalDescendants"
-        },
-        "graph" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_308463/graph"
-        }
-      }
-    }, {
-      "iri" : "http://purl.obolibrary.org/obo/UBERON_0001714",
-      "label" : "cranial ganglion",
-      "description" : [ "Ganglion of a cranial nerve[cjm]." ],
-      "annotation" : {
-        "BTO_definition_citation" : [ "BTO:0000106" ],
-        "EFO_definition_citation" : [ "EFO:0000902" ],
-        "EMAPA_definition_citation" : [ "EMAPA:16659" ],
-        "FMA_definition_citation" : [ "FMA:54502" ],
-        "MAT_definition_citation" : [ "MAT:0000200" ],
-        "MA_definition_citation" : [ "MA:0000213", "MA:0000214" ],
-        "MIAA_definition_citation" : [ "MIAA:0000200" ],
-        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:244448001" ],
-        "TAO_definition_citation" : [ "TAO:0000013" ],
-        "VHOG_definition_citation" : [ "VHOG:0000076" ],
-        "Wikipedia_definition_citation" : [ "Wikipedia:Cranial_nerve_ganglion" ],
-        "XAO_definition_citation" : [ "XAO:0000027" ],
-        "ZFA_definition_citation" : [ "ZFA:0000013" ],
-        "comment" : [ "Editor note: split out MA ter,. Note the MA term is part of the CNS. This needs to be checked w.r.t relationship between ganglia and the PNS, as the PNS and CNS are spatially disjoint. also meaning of MA term is not clear (appears to be union of nerve and ganglion, but MA 'cranial nerve' is unconnected)" ],
-        "external_definition" : [ "Ganglion which is located in the head.[TAO]" ],
-        "has_alternative_id" : [ "UBERON:0003213" ],
-        "has_obo_namespace" : [ "uberon" ],
-        "homologous_in" : [ "NCBITaxon_7742" ],
-        "id" : [ "UBERON:0001714" ],
-        "in_subset" : [ "uberon_slim", "efo_slim", "vertebrate_core" ]
-      },
-      "synonyms" : [ "head ganglion", "cranial neural ganglion", "ganglion of cranial neural tree organ", "presumptive cranial ganglia", "cranial nerve ganglion", "cranial neural tree organ ganglion", "Entire cranial nerve ganglion", "cranial ganglion", "cranial ganglia", "cranial ganglion/nerve", "ganglion of cranial nerve" ],
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo",
-      "is_obsolete" : false,
-      "is_defining_ontology" : false,
-      "has_children" : true,
-      "is_root" : false,
-      "short_form" : "UBERON_0001714",
-      "obo_id" : "UBERON:0001714",
-      "obo_definition_citation" : null,
-      "obo_xref" : null,
-      "obo_synonym" : null,
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001714"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001714/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001714/ancestors"
-        },
-        "hierarchicalParents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001714/hierarchicalParents"
-        },
-        "hierarchicalAncestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001714/hierarchicalAncestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001714/jstree"
-        },
-        "children" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001714/children"
-        },
-        "descendants" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001714/descendants"
-        },
-        "hierarchicalChildren" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001714/hierarchicalChildren"
-        },
-        "hierarchicalDescendants" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001714/hierarchicalDescendants"
-        },
-        "graph" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001714/graph"
-        },
-        "part_of" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0001714/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
-        }
-      }
-    }, {
-      "iri" : "http://purl.obolibrary.org/obo/UBERON_0000045",
-      "label" : "ganglion",
-      "description" : [ "A biological tissue mass, most commonly a mass of nerve cell bodies." ],
-      "annotation" : {
-        "AAO_definition_citation" : [ "AAO:0010426" ],
-        "AEO_definition_citation" : [ "AEO:0000135" ],
-        "BTO_definition_citation" : [ "BTO:0000497" ],
-        "CALOHA_definition_citation" : [ "CALOHA:TS-0397" ],
-        "EFO_definition_citation" : [ "EFO:0000899" ],
-        "EHDAA2_definition_citation" : [ "EHDAA2:0003135" ],
-        "EHDAA_definition_citation" : [ "EHDAA:4662", "EHDAA:5621", "EHDAA:2897", "EHDAA:918" ],
-        "EV_definition_citation" : [ "EV:0100372" ],
-        "FBbt_definition_citation" : [ "FBbt:00005137" ],
-        "FMA_definition_citation" : [ "FMA:5884" ],
-        "MAT_definition_citation" : [ "MAT:0000207", "MAT:0000343" ],
-        "MA_definition_citation" : [ "MA:0002406" ],
-        "MESH_definition_citation" : [ "MESH:A08.340" ],
-        "MIAA_definition_citation" : [ "MIAA:0000207", "MIAA:0000343" ],
-        "MSH_definition_citation" : [ "MSH:D005724" ],
-        "NCI_Thesaurus_definition_citation" : [ "NCIt:C12719" ],
-        "NIF_GrossAnatomy_definition_citation" : [ "NIF_GrossAnatomy:nlx_anat_100302" ],
-        "TAO_definition_citation" : [ "TAO:0000190" ],
-        "TGMA_definition_citation" : [ "TGMA:0001016" ],
-        "UMLS_definition_citation" : [ "UMLS:C0017067" ],
-        "VHOG_definition_citation" : [ "VHOG:0000156" ],
-        "WBbt_definition_citation" : [ "WBbt:0005189" ],
-        "Wikipedia_definition_citation" : [ "Wikipedia:Ganglion" ],
-        "XAO_definition_citation" : [ "XAO:0000209" ],
-        "ZFA_definition_citation" : [ "ZFA:0000190" ],
-        "comment" : [ "TODO - check vert vs invert. Other species: Any of a number of aggregations of neurons, glial cells and their processes, surrounded by a glial cell and connective tissue sheath (plural: ganglia). // Subdivision of neural tree (organ) which primarily consists of cell bodies of neurons located outside the neuraxis (brain and spinal cord); together with a nucleus and its associated nerve, it constitutes a neural tree (organ). Examples: spinal ganglion, trigeminal ganglion, superior cervical ganglion, celiac ganglion, inferior hypogastric (pelvic) ganglion. // a cluster of nerve cells and associated glial cells (nuclear location) // Portion of tissue that contains cell bodies of neurons and is located outside the central nervous system. // Structures containing a collection of nerve cell bodies. (Source: BioGlossary, www.Biology-Text.com)." ],
-        "external_definition" : [ "Portion of tissue that contains cell bodies of neurons and is located outside the central nervous system.[AAO]", "Structures containing a collection of nerve cell bodies. (Source: BioGlossary, www.Biology-Text.com)[TAO]" ],
-        "has_obo_namespace" : [ "uberon" ],
-        "has_relational_adjective" : [ "ganglionic" ],
-        "homologous_in" : [ "NCBITaxon_7742" ],
-        "homology_notes" : [ "Cranial sensory placodes are focused areas of the head ectoderm of vertebrates that contribute to the development of the cranial sense organs and their associated ganglia. Placodes have long been considered a key character of vertebrates, and their evolution is proposed to have been essential for the evolution of an active predatory lifestyle by early vertebrates.[well established][VHOG]" ],
-        "id" : [ "UBERON:0000045" ],
-        "in_subset" : [ "uberon_slim", "efo_slim", "vertebrate_core" ]
-      },
-      "synonyms" : [ "ganglia", "neural ganglion" ],
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo",
-      "is_obsolete" : false,
-      "is_defining_ontology" : false,
-      "has_children" : true,
-      "is_root" : false,
-      "short_form" : "UBERON_0000045",
-      "obo_id" : "UBERON:0000045",
-      "obo_definition_citation" : null,
-      "obo_xref" : null,
-      "obo_synonym" : null,
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000045"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000045/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000045/ancestors"
-        },
-        "hierarchicalParents" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000045/hierarchicalParents"
-        },
-        "hierarchicalAncestors" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000045/hierarchicalAncestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000045/jstree"
-        },
-        "children" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000045/children"
-        },
-        "descendants" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000045/descendants"
-        },
-        "hierarchicalChildren" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000045/hierarchicalChildren"
-        },
-        "hierarchicalDescendants" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000045/hierarchicalDescendants"
-        },
-        "graph" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000045/graph"
-        },
-        "part_of" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FUBERON_0000045/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.orpha.net%252FORDO%252FOrphanet_79161/graph"
         }
       }
     } ]
   },
   "_links" : {
     "first" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms?page=0&size=20"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms?page=0&size=20"
     },
     "self" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms"
     },
     "next" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms?page=1&size=20"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms?page=1&size=20"
     },
     "last" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/efo/terms?page=863&size=20"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms?page=961&size=20"
     }
   },
   "page" : {
     "size" : 20,
-    "totalElements" : 17264,
-    "totalPages" : 864,
+    "totalElements" : 19231,
+    "totalPages" : 962,
     "number" : 0
   }
 }

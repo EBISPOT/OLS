@@ -2,16 +2,16 @@
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 41742
+Content-Length: 41260
 
 {
   "_embedded" : {
     "ontologies" : [ {
       "ontologyId" : "vto",
       "loaded" : null,
-      "updated" : "2016-01-19T11:34:58.247+0000",
-      "status" : "TOLOAD",
-      "message" : "No ontology loaded",
+      "updated" : "2017-04-12T12:06:11.179+0000",
+      "status" : "LOADED",
+      "message" : "",
       "version" : null,
       "numberOfTerms" : 0,
       "numberOfProperties" : 0,
@@ -42,24 +42,24 @@ Content-Length: 41742
       },
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/vto"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/vto"
         },
         "terms" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/vto/terms"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/vto/terms"
         },
         "properties" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/vto/properties"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/vto/properties"
         },
         "individuals" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/vto/individuals"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/vto/individuals"
         }
       }
     }, {
       "ontologyId" : "ordo",
       "loaded" : null,
-      "updated" : "2016-01-19T11:34:57.351+0000",
-      "status" : "TOLOAD",
-      "message" : "No ontology loaded",
+      "updated" : "2017-04-12T12:05:56.879+0000",
+      "status" : "LOADED",
+      "message" : "",
       "version" : null,
       "numberOfTerms" : 0,
       "numberOfProperties" : 0,
@@ -90,24 +90,24 @@ Content-Length: 41742
       },
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/ordo"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/ordo"
         },
         "terms" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/ordo/terms"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/ordo/terms"
         },
         "properties" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/ordo/properties"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/ordo/properties"
         },
         "individuals" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/ordo/individuals"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/ordo/individuals"
         }
       }
     }, {
       "ontologyId" : "teddy",
       "loaded" : null,
-      "updated" : "2016-01-19T11:34:57.354+0000",
-      "status" : "TOLOAD",
-      "message" : "No ontology loaded",
+      "updated" : "2017-04-12T12:05:23.173+0000",
+      "status" : "LOADED",
+      "message" : "",
       "version" : null,
       "numberOfTerms" : 0,
       "numberOfProperties" : 0,
@@ -138,27 +138,27 @@ Content-Length: 41742
       },
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/teddy"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/teddy"
         },
         "terms" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/teddy/terms"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/teddy/terms"
         },
         "properties" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/teddy/properties"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/teddy/properties"
         },
         "individuals" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/teddy/individuals"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/teddy/individuals"
         }
       }
     }, {
       "ontologyId" : "cco",
-      "loaded" : null,
-      "updated" : "2016-01-19T11:34:57.359+0000",
-      "status" : "TOLOAD",
-      "message" : "No ontology loaded",
+      "loaded" : "2016-11-07T14:28:58.158+0000",
+      "updated" : "2017-04-12T12:07:06.056+0000",
+      "status" : "LOADED",
+      "message" : "",
       "version" : null,
-      "numberOfTerms" : 0,
-      "numberOfProperties" : 0,
+      "numberOfTerms" : 277685,
+      "numberOfProperties" : 19,
       "numberOfIndividuals" : 0,
       "config" : {
         "id" : "http://purl.obolibrary.org/obo/cco",
@@ -168,11 +168,11 @@ Content-Length: 41742
         "preferredPrefix" : "CCO",
         "description" : "The Cell Cycle Ontology extends existing ontologies for cell cycle knowledge building a resource that integrates and manages knowledge about the cell cycle components and regulatory aspects.",
         "homepage" : "http://www.semantic-systems-biology.org/apo",
-        "version" : null,
+        "version" : "07-11-2016",
         "mailingList" : "vladimir.n.mironov@gmail.com",
         "creators" : [ ],
         "annotations" : { },
-        "fileLocation" : "http://www.nt.ntnu.no/users/mironov/ontology/CCO/cco.obo",
+        "fileLocation" : "http://www.bio.ntnu.no/ontology/CCO/cco.owl",
         "reasonerType" : "NONE",
         "oboSlims" : true,
         "labelProperty" : "http://www.w3.org/2000/01/rdf-schema#label",
@@ -186,24 +186,24 @@ Content-Length: 41742
       },
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/cco"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/cco"
         },
         "terms" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/cco/terms"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/cco/terms"
         },
         "properties" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/cco/properties"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/cco/properties"
         },
         "individuals" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/cco/individuals"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/cco/individuals"
         }
       }
     }, {
       "ontologyId" : "cmpo",
       "loaded" : null,
-      "updated" : "2016-01-19T11:34:57.360+0000",
-      "status" : "TOLOAD",
-      "message" : "No ontology loaded",
+      "updated" : "2017-04-12T12:05:22.642+0000",
+      "status" : "LOADED",
+      "message" : "",
       "version" : null,
       "numberOfTerms" : 0,
       "numberOfProperties" : 0,
@@ -234,24 +234,24 @@ Content-Length: 41742
       },
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/cmpo"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/cmpo"
         },
         "terms" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/cmpo/terms"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/cmpo/terms"
         },
         "properties" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/cmpo/properties"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/cmpo/properties"
         },
         "individuals" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/cmpo/individuals"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/cmpo/individuals"
         }
       }
     }, {
       "ontologyId" : "eol",
       "loaded" : null,
-      "updated" : "2016-01-19T11:34:57.367+0000",
-      "status" : "TOLOAD",
-      "message" : "No ontology loaded",
+      "updated" : "2017-04-12T12:05:22.279+0000",
+      "status" : "LOADED",
+      "message" : "",
       "version" : null,
       "numberOfTerms" : 0,
       "numberOfProperties" : 0,
@@ -282,24 +282,24 @@ Content-Length: 41742
       },
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/eol"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/eol"
         },
         "terms" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/eol/terms"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/eol/terms"
         },
         "properties" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/eol/properties"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/eol/properties"
         },
         "individuals" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/eol/individuals"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/eol/individuals"
         }
       }
     }, {
       "ontologyId" : "lbo",
       "loaded" : null,
-      "updated" : "2016-01-19T11:34:57.369+0000",
-      "status" : "TOLOAD",
-      "message" : "No ontology loaded",
+      "updated" : "2017-04-12T12:05:22.392+0000",
+      "status" : "NOTLOADED",
+      "message" : "Failed to download file: Server returned HTTP response code: 400 for URL: http://data.bioontology.org/ontologies/LBO/submissions/2/download?apikey=0911d614-1dd4-41c0-afd4-9f3df0fc70be",
       "version" : null,
       "numberOfTerms" : 0,
       "numberOfProperties" : 0,
@@ -330,22 +330,22 @@ Content-Length: 41742
       },
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/lbo"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/lbo"
         },
         "terms" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/lbo/terms"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/lbo/terms"
         },
         "properties" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/lbo/properties"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/lbo/properties"
         },
         "individuals" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/lbo/individuals"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/lbo/individuals"
         }
       }
     }, {
       "ontologyId" : "ancestro",
-      "loaded" : "2016-01-25T19:16:17.027+0000",
-      "updated" : "2016-01-25T19:16:17.027+0000",
+      "loaded" : "2017-04-12T09:38:58.889+0000",
+      "updated" : "2017-04-12T12:05:23.451+0000",
       "status" : "LOADED",
       "message" : "",
       "version" : null,
@@ -382,45 +382,45 @@ Content-Length: 41742
       },
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/ancestro"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/ancestro"
         },
         "terms" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/ancestro/terms"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/ancestro/terms"
         },
         "properties" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/ancestro/properties"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/ancestro/properties"
         },
         "individuals" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/ancestro/individuals"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/ancestro/individuals"
         }
       }
     }, {
       "ontologyId" : "chebi",
-      "loaded" : "2016-05-03T09:12:49.604+0000",
-      "updated" : "2016-05-03T09:12:49.604+0000",
+      "loaded" : "2017-04-12T12:41:38.528+0000",
+      "updated" : "2017-04-12T12:41:38.528+0000",
       "status" : "LOADED",
       "message" : "",
       "version" : null,
-      "numberOfTerms" : 102424,
-      "numberOfProperties" : 35,
+      "numberOfTerms" : 107055,
+      "numberOfProperties" : 43,
       "numberOfIndividuals" : 0,
       "config" : {
         "id" : "http://purl.obolibrary.org/obo/chebi.owl",
-        "versionIri" : "http://purl.obolibrary.org/obo/chebi/139/chebi.owl",
+        "versionIri" : "http://purl.obolibrary.org/obo/chebi/150/chebi.owl",
         "title" : "Chemical Entities of Biological Interest",
         "namespace" : "chebi",
         "preferredPrefix" : "CHEBI",
         "description" : "A structured classification of molecular entities of biological interest focusing on 'small' chemical compounds.",
         "homepage" : "http://www.ebi.ac.uk/chebi",
-        "version" : "03-05-2016",
+        "version" : "12-04-2017",
         "mailingList" : null,
         "creators" : [ ],
         "annotations" : {
-          "date" : [ "01:05:2016 03:50" ],
+          "date" : [ "01:04:2017 03:23" ],
           "saved-by" : [ "chebi" ],
           "default-namespace" : [ "chebi_ontology" ],
           "has_obo_format_version" : [ "1.2" ],
-          "comment" : [ "Author: ChEBI curation team", "developed by Michael Ashburner & Pankaj Jaiswal.", "ChEBI Release version 139", "For any queries contact chebi-help@ebi.ac.uk", "ChEBI subsumes and replaces the Chemical Ontology first" ]
+          "comment" : [ "Author: ChEBI curation team", "developed by Michael Ashburner & Pankaj Jaiswal.", "ChEBI Release version 150", "For any queries contact chebi-help@ebi.ac.uk", "ChEBI subsumes and replaces the Chemical Ontology first" ]
         },
         "fileLocation" : "http://purl.obolibrary.org/obo/chebi.owl",
         "reasonerType" : "EL",
@@ -436,46 +436,45 @@ Content-Length: 41742
       },
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/chebi"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/chebi"
         },
         "terms" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/chebi/terms"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/chebi/terms"
         },
         "properties" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/chebi/properties"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/chebi/properties"
         },
         "individuals" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/chebi/individuals"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/chebi/individuals"
         }
       }
     }, {
       "ontologyId" : "doid",
-      "loaded" : "2016-06-08T12:21:56.308+0000",
-      "updated" : "2016-06-08T12:21:56.308+0000",
+      "loaded" : "2017-06-13T10:46:53.444+0000",
+      "updated" : "2017-06-13T10:46:53.444+0000",
       "status" : "LOADED",
       "message" : "",
       "version" : null,
-      "numberOfTerms" : 9247,
-      "numberOfProperties" : 46,
+      "numberOfTerms" : 38239,
+      "numberOfProperties" : 61,
       "numberOfIndividuals" : 0,
       "config" : {
         "id" : "http://purl.obolibrary.org/obo/doid.owl",
-        "versionIri" : "http://purl.obolibrary.org/obo/doid/releases/2016-03-25/doid.owl",
+        "versionIri" : "http://purl.obolibrary.org/obo/doid/releases/2017-05-24/doid.owl",
         "title" : "Human Disease Ontology",
         "namespace" : "doid",
         "preferredPrefix" : "DOID",
         "description" : "An ontology for describing the classification of human diseases organized by etiology.",
         "homepage" : "http://www.disease-ontology.org",
-        "version" : "2016-03-25",
+        "version" : "2017-05-24",
         "mailingList" : null,
         "creators" : [ ],
         "annotations" : {
-          "date" : [ "25:03:2016 16:27" ],
+          "date" : [ "24:05:2017 12:30" ],
           "saved-by" : [ "elvira" ],
           "default-namespace" : [ "disease_ontology" ],
           "has_obo_format_version" : [ "1.2" ],
-          "auto-generated-by" : [ "OBO-Edit 2.3.1" ],
-          "comment" : [ "This work is licensed under a Creative Commons Attribution 3.0 Unported License http://creativecommons.org/licenses/by/3.0/." ]
+          "comment" : [ "The Disease Ontology content is available via the Creative Commons Public Domain Dedication CC0 1.0 Universal license (https://creativecommons.org/publicdomain/zero/1.0/)." ]
         },
         "fileLocation" : "http://purl.obolibrary.org/obo/doid.owl",
         "reasonerType" : "EL",
@@ -491,24 +490,24 @@ Content-Length: 41742
       },
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/doid"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/doid"
         },
         "terms" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/doid/terms"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/doid/terms"
         },
         "properties" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/doid/properties"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/doid/properties"
         },
         "individuals" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/doid/individuals"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/doid/individuals"
         }
       }
     }, {
       "ontologyId" : "pato",
       "loaded" : null,
-      "updated" : "2016-01-19T11:34:58.064+0000",
-      "status" : "TOLOAD",
-      "message" : "No ontology loaded",
+      "updated" : "2017-04-12T12:05:25.374+0000",
+      "status" : "LOADED",
+      "message" : "",
       "version" : null,
       "numberOfTerms" : 0,
       "numberOfProperties" : 0,
@@ -539,24 +538,24 @@ Content-Length: 41742
       },
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/pato"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/pato"
         },
         "terms" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/pato/terms"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/pato/terms"
         },
         "properties" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/pato/properties"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/pato/properties"
         },
         "individuals" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/pato/individuals"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/pato/individuals"
         }
       }
     }, {
       "ontologyId" : "po",
       "loaded" : null,
-      "updated" : "2016-01-19T11:34:58.066+0000",
-      "status" : "TOLOAD",
-      "message" : "No ontology loaded",
+      "updated" : "2017-04-12T12:05:27.992+0000",
+      "status" : "LOADED",
+      "message" : "",
       "version" : null,
       "numberOfTerms" : 0,
       "numberOfProperties" : 0,
@@ -568,7 +567,7 @@ Content-Length: 41742
         "namespace" : "po",
         "preferredPrefix" : "PO",
         "description" : "The Plant Ontology is a structured vocabulary and database resource that links plant anatomy, morphology and growth and development to plant genomics data.",
-        "homepage" : "http://www.plantontology.org",
+        "homepage" : "http://browser.planteome.org/amigo",
         "version" : null,
         "mailingList" : null,
         "creators" : [ ],
@@ -587,24 +586,24 @@ Content-Length: 41742
       },
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/po"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/po"
         },
         "terms" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/po/terms"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/po/terms"
         },
         "properties" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/po/properties"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/po/properties"
         },
         "individuals" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/po/individuals"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/po/individuals"
         }
       }
     }, {
       "ontologyId" : "flu",
       "loaded" : null,
-      "updated" : "2016-01-19T11:34:58.138+0000",
-      "status" : "TOLOAD",
-      "message" : "No ontology loaded",
+      "updated" : "2017-04-12T12:05:23.385+0000",
+      "status" : "LOADED",
+      "message" : "",
       "version" : null,
       "numberOfTerms" : 0,
       "numberOfProperties" : 0,
@@ -635,22 +634,22 @@ Content-Length: 41742
       },
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/flu"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/flu"
         },
         "terms" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/flu/terms"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/flu/terms"
         },
         "properties" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/flu/properties"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/flu/properties"
         },
         "individuals" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/flu/individuals"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/flu/individuals"
         }
       }
     }, {
       "ontologyId" : "rexo",
       "loaded" : "2016-06-07T13:47:47.136+0000",
-      "updated" : "2016-06-07T13:47:47.136+0000",
+      "updated" : "2017-04-12T12:06:37.356+0000",
       "status" : "LOADED",
       "message" : "",
       "version" : null,
@@ -683,24 +682,170 @@ Content-Length: 41742
       },
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/rexo"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/rexo"
         },
         "terms" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/rexo/terms"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/rexo/terms"
         },
         "properties" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/rexo/properties"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/rexo/properties"
         },
         "individuals" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/rexo/individuals"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/rexo/individuals"
+        }
+      }
+    }, {
+      "ontologyId" : "agro",
+      "loaded" : "2016-08-22T08:51:43.059+0000",
+      "updated" : "2017-04-12T12:05:24.607+0000",
+      "status" : "LOADED",
+      "message" : "",
+      "version" : null,
+      "numberOfTerms" : 431,
+      "numberOfProperties" : 65,
+      "numberOfIndividuals" : 157,
+      "config" : {
+        "id" : "http://purl.obolibrary.org/obo/agro",
+        "versionIri" : "http://purl.obolibrary.org/obo/agro/releases/2016-06-03/agro.owl",
+        "title" : "Agronomy Ontology",
+        "namespace" : "agro",
+        "preferredPrefix" : "AGRO",
+        "description" : "Ontology of agronomic practices, agronomic techniques, and agronomic variables used in agronomic experiments",
+        "homepage" : "https://github.com/AgriculturalSemantics/agro",
+        "version" : "2016-06-03",
+        "mailingList" : "https://groups.google.com/group/agronomyOntology",
+        "creators" : [ ],
+        "annotations" : {
+          "comment" : [ "agro" ]
+        },
+        "fileLocation" : "http://purl.obolibrary.org/obo/agro.owl",
+        "reasonerType" : "EL",
+        "oboSlims" : true,
+        "labelProperty" : "http://www.w3.org/2000/01/rdf-schema#label",
+        "definitionProperties" : [ "http://purl.obolibrary.org/obo/IAO_0000115" ],
+        "synonymProperties" : [ "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym" ],
+        "hierarchicalProperties" : [ "http://purl.obolibrary.org/obo/BFO_0000050" ],
+        "baseUris" : [ "http://purl.obolibrary.org/obo/AGRO_" ],
+        "hiddenProperties" : [ ],
+        "internalMetadataProperties" : [ ],
+        "skos" : false
+      },
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/agro"
+        },
+        "terms" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/agro/terms"
+        },
+        "properties" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/agro/properties"
+        },
+        "individuals" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/agro/individuals"
+        }
+      }
+    }, {
+      "ontologyId" : "genepio",
+      "loaded" : null,
+      "updated" : "2017-04-12T12:05:25.396+0000",
+      "status" : "LOADED",
+      "message" : "",
+      "version" : null,
+      "numberOfTerms" : 0,
+      "numberOfProperties" : 0,
+      "numberOfIndividuals" : 0,
+      "config" : {
+        "id" : "http://purl.obolibrary.org/obo/genepio",
+        "versionIri" : null,
+        "title" : "Genomic Epidemiology Ontology",
+        "namespace" : "genepio",
+        "preferredPrefix" : "GENEPIO",
+        "description" : "The Genomic Epidemiology Ontology (GenEpiO) covers vocabulary necessary to identify, document and research foodborne pathogens and associated outbreaks.",
+        "homepage" : "http://genepio.github.io/genepio/",
+        "version" : null,
+        "mailingList" : null,
+        "creators" : [ ],
+        "annotations" : { },
+        "fileLocation" : "http://purl.obolibrary.org/obo/genepio.owl",
+        "reasonerType" : "EL",
+        "oboSlims" : true,
+        "labelProperty" : "http://www.w3.org/2000/01/rdf-schema#label",
+        "definitionProperties" : [ "http://purl.obolibrary.org/obo/IAO_0000115" ],
+        "synonymProperties" : [ "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym" ],
+        "hierarchicalProperties" : [ "http://purl.obolibrary.org/obo/BFO_0000050" ],
+        "baseUris" : [ "http://purl.obolibrary.org/obo/GENEPIO_" ],
+        "hiddenProperties" : [ ],
+        "internalMetadataProperties" : [ ],
+        "skos" : false
+      },
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/genepio"
+        },
+        "terms" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/genepio/terms"
+        },
+        "properties" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/genepio/properties"
+        },
+        "individuals" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/genepio/individuals"
+        }
+      }
+    }, {
+      "ontologyId" : "zeco",
+      "loaded" : null,
+      "updated" : "2017-04-12T12:05:24.947+0000",
+      "status" : "LOADED",
+      "message" : "",
+      "version" : null,
+      "numberOfTerms" : 0,
+      "numberOfProperties" : 0,
+      "numberOfIndividuals" : 0,
+      "config" : {
+        "id" : "http://purl.obolibrary.org/obo/zeco",
+        "versionIri" : null,
+        "title" : "Zebrafish Experimental Conditions Ontology",
+        "namespace" : "zeco",
+        "preferredPrefix" : "ZECO",
+        "description" : "Experimental conditions applied to zebrafish, developed to facilitate experiment condition annotation at ZFIN",
+        "homepage" : "https://github.com/ybradford/zebrafish-experimental-conditions-ontology",
+        "version" : null,
+        "mailingList" : null,
+        "creators" : [ ],
+        "annotations" : { },
+        "fileLocation" : "http://purl.obolibrary.org/obo/zeco.owl",
+        "reasonerType" : "EL",
+        "oboSlims" : true,
+        "labelProperty" : "http://www.w3.org/2000/01/rdf-schema#label",
+        "definitionProperties" : [ "http://purl.obolibrary.org/obo/IAO_0000115" ],
+        "synonymProperties" : [ "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym" ],
+        "hierarchicalProperties" : [ "http://purl.obolibrary.org/obo/BFO_0000050" ],
+        "baseUris" : [ "http://purl.obolibrary.org/obo/ZECO_" ],
+        "hiddenProperties" : [ ],
+        "internalMetadataProperties" : [ ],
+        "skos" : false
+      },
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/zeco"
+        },
+        "terms" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/zeco/terms"
+        },
+        "properties" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/zeco/properties"
+        },
+        "individuals" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/zeco/individuals"
         }
       }
     }, {
       "ontologyId" : "pr",
       "loaded" : null,
-      "updated" : "2016-01-19T11:34:58.068+0000",
-      "status" : "TOLOAD",
-      "message" : "No ontology loaded",
+      "updated" : "2017-04-12T12:29:44.449+0000",
+      "status" : "LOADED",
+      "message" : "",
       "version" : null,
       "numberOfTerms" : 0,
       "numberOfProperties" : 0,
@@ -731,24 +876,24 @@ Content-Length: 41742
       },
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/pr"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/pr"
         },
         "terms" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/pr/terms"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/pr/terms"
         },
         "properties" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/pr/properties"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/pr/properties"
         },
         "individuals" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/pr/individuals"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/pr/individuals"
         }
       }
     }, {
       "ontologyId" : "xao",
       "loaded" : null,
-      "updated" : "2016-01-19T11:34:58.069+0000",
-      "status" : "TOLOAD",
-      "message" : "No ontology loaded",
+      "updated" : "2017-04-12T12:05:25.785+0000",
+      "status" : "LOADED",
+      "message" : "",
       "version" : null,
       "numberOfTerms" : 0,
       "numberOfProperties" : 0,
@@ -779,24 +924,24 @@ Content-Length: 41742
       },
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/xao"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/xao"
         },
         "terms" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/xao/terms"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/xao/terms"
         },
         "properties" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/xao/properties"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/xao/properties"
         },
         "individuals" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/xao/individuals"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/xao/individuals"
         }
       }
     }, {
       "ontologyId" : "zfa",
       "loaded" : null,
-      "updated" : "2016-01-19T11:34:58.071+0000",
-      "status" : "TOLOAD",
-      "message" : "No ontology loaded",
+      "updated" : "2017-04-12T12:05:26.890+0000",
+      "status" : "LOADED",
+      "message" : "",
       "version" : null,
       "numberOfTerms" : 0,
       "numberOfProperties" : 0,
@@ -827,185 +972,38 @@ Content-Length: 41742
       },
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/zfa"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/zfa"
         },
         "terms" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/zfa/terms"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/zfa/terms"
         },
         "properties" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/zfa/properties"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/zfa/properties"
         },
         "individuals" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/zfa/individuals"
-        }
-      }
-    }, {
-      "ontologyId" : "aeo",
-      "loaded" : null,
-      "updated" : "2016-01-19T11:34:58.073+0000",
-      "status" : "TOLOAD",
-      "message" : "No ontology loaded",
-      "version" : null,
-      "numberOfTerms" : 0,
-      "numberOfProperties" : 0,
-      "numberOfIndividuals" : 0,
-      "config" : {
-        "id" : "http://purl.obolibrary.org/obo/aeo.owl",
-        "versionIri" : null,
-        "title" : "Anatomical Entity Ontology",
-        "namespace" : "aeo",
-        "preferredPrefix" : "AEO",
-        "description" : "AEO is an ontology of anatomical structures that expands CARO, the Common Anatomy Reference Ontology",
-        "homepage" : "https://github.com/obophenotype/human-developmental-anatomy-ontology/",
-        "version" : null,
-        "mailingList" : null,
-        "creators" : [ ],
-        "annotations" : { },
-        "fileLocation" : "http://purl.obolibrary.org/obo/aeo.owl",
-        "reasonerType" : "EL",
-        "oboSlims" : true,
-        "labelProperty" : "http://www.w3.org/2000/01/rdf-schema#label",
-        "definitionProperties" : [ "http://purl.obolibrary.org/obo/IAO_0000115" ],
-        "synonymProperties" : [ "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym" ],
-        "hierarchicalProperties" : [ "http://purl.obolibrary.org/obo/BFO_0000050" ],
-        "baseUris" : [ "http://purl.obolibrary.org/obo/AEO_" ],
-        "hiddenProperties" : [ ],
-        "internalMetadataProperties" : [ ],
-        "skos" : false
-      },
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/aeo"
-        },
-        "terms" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/aeo/terms"
-        },
-        "properties" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/aeo/properties"
-        },
-        "individuals" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/aeo/individuals"
-        }
-      }
-    }, {
-      "ontologyId" : "aero",
-      "loaded" : "2016-05-27T09:51:11.982+0000",
-      "updated" : "2016-05-27T09:51:11.982+0000",
-      "status" : "LOADED",
-      "message" : "",
-      "version" : null,
-      "numberOfTerms" : 388,
-      "numberOfProperties" : 141,
-      "numberOfIndividuals" : 42,
-      "config" : {
-        "id" : "http://purl.obolibrary.org/obo/aero.owl",
-        "versionIri" : null,
-        "title" : "Adverse Event Reporting Ontology",
-        "namespace" : "aero",
-        "preferredPrefix" : "AERO",
-        "description" : "The Adverse Event Reporting Ontology (AERO) is an ontology aimed at supporting clinicians at the time of data entry, increasing quality and accuracy of reported adverse events",
-        "homepage" : "http://purl.obolibrary.org/obo/aero",
-        "version" : "27-05-2016",
-        "mailingList" : null,
-        "creators" : [ ],
-        "annotations" : {
-          "Contributor" : [ "Alan Ruttenberg", "Melanie Courtot" ],
-          "comment" : [ "The Adverse Event Reporting Ontology (AERO) is designed to facilitate the representation of adverse event reports and their evaluation in relation to clinical guidelines written by various authorities. We take a realist approach in which findings in reports are information artifacts and are related to instances or types that represent patient, symptoms, diseases, etc. We intend that use of this ontology will result in data that interoperates well with OBO Foundry ontologies as we directly use terms from OBO ontologies wherever appropriate.\n\nThe initial domain for this work are reports of adverse events following immunization (AEFIs). We represent the Brighton case definitions as our guidelines, show how findings can be assessed in terms of Brighton criteria and how diagnoses of adverse events with different levels of certainty can be obtained by use of the OWL reasoner." ]
-        },
-        "fileLocation" : "http://purl.obolibrary.org/obo/aero.owl",
-        "reasonerType" : "EL",
-        "oboSlims" : true,
-        "labelProperty" : "http://www.w3.org/2000/01/rdf-schema#label",
-        "definitionProperties" : [ "http://purl.obolibrary.org/obo/IAO_0000115" ],
-        "synonymProperties" : [ "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym" ],
-        "hierarchicalProperties" : [ "http://purl.obolibrary.org/obo/BFO_0000050" ],
-        "baseUris" : [ "http://purl.obolibrary.org/obo/AERO_" ],
-        "hiddenProperties" : [ ],
-        "internalMetadataProperties" : [ ],
-        "skos" : false
-      },
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/aero"
-        },
-        "terms" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/aero/terms"
-        },
-        "properties" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/aero/properties"
-        },
-        "individuals" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/aero/individuals"
-        }
-      }
-    }, {
-      "ontologyId" : "apo",
-      "loaded" : null,
-      "updated" : "2016-01-19T11:34:58.076+0000",
-      "status" : "TOLOAD",
-      "message" : "No ontology loaded",
-      "version" : null,
-      "numberOfTerms" : 0,
-      "numberOfProperties" : 0,
-      "numberOfIndividuals" : 0,
-      "config" : {
-        "id" : "http://purl.obolibrary.org/obo/apo.owl",
-        "versionIri" : null,
-        "title" : "Ascomycete phenotype ontology",
-        "namespace" : "apo",
-        "preferredPrefix" : "APO",
-        "description" : "A structured controlled vocabulary for the phenotypes of Ascomycete fungi",
-        "homepage" : "http://www.yeastgenome.org/",
-        "version" : null,
-        "mailingList" : null,
-        "creators" : [ ],
-        "annotations" : { },
-        "fileLocation" : "http://purl.obolibrary.org/obo/apo.owl",
-        "reasonerType" : "EL",
-        "oboSlims" : true,
-        "labelProperty" : "http://www.w3.org/2000/01/rdf-schema#label",
-        "definitionProperties" : [ "http://purl.obolibrary.org/obo/IAO_0000115" ],
-        "synonymProperties" : [ "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym" ],
-        "hierarchicalProperties" : [ "http://purl.obolibrary.org/obo/BFO_0000050" ],
-        "baseUris" : [ "http://purl.obolibrary.org/obo/APO_" ],
-        "hiddenProperties" : [ ],
-        "internalMetadataProperties" : [ ],
-        "skos" : false
-      },
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/apo"
-        },
-        "terms" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/apo/terms"
-        },
-        "properties" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/apo/properties"
-        },
-        "individuals" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/apo/individuals"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/zfa/individuals"
         }
       }
     } ]
   },
   "_links" : {
     "first" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies?page=0&size=20"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies?page=0&size=20"
     },
     "self" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies"
     },
     "next" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies?page=1&size=20"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies?page=1&size=20"
     },
     "last" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies?page=7&size=20"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies?page=9&size=20"
     }
   },
   "page" : {
     "size" : 20,
-    "totalElements" : 149,
-    "totalPages" : 8,
+    "totalElements" : 194,
+    "totalPages" : 10,
     "number" : 0
   }
 }

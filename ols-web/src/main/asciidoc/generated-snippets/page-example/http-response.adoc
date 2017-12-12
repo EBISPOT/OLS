@@ -2,16 +2,16 @@
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 3141
+Content-Length: 3159
 
 {
   "_embedded" : {
     "ontologies" : [ {
       "ontologyId" : "ordo",
       "loaded" : null,
-      "updated" : "2016-01-19T11:34:57.351+0000",
-      "status" : "TOLOAD",
-      "message" : "No ontology loaded",
+      "updated" : "2017-04-12T12:05:56.879+0000",
+      "status" : "LOADED",
+      "message" : "",
       "version" : null,
       "numberOfTerms" : 0,
       "numberOfProperties" : 0,
@@ -42,41 +42,41 @@ Content-Length: 3141
       },
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/ordo"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/ordo"
         },
         "terms" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/ordo/terms"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/ordo/terms"
         },
         "properties" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/ordo/properties"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/ordo/properties"
         },
         "individuals" : {
-          "href" : "http://www.ebi.ac.uk/api/ontologies/ordo/individuals"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/ordo/individuals"
         }
       }
     } ]
   },
   "_links" : {
     "first" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies?page=0&size=1"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies?page=0&size=1"
     },
     "prev" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies?page=0&size=1"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies?page=0&size=1"
     },
     "self" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies"
     },
     "next" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies?page=2&size=1"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies?page=2&size=1"
     },
     "last" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies?page=148&size=1"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies?page=193&size=1"
     }
   },
   "page" : {
     "size" : 1,
-    "totalElements" : 149,
-    "totalPages" : 149,
+    "totalElements" : 194,
+    "totalPages" : 194,
     "number" : 1
   }
 }

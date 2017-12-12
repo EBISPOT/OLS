@@ -304,7 +304,7 @@ GET /api/search?q={query}
 You can override the fields that are searched by supplying a `queryFields` argument. For example, to query on labels and synonyms use
 
 ----
-GET /api/search?q={query}&queryFields={label,synonym}
+GET /ols/api/search?q={query}&queryFields={label,synonym}
 ----
 
 |===
@@ -357,7 +357,7 @@ We provide an additional search endopint that is designed specifically for selec
 applications such as autocomplete.
 
 ----
-GET /api/select?q={query}
+GET /ols/api/select?q={query}
 ----
 
 |===
@@ -400,7 +400,7 @@ GET /api/select?q={query}
 We also provide a generic suggester endpoint. This endpoint aims to provide traditional autosuggest based on all the vocabulary in OLS (all class labels or synonyms). All results from this endpoint are unique and are not coupled to any particular ontology, however, searches can be restricted by ontology.
 
 ----
-GET /api/suggest?q={query}
+GET /ols/api/suggest?q={query}
 ----
 
 |===

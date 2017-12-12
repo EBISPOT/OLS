@@ -3,7 +3,7 @@
 HTTP/1.1 200 OK
 Content-Disposition: inline;filename=f.txt
 Content-Type: application/json
-Content-Length: 2880
+Content-Length: 3657
 
 {
   "iri" : "http://purl.obolibrary.org/obo/GO_0043226",
@@ -12,55 +12,74 @@ Content-Length: 2880
   "annotation" : {
     "database_cross_reference" : [ "NIF_Subcellular:sao1539965131", "Wikipedia:Organelle" ],
     "has_obo_namespace" : [ "cellular_component" ],
-    "id" : [ "GO:0043226" ],
-    "in_subset" : [ "goslim_chembl", "goslim_generic", "goslim_pir", "gosubset_prok" ]
+    "id" : [ "GO:0043226" ]
   },
   "synonyms" : null,
   "ontology_name" : "go",
   "ontology_prefix" : "GO",
   "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
   "is_obsolete" : false,
+  "term_replaced_by" : null,
   "is_defining_ontology" : true,
   "has_children" : true,
   "is_root" : false,
   "short_form" : "GO_0043226",
   "obo_id" : "GO:0043226",
-  "obo_definition_citation" : null,
-  "obo_xref" : null,
+  "in_subset" : [ "goslim_chembl", "goslim_generic", "goslim_pir", "gosubset_prok" ],
+  "obo_definition_citation" : [ {
+    "definition" : "Organized structure of distinctive morphology and function. Includes the nucleus, mitochondria, plastids, vacuoles, vesicles, ribosomes and the cytoskeleton, and prokaryotic structures such as anammoxosomes and pirellulosomes. Excludes the plasma membrane.",
+    "oboXrefs" : [ {
+      "database" : "GOC",
+      "id" : "go_curators",
+      "description" : null,
+      "url" : null
+    } ]
+  } ],
+  "obo_xref" : [ {
+    "database" : "Wikipedia",
+    "id" : "Organelle",
+    "description" : null,
+    "url" : "http://en.wikipedia.org/wiki/Organelle"
+  }, {
+    "database" : "NIF_Subcellular",
+    "id" : "sao1539965131",
+    "description" : null,
+    "url" : "http://www.neurolex.org/wiki/sao1539965131"
+  } ],
   "obo_synonym" : null,
   "_links" : {
     "self" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226"
     },
     "parents" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/parents"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/parents"
     },
     "ancestors" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/ancestors"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/ancestors"
     },
     "hierarchicalParents" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/hierarchicalParents"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/hierarchicalParents"
     },
     "hierarchicalAncestors" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/hierarchicalAncestors"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/hierarchicalAncestors"
     },
     "jstree" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/jstree"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/jstree"
     },
     "children" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/children"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/children"
     },
     "descendants" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/descendants"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/descendants"
     },
     "hierarchicalChildren" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/hierarchicalChildren"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/hierarchicalChildren"
     },
     "hierarchicalDescendants" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/hierarchicalDescendants"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/hierarchicalDescendants"
     },
     "graph" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/graph"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043226/graph"
     }
   }
 }

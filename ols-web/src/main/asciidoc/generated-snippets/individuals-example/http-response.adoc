@@ -3,7 +3,7 @@
 HTTP/1.1 200 OK
 Content-Disposition: inline;filename=f.txt
 Content-Type: application/json
-Content-Length: 2324
+Content-Length: 2395
 
 {
   "iri" : "http://purl.obolibrary.org/obo/RO_0001901",
@@ -20,11 +20,13 @@ Content-Length: 2324
     "ontology_prefix" : "RO",
     "ontology_iri" : "http://purl.obolibrary.org/obo/ro.owl",
     "is_obsolete" : false,
+    "term_replaced_by" : null,
     "is_defining_ontology" : false,
     "has_children" : false,
     "is_root" : true,
     "short_form" : "Thing",
     "obo_id" : null,
+    "in_subset" : null,
     "obo_definition_citation" : null,
     "obo_xref" : null,
     "obo_synonym" : null
@@ -39,16 +41,16 @@ Content-Length: 2324
   "obo_id" : "RO:0001901",
   "_links" : {
     "self" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/ro/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0001901"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/ro/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0001901"
     },
     "types" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/ro/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0001901/types"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/ro/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0001901/types"
     },
     "alltypes" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/ro/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0001901/alltypes"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/ro/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0001901/alltypes"
     },
     "jstree" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies/ro/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0001901/jstree"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/ro/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0001901/jstree"
     }
   }
 }

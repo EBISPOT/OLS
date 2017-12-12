@@ -1,4 +1,4 @@
 [source,bash]
 ----
-$ curl 'http://www.ebi.ac.uk/ols/api/ontologies?page=1&size=1' -i
+$ curl -L 'http://www.ebi.ac.uk/ols/api/ontologies?page=1&size=1' -i
 ----

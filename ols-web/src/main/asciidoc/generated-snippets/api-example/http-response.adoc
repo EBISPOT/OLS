@@ -2,24 +2,24 @@
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 412
+Content-Length: 432
 
 {
   "_links" : {
     "individuals" : {
-      "href" : "http://www.ebi.ac.uk/api/individuals"
+      "href" : "http://www.ebi.ac.uk/ols/api/individuals"
     },
     "ontologies" : {
-      "href" : "http://www.ebi.ac.uk/api/ontologies"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies"
     },
     "properties" : {
-      "href" : "http://www.ebi.ac.uk/api/properties"
+      "href" : "http://www.ebi.ac.uk/ols/api/properties"
     },
     "terms" : {
-      "href" : "http://www.ebi.ac.uk/api/terms"
+      "href" : "http://www.ebi.ac.uk/ols/api/terms"
     },
     "profile" : {
-      "href" : "http://www.ebi.ac.uk/api/profile"
+      "href" : "http://www.ebi.ac.uk/ols/api/profile"
     }
   }
 }

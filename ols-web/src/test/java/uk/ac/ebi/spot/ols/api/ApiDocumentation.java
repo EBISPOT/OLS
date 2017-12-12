@@ -43,7 +43,6 @@ import static org.springframework.restdocs.request.RequestDocumentation.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = OlsWebApp.class)
 @WebAppConfiguration
-@Ignore
 public class ApiDocumentation {
 
     @Rule
@@ -67,7 +66,7 @@ public class ApiDocumentation {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.context)
                 .apply(documentationConfiguration(this.restDocumentation).uris()
                                 .withScheme("http")
-                                .withHost("www.ebi.ac.uk/ols")
+                                .withHost("www.ebi.ac.uk")
                                 .withPort(80)
                 )
                 .alwaysDo(this.document)
@@ -96,7 +95,7 @@ public class ApiDocumentation {
 
         );
 
-        this.mockMvc.perform(get("/api/ontologies?page=1&size=1"))
+        this.mockMvc.perform(get("/ols/api/ontologies?page=1&size=1").contextPath("/ols"))
                 .andExpect(status().isOk());
     }
 
@@ -116,7 +115,7 @@ public class ApiDocumentation {
                 .perform(get("/error")
                         .requestAttr(RequestDispatcher.ERROR_STATUS_CODE, 404)
                         .requestAttr(RequestDispatcher.ERROR_REQUEST_URI,
-                                "/api/ontologies/foobar")
+                                "/ols/api/ontologies/foobar")
                         .requestAttr(RequestDispatcher.ERROR_MESSAGE,
                                 "Resource not found"))
         ;
@@ -137,7 +136,7 @@ public class ApiDocumentation {
                         linkWithRel("profile").description("ALPS is not currently supported")
                         )
         );
-        this.mockMvc.perform(get("/api").accept(MediaType.APPLICATION_JSON))
+        this.mockMvc.perform(get("/ols/api").contextPath("/ols").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
@@ -145,7 +144,7 @@ public class ApiDocumentation {
     @Test
     public void ontologiesListExample () throws Exception {
 
-        this.mockMvc.perform(get("/api/ontologies").accept(MediaType.APPLICATION_JSON))
+        this.mockMvc.perform(get("/ols/api/ontologies").contextPath("/ols").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
     }
@@ -181,7 +180,7 @@ public class ApiDocumentation {
 
         );
 
-        this.mockMvc.perform(get("/api/ontologies/{ontology_id}", "efo").accept(MediaType.APPLICATION_JSON))
+        this.mockMvc.perform(get("/ols/api/ontologies/{ontology_id}", "efo").contextPath("/ols").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
@@ -193,7 +192,7 @@ public class ApiDocumentation {
                 pathParameters(
                           parameterWithName("ontology_id").description("The ontology id in OLS"))
         );
-        this.mockMvc.perform(get("/api/ontologies/{ontology_id}/terms/roots", "efo").accept(MediaType.APPLICATION_JSON))
+        this.mockMvc.perform(get("/ols/api/ontologies/{ontology_id}/terms/roots", "efo").contextPath("/ols").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
@@ -205,7 +204,7 @@ public class ApiDocumentation {
                         parameterWithName("ontology_id").description("The ontology id in OLS"))
         );
 
-        this.mockMvc.perform(get("/api/ontologies/{ontology_id}/terms", "efo").accept(MediaType.APPLICATION_JSON))
+        this.mockMvc.perform(get("/ols/api/ontologies/{ontology_id}/terms", "efo").contextPath("/ols").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
@@ -220,7 +219,7 @@ public class ApiDocumentation {
 
                 );
 
-        this.mockMvc.perform(get("/api/ontologies/{ontology_id}/terms?iri={iri}", "go", "http://purl.obolibrary.org/obo/GO_0043226").accept(MediaType.APPLICATION_JSON))
+        this.mockMvc.perform(get("/ols/api/ontologies/{ontology_id}/terms?iri={iri}", "go", "http://purl.obolibrary.org/obo/GO_0043226").contextPath("/ols").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
@@ -235,7 +234,7 @@ public class ApiDocumentation {
                 )
         );
 
-        this.mockMvc.perform(get("/api/ontologies/{ontology_id}/terms?short_form={short_form}", "go","GO_0043226").accept(MediaType.APPLICATION_JSON))
+        this.mockMvc.perform(get("/ols/api/ontologies/{ontology_id}/terms?short_form={short_form}", "go","GO_0043226").contextPath("/ols").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
@@ -250,7 +249,7 @@ public class ApiDocumentation {
                 )
         );
 
-        this.mockMvc.perform(get("/api/ontologies/{ontology_id}/terms?obo_id={obo_id}", "go","GO:0043226").accept(MediaType.APPLICATION_JSON))
+        this.mockMvc.perform(get("/ols/api/ontologies/{ontology_id}/terms?obo_id={obo_id}", "go","GO:0043226").contextPath("/ols").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
@@ -276,7 +275,7 @@ public class ApiDocumentation {
                         linkWithRel("graph").description("A JSON graph structure of the immediately related nodes")));
 
 
-        this.mockMvc.perform(get("/api/ontologies/{ontology}/terms/{iri}", "go", URLEncoder.encode("http://purl.obolibrary.org/obo/GO_0043226", "UTF-8")).accept(MediaType.APPLICATION_JSON))
+        this.mockMvc.perform(get("/ols/api/ontologies/{ontology}/terms/{iri}", "go", URLEncoder.encode("http://purl.obolibrary.org/obo/GO_0043226", "UTF-8")).contextPath("/ols").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
     }
@@ -290,7 +289,7 @@ public class ApiDocumentation {
                         parameterWithName("iri").description("The IRI of the relation, this value must be double URL encoded"))
                 );
 
-        this.mockMvc.perform(get("/api/ontologies/{ontology}/properties/{iri}", "go", URLEncoder.encode("http://purl.obolibrary.org/obo/BFO_0000050", "UTF-8")).accept(MediaType.APPLICATION_JSON))
+        this.mockMvc.perform(get("/ols/api/ontologies/{ontology}/properties/{iri}", "go", URLEncoder.encode("http://purl.obolibrary.org/obo/BFO_0000050", "UTF-8")).contextPath("/ols").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
     }
@@ -304,7 +303,7 @@ public class ApiDocumentation {
                         parameterWithName("iri").description("The IRI of the individual, this value must be double URL encoded"))
                 );
 
-        this.mockMvc.perform(get("/api/ontologies/{ontology}/individuals/{iri}", "ro", URLEncoder.encode("http://purl.obolibrary.org/obo/RO_0001901", "UTF-8")).accept(MediaType.APPLICATION_JSON))
+        this.mockMvc.perform(get("/ols/api/ontologies/{ontology}/individuals/{iri}", "ro", URLEncoder.encode("http://purl.obolibrary.org/obo/RO_0001901", "UTF-8")).contextPath("/ols").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
     }

@@ -1,4 +1,4 @@
 [source,bash]
 ----
-$ curl 'http://www.ebi.ac.uk/ols/api/ontologies/go/terms?obo_id=GO:0043226' -i -H 'Accept: application/json'
+$ curl -L 'http://www.ebi.ac.uk/ols/api/ontologies/go/terms?obo_id=GO:0043226' -i -H 'Accept: application/json'
 ----

@@ -2,13 +2,13 @@
 ----
 HTTP/1.1 404 Not Found
 Content-Type: application/json;charset=UTF-8
-Content-Length: 149
+Content-Length: 153
 
 {
-  "timestamp" : 1471533066961,
+  "timestamp" : 1513093638663,
   "status" : 404,
   "error" : "Not Found",
   "message" : "Resource not found",
-  "path" : "/api/ontologies/foobar"
+  "path" : "/ols/api/ontologies/foobar"
 }
 ----
