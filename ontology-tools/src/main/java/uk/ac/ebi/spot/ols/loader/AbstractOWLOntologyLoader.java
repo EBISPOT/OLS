@@ -1075,7 +1075,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
             for (IRI value : relatedParentTerms.get(entityIRI).values().stream().flatMap(Collection::stream).collect(Collectors.toSet())) {
                 if (allChildTerms.containsKey(entityIRI)) {
                     if (allChildTerms.get(entityIRI).contains(value)) {
-                        getLog().warn("Cycle detected where is " + entityIRI + " is related to one of its decendants");
+                        getLog().warn("Cycle detected where is " + entityIRI + " is related to one of its descendants");
                         continue;
                     }
                 }
