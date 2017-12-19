@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.util.FileSystemUtils;
 import sun.net.www.protocol.ftp.FtpURLConnection;
 import uk.ac.ebi.spot.ols.exception.FileUpdateServiceException;
 
@@ -13,6 +14,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
+import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.time.Duration;
 import java.time.Instant;
@@ -153,6 +155,34 @@ public class FileUpdater {
     }
 
     private InputStream getFileInputStream(URL url) throws IOException {
+
+        File pathFile = new File(url.getPath());
+
+        if (Files.exists(pathFile.toPath())) {
+            FileInputStream fis= new FileInputStream(pathFile);
+            if (pathFile.getName().endsWith("gz")) {
+                return new GZIPInputStream(fis);
+            }
+            else if (pathFile.getName().endsWith("zip")) {
+                final int BUFFER = 2048;
+                int count = 0;
+                byte data[] = new byte[BUFFER];
+                ByteArrayOutputStream out = new ByteArrayOutputStream();
+                ZipInputStream zis = new ZipInputStream(fis);
+                if (zis.getNextEntry() != null) {
+                    while ((count = zis.read(data, 0, BUFFER)) != -1) {
+                        out.write(data);
+                    }
+                    return new ByteArrayInputStream(out.toByteArray());
+                }
+            }
+            else {
+                return new FileInputStream(pathFile);
+            }
+        }
+
+        // try a http connection
+
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setConnectTimeout(15000);
         connection.setReadTimeout(60000);
@@ -173,18 +203,18 @@ public class FileUpdater {
         InputStream is = null;
 
         if (redirect) {
-       		// get redirect url from "location" header field
-       		String newUrl = connection.getHeaderField("Location");
-       		// open the new connnection again
+            // get redirect url from "location" header field
+            String newUrl = connection.getHeaderField("Location");
+            // open the new connnection again
 
             try {
                 connection = (HttpURLConnection) new URL(newUrl).openConnection();
-                is = connection.getInputStream();
+                connection.setInstanceFollowRedirects(true);
             } catch (Exception e) {
                 FtpURLConnection ftpURLConnection = (FtpURLConnection) new URL(newUrl).openConnection();
                 is = ftpURLConnection.getInputStream();
             }
-       	}
+        }
 
 
 //        return connection.getInputStream() ;
