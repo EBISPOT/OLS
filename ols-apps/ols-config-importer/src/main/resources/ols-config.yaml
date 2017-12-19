@@ -122,8 +122,7 @@ ontologies:
       - http://www.ebi.ac.uk/cmpo/CMPO_
     oboSlims: true
     reasoner: EL
-#    ontology_purl : http://www.ebi.ac.uk/~jupp/downloads/cmpo.owl.zip   ### This is the download URL
-    ontology_purl : file:../../../Dropbox/dev/cmpo/cmpo.owl.zip   ### This is the download URL
+    ontology_purl : http://www.ebi.ac.uk/cmpo/cmpo.owl  ### This is the download URL
 
 ## eNanoMapper
 

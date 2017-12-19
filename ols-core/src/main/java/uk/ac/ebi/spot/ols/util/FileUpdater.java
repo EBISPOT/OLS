@@ -1,5 +1,6 @@
 package uk.ac.ebi.spot.ols.util;
 
+import org.semanticweb.elk.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +15,13 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.zip.GZIPInputStream;
+import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 /**
@@ -160,20 +163,15 @@ public class FileUpdater {
 
         if (Files.exists(pathFile.toPath())) {
             FileInputStream fis= new FileInputStream(pathFile);
-            if (pathFile.getName().endsWith("gz")) {
+            if (pathFile.getName().endsWith(".gz")) {
                 return new GZIPInputStream(fis);
             }
-            else if (pathFile.getName().endsWith("zip")) {
-                final int BUFFER = 2048;
-                int count = 0;
-                byte data[] = new byte[BUFFER];
-                ByteArrayOutputStream out = new ByteArrayOutputStream();
+            else if (pathFile.getName().endsWith(".zip")) {
                 ZipInputStream zis = new ZipInputStream(fis);
-                if (zis.getNextEntry() != null) {
-                    while ((count = zis.read(data, 0, BUFFER)) != -1) {
-                        out.write(data);
-                    }
-                    return new ByteArrayInputStream(out.toByteArray());
+                if ( (zis.getNextEntry()) != null) {
+                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                    IOUtils.copy(zis, outputStream);
+                    return new ByteArrayInputStream(outputStream.toByteArray());
                 }
             }
             else {
@@ -199,9 +197,7 @@ public class FileUpdater {
                     || status == HttpURLConnection.HTTP_SEE_OTHER)
                 redirect = true;
         }
-
-        InputStream is = null;
-
+        
         if (redirect) {
             // get redirect url from "location" header field
             String newUrl = connection.getHeaderField("Location");
@@ -212,36 +208,22 @@ public class FileUpdater {
                 connection.setInstanceFollowRedirects(true);
             } catch (Exception e) {
                 FtpURLConnection ftpURLConnection = (FtpURLConnection) new URL(newUrl).openConnection();
-                is = ftpURLConnection.getInputStream();
+                return ftpURLConnection.getInputStream();
             }
         }
 
-
-//        return connection.getInputStream() ;
-        if ("application/zip".equals(connection.getContentType())) {
-            final int BUFFER = 2048;
-            int count = 0;
-            byte data[] = new byte[BUFFER];
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
+        if (pathFile.getName().endsWith(".zip")) {
             ZipInputStream zis = new ZipInputStream(connection.getInputStream());
-            if (zis.getNextEntry() != null) {
-                while ((count = zis.read(data, 0, BUFFER)) != -1) {
-                    out.write(data);
-                }
-                is = new ByteArrayInputStream(out.toByteArray());
+            if ( (zis.getNextEntry()) != null) {
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                IOUtils.copy(zis, outputStream);
+                return new ByteArrayInputStream(outputStream.toByteArray());
             }
         }
-        else if (is == null){
-            is = connection.getInputStream();
+        else if (pathFile.getName().endsWith(".gz")) {
+            return new GZIPInputStream(connection.getInputStream());
         }
-//        else if ("application/gzip".equals(connection.getContentType())) {
-//            is = new GZIPInputStream(connection.getInputStream());
-//
-//        }
-//        else {
-//            is = connection.getInputStream();
-//        }
-        return is;
+        return connection.getInputStream();
     }
 
     private String readChecksum (File fileCheck) throws IOException {
