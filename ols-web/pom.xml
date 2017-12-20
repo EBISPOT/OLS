@@ -5,7 +5,7 @@
     <parent>
         <groupId>uk.ac.ebi.spot</groupId>
         <artifactId>ols-parent</artifactId>
-        <version>3.1.1-SNAPSHOT</version>
+        <version>3.1.1</version>
         <relativePath>../ols-parent/pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>

@@ -6,7 +6,7 @@
 
     <groupId>uk.ac.ebi.spot</groupId>
     <artifactId>ols-apps</artifactId>
-    <version>3.1.1-SNAPSHOT</version>
+    <version>3.1.1</version>
     <packaging>pom</packaging>
     <modules>
         <module>ols-solr-app</module>
