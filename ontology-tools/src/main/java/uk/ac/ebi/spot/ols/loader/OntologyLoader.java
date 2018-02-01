@@ -229,6 +229,27 @@ public interface OntologyLoader {
     Collection<IRI> getRelatedChildTerms(IRI entityIRI);
 
 
+    /**
+     * Returns related individuals for a given individual IRI.
+     *
+     * @return the relationship IRI and the set of related terms
+     */
+    Map<IRI, Collection<IRI>> getRelatedIndividuals(IRI entityIRI);
+
+    /**
+     * Returns related individuals to a given class.
+     *
+     * @return the relationship IRI and the set of related classes
+     */
+    Map<IRI, Collection<IRI>> getRelatedIndividualsToClass(IRI entityIRI);
+
+
+    /**
+     * Returns related classes to a given individual.
+     *
+     * @return the relationship IRI and the set of related terms
+     */
+    Map<IRI, Collection<IRI>> getRelatedClassesToIndividual(IRI entityIRI);
 
 
 
