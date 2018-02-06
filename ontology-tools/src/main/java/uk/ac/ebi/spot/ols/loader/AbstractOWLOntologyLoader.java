@@ -126,7 +126,6 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     private String preferredPrefix;
 
     private DatabaseService databaseService;
-    boolean useReasoner = false;
 
     public AbstractOWLOntologyLoader(OntologyResourceConfig config) throws OntologyLoadingException {
         this(config,null);
@@ -498,23 +497,19 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         Map<IRI,Collection<IRI>> instanceClassRelations = new HashMap<IRI,Collection<IRI>>();
         Map<IRI,Collection<IRI>> instanceRelations = new HashMap<IRI,Collection<IRI>>();
 
-        if(useReasoner) {
-            OWLReasoner reasoner = getOWLReasoner(ontology);
-            reasoner.getTypes(individual,true).getFlattened().forEach(c->instanceTypes.add(c.getIRI()));
+        OWLReasoner reasoner = getOWLReasoner(ontology);
+        reasoner.getTypes(individual,true).getFlattened().forEach(c->instanceTypes.add(c.getIRI()));
 
-        } else {
-            for (OWLClassExpression expression : individual.getTypes(ontology)) {
-                if (expression instanceof OWLClass) {
-                    instanceTypes.add( ((OWLClass) expression).getIRI());
-                } else {
-                    if (expression instanceof OWLObjectSomeValuesFrom) {
-                        indexIndividualsToExistentialRestriction(instanceClassRelations, instanceRelations, (OWLObjectSomeValuesFrom) expression);
-                    } else if(expression instanceof OWLObjectHasValue) {
-                        indexIndividualsToExistentialRestriction(instanceClassRelations, instanceRelations, (OWLObjectSomeValuesFrom) ((OWLObjectHasValue) expression).asSomeValuesFrom());
-                    }
+        for (OWLClassExpression expression : individual.getTypes(ontology)) {
+            if (expression.isAnonymous())  {
+                if (expression instanceof OWLObjectSomeValuesFrom) {
+                    indexIndividualsToExistentialRestriction(instanceClassRelations, instanceRelations, (OWLObjectSomeValuesFrom) expression);
+                } else if(expression instanceof OWLObjectHasValue) {
+                    indexIndividualsToExistentialRestriction(instanceClassRelations, instanceRelations, (OWLObjectSomeValuesFrom) ((OWLObjectHasValue) expression).asSomeValuesFrom());
                 }
             }
         }
+
         if (!instanceTypes.isEmpty()) {
             addDirectTypes(individual.getIRI(), instanceTypes);
         }
@@ -785,12 +780,9 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
         Map<IRI,Collection<IRI>> instanceInstanceRelations = new HashMap<IRI,Collection<IRI>>();
 
-        if(useReasoner) {
-            extractInferredRelationsFromIndividualObjectPropertyAssertions(individual, instanceInstanceRelations);
-
-        } else {
-            extractAssertedRelationsFromIndividualObjectPropertyAssertions(individual, instanceInstanceRelations);
-        }
+        //The following works, will most likely be way too computationally expensive though
+        //extractInferredRelationsFromIndividualObjectPropertyAssertions(individual, instanceInstanceRelations);
+        extractAssertedRelationsFromIndividualObjectPropertyAssertions(individual, instanceInstanceRelations);
         if (!instanceInstanceRelations.isEmpty()) {
             addRelatedIndividuals(individual.getIRI(), instanceInstanceRelations);
         }
