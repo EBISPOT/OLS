@@ -395,6 +395,27 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
                 Long defaultType = getOrCreateNode(inserter, nodeMap,loader, IRI.create("http://www.w3.org/2002/07/owl#Thing"),  nodeLabel,nodeOntologyLabel,  _nodeLabel, rootLabel);
                 inserter.createRelationship( node, defaultType, typeOf, rdfTypeProperties);
             }
+
+            // add relations
+            indexRelations(node, loader.getRelatedIndividuals(individualIri),inserter,loader,nodeMap, instanceLabel,nodeOntologyLabel, _instanceLabel);
+            indexRelations(node, loader.getRelatedClassesToIndividual(individualIri),inserter,loader,classNodeMap, nodeLabel,nodeOntologyLabel, _nodeLabel);
+        }
+    }
+
+    private void indexRelations(Long node, Map<IRI, Collection<IRI>> relatedIndividuals, BatchInserter inserter, OntologyLoader loader, Map<String, Long> nodeMap, Label... nodeLabels) {
+        for (IRI relation : relatedIndividuals.keySet()) {
+            Map<String, Object> relatedProperties = new HashMap<>();
+            relatedProperties.put("uri", relation.toString());
+            relatedProperties.put("label", loader.getTermLabels().get(relation));
+            relatedProperties.put("ontology_name", loader.getOntologyName());
+            relatedProperties.put("__type__", "Related");
+
+            for (IRI relatedTerm : relatedIndividuals.get(relation)) {
+                //TODO review right parameters
+                Long relatedNode =  getOrCreateNode(inserter, nodeMap,loader, relatedTerm, nodeLabels);
+                inserter.createRelationship( node, relatedNode, related, relatedProperties);
+            }
+
         }
     }
 
@@ -462,6 +483,9 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
                 }
 
             }
+
+            //Add relationships of the form A sub R some {a}
+            indexRelations(node, loader.getRelatedIndividualsToClass(classIri),inserter,loader,nodeMap, instanceLabel,nodeOntologyLabel, _instanceLabel);
 
 //            if (counter == BATCH_SIZE) {
 //                inserter = restartIndexer(inserter, loader.getOntologyName());
