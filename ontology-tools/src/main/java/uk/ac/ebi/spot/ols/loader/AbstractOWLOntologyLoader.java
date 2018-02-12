@@ -541,12 +541,14 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     }
 
     private void indexRelationsFromExistentialRestrictionsToNominals(Map<IRI, Collection<IRI>> instanceRelations, OWLObjectOneOf ce, OWLObjectProperty p) {
-        for(OWLIndividual i: ce.getIndividuals()) {
-            if(i.isNamed()) {
-                if(!instanceRelations.containsKey(p.getIRI())) {
-                    instanceRelations.put(p.getIRI(),new HashSet<>());
+        if(ce.getIndividuals().size()==1) { // If there is more than one, we cannot assume a relationship.
+            for (OWLIndividual i : ce.getIndividuals()) {
+                if (i.isNamed()) {
+                    if (!instanceRelations.containsKey(p.getIRI())) {
+                        instanceRelations.put(p.getIRI(), new HashSet<>());
+                    }
+                    instanceRelations.get(p.getIRI()).add(i.asOWLNamedIndividual().getIRI());
                 }
-                instanceRelations.get(p.getIRI()).add(i.asOWLNamedIndividual().getIRI());
             }
         }
     }
