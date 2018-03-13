@@ -46,7 +46,7 @@ import java.util.stream.Collectors;
 public abstract class
 AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
-    private static final Pattern oboIdFragmentPattern = Pattern.compile("(^([A-Za-z1-9_]*)_(\\d+)$)");
+    private static final Pattern oboIdFragmentPattern = Pattern.compile("(^([A-Za-z0-9_]*)_([A-Za-z0-9]*)$)");
 
     private IRI ontologyIRI;
     private IRI ontologyVersionIRI;
