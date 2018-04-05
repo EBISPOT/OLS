@@ -1,0 +1,1553 @@
+[source,http]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 76660
+
+{
+  "_embedded" : {
+    "terms" : [ {
+      "iri" : "http://purl.obolibrary.org/obo/GO_0097597",
+      "label" : "ventral disc",
+      "description" : [ "Specialized organelle found in Giardia species (trophozoite stage) and characterized by a spiral array of microtubules and microtubule-associated structures including dorsal microribbons and crossbridges. The edge of the ventral disc narrows into a lateral crest. The ventral disk mediates mechanical attachment of the trophozoite to the host's intestinal wall, and contains the contractile proteins actinin, alpha-actinin, myosin, and tropomyosin working towards contraction of the disk involved in adherence." ],
+      "annotation" : {
+        "comment" : [ "Due to the asymmetric nature of the Giardia trophozoite, this term is defined spatially as the trophozoite is viewed from the dorsal side, with the two nuclei dorsal to the ventral disc, and the ventral disc toward the anterior." ],
+        "created_by" : [ "paola" ],
+        "creation_date" : [ "2014-04-03T11:29:58Z" ],
+        "has_obo_namespace" : [ "cellular_component" ],
+        "has_related_synonym" : [ "adhesive disc", "ventral disk" ],
+        "id" : [ "GO:0097597" ]
+      },
+      "synonyms" : [ "ventral adhesive disc" ],
+      "ontology_name" : "go",
+      "ontology_prefix" : "GO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "GO_0097597",
+      "obo_id" : "GO:0097597",
+      "in_subset" : null,
+      "obo_definition_citation" : [ {
+        "definition" : "Specialized organelle found in Giardia species (trophozoite stage) and characterized by a spiral array of microtubules and microtubule-associated structures including dorsal microribbons and crossbridges. The edge of the ventral disc narrows into a lateral crest. The ventral disk mediates mechanical attachment of the trophozoite to the host's intestinal wall, and contains the contractile proteins actinin, alpha-actinin, myosin, and tropomyosin working towards contraction of the disk involved in adherence.",
+        "oboXrefs" : [ {
+          "database" : "GOC",
+          "id" : "giardia",
+          "description" : null,
+          "url" : null
+        }, {
+          "database" : "ISBN",
+          "id" : "9780124260207",
+          "description" : null,
+          "url" : "http://openisbn.com/search.php?q=9780124260207&isbn=1/"
+        }, {
+          "database" : "PMID",
+          "id" : "4777416",
+          "description" : null,
+          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/4777416"
+        }, {
+          "database" : "PMID",
+          "id" : "11432808",
+          "description" : null,
+          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/11432808"
+        }, {
+          "database" : "PMID",
+          "id" : "5961344",
+          "description" : null,
+          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/5961344"
+        } ]
+      } ],
+      "obo_xref" : null,
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097597"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097597/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097597/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097597/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097597/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097597/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097597/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097597/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097597/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097597/hierarchicalDescendants"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097597/graph"
+        },
+        "has_part" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097597/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000051"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/GO_0099572",
+      "label" : "postsynaptic specialization",
+      "description" : [ "A network of proteins within and adjacent to the postsynaptic membrane. Its major components include neurotransmitter receptors and the proteins that spatially and functionally organize them such as anchoring and scaffolding molecules, signaling enzymes and cytoskeletal components." ],
+      "annotation" : {
+        "has_obo_namespace" : [ "cellular_component" ],
+        "id" : [ "GO:0099572" ]
+      },
+      "synonyms" : null,
+      "ontology_name" : "go",
+      "ontology_prefix" : "GO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "GO_0099572",
+      "obo_id" : "GO:0099572",
+      "in_subset" : [ "goslim_synapse" ],
+      "obo_definition_citation" : [ {
+        "definition" : "A network of proteins within and adjacent to the postsynaptic membrane. Its major components include neurotransmitter receptors and the proteins that spatially and functionally organize them such as anchoring and scaffolding molecules, signaling enzymes and cytoskeletal components.",
+        "oboXrefs" : [ {
+          "database" : "PMID",
+          "id" : "22046028",
+          "description" : null,
+          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/22046028"
+        } ]
+      } ],
+      "obo_xref" : null,
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0099572"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0099572/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0099572/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0099572/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0099572/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0099572/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0099572/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0099572/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0099572/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0099572/hierarchicalDescendants"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0099572/graph"
+        },
+        "part_of" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0099572/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/GO_0097482",
+      "label" : "muscle cell postsynaptic density",
+      "description" : [ "A postsynaptic specialization that is part of a neuromuscular junction." ],
+      "annotation" : {
+        "created_by" : [ "paola" ],
+        "creation_date" : [ "2013-07-02T09:47:40Z" ],
+        "has_obo_namespace" : [ "cellular_component" ],
+        "id" : [ "GO:0097482" ]
+      },
+      "synonyms" : [ "muscle fiber postsynaptic density" ],
+      "ontology_name" : "go",
+      "ontology_prefix" : "GO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "GO_0097482",
+      "obo_id" : "GO:0097482",
+      "in_subset" : null,
+      "obo_definition_citation" : [ {
+        "definition" : "A postsynaptic specialization that is part of a neuromuscular junction.",
+        "oboXrefs" : [ {
+          "database" : "GOC",
+          "id" : "pr",
+          "description" : null,
+          "url" : null
+        } ]
+      } ],
+      "obo_xref" : null,
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097482"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097482/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097482/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097482/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097482/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097482/jstree"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097482/graph"
+        },
+        "part_of" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097482/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/GO_0099629",
+      "label" : "postsynaptic specialization of symmetric synapse",
+      "description" : [ "A network of proteins, adjacent to the postsynaptic membrane of a symmetric synapse, consisting of anchoring and scaffolding molecules, signaling enzymes and cytoskeletal components that spatially and functionally organize the neurotransmitter receptors at the synapse. This structure is not as thick or electron dense as the postsynaptic densities found in asymmetric synapses." ],
+      "annotation" : {
+        "has_obo_namespace" : [ "cellular_component" ],
+        "id" : [ "GO:0099629" ]
+      },
+      "synonyms" : [ "postsynaptic density of inhibitory synapse" ],
+      "ontology_name" : "go",
+      "ontology_prefix" : "GO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "GO_0099629",
+      "obo_id" : "GO:0099629",
+      "in_subset" : [ "goslim_synapse" ],
+      "obo_definition_citation" : [ {
+        "definition" : "A network of proteins, adjacent to the postsynaptic membrane of a symmetric synapse, consisting of anchoring and scaffolding molecules, signaling enzymes and cytoskeletal components that spatially and functionally organize the neurotransmitter receptors at the synapse. This structure is not as thick or electron dense as the postsynaptic densities found in asymmetric synapses.",
+        "oboXrefs" : [ {
+          "database" : "PMID",
+          "id" : "18832033",
+          "description" : null,
+          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/18832033"
+        } ]
+      } ],
+      "obo_xref" : null,
+      "obo_synonym" : [ {
+        "name" : "postsynaptic density of inhibitory synapse",
+        "scope" : "hasExactSynonym",
+        "type" : null,
+        "xrefs" : [ {
+          "database" : "PMID",
+          "id" : "18832033",
+          "description" : null,
+          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/18832033"
+        } ]
+      } ],
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0099629"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0099629/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0099629/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0099629/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0099629/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0099629/jstree"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0099629/graph"
+        },
+        "part_of" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0099629/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/GO_0014069",
+      "label" : "postsynaptic density",
+      "description" : [ "An electron dense network of proteins within and adjacent to the postsynaptic membrane in asymetric synapses. Its major components include neurotransmitter receptors and the proteins that spatially and functionally organize them such as anchoring and scaffolding molecules, signaling enzymes and cytoskeletal components." ],
+      "annotation" : {
+        "created_by" : [ "paola" ],
+        "creation_date" : [ "2013-07-02T09:44:28Z" ],
+        "database_cross_reference" : [ "NIF_Subcellular:sao1196688972", "Wikipedia:Postsynaptic_density" ],
+        "has_alternative_id" : [ "GO:0097481", "GO:0097483" ],
+        "has_obo_namespace" : [ "cellular_component" ],
+        "id" : [ "GO:0014069" ]
+      },
+      "synonyms" : [ "neuronal postsynaptic density", "post synaptic density", "post-synaptic density" ],
+      "ontology_name" : "go",
+      "ontology_prefix" : "GO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "GO_0014069",
+      "obo_id" : "GO:0014069",
+      "in_subset" : [ "goslim_synapse" ],
+      "obo_definition_citation" : [ {
+        "definition" : "An electron dense network of proteins within and adjacent to the postsynaptic membrane in asymetric synapses. Its major components include neurotransmitter receptors and the proteins that spatially and functionally organize them such as anchoring and scaffolding molecules, signaling enzymes and cytoskeletal components.",
+        "oboXrefs" : [ {
+          "database" : null,
+          "id" : "http://molneuro.kaist.ac.kr/psd",
+          "description" : null,
+          "url" : "http://molneuro.kaist.ac.kr/psd"
+        }, {
+          "database" : "GOC",
+          "id" : "sjp",
+          "description" : null,
+          "url" : null
+        }, {
+          "database" : "GOC",
+          "id" : "jid",
+          "description" : null,
+          "url" : null
+        }, {
+          "database" : "PMID",
+          "id" : "14532281",
+          "description" : null,
+          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/14532281"
+        }, {
+          "database" : "GOC",
+          "id" : "BHF",
+          "description" : null,
+          "url" : null
+        }, {
+          "database" : "GOC",
+          "id" : "pr",
+          "description" : null,
+          "url" : null
+        }, {
+          "database" : "GOC",
+          "id" : "dos",
+          "description" : null,
+          "url" : null
+        }, {
+          "database" : "Wikipedia",
+          "id" : "Postsynaptic_density",
+          "description" : null,
+          "url" : "http://en.wikipedia.org/wiki/Postsynaptic_density"
+        }, {
+          "database" : "GOC",
+          "id" : "ef",
+          "description" : null,
+          "url" : null
+        } ]
+      } ],
+      "obo_xref" : [ {
+        "database" : "Wikipedia",
+        "id" : "Postsynaptic_density",
+        "description" : null,
+        "url" : "http://en.wikipedia.org/wiki/Postsynaptic_density"
+      }, {
+        "database" : "NIF_Subcellular",
+        "id" : "sao1196688972",
+        "description" : null,
+        "url" : "http://www.neurolex.org/wiki/sao1196688972"
+      } ],
+      "obo_synonym" : [ {
+        "name" : "neuronal postsynaptic density",
+        "scope" : "hasExactSynonym",
+        "type" : null,
+        "xrefs" : [ {
+          "database" : "GO",
+          "id" : "0097481",
+          "description" : null,
+          "url" : "http://amigo.geneontology.org/amigo/term/GO:0097481"
+        } ]
+      } ],
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0014069"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0014069/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0014069/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0014069/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0014069/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0014069/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0014069/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0014069/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0014069/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0014069/hierarchicalDescendants"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0014069/graph"
+        },
+        "part_of" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0014069/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/GO_0099573",
+      "label" : "glutamatergic postsynaptic density",
+      "description" : [ "The post-synaptic specialization of a glutamatergic excitatory synapse." ],
+      "annotation" : {
+        "has_obo_namespace" : [ "cellular_component" ],
+        "id" : [ "GO:0099573" ]
+      },
+      "synonyms" : [ "postsynaptic specialization, glutamatergic neuron-to-neuron synapse" ],
+      "ontology_name" : "go",
+      "ontology_prefix" : "GO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "GO_0099573",
+      "obo_id" : "GO:0099573",
+      "in_subset" : [ "goslim_synapse" ],
+      "obo_definition_citation" : [ {
+        "definition" : "The post-synaptic specialization of a glutamatergic excitatory synapse.",
+        "oboXrefs" : [ {
+          "database" : "GOC",
+          "id" : "dos",
+          "description" : null,
+          "url" : null
+        } ]
+      } ],
+      "obo_xref" : null,
+      "obo_synonym" : [ {
+        "name" : "postsynaptic specialization, glutamatergic neuron-to-neuron synapse",
+        "scope" : "hasExactSynonym",
+        "type" : "label approved by the SynGO project",
+        "xrefs" : [ ]
+      } ],
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0099573"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0099573/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0099573/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0099573/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0099573/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0099573/jstree"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0099573/graph"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/GO_0043229",
+      "label" : "intracellular organelle",
+      "description" : [ "Organized structure of distinctive morphology and function, occurring within the cell. Includes the nucleus, mitochondria, plastids, vacuoles, vesicles, ribosomes and the cytoskeleton. Excludes the plasma membrane." ],
+      "annotation" : {
+        "has_obo_namespace" : [ "cellular_component" ],
+        "id" : [ "GO:0043229" ]
+      },
+      "synonyms" : null,
+      "ontology_name" : "go",
+      "ontology_prefix" : "GO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "GO_0043229",
+      "obo_id" : "GO:0043229",
+      "in_subset" : [ "goslim_pir", "gosubset_prok" ],
+      "obo_definition_citation" : [ {
+        "definition" : "Organized structure of distinctive morphology and function, occurring within the cell. Includes the nucleus, mitochondria, plastids, vacuoles, vesicles, ribosomes and the cytoskeleton. Excludes the plasma membrane.",
+        "oboXrefs" : [ {
+          "database" : "GOC",
+          "id" : "go_curators",
+          "description" : null,
+          "url" : null
+        } ]
+      } ],
+      "obo_xref" : null,
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043229"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043229/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043229/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043229/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043229/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043229/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043229/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043229/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043229/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043229/hierarchicalDescendants"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043229/graph"
+        },
+        "part_of" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0043229/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/GO_1990413",
+      "label" : "eyespot apparatus",
+      "description" : [ "A small pigmented organelle used in single-celled organisms to detect light." ],
+      "annotation" : {
+        "created_by" : [ "cjm" ],
+        "creation_date" : [ "2014-07-03T21:26:24Z" ],
+        "has_obo_namespace" : [ "cellular_component" ],
+        "has_related_synonym" : [ "stigma", "eyespot" ],
+        "id" : [ "GO:1990413" ]
+      },
+      "synonyms" : null,
+      "ontology_name" : "go",
+      "ontology_prefix" : "GO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "GO_1990413",
+      "obo_id" : "GO:1990413",
+      "in_subset" : null,
+      "obo_definition_citation" : [ {
+        "definition" : "A small pigmented organelle used in single-celled organisms to detect light.",
+        "oboXrefs" : [ {
+          "database" : "Wikipedia",
+          "id" : "Eyespot_apparatus",
+          "description" : null,
+          "url" : "http://en.wikipedia.org/wiki/Eyespot_apparatus"
+        } ]
+      } ],
+      "obo_xref" : null,
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_1990413"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_1990413/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_1990413/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_1990413/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_1990413/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_1990413/jstree"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_1990413/graph"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/GO_0097708",
+      "label" : "intracellular vesicle",
+      "description" : [ "Any vesicle that is part of the intracellular region." ],
+      "annotation" : {
+        "created_by" : [ "paola" ],
+        "creation_date" : [ "2016-03-29T17:39:45Z" ],
+        "has_obo_namespace" : [ "cellular_component" ],
+        "id" : [ "GO:0097708" ]
+      },
+      "synonyms" : null,
+      "ontology_name" : "go",
+      "ontology_prefix" : "GO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "GO_0097708",
+      "obo_id" : "GO:0097708",
+      "in_subset" : null,
+      "obo_definition_citation" : [ {
+        "definition" : "Any vesicle that is part of the intracellular region.",
+        "oboXrefs" : [ {
+          "database" : "GOC",
+          "id" : "vesicles",
+          "description" : null,
+          "url" : null
+        } ]
+      } ],
+      "obo_xref" : null,
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097708"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097708/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097708/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097708/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097708/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097708/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097708/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097708/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097708/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097708/hierarchicalDescendants"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097708/graph"
+        },
+        "part_of" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097708/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/GO_0046816",
+      "label" : "virion transport vesicle",
+      "description" : [ "A vesicle used to transport the partial or complete virion between cellular compartments." ],
+      "annotation" : {
+        "has_obo_namespace" : [ "cellular_component" ],
+        "id" : [ "GO:0046816" ]
+      },
+      "synonyms" : null,
+      "ontology_name" : "go",
+      "ontology_prefix" : "GO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "GO_0046816",
+      "obo_id" : "GO:0046816",
+      "in_subset" : null,
+      "obo_definition_citation" : [ {
+        "definition" : "A vesicle used to transport the partial or complete virion between cellular compartments.",
+        "oboXrefs" : [ {
+          "database" : "PMID",
+          "id" : "7933124",
+          "description" : null,
+          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/7933124"
+        }, {
+          "database" : "GOC",
+          "id" : "vesicles",
+          "description" : null,
+          "url" : null
+        } ]
+      } ],
+      "obo_xref" : null,
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0046816"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0046816/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0046816/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0046816/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0046816/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0046816/jstree"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0046816/graph"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/GO_0097598",
+      "label" : "sperm cytoplasmic droplet",
+      "description" : [ "A small amount of cytoplasm surrounded by a cell membrane that is generally retained in spermatozoa after spermiogenesis, when the majority of the cytoplasm is phagocytosed by Sertoli cells to produce \"residual bodies\". Initially, the droplet is located at the neck just behind the head of an elongated spermatid. During epididymal transit, the cytoplasmic droplet migrates caudally to the annulus at the end of the midpiece; the exact position and time varies by species. The cytoplasmic droplet consists of lipids, lipoproteins, RNAs, a variety of hydrolytic enzymes, receptors, ion channels, and Golgi-derived vesicles. The droplet may be involved in regulatory volume loss (RVD) at ejaculation, and in most species, though not in humans, the cytoplasmic droplet is lost at ejaculation. Note that the cytoplasmic droplet is distinct from \"excessive residual cytoplasm\" that sometimes remains in epididymal spermatozoa, particularly when spermiogenesis has been disrupted." ],
+      "annotation" : {
+        "created_by" : [ "paola" ],
+        "creation_date" : [ "2014-04-10T14:03:30Z" ],
+        "has_obo_namespace" : [ "cellular_component" ],
+        "id" : [ "GO:0097598" ]
+      },
+      "synonyms" : [ "sperm residual cytoplasm" ],
+      "ontology_name" : "go",
+      "ontology_prefix" : "GO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "GO_0097598",
+      "obo_id" : "GO:0097598",
+      "in_subset" : null,
+      "obo_definition_citation" : [ {
+        "definition" : "A small amount of cytoplasm surrounded by a cell membrane that is generally retained in spermatozoa after spermiogenesis, when the majority of the cytoplasm is phagocytosed by Sertoli cells to produce \"residual bodies\". Initially, the droplet is located at the neck just behind the head of an elongated spermatid. During epididymal transit, the cytoplasmic droplet migrates caudally to the annulus at the end of the midpiece; the exact position and time varies by species. The cytoplasmic droplet consists of lipids, lipoproteins, RNAs, a variety of hydrolytic enzymes, receptors, ion channels, and Golgi-derived vesicles. The droplet may be involved in regulatory volume loss (RVD) at ejaculation, and in most species, though not in humans, the cytoplasmic droplet is lost at ejaculation. Note that the cytoplasmic droplet is distinct from \"excessive residual cytoplasm\" that sometimes remains in epididymal spermatozoa, particularly when spermiogenesis has been disrupted.",
+        "oboXrefs" : [ {
+          "database" : "PMID",
+          "id" : "12672117",
+          "description" : null,
+          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/12672117"
+        }, {
+          "database" : "PMID",
+          "id" : "21076437",
+          "description" : null,
+          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/21076437"
+        }, {
+          "database" : "PMID",
+          "id" : "23159014",
+          "description" : null,
+          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/23159014"
+        }, {
+          "database" : "GOC",
+          "id" : "vesicles",
+          "description" : null,
+          "url" : null
+        }, {
+          "database" : "GOC",
+          "id" : "krc",
+          "description" : null,
+          "url" : null
+        } ]
+      } ],
+      "obo_xref" : null,
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097598"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097598/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097598/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097598/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097598/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097598/jstree"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097598/graph"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/GO_0031410",
+      "label" : "cytoplasmic vesicle",
+      "description" : [ "A vesicle found in the cytoplasm of a cell." ],
+      "annotation" : {
+        "database_cross_reference" : [ "NIF_Subcellular:sao180601769" ],
+        "has_alternative_id" : [ "GO:0016023" ],
+        "has_obo_namespace" : [ "cellular_component" ],
+        "has_related_synonym" : [ "cytoplasmic, membrane-bounded vesicle", "cytoplasmic membrane-enclosed vesicle", "cytoplasmic membrane bounded vesicle" ],
+        "id" : [ "GO:0031410" ]
+      },
+      "synonyms" : null,
+      "ontology_name" : "go",
+      "ontology_prefix" : "GO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "GO_0031410",
+      "obo_id" : "GO:0031410",
+      "in_subset" : [ "goslim_chembl", "goslim_generic", "gosubset_prok", "goslim_mouse", "goslim_candida", "goslim_yeast", "goslim_aspergillus" ],
+      "obo_definition_citation" : [ {
+        "definition" : "A vesicle found in the cytoplasm of a cell.",
+        "oboXrefs" : [ {
+          "database" : "GOC",
+          "id" : "mah",
+          "description" : null,
+          "url" : null
+        }, {
+          "database" : "GOC",
+          "id" : "vesicles",
+          "description" : null,
+          "url" : null
+        }, {
+          "database" : "GOC",
+          "id" : "ai",
+          "description" : null,
+          "url" : null
+        } ]
+      } ],
+      "obo_xref" : [ {
+        "database" : "NIF_Subcellular",
+        "id" : "sao180601769",
+        "description" : null,
+        "url" : "http://www.neurolex.org/wiki/sao180601769"
+      } ],
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031410"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031410/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031410/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031410/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031410/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031410/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031410/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031410/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031410/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031410/hierarchicalDescendants"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031410/graph"
+        },
+        "part_of" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031410/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/GO_0044840",
+      "label" : "gut granule",
+      "description" : [ "A lysosome-related organelle contained within the intestinal cells of the nematode C. elegans. Gut granules are acidified, birefringent, autofluorescent, and contain the vacuolar H+-ATPase. They also serve as sites of cellular zinc storage." ],
+      "annotation" : {
+        "created_by" : [ "janelomax" ],
+        "creation_date" : [ "2014-03-25T11:56:41Z" ],
+        "has_obo_namespace" : [ "cellular_component" ],
+        "id" : [ "GO:0044840" ]
+      },
+      "synonyms" : null,
+      "ontology_name" : "go",
+      "ontology_prefix" : "GO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "GO_0044840",
+      "obo_id" : "GO:0044840",
+      "in_subset" : null,
+      "obo_definition_citation" : [ {
+        "definition" : "A lysosome-related organelle contained within the intestinal cells of the nematode C. elegans. Gut granules are acidified, birefringent, autofluorescent, and contain the vacuolar H+-ATPase. They also serve as sites of cellular zinc storage.",
+        "oboXrefs" : [ {
+          "database" : "GOC",
+          "id" : "kmv",
+          "description" : null,
+          "url" : null
+        }, {
+          "database" : "PMID",
+          "id" : "24204312",
+          "description" : null,
+          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/24204312"
+        }, {
+          "database" : "PMID",
+          "id" : "22916203",
+          "description" : null,
+          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/22916203"
+        } ]
+      } ],
+      "obo_xref" : null,
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0044840"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0044840/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0044840/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0044840/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0044840/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0044840/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0044840/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0044840/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0044840/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0044840/hierarchicalDescendants"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0044840/graph"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/GO_0030133",
+      "label" : "transport vesicle",
+      "description" : [ "Any of the vesicles of the constitutive secretory pathway, which carry cargo from the endoplasmic reticulum to the Golgi, between Golgi cisternae, from the Golgi to the ER (retrograde transport) or to destinations within or outside the cell." ],
+      "annotation" : {
+        "comment" : [ "Note that the term 'secretory vesicle' is sometimes used in this sense, but can also mean 'secretory granule ; GO:0030141'." ],
+        "database_cross_reference" : [ "NIF_Subcellular:sao885490876" ],
+        "has_narrow_synonym" : [ "Golgi-vacuole transport vesicle", "Golgi to vacuole transport vesicle" ],
+        "has_obo_namespace" : [ "cellular_component" ],
+        "has_related_synonym" : [ "secretory vesicle" ],
+        "id" : [ "GO:0030133" ]
+      },
+      "synonyms" : [ "constitutive secretory pathway transport vesicle" ],
+      "ontology_name" : "go",
+      "ontology_prefix" : "GO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "GO_0030133",
+      "obo_id" : "GO:0030133",
+      "in_subset" : null,
+      "obo_definition_citation" : [ {
+        "definition" : "Any of the vesicles of the constitutive secretory pathway, which carry cargo from the endoplasmic reticulum to the Golgi, between Golgi cisternae, from the Golgi to the ER (retrograde transport) or to destinations within or outside the cell.",
+        "oboXrefs" : [ {
+          "database" : "GOC",
+          "id" : "mah",
+          "description" : null,
+          "url" : null
+        }, {
+          "database" : "PMID",
+          "id" : "22160157",
+          "description" : null,
+          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/22160157"
+        } ]
+      } ],
+      "obo_xref" : [ {
+        "database" : "NIF_Subcellular",
+        "id" : "sao885490876",
+        "description" : null,
+        "url" : "http://www.neurolex.org/wiki/sao885490876"
+      } ],
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030133"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030133/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030133/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030133/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030133/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030133/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030133/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030133/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030133/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030133/hierarchicalDescendants"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030133/graph"
+        },
+        "part_of" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030133/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/GO_0030134",
+      "label" : "ER to Golgi transport vesicle",
+      "description" : [ "A vesicle that mediates transport from the endoplasmic reticulum to the Golgi complex; bears a coat formed of the COPII coat complex proteins; such vesicles found associated with endoplasmic reticulum (ER) membranes at steady state, and are involved in ER to Golgi (anterograde) vesicle transport." ],
+      "annotation" : {
+        "has_alternative_id" : [ "GO:0030138" ],
+        "has_obo_namespace" : [ "cellular_component" ],
+        "has_related_synonym" : [ "COPII vesicle" ],
+        "id" : [ "GO:0030134" ]
+      },
+      "synonyms" : [ "COPII-coated vesicle", "endoplasmic reticulum-Golgi transport vesicle", "ER to Golgi constitutive secretory pathway transport vesicle", "endoplasmic reticulum to Golgi transport vesicle", "ER-Golgi transport vesicle" ],
+      "ontology_name" : "go",
+      "ontology_prefix" : "GO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "GO_0030134",
+      "obo_id" : "GO:0030134",
+      "in_subset" : null,
+      "obo_definition_citation" : [ {
+        "definition" : "A vesicle that mediates transport from the endoplasmic reticulum to the Golgi complex; bears a coat formed of the COPII coat complex proteins; such vesicles found associated with endoplasmic reticulum (ER) membranes at steady state, and are involved in ER to Golgi (anterograde) vesicle transport.",
+        "oboXrefs" : [ {
+          "database" : "GOC",
+          "id" : "dph",
+          "description" : null,
+          "url" : null
+        }, {
+          "database" : "GOC",
+          "id" : "mah",
+          "description" : null,
+          "url" : null
+        }, {
+          "database" : "GOC",
+          "id" : "ascb_2009",
+          "description" : null,
+          "url" : null
+        }, {
+          "database" : "GOC",
+          "id" : "tb",
+          "description" : null,
+          "url" : null
+        }, {
+          "database" : "PMID",
+          "id" : "11252894",
+          "description" : null,
+          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/11252894"
+        } ]
+      } ],
+      "obo_xref" : null,
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030134"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030134/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030134/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030134/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030134/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030134/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030134/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030134/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030134/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030134/hierarchicalDescendants"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030134/graph"
+        },
+        "part_of" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030134/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/GO_0030140",
+      "label" : "trans-Golgi network transport vesicle",
+      "description" : [ "A vesicle that mediates transport between the trans-Golgi network and other parts of the cell." ],
+      "annotation" : {
+        "has_obo_namespace" : [ "cellular_component" ],
+        "id" : [ "GO:0030140" ]
+      },
+      "synonyms" : [ "TGN transport vesicle", "trans-Golgi network constitutive secretory pathway transport vesicle" ],
+      "ontology_name" : "go",
+      "ontology_prefix" : "GO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "GO_0030140",
+      "obo_id" : "GO:0030140",
+      "in_subset" : null,
+      "obo_definition_citation" : [ {
+        "definition" : "A vesicle that mediates transport between the trans-Golgi network and other parts of the cell.",
+        "oboXrefs" : [ {
+          "database" : "GOC",
+          "id" : "mah",
+          "description" : null,
+          "url" : null
+        } ]
+      } ],
+      "obo_xref" : null,
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030140"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030140/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030140/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030140/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030140/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030140/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030140/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030140/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030140/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030140/hierarchicalDescendants"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030140/graph"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/GO_0030142",
+      "label" : "Golgi to ER transport vesicle",
+      "description" : [ "A vesicle that mediates transport from the Golgi to the endoplasmic reticulum." ],
+      "annotation" : {
+        "has_obo_namespace" : [ "cellular_component" ],
+        "id" : [ "GO:0030142" ]
+      },
+      "synonyms" : [ "Golgi to endoplasmic reticulum transport vesicle", "Golgi-ER transport vesicle", "Golgi-endoplasmic reticulum transport vesicle", "retrograde transport vesicle", "Golgi to ER constitutive secretory pathway transport vesicle" ],
+      "ontology_name" : "go",
+      "ontology_prefix" : "GO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "GO_0030142",
+      "obo_id" : "GO:0030142",
+      "in_subset" : null,
+      "obo_definition_citation" : [ {
+        "definition" : "A vesicle that mediates transport from the Golgi to the endoplasmic reticulum.",
+        "oboXrefs" : [ {
+          "database" : "GOC",
+          "id" : "mah",
+          "description" : null,
+          "url" : null
+        }, {
+          "database" : "PMID",
+          "id" : "22160157",
+          "description" : null,
+          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/22160157"
+        } ]
+      } ],
+      "obo_xref" : null,
+      "obo_synonym" : [ {
+        "name" : "retrograde transport vesicle",
+        "scope" : "hasExactSynonym",
+        "type" : null,
+        "xrefs" : [ {
+          "database" : "PMID",
+          "id" : "22160157",
+          "description" : null,
+          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/22160157"
+        } ]
+      } ],
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030142"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030142/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030142/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030142/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030142/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030142/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030142/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030142/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030142/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030142/hierarchicalDescendants"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030142/graph"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/GO_0030143",
+      "label" : "inter-Golgi transport vesicle",
+      "description" : [ "A vesicle that mediates transport of cargo within the Golgi complex (for example, between cisternae of the Golgi stack)." ],
+      "annotation" : {
+        "database_cross_reference" : [ "NIF_Subcellular:sao1382918459" ],
+        "has_alternative_id" : [ "GO:0005807" ],
+        "has_obo_namespace" : [ "cellular_component" ],
+        "id" : [ "GO:0030143" ]
+      },
+      "synonyms" : [ "inter-Golgi transport constitutive secretory pathway transport vesicle" ],
+      "ontology_name" : "go",
+      "ontology_prefix" : "GO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "GO_0030143",
+      "obo_id" : "GO:0030143",
+      "in_subset" : null,
+      "obo_definition_citation" : [ {
+        "definition" : "A vesicle that mediates transport of cargo within the Golgi complex (for example, between cisternae of the Golgi stack).",
+        "oboXrefs" : [ {
+          "database" : "GOC",
+          "id" : "mah",
+          "description" : null,
+          "url" : null
+        } ]
+      } ],
+      "obo_xref" : [ {
+        "database" : "NIF_Subcellular",
+        "id" : "sao1382918459",
+        "description" : null,
+        "url" : "http://www.neurolex.org/wiki/sao1382918459"
+      } ],
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030143"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030143/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030143/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030143/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030143/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030143/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030143/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030143/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030143/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030143/hierarchicalDescendants"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030143/graph"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/GO_0070382",
+      "label" : "exocytic vesicle",
+      "description" : [ "A transport vesicle that mediates transport from an intracellular compartment to the plasma membrane, and fuses with the plasma membrane to release various cargo molecules, such as proteins or hormones, by exocytosis." ],
+      "annotation" : {
+        "has_obo_namespace" : [ "cellular_component" ],
+        "id" : [ "GO:0070382" ]
+      },
+      "synonyms" : [ "exocytotic vesicle", "exocytic constitutive secretory pathway transport vesicle" ],
+      "ontology_name" : "go",
+      "ontology_prefix" : "GO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "GO_0070382",
+      "obo_id" : "GO:0070382",
+      "in_subset" : null,
+      "obo_definition_citation" : [ {
+        "definition" : "A transport vesicle that mediates transport from an intracellular compartment to the plasma membrane, and fuses with the plasma membrane to release various cargo molecules, such as proteins or hormones, by exocytosis.",
+        "oboXrefs" : [ {
+          "database" : "GOC",
+          "id" : "mah",
+          "description" : null,
+          "url" : null
+        }, {
+          "database" : "GOC",
+          "id" : "kad",
+          "description" : null,
+          "url" : null
+        } ]
+      } ],
+      "obo_xref" : null,
+      "obo_synonym" : [ {
+        "name" : "exocytotic vesicle",
+        "scope" : "hasExactSynonym",
+        "type" : null,
+        "xrefs" : [ {
+          "database" : "GOC",
+          "id" : "kad",
+          "description" : null,
+          "url" : null
+        } ]
+      } ],
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0070382"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0070382/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0070382/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0070382/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0070382/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0070382/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0070382/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0070382/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0070382/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0070382/hierarchicalDescendants"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0070382/graph"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/GO_0070319",
+      "label" : "Golgi to plasma membrane transport vesicle",
+      "description" : [ "A transport vesicle that mediates transport from the Golgi to the plasma membrane, and fuses with the plasma membrane to release various cargo molecules, such as proteins or hormones, by exocytosis." ],
+      "annotation" : {
+        "has_obo_namespace" : [ "cellular_component" ],
+        "id" : [ "GO:0070319" ]
+      },
+      "synonyms" : [ "Golgi to plasma membrane constitutive secretory pathway transport vesicle", "Golgi-plasma membrane transport vesicle" ],
+      "ontology_name" : "go",
+      "ontology_prefix" : "GO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "GO_0070319",
+      "obo_id" : "GO:0070319",
+      "in_subset" : null,
+      "obo_definition_citation" : [ {
+        "definition" : "A transport vesicle that mediates transport from the Golgi to the plasma membrane, and fuses with the plasma membrane to release various cargo molecules, such as proteins or hormones, by exocytosis.",
+        "oboXrefs" : [ {
+          "database" : "GOC",
+          "id" : "mah",
+          "description" : null,
+          "url" : null
+        }, {
+          "database" : "GOC",
+          "id" : "kad",
+          "description" : null,
+          "url" : null
+        } ]
+      } ],
+      "obo_xref" : null,
+      "obo_synonym" : [ {
+        "name" : "Golgi-plasma membrane transport vesicle",
+        "scope" : "hasExactSynonym",
+        "type" : null,
+        "xrefs" : [ {
+          "database" : "GOC",
+          "id" : "mah",
+          "description" : null,
+          "url" : null
+        } ]
+      } ],
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0070319"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0070319/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0070319/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0070319/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0070319/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0070319/jstree"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0070319/graph"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "first" : {
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/descendants?id=GO:0043226&page=0&size=20"
+    },
+    "self" : {
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/descendants?id=GO:0043226"
+    },
+    "next" : {
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/descendants?id=GO:0043226&page=1&size=20"
+    },
+    "last" : {
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/descendants?id=GO:0043226&page=18&size=20"
+    }
+  },
+  "page" : {
+    "size" : 20,
+    "totalElements" : 375,
+    "totalPages" : 19,
+    "number" : 0
+  }
+}
+----

@@ -1,0 +1,7 @@
+[source,http]
+----
+GET /ols/api/ontologies/go/children?id=GO:0043226 HTTP/1.1
+Accept: application/json
+Host: www.ebi.ac.uk
+
+----

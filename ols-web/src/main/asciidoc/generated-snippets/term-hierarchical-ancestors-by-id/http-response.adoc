@@ -1,0 +1,131 @@
+[source,http]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 5677
+
+{
+  "_embedded" : {
+    "terms" : [ {
+      "iri" : "http://purl.obolibrary.org/obo/GO_0005575",
+      "label" : "cellular_component",
+      "description" : [ "The part of a cell, extracellular environment or virus in which a gene product is located. A gene product may be located in one or more parts of a cell and its location may be as specific as a particular macromolecular complex, that is, a stable, persistent association of macromolecules that function together." ],
+      "annotation" : {
+        "comment" : [ "Note that, in addition to forming the root of the cellular component ontology, this term is recommended for use for the annotation of gene products whose cellular component is unknown. Note that when this term is used for annotation, it indicates that no information was available about the cellular component of the gene product annotated as of the date the annotation was made; the evidence code ND, no data, is used to indicate this." ],
+        "database_cross_reference" : [ "NIF_Subcellular:sao1337158144", "NIF_Subcellular:sao-1337158144" ],
+        "has_alternative_id" : [ "GO:0008372" ],
+        "has_obo_namespace" : [ "cellular_component" ],
+        "has_related_synonym" : [ "subcellular entity" ],
+        "id" : [ "GO:0005575" ]
+      },
+      "synonyms" : [ "cellular component", "cell or subcellular entity" ],
+      "ontology_name" : "go",
+      "ontology_prefix" : "GO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : true,
+      "is_root" : true,
+      "short_form" : "GO_0005575",
+      "obo_id" : "GO:0005575",
+      "in_subset" : [ "goslim_chembl", "goslim_generic", "goslim_metagenomics", "goslim_pir", "gosubset_prok", "goslim_plant", "goslim_candida", "goslim_yeast", "goslim_aspergillus" ],
+      "obo_definition_citation" : [ {
+        "definition" : "The part of a cell, extracellular environment or virus in which a gene product is located. A gene product may be located in one or more parts of a cell and its location may be as specific as a particular macromolecular complex, that is, a stable, persistent association of macromolecules that function together.",
+        "oboXrefs" : [ {
+          "database" : "NIF_Subcellular",
+          "id" : "sao-1337158144",
+          "description" : null,
+          "url" : "http://www.neurolex.org/wiki/sao-1337158144"
+        }, {
+          "database" : "GOC",
+          "id" : "go_curators",
+          "description" : null,
+          "url" : null
+        } ]
+      } ],
+      "obo_xref" : [ {
+        "database" : "NIF_Subcellular",
+        "id" : "sao1337158144",
+        "description" : null,
+        "url" : "http://www.neurolex.org/wiki/sao1337158144"
+      }, {
+        "database" : "NIF_Subcellular",
+        "id" : "sao-1337158144",
+        "description" : null,
+        "url" : "http://www.neurolex.org/wiki/sao-1337158144"
+      } ],
+      "obo_synonym" : [ {
+        "name" : "subcellular entity",
+        "scope" : "hasRelatedSynonym",
+        "type" : null,
+        "xrefs" : [ {
+          "database" : "NIF_Subcellular",
+          "id" : "nlx_subcell_100315",
+          "description" : null,
+          "url" : "http://www.neurolex.org/wiki/nlx_subcell_100315"
+        } ]
+      } ],
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005575"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005575/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005575/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005575/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005575/hierarchicalDescendants"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005575/graph"
+        }
+      }
+    }, {
+      "iri" : "http://www.w3.org/2002/07/owl#Thing",
+      "label" : "Thing",
+      "description" : null,
+      "annotation" : { },
+      "synonyms" : null,
+      "ontology_name" : "go",
+      "ontology_prefix" : "GO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : false,
+      "has_children" : false,
+      "is_root" : true,
+      "short_form" : "Thing",
+      "obo_id" : null,
+      "in_subset" : null,
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fwww.w3.org%252F2002%252F07%252Fowl%2523Thing"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fwww.w3.org%252F2002%252F07%252Fowl%2523Thing/graph"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "self" : {
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/hierarchicalAncestors?id=GO:0043226"
+    }
+  },
+  "page" : {
+    "size" : 20,
+    "totalElements" : 2,
+    "totalPages" : 1,
+    "number" : 0
+  }
+}
+----

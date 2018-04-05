@@ -1,0 +1,11 @@
+----
+GET /ols/api/ontologies/{ontology_id}/terms/roots
+----
+
+|===
+|Parameter|Description
+
+|ontology_id
+|The ontology id in OLS
+
+|===

@@ -1,0 +1,14 @@
+----
+GET /ols/api/ontologies/{ontology}/parents
+----
+
+|===
+|Parameter|Description
+
+|ontology
+|The OLS ontology id e.g. go
+
+|id
+|The id of the term, can be URI, short form or obo id
+
+|===

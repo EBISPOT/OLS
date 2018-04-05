@@ -1,0 +1,4 @@
+[source,bash]
+----
+$ curl -L 'http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/roots' -i -H 'Accept: application/json'
+----
