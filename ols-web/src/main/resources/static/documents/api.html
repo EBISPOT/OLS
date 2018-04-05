@@ -484,15 +484,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#resources-term">Term</a>
 <ul class="sectlevel2">
-<li><a href="#_retrieve_an_term">Retrieve an term</a>
+<li><a href="#_retrieve_a_term">Retrieve a term</a>
 <ul class="sectlevel3">
 <li><a href="#_example_request_6">Example request</a></li>
 <li><a href="#_example_request_7">Example request</a></li>
 <li><a href="#_example_response_4">Example response</a></li>
 <li><a href="#resources-terms-links">Links</a></li>
-<li><a href="#_related_terms">Related terms</a></li>
 </ul>
 </li>
+<li><a href="#_parent_child_relationships_for_terms">Parent/child relationships for terms</a>
+<ul class="sectlevel3">
+<li><a href="#_example_request_8">Example request</a></li>
+<li><a href="#_example_requests">Example requests</a></li>
+</ul>
+</li>
+<li><a href="#_other_related_terms">Other related terms</a></li>
 </ul>
 </li>
 <li><a href="#resources-properties">Properties and individuals</a>
@@ -639,7 +645,7 @@ Content-Type: application/json;charset=UTF-8
 Content-Length: 153
 
 {
-  "timestamp" : 1513093638663,
+  "timestamp" : 1522943961680,
   "status" : 404,
   "error" : "Not Found",
   "message" : "Resource not found",
@@ -993,27 +999,27 @@ Content-Length: 432
 <div class="content">
 <pre class="highlight"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 5196
+Content-Length: 5202
 
 {
   "ontologyId" : "efo",
-  "loaded" : "2017-01-17T15:56:01.604+0000",
-  "updated" : "2017-04-12T12:07:06.814+0000",
+  "loaded" : "2018-04-01T19:37:59.640+0000",
+  "updated" : "2018-04-01T19:37:59.640+0000",
   "status" : "LOADED",
   "message" : "",
   "version" : null,
-  "numberOfTerms" : 19230,
-  "numberOfProperties" : 296,
+  "numberOfTerms" : 19799,
+  "numberOfProperties" : 297,
   "numberOfIndividuals" : 0,
   "config" : {
-    "id" : "http://www.ebi.ac.uk/efo",
+    "id" : "http://www.ebi.ac.uk/efo/efo.owl",
     "versionIri" : null,
     "title" : "Experimental Factor Ontology",
     "namespace" : "efo",
     "preferredPrefix" : "EFO",
     "description" : "The Experimental Factor Ontology (EFO) provides a systematic description of many experimental variables available in EBI databases, and for external projects such as the NHGRI GWAS catalogue. It combines parts of several biological ontologies, such as anatomy, disease and chemical compounds. The scope of EFO is to support the annotation, analysis and visualization of data handled by many groups at the EBI and as the core ontology for the Centre for Therapeutic Validation (CTTV)",
     "homepage" : "http://www.ebi.ac.uk/efo",
-    "version" : "2.80",
+    "version" : "2.82",
     "mailingList" : "efo-users@lists.sourceforge.net",
     "creators" : [ ],
     "annotations" : {
@@ -1021,7 +1027,7 @@ Content-Length: 5196
       "creator" : [ "Simon Jupp", "Jon Ison", "Helen Parkinson", "Eleanor Williams", "James Malone", "Sirarat Sarntivijai", "Catherine Leroy", "Ele Holloway", "Tomasz Adamusiak", "Emma Kate Hastings", "Natalja Kurbatova", "Dani Welter", "Drashtti Vasant" ],
       "rights" : [ "Copyright [2014] EMBL - European Bioinformatics Institute \nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the \nLicense. " ],
       "format-version" : [ "1.4" ],
-      "comment" : [ "Bioportal mappings to Human disease (DOID) ver", "Bioportal mappings to NCI Thesaurus (NCIt) ver11.01e", "Bioportal mappings to MGED Ontology (MO) ver1.3.1.1", "Bioportal mappings to Phenotypic quality (PATO) vernull", "Bioportal mappings to Teleost anatomy and development (TAO) ver1.158", "Bioportal mappings to Units of measurement (UO) vernull", "Bioportal mappings to BRENDA tissue / enzyme source (BTO) verunknown", "Mappings: CRISP Thesaurus Version 2.5.2.0", "Bioportal mappings to Teleost Anatomy Ontology (TAO) vernull", "Bioportal mappings to NIFSTD (nif) ver2.2 - December 20, 2010", "Bioportal mappings to SNOMED Clinical Terms (SNOMEDCT) ver2010_07_31", "Bioportal mappings to Chemical entities of biological interest (CHEBI) verunknown", "Mappings to Plant structure (PO)", "Bioportal mappings to Gene Ontology (GO) ver1.886", "Mappings:The Arabidopsis Information Resource (TAIR)", "Bioportal mappings to Drosophila gross anatomy (FBbt) ver2011-02-10", "Bioportal mappings to International Classification of Diseases (ICD-9) ver9", "Bioportal mappings to Foundational Model of Anatomy (FMA) ver3.1", "Date: 16th January 2017", "Bioportal mappings to Malaria Ontology (IDOMAL) ver1.22", "Bioportal mappings to Medical Subject Headings (MSH) ver2011_2010_08_30", "Ontology containing axioms that describe relationships between orphanet disease ontology classes and efo classes.", "Bioportal mappings to Zebrafish anatomy and development (ZFA) verunknown", "Bioportal mappings to NCBI organismal classification (NCBITaxon) ver1.2", "Bioportal mappings to Mosquito gross anatomy (TGMA) version unknown", "Bioportal mappings to Mammalian phenotype (MP) vernull", "Bioportal mappings to Minimal anatomical terminology (MAT) ver1.1", "Mappings: The Jackson Lab", "Bioportal mappings to Cell type (CL) verunknown", "Bioportal mappings to Microarray experimental conditions (MO) ver1.3.1.1", "Bioportal mappings to Ontology for Biomedical Investigations (OBI) ver2010-10-26 Vancouver 2010 release, RC2" ]
+      "comment" : [ "Bioportal mappings to Human disease (DOID) ver", "Bioportal mappings to NCI Thesaurus (NCIt) ver11.01e", "Bioportal mappings to MGED Ontology (MO) ver1.3.1.1", "Date: 15th March 2017", "Bioportal mappings to Phenotypic quality (PATO) vernull", "Bioportal mappings to Teleost anatomy and development (TAO) ver1.158", "Bioportal mappings to Units of measurement (UO) vernull", "Bioportal mappings to BRENDA tissue / enzyme source (BTO) verunknown", "Mappings: CRISP Thesaurus Version 2.5.2.0", "Bioportal mappings to Teleost Anatomy Ontology (TAO) vernull", "Bioportal mappings to NIFSTD (nif) ver2.2 - December 20, 2010", "Bioportal mappings to SNOMED Clinical Terms (SNOMEDCT) ver2010_07_31", "Bioportal mappings to Chemical entities of biological interest (CHEBI) verunknown", "Mappings to Plant structure (PO)", "Bioportal mappings to Gene Ontology (GO) ver1.886", "Mappings:The Arabidopsis Information Resource (TAIR)", "Bioportal mappings to Drosophila gross anatomy (FBbt) ver2011-02-10", "Bioportal mappings to International Classification of Diseases (ICD-9) ver9", "Bioportal mappings to Foundational Model of Anatomy (FMA) ver3.1", "Bioportal mappings to Malaria Ontology (IDOMAL) ver1.22", "Bioportal mappings to Medical Subject Headings (MSH) ver2011_2010_08_30", "Ontology containing axioms that describe relationships between orphanet disease ontology classes and efo classes.", "Bioportal mappings to Zebrafish anatomy and development (ZFA) verunknown", "Bioportal mappings to NCBI organismal classification (NCBITaxon) ver1.2", "Bioportal mappings to Mosquito gross anatomy (TGMA) version unknown", "Bioportal mappings to Mammalian phenotype (MP) vernull", "Bioportal mappings to Minimal anatomical terminology (MAT) ver1.1", "Mappings: The Jackson Lab", "Bioportal mappings to Cell type (CL) verunknown", "Bioportal mappings to Microarray experimental conditions (MO) ver1.3.1.1", "Bioportal mappings to Ontology for Biomedical Investigations (OBI) ver2010-10-26 Vancouver 2010 release, RC2" ]
     },
     "fileLocation" : "http://www.ebi.ac.uk/efo/efo.owl",
     "reasonerType" : "OWL2",
@@ -1199,7 +1205,7 @@ Content-Length: 5196
 <h2 id="resources-term"><a class="anchor" href="#resources-term"></a>Term</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_retrieve_an_term"><a class="anchor" href="#_retrieve_an_term"></a>Retrieve an term</h3>
+<h3 id="_retrieve_a_term"><a class="anchor" href="#_retrieve_a_term"></a>Retrieve a term</h3>
 <div class="sect3">
 <h4 id="_example_request_6"><a class="anchor" href="#_example_request_6"></a>Example request</h4>
 <div class="listingblock">
@@ -1389,8 +1395,79 @@ Content-Length: 3657
 </tbody>
 </table>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_parent_child_relationships_for_terms"><a class="anchor" href="#_parent_child_relationships_for_terms"></a>Parent/child relationships for terms</h3>
+<div class="paragraph">
+<p>The RESTful way to retrieve direct parent/child or all parent/child (ancestors/descendant) terms is to follow the _links URL on a given term. There are cases where it is convenient to request parent/child terms for a given term when you only have the URI or short id. For these cases we have implemented a convenient
+endpoint for these that takes a term id as a parameter. There are methods for all parent/child relationships as documented in the links sections for term resources.</p>
+</div>
 <div class="sect3">
-<h4 id="_related_terms"><a class="anchor" href="#_related_terms"></a>Related terms</h4>
+<h4 id="_example_request_8"><a class="anchor" href="#_example_request_8"></a>Example request</h4>
+<div class="listingblock">
+<div class="content">
+<pre>GET /ols/api/ontologies/{ontology}/parents</pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ontology</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The OLS ontology id e.g. go</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The id of the term, can be URI, short form or obo id</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_example_requests"><a class="anchor" href="#_example_requests"></a>Example requests</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -L 'http://www.ebi.ac.uk/ols/api/ontologies/go/parents?id=GO:0043226' -i -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -L 'http://www.ebi.ac.uk/ols/api/ontologies/go/children?id=GO:0043226' -i -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -L 'http://www.ebi.ac.uk/ols/api/ontologies/go/ancestors?id=GO:0043226' -i -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -L 'http://www.ebi.ac.uk/ols/api/ontologies/go/descendants?id=GO:0043226' -i -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -L 'http://www.ebi.ac.uk/ols/api/ontologies/go/hierarchicalDescendants?id=GO:0043226' -i -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -L 'http://www.ebi.ac.uk/ols/api/ontologies/go/hierarchicalAncestors?id=GO:0043226' -i -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_other_related_terms"><a class="anchor" href="#_other_related_terms"></a>Other related terms</h3>
 <div class="paragraph">
 <p>In cases where a term has a direct relation to another term (single existential to a named class in OBO), for example a "part of" relation, the related
 terms can be accessed directly with this API.</p>
@@ -1398,7 +1475,6 @@ terms can be accessed directly with this API.</p>
 <div class="listingblock">
 <div class="content">
 <pre>GET /api/ontologies/{ontology_id}/terms/{term_iri}/{property_iri}</pre>
-</div>
 </div>
 </div>
 </div>
@@ -1691,7 +1767,7 @@ applications such as autocomplete.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-12-12 17:17:58 +00:00
+Last updated 2018-04-05 16:57:40 +01:00
 </div>
 </div>
 </body>

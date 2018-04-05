@@ -70,13 +70,13 @@ Content-Length: 3159
       "href" : "http://www.ebi.ac.uk/ols/api/ontologies?page=2&size=1"
     },
     "last" : {
-      "href" : "http://www.ebi.ac.uk/ols/api/ontologies?page=193&size=1"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies?page=197&size=1"
     }
   },
   "page" : {
     "size" : 1,
-    "totalElements" : 194,
-    "totalPages" : 194,
+    "totalElements" : 198,
+    "totalPages" : 198,
     "number" : 1
   }
 }

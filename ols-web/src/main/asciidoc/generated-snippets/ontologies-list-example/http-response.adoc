@@ -2,7 +2,7 @@
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 41260
+Content-Length: 41723
 
 {
   "_embedded" : {
@@ -196,54 +196,6 @@ Content-Length: 41260
         },
         "individuals" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/cco/individuals"
-        }
-      }
-    }, {
-      "ontologyId" : "cmpo",
-      "loaded" : null,
-      "updated" : "2017-04-12T12:05:22.642+0000",
-      "status" : "LOADED",
-      "message" : "",
-      "version" : null,
-      "numberOfTerms" : 0,
-      "numberOfProperties" : 0,
-      "numberOfIndividuals" : 0,
-      "config" : {
-        "id" : "http://www.ebi.ac.uk/cmpo",
-        "versionIri" : null,
-        "title" : "Cellular Microscopy Phenotype Ontology",
-        "namespace" : "cmpo",
-        "preferredPrefix" : "CMPO",
-        "description" : "CMPO is a species neutral ontology for describing general phenotypic observations relating to the whole cell, cellular components, cellular processes and cell populations.",
-        "homepage" : "http://www.ebi.ac.uk/cmpo",
-        "version" : null,
-        "mailingList" : "jupp@ebi.ac.uk",
-        "creators" : [ ],
-        "annotations" : { },
-        "fileLocation" : "http://www.ebi.ac.uk/cmpo/cmpo.owl",
-        "reasonerType" : "EL",
-        "oboSlims" : true,
-        "labelProperty" : "http://www.w3.org/2000/01/rdf-schema#label",
-        "definitionProperties" : [ "http://purl.obolibrary.org/obo/IAO_0000115" ],
-        "synonymProperties" : [ "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym" ],
-        "hierarchicalProperties" : [ "http://purl.obolibrary.org/obo/BFO_0000050" ],
-        "baseUris" : [ "http://www.ebi.ac.uk/cmpo/CMPO_" ],
-        "hiddenProperties" : [ ],
-        "internalMetadataProperties" : [ ],
-        "skos" : false
-      },
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/cmpo"
-        },
-        "terms" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/cmpo/terms"
-        },
-        "properties" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/cmpo/properties"
-        },
-        "individuals" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/cmpo/individuals"
         }
       }
     }, {
@@ -761,7 +713,7 @@ Content-Length: 41260
         "namespace" : "genepio",
         "preferredPrefix" : "GENEPIO",
         "description" : "The Genomic Epidemiology Ontology (GenEpiO) covers vocabulary necessary to identify, document and research foodborne pathogens and associated outbreaks.",
-        "homepage" : "http://genepio.github.io/genepio/",
+        "homepage" : "http://genepio.org/",
         "version" : null,
         "mailingList" : null,
         "creators" : [ ],
@@ -841,27 +793,83 @@ Content-Length: 41260
         }
       }
     }, {
-      "ontologyId" : "pr",
+      "ontologyId" : "aro",
       "loaded" : null,
-      "updated" : "2017-04-12T12:29:44.449+0000",
-      "status" : "LOADED",
-      "message" : "",
+      "updated" : "2018-03-13T14:23:07.653+0000",
+      "status" : "TOLOAD",
+      "message" : "No ontology loaded",
       "version" : null,
       "numberOfTerms" : 0,
       "numberOfProperties" : 0,
       "numberOfIndividuals" : 0,
       "config" : {
-        "id" : "http://purl.obolibrary.org/obo/pr.owl",
+        "id" : "http://purl.obolibrary.org/obo/aro",
         "versionIri" : null,
+        "title" : "Antibiotic Resistance Ontology",
+        "namespace" : "aro",
+        "preferredPrefix" : "ARO",
+        "description" : "Antibiotic resistance genes and mutations",
+        "homepage" : "https://github.com/arpcard/aro",
+        "version" : null,
+        "mailingList" : "https://mailman.mcmaster.ca/mailman/listinfo/card-l",
+        "creators" : [ ],
+        "annotations" : { },
+        "fileLocation" : "http://purl.obolibrary.org/obo/aro.owl",
+        "reasonerType" : "EL",
+        "oboSlims" : true,
+        "labelProperty" : "http://www.w3.org/2000/01/rdf-schema#label",
+        "definitionProperties" : [ "http://purl.obolibrary.org/obo/IAO_0000115" ],
+        "synonymProperties" : [ "http://www.geneontology.org/formats/oboInOwl#hasExactSynonym" ],
+        "hierarchicalProperties" : [ "http://purl.obolibrary.org/obo/BFO_0000050" ],
+        "baseUris" : [ "http://purl.obolibrary.org/obo/ARO_" ],
+        "hiddenProperties" : [ ],
+        "internalMetadataProperties" : [ ],
+        "skos" : false
+      },
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/aro"
+        },
+        "terms" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/aro/terms"
+        },
+        "properties" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/aro/properties"
+        },
+        "individuals" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/aro/individuals"
+        }
+      }
+    }, {
+      "ontologyId" : "pr",
+      "loaded" : "2018-03-13T13:05:53.332+0000",
+      "updated" : "2018-03-13T14:24:03.192+0000",
+      "status" : "DOWNLOADING",
+      "message" : "",
+      "version" : null,
+      "numberOfTerms" : 314161,
+      "numberOfProperties" : 46,
+      "numberOfIndividuals" : 0,
+      "config" : {
+        "id" : "http://purl.obolibrary.org/obo/pr.owl",
+        "versionIri" : "http://purl.obolibrary.org/obo/pr/55.0/pr.owl",
         "title" : "PRotein Ontology (PRO)",
         "namespace" : "pr",
         "preferredPrefix" : "PR",
         "description" : "An ontological representation of protein-related entities",
         "homepage" : "http://proconsortium.org",
-        "version" : null,
+        "version" : "13-03-2018",
         "mailingList" : null,
         "creators" : [ ],
-        "annotations" : { },
+        "annotations" : {
+          "date" : [ "15:02:2018 08:11" ],
+          "saved-by" : [ "ceci" ],
+          "license" : [ "" ],
+          "default-namespace" : [ "protein" ],
+          "has_obo_format_version" : [ "1.2" ],
+          "auto-generated-by" : [ "OBO-Edit 2.0" ],
+          "comment" : [ "The PRotein Ontology is licensed under CC BY 4.0. Please see http://obofoundry.org/ontology/pr for details.", "Use reasoner in OBO Edit to see the correct hierarchy." ]
+        },
         "fileLocation" : "http://purl.obolibrary.org/obo/pr.owl",
         "reasonerType" : "EL",
         "oboSlims" : true,
@@ -1002,7 +1010,7 @@ Content-Length: 41260
   },
   "page" : {
     "size" : 20,
-    "totalElements" : 194,
+    "totalElements" : 198,
     "totalPages" : 10,
     "number" : 0
   }

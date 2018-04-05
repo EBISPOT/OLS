@@ -239,7 +239,7 @@ The response is <<overview-pagination,paginated>> where the individual <<resourc
 [[resources-term]]
 == Term
 
-=== Retrieve an term
+=== Retrieve a term
 
 ==== Example request
 
@@ -258,7 +258,30 @@ include::{snippets}/terms-example/http-response.adoc[]
 
 include::{snippets}/terms-example/links.adoc[]
 
-==== Related terms
+=== Parent/child relationships for terms
+
+The RESTful way to retrieve direct parent/child or all parent/child (ancestors/descendant) terms is to follow the _links URL on a given term. There are cases where it is convenient to request parent/child terms for a given term when you only have the URI or short id. For these cases we have implemented a convenient
+endpoint for these that takes a term id as a parameter. There are methods for all parent/child relationships as documented in the links sections for term resources. 
+
+==== Example request
+
+include::{snippets}/term-parents-by-id/path-parameters.adoc[]
+
+==== Example requests
+
+include::{snippets}/term-parents-by-id/curl-request.adoc[]
+
+include::{snippets}/term-children-by-id/curl-request.adoc[]
+
+include::{snippets}/term-ancestors-by-id/curl-request.adoc[]
+
+include::{snippets}/term-descendants-by-id/curl-request.adoc[]
+
+include::{snippets}/term-hierarchical-descendants-by-id/curl-request.adoc[]
+
+include::{snippets}/term-hierarchical-ancestors-by-id/curl-request.adoc[]
+
+=== Other related terms
 
 In cases where a term has a direct relation to another term (single existential to a named class in OBO), for example a "part of" relation, the related
 terms can be accessed directly with this API.

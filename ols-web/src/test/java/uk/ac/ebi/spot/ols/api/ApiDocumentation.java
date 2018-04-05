@@ -43,7 +43,6 @@ import static org.springframework.restdocs.request.RequestDocumentation.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = OlsWebApp.class)
 @WebAppConfiguration
-@Ignore
 public class ApiDocumentation {
 
     @Rule
@@ -279,6 +278,72 @@ public class ApiDocumentation {
         this.mockMvc.perform(get("/ols/api/ontologies/{ontology}/terms/{iri}", "go", URLEncoder.encode("http://purl.obolibrary.org/obo/GO_0043226", "UTF-8")).contextPath("/ols").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
+    }
+
+    @Test
+    public void termParentsById () throws Exception {
+        this.document.snippets(
+                pathParameters(
+                        parameterWithName("ontology").description("The OLS ontology id e.g. go"),
+                        parameterWithName("id").description("The id of the term, can be URI, short form or obo id")));
+
+        this.mockMvc.perform(get("/ols/api/ontologies/{ontology}/parents?id={id}", "go","GO:0043226").contextPath("/ols").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void termChildrenById () throws Exception {
+        this.document.snippets(
+                pathParameters(
+                        parameterWithName("ontology").description("The OLS ontology id e.g. go"),
+                        parameterWithName("id").description("The id of the term, can be URI, short form or obo id")));
+
+        this.mockMvc.perform(get("/ols/api/ontologies/{ontology}/children?id={id}", "go","GO:0043226").contextPath("/ols").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void termAncestorsById () throws Exception {
+        this.document.snippets(
+                pathParameters(
+                        parameterWithName("ontology").description("The OLS ontology id e.g. go"),
+                        parameterWithName("id").description("The id of the term, can be URI, short form or obo id")));
+
+        this.mockMvc.perform(get("/ols/api/ontologies/{ontology}/ancestors?id={id}", "go","GO:0043226").contextPath("/ols").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void termDescendantsById () throws Exception {
+        this.document.snippets(
+                pathParameters(
+                        parameterWithName("ontology").description("The OLS ontology id e.g. go"),
+                        parameterWithName("id").description("The id of the term, can be URI, short form or obo id")));
+
+        this.mockMvc.perform(get("/ols/api/ontologies/{ontology}/descendants?id={id}", "go","GO:0043226").contextPath("/ols").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void termHierarchicalAncestorsById () throws Exception {
+        this.document.snippets(
+                pathParameters(
+                        parameterWithName("ontology").description("The OLS ontology id e.g. go"),
+                        parameterWithName("id").description("The id of the term, can be URI, short form or obo id")));
+
+        this.mockMvc.perform(get("/ols/api/ontologies/{ontology}/hierarchicalAncestors?id={id}", "go","GO:0043226").contextPath("/ols").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void termHierarchicalDescendantsById () throws Exception {
+        this.document.snippets(
+                pathParameters(
+                        parameterWithName("ontology").description("The OLS ontology id e.g. go"),
+                        parameterWithName("id").description("The id of the term, can be URI, short form or obo id")));
+
+        this.mockMvc.perform(get("/ols/api/ontologies/{ontology}/hierarchicalDescendants?id={id}", "go","GO:0043226").contextPath("/ols").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     @Test
