@@ -291,7 +291,7 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
         subPropertyProperties.put("ontology_name", ontologyName);
         subPropertyProperties.put("__type__", "SubPropertyOf");
 
-        rdfTypeProperties.put("uri", "http://www.w3.org/1999/02/22-rdf-syntax-ns#>");
+        rdfTypeProperties.put("uri", "http://www.w3.org/1999/02/22-rdf-syntax-ns#type>");
         rdfTypeProperties.put("label", "type");
         rdfTypeProperties.put("ontology_name", ontologyName);
         rdfTypeProperties.put("__type__", "Type");
