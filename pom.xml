@@ -113,6 +113,7 @@
                 <version>2.10.4</version>
                 <configuration>
                    <additionalparam>-Xdoclint:none</additionalparam>
+                   <failOnError>false</failOnError>
                </configuration>
    			</plugin>
    			<plugin>
@@ -150,6 +151,8 @@
              </reportSets>
              <configuration>
                 <additionalparam>-Xdoclint:none</additionalparam>
+                <failOnError>false</failOnError>
+
             </configuration>
          </plugin>
      </plugins>
