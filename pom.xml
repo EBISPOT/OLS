@@ -148,6 +148,9 @@
                      </reports>
                  </reportSet>
              </reportSets>
+             <configuration>
+                <additionalparam>-Xdoclint:none</additionalparam>
+            </configuration>
          </plugin>
      </plugins>
  	</reporting>
