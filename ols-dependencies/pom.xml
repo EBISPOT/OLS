@@ -3,7 +3,7 @@
 
     <groupId>uk.ac.ebi.spot</groupId>
     <artifactId>ols-dependencies</artifactId>
-    <version>3.2.0</version>
+    <version>3.2.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <parent>
@@ -97,9 +97,4 @@
 
         </dependencies>
     </dependencyManagement>
-    
-
-  <scm>
-    <tag>3.2.0.RELEASE</tag>
-  </scm>
 </project>
