@@ -3,7 +3,7 @@
 
     <groupId>uk.ac.ebi.spot</groupId>
     <artifactId>ols-dependencies</artifactId>
-    <version>3.2.0</version>
+    <version>3.2.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <parent>
@@ -111,9 +111,4 @@
    			<url>https://www.ebi.ac.uk/spot/nexus/repository/maven-snapshots/</url>
    		</snapshotRepository>
    	</distributionManagement>
-
-
-  <scm>
-    <tag>3.2.0.RELEASE</tag>
-  </scm>
 </project>
