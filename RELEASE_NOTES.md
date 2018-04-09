@@ -1,3 +1,6 @@
+See https://github.com/EBISPOT/ols/releases for latest releases and notes. 
+
+
 --------------------------------
 OLS 3.1.0 release notes
 --------------------------------
