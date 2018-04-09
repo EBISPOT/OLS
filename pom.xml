@@ -5,7 +5,7 @@
     <groupId>uk.ac.ebi.spot</groupId>
     <artifactId>ols-ebi</artifactId>
     <packaging>pom</packaging>
-    <version>3.1.2-SNAPSHOT</version>
+    <version>3.2.0</version>
 
     <name>Ontology Lookup Service</name>
     <description>Source for the EMBL-EBI ontology lookup service</description>
