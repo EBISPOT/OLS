@@ -8,6 +8,49 @@
     <artifactId>ols-ebi</artifactId>
     <packaging>pom</packaging>
     <version>3.1.2-SNAPSHOT</version>
+
+    <name>Ontology Lookup Service</name>
+    <description>Source for the EMBL-EBI ontology lookup service</description>
+   	<url>https://github.com/EBISPOT/ols</url>
+   	<organization>
+   		<name>EMBL-EBI European Bioinformatics Institute</name>
+   		<url>http://www.ebi.ac.uk</url>
+   	</organization>
+
+    <licenses>
+   		<license>
+   			<name>Apache License, Version 2.0</name>
+   			<url>http://www.apache.org/licenses/LICENSE-2.0</url>
+   		</license>
+   	</licenses>
+    <developers>
+   		<developer>
+   			<id>simonjupp</id>
+   			<name>Simon Jupp</name>
+   			<email>jupp at ebi.ac.uk</email>
+   			<organization>EMBL-EBI European Bioinformatics Institute</organization>
+   			<organizationUrl>http://www.ebi.ac.uk</organizationUrl>
+   			<roles>
+   				<role>Project lead</role>
+   			</roles>
+   		</developer>
+
+   	</developers>
+
+    <!-- Mailing Lists -->
+   	<mailingLists>
+   		<mailingList>
+   			<name>EMBL-EBI Samples, Phenotypes and Ontologies Team</name>
+   			<post>ols-support@ebi.ac.uk</post>
+   		</mailingList>
+   	</mailingLists>
+
+   	<!-- Bug Tracker -->
+   	<issueManagement>
+   		<system>github</system>
+   		<url>https://github.com/EBISPOT/ols/issues</url>
+   	</issueManagement>
+
     <modules>
         <module>ols-core</module>
         <module>ols-solr</module>
@@ -19,5 +62,93 @@
         <module>ols-dependencies</module>
         <module>ols-parent</module>
     </modules>
+
+    <scm>
+   		<connection>scm:git:https://github.com/EBISPOT/ols.git</connection>
+   		<url>http://github.com/github.com/EBISPOT/ols</url>
+   		<developerConnection>scm:git:https://github.com/EBISPOT/ols.git</developerConnection>
+   	  <tag>HEAD</tag>
+    </scm>
+
+   	<distributionManagement>
+   		<repository>
+   			<id>nexus-release</id>
+   			<name>Releases</name>
+   			<url>https://www.ebi.ac.uk/spot/nexus/repository/maven-releases/</url>
+   		</repository>
+   		<snapshotRepository>
+   			<id>nexus-snapshot</id>
+   			<name>Snapshot</name>
+   			<url>https://www.ebi.ac.uk/spot/nexus/repository/maven-snapshots/</url>
+   		</snapshotRepository>
+   	</distributionManagement>
+
+
+    <repositories>
+   	    <repository>
+   	        <id>nexus-public</id>
+   	        <name>Public Repository</name>
+   	        <url>https://www.ebi.ac.uk/spot/nexus/repository/maven-public/</url>
+   	        <releases>
+   	            <enabled>true</enabled>
+   	        </releases>
+   	        <snapshots>
+   	            <enabled>true</enabled>
+   	        </snapshots>
+   	    </repository>
+   	</repositories>
+
+    <build>
+   		<plugins>
+   			<plugin>
+   				<groupId>org.apache.maven.plugins</groupId>
+   				<artifactId>maven-release-plugin</artifactId>
+   				<version>2.5.3</version>
+   				<configuration>
+   					<tagNameFormat>@{project.version}</tagNameFormat>
+   					<autoVersionSubmodules>true</autoVersionSubmodules>
+   				</configuration>
+   			</plugin>
+   			<plugin>
+   			    <groupId>org.apache.maven.plugins</groupId>
+   				<artifactId>maven-javadoc-plugin</artifactId>
+         			<version>2.10.4</version>
+   			</plugin>
+   			<plugin>
+   				<artifactId>maven-site-plugin</artifactId>
+   				<version>3.5.1</version>
+   				<dependencies>
+   					<dependency>
+   						<groupId>org.apache.maven.wagon</groupId>
+   						<artifactId>wagon-webdav-jackrabbit</artifactId>
+   						<version>2.12</version>
+   					</dependency>
+   				</dependencies>
+   			</plugin>
+   		</plugins>
+   	</build>
+
+	<reporting>
+     <plugins>
+         <plugin>
+             <groupId>org.apache.maven.plugins</groupId>
+             <artifactId>maven-project-info-reports-plugin</artifactId>
+             <version>RELEASE</version>
+         </plugin>
+         <plugin>
+             <groupId>org.apache.maven.plugins</groupId>
+             <artifactId>maven-javadoc-plugin</artifactId>
+             <version>2.8.1</version>
+             <reportSets>
+                 <reportSet>
+                     <id>aggregate</id>
+                     <reports>
+                         <report>aggregate</report>
+                     </reports>
+                 </reportSet>
+             </reportSets>
+         </plugin>
+     </plugins>
+ 	</reporting>
 
 </project>
