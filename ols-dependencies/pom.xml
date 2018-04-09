@@ -18,7 +18,6 @@
     <modelVersion>4.0.0</modelVersion>
 
     <properties>
-        <ols.version>${project.version}</ols.version>
         <owlapi.version>3.5.2</owlapi.version>
         <HermiT.version>1.3.8.4</HermiT.version>
         <elk.version>0.4.2</elk.version>
@@ -41,32 +40,32 @@
             <dependency>
                 <groupId>uk.ac.ebi.spot</groupId>
                 <artifactId>ols-core</artifactId>
-                <version>${ols.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>uk.ac.ebi.spot</groupId>
                 <artifactId>ols-solr</artifactId>
-                <version>${ols.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>uk.ac.ebi.spot</groupId>
                 <artifactId>ontology-tools</artifactId>
-                <version>${ols.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>uk.ac.ebi.spot</groupId>
                 <artifactId>ols-web</artifactId>
-                <version>${ols.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>uk.ac.ebi.spot</groupId>
                 <artifactId>ols-neo4j</artifactId>
-                <version>${ols.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>uk.ac.ebi.spot</groupId>
                 <artifactId>ols-mongo</artifactId>
-                <version>${ols.version}</version>
+                <version>${project.version}</version>
             </dependency>
 
             <!--  additional external dependencies -->
