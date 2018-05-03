@@ -13,6 +13,12 @@ overflow-x: hidden;
   font-family: Verdana,sans-serif;
 }
 
+#datepicker input[type=text]{
+   display:inline;
+   width: 115px;
+}
+
+
 #LegendBody table{
   border: 0px solid;
 }

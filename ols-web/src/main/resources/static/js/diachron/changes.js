@@ -27,7 +27,7 @@ function constructURL(urlToProcess){
 }
 
 function hideLegend(){
-
+  console.log("hideLegend!")
   $("#LegendDiv").fadeOut(200, function() {
   $("#term_info_box").fadeIn();
   $("#term_relation_box").fadeIn();
@@ -95,6 +95,7 @@ $(document).ready(function() {
 
       if (obj.length===0)
       {
+            $("#searching").hide();
             $("#diachron-wrapper").html("<h3>There is no history for this term to display</h3>")
       }
       else

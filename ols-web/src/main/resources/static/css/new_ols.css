@@ -1,7 +1,7 @@
 #mainpageSearchBox{
  margin-top: 30px;
  margin-bottom: 30px;
- background:lightgray;
+ background:#F0F0F0;
  padding: 35px 35px 35px 35px;
     border-radius: 5px;
 }
@@ -14,13 +14,12 @@
 
 #dataContentDiv{
     margin-top: 30px;
-    margin-buttom: 30px;
 }
 
 /* search Button css*/
 .searchButton{
     margin-left:5px;
-    argin-bottom: 0.1em;
+    margin-bottom: 0.1em;
     position: relative;
     vertical-align: top;
 }
@@ -49,7 +48,35 @@
     border-radius: 15px;
 }
 
+#ontologiesTable_next {
+    display: inline-block;
+    padding: 5px 14px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+}
+
+
+#ontologiesTable_paginate a, a:visited{
+    border-bottom-width: 0px;
+    border-bottom-style: none;
+
+}
+
+#ontologiesTable_paginate a, a:hover{
+    color: #015666;
+}
+
+#ontologiesTable_paginate .paginate_button .current{
+    background: transparent;
+}
+
+
 /* Search Page */
+#filterBox {
+    margin-top: 60px;
+}
+
 #filter_form .input-group{
     display:flex;
 }
@@ -59,12 +86,18 @@
 }
 
 #filterBox{
-    background: lightgray;
+    background: #F0F0F0;
 }
 
 #search-results{
-    margin-top:50px;
+    margin-top: 50px;
+    padding-left: 30px;
 }
+
+#search-results-summary{
+    padding-left:10px;
+}
+
 
 .search-results-count {
     font-style: italic;
@@ -75,6 +108,19 @@
     font-weight: bold;
 }
 
+/**/
+
+#termPageSearchBox{
+    display:inline;
+}
+
+#bloodhound{
+    display: flex;
+}
+
+#bloodhound .form-control.typeahead{
+    margin: 0;
+}
 
 /* Ontology prefix/Term markup used on*/
 .ontology-source{
@@ -117,11 +163,11 @@ a .ontology-source {
 
 /*Ontology View*/
 .panel{
-    border: solid 1px lightgray;
+    border: solid 1px #F0F0F0;
 }
 
 #ontology_info_box .panel-heading{
-    background: lightgray;
+    background: #F0F0F0;
     text-align: center;
 }
 
@@ -129,15 +175,19 @@ a .ontology-source {
     padding: 10px 10px 10px 10px;
 }
 
+
 #onto-tab-content .tabs-content{
     min-height: 500px;
     margin-bottom: 40px;
 }
 
+#bloodhound .twitter-typeahead{
+    width:inherit;
+}
 
 /*Term page */
 #right_info_box .panel-heading{
-    background: lightgray;
+    background: #F0F0F0;
     text-align: center;
 }
 
@@ -148,6 +198,32 @@ a .ontology-source {
 #terms-tab-content .tabs-content{
     min-height: 500px;
 }
+
+
+#termPageSearchBox{
+margin-top: 10px;
+}
+
+
+#termPageSearchBox .twitter-typeahead{
+    width:100%;
+}
+
+/*
+#termPageSearchBox .twitter-typeahead{
+    width: 70%;
+}*/
+
+#termPageSearchBox .button
+{
+vertical-align: top;
+}
+
+
+.copyButton{
+    vertical-align: baseline;
+}
+
 
 /* Adding some space on the term page*/
 .breadcrumbDiv{
@@ -259,7 +335,7 @@ a .ontology-source {
 }
 
 .filterBoxes .select2-selection{
-    margin:auto;
+    margin: auto;
     width: 85%;
     height: 40px;
 

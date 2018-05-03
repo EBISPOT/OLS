@@ -23,15 +23,15 @@
 
 <!-- Place css that is need after head, because the head gets replaced, could potentially put this into the header if we don't mind loading it all the time -->
 <link rel="stylesheet" href="/js/jstree/themes/proton/style.min.css" th:href="@{/js/jstree/themes/proton/style.min.css}" type="text/css" media="screen" />
-
+<link rel="stylesheet" href="../static/css/typeahead/typeaheadjs.css" th:href="@{/css/typeahead/typeaheadjs.css}" type="text/css" media="screen"/>
+<!--<link rel="stylesheet" href="../static/css/ols.css" th:href="@{/css/ols.css}" type="text/css" media="screen"/>
+<link rel="stylesheet" href="../static/css/ols-colors.css" th:href="@{/css/ols-colors.css}" type="text/css" media="screen"/>-->
 
 <body>
 <th:block th:include="fragments/header :: header"></th:block>
 
 
 <section id="main-content-area" role="main">
-
-
     <div vocab="http://schema.org/" typeof="MedicalCode" id="content" role="main" class="row">
         <div class="breadcrumbDiv">
             <div style="float:right;padding-right: 5px;">
@@ -50,45 +50,41 @@
                    </a>   &gt;
                     <span id='shortForm' th:if="${ontologyTerm.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyTerm.getOboId()}">id</span>
                    <span id='shortForm' th:unless="${ontologyTerm.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyTerm.getShortForm()}">id</span>
-                    <button title="Copy id to clipboard" id='copyShortForm' data-clipboard-action="copy" data-clipboard-target="#shortForm" class="button secondary glyphicon glyphicon-copy" type="button">Copy</button>
+                    <button title="Copy id to clipboard" id='copyShortForm' data-clipboard-action="copy" data-clipboard-target="#shortForm" class="button tiny third copyButton" type="button">Copy</button>
                 </p>
             </nav>
         </div>
-                <div class="">
+                <div>
                     <div class="small-8 column">
                         <h2 property="name"  style="margin: 0px;" th:text="${ontologyTerm.getLabel()}">Term Label</h2>
                         <a style="padding: 9px;border-bottom: none;" th:href="@{${ontologyTerm.getIri()}}" class="nounderline" target="blank"><img th:src="@{../../img/external_link.png}" src="../static/img/external_link.png" alt="^" title="Go to external page"/></a>
                         <span property="url" id="OLS_ID" style="font-size: small;color: grey;" th:text="${ontologyTerm.getIri()}">http://www.example.com/onto/id</span>
-                        <p style="display:inline;"><button title="Copy id to clipboard" id='copyThis' data-clipboard-action="copy" data-clipboard-target="#OLS_ID" class="button secondary glyphicon glyphicon-copy" type="button">Copy</button></p>
+                        <p style="display:inline;"><button title="Copy id to clipboard" id='copyThis' data-clipboard-action="copy" data-clipboard-target="#OLS_ID" class="button tiny third copyButton" type="button">Copy</button></p>
                     </div>
 
-                    <div class="small-4 columns">
+                    <div id="termPageSearchBox" class="small-4 columns">
                         <form name="local-search" action="../../search" method="get">
-                            <div id="bloodhound" class="input-group">
-                                <input style="margin-bottom: 0.1em;" class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="select" th:placeholder="'Search ' + ${ontologyTerm.getOntologyPrefix()}" th:attr="data-olsontology=${ontologyTerm.getOntologyName()}" data-olsontology=""  data-selectpath="../../" placeholder="Search OLS" aria-describedby="basic-addon1"/>
+                            <div id="bloodhound">
+                                <input class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="select" th:placeholder="'Search ' + ${ontologyTerm.getOntologyPrefix()}" th:attr="data-olsontology=${ontologyTerm.getOntologyName()}" data-olsontology=""  data-selectpath="../../" placeholder="Search OLS" aria-describedby="basic-addon1"/>
                                 <button class="button secondary searchButton glyphicon glyphicon-search" style="" type="submit">Search!</button>
-
-                                    <!--<span class="input-group-btn">
-                                      <button class="button secondary searchButton glyphicon glyphicon-search" style="" type="submit">Search</button>
-                                    </span> -->
-                            </div>
-                            <input type="hidden" name="ontology" th:value="${ontologyTerm.getOntologyName()}"/>
-                        </form>
-                    </div>
-                </div>
+                         </div>
+                         <input type="hidden" name="ontology" th:value="${ontologyTerm.getOntologyName()}"/>
+                     </form>
+                 </div>
+             </div>
 
 
-                <!--
-                <div class="grid_24 clearfix">
-                   <p style="display:inline;"><button id='copyThis' data-clipboard-action="copy" data-clipboard-target="#test" type="button">Copy to clipboard</button></p>
-                    <p id="citeThis" style="display:inline;"><button type="button" title="Click here">Cite this</button></p>
-                    <p id="overlay" style="display:inline;"></p>
-                </div>-->
+             <!--
+             <div class="grid_24 clearfix">
+                <p style="display:inline;"><button id='copyThis' data-clipboard-action="copy" data-clipboard-target="#test" type="button">Copy to clipboard</button></p>
+                 <p id="citeThis" style="display:inline;"><button type="button" title="Click here">Cite this</button></p>
+                 <p id="overlay" style="display:inline;"></p>
+             </div>-->
 
 
                 <div class="small-12 columns">
-                    <hr style="margin-left: 9px;"/>
-                    <div style="margin-left:9px;" th:if="${ontologyTerm.isObsolete()}">
+                    <hr/>
+                    <div th:if="${ontologyTerm.isObsolete()}">
                         <div class="obsolete">This term is obsolete</div>
                         <br/>
                         <br/>
@@ -160,9 +156,9 @@
 
             <div id="terms-tab-content" class="small-8 columns">
                    <ul  class="tabs" data-tabs="true" id="terms_tabs">
-                       <li class="tabs-title active"><a data-toggle="tab" class="icon icon-functional" data-icon="h" id="tree-tab" href="#tree-tab"> Tree view</a></li>
-                       <!--<li role="presentation"><a data-toggle="tab" id="oxo-link"  class="icon icon-generic" data-icon="g" href="#oxo-tab">Term mappings</a></li>-->
-                       <li class="tabs-title"><a data-toggle="tab" id="diachron-tab"  class="icon icon-generic" data-icon="g" href="#diachron-tab"> Term history</a></li>
+                       <li class="tabs-title active"><a id="tree-link" class="icon icon-functional" data-icon="h" data-tabs-target="tree-tab" href="#tree-tab" aria-selected="true"> Tree view</a></li>
+                       <li class="tabs-title"><a id="oxo-link" class="icon icon-generic" data-icon="g" data-tabs-target="oxo-tab" href="#oxo-tab"> Term mappings</a></li>
+                       <li class="tabs-title"><a id="diachron-link" class="icon icon-generic" data-icon="g" data-tabs-target="diachron-tab" href="#diachron-tab"> Term history</a></li>
 
                         <!--<li role="presentation"><a data-toggle="tab" href="#graph-tab"  th:onclick="'window.open(\'@{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})\'})'" th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})}" target="_blank">Visualisation</a></li>-->
                         <!--<li role="presentation"><a data-toggle="tab"  href="#graph-tab">Graph view</a></li>-->
@@ -170,9 +166,7 @@
 
                     <!-- Tab panes -->
                     <div class="tabs-content" data-tabs-content="terms_tabs">
-
                         <div class="tabs-panel is-active" id="tree-tab">
-
                             <div id="tree_tab_button_box">
                                 <button class="button secondary" value="true" title="Redraw the tree to focus on this terms" onclick="location.reload(true)">Reset tree</button>
                                 <button id="showSliblingsButton" class="button secondary" value="true" title="Expand the tree to show sibling terms" onclick="termInstance.toggleSiblings(this)">Show siblings</button>
@@ -182,8 +176,16 @@
 
                             <div id="term-tree" data-olswidget="tree" th:attr="data-olsontology=${ontologyTerm.getOntologyName()},data-ols-iri=${ontologyTerm.getIri()}" data-selectpath="../../" data-ols-termtype="class" data-olsontology="" data-ols-iri=""  >
                             </div>
+                        </div>
 
 
+                        <div class="tabs-panel" id="diachron-tab">
+                            <div id="diachron-wrapper"></div>
+                        </div>
+
+
+                        <div class="tabs-panel" id="oxo-tab">
+                            This is just here as a test because I lose it
                         </div>
 
                         <!--<div role="tabpanel" class="tab-pane" id="oxo-tab">
@@ -205,14 +207,7 @@
                                 </div>
                             </div>
                         </div>-->
-
-
-                        <div class="tabs-panel" id="diachron-tab">
-                            <div id="diachron-wrapper"></div>
-                        </div>
-
-                    </div>
-
+                   </div>
                 </div>
 
 

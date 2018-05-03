@@ -49,7 +49,7 @@
                 <span id="shortForm" th:if="${ontologyProperty.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyProperty.getOboId()}">id</span>
                 <span id="shortForm" th:unless="${ontologyProperty.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyProperty.getShortForm()}">id</span>
 
-                <button id='copyShortForm' class="button secondary" data-clipboard-action="copy" data-clipboard-target="#shortForm" type="button">C</button>
+                <button id='copyShortForm' class="button tiny third copyButton" data-clipboard-action="copy" data-clipboard-target="#shortForm" type="button">C</button>
 
                 </p>
             </nav>
@@ -62,12 +62,12 @@
                         <h2 property="name"  style="margin: 0px;" th:text="${ontologyProperty.getLabel()}">Term label</h2>
                         <a style="padding: 9px;border-bottom: none;" th:href="@{${ontologyProperty.getIri()}}" class="nounderline" target="blank"><img th:src="@{../../img/external_link.png}" src="../static/img/external_link.png" alt="^" title="Go to external page"/></a>
                         <span id="OLS_ID"  property="url" style="font-size: small;color: grey;" th:text="${ontologyProperty.getIri()}">http://www.example.com/onto/id</span>
-                        <p style="display:inline;"><button id='copyThis' class="button secondary" data-clipboard-action="copy" data-clipboard-target="#OLS_ID" type="button">C</button></p>
+                        <p style="display:inline;"><button id='copyThis' class="button tiny third copyButton" data-clipboard-action="copy" data-clipboard-target="#OLS_ID" type="button">C</button></p>
 
                     </div>
 
                     <div class="small-4 columns">
-                        <form name="local-search" action="../../search" method="get">
+                        <form id="filter_form" name="local-search" action="../../search" method="get">
                             <div id="bloodhound" class="input-group">
                                 <input style="margin-bottom: 0.1em;" class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="select" th:placeholder="'Search ' + ${ontologyProperty.getOntologyPrefix()}" th:attr="data-olsontology=${ontologyProperty.getOntologyName()}" data-olsontology=""  data-selectpath="../../" placeholder="Search OLS" aria-describedby="basic-addon1"/>
                                 <button class="button secondary searchButton glyphicon glyphicon-search" style="" type="submit">Search!</button>

@@ -87,7 +87,7 @@ function hideLegend(){
 
 function buildLegend(){
   var keys=_.keys(colorObject)
-  var htmlString='<div id="LegendDiv" class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title">Legend</h3></div><div id="LegendBody" class="panel-body">'
+  var htmlString='<div id="LegendDiv" class="panel"><div class="panel-heading"><h3 class="panel-title">Legend</h3></div><div id="LegendBody" class="panel-body">'
   htmlString+="<table>";
 
   for (var i=0; keys.length>i; i++)
@@ -453,7 +453,7 @@ linechart = function(divname, returndata)
 
        //Append datepicker to the linechartview
        $("#"+divname).append("<div id='datepicker' style='text-align:center;'></div>")
-       $("#datepicker").html('<hr style="width:30%; margin-left:35%">Show data from <input type="text" size="9" id="dateAfter" value="'+dateAfter+'"> to <input type="text" size="9" id="dateBefore" value="'+dateBefore+'"> <input id="changeDateSubmit" class="btn  btn-default" type="submit" value="Update Data!" title="Adjust the dates on the left to the timeframe you want to compare and hit this update button to display the accurant data">')
+       $("#datepicker").html('<hr style="width:30%; margin-left:35%">Show data from <input type="text" size="9" id="dateAfter" value="'+dateAfter+'"> to <input type="text" size="9" id="dateBefore" value="'+dateBefore+'"> <input id="changeDateSubmit" class="" type="submit" value="Update Data!" title="Adjust the dates on the left to the timeframe you want to compare and hit this update button to display the accurant data">')
 
        var pickerAfter = new Pikaday(
        {
