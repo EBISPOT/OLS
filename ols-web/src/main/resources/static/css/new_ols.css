@@ -24,8 +24,7 @@
     vertical-align: top;
 }
 
-/*Next/Prev button*/
-
+/*Next/Prev button */
 .pagingButton{
     display: inline-block;
     padding: 5px 14px;
@@ -39,7 +38,8 @@
     border-bottom-color:#ddd ;
 }
 
-/*browse - List of all ontologies*/
+
+/*browse - List of all ontologies
 #ontologiesTable_previous {
     display: inline-block;
     padding: 5px 14px;
@@ -55,12 +55,18 @@
     border: 1px solid #ddd;
     border-radius: 15px;
 }
+*/
+
+
+/* Overwritting padding that comes from global ebi css */
+#ontologiesTable_paginate .pagination .current{
+    padding: 0px 0px 0px 0px !important;
+}
 
 
 #ontologiesTable_paginate a, a:visited{
     border-bottom-width: 0px;
     border-bottom-style: none;
-
 }
 
 #ontologiesTable_paginate a, a:hover{
@@ -240,6 +246,13 @@ vertical-align: top;
 }
 
 
+/*generic  marginTop class*/
+.marginTop{
+    margin-top:20px;
+}
+
+
+
 /*Addintional style for the graphview - copy past for now from foundation button secondary css*/
 .btn{
     display: inline-block;
@@ -287,8 +300,6 @@ vertical-align: top;
     padding:15px;margin-bottom:20px;border:1px solid transparent;border-radius:4px
 
 }
-
-
 
 
 /*Search Box*/
@@ -359,4 +370,14 @@ vertical-align: top;
 
 #mainSearchDiv .twitter-typeahead{
     width: 80%;
+}
+
+
+/* Styling for code part in the documentation */
+.highlight{
+    padding-left: 50px;
+    margin-left: 20px;
+    margin-right: 50px;
+    background-color: #F2F2EC;
+    border-color: #999;
 }

@@ -19,7 +19,7 @@
     <!- - When this content is no longer relevant -->
 </head>
 
-<!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/zf-5.5.2/jqc-1.11.3,dt-1.10.8/datatables.min.css"/> -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/zf-5.5.2/jqc-1.11.3,dt-1.10.8/datatables.min.css"/>
 <link rel="stylesheet" href="../static/css/typeahead/typeaheadjs.css" th:href="@{css/typeahead/typeaheadjs.css}" type="text/css" media="screen"/>
 
 
@@ -27,12 +27,13 @@
 <th:block th:include="fragments/header :: header"></th:block>
 
 
-<section id="main-content-area" role="main">
+<div id="main-content-area" role="main">
 
     <!--@thymesVar id="summary" type="uk.ac.ebi.spot.ols.controller.ui.HomeController.SummaryInfo" -->
     <div class="row">
-        <h3 class="strapline breadcrumbDiv">List of all ontologies in OLS</h3>
+        <h3 class="strapline marginTop">List of all ontologies in OLS</h3>
 
+        <!-- Deactivate Ontology search box for now, since the new data tables have a build in search functionality
         <div class="small-12 columns">
            <div class="small-8 columns">
             <form id="filter_form" name="local-search" action="search" method="get">
@@ -43,7 +44,7 @@
                 </div>
             </form>
            </div>
-        </div>
+        </div> -->
 
         <div class="small-12 columns">
             <div class="dataTables_wrapper dt-foundation no-footer">
@@ -81,7 +82,7 @@
             </div>
         </div>
     </div>
-</section>
+</div>
 
 
 <th:block th:include="fragments/footer :: footer"></th:block>
@@ -98,7 +99,7 @@
 <script type="text/javascript" src="../static/js/typeahead/typeahead.bundle.js" th:src="@{js/typeahead/typeahead.bundle.js}"></script>
 <script type="text/javascript" src="../static/js/handlebars/4.0.5/handlebars.min.js" th:src="@{js/handlebars/4.0.5/handlebars.min.js}"></script>
 <script type="text/javascript" src="../static/js/ols.js" th:src="@{js/ols.js}"></script>
-<script type="text/javascript" src="../static/js/ols-termselect2.js" th:src="@{js/ols-termselect2.js}"></script>
+<!-- <script type="text/javascript" src="../static/js/ols-termselect2.js" th:src="@{js/ols-termselect2.js}"></script> -->
 
 <!-- All JS that is just used on this page should go here, I suppose-->
 <script>

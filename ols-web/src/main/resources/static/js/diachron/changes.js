@@ -1,5 +1,5 @@
-var dateBefore;
-var dateAfter;
+/* Javascript for the TERM History view powered by the Diachron API*/
+
 var ontologyName;
 var name='';
 var date='';
@@ -19,7 +19,6 @@ var colorObject={
 }
 
 
-//tmp function!
 function constructURL(urlToProcess){
   var tmp=urlToProcess.slice(0,urlToProcess.indexOf("ols"))
   tmp+="spot/dino/changes-api/"
@@ -54,11 +53,13 @@ $(document).ready(function() {
 
     URL=constructURL(document.URL)
 
+    //hardcoded
+    URL=constructURL("https://www.ebi.ac.uk/ols/beta")
+
     //URL for later on
     var tmpURL=URL+"changes/search/findByOntologyNameAndChangeSubjectUri?ontologyName="+ontologyName+"&subject="+termIri
 
-    //TMP DEV
-    var searchbar='<div style="text-align: center;" id="searching"><img th:src="@{../../img/loading1.gif}" src="../../img/loading1.gif" alt="Search loading..."/><span> Loading, please wait... </span></div>'
+     var searchbar='<div style="text-align: center;" id="searching"><img th:src="@{../../img/loading1.gif}" src="../../img/loading1.gif" alt="Search loading..."/><span> Loading, please wait... </span></div>'
     $("#diachron-wrapper").html(searchbar);
 
 

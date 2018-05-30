@@ -24,8 +24,6 @@
 <!-- Place css that is need after head, because the head gets replaced, could potentially put this into the header if we don't mind loading it all the time -->
 <link rel="stylesheet" href="/js/jstree/themes/proton/style.min.css" th:href="@{/js/jstree/themes/proton/style.min.css}" type="text/css" media="screen" />
 <link rel="stylesheet" href="../static/css/typeahead/typeaheadjs.css" th:href="@{/css/typeahead/typeaheadjs.css}" type="text/css" media="screen"/>
-<!--<link rel="stylesheet" href="../static/css/ols.css" th:href="@{/css/ols.css}" type="text/css" media="screen"/>
-<link rel="stylesheet" href="../static/css/ols-colors.css" th:href="@{/css/ols-colors.css}" type="text/css" media="screen"/>-->
 
 <body>
 <th:block th:include="fragments/header :: header"></th:block>
@@ -156,7 +154,7 @@
 
             <div id="terms-tab-content" class="small-8 columns">
                    <ul  class="tabs" data-tabs="true" id="terms_tabs">
-                       <li class="tabs-title active"><a id="tree-link" class="icon icon-functional" data-icon="h" data-tabs-target="tree-tab" href="#tree-tab" aria-selected="true"> Tree view</a></li>
+                       <li class="tabs-title is-active"><a id="tree-link" class="icon icon-functional" data-icon="h" data-tabs-target="tree-tab" href="#tree-tab" aria-selected="true"> Tree view</a></li>
                        <li class="tabs-title"><a id="oxo-link" class="icon icon-generic" data-icon="g" data-tabs-target="oxo-tab" href="#oxo-tab"> Term mappings</a></li>
                        <li class="tabs-title"><a id="diachron-link" class="icon icon-generic" data-icon="g" data-tabs-target="diachron-tab" href="#diachron-tab"> Term history</a></li>
 
@@ -364,7 +362,7 @@
 <script type="text/javascript" src="../static/js/bootstrap/bootstrap.min.js" th:src="@{../../js/bootstrap/bootstrap.min.js}"></script>
 -->
 
-
+<script type="text/javascript" src="https://cdn.datatables.net/r/zf-5.5.2/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script>
 <script type="text/javascript" src="../static/js/typeahead/typeahead.bundle.js" th:src="@{../../js/typeahead/typeahead.bundle.js}"></script>
 <script type="text/javascript" src="../static/js/handlebars/4.0.5/handlebars.min.js" th:src="@{../../js/handlebars/4.0.5/handlebars.min.js}"></script>
 

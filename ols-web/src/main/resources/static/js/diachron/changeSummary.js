@@ -1,3 +1,5 @@
+/* Javascript for the ONTOLOGY History view powered by the Diachron API*/
+
 var dateBefore;
 var dateAfter;
 var ontologyName;
@@ -18,7 +20,6 @@ var colorObject={
 "DELETE CLASS":"#a50026"
 }
 
-//tmp function!
 function constructURL(urlToProcess){
 var tmp=urlToProcess.slice(0, urlToProcess.indexOf("ols"))
 tmp+="spot/dino/changes-api/"
@@ -34,12 +35,15 @@ $("#meta-link").on('click', hideLegend)
 
 $("#diachron-link").on('click', function(){
 
+    var searchbar='<div style="text-align: center;" id="searching"><img th:src="@{../img/loading1.gif}" src="../img/loading1.gif" alt="Search loading..."/><span> Loading, please wait... </span></div>'
+    $("#diachron-wrapper").html(searchbar);
+
     ontologyName = $("#diachron-tab").data("olsontology");
     var serviceURL= $("#diachron-tab").data("selectpath");
 
     URL=constructURL(document.URL)
     //hardcoded
-    //URL=constructURL("http://www.ebi.ac.uk/ols/beta")
+    URL=constructURL("https://www.ebi.ac.uk/ols/beta")
 
     date=new Date();
     dateBefore=date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
@@ -64,7 +68,8 @@ $("#diachron-link").on('click', function(){
         $("#diachron-wrapper").append("<div id='buttonBox' style='text-align:center; margin-top:20px;'><div>")
         //Append datepicker
 
-          lineChartData();
+
+         lineChartData();
 
           if ($(document).find("#LegendDiv").length === 0)
           {    buildLegend(); }
@@ -150,7 +155,7 @@ function createpiechart(divname, date, data){
 
    Highcharts.chart(divname, chartoptions)
 
-   var htmlString="<div style='text-align:center; margin-top:25px;'><button id='back' class='primary'> Back </button></div>"
+   var htmlString="<div style='text-align:center; margin-top:25px;'><button id='back' class='button secondary'> Back </button></div>"
    $("#buttonBox").html(htmlString)
    $("#back").on('click', function(){lineChartData()})
 }
@@ -241,7 +246,7 @@ function drawPieTable(divname, data, date)
 
       $("#"+divname).append(htmlString)
 
-      htmlString="<div style='text-align:center'><button id='back' class='primary'> Back </button></div>"
+      htmlString="<div style='text-align:center'><button id='back' class='button secondary'> Back </button></div>"
       $("#buttonBox").html(htmlString)
       $("#back").on('click', function(){piechartview(divname,date)})
       $("#testTable").DataTable({"order" : [[2, "desc"]]})
@@ -250,13 +255,19 @@ function drawPieTable(divname, data, date)
 
 function drawLineTable(divname, obj)
 {
+
+  /*
   var htmlString='';
   htmlString+='<h3>Summary of all changes from</h3>';
   htmlString+='<table id="testTable" class="display" cellspacing="0" width="100%">'
   htmlString+='<thead><tr><th>ChangeType</th><th>Date</th><th>Number of changes</th></tr></thead>'
-  htmlString+='<tbody>'
+  htmlString+='<tbody>' */
 
-  for (var j=0;obj.series.length>j;j++)
+  htmlString='<div><table id="testTable">'
+  htmlString+='<thead><tr><th>ChangeType</th><th>Date</th><th>Number of changes</th></tr></thead>'
+
+
+    for (var j=0;obj.series.length>j;j++)
     {
     for (var i=0; obj.categories.length>i;i++){
     htmlString+="<tr><td>"+obj.series[j].name+"</td><td>"+obj.categories[i]+"</td><td>"+obj.series[j].data[i]+"</td></tr>"
@@ -265,13 +276,15 @@ function drawLineTable(divname, obj)
 
   htmlString+="</tbody></table>"
 
+
   $("#"+divname).html(htmlString)
 
-  htmlString="<div style='text-align:center'><button id='back' class='primary'> Back </button></div>"
+  htmlString="<div style='text-align:center'><button id='back' class='button secondary'> Back </button></div>"
   $("#buttonBox").html(htmlString)
   $("#back").on('click', function(){linechart(divname, obj)})
 
-  $("#testTable").DataTable({"order" : [[1, "desc"]]})
+  //$("#testTable").DataTable({"order" : [[1, "desc"]]})
+  //$('#testTable').dataTable();
 }
 
 
@@ -366,6 +379,7 @@ function lineChartData(){
 
 linechart = function(divname, returndata)
 {
+    $("#searching").hide();
     $("#buttonBox").empty()
     var title= "All changes between "+ dateAfter+" and "+dateBefore;
     /* Now designing the chart */
@@ -623,7 +637,7 @@ else {
                       //In case we are in a partial view, we offer a button to 'Show all data' in the datatable
                       if (className!=="")
                       {
-                      htmlString2+='<div style="text-align:left; margin-bottom:20px;"><button id="allData" type="button"> Show all changes </button></div>'
+                      htmlString2+='<div style="text-align:left; margin-bottom:20px;"><a id="allData" class="button tiny">Show all changes</a></div>'
                       $("#"+divname).append(htmlString2);
                       $('#allData').on('click', function(){
                         $("#buttonBox").empty();
@@ -638,7 +652,7 @@ else {
 
 
                       /* Add Button Box and event listener */
-                      var button="<div style='text-align:center; margin-top:25px;'><button id='back' class='primary'> Back </button></div>"
+                      var button="<div style='text-align:center; margin-top:25px;'><button id='back' class='button secondary'> Back </button></div>"
                       $("#buttonBox").html(button)
                       $("#back").on('click', function(){lineChartData()})
                       /* Add Button BACK to the line chart in every case (Should we change that)*/
