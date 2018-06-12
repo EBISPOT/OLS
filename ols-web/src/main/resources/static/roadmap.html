@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"/> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"/> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"/> <![endif]-->
+<!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
+<!--[if gt IE 8]><!--> <html  xmlns:th="https://www.thymeleaf.org" class="no-js" lang="en"> <!--<![endif]-->
+
+
+
+<title>Ontology Xref Service   &lt; EMBL-EBI</title>
+<!-- Your [project-name] here -->
+<meta name="author" content="Ontology Xref Service" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="MobileOptimized" content="width" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#70BDBD" /> <!-- Android Chrome mobile browser tab color -->
+
+<!-- Add information on the life cycle of this page -->
+<meta name="ebi:owner" content="Simon Jupp" /> <!-- Who should be contacted about changes -->
+<meta name="ebi:review-cycle" content="365" /> <!-- In days, how often should the content be reviewed -->
+
+<!-- If you link to any other sites frequently, consider optimising performance with a DNS prefetch -->
+<link rel="dns-prefetch" href="//embl.de" />
+
+<!-- If you have custom icon, replace these as appropriate.
+ You can generate them at realfavicongenerator.net -->
+<link rel="icon" type="image/x-icon" href="https://dev.ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/images/logos/EMBL-EBI/favicons/favicon.ico" />
+<link rel="icon" type="image/png" href="https://dev.ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/images/logos/EMBL-EBI/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="https://dev.ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/images/logos/EMBL-EBI/favicons/android-chrome-192x192.png" /> <!-- Android (192px) -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://dev.ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/images/logos/EMBL-EBI/favicons/apple-icon-114x114.png" /> <!-- For iPhone 4 Retina display (114px) -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://dev.ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/images/logos/EMBL-EBI/favicons/apple-icon-72x72.png" /> <!-- For iPad (72px) -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://dev.ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/images/logos/EMBL-EBI/favicons/apple-icon-144x144.png" /> <!-- For iPad retinat (144px) -->
+<link rel="apple-touch-icon-precomposed" href="https://dev.ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/images/logos/EMBL-EBI/favicons/apple-icon-57x57.png" /> <!-- For iPhone (57px) -->
+<link rel="mask-icon" href="https://dev.ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/images/logos/EMBL-EBI/favicons/safari-pinned-tab.svg" color="#ffffff" /> <!-- Safari icon for pinned tab -->
+<meta name="msapplication-TileColor" content="#2b5797" /> <!-- MS Icons -->
+<meta name="msapplication-TileImage" content="//wwwdev.ebi.ac.uk/web_guidelines/EBI-Framework/v1.3/images/logos/EMBL-EBI/favicons/mstile-144x144.png" />
+
+<!-- Trying to get v1.3 working -->
+<link rel="stylesheet" href="https://dev.ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/css/ebi-global.css" type="text/css" media="all" />
+<link rel="stylesheet" href="https://dev.ebi.emblstatic.net/web_guidelines/EBI-Icon-fonts/v1.2/fonts.css" type="text/css" media="all" />
+<link rel="stylesheet" href="https://dev.ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/css/theme-embl-petrol.css" type="text/css" />
+
+
+<!-- Use this CSS file for any custom styling -->
+<!-- Css taken from old oxo
+<link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/embl-petrol-colours.css" type="text/css" media="screen"/>
+-->
+
+
+<!-- Temporary remove  style
+<link rel="stylesheet" href="https://www.ebi.ac.uk/ols/css/ols.css" type="text/css" media="screen"/>
+<link rel="stylesheet" href="https://www.ebi.ac.uk/ols/css/ols-colors.css"  type="text/css" media="screen"/>
+<link rel="stylesheet" href="../static/css/oxo.css" th:href="@{/css/oxo.css}" type="text/css" media="screen"/>
+
+
+<link rel="stylesheet" href="../static/css/oxo.css" th:href="@{/css/oxo.css}" type="text/css" media="screen"/>
+<link rel="stylesheet" href="../static/css/oxo-d3.css" th:href="@{/css/oxo-d3.css}" type="text/css" media="screen"/>
+<link rel="stylesheet" th:href="@{/webjars/select2/4.0.0/dist/css/select2.min.css}" href="/webjars/select2/4.0.0/dist/css/select2.min.css"  type="text/css" media="screen"/>
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" type="text/css" media="screen"/>
+-->
+
+
+<!--  bootstrap though!
+ <link  rel="stylesheet" th:href="@{/webjars/bootstrap-slider/5.3.1/css/bootstrap-slider.min.css}" href="/webjars/bootstrap-slider/5.3.1/css/bootstrap-slider.min.css"  type="text/css" media="screen"/>
+-->
+<!--    bootstrap css needed?    -->
+<!--
+<link rel="stylesheet" href="https://www.ebi.ac.uk/ols/css/bootstrap/3.3/css/bootstrap.min.css" type="text/css" media="screen"/>
+-->
+
+<!-- If you have a custom header image or colour -->
+<!--
+<meta name="ebi:localmasthead-color" content="#000" /> - ->
+<meta name="ebi:localmasthead-image" content="/img/images/background.jpg"/>
+<meta name="ebi:masthead-image"  content="img/background.jpg"/>-->
+
+<meta name="ebi:masthead-color" content="#000" />
+<meta name="ebi:masthead-image"  content="https://www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.1/images/backgrounds/embl-ebi-background-4.jpg"/>
+
+<link  rel="stylesheet" th:href="@{/css/new_ols.css}" href="/css/new_ols.css"  type="text/css" media="screen"/>
+
+
+<!-- you can replace this with theme-[projectname].css. See http://www.ebi.ac.uk/web/style/colour for details of how to do this -->
+<!-- also inform ES so we can host your colour palette file -->
+
+
+<!--
+    <link rel="stylesheet" href="https://www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.1/css/theme-embl-petrol.css" type="text/css" media="all" />
+-->
+
+<!-- for production the above can be replaced with -->
+<!-- <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/mini/ebi-fluid-embl.css" /> -->
+<!-- end CSS-->
+
+
+<!-- All JavaScript at the bottom, except for Modernizr - - >
+<script src="https://www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.1/libraries/modernizr/modernizr.custom.49274.js"></script>
+-->
+
+</head>
+
+<body>
+<div>
+    <div id="skip-to">
+        <a href="#content">Skip to main content</a>
+    </div>
+
+    <header id="masthead-black-bar" class="clearfix masthead-black-bar">
+    </header>
+    <div id="content">
+        <div data-sticky-container="true">
+            <header id="masthead" class="masthead" data-sticky="true" data-sticky-on="large" data-top-anchor="content:top" data-btm-anchor="content:bottom">
+                <div class="masthead-inner row">
+                    <!-- local-title -->
+                    <div class="columns medium-12" id="local-title">
+                        <!--<h1><a href="../../" title="Back to Oxo homepage">Ontology Xref Service</a></h1>-->
+                        <a href="../../" title="Back to OLS homepage">
+                            <img src="img/OLS_logo_2017.png" th:src="@{/img/OLS_logo_2017.png}" style="height:100px;"/>
+                        </a>
+                    </div>
+                    <nav>
+                        <ul class="dropdown menu float-left"
+                            data-description="navigational">
+                            <li class=""><a href="index">Home</a></li>
+                            <li class=""><a href="ontologies">Ontologies</a></li>
+                            <li class=""><a href="docs">Documentation</a></li>
+                            <li class=""><a href="about">About</a></li>
+                        </ul>
+                    </nav>
+                    <!-- /local-nav -->
+                </div>
+            </header>
+        </div>
+    </div>
+</div>
+
+
+
+<section id="main-content-area" role="main">
+    <div class="row">
+    <h2>Ontology Lookup Service version 2 retired</h2>
+
+    <p class="intro">
+        If you are looking for the older version of OLS this has now been officially retired and the service is no longer available. This page conatins some details about the existing OLS service and includes a guide for helping you migrate.
+        Please contact us on ols-support [at] ebi.ac.uk if you have any questions.
+    </p>
+
+
+    <h2>Ontology Lookup Service version 3 roadmap</h2>
+    <p class="intro">
+        OLS 3 is a complete re-write of the code and includes some significant changes to how we index and serve up ontology data. This includes an all new API for programmatic access to the data.
+        The old OLS 2 service is no longer able to update the ontologies and we plan to deprecate the service entirely in October 2016. This document outlines the road map for releasing the new OLS service and provides a guide for migrating from the old SOAP API
+        to the new REST API.
+    </p>
+
+    <h2>Why is this happening?</h2>
+    <p>
+        The code under the old OLS system is nearly 10 years old in places and many of the libraries have  been deprecated which made maintaining the codebase very difficult. The old OLS systems was only designed to work with OBO ontologies and used
+        public version control systems, like the OBO foundry sourceforge CVS site, for updating the ontologies. This system started failing recently, partly becuase it could no longer cope with the increasing size of the ontologies and there were
+        other factors like the deprecation of the OBO CVS site on sourceforge. We decide that it was time for a new OLS service that would be more scalable and easier to maintain. The main features of this service are:
+    </p>
+    <ul>
+        <li>Supports both OWL and OBO formatted ontologies</li>
+        <li>Ontology crawler that is based on registering files by URLs and checking those files nightly for changes</li>
+        <li>Built for scalability using two industry standard technologies - Neo4j and Solr</li>
+    </ul>
+
+    <h2>Timeline</h2>
+    <ul>
+        <li><b style="text-decoration: line-through">October 27th 2015</b>
+            <ul>
+                <li>OLS beta announced running at <a href="http://www.ebi.ac.uk/ols/beta">http://www.ebi.ac.uk/ols/beta</a></li>
+                <li>Announcement of deprecation of old OLS services running at <a href="http://www.ebi.ac.uk/ontology-lookup">http://www.ebi.ac.uk/ontology-lookup</a> (also redirects from http://www.ebi.ac.uk/ols)</li>
+                <li>Freeze data in old OLS and stop nightly update of ontologies</li>
+            </ul>
+        </li>
+        <li><b style="text-decoration: line-through">January 31st 2016</b>
+            <ul>
+                <li>We will start an instance of the old OLS at http://www.ebi.ac.uk/ontology-lookup/v2. This will serve the old services and data until October 1st 2016</li>
+            </ul>
+        </li>
+        <li><b style="text-decoration: line-through">May 4th 2016</b>
+            <ul>
+                <li>We will move new OLS to production and serve from http://www.ebi.ac.uk/ols</li>
+                <li>http://www.ebi.ac.uk/ontology-lookup will redirect to http://www.ebi.ac.uk/ols</li>
+                <li>http://www.ebi.ac.uk/ols/beta will continue to be available for beta testing new features, but the underlying data may not be the most up-to-date</li>
+                <li>The old OLS service will be archived and only available from http://www.ebi.ac.uk/ols/v2</li>
+            </ul>
+        </li>
+        <li><b style="text-decoration: line-through">October 1st 2016</b>
+            <ul>
+                <li>We will shutdown the old OLS service running at http://www.ebi.ac.uk/ols/v2</li>
+            </ul>
+        </li>
+
+    </ul>
+
+    <h2>What will be deprecated</h2>
+    <ul>
+        <li>As of April 18 2016 we will no longer provide a MySQL dump of OLS</li>
+        <li>As of May 4th 2016 the SOAP API will no longer be accessible from http://www.ebi.ac.uk/ontology-lookup/OntologyQuery and only available from http://www.ebi.ac.uk/ols/v2/OntologyQuery until October 1st 2016</li>
+    </ul>
+
+    <p>
+        If you have any questions please get in touch with as at ols-support [at] ebi.ac.uk
+    </p>
+
+    <h2>Migration</h2>
+
+    <h3>Linking to OLS</h3>
+
+    <h4>Linking to an ontology</h4>
+
+    <p>If you want to link to an ontology in OLS you will need to know the ontology id. Typically this is a lowercase form of the ontology namespace e.g. For the gene ontology this is 'go'</p>
+
+    <table>
+        <tr>
+            <th>Old URL</th>
+            <th>New URL</th>
+            <th>Example</th>
+        </tr>
+        <tr>
+            <td>
+                www.ebi.ac.uk/ontology-lookup/browse.do?ontName=&lt;ontology name&gt;
+            </td>
+            <td>
+                www.ebi.ac.uk/ols/ontologies/&lt;ontology name&gt;
+            </td>
+            <td>
+                <a href="//www.ebi.ac.uk/ols/ontologies/go">ebi.ac.uk/ols/ontologies/&lt;ontology name&gt;</a> (Note that the live URL is currently for the beta site)
+            </td>
+        </tr>
+    </table>
+
+    <h4>Linking to an ontology term</h4>
+    <p>
+        You can link to an ontology term in the old OLS using the OBO style short id e.g. GO:0007610. The new OLS moves to identify ontology terms via a <a href="http://www.w3.org/International/">International Resource Identifier</a> (IRI). We still support linking via the old id style.
+    </p>
+
+    <table>
+        <tr>
+            <th>Old URL</th>
+            <th>New URL</th>
+            <th>Example</th>
+        </tr>
+        <tr>
+            <td>
+                www.ebi.ac.uk/ontology-lookup/browse.do?ontName=&lt;ontology name&gt;&termId=GO%3A0007610
+            </td>
+            <td>
+                www.ebi.ac.uk/ols/ontologies/&lt;ontology name&gt;/terms?iri=&lt;term =IRI&gt;
+            </td>
+            <td>
+                <a href="//www.ebi.ac.uk/ols/ontologies/go/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FGO_0007610">www.ebi.ac.uk/ols/ontologies/go/terms?iri=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FGO_0007610</a> (Note that the live URL is currently for the beta site)
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+                www.ebi.ac.uk/ols/ontologies/&lt;ontology name&gt;/terms?short_form=&lt;term shortform&gt;
+            </td>
+            <td>
+                <a href="//www.ebi.ac.uk/ols/ontologies/go/terms?short_form=GO_0007610">www.ebi.ac.uk/ols/ontologies/go/terms?short_form=GO_0007610</a> (Note that the live URL is currently for the beta site)
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+                www.ebi.ac.uk/ols/ontologies/&lt;ontology name&gt;/terms?obo_id=&lt;term obo id&gt;
+            </td>
+            <td>
+                <a href="//www.ebi.ac.uk/ols/ontologies/go/terms?obo_id=GO:0007610">www.ebi.ac.uk/ols/ontologies/go/terms?obo_id=GO:0007610</a> (Note that the live URL is currently for the beta site)
+            </td>
+        </tr>
+    </table>
+
+
+    <h3>Using the OLS API</h3>
+
+    <h4></h4>
+    <p>The old OLS API was built around SOAP, the WSDL for this service is described <a hre="http://www.ebi.ac.uk/ontology-lookup/OntologyQuery.wsdl">http://www.ebi.ac.uk/ontology-lookup/OntologyQuery.wsdl</a>. The new OLS
+        API is built around REST principles where individual resources are identified by URLs. You can find detailed documentation of the new OLS REST API <a href="">here</a></p>
+
+    <h4>Migrating from SOAP API methods to the new REST API</h4>
+
+    <table>
+        <tr>
+            <th>
+                SOAP method
+            </th>
+            <th>
+                Equivalent REST query
+            </th>
+        </tr>
+        <tr>
+            <td>getAllTermsFromOntologyRequest</td>
+            <td>api/ontologies/{ontology name}/terms</td>
+        </tr>
+        <tr>
+            <td>getOntologyLoadDateRequest</td>
+            <td>api/ontologies/{ontology name}</td>
+        </tr>
+        <tr>
+            <td>getOntologyNamesRequest</td>
+            <td>api/ontologies</td>
+        </tr>
+        <tr>
+            <td>getPrefixedTermsByNameRequest</td>
+            <td>api/search?q=</td>
+        </tr>
+        <tr>
+            <td>getRootTermsRequest</td>
+            <td>api/ontologies/{ontology name}/terms/roots</td>
+        </tr>
+        <tr>
+            <td>getTermByIdRequest</td>
+            <td>api/ontologies/{ontology name}/terms?obo_id=</td>
+        </tr>
+        <tr>
+            <td>getTermChildrenRequest</td>
+            <td>api/ontologies/{ontology name}/terms/{term IRI}/children</td>
+        </tr>
+        <tr>
+            <td>getTermMetadataRequest</td>
+            <td>api/ontologies/{ontology name}/terms?obo_id=</td>
+        </tr>
+        <tr>
+            <td>getTermParentsRequest</td>
+            <td>api/ontologies/{ontology name}/terms/{term IRI}/parents</td>
+        </tr>
+        <tr>
+            <td>getTermRelationsRequest</td>
+            <td>api/ontologies/{ontology name}/terms?obo_id=</td>
+        </tr>
+        <tr>
+            <td>getTermsByAnnotationDataRequest</td>
+            <td>api/search?q={query}&fl='annotation_{field name}'</td>
+        </tr>
+        <tr>
+            <td>getTermsByNameRequest</td>
+            <td>api/search?q={query}&fl=label</td>
+        </tr>
+        <tr>
+            <td>getTermXrefsRequest</td>
+            <td>api/search?q={query}&fl='annotation_{xref field name}'</td>
+        </tr>
+        <tr>
+            <td>isObsoleteRequest</td>
+            <td>api/ontologies/{ontology name}/terms?obo_id=</td>
+        </tr>
+    </table>
+
+    <h4>Migrating from OLS Ajax API methods to the new Search API</h4>
+
+    <table>
+        <tr>
+            <th>
+                Ajax call
+            </th>
+            <th>
+                Equivalent REST query
+            </th>
+        </tr>
+        <tr>
+            <td>ajax.view?q=termmetadata&termid={id}&ontologyname={ontology name}</td>
+            <td>api/ontologies/{ontology name}/terms?obo_id={id}</td>
+        </tr>
+        <tr>
+            <td>ajax.view?q=termautocomplete&termname={label}&ontologyname={short name}</td>
+            <td>api/select?q={label}&ontology_name={short name}</td>
+        </tr>
+        <tr>
+            <td>ajax.view?q=termname&termid={id}&ontologyname={ontology name}</td>
+            <td>api/ontologies/{ontology name}/terms?obo_id={id}</td>
+        </tr>
+    </table>
+        </div>
+</section>
+
+<div>
+
+    <!-- Optional local footer (insert citation / project-specific copyright / etc here -->
+    <!--
+    <footer id="local-footer" class="local-footer" role="local-footer">
+      <div class="row">
+        <span class="reference">How to reference this page: ...</span>
+      </div>
+    </footer>
+    -->
+    <!-- End optional local footer -->
+    <div class="row">
+        <div id="elixir-banner" data-color="grey" data-name="The Ontology Lookup Service" data-description="OLS is an Elixir interoperability service" data-more-information-link="//www.elixir-europe.org/platforms/interoperability" data-use-basic-styles="true"></div>
+        <script src="//ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/js/elixirBanner.js"></script>
+    </div>
+
+    <footer>
+        <!-- https://www.ebi.ac.uk/style-lab/websites/patterns/banner-elixir.html
+        <div id="elixir-banner" data-color="none" data-name="This service" data-description="I am a super cool service" data-more-information-link="https://www.elixir-europe.org/about-us/who-we-are/nodes/embl-ebi" data-use-basic-styles="true"></div>
+        -->
+        <div id="global-footer" class="global-footer">
+            <nav id="global-nav-expanded" class="global-nav-expanded row">
+                <!-- Footer will be automatically inserted by footer.js -->
+            </nav>
+            <section id="ebi-footer-meta" class="ebi-footer-meta row">
+                <!-- Footer meta will be automatically inserted by footer.js -->
+            </section>
+        </div>
+    </footer>
+
+
+    <script defer="defer" src="https://ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/js/elixirBanner.js"></script>
+
+
+
+    <!-- JavaScript -->
+
+    <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+    <!--
+    <script>window.jQuery || document.write('<script src="../js/libs/jquery-1.10.2.min.js"><\/script>')</script>
+    We include Jquery from war below, then we'd don't need this line  .... -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-69391170-2', 'auto');
+        ga('send', 'pageview');
+        ga('set', 'anonymizeIp', true);
+    </script>
+
+    <!-- Using other URL for v1.3 does not change anything -->
+    <script defer="defer" src="//www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.3/js/script.js"></script>
+    <script src="//www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.3/libraries/foundation-6/js/foundation.js"></script>
+    <script src="//www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.3/js/foundationExtendEBI.js"></script>
+    <script type="text/JavaScript">$(document).foundation();</script>
+    <script type="text/JavaScript">$(document).foundationExtendEBI();</script>
+
+    <!--<script type="text/javascript" th:src="@{/webjars/d3js/3.5.17/d3.min.js}" src="/webjars/d3js/3.5.17/d3.min.js"></script>
+        <script type="text/javascript" th:src="@{/webjars/select2/4.0.0/dist/js/select2.min.js}" src="/webjars/select2/4.0.0/dist/js/select2.min.js"></script>-->
+
+
+
+</div>
+
+
+</body>
+</html>
