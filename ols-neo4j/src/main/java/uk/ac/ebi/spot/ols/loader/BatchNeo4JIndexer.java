@@ -70,6 +70,7 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
     private static RelationshipType subpropertyof = DynamicRelationshipType.withName("SUBPROPERTYOF");
     private static RelationshipType typeOf = DynamicRelationshipType.withName("INSTANCEOF");
     private static RelationshipType related = DynamicRelationshipType.withName("Related");
+    private static RelationshipType relatedIndividual = DynamicRelationshipType.withName("RelatedIndividual");
     private static RelationshipType treeRelation = DynamicRelationshipType.withName("RelatedTree");
 
     private Map<String, Object> isaProperties = new HashMap<>();
@@ -419,6 +420,23 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
         }
     }
 
+    private void indexRelatedIndividuals(Long node, Map<IRI, Collection<IRI>> relatedIndividuals, BatchInserter inserter, OntologyLoader loader, Map<String, Long> nodeMap, Label... nodeLabels) {
+        for (IRI relation : relatedIndividuals.keySet()) {
+            Map<String, Object> relatedProperties = new HashMap<>();
+            relatedProperties.put("uri", relation.toString());
+            relatedProperties.put("label", loader.getTermLabels().get(relation));
+            relatedProperties.put("ontology_name", loader.getOntologyName());
+            relatedProperties.put("__type__", "RelatedIndividual");
+
+            for (IRI relatedTerm : relatedIndividuals.get(relation)) {
+                //TODO review right parameters
+                Long relatedNode =  getOrCreateNode(inserter, nodeMap,loader, relatedTerm, nodeLabels);
+                inserter.createRelationship( node, relatedNode, relatedIndividual, relatedProperties);
+            }
+
+        }
+    }
+
     private void indexClasses(BatchInserter inserter, OntologyLoader loader, Map<String, Long> nodeMap, Map<String, Long> mergedNodeMap) {
         getLog().debug("Creating Neo4j index for " + loader.getAllClasses().size() + " classes");
 
@@ -485,7 +503,7 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
             }
 
             //Add relationships of the form A sub R some {a}
-            indexRelations(node, loader.getRelatedIndividualsToClass(classIri),inserter,loader,nodeMap, instanceLabel,nodeOntologyLabel, _instanceLabel);
+            indexRelatedIndividuals(node, loader.getRelatedIndividualsToClass(classIri),inserter,loader,nodeMap, instanceLabel,nodeOntologyLabel, _instanceLabel);
 
 //            if (counter == BATCH_SIZE) {
 //                inserter = restartIndexer(inserter, loader.getOntologyName());
