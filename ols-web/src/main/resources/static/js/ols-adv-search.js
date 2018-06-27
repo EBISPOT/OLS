@@ -185,7 +185,7 @@ function processData(data) {
             }
         }
 
-        var resultHtml = $('<section></section>');
+        var resultHtml = $('<div class="search_sub_result"></div>');
         resultHtml = resultHtml.append(link);
         resultHtml = resultHtml.append('&nbsp;&nbsp;');
 
@@ -205,27 +205,38 @@ function processData(data) {
 
         resultHtml = resultHtml.append(termShortId);
 
+
+        resultHtml = resultHtml.append('&nbsp;');
+        var ontologies = $("<div class='static_search_ontology_badge'><span class='search_static_ontology'>Ontology: </span><div class='ontology-source' title='"+ontologyList[row.ontology_name]+"'>" + row.ontology_prefix + "</div></div>");
+        resultHtml = resultHtml.append(ontologies);
+
+
+
+
         resultHtml = resultHtml.append('<br/>');
         resultHtml = resultHtml.append($('<span class="search-results-url"></span>').text(row.iri));
-        resultHtml = resultHtml.append('<br/>');
+        //resultHtml = resultHtml.append('<br/>');
         if (description != undefined) {
             resultHtml = resultHtml.append($('<span class="search-results-description"></span>').text(description));
-            resultHtml = resultHtml.append('<br/>');
+            //resultHtml = resultHtml.append('<br/>');
         }
 
         if (!isOntology) {
-            resultHtml = resultHtml.append('<b>Ontology: </b>');
+
+            //resultHtml = resultHtml.append('<span class="search_static_ontology">Ontology: </span>');
 
             var ontologyTitle = ontologyList[row.ontology_name];
+
+            /* Removing ontology full name for now ?
             var ontologyLink = $('<a>',{
                 class: 'nounderline',
                 text: ontologyTitle,
                 href: 'ontologies/' + row.ontology_name
             });
             resultHtml = resultHtml.append(ontologyLink);
-            resultHtml = resultHtml.append('&nbsp;');
-            var ontologies = $("<div class='ontology-source' title='"+ontologyList[row.ontology_name]+"'>" + row.ontology_prefix + "</div>");
-            resultHtml = resultHtml.append(ontologies);
+             */
+
+
             resultHtml = resultHtml.append('<br/>');
 
             if (data.expanded != undefined) {
@@ -244,8 +255,8 @@ function processData(data) {
             }
         }
 
-        resultHtml = resultHtml.append('<br/>');
-        resultHtml = resultHtml.append('<br/>');
+        //resultHtml = resultHtml.append('<br/>');
+        //resultHtml = resultHtml.append('<br/>');
 
         searchResult.append(resultHtml);
     });

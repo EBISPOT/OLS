@@ -167,6 +167,27 @@ a .ontology-source {
 }
 
 
+/********Search page new css tries********/
+.static_search_ontology_badge{
+    display: inline;
+    margin-left: 20px;
+}
+
+
+.search_sub_result{
+    margin-bottom: 20px;
+}
+
+.term-source{
+    margin-left:10px;
+}
+
+.search_static_ontology{
+    font-size:smaller;
+    color: #ddd;
+}
+
+
 /*Ontology View*/
 .panel{
     border: solid 1px #F0F0F0;
