@@ -37,7 +37,7 @@
                     <img th:src="@{../../img/file_JSON.png}" src="../static/img/file_JSON.png" alt="JSON" title="Get data as JSON"/>
                 </a>
             </div>
-
+            <!-- Old breadcrumb style
             <nav id="breadcrumb"  >
                 <p style="display:inline;">
                     <a href="../../index">OLS</a> &gt;
@@ -47,17 +47,40 @@
                         <span class="ontology-source" th:text="${ontologyTerm.getOntologyPrefix()}">parent 1</span>
                    </a>   &gt;
                     <span id='shortForm' th:if="${ontologyTerm.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyTerm.getOboId()}">id</span>
-                   <span id='shortForm' th:unless="${ontologyTerm.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyTerm.getShortForm()}">id</span>
-                    <button title="Copy id to clipboard" id='copyShortForm' data-clipboard-action="copy" data-clipboard-target="#shortForm" class="button tiny third copyButton" type="button">Copy</button>
+                    <span id='shortForm' th:unless="${ontologyTerm.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyTerm.getShortForm()}">id</span>
+                    <button title="Copy id to clipboard" id='copyShortForm' data-clipboard-action="copy" data-clipboard-target="#shortForm" class="secondary-color tiny copyButton" type="button"><span class="icon icon-functional" data-icon="c"></span>Copy</button>
                 </p>
+            </nav>  -->
+            <nav aria-label="You are here:" role="navigation">
+                <ul class="breadcrumbs">
+                <li><a href="../../index">OLS</a></li>
+                <li><a class="nounderline" th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__}" th:text="${ontologyName}">ontology</a>
+                <a property="codingSystem" th:attr="content=${ontologyTerm.getOntologyName()}" th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__}" href="#">
+                     <span class="ontology-source" th:text="${ontologyTerm.getOntologyPrefix()}">parent 1</span>
+                </a>
+                </li>
+                <li>
+                    <span id='shortForm' th:if="${ontologyTerm.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyTerm.getOboId()}">id</span>
+                    <span id='shortForm' th:unless="${ontologyTerm.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyTerm.getShortForm()}">id</span>
+                    <button title="Copy id to clipboard" id='copyShortForm' data-clipboard-action="copy" data-clipboard-target="#shortForm" class="secondary-color tiny copyButton" type="button"><span class="icon icon-functional" data-icon="c"></span>Copy</button>
+                </li>
+                </ul>
             </nav>
+
+
         </div>
                 <div>
                     <div class="small-8 column">
+                        <!-- old Style // image got replaced by icomn, see below
                         <h2 property="name"  style="margin: 0px;" th:text="${ontologyTerm.getLabel()}">Term Label</h2>
                         <a style="padding: 9px;border-bottom: none;" th:href="@{${ontologyTerm.getIri()}}" class="nounderline" target="blank"><img th:src="@{../../img/external_link.png}" src="../static/img/external_link.png" alt="^" title="Go to external page"/></a>
                         <span property="url" id="OLS_ID" style="font-size: small;color: grey;" th:text="${ontologyTerm.getIri()}">http://www.example.com/onto/id</span>
-                        <p style="display:inline;"><button title="Copy id to clipboard" id='copyThis' data-clipboard-action="copy" data-clipboard-target="#OLS_ID" class="button tiny third copyButton" type="button">Copy</button></p>
+                        -->
+                        <h2 property="name"  style="margin-bottom-b" th:text="${ontologyTerm.getLabel()}">Term Label</h2>
+                        <a style="padding: 9px;border-bottom: none;" th:href="@{${ontologyTerm.getIri()}}" class="nounderline" target="blank"><span class="show-for-sr">Go to external page</span><span class="icon icon-generic" data-icon="x"></span></a>
+                        <span property="url" id="OLS_ID" style="font-size: small;color: grey;" th:text="${ontologyTerm.getIri()}">http://www.example.com/onto/id</span>
+
+                        <p style="display:inline;"><button title="Copy id to clipboard" id='copyThis' data-clipboard-action="copy" data-clipboard-target="#OLS_ID" class="secondary-color small copyButton" type="button"><span class="icon icon-functional" data-icon="c"></span>Copy</button></p>
                     </div>
 
                     <div id="termPageSearchBox" class="small-4 columns">
@@ -71,14 +94,12 @@
                  </div>
              </div>
 
-
              <!--
              <div class="grid_24 clearfix">
                 <p style="display:inline;"><button id='copyThis' data-clipboard-action="copy" data-clipboard-target="#test" type="button">Copy to clipboard</button></p>
                  <p id="citeThis" style="display:inline;"><button type="button" title="Click here">Cite this</button></p>
                  <p id="overlay" style="display:inline;"></p>
              </div>-->
-
 
                 <div class="small-12 columns">
                     <hr/>
@@ -143,10 +164,10 @@
 
                     <div th:if="${ontologyTerm.getSynonyms() !=null}">
                         <p><b>Synonyms:</b>
-                            <span property="alternateName" style="margin-left:9px;" th:text="${#strings.setJoin(ontologyTerm.getSynonyms(), ', ')}">NCBI_9606</span>
+                           <!-- <span property="alternateName" style="margin-left:9px;" th:text="${#strings.setJoin(ontologyTerm.getSynonyms(), ' - ')}">NCBI_9606</span>-->
+                            <span property="alternateName" class="label secondary-color" th:text="${#strings.setJoin(ontologyTerm.getSynonyms(), ' - ')}">NCBI_9606</span>
                         </p>
                     </div>
-
                 </div>
 
 
@@ -166,9 +187,15 @@
                     <div class="tabs-content" data-tabs-content="terms_tabs">
                         <div class="tabs-panel is-active" id="tree-tab">
                             <div id="tree_tab_button_box">
+                                <!--
                                 <button class="button secondary" value="true" title="Redraw the tree to focus on this terms" onclick="location.reload(true)">Reset tree</button>
                                 <button id="showSliblingsButton" class="button secondary" value="true" title="Expand the tree to show sibling terms" onclick="termInstance.toggleSiblings(this)">Show siblings</button>
                                 <button class="button icon icon-conceptual" data-icon ="o" th:onclick="'javascript:window.open(\'' + @{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})} + '\')'" title="Visualisation of this term">Graph view</button>
+                                -->
+                                <!-- "Less disruptive buttons? Do we want it this way? Above, it's the old way" -->
+                                <button class="button small white-background secondary-color" value="true" title="Redraw the tree to focus on this terms" onclick="location.reload(true)"><span class="icon icon-functional" data-icon="R"></span> Reset tree</button>
+                                <button id="showSliblingsButton" class="button small white-background secondary-color" value="true" title="Expand the tree to show sibling terms" onclick="termInstance.toggleSiblings(this)">Show siblings</button>
+                                <button class="button small white-background ebi-color" title="Visualisation of this term" th:onclick="'javascript:window.open(\'' + @{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})} + '\')'"><span class="icon icon-conceptual" data-icon="o"></span> Graph view</button>
                             </div>
 
 
@@ -211,6 +238,8 @@
 
                 <div id="right_info_box" class="small-4 columns">
                     <div id="term_info_box" class="panel">
+                    <!-- <div id="term_info_box" class="callout small white-background"> -->
+
                         <div class="panel-heading">
                             <h3>Term info</h3>
                         </div>
@@ -412,6 +441,45 @@
 
         new Clipboard('#copyThis')
         new Clipboard('#copyShortForm')
+
+        /*Working on mappings*/
+        console.log('Short Form')
+        shortForm=$('#shortForm').text()
+
+        shortForm="EFO:0000400x"
+        baseURL="https://www.ebi.ac.uk/spot/oxo/api/mappings?fromId="
+        URL=baseURL+shortForm
+        buttonLink="https://www.ebi.ac.uk/spot/oxo/terms/"+shortForm
+        //console.log(URL)
+
+        $("#oxo-tab").empty()
+
+        $.getJSON(URL, function(data) {
+            console.log(data)
+
+            if (data["page"]["totalElements"]>0){
+                $("#oxo-tab").append("<h4>Known Mappings for this term</h4>")
+
+                mappings=data["_embedded"]["mappings"]
+
+                var i = 0;
+                htmlString = "<table>"
+                for (i = 0; mappings.length > i; i = i + 1) {
+                    console.log(mappings[i]["toTerm"]["label"])
+                    label = mappings[i]["toTerm"]["label"]
+                    curie = mappings[i]["toTerm"]["curie"]
+                    htmlString = htmlString + "<tr><td>" + label + "</td><td>" + curie + "</td></tr>"
+                }
+                htmlString = htmlString + "</table>"
+                $("#oxo-tab").append(htmlString)
+
+                htmlString = '<a class="button secondary" href="' + buttonLink + '" target="_blank">More details about these mappings</a>'
+                $('#oxo-tab').append(htmlString)
+            }
+            else{
+               $('#oxo-tab').append('<p>Could not find any direct mappings for this term. Use our <a href="https://www.ebi.ac.uk/spot/oxo/">Ontology Xreference service</a> to explore mappings in more detail!</p>')
+            }
+        })
     });
 </script>
 
