@@ -207,13 +207,13 @@ make the ATOL ontology as operational as possible and closely related to measure
     ontology_purl : http://data.bioontology.org/ontologies/LBO/submissions/2/download?apikey=0911d614-1dd4-41c0-afd4-9f3df0fc70be
 
 
-## AncestrO
+## HANCESTRO
 
-  - id: ancestro
-    preferredPrefix: ancestro
-    title: Ancestry Ontology
-    uri: http://www.ebi.ac.uk/ancestro
-    description: "The Ancestry Ontology (Ancestro) provides a systematic description of the ancestry concepts used in the NHGRI-EBI Catalog of published genome-wide association studies. It includes a list of countries, regions and major areas (essentially continents), as well as a fairly exhaustive list of country- or region-specific ancestral groups, uncategorised ancestral groups and population isolates."
+  - id: hancestro
+    preferredPrefix: hancestro
+    title: Human Ancestry Ontology
+    uri: http://purl.obolibrary.org/obo/hancestro
+    description: "The Human Ancestry Ontology (HAncestro) provides a systematic description of the ancestry concepts used in the NHGRI-EBI Catalog of published genome-wide association studies. It includes a list of countries, regions and major areas (essentially continents), as well as a fairly exhaustive list of country- or region-specific ancestral groups, uncategorised ancestral groups and population isolates."
     homepage: https://github.com/EBISPOT/ancestro/
     mailing_list:
     definition_property:
@@ -223,10 +223,10 @@ make the ATOL ontology as operational as possible and closely related to measure
     hierarchical_property:
       - http://purl.obolibrary.org/obo/BFO_0000050
     base_uri:
-      - http://www.ebi.ac.uk/ancestro/ancestro_
+      - http://purl.obolibrary.org/obo/HANCESTRO_
     oboSlims: false
     reasoner: OWL2
-    ontology_purl : https://raw.githubusercontent.com/EBISPOT/ancestro/master/ancestro.owl
+    ontology_purl : https://raw.githubusercontent.com/EBISPOT/ancestro/master/hancestro.owl
 
 ## GAZ overide
 
