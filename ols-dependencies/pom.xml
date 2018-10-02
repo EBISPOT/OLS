@@ -101,9 +101,9 @@
     <repositories>
 
         <repository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>http://repo.spring.io/milestone</url>
+            <id>maven-neo4j</id>
+            <name>Maven Neo4j</name>
+            <url>https://m2.neo4j.org/content/repositories/releases/</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
