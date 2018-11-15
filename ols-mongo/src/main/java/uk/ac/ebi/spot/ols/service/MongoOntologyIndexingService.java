@@ -158,4 +158,37 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             ontologyRepositoryService.update(document);
         }
     }
+
+    @Override
+    public void removeOntologyDocumentFromIndex(OntologyDocument document) throws IndexingException {
+        OntologyLoader loader = null;
+        Collection<IRI> classes;
+        Collection<IRI> properties;
+        Collection<IRI> individuals;
+        String message = "";
+        Status status = Status.FAILED;
+
+
+        try {
+
+            // get all the available indexers
+            for (OntologyIndexer indexer : indexers) {
+                // create the new index
+                indexer.dropIndex(loader);
+            }
+            status = Status.REMOVED;
+
+        } catch (Exception e) {
+            getLog().error("Error removing index for " + document.getOntologyId(), e.getMessage());
+            status = Status.FAILED;
+            message = e.getMessage();
+            throw e;
+        }
+        finally {
+            document.setStatus(status);
+            document.setUpdated(new Date());
+            document.setMessage(message);
+            ontologyRepositoryService.update(document);
+        }
+    }
 }

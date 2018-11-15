@@ -1,6 +1,7 @@
 package uk.ac.ebi.spot.ols;
 
 import org.apache.commons.cli.*;
+import org.apache.zookeeper.Op;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +63,8 @@ public class LoadingApplication implements CommandLineRunner {
 
     private static String email;
 
+    private static String [] deleteOntologies = {};
+
 
     private static boolean offline = false;
 
@@ -83,9 +86,9 @@ public class LoadingApplication implements CommandLineRunner {
 
         if (ontologies.length > 0) {
             // get the ontologies forced to update
-            for (String ontologyName : ontologies) {
-                OntologyDocument document = ontologyRepositoryService.get(ontologyName);
-                if (document != null) {
+          for (String ontologyName : ontologies) {
+                    OntologyDocument document = ontologyRepositoryService.get(ontologyName);
+                    if (document != null) {
                     if (!offline) {
                         // check these documents for updates
                         allDocuments.add(ontologyRepositoryService.get(ontologyName));
@@ -96,6 +99,16 @@ public class LoadingApplication implements CommandLineRunner {
                         ontologyRepositoryService.update(document);
                     }
                 }
+            }
+        }
+        else if (deleteOntologies.length > 0){
+            // get the ontologies requested for deletion
+            for (String ontologyName : ontologies) {
+                OntologyDocument document = ontologyRepositoryService.get(ontologyName);
+
+                document.setStatus(Status.TOREMOVE);
+                ontologyRepositoryService.update(document);
+
             }
         }
         else if (!offline){
@@ -128,6 +141,21 @@ public class LoadingApplication implements CommandLineRunner {
                         updatedOntologies.add(document.getOntologyId());
                     } catch (Exception e) {
                         getLog().error("Application failed creating indexes for " + document.getOntologyId() + ": " + e.getMessage());
+                        haserror = true;
+                    }
+                }
+            }
+        }
+        else if (deleteOntologies.length > 0){
+            for (String ontologyName : deleteOntologies) {
+                OntologyDocument document = ontologyRepositoryService.get(ontologyName);
+                if (document != null) {
+                    try {
+                        ontologyIndexingService.removeOntologyDocumentFromIndex(document);
+                        ontologyRepositoryService.delete(document);
+                        updatedOntologies.add(document.getOntologyId());
+                    } catch (Exception e) {
+                        getLog().error("Application failed deleting indexes for " + document.getOntologyId() + ": " + e.getMessage());
                         haserror = true;
                     }
                 }
@@ -201,6 +229,10 @@ public class LoadingApplication implements CommandLineRunner {
                     email = cl.getOptionValue("m");
                 }
 
+                if (cl.hasOption("d")){
+                    deleteOntologies = cl.getOptionValues("d");
+                }
+
             }
 
         }
@@ -240,7 +272,13 @@ public class LoadingApplication implements CommandLineRunner {
                 "Send e-mail report");
         mail.setRequired(false);
         options.addOption(mail);
+
+        Option delete = new Option("d", "delete", true, "List the ontologies to be deleted");
+        delete.setRequired(false);
+        options.addOption(delete);
+
         return options;
+
     }
 
     public static void main(String[] args) throws Exception {
