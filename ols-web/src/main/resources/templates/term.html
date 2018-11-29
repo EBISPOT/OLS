@@ -164,8 +164,7 @@
 
                     <div th:if="${ontologyTerm.getSynonyms() !=null}">
                         <p><b>Synonyms:</b>
-                           <!-- <span property="alternateName" style="margin-left:9px;" th:text="${#strings.setJoin(ontologyTerm.getSynonyms(), ' - ')}">NCBI_9606</span>-->
-                            <span property="alternateName" class="label secondary-color" th:text="${#strings.setJoin(ontologyTerm.getSynonyms(), ' - ')}">NCBI_9606</span>
+                            <span property="alternateName" class="label synonym" th:each="synonym : ${ontologyTerm.getSynonyms()}" th:text="${synonym}">NCBI_9606</span>
                         </p>
                     </div>
                 </div>
@@ -238,7 +237,7 @@
 
                 <div id="right_info_box" class="small-4 columns">
                     <div id="term_info_box" class="panel">
-                    <!-- <div id="term_info_box" class="callout small white-background"> -->
+                     <!--<div id="term_info_box" class="callout white-background">-->
 
                         <div class="panel-heading">
                             <h3>Term info</h3>
@@ -431,8 +430,19 @@
                 img.attr('src', value);
                 $(this).append(img)
             }
+            else if (value.match(/^(http|https|ftp):\/\//)) {
+                $(this).text("");
+                var link = $('<a/>');
+                link.attr('href', value);
+                link.attr('text', value);
+                link.attr('class', "icon icon-generic");
+                link.attr('data-ico', "x");
+
+            }
 
         });
+
+
 
         /*$('#citeThis').on('click', function (){
          $('#overlay').html('<p id="overlay" style="display:inline; opacity:0.5; background:light-gray;">Imaging here to be text to be cited we still think about the layout <a id="close" href="">close</a></p>')

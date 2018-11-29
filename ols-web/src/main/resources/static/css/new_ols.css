@@ -411,3 +411,26 @@ vertical-align: top;
     background-color: #F2F2EC;
     border-color: #999;
 }
+
+/* keywords - default cyan */
+.keyword {color: #007777;}
+.comment {color: green;}
+.some {color: #770077;}
+.only {color: #770077;}
+.value {color: #770077;}
+.min {color: #770077;}
+.max {color: #770077;}
+.exactly {color: #770077;}
+
+.ObjectProperty {
+  font-style: italic;
+}
+
+.synonym {
+    padding: 0.125rem 0.3125rem 0.0625rem;
+    border: 1px solid #777;
+    background-color: #e6e6e6;
+    font-family: Consolas, "Liberation Mono", Courier, monospace;
+    font-weight: normal;
+    color: #0a0a0a;
+}
