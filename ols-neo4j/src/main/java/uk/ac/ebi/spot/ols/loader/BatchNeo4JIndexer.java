@@ -608,14 +608,18 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
         return new GraphDatabaseFactory().newEmbeddedDatabase(neo4jConfiguration.getNeo4JPath());
     }
 
-    @Override
     public void dropIndex(OntologyLoader loader) throws IndexingException {
+        dropIndex(loader.getOntologyName());
+    }
+
+    @Override
+    public void dropIndex(String ontologyId) throws IndexingException {
 
         // shutdown any autowired graph dbs for batch loading
         db.shutdown();
         db = getGraphDatabase();
 
-        deleteNodes(loader.getOntologyName());
+        deleteNodes(ontologyId);
 //        deleteRoots(loader.getOntologyName());
 
         db.shutdown();

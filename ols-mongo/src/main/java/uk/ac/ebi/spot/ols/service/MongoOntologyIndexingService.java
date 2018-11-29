@@ -95,7 +95,7 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             // get all the available indexers
             for (OntologyIndexer indexer : indexers) {
                 // create the new index
-                indexer.dropIndex(loader);
+                indexer.dropIndex(loader.getOntologyName());
                 indexer.createIndex(loader);
             }
 
@@ -161,20 +161,15 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
 
     @Override
     public void removeOntologyDocumentFromIndex(OntologyDocument document) throws IndexingException {
-        OntologyLoader loader = null;
-        Collection<IRI> classes;
-        Collection<IRI> properties;
-        Collection<IRI> individuals;
         String message = "";
         Status status = Status.FAILED;
-
 
         try {
 
             // get all the available indexers
             for (OntologyIndexer indexer : indexers) {
-                // create the new index
-                indexer.dropIndex(loader);
+                // delete the ontology
+                indexer.dropIndex(document.getOntologyId());
             }
             status = Status.REMOVED;
 

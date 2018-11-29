@@ -103,11 +103,16 @@ public class LoadingApplication implements CommandLineRunner {
         }
         else if (deleteOntologies.length > 0){
             // get the ontologies requested for deletion
-            for (String ontologyName : ontologies) {
+            for (String ontologyName : deleteOntologies) {
                 OntologyDocument document = ontologyRepositoryService.get(ontologyName);
 
-                document.setStatus(Status.TOREMOVE);
-                ontologyRepositoryService.update(document);
+                if (document != null) {
+                    document.setStatus(Status.TOREMOVE);
+                    ontologyRepositoryService.update(document);
+                }
+                else {
+                    log.warn("Can't delete ontology " + ontologyName + " as it doesn't exist in OLS");
+                }
 
             }
         }
