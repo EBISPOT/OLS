@@ -1,7 +1,6 @@
 package uk.ac.ebi.spot.ols;
 
 import org.apache.commons.cli.*;
-import org.apache.zookeeper.Op;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,7 +78,7 @@ public class LoadingApplication implements CommandLineRunner {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(10);
         executor.setMaxPoolSize(20);
-        executor.setQueueCapacity(200);
+        executor.setQueueCapacity(500);
         executor.initialize();
 
         List<OntologyDocument> allDocuments = new ArrayList<OntologyDocument>();
