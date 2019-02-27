@@ -1,0 +1,7 @@
+[source,http]
+----
+GET /ols/api/individuals/findByIdAndIsDefiningOntology?id=RO_0001901 HTTP/1.1
+Accept: application/json
+Host: www.ebi.ac.uk
+
+----

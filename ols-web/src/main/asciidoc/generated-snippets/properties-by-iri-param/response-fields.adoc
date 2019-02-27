@@ -1,0 +1,28 @@
+|===
+|Path|Type|Description
+
+|_embedded
+|Object
+|The list of properties
+
+|_links
+|Object
+|<<terms-links,Links>> to other properties
+
+|page.size
+|Number
+|The number of properties in this page
+
+|page.totalElements
+|Number
+|The total number of properties
+
+|page.totalPages
+|Number
+|The total number of pages
+
+|page.number
+|Number
+|The page number
+
+|===

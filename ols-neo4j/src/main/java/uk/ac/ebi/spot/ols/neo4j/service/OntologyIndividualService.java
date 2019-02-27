@@ -33,18 +33,34 @@ public class OntologyIndividualService {
         return individualRepository.findAll(pageable);
     }
 
+    public Page<Individual> findAllByIsDefiningOntology(Pageable pageable) {
+        return individualRepository.findAllByIsDefiningOntology(pageable);
+    }
+    
     public Page<Individual> findAllByIri(String iri, Pageable pageable) {
         return individualRepository.findAllByIri(iri, pageable);
     }
 
+    public Page<Individual> findAllByIriAndIsDefiningOntology(String iri, Pageable pageable) {
+        return individualRepository.findAllByIriAndIsDefiningOntology(iri, pageable);
+    }
+    
     public Page<Individual> findAllByShortForm(String shortForm, Pageable pageable) {
         return individualRepository.findAllByShortForm(shortForm, pageable);
     }
 
+    public Page<Individual> findAllByShortFormAndIsDefiningOntology(String shortForm, Pageable pageable) {
+        return individualRepository.findAllByShortFormAndIsDefiningOntology(shortForm, pageable);
+    }    
+    
     public Page<Individual> findAllByOboId(String oboId, Pageable pageable) {
         return individualRepository.findAllByOboId(oboId, pageable);
     }
 
+    public Page<Individual> findAllByOboIdAndIsDefiningOntology(String oboId, Pageable pageable) {
+        return individualRepository.findAllByOboIdAndIsDefiningOntology(oboId, pageable);
+    }    
+    
     public Page<Individual> findAllByOntology(String ontologyId, Pageable pageable) {
         return individualRepository.findAllByOntology(ontologyId, pageable);
     }

@@ -1,17 +1,13 @@
 package uk.ac.ebi.spot.ols.neo4j.service;
 
 import org.neo4j.graphdb.GraphDatabaseService;
-import org.neo4j.graphdb.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import uk.ac.ebi.spot.ols.neo4j.model.Property;
-import uk.ac.ebi.spot.ols.neo4j.model.Term;
-import uk.ac.ebi.spot.ols.neo4j.repository.OntologyPropertyRepository;
 
-import java.util.*;
+import uk.ac.ebi.spot.ols.neo4j.model.Property;
+import uk.ac.ebi.spot.ols.neo4j.repository.OntologyPropertyRepository;
 
 /**
  * @author Simon Jupp
@@ -44,6 +40,25 @@ public class OntologyPropertyGraphService {
         return ontologyPropertyRepository.findAllByOboId(oboId, pageable);
     }
 
+    
+    public Page<Property> findAllByIsDefiningOntology(Pageable pageable) {
+        return ontologyPropertyRepository.findAllByIsDefiningOntology(pageable);
+    }
+
+    public Page<Property> findAllByIriAndIsDefiningOntology(String iri, Pageable pageable) {
+        return ontologyPropertyRepository.findAllByIriAndIsDefiningOntology(iri, pageable);
+    }
+
+    public Page<Property> findAllByShortFormAndIsDefiningOntology(String shortForm, Pageable pageable) {
+        return ontologyPropertyRepository.findAllByShortFormAndIsDefiningOntology(shortForm, pageable);
+    }
+
+    public Page<Property> findAllByOboIdAndIsDefiningOntology(String oboId, Pageable pageable) {
+        return ontologyPropertyRepository.findAllByOboIdAndIsDefiningOntology(oboId, pageable);
+    }
+    
+    
+    
     public Page<Property> findAllByOntology(String ontologyId, Pageable pageable) {
         return ontologyPropertyRepository.findAllByOntology(ontologyId, pageable);
     }

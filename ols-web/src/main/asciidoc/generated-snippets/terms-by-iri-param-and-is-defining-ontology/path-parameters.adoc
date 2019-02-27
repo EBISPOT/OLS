@@ -1,0 +1,11 @@
+----
+GET /ols/api/terms/findByIdAndIsDefiningOntology
+----
+
+|===
+|Parameter|Description
+
+|iri
+|The IRI of the term to find
+
+|===

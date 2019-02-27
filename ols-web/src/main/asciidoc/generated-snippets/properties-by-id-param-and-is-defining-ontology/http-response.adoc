@@ -1,0 +1,585 @@
+[source,http]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 22369
+
+{
+  "_embedded" : {
+    "properties" : [ {
+      "annotation" : { },
+      "synonyms" : null,
+      "iri" : "http://www.ebi.ac.uk/efo/EFO_0000741",
+      "label" : "has_tumor_type",
+      "synonym" : null,
+      "description" : null,
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "EFO_0000741",
+      "obo_id" : "EFO:0000741",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000741"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000741/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000741/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000741/jstree"
+        }
+      }
+    }, {
+      "annotation" : { },
+      "synonyms" : null,
+      "iri" : "http://www.ebi.ac.uk/efo/EFO_0000824",
+      "label" : "relationship",
+      "synonym" : null,
+      "description" : null,
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "has_children" : true,
+      "is_root" : true,
+      "short_form" : "EFO_0000824",
+      "obo_id" : "EFO:0000824",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000824"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000824/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000824/descendants"
+        }
+      }
+    }, {
+      "annotation" : { },
+      "synonyms" : null,
+      "iri" : "http://www.ebi.ac.uk/efo/EFO_0000742",
+      "label" : "is_tumor_of",
+      "synonym" : null,
+      "description" : null,
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "EFO_0000742",
+      "obo_id" : "EFO:0000742",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000742"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000742/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000742/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000742/jstree"
+        }
+      }
+    }, {
+      "annotation" : { },
+      "synonyms" : null,
+      "iri" : "http://www.ebi.ac.uk/efo/EFO_0005515",
+      "label" : "has_p-value",
+      "synonym" : null,
+      "description" : null,
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : true,
+      "short_form" : "EFO_0005515",
+      "obo_id" : "EFO:0005515",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0005515"
+        }
+      }
+    }, {
+      "annotation" : { },
+      "synonyms" : null,
+      "iri" : "http://www.ebi.ac.uk/efo/EFO_0005516",
+      "label" : "has_t-statistic",
+      "synonym" : null,
+      "description" : null,
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : true,
+      "short_form" : "EFO_0005516",
+      "obo_id" : "EFO:0005516",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0005516"
+        }
+      }
+    }, {
+      "annotation" : { },
+      "synonyms" : null,
+      "iri" : "http://www.ebi.ac.uk/efo/EFO_0000794",
+      "label" : "is_broader_than",
+      "synonym" : null,
+      "description" : null,
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "EFO_0000794",
+      "obo_id" : "EFO:0000794",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000794"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000794/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000794/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000794/jstree"
+        }
+      }
+    }, {
+      "annotation" : {
+        "editor note" : [ "Do not use this property for anything. It is an accidental duplication of another property that was released and has now been obsoleted following the accepted obsolence procedure" ],
+        "obsoleted_in_version" : [ "2.89" ],
+        "reason_for_obsolescence" : [ "accidental duplication of property gwas_trait" ],
+        "term replaced by" : [ "http://www.ebi.ac.uk/efo/gwas_trait" ]
+      },
+      "synonyms" : null,
+      "iri" : "http://www.ebi.ac.uk/efo/EFO_0008147",
+      "label" : "obsolete_EFO_0008147",
+      "synonym" : null,
+      "description" : null,
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : true,
+      "short_form" : "EFO_0008147",
+      "obo_id" : "EFO:0008147",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0008147"
+        }
+      }
+    }, {
+      "annotation" : { },
+      "synonyms" : null,
+      "iri" : "http://www.ebi.ac.uk/efo/EFO_0000784",
+      "label" : "has_disease_location",
+      "synonym" : null,
+      "description" : null,
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "EFO_0000784",
+      "obo_id" : "EFO:0000784",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000784"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000784/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000784/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000784/jstree"
+        }
+      }
+    }, {
+      "annotation" : { },
+      "synonyms" : null,
+      "iri" : "http://www.ebi.ac.uk/efo/EFO_0000785",
+      "label" : "is_location_of_disease",
+      "synonym" : null,
+      "description" : null,
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "EFO_0000785",
+      "obo_id" : "EFO:0000785",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000785"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000785/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000785/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000785/jstree"
+        }
+      }
+    }, {
+      "annotation" : { },
+      "synonyms" : null,
+      "iri" : "http://www.ebi.ac.uk/efo/EFO_URI",
+      "label" : "EFO_URI",
+      "synonym" : null,
+      "description" : null,
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : true,
+      "short_form" : "EFO_URI",
+      "obo_id" : "EFO:URI",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_URI"
+        }
+      }
+    }, {
+      "annotation" : { },
+      "synonyms" : null,
+      "iri" : "http://www.ebi.ac.uk/efo/EFO_0006351",
+      "label" : "has_about_it",
+      "synonym" : null,
+      "description" : null,
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : true,
+      "short_form" : "EFO_0006351",
+      "obo_id" : "EFO:0006351",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0006351"
+        }
+      }
+    }, {
+      "annotation" : { },
+      "synonyms" : null,
+      "iri" : "http://www.ebi.ac.uk/efo/EFO_0001697",
+      "label" : "is_unit_of",
+      "synonym" : null,
+      "description" : null,
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "EFO_0001697",
+      "obo_id" : "EFO:0001697",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0001697"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0001697/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0001697/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0001697/jstree"
+        }
+      }
+    }, {
+      "annotation" : { },
+      "synonyms" : null,
+      "iri" : "http://www.ebi.ac.uk/efo/EFO_0001698",
+      "label" : "has_unit",
+      "synonym" : null,
+      "description" : null,
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "EFO_0001698",
+      "obo_id" : "EFO:0001698",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0001698"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0001698/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0001698/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0001698/jstree"
+        }
+      }
+    }, {
+      "annotation" : {
+        "EFO_definition_citation" : [ "http://www.ebi.ac.uk/efo/EFO_definition_citation is an annotation property that is drawn from EFO" ]
+      },
+      "synonyms" : null,
+      "iri" : "http://www.ebi.ac.uk/efo/EFO_definition_citation",
+      "label" : "EFO_definition_citation",
+      "synonym" : null,
+      "description" : null,
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "EFO_definition_citation",
+      "obo_id" : "EFO_definition:citation",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_definition_citation"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_definition_citation/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_definition_citation/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_definition_citation/jstree"
+        }
+      }
+    }, {
+      "annotation" : {
+        "created_by" : [ "peter" ],
+        "date" : [ "2018-07-05T13:18:08Z" ]
+      },
+      "synonyms" : null,
+      "iri" : "http://purl.obolibrary.org/obo/HP_0031940",
+      "label" : "display label",
+      "synonym" : null,
+      "description" : null,
+      "ontology_name" : "hp",
+      "ontology_prefix" : "HP",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/hp.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : true,
+      "short_form" : "HP_0031940",
+      "obo_id" : "HP:0031940",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHP_0031940"
+        }
+      }
+    }, {
+      "annotation" : {
+        "created_by" : [ "peter" ],
+        "date" : [ "2018-05-05T19:01:17Z" ]
+      },
+      "synonyms" : null,
+      "iri" : "http://purl.obolibrary.org/obo/HP_0031859",
+      "label" : "obsolete",
+      "synonym" : null,
+      "description" : null,
+      "ontology_name" : "hp",
+      "ontology_prefix" : "HP",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/hp.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "HP_0031859",
+      "obo_id" : "HP:0031859",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHP_0031859"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHP_0031859/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHP_0031859/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHP_0031859/jstree"
+        }
+      }
+    }, {
+      "annotation" : {
+        "created_by" : [ "HPO:skoehler" ]
+      },
+      "synonyms" : null,
+      "iri" : "http://purl.obolibrary.org/obo/HP_0045076",
+      "label" : "UK spelling",
+      "synonym" : null,
+      "description" : null,
+      "ontology_name" : "hp",
+      "ontology_prefix" : "HP",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/hp.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "HP_0045076",
+      "obo_id" : "HP:0045076",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHP_0045076"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHP_0045076/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHP_0045076/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHP_0045076/jstree"
+        }
+      }
+    }, {
+      "annotation" : {
+        "created_by" : [ "HPO:skoehler" ]
+      },
+      "synonyms" : null,
+      "iri" : "http://purl.obolibrary.org/obo/HP_0045077",
+      "label" : "abbreviation",
+      "synonym" : null,
+      "description" : null,
+      "ontology_name" : "hp",
+      "ontology_prefix" : "HP",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/hp.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "HP_0045077",
+      "obo_id" : "HP:0045077",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHP_0045077"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHP_0045077/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHP_0045077/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHP_0045077/jstree"
+        }
+      }
+    }, {
+      "annotation" : {
+        "created_by" : [ "HPO:skoehler" ]
+      },
+      "synonyms" : null,
+      "iri" : "http://purl.obolibrary.org/obo/HP_0045078",
+      "label" : "plural form",
+      "synonym" : null,
+      "description" : null,
+      "ontology_name" : "hp",
+      "ontology_prefix" : "HP",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/hp.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "HP_0045078",
+      "obo_id" : "HP:0045078",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHP_0045078"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHP_0045078/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHP_0045078/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHP_0045078/jstree"
+        }
+      }
+    }, {
+      "annotation" : { },
+      "synonyms" : null,
+      "iri" : "http://purl.obolibrary.org/obo/DUO_0000041",
+      "label" : "DUO_preferred_label",
+      "synonym" : null,
+      "description" : null,
+      "ontology_name" : "duo",
+      "ontology_prefix" : "DUO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/duo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : true,
+      "short_form" : "DUO_0000041",
+      "obo_id" : "DUO:0000041",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/duo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FDUO_0000041"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "first" : {
+      "href" : "http://www.ebi.ac.uk/ols/api/properties/findByIdAndIsDefiningOntology?page=0&size=20"
+    },
+    "self" : {
+      "href" : "http://www.ebi.ac.uk/ols/api/properties/findByIdAndIsDefiningOntology"
+    },
+    "next" : {
+      "href" : "http://www.ebi.ac.uk/ols/api/properties/findByIdAndIsDefiningOntology?page=1&size=20"
+    },
+    "last" : {
+      "href" : "http://www.ebi.ac.uk/ols/api/properties/findByIdAndIsDefiningOntology?page=31&size=20"
+    }
+  },
+  "page" : {
+    "size" : 20,
+    "totalElements" : 639,
+    "totalPages" : 32,
+    "number" : 0
+  }
+}
+----

@@ -60,14 +60,14 @@ include::{snippets}/error-example/http-response.adoc[]
 
 This API uses hypermedia and resources include links to other resources in their
 responses. Responses are in http://stateless.co/hal_specification.html[Hypertext Application
-Language (HAL)] format. Links can be found benath the `_links` key. Users of the API should
-not created URIs themselves, instead they should use the above-described links to navigate
+Language (HAL)] format. Links can be found beneath the `_links` key. Users of the API should
+not create URIs themselves, instead they should use the above-described links to navigate
 from resource to resource.
 
 [[overview-pagination]]
 == Listing resources
 
-Requests that return multiple resources will be paginated to 20 items by default. You can change number of items
+Requests that return multiple resources will be paginated to 20 items by default. You can change the number of items
 returned using the `size` parameter up to a maximum of 500 for a single request. The API also supports the `page`
 parameter for accessing a specific page of items.
 
@@ -290,18 +290,77 @@ terms can be accessed directly with this API.
 GET /api/ontologies/{ontology_id}/terms/{term_iri}/{property_iri}
 ----
 
+[[term-matching-across-ontologies]]
+== Term matching across ontologies
+It is possible to search for terms across ontologies using the requests and responses as defined in 
+this section.
+
+=== Example requests
+include::{snippets}/terms-by-iri-path/curl-request.adoc[]
+include::{snippets}/terms-by-iri-param/curl-request.adoc[]
+include::{snippets}/terms-by-short-form-param/curl-request.adoc[]
+include::{snippets}/terms-by-obo-id-param/curl-request.adoc[]
+include::{snippets}/terms-by-id-param/curl-request.adoc[]
+
+=== Example response
+include::{snippets}/terms-by-iri/http-response.adoc[]
+
+[[terms-based-on-defining-ontology]]
+== Terms based on defining ontology
+Where users are interested in a particular ontology, they may also be interested in retrieving only
+terms from that ontology. The requests and reponses in this section defines an API for achieving this.
+
+=== Example requests
+include::{snippets}/terms-by-iri-path-and-is-defining-ontology/curl-request.adoc[]
+include::{snippets}/terms-by-iri-param-and-is-defining-ontology/curl-request.adoc[]
+include::{snippets}/terms-by-short-form-param-and-is-defining-ontology/curl-request.adoc[]
+include::{snippets}/terms-by-obo-id-param-and-is-defining-ontology/curl-request.adoc[]
+include::{snippets}/terms-by-id-param-and-is-defining-ontology/curl-request.adoc[]
+
+=== Example response
+include::{snippets}/terms-by-iri-path-and-is-defining-ontology/http-response.adoc[]
+
+
 [[resources-properties]]
 == Properties and individuals
 
 You can access property (relationships) and ontology individuals (instances) following similar methods to terms.
 
-=== Retrieve an property
+=== Retrieve a property
 
 include::{snippets}/properties-example/path-parameters.adoc[]
+
+=== Property matching across ontologies
+Similar to terms, properties can be found based on id. See <<term-matching-across-ontologies,Term matching across ontologies>>. Here we only provide 2 examples: Both examples retrieve a 
+property based on its IRI. The first illustrates finding a property where the IRI is specified as part of the path and the second illustrates finding a property where the IRI is specified as a parameter.
+
+include::{snippets}/properties-by-iri-path/curl-request.adoc[] 
+include::{snippets}/properties-by-iri-param/curl-request.adoc[]
+
+=== Properties based on defining ontology
+Similar to terms, users may want to only access properties that are related to a particular ontology.
+See <<terms-based-on-defining-ontology, Terms based on defining ontology>>.
+
+include::{snippets}/properties-by-iri-path-and-is-defining-ontology/curl-request.adoc[]
+include::{snippets}/properties-by-iri-param-and-is-defining-ontology/curl-request.adoc[]
 
 === Retrieve an individual
 
 include::{snippets}/individuals-example/path-parameters.adoc[]
+
+=== Individual matching across ontologies
+Similar to terms, individuals can be found based on id. See <<term-matching-across-ontologies,Term matching across ontologies>>. Here we only provide 2 examples: Both examples retrieve an 
+individual based on its IRI. The first illustrates finding an individual where the IRI is specified as part of the path and the second illustrates finding an individual  where the IRI is specified as a parameter.
+
+include::{snippets}/individuals-by-iri-path/curl-request.adoc[] 
+include::{snippets}/individuals-by-iri-param/curl-request.adoc[]
+
+=== Properties based on defining ontology
+Similar to terms, users may want to only access individuals that are related to a particular ontology.
+See <<terms-based-on-defining-ontology, Terms based on defining ontology>>.
+
+include::{snippets}/individuals-by-iri-path-and-is-defining-ontology/curl-request.adoc[]
+include::{snippets}/individuals-by-iri-param-and-is-defining-ontology/curl-request.adoc[]
 
 [[search]]
 = Search

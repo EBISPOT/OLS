@@ -6,17 +6,17 @@ Content-Length: 432
 
 {
   "_links" : {
-    "individuals" : {
-      "href" : "http://www.ebi.ac.uk/ols/api/individuals"
-    },
     "ontologies" : {
       "href" : "http://www.ebi.ac.uk/ols/api/ontologies"
     },
-    "properties" : {
-      "href" : "http://www.ebi.ac.uk/ols/api/properties"
+    "individuals" : {
+      "href" : "http://www.ebi.ac.uk/ols/api/individuals"
     },
     "terms" : {
       "href" : "http://www.ebi.ac.uk/ols/api/terms"
+    },
+    "properties" : {
+      "href" : "http://www.ebi.ac.uk/ols/api/properties"
     },
     "profile" : {
       "href" : "http://www.ebi.ac.uk/ols/api/profile"

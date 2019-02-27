@@ -1,0 +1,11 @@
+----
+GET /ols/api/individuals/findByIdAndIsDefiningOntology
+----
+
+|===
+|Parameter|Description
+
+|iri
+|The IRI of the individual to find
+
+|===

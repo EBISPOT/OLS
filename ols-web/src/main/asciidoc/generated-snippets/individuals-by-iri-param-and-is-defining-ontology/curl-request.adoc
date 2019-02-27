@@ -1,0 +1,4 @@
+[source,bash]
+----
+$ curl -L 'http://www.ebi.ac.uk/ols/api/individuals/findByIdAndIsDefiningOntology?iri=http://purl.obolibrary.org/obo/RO_0001901' -i -H 'Accept: application/json'
+----

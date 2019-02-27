@@ -79,6 +79,22 @@ public class OntologyTermGraphService {
         return termRepository.findAllByOboId(oboId, pageable);
     }
 
+    public Page<Term> findAllByIsDefiningOntology(Pageable pageable) {
+        return termRepository.findAllByIsDefiningOntology(pageable);
+    }
+
+    public Page<Term> findAllByIriAndIsDefiningOntology(String iri, Pageable pageable) {
+        return termRepository.findAllByIriAndIsDefiningOntology(iri, pageable);
+    }
+
+    public Page<Term> findAllByShortFormAndIsDefiningOntology(String shortForm, Pageable pageable) {
+        return termRepository.findAllByShortFormAndIsDefiningOntology(shortForm, pageable);
+    }
+
+    public Page<Term> findAllByOboIdAndIsDefiningOntology(String oboId, Pageable pageable) {
+        return termRepository.findAllByOboIdAndIsDefiningOntology(oboId, pageable);
+    }    
+    
     public Page<Term> findAllByOntology(String ontologyId, Pageable pageable) {
         return termRepository.findAllByOntology(ontologyId, pageable);
     }

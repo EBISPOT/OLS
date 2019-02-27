@@ -21,13 +21,13 @@ In order to be able to run OLS, there are some Software requirements that have t
 | maven 3+ | dependency manager/build environment | brew install maven
 | tomcat 7.5+ | webserver | brew install tomcat
 | mongodb (2.7.8+) | database | brew install mongodb
-| solr 5.2.1+ | Indxing/search engine | brew install solr
+| solr 5.2.1+ | Indexing/search engine | brew install solr
 |=======
 
 NOTE: Java, maven, mongodb and solr should be available in the environment, so make sure the relevant environment variable is set! If you installed the software via a 'package manager', this might have been done automatically.
 
 == Obtaining the source code
-Download the source code from the OLS github repository https://github.com/EBISPOT/OLS alternativly (if git is installed), you can of course clone the repository with `git clone https://github.com/EBISPOT/OLS.git`
+Download the source code from the OLS github repository https://github.com/EBISPOT/OLS alternatively (if git is installed), you can of course clone the repository with `git clone https://github.com/EBISPOT/OLS.git`
 
 == Configurations
 The default configuration for OLS can be found at `OLS/ols-apps/ols-config-importer/src/main/resources/ols-config.yaml`

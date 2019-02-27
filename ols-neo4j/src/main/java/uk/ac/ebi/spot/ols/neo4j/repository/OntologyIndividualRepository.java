@@ -41,18 +41,39 @@ public interface OntologyIndividualRepository  extends GraphRepository<Individua
 
     @Query (countQuery = "MATCH (n:Individual) RETURN count(n)",
             value = "MATCH (n:Individual) RETURN n")
-    Page<Individual> findAll(Pageable pageable);
+    Page<Individual> findAll(Pageable pageable);  
+    
+    @Query (countQuery = "MATCH (n:Individual) WHERE n.is_defining_ontology = true RETURN count(n)",
+            value = "MATCH (n:Individual) WHERE n.is_defining_ontology = true RETURN n")
+    Page<Individual> findAllByIsDefiningOntology(Pageable pageable);    
+    
 
     @Query (countQuery = "MATCH (n:Individual) WHERE n.iri = {0} RETURN count(n)",
             value = "MATCH (n:Individual) WHERE n.iri = {0} RETURN n")
     Page<Individual> findAllByIri(String iri, Pageable pageable);
+    
+    @Query (countQuery = "MATCH (n:Individual) WHERE n.iri = {0} AND n.is_defining_ontology = true "
+    		+ "RETURN count(n)",
+            value = "MATCH (n:Individual) WHERE n.iri = {0} AND n.is_defining_ontology = true RETURN n")
+    Page<Individual> findAllByIriAndIsDefiningOntology(String iri, Pageable pageable);    
 
     @Query (countQuery = "MATCH (n:Individual) WHERE n.short_form = {0} RETURN count(n)",
             value = "MATCH (n:Individual) WHERE n.short_form = {0} RETURN n")
     Page<Individual> findAllByShortForm(String shortForm, Pageable pageable);
-
+    
+    @Query (countQuery = "MATCH (n:Individual) WHERE n.short_form = {0} AND "
+    		+ "n.is_defining_ontology = true RETURN count(n)",
+            value = "MATCH (n:Individual) WHERE n.short_form = {0} AND n.is_defining_ontology = true "
+            		+ "RETURN n")
+    Page<Individual> findAllByShortFormAndIsDefiningOntology(String shortForm, Pageable pageable);
+    
     @Query (countQuery = "MATCH (n:Individual) WHERE n.obo_id = {0} RETURN count(n)",
             value = "MATCH (n:Individual) WHERE n.obo_id = {0} RETURN n")
     Page<Individual> findAllByOboId(String oboId, Pageable pageable);
+    
+    @Query (countQuery = "MATCH (n:Individual) WHERE n.obo_id = {0} AND n.is_defining_ontology = true  "
+    		+ "RETURN count(n)",
+            value = "MATCH (n:Individual) WHERE n.obo_id = {0} AND n.is_defining_ontology = true RETURN n")
+    Page<Individual> findAllByOboIdAndIsDefiningOntology(String oboId, Pageable pageable);    
 
 }

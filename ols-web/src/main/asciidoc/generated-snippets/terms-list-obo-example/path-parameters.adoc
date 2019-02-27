@@ -9,6 +9,6 @@ GET /ols/api/ontologies/{ontology_id}/terms
 |The ontology id in OLS
 
 |obo_id
-|Filter by OBO id. This is OBO style id taht aren't guaranteed to be unique within a given ontology
+|Filter by OBO id. This is OBO style id that aren't guaranteed to be unique within a given ontology
 
 |===

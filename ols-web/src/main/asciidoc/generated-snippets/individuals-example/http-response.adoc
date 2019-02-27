@@ -3,15 +3,13 @@
 HTTP/1.1 200 OK
 Content-Disposition: inline;filename=f.txt
 Content-Type: application/json
-Content-Length: 2421
+Content-Length: 2395
 
 {
   "iri" : "http://purl.obolibrary.org/obo/RO_0001901",
   "label" : "axiom holds for all times",
-  "description" : null,
-  "annotation" : {
-    "definition" : [ "\n\n## Elucidation\n\nThis is used when the statement/axiom is assumed to hold true 'eternally'\n\n## How to interpret (informal)\n\nFirst the \"atemporal\" FOL is derived from the OWL using the standard\ninterpretation. This axiom is temporalized by embedding the axiom\nwithin a for-all-times quantified sentence. The t argument is added to\nall instantiation predicates and predicates that use this relation.\n\n## Example\n\n    Class: nucleus\n    SubClassOf: part_of some cell\n\n    forall t :\n      forall n :\n        instance_of(n,Nucleus,t)\n         implies\n        exists c :\n          instance_of(c,Cell,t)\n          part_of(n,c,t)\n\n## Notes\n\nThis interpretation is *not* the same as an at-all-times relation\n\n" ]
-  },
+  "description" : [ "\n\n## Elucidation\n\nThis is used when the statement/axiom is assumed to hold true 'eternally'\n\n## How to interpret (informal)\n\nFirst the \"atemporal\" FOL is derived from the OWL using the standard\ninterpretation. This axiom is temporalized by embedding the axiom\nwithin a for-all-times quantified sentence. The t argument is added to\nall instantiation predicates and predicates that use this relation.\n\n## Example\n\n    Class: nucleus\n    SubClassOf: part_of some cell\n\n    forall t :\n      forall n :\n        instance_of(n,Nucleus,t)\n         implies\n        exists c :\n          instance_of(c,Cell,t)\n          part_of(n,c,t)\n\n## Notes\n\nThis interpretation is *not* the same as an at-all-times relation\n\n" ],
+  "annotation" : { },
   "type" : [ {
     "iri" : "http://www.w3.org/2002/07/owl#Thing",
     "label" : "Thing",

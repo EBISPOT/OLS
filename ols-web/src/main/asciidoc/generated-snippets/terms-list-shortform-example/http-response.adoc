@@ -2,7 +2,7 @@
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 4236
+Content-Length: 4219
 
 {
   "_embedded" : {
@@ -26,7 +26,7 @@ Content-Length: 4236
       "is_root" : false,
       "short_form" : "GO_0043226",
       "obo_id" : "GO:0043226",
-      "in_subset" : [ "goslim_chembl", "goslim_generic", "goslim_pir", "gosubset_prok" ],
+      "in_subset" : [ "goslim_chembl", "goslim_generic", "goslim_pir" ],
       "obo_definition_citation" : [ {
         "definition" : "Organized structure of distinctive morphology and function. Includes the nucleus, mitochondria, plastids, vacuoles, vesicles, ribosomes and the cytoskeleton, and prokaryotic structures such as anammoxosomes and pirellulosomes. Excludes the plasma membrane.",
         "oboXrefs" : [ {
