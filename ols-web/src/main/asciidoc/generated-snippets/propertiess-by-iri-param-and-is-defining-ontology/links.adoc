@@ -1,7 +1,0 @@
-|===
-|Relation|Description
-
-|self
-|Link to this property
-
-|===

@@ -303,7 +303,7 @@ include::{snippets}/terms-by-obo-id-param/curl-request.adoc[]
 include::{snippets}/terms-by-id-param/curl-request.adoc[]
 
 === Example response
-include::{snippets}/terms-by-iri/http-response.adoc[]
+include::{snippets}/terms-by-iri-path/http-response.adoc[]
 
 [[terms-based-on-defining-ontology]]
 == Terms based on defining ontology
