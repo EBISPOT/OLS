@@ -20,6 +20,7 @@ import java.net.URLEncoder;
 import javax.servlet.RequestDispatcher;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,7 +46,7 @@ import uk.ac.ebi.spot.ols.OlsWebApp;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = OlsWebApp.class)
 @WebAppConfiguration
-//@Ignore
+@Ignore
 public class ApiDocumentation {
 
     @Rule
