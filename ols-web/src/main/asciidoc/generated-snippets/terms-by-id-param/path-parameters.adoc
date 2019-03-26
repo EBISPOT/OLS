@@ -1,0 +1,11 @@
+----
+GET /ols/api/terms
+----
+
+|===
+|Parameter|Description
+
+|id
+|Id here refers to a term identified either by an IRI, a short form or an OBO style id
+
+|===

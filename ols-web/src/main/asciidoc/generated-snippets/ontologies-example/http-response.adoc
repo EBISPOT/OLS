@@ -2,35 +2,35 @@
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 5202
+Content-Length: 3386
 
 {
   "ontologyId" : "efo",
-  "loaded" : "2018-04-01T19:37:59.640+0000",
-  "updated" : "2018-04-01T19:37:59.640+0000",
+  "loaded" : "2019-02-19T13:33:18.314+0000",
+  "updated" : "2019-02-19T13:33:18.314+0000",
   "status" : "LOADED",
   "message" : "",
   "version" : null,
-  "numberOfTerms" : 19799,
-  "numberOfProperties" : 297,
+  "numberOfTerms" : 22615,
+  "numberOfProperties" : 328,
   "numberOfIndividuals" : 0,
   "config" : {
     "id" : "http://www.ebi.ac.uk/efo/efo.owl",
-    "versionIri" : null,
+    "versionIri" : "http://www.ebi.ac.uk/efo/releases/2019-02-18/efo.owl",
     "title" : "Experimental Factor Ontology",
     "namespace" : "efo",
     "preferredPrefix" : "EFO",
     "description" : "The Experimental Factor Ontology (EFO) provides a systematic description of many experimental variables available in EBI databases, and for external projects such as the NHGRI GWAS catalogue. It combines parts of several biological ontologies, such as anatomy, disease and chemical compounds. The scope of EFO is to support the annotation, analysis and visualization of data handled by many groups at the EBI and as the core ontology for the Centre for Therapeutic Validation (CTTV)",
     "homepage" : "http://www.ebi.ac.uk/efo",
-    "version" : "2.82",
+    "version" : "2.105",
     "mailingList" : "efo-users@lists.sourceforge.net",
     "creators" : [ ],
     "annotations" : {
       "license" : [ "www.apache.org/licenses/LICENSE-2.0" ],
-      "creator" : [ "Simon Jupp", "Jon Ison", "Helen Parkinson", "Eleanor Williams", "James Malone", "Sirarat Sarntivijai", "Catherine Leroy", "Ele Holloway", "Tomasz Adamusiak", "Emma Kate Hastings", "Natalja Kurbatova", "Dani Welter", "Drashtti Vasant" ],
+      "creator" : [ "Gautier Koscielny", "Simon Jupp", "Jon Ison", "Laura Huerta Martinez", "Helen Parkinson", "Eleanor Williams", "James Malone", "Zoe May Pendlington", "Trish Whetzel", "Sirarat Sarntivijai", "Catherine Leroy", "Ele Holloway", "Tomasz Adamusiak", "Emma Kate Hastings", "Olamidipupo Ajigboye", "Paola Roncaglia", "Natalja Kurbatova", "Dani Welter", "Drashtti Vasant" ],
       "rights" : [ "Copyright [2014] EMBL - European Bioinformatics Institute \nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the \nLicense. " ],
       "format-version" : [ "1.4" ],
-      "comment" : [ "Bioportal mappings to Human disease (DOID) ver", "Bioportal mappings to NCI Thesaurus (NCIt) ver11.01e", "Bioportal mappings to MGED Ontology (MO) ver1.3.1.1", "Date: 15th March 2017", "Bioportal mappings to Phenotypic quality (PATO) vernull", "Bioportal mappings to Teleost anatomy and development (TAO) ver1.158", "Bioportal mappings to Units of measurement (UO) vernull", "Bioportal mappings to BRENDA tissue / enzyme source (BTO) verunknown", "Mappings: CRISP Thesaurus Version 2.5.2.0", "Bioportal mappings to Teleost Anatomy Ontology (TAO) vernull", "Bioportal mappings to NIFSTD (nif) ver2.2 - December 20, 2010", "Bioportal mappings to SNOMED Clinical Terms (SNOMEDCT) ver2010_07_31", "Bioportal mappings to Chemical entities of biological interest (CHEBI) verunknown", "Mappings to Plant structure (PO)", "Bioportal mappings to Gene Ontology (GO) ver1.886", "Mappings:The Arabidopsis Information Resource (TAIR)", "Bioportal mappings to Drosophila gross anatomy (FBbt) ver2011-02-10", "Bioportal mappings to International Classification of Diseases (ICD-9) ver9", "Bioportal mappings to Foundational Model of Anatomy (FMA) ver3.1", "Bioportal mappings to Malaria Ontology (IDOMAL) ver1.22", "Bioportal mappings to Medical Subject Headings (MSH) ver2011_2010_08_30", "Ontology containing axioms that describe relationships between orphanet disease ontology classes and efo classes.", "Bioportal mappings to Zebrafish anatomy and development (ZFA) verunknown", "Bioportal mappings to NCBI organismal classification (NCBITaxon) ver1.2", "Bioportal mappings to Mosquito gross anatomy (TGMA) version unknown", "Bioportal mappings to Mammalian phenotype (MP) vernull", "Bioportal mappings to Minimal anatomical terminology (MAT) ver1.1", "Mappings: The Jackson Lab", "Bioportal mappings to Cell type (CL) verunknown", "Bioportal mappings to Microarray experimental conditions (MO) ver1.3.1.1", "Bioportal mappings to Ontology for Biomedical Investigations (OBI) ver2010-10-26 Vancouver 2010 release, RC2" ]
+      "comment" : [ "2019-02-18" ]
     },
     "fileLocation" : "http://www.ebi.ac.uk/efo/efo.owl",
     "reasonerType" : "OWL2",

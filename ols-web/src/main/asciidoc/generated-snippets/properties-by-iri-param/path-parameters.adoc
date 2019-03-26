@@ -1,0 +1,11 @@
+----
+GET /ols/api/properties
+----
+
+|===
+|Parameter|Description
+
+|iri
+|The IRI of the property to find
+
+|===

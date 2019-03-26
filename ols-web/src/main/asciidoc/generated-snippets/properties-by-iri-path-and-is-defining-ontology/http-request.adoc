@@ -1,0 +1,7 @@
+[source,http]
+----
+GET /ols/api/properties/findByIdAndIsDefiningOntology/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000784 HTTP/1.1
+Accept: application/json
+Host: www.ebi.ac.uk
+
+----

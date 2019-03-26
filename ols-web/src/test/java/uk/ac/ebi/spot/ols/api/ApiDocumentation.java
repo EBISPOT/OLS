@@ -1,5 +1,24 @@
 package uk.ac.ebi.spot.ols.api;
 
+import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.halLinks;
+import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.linkWithRel;
+import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.links;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.net.URLEncoder;
+
+import javax.servlet.RequestDispatcher;
+
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Rule;
@@ -15,24 +34,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
 import uk.ac.ebi.spot.ols.OlsWebApp;
-
-
-import javax.servlet.RequestDispatcher;
-import java.net.URLEncoder;
-
-import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.linkWithRel;
-import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.links;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
-import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.halLinks;
-import static org.springframework.restdocs.request.RequestDocumentation.*;
 
 /**
  * @author Simon Jupp
@@ -246,7 +249,7 @@ public class ApiDocumentation {
                 pathParameters(
                         parameterWithName("ontology_id").description("The ontology id in OLS")
                         ,
-                        parameterWithName("obo_id").description("Filter by OBO id. This is OBO style id taht aren't guaranteed to be unique within a given ontology")
+                        parameterWithName("obo_id").description("Filter by OBO id. This is OBO style id that aren't guaranteed to be unique within a given ontology")
                 )
         );
 
@@ -374,4 +377,656 @@ public class ApiDocumentation {
                 .andExpect(status().isOk());
 
     }
+    
+    
+    /* TODO Henriette: Checking status().isOK() is probably not sufficient. I.e., it is possible 
+     * that through, for example copy and paste errors, that a call may be accidentally successful
+     * because it uses a pre-existing call. Hence, it may be a good idea to check the response to 
+     * determine that the data is indeed correct.
+     */
+    @Test
+    public void termsByIriPath() throws Exception {
+    	 this.document.snippets(
+                 pathParameters(
+                         parameterWithName("id").description("The double UTF-8 encoded IRI of a term")
+                 ),
+
+                 responseFields(
+                		 fieldWithPath("_embedded").description("The list of terms"),
+                         fieldWithPath("_links").description("<<terms-links,Links>> to other terms"),
+                         fieldWithPath("page.size").description("The number of terms in this page"),
+                         fieldWithPath("page.totalElements").description("The total number of terms"),
+                         fieldWithPath("page.totalPages").description("The total number of pages"),
+                         fieldWithPath("page.number").description("The page number")
+                 ),
+                 
+                 links(halLinks(),
+                         linkWithRel("self").description("Link to this term"))
+
+         );
+
+         this.mockMvc.perform(
+        		 get("/ols/api/terms/{id}", 
+        				 URLEncoder.encode("http://www.ebi.ac.uk/efo/EFO_0000001", "UTF-8"))
+        		 	.contextPath("/ols")
+        		 	.accept(MediaType.APPLICATION_JSON))
+                 	.andExpect(status().isOk());
+    }
+    
+    
+    @Test
+    public void termsByIriParam() throws Exception {
+    	 this.document.snippets(
+                 pathParameters(
+                         parameterWithName("iri").description("The IRI of the term to find")
+                 ),
+
+                 responseFields(
+                		 fieldWithPath("_embedded").description("The list of terms"),
+                         fieldWithPath("_links").description("<<terms-links,Links>> to other terms"),
+                         fieldWithPath("page.size").description("The number of terms in this page"),
+                         fieldWithPath("page.totalElements").description("The total number of terms"),
+                         fieldWithPath("page.totalPages").description("The total number of pages"),
+                         fieldWithPath("page.number").description("The page number")
+                 ),
+                 
+                 links(halLinks(),
+                         linkWithRel("self").description("Link to this term"))
+
+         );
+
+         this.mockMvc.perform(
+        		 get("/ols/api/terms?iri={iri}", "http://www.ebi.ac.uk/efo/EFO_0000001")
+        		 	.contextPath("/ols")
+        		 	.accept(MediaType.APPLICATION_JSON))
+                 	.andExpect(status().isOk());
+    }    
+   
+    @Test
+    public void termsByShortFormParam() throws Exception {
+    	 this.document.snippets(
+                 pathParameters(
+                         parameterWithName("short_form").description("This typically refers to the "
+                         		+ "last part of an IRI. They are not necessarily unique, e.g. "
+                         		+ "GO_0098743")
+                 ),
+
+                 responseFields(
+                		 fieldWithPath("_embedded").description("The list of terms"),
+                         fieldWithPath("_links").description("<<terms-links,Links>> to other terms"),
+                         fieldWithPath("page.size").description("The number of terms in this page"),
+                         fieldWithPath("page.totalElements").description("The total number of terms"),
+                         fieldWithPath("page.totalPages").description("The total number of pages"),
+                         fieldWithPath("page.number").description("The page number")
+                 ),
+                 
+                 links(halLinks(),
+                         linkWithRel("self").description("Link to this term"))
+
+         );
+
+         this.mockMvc.perform(
+        		 get("/ols/api/terms?short_form={short_form}", "EFO_0000001")
+        		 	.contextPath("/ols")
+        		 	.accept(MediaType.APPLICATION_JSON))
+                 	.andExpect(status().isOk());
+    } 
+
+    @Test
+    public void termsByOboIdParam() throws Exception {
+    	 this.document.snippets(
+                 pathParameters(
+                         parameterWithName("obo_id").description("The OBO id of the term to find. "
+                         		+ "This is the OBO style id that is not guaranteed to be unique "
+                         		+ "within a given ontology")
+                 ),
+
+                 responseFields(
+                		 fieldWithPath("_embedded").description("The list of terms"),
+                         fieldWithPath("_links").description("<<terms-links,Links>> to other terms"),
+                         fieldWithPath("page.size").description("The number of terms in this page"),
+                         fieldWithPath("page.totalElements").description("The total number of terms"),
+                         fieldWithPath("page.totalPages").description("The total number of pages"),
+                         fieldWithPath("page.number").description("The page number")
+                 ),
+                 
+                 links(halLinks(),
+                         linkWithRel("self").description("Link to this term"))
+
+         );
+
+         this.mockMvc.perform(
+        		 get("/ols/api/terms?obo_id={obo_id}", "EFO:0000001")
+        		 	.contextPath("/ols")
+        		 	.accept(MediaType.APPLICATION_JSON))
+                 	.andExpect(status().isOk());
+    }    
+
+    @Test
+    public void termsByIdParam() throws Exception {
+   	 this.document.snippets(
+                pathParameters(
+                        parameterWithName("id").description("Id here refers to a term identified either"
+                        		+ " by an IRI, a short form or an OBO style id")
+                ),
+
+                responseFields(
+               		 fieldWithPath("_embedded").description("The list of terms"),
+                        fieldWithPath("_links").description("<<terms-links,Links>> to other terms"),
+                        fieldWithPath("page.size").description("The number of terms in this page"),
+                        fieldWithPath("page.totalElements").description("The total number of terms"),
+                        fieldWithPath("page.totalPages").description("The total number of pages"),
+                        fieldWithPath("page.number").description("The page number")
+                ),
+                
+                links(halLinks(),
+                        linkWithRel("self").description("Link to this term"))
+
+        );
+
+        this.mockMvc.perform(
+       		 get("/ols/api/terms?id={id}", "EFO:0000001")
+       		 	.contextPath("/ols")
+       		 	.accept(MediaType.APPLICATION_JSON))
+                	.andExpect(status().isOk());
+   }
+    
+    @Test
+    public void termsByIriPathAndIsDefiningOntology() throws Exception {
+    	 this.document.snippets(
+                 pathParameters(
+                         parameterWithName("id").description("The double UTF-8 encoded IRI of a term")
+                 ),
+
+                 responseFields(
+                		 fieldWithPath("_embedded").description("The list of terms"),
+                         fieldWithPath("_links").description("<<terms-links,Links>> to other terms"),
+                         fieldWithPath("page.size").description("The number of terms in this page"),
+                         fieldWithPath("page.totalElements").description("The total number of terms"),
+                         fieldWithPath("page.totalPages").description("The total number of pages"),
+                         fieldWithPath("page.number").description("The page number")
+                 ),
+                 
+                 links(halLinks(),
+                         linkWithRel("self").description("Link to this term"))
+
+         );
+
+         this.mockMvc.perform(
+        		 get("/ols/api/terms/findByIdAndIsDefiningOntology/{id}", 
+        				 URLEncoder.encode("http://www.ebi.ac.uk/efo/EFO_0000001", "UTF-8"))
+        		 	.contextPath("/ols")
+        		 	.accept(MediaType.APPLICATION_JSON))
+                 	.andExpect(status().isOk());
+    }
+
+
+    @Test
+    public void termsByIriParamAndIsDefiningOntology() throws Exception {
+    	 this.document.snippets(
+                 pathParameters(
+                         parameterWithName("iri").description("The IRI of the term to find")
+                 ),
+
+                 responseFields(
+                		 fieldWithPath("_embedded").description("The list of terms"),
+                         fieldWithPath("_links").description("<<terms-links,Links>> to other terms"),
+                         fieldWithPath("page.size").description("The number of terms in this page"),
+                         fieldWithPath("page.totalElements").description("The total number of terms"),
+                         fieldWithPath("page.totalPages").description("The total number of pages"),
+                         fieldWithPath("page.number").description("The page number")
+                 ),
+                 
+                 links(halLinks(),
+                         linkWithRel("self").description("Link to this term"))
+
+         );
+
+         this.mockMvc.perform(
+        		 get("/ols/api/terms/findByIdAndIsDefiningOntology?iri={iri}", 
+        				 "http://www.ebi.ac.uk/efo/EFO_0000001")
+        		 	.contextPath("/ols")
+        		 	.accept(MediaType.APPLICATION_JSON))
+                 	.andExpect(status().isOk());
+    }    
+   
+    @Test
+    public void termsByShortFormParamAndIsDefiningOntology() throws Exception {
+    	 this.document.snippets(
+                 pathParameters(
+                         parameterWithName("short_form").description("This typically refers to the "
+                         		+ "last part of an IRI. They are not necessarily unique, e.g. "
+                         		+ "GO_0098743")
+                 ),
+
+                 responseFields(
+                		 fieldWithPath("_embedded").description("The list of terms"),
+                         fieldWithPath("_links").description("<<terms-links,Links>> to other terms"),
+                         fieldWithPath("page.size").description("The number of terms in this page"),
+                         fieldWithPath("page.totalElements").description("The total number of terms"),
+                         fieldWithPath("page.totalPages").description("The total number of pages"),
+                         fieldWithPath("page.number").description("The page number")
+                 ),
+                 
+                 links(halLinks(),
+                         linkWithRel("self").description("Link to this term"))
+
+         );
+
+         this.mockMvc.perform(
+        		 get("/ols/api/terms/findByIdAndIsDefiningOntology?short_form={short_form}", 
+        				 "EFO_0000001")
+        		 	.contextPath("/ols")
+        		 	.accept(MediaType.APPLICATION_JSON))
+                 	.andExpect(status().isOk());
+    } 
+
+    @Test
+    public void termsByOboIdParamAndIsDefiningOntology() throws Exception {
+    	 this.document.snippets(
+                 pathParameters(
+                         parameterWithName("obo_id").description("The OBO id of the term to find. "
+                         		+ "This is the OBO style id that is not guaranteed to be unique "
+                         		+ "within a given ontology")
+                 ),
+
+                 responseFields(
+                		 fieldWithPath("_embedded").description("The list of terms"),
+                         fieldWithPath("_links").description("<<terms-links,Links>> to other terms"),
+                         fieldWithPath("page.size").description("The number of terms in this page"),
+                         fieldWithPath("page.totalElements").description("The total number of terms"),
+                         fieldWithPath("page.totalPages").description("The total number of pages"),
+                         fieldWithPath("page.number").description("The page number")
+                 ),
+                 
+                 links(halLinks(),
+                         linkWithRel("self").description("Link to this term"))
+
+         );
+
+         this.mockMvc.perform(
+        		 get("/ols/api/terms/findByIdAndIsDefiningOntology?obo_id={obo_id}", "EFO:0000001")
+        		 	.contextPath("/ols")
+        		 	.accept(MediaType.APPLICATION_JSON))
+                 	.andExpect(status().isOk());
+    }    
+
+    @Test
+    public void termsByIdParamAndIsDefiningOntology() throws Exception {
+   	 this.document.snippets(
+                pathParameters(
+                        parameterWithName("id").description("Id here refers to a term identified either"
+                        		+ " by an IRI, a short form or an OBO style id")
+                ),
+
+                responseFields(
+               		 fieldWithPath("_embedded").description("The list of terms"),
+                        fieldWithPath("_links").description("<<terms-links,Links>> to other terms"),
+                        fieldWithPath("page.size").description("The number of terms in this page"),
+                        fieldWithPath("page.totalElements").description("The total number of terms"),
+                        fieldWithPath("page.totalPages").description("The total number of pages"),
+                        fieldWithPath("page.number").description("The page number")
+                ),
+                
+                links(halLinks(),
+                        linkWithRel("self").description("Link to this term"))
+
+        );
+
+        this.mockMvc.perform(
+       		 get("/ols/api/terms/findByIdAndIsDefiningOntology?id={id}", "EFO:0000001")
+       		 	.contextPath("/ols")
+       		 	.accept(MediaType.APPLICATION_JSON))
+                	.andExpect(status().isOk());
+   }
+    
+    
+    @Test
+    public void propertiesByIriPath() throws Exception {
+    	 this.document.snippets(
+                 pathParameters(
+                         parameterWithName("id").description("The double UTF-8 encoded IRI of a property")
+                 ),
+
+                 responseFields(
+                		 fieldWithPath("_embedded").description("The list of properties"),
+                         fieldWithPath("_links").description("<<terms-links,Links>> to other properties"),
+                         fieldWithPath("page.size").description("The number of properties in this page"),
+                         fieldWithPath("page.totalElements").description("The total number of properties"),
+                         fieldWithPath("page.totalPages").description("The total number of pages"),
+                         fieldWithPath("page.number").description("The page number")
+                 ),
+                 
+                 links(halLinks(),
+                         linkWithRel("self").description("Link to this property"))
+
+         );
+
+         this.mockMvc.perform(
+        		 get("/ols/api/properties/{id}", 
+        				 URLEncoder.encode("http://www.ebi.ac.uk/efo/EFO_0000784", "UTF-8"))
+        		 	.contextPath("/ols")
+        		 	.accept(MediaType.APPLICATION_JSON))
+                 	.andExpect(status().isOk());
+    }
+    
+    @Test
+    public void propertiesByIriParam() throws Exception {
+    	 this.document.snippets(
+                 pathParameters(
+                         parameterWithName("iri").description("The IRI of the property to find")
+                 ),
+
+                 responseFields(
+                		 fieldWithPath("_embedded").description("The list of properties"),
+                         fieldWithPath("_links").description("<<terms-links,Links>> to other properties"),
+                         fieldWithPath("page.size").description("The number of properties in this page"),
+                         fieldWithPath("page.totalElements").description("The total number of properties"),
+                         fieldWithPath("page.totalPages").description("The total number of pages"),
+                         fieldWithPath("page.number").description("The page number")
+                 ),
+                 
+                 links(halLinks(),
+                         linkWithRel("self").description("Link to this property"))
+
+         );
+
+         this.mockMvc.perform(
+        		 get("/ols/api/properties?iri={iri}", "http://www.ebi.ac.uk/efo/EFO_0000784")
+        		 	.contextPath("/ols")
+        		 	.accept(MediaType.APPLICATION_JSON))
+                 	.andExpect(status().isOk());
+    }
+    
+    
+    @Test
+    public void propertiesByShortFormParam() throws Exception {
+         this.mockMvc.perform(
+        		 get("/ols/api/properties?short_form={short_form}", "EFO_0000784")
+        		 	.contextPath("/ols")
+        		 	.accept(MediaType.APPLICATION_JSON))
+                 	.andExpect(status().isOk());
+    }   
+    
+    @Test
+    public void propertiesByOboIdParam() throws Exception {
+         this.mockMvc.perform(
+        		 get("/ols/api/properties?obo_id={obo_id}", "EFO:0000784")
+        		 	.contextPath("/ols")
+        		 	.accept(MediaType.APPLICATION_JSON))
+                 	.andExpect(status().isOk());
+    }
+    
+    @Test
+    public void propertiesByIdParam() throws Exception {
+         this.mockMvc.perform(
+        		 get("/ols/api/properties?id={id}", "EFO:0000784")
+        		 	.contextPath("/ols")
+        		 	.accept(MediaType.APPLICATION_JSON))
+                 	.andExpect(status().isOk());
+    }    
+   
+    @Test
+    public void propertiesByIriPathAndIsDefiningOntology() throws Exception {
+   	 this.document.snippets(
+             pathParameters(
+                     parameterWithName("id").description("The double UTF-8 encoded IRI of a property")
+             ),
+
+             responseFields(
+            		 fieldWithPath("_embedded").description("The list of properties"),
+                     fieldWithPath("_links").description("<<terms-links,Links>> to other properties"),
+                     fieldWithPath("page.size").description("The number of properties in this page"),
+                     fieldWithPath("page.totalElements").description("The total number of properties"),
+                     fieldWithPath("page.totalPages").description("The total number of pages"),
+                     fieldWithPath("page.number").description("The page number")
+             ),
+             
+             links(halLinks(),
+                     linkWithRel("self").description("Link to this property"))
+
+     );
+
+         this.mockMvc.perform(
+        		 get("/ols/api/properties/findByIdAndIsDefiningOntology/{id}", 
+        				 URLEncoder.encode("http://www.ebi.ac.uk/efo/EFO_0000784", "UTF-8"))
+        		 	.contextPath("/ols")
+        		 	.accept(MediaType.APPLICATION_JSON))
+                 	.andExpect(status().isOk());
+    } 
+    
+    @Test
+    public void propertiesByIriParamAndIsDefiningOntology() throws Exception {
+	   	 this.document.snippets(
+	             pathParameters(
+	                     parameterWithName("iri").description("The IRI of the property to find")
+	             ),
+	
+	             responseFields(
+	            		 fieldWithPath("_embedded").description("The list of properties"),
+	                     fieldWithPath("_links").description("<<terms-links,Links>> to other properties"),
+	                     fieldWithPath("page.size").description("The number of properties in this page"),
+	                     fieldWithPath("page.totalElements").description("The total number of properties"),
+	                     fieldWithPath("page.totalPages").description("The total number of pages"),
+	                     fieldWithPath("page.number").description("The page number")
+	             ),
+	             
+	             links(halLinks(),
+	                     linkWithRel("self").description("Link to this property"))
+	
+	     );
+
+         this.mockMvc.perform(
+        		 get("/ols/api/properties/findByIdAndIsDefiningOntology?iri={iri}", 
+        				 "http://www.ebi.ac.uk/efo/EFO_0000784")
+        		 	.contextPath("/ols")
+        		 	.accept(MediaType.APPLICATION_JSON))
+                 	.andExpect(status().isOk());
+    } 
+    
+    @Test
+    public void propertiesByShortFormParamAndIsDefiningOntology() throws Exception {
+         this.mockMvc.perform(
+        		 get("/ols/api/properties/findByIdAndIsDefiningOntology?short_form={short_form}", 
+        				 "EFO_0000784")
+        		 	.contextPath("/ols")
+        		 	.accept(MediaType.APPLICATION_JSON))
+                 	.andExpect(status().isOk());
+    }   
+    
+    @Test
+    public void propertiesByOboIdParamAndIsDefiningOntology() throws Exception {
+         this.mockMvc.perform(
+        		 get("/ols/api/properties/findByIdAndIsDefiningOntology?obo_id={obo_id}", 
+        				 "EFO:0000784")
+        		 	.contextPath("/ols")
+        		 	.accept(MediaType.APPLICATION_JSON))
+                 	.andExpect(status().isOk());
+    }
+    
+    @Test
+    public void propertiesByIdParamAndIsDefiningOntology() throws Exception {
+         this.mockMvc.perform(
+        		 get("/ols/api/properties/findByIdAndIsDefiningOntology?id={id}", "EFO:0000784")
+        		 	.contextPath("/ols")
+        		 	.accept(MediaType.APPLICATION_JSON))
+                 	.andExpect(status().isOk());
+    }   
+    
+    
+    
+////
+    
+    @Test
+    public void individualsByIriPath() throws Exception {
+    	 this.document.snippets(
+                 pathParameters(
+                         parameterWithName("id").description("The double UTF-8 encoded IRI of an individual")
+                 ),
+
+                 responseFields(
+                		 fieldWithPath("_embedded").description("The list of individuals"),
+                         fieldWithPath("_links").description("<<terms-links,Links>> to other individuals"),
+                         fieldWithPath("page.size").description("The number of individuals in this page"),
+                         fieldWithPath("page.totalElements").description("The total number of individuals"),
+                         fieldWithPath("page.totalPages").description("The total number of pages"),
+                         fieldWithPath("page.number").description("The page number")
+                 ),
+                 
+                 links(halLinks(),
+                         linkWithRel("self").description("Link to this individual"))
+
+         );
+
+         this.mockMvc.perform(
+        		 get("/ols/api/individuals/{id}", 
+        				 URLEncoder.encode("http://purl.obolibrary.org/obo/IAO_0000125", "UTF-8"))
+        		 	.contextPath("/ols")
+        		 	.accept(MediaType.APPLICATION_JSON))
+                 	.andExpect(status().isOk());
+    }
+    
+    @Test
+    public void individualsByIriParam() throws Exception {
+    	 this.document.snippets(
+                 pathParameters(
+                         parameterWithName("iri").description("The IRI of the individual to find")
+                 ),
+
+                 responseFields(
+                		 fieldWithPath("_embedded").description("The list of individuals"),
+                         fieldWithPath("_links").description("<<terms-links,Links>> to other individuals"),
+                         fieldWithPath("page.size").description("The number of individuals in this page"),
+                         fieldWithPath("page.totalElements").description("The total number of individuals"),
+                         fieldWithPath("page.totalPages").description("The total number of pages"),
+                         fieldWithPath("page.number").description("The page number")
+                 ),
+                 
+                 links(halLinks(),
+                         linkWithRel("self").description("Link to this individual"))
+
+         );
+
+         this.mockMvc.perform(
+        		 get("/ols/api/individuals?iri={iri}", "http://purl.obolibrary.org/obo/IAO_0000125")
+        		 	.contextPath("/ols")
+        		 	.accept(MediaType.APPLICATION_JSON))
+                 	.andExpect(status().isOk());
+    }
+    
+    
+    @Test
+    public void individualsByShortFormParam() throws Exception {
+         this.mockMvc.perform(
+        		 get("/ols/api/individuals?short_form={short_form}", "IAO_0000125")
+        		 	.contextPath("/ols")
+        		 	.accept(MediaType.APPLICATION_JSON))
+                 	.andExpect(status().isOk());
+    }   
+    
+    @Test
+    public void individualsByOboIdParam() throws Exception {
+         this.mockMvc.perform(
+        		 get("/ols/api/individuals?obo_id={obo_id}", "IAO:0000125")
+        		 	.contextPath("/ols")
+        		 	.accept(MediaType.APPLICATION_JSON))
+                 	.andExpect(status().isOk());
+    }
+    
+    @Test
+    public void individualsByIdParam() throws Exception {
+         this.mockMvc.perform(
+        		 get("/ols/api/individuals?id={id}", "IAO:0000125")
+        		 	.contextPath("/ols")
+        		 	.accept(MediaType.APPLICATION_JSON))
+                 	.andExpect(status().isOk());
+    }    
+   
+    @Test
+    public void individualsByIriPathAndIsDefiningOntology() throws Exception {
+   	 this.document.snippets(
+             pathParameters(
+                     parameterWithName("id").description("The double UTF-8 encoded IRI of a individual")
+             ),
+
+             responseFields(
+            		 fieldWithPath("_embedded").description("The list of individuals"),
+                     fieldWithPath("_links").description("<<terms-links,Links>> to other individuals"),
+                     fieldWithPath("page.size").description("The number of individuals in this page"),
+                     fieldWithPath("page.totalElements").description("The total number of individuals"),
+                     fieldWithPath("page.totalPages").description("The total number of pages"),
+                     fieldWithPath("page.number").description("The page number")
+             ),
+             
+             links(halLinks(),
+                     linkWithRel("self").description("Link to this individual"))
+
+     );
+
+         this.mockMvc.perform(
+        		 get("/ols/api/individuals/findByIdAndIsDefiningOntology/{id}", 
+        				 URLEncoder.encode("http://purl.obolibrary.org/obo/RO_0001901", "UTF-8"))
+        		 	.contextPath("/ols")
+        		 	.accept(MediaType.APPLICATION_JSON))
+                 	.andExpect(status().isOk());
+    } 
+    
+    @Test
+    public void individualsByIriParamAndIsDefiningOntology() throws Exception {
+	   	 this.document.snippets(
+	             pathParameters(
+	                     parameterWithName("iri").description("The IRI of the individual to find")
+	             ),
+	
+	             responseFields(
+	            		 fieldWithPath("_embedded").description("The list of individuals"),
+	                     fieldWithPath("_links").description("<<terms-links,Links>> to other individuals"),
+	                     fieldWithPath("page.size").description("The number of individuals in this page"),
+	                     fieldWithPath("page.totalElements").description("The total number of individuals"),
+	                     fieldWithPath("page.totalPages").description("The total number of pages"),
+	                     fieldWithPath("page.number").description("The page number")
+	             ),
+	             
+	             links(halLinks(),
+	                     linkWithRel("self").description("Link to this individual"))
+	
+	     );
+
+         this.mockMvc.perform(
+        		 get("/ols/api/individuals/findByIdAndIsDefiningOntology?iri={iri}", 
+        				 "http://purl.obolibrary.org/obo/RO_0001901")
+        		 	.contextPath("/ols")
+        		 	.accept(MediaType.APPLICATION_JSON))
+                 	.andExpect(status().isOk());
+    } 
+    
+    @Test
+    public void individualsByShortFormParamAndIsDefiningOntology() throws Exception {
+         this.mockMvc.perform(
+        		 get("/ols/api/individuals/findByIdAndIsDefiningOntology?short_form={short_form}", 
+        				 "IAO_0000125")
+        		 	.contextPath("/ols")
+        		 	.accept(MediaType.APPLICATION_JSON))
+                 	.andExpect(status().isOk());
+    }   
+    
+    @Test
+    public void individualsByOboIdParamAndIsDefiningOntology() throws Exception {
+         this.mockMvc.perform(
+        		 get("/ols/api/individuals/findByIdAndIsDefiningOntology?obo_id={obo_id}", 
+        				 "RO_0001901")
+        		 	.contextPath("/ols")
+        		 	.accept(MediaType.APPLICATION_JSON))
+                 	.andExpect(status().isOk());
+    }
+    
+    @Test
+    public void individualsByIdParamAndIsDefiningOntology() throws Exception {
+         this.mockMvc.perform(
+        		 get("/ols/api/individuals/findByIdAndIsDefiningOntology?id={id}", "RO_0001901")
+        		 	.contextPath("/ols")
+        		 	.accept(MediaType.APPLICATION_JSON))
+                 	.andExpect(status().isOk());
+    }    
+    
 }

@@ -17,6 +17,15 @@ Apache version 2.0 (https://github.com/EBISPOT/OLS/blob/master/LICENSE). See als
 == How to cite OLS
 We are currently preparing a manuscript for the new OLS. In the meantime you can cite "Jupp S. et al. (2015) A new Ontology Lookup Service at EMBL-EBI. In: Malone, J. et al. (eds.) Proceedings of SWAT4LS International Conference 2015".
 
+== Privacy Policy
+The General Data Protection Regulation (GDPR) will apply in the UK from 25 May 2018. It will replace the 1998 Data Protection Act and introduce new rules on privacy notices, as well as processing and safeguarding personal data.
+
+This website requires cookies, and the limited processing of your personal data in order to function. By using the site you are agreeing to this as outlined in our https://www.ebi.ac.uk/data-protection/privacy-notice/embl-ebi-public-website[Privacy Notice] and https://www.ebi.ac.uk/about/terms-of-use[Terms of Use].
+
+https://www.ebi.ac.uk/data-protection/privacy-notice/ols[OLS Submission Service] applies to the data submitted to OLS (eg. Ontology metadata or ontologies) or the data pulled out from other data providers (such as the OBO foundry)
+
+https://www.ebi.ac.uk/data-protection/privacy-notice/ols-mailing-list[OLS Mail Service] applies to our public e-mail lists; ols-support [at] ebi.ac.uk, ols-announce [at] ebi.ac.uk and ontology-tools-support [at] ebi.ac.uk.
+
 == Thanks
 
 OLS makes use of many public and freely available software resources - we would like to thank them all for their continued support.

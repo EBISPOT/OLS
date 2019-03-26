@@ -1,0 +1,11 @@
+----
+GET /ols/api/terms
+----
+
+|===
+|Parameter|Description
+
+|obo_id
+|The OBO id of the term to find. This is the OBO style id that is not guaranteed to be unique within a given ontology
+
+|===

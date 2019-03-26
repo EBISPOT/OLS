@@ -20,6 +20,8 @@ public interface OntologyIndexer {
 
     void createIndex (OntologyLoader loader) throws IndexingException;
 
+    void dropIndex (String ontologyName) throws IndexingException;
+
     void dropIndex (OntologyLoader loader) throws IndexingException;
 
 }

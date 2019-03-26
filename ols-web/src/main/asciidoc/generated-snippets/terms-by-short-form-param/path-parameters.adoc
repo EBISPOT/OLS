@@ -1,0 +1,11 @@
+----
+GET /ols/api/terms
+----
+
+|===
+|Parameter|Description
+
+|short_form
+|This typically refers to the last part of an IRI. They are not necessarily unique, e.g. GO_0098743
+
+|===

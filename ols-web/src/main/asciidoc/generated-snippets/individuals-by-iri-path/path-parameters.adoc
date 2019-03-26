@@ -1,0 +1,11 @@
+----
+GET /ols/api/individuals/{id}
+----
+
+|===
+|Parameter|Description
+
+|id
+|The double UTF-8 encoded IRI of an individual
+
+|===

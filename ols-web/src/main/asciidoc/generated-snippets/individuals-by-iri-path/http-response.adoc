@@ -1,0 +1,178 @@
+[source,http]
+----
+HTTP/1.1 200 OK
+Content-Disposition: inline;filename=f.txt
+Content-Type: application/json
+Content-Length: 6946
+
+{
+  "_embedded" : {
+    "individuals" : [ {
+      "iri" : "http://purl.obolibrary.org/obo/IAO_0000125",
+      "label" : "pending final vetting",
+      "description" : null,
+      "annotation" : {
+        "has curation status" : [ "http://purl.obolibrary.org/obo/IAO_0000125" ]
+      },
+      "type" : [ {
+        "iri" : "http://www.w3.org/2002/07/owl#Thing",
+        "label" : "Thing",
+        "description" : null,
+        "annotation" : { },
+        "synonyms" : null,
+        "ontology_name" : "hp",
+        "ontology_prefix" : "HP",
+        "ontology_iri" : "http://purl.obolibrary.org/obo/hp.owl",
+        "is_obsolete" : false,
+        "term_replaced_by" : null,
+        "is_defining_ontology" : false,
+        "has_children" : false,
+        "is_root" : true,
+        "short_form" : "Thing",
+        "obo_id" : null,
+        "in_subset" : null,
+        "obo_definition_citation" : null,
+        "obo_xref" : null,
+        "obo_synonym" : null
+      } ],
+      "synonyms" : null,
+      "ontology_name" : "hp",
+      "ontology_prefix" : "HP",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/hp.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : false,
+      "short_form" : "IAO_0000125",
+      "obo_id" : "IAO:0000125",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FIAO_0000125"
+        },
+        "types" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FIAO_0000125/types"
+        },
+        "alltypes" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FIAO_0000125/alltypes"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FIAO_0000125/jstree"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/IAO_0000125",
+      "label" : "pending final vetting",
+      "description" : [ "All definitions, placement in the asserted IS_A hierarchy and required minimal metadata are complete. The class is awaiting a final review by someone other than the term editor." ],
+      "annotation" : { },
+      "type" : [ {
+        "iri" : "http://purl.obolibrary.org/obo/IAO_0000078",
+        "label" : "curation status specification",
+        "description" : [ "The curation status of the term. The allowed values come from an enumerated list of predefined terms. See the specification of these instances for more detailed definitions of each enumerated value." ],
+        "annotation" : {
+          "definition source" : [ "GROUP:OBI:<http://purl.obolibrary.org/obo/obi>", "OBI_0000266" ],
+          "editor note" : [ "Better to represent curation as a process with parts and then relate labels to that process (in IAO meeting)" ],
+          "editor preferred term" : [ "curation status specification" ],
+          "has curation status" : [ "http://purl.obolibrary.org/obo/IAO_0000125" ],
+          "term editor" : [ "PERSON:Bill Bug" ]
+        },
+        "synonyms" : null,
+        "ontology_name" : "duo",
+        "ontology_prefix" : "DUO",
+        "ontology_iri" : "http://purl.obolibrary.org/obo/duo.owl",
+        "is_obsolete" : false,
+        "term_replaced_by" : null,
+        "is_defining_ontology" : false,
+        "has_children" : false,
+        "is_root" : false,
+        "short_form" : "IAO_0000078",
+        "obo_id" : "IAO:0000078",
+        "in_subset" : null,
+        "obo_definition_citation" : null,
+        "obo_xref" : null,
+        "obo_synonym" : null
+      } ],
+      "synonyms" : null,
+      "ontology_name" : "duo",
+      "ontology_prefix" : "DUO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/duo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : false,
+      "short_form" : "IAO_0000125",
+      "obo_id" : "IAO:0000125",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/duo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FIAO_0000125"
+        },
+        "types" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/duo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FIAO_0000125/types"
+        },
+        "alltypes" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/duo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FIAO_0000125/alltypes"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/duo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FIAO_0000125/jstree"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/IAO_0000125",
+      "label" : "pending final vetting",
+      "description" : null,
+      "annotation" : {
+        "has curation status" : [ "http://purl.obolibrary.org/obo/IAO_0000125" ]
+      },
+      "type" : [ {
+        "iri" : "http://www.w3.org/2002/07/owl#Thing",
+        "label" : "Thing",
+        "description" : null,
+        "annotation" : { },
+        "synonyms" : null,
+        "ontology_name" : "ro",
+        "ontology_prefix" : "RO",
+        "ontology_iri" : "http://purl.obolibrary.org/obo/ro.owl",
+        "is_obsolete" : false,
+        "term_replaced_by" : null,
+        "is_defining_ontology" : false,
+        "has_children" : false,
+        "is_root" : true,
+        "short_form" : "Thing",
+        "obo_id" : null,
+        "in_subset" : null,
+        "obo_definition_citation" : null,
+        "obo_xref" : null,
+        "obo_synonym" : null
+      } ],
+      "synonyms" : null,
+      "ontology_name" : "ro",
+      "ontology_prefix" : "RO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/ro.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : false,
+      "short_form" : "IAO_0000125",
+      "obo_id" : "IAO:0000125",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/ro/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FIAO_0000125"
+        },
+        "types" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/ro/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FIAO_0000125/types"
+        },
+        "alltypes" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/ro/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FIAO_0000125/alltypes"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/ro/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FIAO_0000125/jstree"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "self" : {
+      "href" : "http://www.ebi.ac.uk/ols/api/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FIAO_0000125"
+    }
+  },
+  "page" : {
+    "size" : 20,
+    "totalElements" : 3,
+    "totalPages" : 1,
+    "number" : 0
+  }
+}
+----

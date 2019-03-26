@@ -15,4 +15,6 @@ public interface OntologyIndexingService {
 
     void indexOntologyDocument(OntologyDocument document) throws IndexingException;
 
+    void removeOntologyDocumentFromIndex(OntologyDocument document) throws IndexingException;
+
 }

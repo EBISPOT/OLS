@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.DigestUtils;
+import uk.ac.ebi.spot.ols.exception.IndexingException;
 import uk.ac.ebi.spot.ols.loader.OntologyLoader;
 import uk.ac.ebi.spot.ols.model.SuggestDocument;
 import uk.ac.ebi.spot.ols.model.TermDocument;
@@ -187,16 +188,21 @@ public class SolrIndexer implements OntologyIndexer {
     }
 
     @Override
-    public void dropIndex(OntologyLoader loader) {
-        Iterable<TermDocument> documents = ontologySolrRepository.findByOntologyName(loader.getOntologyName());
+    public void dropIndex(OntologyLoader loader) throws IndexingException {
+        dropIndex(loader.getOntologyName());
+    }
+
+    @Override
+    public void dropIndex(String ontologyId) {
+        Iterable<TermDocument> documents = ontologySolrRepository.findByOntologyName(ontologyId);
 
         if (documents.iterator().hasNext()) {
-            getLog().info("Deleting solr index for " + loader.getOntologyName());
+            getLog().info("Deleting solr index for " + ontologyId);
             long startTime = System.currentTimeMillis();
             ontologySolrRepository.delete(documents);
             long endTime = System.currentTimeMillis();
             long duration = (endTime - startTime) / 1000; // time in seconds
-            getLog().info(loader.getOntologyName() + " removed from solr in " + duration + " seconds");
+            getLog().info(ontologyId + " removed from solr in " + duration + " seconds");
         }
     }
 

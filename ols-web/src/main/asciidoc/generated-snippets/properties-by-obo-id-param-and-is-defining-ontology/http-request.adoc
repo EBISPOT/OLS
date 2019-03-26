@@ -1,0 +1,7 @@
+[source,http]
+----
+GET /ols/api/properties/findByIdAndIsDefiningOntology?obo_id=EFO:0000784 HTTP/1.1
+Accept: application/json
+Host: www.ebi.ac.uk
+
+----

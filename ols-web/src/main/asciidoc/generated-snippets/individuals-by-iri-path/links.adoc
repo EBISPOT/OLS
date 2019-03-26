@@ -1,0 +1,7 @@
+|===
+|Relation|Description
+
+|self
+|Link to this individual
+
+|===

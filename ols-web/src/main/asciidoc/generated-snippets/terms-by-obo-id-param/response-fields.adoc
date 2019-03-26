@@ -1,0 +1,28 @@
+|===
+|Path|Type|Description
+
+|_embedded
+|Object
+|The list of terms
+
+|_links
+|Object
+|<<terms-links,Links>> to other terms
+
+|page.size
+|Number
+|The number of terms in this page
+
+|page.totalElements
+|Number
+|The total number of terms
+
+|page.totalPages
+|Number
+|The total number of pages
+
+|page.number
+|Number
+|The page number
+
+|===

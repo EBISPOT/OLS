@@ -9,3 +9,7 @@ ols-solr/src/main/resources/solr-conf/ontology/data
 ols-mongo/src/main/resources/mongodb
 ols-web/src/main/resources/static/documents/*
 properties
+.classpath
+.settings
+.project
+

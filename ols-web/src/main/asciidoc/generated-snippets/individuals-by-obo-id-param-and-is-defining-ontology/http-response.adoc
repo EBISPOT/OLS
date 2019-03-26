@@ -1,0 +1,20 @@
+[source,http]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 230
+
+{
+  "_links" : {
+    "self" : {
+      "href" : "http://www.ebi.ac.uk/ols/api/individuals/findByIdAndIsDefiningOntology"
+    }
+  },
+  "page" : {
+    "size" : 20,
+    "totalElements" : 0,
+    "totalPages" : 0,
+    "number" : 0
+  }
+}
+----

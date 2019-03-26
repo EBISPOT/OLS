@@ -2,7 +2,7 @@
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 70131
+Content-Length: 68970
 
 {
   "_embedded" : {
@@ -26,7 +26,7 @@ Content-Length: 70131
       "is_root" : false,
       "short_form" : "GO_0044422",
       "obo_id" : "GO:0044422",
-      "in_subset" : [ "gocheck_do_not_annotate", "gosubset_prok", "goantislim_grouping" ],
+      "in_subset" : [ "gocheck_do_not_annotate" ],
       "obo_definition_citation" : [ {
         "definition" : "Any constituent part of an organelle, an organized structure of distinctive morphology and function. Includes constituent parts of the nucleus, mitochondria, plastids, vacuoles, vesicles, ribosomes and the cytoskeleton, but excludes the plasma membrane.",
         "oboXrefs" : [ {
@@ -101,6 +101,11 @@ Content-Length: 70131
       "obo_definition_citation" : [ {
         "definition" : "An E3 ubiquitin ligase complex localized to the ER and Golgi membrane. In fission yeast comprises Dsc1, 2, 3 and 4. Involved in the processes of fission yeast sre1 (human SREBP) transcriptional activator proteolytic cleavage, the multivesicular body (MVB) pathway, and a post-endoplasmic reticulum pathway for protein catabolism.",
         "oboXrefs" : [ {
+          "database" : "GOC",
+          "id" : "vw",
+          "description" : null,
+          "url" : null
+        }, {
           "database" : "PMID",
           "id" : "21504829",
           "description" : null,
@@ -108,11 +113,6 @@ Content-Length: 70131
         }, {
           "database" : "GOC",
           "id" : "mah",
-          "description" : null,
-          "url" : null
-        }, {
-          "database" : "GOC",
-          "id" : "vw",
           "description" : null,
           "url" : null
         } ]
@@ -164,17 +164,17 @@ Content-Length: 70131
       "is_root" : false,
       "short_form" : "GO_0030096",
       "obo_id" : "GO:0030096",
-      "in_subset" : [ "gosubset_prok" ],
+      "in_subset" : null,
       "obo_definition_citation" : [ {
         "definition" : "A protein complex, located in the membrane-derived thylakoid, containing the P680 reaction center. In the light, PSII functions as a water-plastoquinone oxidoreductase, transferring electrons from water to plastoquinone.",
         "oboXrefs" : [ {
           "database" : "GOC",
-          "id" : "jid",
+          "id" : "mtg_sensu",
           "description" : null,
           "url" : null
         }, {
           "database" : "GOC",
-          "id" : "mtg_sensu",
+          "id" : "jid",
           "description" : null,
           "url" : null
         } ]
@@ -226,7 +226,7 @@ Content-Length: 70131
       "is_root" : false,
       "short_form" : "GO_0030094",
       "obo_id" : "GO:0030094",
-      "in_subset" : [ "gosubset_prok" ],
+      "in_subset" : null,
       "obo_definition_citation" : [ {
         "definition" : "A protein complex located in the plasma membrane-derived thylakoid. The photosystem functions as a light-dependent plastocyanin-ferredoxin oxidoreductase, transferring electrons from plastocyanin to ferredoxin. Examples of this complex are found in bacterial species.",
         "oboXrefs" : [ {
@@ -270,266 +270,6 @@ Content-Length: 70131
         }
       }
     }, {
-      "iri" : "http://purl.obolibrary.org/obo/GO_0032420",
-      "label" : "stereocilium",
-      "description" : [ "An actin-based protrusion from the apical surface of auditory and vestibular hair cells and of neuromast cells. These protrusions are supported by a bundle of cross-linked actin filaments (an actin cable), oriented such that the plus (barbed) ends are at the tip of the protrusion, capped by a tip complex which bridges to the plasma. Bundles of stereocilia act as mechanosensory organelles." ],
-      "annotation" : {
-        "has_obo_namespace" : [ "cellular_component" ],
-        "id" : [ "GO:0032420" ]
-      },
-      "synonyms" : null,
-      "ontology_name" : "go",
-      "ontology_prefix" : "GO",
-      "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
-      "is_obsolete" : false,
-      "term_replaced_by" : null,
-      "is_defining_ontology" : true,
-      "has_children" : true,
-      "is_root" : false,
-      "short_form" : "GO_0032420",
-      "obo_id" : "GO:0032420",
-      "in_subset" : null,
-      "obo_definition_citation" : [ {
-        "definition" : "An actin-based protrusion from the apical surface of auditory and vestibular hair cells and of neuromast cells. These protrusions are supported by a bundle of cross-linked actin filaments (an actin cable), oriented such that the plus (barbed) ends are at the tip of the protrusion, capped by a tip complex which bridges to the plasma. Bundles of stereocilia act as mechanosensory organelles.",
-        "oboXrefs" : [ {
-          "database" : "PMID",
-          "id" : "15661519",
-          "description" : null,
-          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/15661519"
-        }, {
-          "database" : "GOC",
-          "id" : "ecd",
-          "description" : null,
-          "url" : null
-        }, {
-          "database" : "PMID",
-          "id" : "7840137",
-          "description" : null,
-          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/7840137"
-        } ]
-      } ],
-      "obo_xref" : null,
-      "obo_synonym" : null,
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0032420"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0032420/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0032420/ancestors"
-        },
-        "hierarchicalParents" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0032420/hierarchicalParents"
-        },
-        "hierarchicalAncestors" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0032420/hierarchicalAncestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0032420/jstree"
-        },
-        "children" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0032420/children"
-        },
-        "descendants" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0032420/descendants"
-        },
-        "hierarchicalChildren" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0032420/hierarchicalChildren"
-        },
-        "hierarchicalDescendants" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0032420/hierarchicalDescendants"
-        },
-        "graph" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0032420/graph"
-        },
-        "part_of" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0032420/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
-        }
-      }
-    }, {
-      "iri" : "http://purl.obolibrary.org/obo/GO_0032426",
-      "label" : "stereocilium tip",
-      "description" : [ "A distinct compartment at the tip of a stereocilium, distal to the site of attachment to the apical cell surface. It consists of a dense matrix bridging the barbed ends of the stereocilium actin filaments with the overlying plasma membrane." ],
-      "annotation" : {
-        "has_obo_namespace" : [ "cellular_component" ],
-        "id" : [ "GO:0032426" ]
-      },
-      "synonyms" : null,
-      "ontology_name" : "go",
-      "ontology_prefix" : "GO",
-      "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
-      "is_obsolete" : false,
-      "term_replaced_by" : null,
-      "is_defining_ontology" : true,
-      "has_children" : false,
-      "is_root" : false,
-      "short_form" : "GO_0032426",
-      "obo_id" : "GO:0032426",
-      "in_subset" : null,
-      "obo_definition_citation" : [ {
-        "definition" : "A distinct compartment at the tip of a stereocilium, distal to the site of attachment to the apical cell surface. It consists of a dense matrix bridging the barbed ends of the stereocilium actin filaments with the overlying plasma membrane.",
-        "oboXrefs" : [ {
-          "database" : "PMID",
-          "id" : "17021180",
-          "description" : null,
-          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/17021180"
-        }, {
-          "database" : "GOC",
-          "id" : "ecd",
-          "description" : null,
-          "url" : null
-        } ]
-      } ],
-      "obo_xref" : null,
-      "obo_synonym" : null,
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0032426"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0032426/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0032426/ancestors"
-        },
-        "hierarchicalParents" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0032426/hierarchicalParents"
-        },
-        "hierarchicalAncestors" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0032426/hierarchicalAncestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0032426/jstree"
-        },
-        "graph" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0032426/graph"
-        },
-        "part_of" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0032426/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
-        }
-      }
-    }, {
-      "iri" : "http://purl.obolibrary.org/obo/GO_0098860",
-      "label" : "actin filament bundle of stereocilium",
-      "description" : [ "A bundle of hundreds of cross-linked actin filaments (an actin cable), that is the supporting structure of a stereocilium.  Filaments are oriented such that the the plus (barbed) ends are at the tip of the protrusion and are capped by a tip complex which bridges to the plasma membrane." ],
-      "annotation" : {
-        "has_obo_namespace" : [ "cellular_component" ],
-        "id" : [ "GO:0098860" ]
-      },
-      "synonyms" : null,
-      "ontology_name" : "go",
-      "ontology_prefix" : "GO",
-      "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
-      "is_obsolete" : false,
-      "term_replaced_by" : null,
-      "is_defining_ontology" : true,
-      "has_children" : false,
-      "is_root" : false,
-      "short_form" : "GO_0098860",
-      "obo_id" : "GO:0098860",
-      "in_subset" : null,
-      "obo_definition_citation" : [ {
-        "definition" : "A bundle of hundreds of cross-linked actin filaments (an actin cable), that is the supporting structure of a stereocilium.  Filaments are oriented such that the the plus (barbed) ends are at the tip of the protrusion and are capped by a tip complex which bridges to the plasma membrane.",
-        "oboXrefs" : [ {
-          "database" : "PMID",
-          "id" : "15661519",
-          "description" : null,
-          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/15661519"
-        } ]
-      } ],
-      "obo_xref" : null,
-      "obo_synonym" : null,
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0098860"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0098860/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0098860/ancestors"
-        },
-        "hierarchicalParents" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0098860/hierarchicalParents"
-        },
-        "hierarchicalAncestors" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0098860/hierarchicalAncestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0098860/jstree"
-        },
-        "graph" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0098860/graph"
-        },
-        "part_of" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0098860/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
-        }
-      }
-    }, {
-      "iri" : "http://purl.obolibrary.org/obo/GO_0060171",
-      "label" : "stereocilium membrane",
-      "description" : [ "The portion of the plasma membrane surrounding a stereocilium." ],
-      "annotation" : {
-        "has_obo_namespace" : [ "cellular_component" ],
-        "id" : [ "GO:0060171" ]
-      },
-      "synonyms" : null,
-      "ontology_name" : "go",
-      "ontology_prefix" : "GO",
-      "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
-      "is_obsolete" : false,
-      "term_replaced_by" : null,
-      "is_defining_ontology" : true,
-      "has_children" : false,
-      "is_root" : false,
-      "short_form" : "GO_0060171",
-      "obo_id" : "GO:0060171",
-      "in_subset" : null,
-      "obo_definition_citation" : [ {
-        "definition" : "The portion of the plasma membrane surrounding a stereocilium.",
-        "oboXrefs" : [ {
-          "database" : "GOC",
-          "id" : "dph",
-          "description" : null,
-          "url" : null
-        }, {
-          "database" : "GOC",
-          "id" : "rph",
-          "description" : null,
-          "url" : null
-        } ]
-      } ],
-      "obo_xref" : null,
-      "obo_synonym" : null,
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0060171"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0060171/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0060171/ancestors"
-        },
-        "hierarchicalParents" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0060171/hierarchicalParents"
-        },
-        "hierarchicalAncestors" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0060171/hierarchicalAncestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0060171/jstree"
-        },
-        "graph" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0060171/graph"
-        },
-        "part_of" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0060171/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
-        }
-      }
-    }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0044449",
       "label" : "contractile fiber part",
       "description" : [ "Any constituent part of a contractile fiber, a fiber composed of actin, myosin, and associated proteins, found in cells of smooth or striated muscle." ],
@@ -550,7 +290,7 @@ Content-Length: 70131
       "is_root" : false,
       "short_form" : "GO_0044449",
       "obo_id" : "GO:0044449",
-      "in_subset" : [ "gocheck_do_not_annotate", "goantislim_grouping" ],
+      "in_subset" : [ "gocheck_do_not_annotate" ],
       "obo_definition_citation" : [ {
         "definition" : "Any constituent part of a contractile fiber, a fiber composed of actin, myosin, and associated proteins, found in cells of smooth or striated muscle.",
         "oboXrefs" : [ {
@@ -627,7 +367,7 @@ Content-Length: 70131
           "database" : "ISBN",
           "id" : "0815316194",
           "description" : null,
-          "url" : "http://openisbn.com/search.php?q=0815316194&isbn=1/"
+          "url" : "https://www.worldcat.org/search?q=bn%3A0815316194"
         } ]
       } ],
       "obo_xref" : [ {
@@ -676,12 +416,213 @@ Content-Length: 70131
         }
       }
     }, {
+      "iri" : "http://purl.obolibrary.org/obo/GO_0005863",
+      "label" : "striated muscle myosin thick filament",
+      "description" : [ "Bipolar filaments formed of polymers of a muscle-specific myosin II isoform, found in the middle of sarcomeres in myofibrils." ],
+      "annotation" : {
+        "has_obo_namespace" : [ "cellular_component" ],
+        "id" : [ "GO:0005863" ]
+      },
+      "synonyms" : null,
+      "ontology_name" : "go",
+      "ontology_prefix" : "GO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "GO_0005863",
+      "obo_id" : "GO:0005863",
+      "in_subset" : null,
+      "obo_definition_citation" : [ {
+        "definition" : "Bipolar filaments formed of polymers of a muscle-specific myosin II isoform, found in the middle of sarcomeres in myofibrils.",
+        "oboXrefs" : [ {
+          "database" : "ISBN",
+          "id" : "0815316194",
+          "description" : null,
+          "url" : "https://www.worldcat.org/search?q=bn%3A0815316194"
+        }, {
+          "database" : "GOC",
+          "id" : "mtg_muscle",
+          "description" : null,
+          "url" : null
+        } ]
+      } ],
+      "obo_xref" : null,
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005863"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005863/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005863/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005863/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005863/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005863/jstree"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005863/graph"
+        },
+        "part_of" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005863/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/GO_0005865",
+      "label" : "striated muscle thin filament",
+      "description" : [ "Filaments formed of actin and associated proteins; attached to Z discs at either end of sarcomeres in myofibrils." ],
+      "annotation" : {
+        "has_obo_namespace" : [ "cellular_component" ],
+        "id" : [ "GO:0005865" ]
+      },
+      "synonyms" : null,
+      "ontology_name" : "go",
+      "ontology_prefix" : "GO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "GO_0005865",
+      "obo_id" : "GO:0005865",
+      "in_subset" : null,
+      "obo_definition_citation" : [ {
+        "definition" : "Filaments formed of actin and associated proteins; attached to Z discs at either end of sarcomeres in myofibrils.",
+        "oboXrefs" : [ {
+          "database" : "ISBN",
+          "id" : "0815316194",
+          "description" : null,
+          "url" : "https://www.worldcat.org/search?q=bn%3A0815316194"
+        } ]
+      } ],
+      "obo_xref" : null,
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005865"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005865/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005865/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005865/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005865/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005865/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005865/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005865/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005865/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005865/hierarchicalDescendants"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005865/graph"
+        },
+        "part_of" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005865/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/GO_0005861",
+      "label" : "troponin complex",
+      "description" : [ "A complex of accessory proteins (typically troponin T, troponin I and troponin C) found associated with actin in muscle thin filaments; involved in calcium regulation of muscle contraction." ],
+      "annotation" : {
+        "has_obo_namespace" : [ "cellular_component" ],
+        "id" : [ "GO:0005861" ]
+      },
+      "synonyms" : null,
+      "ontology_name" : "go",
+      "ontology_prefix" : "GO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "GO_0005861",
+      "obo_id" : "GO:0005861",
+      "in_subset" : null,
+      "obo_definition_citation" : [ {
+        "definition" : "A complex of accessory proteins (typically troponin T, troponin I and troponin C) found associated with actin in muscle thin filaments; involved in calcium regulation of muscle contraction.",
+        "oboXrefs" : [ {
+          "database" : "ISBN",
+          "id" : "0815316194",
+          "description" : null,
+          "url" : "https://www.worldcat.org/search?q=bn%3A0815316194"
+        } ]
+      } ],
+      "obo_xref" : null,
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005861"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005861/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005861/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005861/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005861/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005861/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005861/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005861/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005861/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005861/hierarchicalDescendants"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005861/graph"
+        },
+        "part_of" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005861/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
+        }
+      }
+    }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_1990584",
       "label" : "cardiac Troponin complex",
       "description" : [ "A complex of accessory proteins (cardiac troponin T, cardiac troponin I and cardiac troponin C) found associated with actin in cardiac muscle thin filaments; involved in calcium regulation important for muscle contraction." ],
       "annotation" : {
         "created_by" : [ "ame" ],
         "creation_date" : [ "2014-12-12T16:51:41Z" ],
+        "database_cross_reference" : [ "IntAct:EBI-9980814" ],
         "has_obo_namespace" : [ "cellular_component" ],
         "has_related_synonym" : [ "cTnC:cTnI:cTnT" ],
         "id" : [ "GO:1990584" ]
@@ -701,23 +642,23 @@ Content-Length: 70131
       "obo_definition_citation" : [ {
         "definition" : "A complex of accessory proteins (cardiac troponin T, cardiac troponin I and cardiac troponin C) found associated with actin in cardiac muscle thin filaments; involved in calcium regulation important for muscle contraction.",
         "oboXrefs" : [ {
-          "database" : "GOC",
-          "id" : "ame",
-          "description" : null,
-          "url" : null
-        }, {
-          "database" : "IntAct",
-          "id" : "EBI-9980814",
-          "description" : null,
-          "url" : "http://www.ebi.ac.uk/intact/search/do/search?searchString=EBI-9980814"
-        }, {
           "database" : "PMID",
           "id" : "12840750",
           "description" : null,
           "url" : "http://www.ncbi.nlm.nih.gov/pubmed/12840750"
+        }, {
+          "database" : "GOC",
+          "id" : "ame",
+          "description" : null,
+          "url" : null
         } ]
       } ],
-      "obo_xref" : null,
+      "obo_xref" : [ {
+        "database" : "IntAct",
+        "id" : "EBI-9980814",
+        "description" : null,
+        "url" : "http://www.ebi.ac.uk/complexportal/complex/EBI-9980814"
+      } ],
       "obo_synonym" : null,
       "_links" : {
         "self" : {
@@ -740,9 +681,63 @@ Content-Length: 70131
         },
         "graph" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_1990584/graph"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/GO_0005862",
+      "label" : "muscle thin filament tropomyosin",
+      "description" : [ "A form of the tropomyosin dimer found associated with actin and the troponin complex in muscle thin filaments." ],
+      "annotation" : {
+        "has_obo_namespace" : [ "cellular_component" ],
+        "id" : [ "GO:0005862" ]
+      },
+      "synonyms" : null,
+      "ontology_name" : "go",
+      "ontology_prefix" : "GO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "GO_0005862",
+      "obo_id" : "GO:0005862",
+      "in_subset" : null,
+      "obo_definition_citation" : [ {
+        "definition" : "A form of the tropomyosin dimer found associated with actin and the troponin complex in muscle thin filaments.",
+        "oboXrefs" : [ {
+          "database" : "ISBN",
+          "id" : "0815316194",
+          "description" : null,
+          "url" : "https://www.worldcat.org/search?q=bn%3A0815316194"
+        } ]
+      } ],
+      "obo_xref" : null,
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005862"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005862/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005862/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005862/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005862/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005862/jstree"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005862/graph"
         },
         "part_of" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_1990584/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005862/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
         }
       }
     }, {
@@ -772,7 +767,7 @@ Content-Length: 70131
           "database" : "ISBN",
           "id" : "0321204131",
           "description" : null,
-          "url" : "http://openisbn.com/search.php?q=0321204131&isbn=1/"
+          "url" : "https://www.worldcat.org/search?q=bn%3A0321204131"
         } ]
       } ],
       "obo_xref" : [ {
@@ -878,74 +873,6 @@ Content-Length: 70131
         }
       }
     }, {
-      "iri" : "http://purl.obolibrary.org/obo/GO_0031673",
-      "label" : "H zone",
-      "description" : [ "A relatively pale zone traversing the center of the A band of a sarcomere, visible in relaxed muscle fibers; consists of the central portion of thick (myosin) filaments that are not overlapped by thin (actin) filaments." ],
-      "annotation" : {
-        "database_cross_reference" : [ "Wikipedia:Sarcomere#bands" ],
-        "has_obo_namespace" : [ "cellular_component" ],
-        "id" : [ "GO:0031673" ]
-      },
-      "synonyms" : [ "H band", "H disc" ],
-      "ontology_name" : "go",
-      "ontology_prefix" : "GO",
-      "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
-      "is_obsolete" : false,
-      "term_replaced_by" : null,
-      "is_defining_ontology" : true,
-      "has_children" : false,
-      "is_root" : false,
-      "short_form" : "GO_0031673",
-      "obo_id" : "GO:0031673",
-      "in_subset" : null,
-      "obo_definition_citation" : [ {
-        "definition" : "A relatively pale zone traversing the center of the A band of a sarcomere, visible in relaxed muscle fibers; consists of the central portion of thick (myosin) filaments that are not overlapped by thin (actin) filaments.",
-        "oboXrefs" : [ {
-          "database" : "ISBN",
-          "id" : "0321204131",
-          "description" : null,
-          "url" : "http://openisbn.com/search.php?q=0321204131&isbn=1/"
-        }, {
-          "database" : "GOC",
-          "id" : "mtg_muscle",
-          "description" : null,
-          "url" : null
-        } ]
-      } ],
-      "obo_xref" : [ {
-        "database" : "Wikipedia",
-        "id" : "Sarcomere#bands",
-        "description" : null,
-        "url" : "http://en.wikipedia.org/wiki/Sarcomere#bands"
-      } ],
-      "obo_synonym" : null,
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031673"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031673/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031673/ancestors"
-        },
-        "hierarchicalParents" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031673/hierarchicalParents"
-        },
-        "hierarchicalAncestors" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031673/hierarchicalAncestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031673/jstree"
-        },
-        "graph" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031673/graph"
-        },
-        "part_of" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031673/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
-        }
-      }
-    }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0031430",
       "label" : "M band",
       "description" : [ "The midline of aligned thick filaments in a sarcomere; location of specific proteins that link thick filaments. Depending on muscle type the M band consists of different numbers of M lines." ],
@@ -971,20 +898,20 @@ Content-Length: 70131
       "obo_definition_citation" : [ {
         "definition" : "The midline of aligned thick filaments in a sarcomere; location of specific proteins that link thick filaments. Depending on muscle type the M band consists of different numbers of M lines.",
         "oboXrefs" : [ {
-          "database" : "ISBN",
-          "id" : "0198506732",
-          "description" : null,
-          "url" : "http://openisbn.com/search.php?q=0198506732&isbn=1/"
-        }, {
           "database" : "GOC",
           "id" : "mtg_muscle",
           "description" : null,
           "url" : null
         }, {
           "database" : "ISBN",
+          "id" : "0198506732",
+          "description" : null,
+          "url" : "https://www.worldcat.org/search?q=bn%3A0198506732"
+        }, {
+          "database" : "ISBN",
           "id" : "0815316194",
           "description" : null,
-          "url" : "http://openisbn.com/search.php?q=0815316194&isbn=1/"
+          "url" : "https://www.worldcat.org/search?q=bn%3A0815316194"
         } ]
       } ],
       "obo_xref" : [ {
@@ -1021,6 +948,74 @@ Content-Length: 70131
         }
       }
     }, {
+      "iri" : "http://purl.obolibrary.org/obo/GO_0031673",
+      "label" : "H zone",
+      "description" : [ "A relatively pale zone traversing the center of the A band of a sarcomere, visible in relaxed muscle fibers; consists of the central portion of thick (myosin) filaments that are not overlapped by thin (actin) filaments." ],
+      "annotation" : {
+        "database_cross_reference" : [ "Wikipedia:Sarcomere#bands" ],
+        "has_obo_namespace" : [ "cellular_component" ],
+        "id" : [ "GO:0031673" ]
+      },
+      "synonyms" : [ "H band", "H disc" ],
+      "ontology_name" : "go",
+      "ontology_prefix" : "GO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/go.owl",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "GO_0031673",
+      "obo_id" : "GO:0031673",
+      "in_subset" : null,
+      "obo_definition_citation" : [ {
+        "definition" : "A relatively pale zone traversing the center of the A band of a sarcomere, visible in relaxed muscle fibers; consists of the central portion of thick (myosin) filaments that are not overlapped by thin (actin) filaments.",
+        "oboXrefs" : [ {
+          "database" : "GOC",
+          "id" : "mtg_muscle",
+          "description" : null,
+          "url" : null
+        }, {
+          "database" : "ISBN",
+          "id" : "0321204131",
+          "description" : null,
+          "url" : "https://www.worldcat.org/search?q=bn%3A0321204131"
+        } ]
+      } ],
+      "obo_xref" : [ {
+        "database" : "Wikipedia",
+        "id" : "Sarcomere#bands",
+        "description" : null,
+        "url" : "http://en.wikipedia.org/wiki/Sarcomere#bands"
+      } ],
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031673"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031673/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031673/ancestors"
+        },
+        "hierarchicalParents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031673/hierarchicalParents"
+        },
+        "hierarchicalAncestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031673/hierarchicalAncestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031673/jstree"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031673/graph"
+        },
+        "part_of" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031673/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
+        }
+      }
+    }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0031674",
       "label" : "I band",
       "description" : [ "A region of a sarcomere that appears as a light band on each side of the Z disc, comprising a region of the sarcomere where thin (actin) filaments are not overlapped by thick (myosin) filaments; contains actin, troponin, and tropomyosin; each sarcomere includes half of an I band at each end." ],
@@ -1047,7 +1042,7 @@ Content-Length: 70131
           "database" : "ISBN",
           "id" : "0321204131",
           "description" : null,
-          "url" : "http://openisbn.com/search.php?q=0321204131&isbn=1/"
+          "url" : "https://www.worldcat.org/search?q=bn%3A0321204131"
         } ]
       } ],
       "obo_xref" : [ {
@@ -1121,7 +1116,7 @@ Content-Length: 70131
           "database" : "ISBN",
           "id" : "0815316194",
           "description" : null,
-          "url" : "http://openisbn.com/search.php?q=0815316194&isbn=1/"
+          "url" : "https://www.worldcat.org/search?q=bn%3A0815316194"
         }, {
           "database" : "GOC",
           "id" : "mtg_muscle",
@@ -1177,6 +1172,7 @@ Content-Length: 70131
         "comment" : [ "An example of this are TTN and TCAP in human (UniProt symbols Q8WZ42 and O15273 respectively) in PMID:16407954 (inferred from direct assay)." ],
         "created_by" : [ "ame" ],
         "creation_date" : [ "2015-04-24T14:57:08Z" ],
+        "database_cross_reference" : [ "IntAct:EBI-10711453" ],
         "has_obo_namespace" : [ "cellular_component" ],
         "has_related_synonym" : [ "Titin-Tcap complex" ],
         "id" : [ "GO:1990733" ]
@@ -1196,23 +1192,23 @@ Content-Length: 70131
       "obo_definition_citation" : [ {
         "definition" : "A protein complex formed between the N-terminus of the giant sarcomeric filament protein titin and the Z-disk ligand, telethonin. The complex is part of the Z-disk of the skeletal and cardiac sarcomere. Telethonin binding to titin might be essential for the initial assembly, stabilization and functional integrity of the titin filament, and hence important for muscle contraction relaxation in mature myofibrils.",
         "oboXrefs" : [ {
-          "database" : "PMID",
-          "id" : "16407954",
-          "description" : null,
-          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/16407954"
-        }, {
-          "database" : "IntAct",
-          "id" : "EBI-10711453",
-          "description" : null,
-          "url" : "http://www.ebi.ac.uk/intact/search/do/search?searchString=EBI-10711453"
-        }, {
           "database" : "GOC",
           "id" : "ame",
           "description" : null,
           "url" : null
+        }, {
+          "database" : "PMID",
+          "id" : "16407954",
+          "description" : null,
+          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/16407954"
         } ]
       } ],
-      "obo_xref" : null,
+      "obo_xref" : [ {
+        "database" : "IntAct",
+        "id" : "EBI-10711453",
+        "description" : null,
+        "url" : "http://www.ebi.ac.uk/complexportal/complex/EBI-10711453"
+      } ],
       "obo_synonym" : null,
       "_links" : {
         "self" : {
@@ -1241,12 +1237,12 @@ Content-Length: 70131
         }
       }
     }, {
-      "iri" : "http://purl.obolibrary.org/obo/GO_0005863",
-      "label" : "striated muscle myosin thick filament",
-      "description" : [ "Bipolar filaments formed of polymers of a muscle-specific myosin II isoform, found in the middle of sarcomeres in myofibrils." ],
+      "iri" : "http://purl.obolibrary.org/obo/GO_0055120",
+      "label" : "striated muscle dense body",
+      "description" : [ "A vinculin-containing myofibril attachment structure of striated muscle that connects sarcomeres to the extracellular matrix. In nematode body wall muscle, the dense body performs the dual role of Z-disk and costamere." ],
       "annotation" : {
         "has_obo_namespace" : [ "cellular_component" ],
-        "id" : [ "GO:0005863" ]
+        "id" : [ "GO:0055120" ]
       },
       "synonyms" : null,
       "ontology_name" : "go",
@@ -1257,58 +1253,55 @@ Content-Length: 70131
       "is_defining_ontology" : true,
       "has_children" : false,
       "is_root" : false,
-      "short_form" : "GO_0005863",
-      "obo_id" : "GO:0005863",
+      "short_form" : "GO_0055120",
+      "obo_id" : "GO:0055120",
       "in_subset" : null,
       "obo_definition_citation" : [ {
-        "definition" : "Bipolar filaments formed of polymers of a muscle-specific myosin II isoform, found in the middle of sarcomeres in myofibrils.",
+        "definition" : "A vinculin-containing myofibril attachment structure of striated muscle that connects sarcomeres to the extracellular matrix. In nematode body wall muscle, the dense body performs the dual role of Z-disk and costamere.",
         "oboXrefs" : [ {
-          "database" : "ISBN",
-          "id" : "0815316194",
-          "description" : null,
-          "url" : "http://openisbn.com/search.php?q=0815316194&isbn=1/"
-        }, {
           "database" : "GOC",
-          "id" : "mtg_muscle",
+          "id" : "kmv",
           "description" : null,
           "url" : null
+        }, {
+          "database" : "PMID",
+          "id" : "17492481",
+          "description" : null,
+          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/17492481"
         } ]
       } ],
       "obo_xref" : null,
       "obo_synonym" : null,
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005863"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0055120"
         },
         "parents" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005863/parents"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0055120/parents"
         },
         "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005863/ancestors"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0055120/ancestors"
         },
         "hierarchicalParents" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005863/hierarchicalParents"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0055120/hierarchicalParents"
         },
         "hierarchicalAncestors" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005863/hierarchicalAncestors"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0055120/hierarchicalAncestors"
         },
         "jstree" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005863/jstree"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0055120/jstree"
         },
         "graph" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005863/graph"
-        },
-        "part_of" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005863/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0055120/graph"
         }
       }
     }, {
-      "iri" : "http://purl.obolibrary.org/obo/GO_0005865",
-      "label" : "striated muscle thin filament",
-      "description" : [ "Filaments formed of actin and associated proteins; attached to Z discs at either end of sarcomeres in myofibrils." ],
+      "iri" : "http://purl.obolibrary.org/obo/GO_0005859",
+      "label" : "muscle myosin complex",
+      "description" : [ "A filament of myosin found in a muscle cell of any type." ],
       "annotation" : {
         "has_obo_namespace" : [ "cellular_component" ],
-        "id" : [ "GO:0005865" ]
+        "id" : [ "GO:0005859" ]
       },
       "synonyms" : null,
       "ontology_name" : "go",
@@ -1319,56 +1312,53 @@ Content-Length: 70131
       "is_defining_ontology" : true,
       "has_children" : true,
       "is_root" : false,
-      "short_form" : "GO_0005865",
-      "obo_id" : "GO:0005865",
+      "short_form" : "GO_0005859",
+      "obo_id" : "GO:0005859",
       "in_subset" : null,
       "obo_definition_citation" : [ {
-        "definition" : "Filaments formed of actin and associated proteins; attached to Z discs at either end of sarcomeres in myofibrils.",
+        "definition" : "A filament of myosin found in a muscle cell of any type.",
         "oboXrefs" : [ {
-          "database" : "ISBN",
-          "id" : "0815316194",
+          "database" : "GOC",
+          "id" : "mah",
           "description" : null,
-          "url" : "http://openisbn.com/search.php?q=0815316194&isbn=1/"
+          "url" : null
         } ]
       } ],
       "obo_xref" : null,
       "obo_synonym" : null,
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005865"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005859"
         },
         "parents" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005865/parents"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005859/parents"
         },
         "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005865/ancestors"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005859/ancestors"
         },
         "hierarchicalParents" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005865/hierarchicalParents"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005859/hierarchicalParents"
         },
         "hierarchicalAncestors" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005865/hierarchicalAncestors"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005859/hierarchicalAncestors"
         },
         "jstree" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005865/jstree"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005859/jstree"
         },
         "children" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005865/children"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005859/children"
         },
         "descendants" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005865/descendants"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005859/descendants"
         },
         "hierarchicalChildren" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005865/hierarchicalChildren"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005859/hierarchicalChildren"
         },
         "hierarchicalDescendants" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005865/hierarchicalDescendants"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005859/hierarchicalDescendants"
         },
         "graph" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005865/graph"
-        },
-        "part_of" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005865/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005859/graph"
         }
       }
     } ]
@@ -1384,13 +1374,13 @@ Content-Length: 70131
       "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/hierarchicalDescendants?id=GO:0043226&page=1&size=20"
     },
     "last" : {
-      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/hierarchicalDescendants?id=GO:0043226&page=93&size=20"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/hierarchicalDescendants?id=GO:0043226&page=97&size=20"
     }
   },
   "page" : {
     "size" : 20,
-    "totalElements" : 1873,
-    "totalPages" : 94,
+    "totalElements" : 1943,
+    "totalPages" : 98,
     "number" : 0
   }
 }

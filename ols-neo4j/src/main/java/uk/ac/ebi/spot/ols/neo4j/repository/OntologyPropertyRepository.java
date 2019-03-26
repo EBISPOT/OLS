@@ -5,8 +5,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+
 import uk.ac.ebi.spot.ols.neo4j.model.Property;
-import uk.ac.ebi.spot.ols.neo4j.model.Term;
 
 /**
  * @author Simon Jupp
@@ -55,16 +55,36 @@ public interface OntologyPropertyRepository extends GraphRepository<Property> {
             value = "MATCH (n:Property) RETURN n")
     Page<Property> findAll(Pageable pageable);
 
+    @Query (countQuery = "MATCH (n:Property) WHERE n.is_defining_ontology = true RETURN count(n)",
+            value = "MATCH (n:Property) WHERE n.is_defining_ontology = true RETURN n")
+    Page<Property> findAllByIsDefiningOntology(Pageable pageable);
+    
     @Query (countQuery = "MATCH (n:Property) WHERE n.iri = {0} RETURN count(n)",
             value = "MATCH (n:Property) WHERE n.iri = {0} RETURN n")
     Page<Property> findAllByIri(String iri, Pageable pageable);
+    
+    @Query (countQuery = "MATCH (n:Property) WHERE n.iri = {0} AND n.is_defining_ontology = true "
+    				+ "RETURN count(n)",
+            value = "MATCH (n:Property) WHERE n.iri = {0} AND n.is_defining_ontology = true RETURN n")
+    Page<Property> findAllByIriAndIsDefiningOntology(String iri, Pageable pageable);    
 
     @Query (countQuery = "MATCH (n:Property) WHERE n.short_form = {0} RETURN count(n)",
             value = "MATCH (n:Property) WHERE n.short_form = {0} RETURN n")
     Page<Property> findAllByShortForm(String shortForm, Pageable pageable);
 
+    @Query (countQuery = "MATCH (n:Property) WHERE n.short_form = {0} AND "
+    				+ "n.is_defining_ontology = true  RETURN count(n)",
+            value = "MATCH (n:Property) WHERE n.short_form = {0} AND n.is_defining_ontology = true "
+            		+ "RETURN n")
+    Page<Property> findAllByShortFormAndIsDefiningOntology(String shortForm, Pageable pageable);   
+    
     @Query (countQuery = "MATCH (n:Property) WHERE n.obo_id = {0} RETURN count(n)",
             value = "MATCH (n:Property) WHERE n.obo_id = {0} RETURN n")
     Page<Property> findAllByOboId(String oboId, Pageable pageable);
 
+    @Query (countQuery = "MATCH (n:Property) WHERE n.obo_id = {0} AND n.is_defining_ontology = true "
+    				+ "RETURN count(n)",
+            value = "MATCH (n:Property) WHERE n.obo_id = {0} AND n.is_defining_ontology = true "
+            		+ "RETURN n")
+    Page<Property> findAllByOboIdAndIsDefiningOntology(String oboId, Pageable pageable);    
 }

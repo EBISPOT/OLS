@@ -1,0 +1,71 @@
+[source,http]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 2865
+
+{
+  "_embedded" : {
+    "individuals" : [ {
+      "iri" : "http://purl.obolibrary.org/obo/RO_0001901",
+      "label" : "axiom holds for all times",
+      "description" : [ "\n\n## Elucidation\n\nThis is used when the statement/axiom is assumed to hold true 'eternally'\n\n## How to interpret (informal)\n\nFirst the \"atemporal\" FOL is derived from the OWL using the standard\ninterpretation. This axiom is temporalized by embedding the axiom\nwithin a for-all-times quantified sentence. The t argument is added to\nall instantiation predicates and predicates that use this relation.\n\n## Example\n\n    Class: nucleus\n    SubClassOf: part_of some cell\n\n    forall t :\n      forall n :\n        instance_of(n,Nucleus,t)\n         implies\n        exists c :\n          instance_of(c,Cell,t)\n          part_of(n,c,t)\n\n## Notes\n\nThis interpretation is *not* the same as an at-all-times relation\n\n" ],
+      "annotation" : { },
+      "type" : [ {
+        "iri" : "http://www.w3.org/2002/07/owl#Thing",
+        "label" : "Thing",
+        "description" : null,
+        "annotation" : { },
+        "synonyms" : null,
+        "ontology_name" : "ro",
+        "ontology_prefix" : "RO",
+        "ontology_iri" : "http://purl.obolibrary.org/obo/ro.owl",
+        "is_obsolete" : false,
+        "term_replaced_by" : null,
+        "is_defining_ontology" : false,
+        "has_children" : false,
+        "is_root" : true,
+        "short_form" : "Thing",
+        "obo_id" : null,
+        "in_subset" : null,
+        "obo_definition_citation" : null,
+        "obo_xref" : null,
+        "obo_synonym" : null
+      } ],
+      "synonyms" : null,
+      "ontology_name" : "ro",
+      "ontology_prefix" : "RO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/ro.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "short_form" : "RO_0001901",
+      "obo_id" : "RO:0001901",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/ro/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0001901"
+        },
+        "types" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/ro/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0001901/types"
+        },
+        "alltypes" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/ro/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0001901/alltypes"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/ro/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0001901/jstree"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "self" : {
+      "href" : "http://www.ebi.ac.uk/ols/api/individuals/findByIdAndIsDefiningOntology"
+    }
+  },
+  "page" : {
+    "size" : 20,
+    "totalElements" : 1,
+    "totalPages" : 1,
+    "number" : 0
+  }
+}
+----

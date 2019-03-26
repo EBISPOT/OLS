@@ -2,19 +2,12 @@ package uk.ac.ebi.spot.ols.neo4j.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.GraphRepository;
-import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-import uk.ac.ebi.spot.ols.neo4j.model.Individual;
-import uk.ac.ebi.spot.ols.neo4j.model.Related;
-import uk.ac.ebi.spot.ols.neo4j.model.Term;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import uk.ac.ebi.spot.ols.neo4j.model.Individual;
+import uk.ac.ebi.spot.ols.neo4j.model.Term;
 
 /**
  * @author Simon Jupp
@@ -85,19 +78,38 @@ public interface OntologyTermRepository extends GraphRepository<Term> {
     @Query (countQuery = "MATCH (n:Class) RETURN count(n)",
             value = "MATCH (n:Class) RETURN n")
     Page<Term> findAll(Pageable pageable);
+    
+    @Query (countQuery = "MATCH (n:Class) WHERE n.is_defining_ontology = true RETURN count(n)",
+    		value = "MATCH (n:Class) WHERE n.is_defining_ontology = true RETURN n")
+    Page<Term> findAllByIsDefiningOntology(Pageable pageable);    
 
     @Query (countQuery = "MATCH (n:Class) WHERE n.iri = {0} RETURN count(n)",
             value = "MATCH (n:Class) WHERE n.iri = {0} RETURN n")
     Page<Term> findAllByIri(String iri, Pageable pageable);
 
+    @Query (countQuery = "MATCH (n:Class) WHERE n.iri = {0} AND n.is_defining_ontology = true "
+    		+ "RETURN count(n)",
+    		value = "MATCH (n:Class) WHERE n.iri = {0} AND n.is_defining_ontology = true RETURN n")
+    Page<Term> findAllByIriAndIsDefiningOntology(String iri, Pageable pageable);
+    		
     @Query (countQuery = "MATCH (n:Class) WHERE n.short_form = {0} RETURN count(n)",
             value = "MATCH (n:Class) WHERE n.short_form = {0} RETURN n")
     Page<Term> findAllByShortForm(String shortForm, Pageable pageable);
 
+    @Query (countQuery = "MATCH (n:Class) WHERE n.short_form = {0} AND n.is_defining_ontology = true"
+    		+ " RETURN count(n)",
+    		value = "MATCH (n:Class) WHERE n.short_form = {0} AND n.is_defining_ontology = true RETURN n")
+    Page<Term> findAllByShortFormAndIsDefiningOntology(String shortForm, Pageable pageable);
+    
     @Query (countQuery = "MATCH (n:Class) WHERE n.obo_id = {0} RETURN count(n)",
             value = "MATCH (n:Class) WHERE n.obo_id = {0} RETURN n")
     Page<Term> findAllByOboId(String oboId, Pageable pageable);
 
+    @Query (countQuery = "MATCH (n:Class) WHERE n.obo_id = {0} AND n.is_defining_ontology = true "
+    		+ "RETURN count(n)",
+    		value = "MATCH (n:Class) WHERE n.obo_id = {0} AND n.is_defining_ontology = true RETURN n")
+    Page<Term> findAllByOboIdAndIsDefiningOntology(String oboId, Pageable pageable);
+    
     @Query (countQuery = "MATCH (i:Individual)-[INSTANCEOF]->(c:Class) WHERE i.ontology_name = {0} AND c.iri = {1} RETURN count(i)",
             value = "MATCH (i:Individual)-[INSTANCEOF]->(c:Class) WHERE i.ontology_name = {0} AND c.iri = {1} RETURN i")
     Page<Individual> getInstances(String ontologyId, String iri, Pageable pageable);

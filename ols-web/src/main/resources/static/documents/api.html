@@ -501,10 +501,26 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_other_related_terms">Other related terms</a></li>
 </ul>
 </li>
+<li><a href="#term-matching-across-ontologies">Term matching across ontologies</a>
+<ul class="sectlevel2">
+<li><a href="#_example_requests_2">Example requests</a></li>
+<li><a href="#_example_response_5">Example response</a></li>
+</ul>
+</li>
+<li><a href="#terms-based-on-defining-ontology">Terms based on defining ontology</a>
+<ul class="sectlevel2">
+<li><a href="#_example_requests_3">Example requests</a></li>
+<li><a href="#_example_response_6">Example response</a></li>
+</ul>
+</li>
 <li><a href="#resources-properties">Properties and individuals</a>
 <ul class="sectlevel2">
-<li><a href="#_retrieve_an_property">Retrieve an property</a></li>
+<li><a href="#_retrieve_a_property">Retrieve a property</a></li>
+<li><a href="#_property_matching_across_ontologies">Property matching across ontologies</a></li>
+<li><a href="#_properties_based_on_defining_ontology">Properties based on defining ontology</a></li>
 <li><a href="#_retrieve_an_individual">Retrieve an individual</a></li>
+<li><a href="#_individual_matching_across_ontologies">Individual matching across ontologies</a></li>
+<li><a href="#_properties_based_on_defining_ontology_2">Properties based on defining ontology</a></li>
 </ul>
 </li>
 </ul>
@@ -645,7 +661,7 @@ Content-Type: application/json;charset=UTF-8
 Content-Length: 153
 
 {
-  "timestamp" : 1522943961680,
+  "timestamp" : 1551712810534,
   "status" : 404,
   "error" : "Not Found",
   "message" : "Resource not found",
@@ -661,8 +677,8 @@ Content-Length: 153
 <div class="paragraph">
 <p>This API uses hypermedia and resources include links to other resources in their
 responses. Responses are in <a href="http://stateless.co/hal_specification.html">Hypertext Application
-Language (HAL)</a> format. Links can be found benath the <code>_links</code> key. Users of the API should
-not created URIs themselves, instead they should use the above-described links to navigate
+Language (HAL)</a> format. Links can be found beneath the <code>_links</code> key. Users of the API should
+not create URIs themselves, instead they should use the above-described links to navigate
 from resource to resource.</p>
 </div>
 </div>
@@ -671,7 +687,7 @@ from resource to resource.</p>
 <h2 id="overview-pagination"><a class="anchor" href="#overview-pagination"></a>Listing resources</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Requests that return multiple resources will be paginated to 20 items by default. You can change number of items
+<p>Requests that return multiple resources will be paginated to 20 items by default. You can change the number of items
 returned using the <code>size</code> parameter up to a maximum of 500 for a single request. The API also supports the <code>page</code>
 parameter for accessing a specific page of items.</p>
 </div>
@@ -869,17 +885,17 @@ Content-Length: 432
 
 {
   "_links" : {
-    "individuals" : {
-      "href" : "http://www.ebi.ac.uk/ols/api/individuals"
-    },
     "ontologies" : {
       "href" : "http://www.ebi.ac.uk/ols/api/ontologies"
     },
-    "properties" : {
-      "href" : "http://www.ebi.ac.uk/ols/api/properties"
+    "individuals" : {
+      "href" : "http://www.ebi.ac.uk/ols/api/individuals"
     },
     "terms" : {
       "href" : "http://www.ebi.ac.uk/ols/api/terms"
+    },
+    "properties" : {
+      "href" : "http://www.ebi.ac.uk/ols/api/properties"
     },
     "profile" : {
       "href" : "http://www.ebi.ac.uk/ols/api/profile"
@@ -999,35 +1015,35 @@ Content-Length: 432
 <div class="content">
 <pre class="highlight"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 5202
+Content-Length: 3386
 
 {
   "ontologyId" : "efo",
-  "loaded" : "2018-04-01T19:37:59.640+0000",
-  "updated" : "2018-04-01T19:37:59.640+0000",
+  "loaded" : "2019-02-19T13:33:18.314+0000",
+  "updated" : "2019-02-19T13:33:18.314+0000",
   "status" : "LOADED",
   "message" : "",
   "version" : null,
-  "numberOfTerms" : 19799,
-  "numberOfProperties" : 297,
+  "numberOfTerms" : 22615,
+  "numberOfProperties" : 328,
   "numberOfIndividuals" : 0,
   "config" : {
     "id" : "http://www.ebi.ac.uk/efo/efo.owl",
-    "versionIri" : null,
+    "versionIri" : "http://www.ebi.ac.uk/efo/releases/2019-02-18/efo.owl",
     "title" : "Experimental Factor Ontology",
     "namespace" : "efo",
     "preferredPrefix" : "EFO",
     "description" : "The Experimental Factor Ontology (EFO) provides a systematic description of many experimental variables available in EBI databases, and for external projects such as the NHGRI GWAS catalogue. It combines parts of several biological ontologies, such as anatomy, disease and chemical compounds. The scope of EFO is to support the annotation, analysis and visualization of data handled by many groups at the EBI and as the core ontology for the Centre for Therapeutic Validation (CTTV)",
     "homepage" : "http://www.ebi.ac.uk/efo",
-    "version" : "2.82",
+    "version" : "2.105",
     "mailingList" : "efo-users@lists.sourceforge.net",
     "creators" : [ ],
     "annotations" : {
       "license" : [ "www.apache.org/licenses/LICENSE-2.0" ],
-      "creator" : [ "Simon Jupp", "Jon Ison", "Helen Parkinson", "Eleanor Williams", "James Malone", "Sirarat Sarntivijai", "Catherine Leroy", "Ele Holloway", "Tomasz Adamusiak", "Emma Kate Hastings", "Natalja Kurbatova", "Dani Welter", "Drashtti Vasant" ],
+      "creator" : [ "Gautier Koscielny", "Simon Jupp", "Jon Ison", "Laura Huerta Martinez", "Helen Parkinson", "Eleanor Williams", "James Malone", "Zoe May Pendlington", "Trish Whetzel", "Sirarat Sarntivijai", "Catherine Leroy", "Ele Holloway", "Tomasz Adamusiak", "Emma Kate Hastings", "Olamidipupo Ajigboye", "Paola Roncaglia", "Natalja Kurbatova", "Dani Welter", "Drashtti Vasant" ],
       "rights" : [ "Copyright [2014] EMBL - European Bioinformatics Institute \nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the \nLicense. " ],
       "format-version" : [ "1.4" ],
-      "comment" : [ "Bioportal mappings to Human disease (DOID) ver", "Bioportal mappings to NCI Thesaurus (NCIt) ver11.01e", "Bioportal mappings to MGED Ontology (MO) ver1.3.1.1", "Date: 15th March 2017", "Bioportal mappings to Phenotypic quality (PATO) vernull", "Bioportal mappings to Teleost anatomy and development (TAO) ver1.158", "Bioportal mappings to Units of measurement (UO) vernull", "Bioportal mappings to BRENDA tissue / enzyme source (BTO) verunknown", "Mappings: CRISP Thesaurus Version 2.5.2.0", "Bioportal mappings to Teleost Anatomy Ontology (TAO) vernull", "Bioportal mappings to NIFSTD (nif) ver2.2 - December 20, 2010", "Bioportal mappings to SNOMED Clinical Terms (SNOMEDCT) ver2010_07_31", "Bioportal mappings to Chemical entities of biological interest (CHEBI) verunknown", "Mappings to Plant structure (PO)", "Bioportal mappings to Gene Ontology (GO) ver1.886", "Mappings:The Arabidopsis Information Resource (TAIR)", "Bioportal mappings to Drosophila gross anatomy (FBbt) ver2011-02-10", "Bioportal mappings to International Classification of Diseases (ICD-9) ver9", "Bioportal mappings to Foundational Model of Anatomy (FMA) ver3.1", "Bioportal mappings to Malaria Ontology (IDOMAL) ver1.22", "Bioportal mappings to Medical Subject Headings (MSH) ver2011_2010_08_30", "Ontology containing axioms that describe relationships between orphanet disease ontology classes and efo classes.", "Bioportal mappings to Zebrafish anatomy and development (ZFA) verunknown", "Bioportal mappings to NCBI organismal classification (NCBITaxon) ver1.2", "Bioportal mappings to Mosquito gross anatomy (TGMA) version unknown", "Bioportal mappings to Mammalian phenotype (MP) vernull", "Bioportal mappings to Minimal anatomical terminology (MAT) ver1.1", "Mappings: The Jackson Lab", "Bioportal mappings to Cell type (CL) verunknown", "Bioportal mappings to Microarray experimental conditions (MO) ver1.3.1.1", "Bioportal mappings to Ontology for Biomedical Investigations (OBI) ver2010-10-26 Vancouver 2010 release, RC2" ]
+      "comment" : [ "2019-02-18" ]
     },
     "fileLocation" : "http://www.ebi.ac.uk/efo/efo.owl",
     "reasonerType" : "OWL2",
@@ -1251,7 +1267,7 @@ Content-Length: 5202
 <pre class="highlight"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Disposition: inline;filename=f.txt
 Content-Type: application/json
-Content-Length: 3657
+Content-Length: 3640
 
 {
   "iri" : "http://purl.obolibrary.org/obo/GO_0043226",
@@ -1273,7 +1289,7 @@ Content-Length: 3657
   "is_root" : false,
   "short_form" : "GO_0043226",
   "obo_id" : "GO:0043226",
-  "in_subset" : [ "goslim_chembl", "goslim_generic", "goslim_pir", "gosubset_prok" ],
+  "in_subset" : [ "goslim_chembl", "goslim_generic", "goslim_pir" ],
   "obo_definition_citation" : [ {
     "definition" : "Organized structure of distinctive morphology and function. Includes the nucleus, mitochondria, plastids, vacuoles, vesicles, ribosomes and the cytoskeleton, and prokaryotic structures such as anammoxosomes and pirellulosomes. Excludes the plasma membrane.",
     "oboXrefs" : [ {
@@ -1481,13 +1497,239 @@ terms can be accessed directly with this API.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="term-matching-across-ontologies"><a class="anchor" href="#term-matching-across-ontologies"></a>Term matching across ontologies</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>It is possible to search for terms across ontologies using the requests and responses as defined in
+this section.</p>
+</div>
+<div class="sect2">
+<h3 id="_example_requests_2"><a class="anchor" href="#_example_requests_2"></a>Example requests</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -L 'http://www.ebi.ac.uk/ols/api/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000001' -i -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -L 'http://www.ebi.ac.uk/ols/api/terms?iri=http://www.ebi.ac.uk/efo/EFO_0000001' -i -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -L 'http://www.ebi.ac.uk/ols/api/terms?short_form=EFO_0000001' -i -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -L 'http://www.ebi.ac.uk/ols/api/terms?obo_id=EFO:0000001' -i -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -L 'http://www.ebi.ac.uk/ols/api/terms?id=EFO:0000001' -i -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example_response_5"><a class="anchor" href="#_example_response_5"></a>Example response</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Content-Disposition: inline;filename=f.txt
+Content-Type: application/json
+Content-Length: 3029
+
+{
+  "_embedded" : {
+    "terms" : [ {
+      "iri" : "http://www.ebi.ac.uk/efo/EFO_0000001",
+      "label" : "experimental factor",
+      "description" : null,
+      "annotation" : {
+        "MO_definition_citation" : [ "MO:10" ],
+        "bioportal_provenance" : [ "ExperimentalFactor[accessedResource: MO_10][accessDate: 05-04-2011]" ],
+        "comment" : [ "Concept naming convention is lower case natural naming with spaces, when necessary captials should be used, for example disease factor, HIV, breast carcinoma, Ewing's sarcoma" ],
+        "created_by" : [ "Helen Parkinson", "James Malone", "Tomasz Adamusiak" ],
+        "definition" : [ "An experimental factor in Array Express which are essentially the variable aspects of an experiment design which can be used to describe an experiment, or set of experiments, in an increasingly detailed manner. This upper level class is really used to give a root class from which applications can rely on and not be tied to upper ontology classses which do change." ],
+        "organizational_class" : [ "true" ],
+        "term editor" : [ "Helen Parkinson", "James Malone", "Tomasz Adamusiak", "Jie Zheng" ]
+      },
+      "synonyms" : [ "ExperimentalFactor" ],
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : true,
+      "is_root" : true,
+      "short_form" : "EFO_0000001",
+      "obo_id" : "EFO:0000001",
+      "in_subset" : null,
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000001"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000001/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000001/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000001/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000001/hierarchicalDescendants"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000001/graph"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "self" : {
+      "href" : "http://www.ebi.ac.uk/ols/api/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000001"
+    }
+  },
+  "page" : {
+    "size" : 20,
+    "totalElements" : 1,
+    "totalPages" : 1,
+    "number" : 0
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="terms-based-on-defining-ontology"><a class="anchor" href="#terms-based-on-defining-ontology"></a>Terms based on defining ontology</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Where users are interested in a particular ontology, they may also be interested in retrieving only
+terms from that ontology. The requests and reponses in this section defines an API for achieving this.</p>
+</div>
+<div class="sect2">
+<h3 id="_example_requests_3"><a class="anchor" href="#_example_requests_3"></a>Example requests</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -L 'http://www.ebi.ac.uk/ols/api/terms/findByIdAndIsDefiningOntology/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000001' -i -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -L 'http://www.ebi.ac.uk/ols/api/terms/findByIdAndIsDefiningOntology?iri=http://www.ebi.ac.uk/efo/EFO_0000001' -i -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -L 'http://www.ebi.ac.uk/ols/api/terms/findByIdAndIsDefiningOntology?short_form=EFO_0000001' -i -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -L 'http://www.ebi.ac.uk/ols/api/terms/findByIdAndIsDefiningOntology?obo_id=EFO:0000001' -i -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -L 'http://www.ebi.ac.uk/ols/api/terms/findByIdAndIsDefiningOntology?id=EFO:0000001' -i -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example_response_6"><a class="anchor" href="#_example_response_6"></a>Example response</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Content-Disposition: inline;filename=f.txt
+Content-Type: application/json
+Content-Length: 3059
+
+{
+  "_embedded" : {
+    "terms" : [ {
+      "iri" : "http://www.ebi.ac.uk/efo/EFO_0000001",
+      "label" : "experimental factor",
+      "description" : null,
+      "annotation" : {
+        "MO_definition_citation" : [ "MO:10" ],
+        "bioportal_provenance" : [ "ExperimentalFactor[accessedResource: MO_10][accessDate: 05-04-2011]" ],
+        "comment" : [ "Concept naming convention is lower case natural naming with spaces, when necessary captials should be used, for example disease factor, HIV, breast carcinoma, Ewing's sarcoma" ],
+        "created_by" : [ "Helen Parkinson", "James Malone", "Tomasz Adamusiak" ],
+        "definition" : [ "An experimental factor in Array Express which are essentially the variable aspects of an experiment design which can be used to describe an experiment, or set of experiments, in an increasingly detailed manner. This upper level class is really used to give a root class from which applications can rely on and not be tied to upper ontology classses which do change." ],
+        "organizational_class" : [ "true" ],
+        "term editor" : [ "Helen Parkinson", "James Malone", "Tomasz Adamusiak", "Jie Zheng" ]
+      },
+      "synonyms" : [ "ExperimentalFactor" ],
+      "ontology_name" : "efo",
+      "ontology_prefix" : "EFO",
+      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
+      "is_obsolete" : false,
+      "term_replaced_by" : null,
+      "is_defining_ontology" : true,
+      "has_children" : true,
+      "is_root" : true,
+      "short_form" : "EFO_0000001",
+      "obo_id" : "EFO:0000001",
+      "in_subset" : null,
+      "obo_definition_citation" : null,
+      "obo_xref" : null,
+      "obo_synonym" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000001"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000001/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000001/descendants"
+        },
+        "hierarchicalChildren" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000001/hierarchicalChildren"
+        },
+        "hierarchicalDescendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000001/hierarchicalDescendants"
+        },
+        "graph" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000001/graph"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "self" : {
+      "href" : "http://www.ebi.ac.uk/ols/api/terms/findByIdAndIsDefiningOntology/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000001"
+    }
+  },
+  "page" : {
+    "size" : 20,
+    "totalElements" : 1,
+    "totalPages" : 1,
+    "number" : 0
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="resources-properties"><a class="anchor" href="#resources-properties"></a>Properties and individuals</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>You can access property (relationships) and ontology individuals (instances) following similar methods to terms.</p>
 </div>
 <div class="sect2">
-<h3 id="_retrieve_an_property"><a class="anchor" href="#_retrieve_an_property"></a>Retrieve an property</h3>
+<h3 id="_retrieve_a_property"><a class="anchor" href="#_retrieve_a_property"></a>Retrieve a property</h3>
 <div class="listingblock">
 <div class="content">
 <pre>GET /ols/api/ontologies/{ontology}/properties/{iri}</pre>
@@ -1515,6 +1757,40 @@ terms can be accessed directly with this API.</p>
 </tr>
 </tbody>
 </table>
+</div>
+<div class="sect2">
+<h3 id="_property_matching_across_ontologies"><a class="anchor" href="#_property_matching_across_ontologies"></a>Property matching across ontologies</h3>
+<div class="paragraph">
+<p>Similar to terms, properties can be found based on id. See <a href="#term-matching-across-ontologies">Term matching across ontologies</a>. Here we only provide 2 examples: Both examples retrieve a
+property based on its IRI. The first illustrates finding a property where the IRI is specified as part of the path and the second illustrates finding a property where the IRI is specified as a parameter.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -L 'http://www.ebi.ac.uk/ols/api/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000784' -i -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -L 'http://www.ebi.ac.uk/ols/api/properties?iri=http://www.ebi.ac.uk/efo/EFO_0000784' -i -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_properties_based_on_defining_ontology"><a class="anchor" href="#_properties_based_on_defining_ontology"></a>Properties based on defining ontology</h3>
+<div class="paragraph">
+<p>Similar to terms, users may want to only access properties that are related to a particular ontology.
+See <a href="#terms-based-on-defining-ontology">Terms based on defining ontology</a>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -L 'http://www.ebi.ac.uk/ols/api/properties/findByIdAndIsDefiningOntology/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000784' -i -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -L 'http://www.ebi.ac.uk/ols/api/properties/findByIdAndIsDefiningOntology?iri=http://www.ebi.ac.uk/efo/EFO_0000784' -i -H 'Accept: application/json'</code></pre>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_retrieve_an_individual"><a class="anchor" href="#_retrieve_an_individual"></a>Retrieve an individual</h3>
@@ -1545,6 +1821,40 @@ terms can be accessed directly with this API.</p>
 </tr>
 </tbody>
 </table>
+</div>
+<div class="sect2">
+<h3 id="_individual_matching_across_ontologies"><a class="anchor" href="#_individual_matching_across_ontologies"></a>Individual matching across ontologies</h3>
+<div class="paragraph">
+<p>Similar to terms, individuals can be found based on id. See <a href="#term-matching-across-ontologies">Term matching across ontologies</a>. Here we only provide 2 examples: Both examples retrieve an
+individual based on its IRI. The first illustrates finding an individual where the IRI is specified as part of the path and the second illustrates finding an individual  where the IRI is specified as a parameter.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -L 'http://www.ebi.ac.uk/ols/api/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FIAO_0000125' -i -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -L 'http://www.ebi.ac.uk/ols/api/individuals?iri=http://purl.obolibrary.org/obo/IAO_0000125' -i -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_properties_based_on_defining_ontology_2"><a class="anchor" href="#_properties_based_on_defining_ontology_2"></a>Properties based on defining ontology</h3>
+<div class="paragraph">
+<p>Similar to terms, users may want to only access individuals that are related to a particular ontology.
+See <a href="#terms-based-on-defining-ontology">Terms based on defining ontology</a>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -L 'http://www.ebi.ac.uk/ols/api/individuals/findByIdAndIsDefiningOntology/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0001901' -i -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl -L 'http://www.ebi.ac.uk/ols/api/individuals/findByIdAndIsDefiningOntology?iri=http://purl.obolibrary.org/obo/RO_0001901' -i -H 'Accept: application/json'</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1767,7 +2077,7 @@ applications such as autocomplete.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-09 15:10:49 +01:00
+Last updated 2019-03-04 15:19:34 +00:00
 </div>
 </div>
 </body>

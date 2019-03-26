@@ -1,0 +1,4 @@
+[source,bash]
+----
+$ curl -L 'http://www.ebi.ac.uk/ols/api/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FIAO_0000125' -i -H 'Accept: application/json'
+----
