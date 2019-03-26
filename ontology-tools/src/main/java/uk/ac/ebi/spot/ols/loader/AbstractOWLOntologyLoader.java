@@ -124,6 +124,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     private Map<IRI, Collection<String>> equivalentClassExpressionsAsString = new HashMap<>();
     private Map<IRI, Collection<String>> superclassExpressionsAsString = new HashMap<>();
     private String preferredPrefix;
+    private Map<OWLAnnotationProperty, List<String>> preferredLanguageMap = new HashMap<>();
 
     private DatabaseService databaseService;
 
@@ -156,6 +157,8 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                         .collect(Collectors.toSet()));
 
         setLabelIRI(IRI.create(config.getLabelProperty()));
+        setPreferredLanguageMap(factory.getOWLAnnotationProperty(getLabelIRI()), Collections.singletonList("en") );
+
 
         setDefinitionIRIs(
                 config.getDefinitionProperties().stream()
@@ -287,7 +290,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
             this.provider = new AnnotationValueShortFormProvider(
                     Collections.singletonList(factory.getOWLAnnotationProperty(getLabelIRI())),
-                    Collections.<OWLAnnotationProperty, List<String>>emptyMap(),
+                    getPreferredLanguageMap(),
                     manager);
             this.manSyntaxRenderer = new ManchesterOWLSyntaxOWLObjectRendererImpl();
             manSyntaxRenderer.setShortFormProvider(provider);
@@ -915,6 +918,9 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         return label;
     }
 
+    private boolean isEnglishLabel(OWLAnnotationValue value) {
+        return value instanceof OWLLiteral && ((OWLLiteral) value).getLang().equalsIgnoreCase("en");
+    }
 
     protected void evaluateAllAnnotationsValues(OWLEntity owlEntity) {
 
@@ -934,7 +940,15 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                 IRI propertyIRI = property.getIRI();
 
                 if (getLabelIRI().equals(propertyIRI)) {
-                    addClassLabel(owlEntityIRI, evaluateLabelAnnotationValue(owlEntity, annotation.getValue()).get());
+                    if (getTermLabels().containsKey(owlEntityIRI)) {
+                        addClassLabel(owlEntityIRI, evaluateLabelAnnotationValue(owlEntity, annotation.getValue()).get());
+                    } else {
+                        getLog().warn("Found multiple labels for class" + owlEntityIRI.toString());
+                        // if english, overide previous label
+                        if (isEnglishLabel(annotation.getValue())) {
+                            addClassLabel(owlEntityIRI, evaluateLabelAnnotationValue(owlEntity, annotation.getValue()).get());
+                        }
+                    }
                 }
                 else if (getSynonymIRIs().contains(propertyIRI)) {
                     synonyms.add(getOWLAnnotationValueAsString(annotation.getValue()).get());
@@ -1757,5 +1771,12 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         return internalMetadataProperties;
     }
 
+    public Map<OWLAnnotationProperty, List<String>> getPreferredLanguageMap() {
+        return preferredLanguageMap;
+    }
+
+    public void setPreferredLanguageMap(OWLAnnotationProperty property, List<String> languages) {
+        this.preferredLanguageMap.put(property,languages );;
+    }
 
 }
