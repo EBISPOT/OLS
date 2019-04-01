@@ -2,16 +2,16 @@
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 29924
+Content-Length: 29790
 
 {
   "_embedded" : {
     "terms" : [ {
       "iri" : "http://purl.obolibrary.org/obo/GO_0043230",
-      "label" : "extracellular organelle",
+      "label" : "GO_0043230",
       "description" : [ "Organized structure of distinctive morphology and function, occurring outside the cell. Includes, for example, extracellular membrane vesicles (EMVs) and the cellulosomes of anaerobic bacteria and fungi." ],
       "annotation" : {
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0043230" ]
       },
       "synonyms" : null,
@@ -29,15 +29,15 @@ Content-Length: 29924
       "obo_definition_citation" : [ {
         "definition" : "Organized structure of distinctive morphology and function, occurring outside the cell. Includes, for example, extracellular membrane vesicles (EMVs) and the cellulosomes of anaerobic bacteria and fungi.",
         "oboXrefs" : [ {
-          "database" : "GOC",
-          "id" : "jl",
-          "description" : null,
-          "url" : null
-        }, {
           "database" : "PMID",
           "id" : "9914479",
           "description" : null,
           "url" : "http://www.ncbi.nlm.nih.gov/pubmed/9914479"
+        }, {
+          "database" : "GOC",
+          "id" : "jl",
+          "description" : null,
+          "url" : null
         } ]
       } ],
       "obo_xref" : null,
@@ -79,11 +79,11 @@ Content-Length: 29924
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0043227",
-      "label" : "membrane-bounded organelle",
+      "label" : "GO_0043227",
       "description" : [ "Organized structure of distinctive morphology and function, bounded by a single or double lipid bilayer membrane. Includes the nucleus, mitochondria, plastids, vacuoles, and vesicles. Excludes the plasma membrane." ],
       "annotation" : {
-        "database_cross_reference" : [ "NIF_Subcellular:sao414196390" ],
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasDbXref" : [ "NIF_Subcellular:sao414196390" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0043227" ]
       },
       "synonyms" : [ "membrane-enclosed organelle" ],
@@ -151,11 +151,11 @@ Content-Length: 29924
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0043228",
-      "label" : "non-membrane-bounded organelle",
+      "label" : "GO_0043228",
       "description" : [ "Organized structure of distinctive morphology and function, not bounded by a lipid bilayer membrane. Includes ribosomes, the cytoskeleton and chromosomes." ],
       "annotation" : {
-        "database_cross_reference" : [ "NIF_Subcellular:sao1456184038" ],
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasDbXref" : [ "NIF_Subcellular:sao1456184038" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0043228" ]
       },
       "synonyms" : [ "non-membrane-enclosed organelle" ],
@@ -223,10 +223,10 @@ Content-Length: 29924
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0043229",
-      "label" : "intracellular organelle",
+      "label" : "GO_0043229",
       "description" : [ "Organized structure of distinctive morphology and function, occurring within the cell. Includes the nucleus, mitochondria, plastids, vacuoles, vesicles, ribosomes and the cytoskeleton. Excludes the plasma membrane." ],
       "annotation" : {
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0043229" ]
       },
       "synonyms" : null,
@@ -289,10 +289,10 @@ Content-Length: 29924
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0099572",
-      "label" : "postsynaptic specialization",
+      "label" : "GO_0099572",
       "description" : [ "A network of proteins within and adjacent to the postsynaptic membrane. Its major components include neurotransmitter receptors and the proteins that spatially and functionally organize them such as anchoring and scaffolding molecules, signaling enzymes and cytoskeletal components." ],
       "annotation" : {
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0099572" ]
       },
       "synonyms" : null,
@@ -352,21 +352,21 @@ Content-Length: 29924
         "graph" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0099572/graph"
         },
-        "part_of" : {
+        "BFO_0000050" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0099572/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
         }
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0005929",
-      "label" : "cilium",
+      "label" : "GO_0005929",
       "description" : [ "A specialized eukaryotic organelle that consists of a filiform extrusion of the cell surface and of some cytoplasmic parts. Each cilium is largely bounded by an extrusion of the cytoplasmic (plasma) membrane, and contains a regular longitudinal array of microtubules, anchored to a basal body." ],
       "annotation" : {
         "comment" : [ "Note that we deem cilium and microtubule-based flagellum to be equivalent. In most eukaryotic species, intracellular sub-components of the cilium, such as the ciliary base and rootlet, are located near the plasma membrane. In Diplomonads such as Giardia, instead, the same ciliary parts are located further intracellularly. Also, 'cilium' may be used when axonemal structure and/or motility are unknown, or when axonemal structure is unusual. For all other cases, please refer to children of 'cilium'. Finally, note that any role of ciliary proteins in sensory events should be captured by annotating to relevant biological process terms." ],
-        "database_cross_reference" : [ "NIF_Subcellular:sao787716553", "FMA:67181", "Wikipedia:Cilium" ],
-        "has_alternative_id" : [ "GO:0072372" ],
-        "has_narrow_synonym" : [ "primary cilium" ],
-        "has_obo_namespace" : [ "cellular_component" ],
-        "has_related_synonym" : [ "flagellum" ],
+        "hasAlternativeId" : [ "GO:0072372" ],
+        "hasDbXref" : [ "NIF_Subcellular:sao787716553", "FMA:67181", "Wikipedia:Cilium" ],
+        "hasNarrowSynonym" : [ "primary cilium" ],
+        "hasOBONamespace" : [ "cellular_component" ],
+        "hasRelatedSynonym" : [ "flagellum" ],
         "id" : [ "GO:0005929" ]
       },
       "synonyms" : [ "microtubule-based flagellum", "eukaryotic flagellum" ],
@@ -384,23 +384,13 @@ Content-Length: 29924
       "obo_definition_citation" : [ {
         "definition" : "A specialized eukaryotic organelle that consists of a filiform extrusion of the cell surface and of some cytoplasmic parts. Each cilium is largely bounded by an extrusion of the cytoplasmic (plasma) membrane, and contains a regular longitudinal array of microtubules, anchored to a basal body.",
         "oboXrefs" : [ {
+          "database" : "ISBN",
+          "id" : "0198547684",
+          "description" : null,
+          "url" : "https://www.worldcat.org/search?q=bn%3A0198547684"
+        }, {
           "database" : "GOC",
           "id" : "cilia",
-          "description" : null,
-          "url" : null
-        }, {
-          "database" : "PMID",
-          "id" : "16824949",
-          "description" : null,
-          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/16824949"
-        }, {
-          "database" : "PMID",
-          "id" : "17009929",
-          "description" : null,
-          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/17009929"
-        }, {
-          "database" : "GOC",
-          "id" : "curators",
           "description" : null,
           "url" : null
         }, {
@@ -409,15 +399,25 @@ Content-Length: 29924
           "description" : null,
           "url" : "http://www.ncbi.nlm.nih.gov/pubmed/20144998"
         }, {
+          "database" : "PMID",
+          "id" : "16824949",
+          "description" : null,
+          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/16824949"
+        }, {
+          "database" : "GOC",
+          "id" : "curators",
+          "description" : null,
+          "url" : null
+        }, {
           "database" : "GOC",
           "id" : "vw",
           "description" : null,
           "url" : null
         }, {
-          "database" : "ISBN",
-          "id" : "0198547684",
+          "database" : "PMID",
+          "id" : "17009929",
           "description" : null,
-          "url" : "https://www.worldcat.org/search?q=bn%3A0198547684"
+          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/17009929"
         }, {
           "database" : "GOC",
           "id" : "kmv",
@@ -426,20 +426,20 @@ Content-Length: 29924
         } ]
       } ],
       "obo_xref" : [ {
-        "database" : "FMA",
-        "id" : "67181",
+        "database" : "Wikipedia",
+        "id" : "Cilium",
         "description" : null,
-        "url" : null
+        "url" : "http://en.wikipedia.org/wiki/Cilium"
       }, {
         "database" : "NIF_Subcellular",
         "id" : "sao787716553",
         "description" : null,
         "url" : "http://www.neurolex.org/wiki/sao787716553"
       }, {
-        "database" : "Wikipedia",
-        "id" : "Cilium",
+        "database" : "FMA",
+        "id" : "67181",
         "description" : null,
-        "url" : "http://en.wikipedia.org/wiki/Cilium"
+        "url" : null
       } ],
       "obo_synonym" : null,
       "_links" : {
@@ -476,20 +476,20 @@ Content-Length: 29924
         "graph" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005929/graph"
         },
-        "has_part" : {
+        "BFO_0000051" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005929/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000051"
         }
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0097597",
-      "label" : "ventral disc",
+      "label" : "GO_0097597",
       "description" : [ "Specialized organelle found in Giardia species (trophozoite stage) and characterized by a spiral array of microtubules and microtubule-associated structures including dorsal microribbons and crossbridges. The edge of the ventral disc narrows into a lateral crest. The ventral disk mediates mechanical attachment of the trophozoite to the host's intestinal wall, and contains the contractile proteins actinin, alpha-actinin, myosin, and tropomyosin working towards contraction of the disk involved in adherence." ],
       "annotation" : {
         "comment" : [ "Due to the asymmetric nature of the Giardia trophozoite, this term is defined spatially as the trophozoite is viewed from the dorsal side, with the two nuclei dorsal to the ventral disc, and the ventral disc toward the anterior." ],
         "created_by" : [ "paola" ],
         "creation_date" : [ "2014-04-03T11:29:58Z" ],
-        "has_obo_namespace" : [ "cellular_component" ],
-        "has_related_synonym" : [ "adhesive disc", "ventral disk" ],
+        "hasOBONamespace" : [ "cellular_component" ],
+        "hasRelatedSynonym" : [ "adhesive disc", "ventral disk" ],
         "id" : [ "GO:0097597" ]
       },
       "synonyms" : [ "ventral adhesive disc" ],
@@ -512,20 +512,20 @@ Content-Length: 29924
           "description" : null,
           "url" : "https://www.worldcat.org/search?q=bn%3A9780124260207"
         }, {
-          "database" : "GOC",
-          "id" : "giardia",
+          "database" : "PMID",
+          "id" : "4777416",
           "description" : null,
-          "url" : null
+          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/4777416"
         }, {
           "database" : "PMID",
           "id" : "11432808",
           "description" : null,
           "url" : "http://www.ncbi.nlm.nih.gov/pubmed/11432808"
         }, {
-          "database" : "PMID",
-          "id" : "4777416",
+          "database" : "GOC",
+          "id" : "giardia",
           "description" : null,
-          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/4777416"
+          "url" : null
         }, {
           "database" : "PMID",
           "id" : "5961344",
@@ -569,7 +569,7 @@ Content-Length: 29924
         "graph" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097597/graph"
         },
-        "has_part" : {
+        "BFO_0000051" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097597/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000051"
         }
       }

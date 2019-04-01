@@ -31,7 +31,7 @@ public abstract class AbstractLoadingService implements DocumentLoadingService {
 
             return  OntologyLoaderFactory.getLoader(config);
         } catch (ConfigParsingException e) {
-            throw new OntologyLoadingException("Can't get configuration for loader: " + e.getMessage());
+            throw new OntologyLoadingException("Can't get configuration for loader: " + e.getMessage(), e);
         }
 
     }

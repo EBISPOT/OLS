@@ -2,11 +2,593 @@
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 5125
+Content-Length: 30821
 
 {
   "_embedded" : {
     "individuals" : [ {
+      "iri" : "http://purl.obolibrary.org/obo/CLO_0000173",
+      "label" : "RIKEN Cell Bank",
+      "description" : [ "an organization that serves as a cell ine repository. Its website is: http://www.brc.riken.jp/lab/cell/english/." ],
+      "annotation" : {
+        "术语编辑者" : [ "SS, YH,YL" ]
+      },
+      "type" : [ ],
+      "synonyms" : null,
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "short_form" : "CLO_0000173",
+      "obo_id" : "CLO:0000173",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0000173"
+        },
+        "types" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0000173/types"
+        },
+        "alltypes" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0000173/alltypes"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0000173/jstree"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/CLO_0037341",
+      "label" : "SAMEA3174344",
+      "description" : null,
+      "annotation" : {
+        "comment" : [ "This donor was used to generate several stem cell lines, including EDi008-A and EDi008-B." ],
+        "定义来源" : [ "https://www.ebi.ac.uk/biosamples/samples/SAMEA3174344" ],
+        "替代术语" : [ "G51D", "SNCA0912", "GS1D" ],
+        "术语编辑者" : [ "Stefanie Seltmann, Oliver He" ]
+      },
+      "type" : [ ],
+      "synonyms" : null,
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "short_form" : "CLO_0037341",
+      "obo_id" : "CLO:0037341",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037341"
+        },
+        "types" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037341/types"
+        },
+        "alltypes" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037341/alltypes"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037341/jstree"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/CLO_0037314",
+      "label" : "PCCSE",
+      "description" : null,
+      "annotation" : {
+        "alternative_term" : [ "The LINCS Proteomic Characterization Center for Signaling and Epigenetics at the Broad Institute" ],
+        "定义来源" : [ "http://www.lincsproject.org/LINCS/centers/data-and-signature-generating-centers/lincs-pccse" ]
+      },
+      "type" : [ ],
+      "synonyms" : null,
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "short_form" : "CLO_0037314",
+      "obo_id" : "CLO:0037314",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037314"
+        },
+        "types" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037314/types"
+        },
+        "alltypes" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037314/alltypes"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037314/jstree"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/CLO_0037315",
+      "label" : "BROAD_T",
+      "description" : null,
+      "annotation" : {
+        "定义来源" : [ "https://www.broadinstitute.org/", "http://lincsproject.org/LINCS/centers/data-and-signature-generating-centers/lincs-transcriptomics" ]
+      },
+      "type" : [ ],
+      "synonyms" : null,
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "short_form" : "CLO_0037315",
+      "obo_id" : "CLO:0037315",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037315"
+        },
+        "types" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037315/types"
+        },
+        "alltypes" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037315/alltypes"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037315/jstree"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/CLO_0000007",
+      "label" : "CLO_0000007",
+      "description" : [ "an organization that serves as a cell ine repository. Its website is: http://bioinformatics.istge.it/hypercldb/." ],
+      "annotation" : {
+        "术语编辑者" : [ "SS, YH,YL" ]
+      },
+      "type" : [ ],
+      "synonyms" : null,
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "short_form" : "CLO_0000007",
+      "obo_id" : "CLO:0000007",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0000007"
+        },
+        "types" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0000007/types"
+        },
+        "alltypes" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0000007/alltypes"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0000007/jstree"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/CLO_0000172",
+      "label" : "Coriell Cell Line Repositories",
+      "description" : [ "an organization that stores a large number of cell lines. Its website is: http://ccr.coriell.org/." ],
+      "annotation" : {
+        "术语编辑者" : [ "SS, YH,YL" ]
+      },
+      "type" : [ {
+        "iri" : "http://purl.obolibrary.org/obo/CLO_0000008",
+        "label" : "cell line repository",
+        "description" : [ "an organization that serves as a repository of cell lines.", "一个作为细胞系存储库的组织。" ],
+        "annotation" : {
+          "引自" : [ "http://purl.obolibrary.org/obo/clo.owl" ],
+          "术语编辑者" : [ "SS, YH" ]
+        },
+        "synonyms" : null,
+        "ontology_name" : "clo",
+        "ontology_prefix" : "CLO",
+        "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+        "is_obsolete" : false,
+        "term_replaced_by" : null,
+        "is_defining_ontology" : true,
+        "has_children" : false,
+        "is_root" : false,
+        "short_form" : "CLO_0000008",
+        "obo_id" : "CLO:0000008",
+        "in_subset" : null,
+        "obo_definition_citation" : null,
+        "obo_xref" : null,
+        "obo_synonym" : null
+      } ],
+      "synonyms" : null,
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "short_form" : "CLO_0000172",
+      "obo_id" : "CLO:0000172",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0000172"
+        },
+        "types" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0000172/types"
+        },
+        "alltypes" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0000172/alltypes"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0000172/jstree"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/CLO_0000173",
+      "label" : "RIKEN Cell Bank",
+      "description" : [ "an organization that serves as a cell ine repository. Its website is: http://www.brc.riken.jp/lab/cell/english/." ],
+      "annotation" : {
+        "术语编辑者" : [ "SS, YH,YL" ]
+      },
+      "type" : [ {
+        "iri" : "http://purl.obolibrary.org/obo/CLO_0000008",
+        "label" : "cell line repository",
+        "description" : [ "an organization that serves as a repository of cell lines.", "一个作为细胞系存储库的组织。" ],
+        "annotation" : {
+          "引自" : [ "http://purl.obolibrary.org/obo/clo.owl" ],
+          "术语编辑者" : [ "SS, YH" ]
+        },
+        "synonyms" : null,
+        "ontology_name" : "clo",
+        "ontology_prefix" : "CLO",
+        "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+        "is_obsolete" : false,
+        "term_replaced_by" : null,
+        "is_defining_ontology" : true,
+        "has_children" : false,
+        "is_root" : false,
+        "short_form" : "CLO_0000008",
+        "obo_id" : "CLO:0000008",
+        "in_subset" : null,
+        "obo_definition_citation" : null,
+        "obo_xref" : null,
+        "obo_synonym" : null
+      } ],
+      "synonyms" : null,
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "short_form" : "CLO_0000173",
+      "obo_id" : "CLO:0000173",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0000173"
+        },
+        "types" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0000173/types"
+        },
+        "alltypes" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0000173/alltypes"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0000173/jstree"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/CLO_0037314",
+      "label" : "PCCSE",
+      "description" : null,
+      "annotation" : {
+        "alternative_term" : [ "The LINCS Proteomic Characterization Center for Signaling and Epigenetics at the Broad Institute" ],
+        "定义来源" : [ "http://www.lincsproject.org/LINCS/centers/data-and-signature-generating-centers/lincs-pccse" ]
+      },
+      "type" : [ {
+        "iri" : "http://purl.obolibrary.org/obo/CLO_0000008",
+        "label" : "cell line repository",
+        "description" : [ "an organization that serves as a repository of cell lines.", "一个作为细胞系存储库的组织。" ],
+        "annotation" : {
+          "引自" : [ "http://purl.obolibrary.org/obo/clo.owl" ],
+          "术语编辑者" : [ "SS, YH" ]
+        },
+        "synonyms" : null,
+        "ontology_name" : "clo",
+        "ontology_prefix" : "CLO",
+        "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+        "is_obsolete" : false,
+        "term_replaced_by" : null,
+        "is_defining_ontology" : true,
+        "has_children" : false,
+        "is_root" : false,
+        "short_form" : "CLO_0000008",
+        "obo_id" : "CLO:0000008",
+        "in_subset" : null,
+        "obo_definition_citation" : null,
+        "obo_xref" : null,
+        "obo_synonym" : null
+      } ],
+      "synonyms" : null,
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "short_form" : "CLO_0037314",
+      "obo_id" : "CLO:0037314",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037314"
+        },
+        "types" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037314/types"
+        },
+        "alltypes" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037314/alltypes"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037314/jstree"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/CLO_0037315",
+      "label" : "BROAD_T",
+      "description" : null,
+      "annotation" : {
+        "定义来源" : [ "https://www.broadinstitute.org/", "http://lincsproject.org/LINCS/centers/data-and-signature-generating-centers/lincs-transcriptomics" ]
+      },
+      "type" : [ {
+        "iri" : "http://purl.obolibrary.org/obo/CLO_0000008",
+        "label" : "cell line repository",
+        "description" : [ "an organization that serves as a repository of cell lines.", "一个作为细胞系存储库的组织。" ],
+        "annotation" : {
+          "引自" : [ "http://purl.obolibrary.org/obo/clo.owl" ],
+          "术语编辑者" : [ "SS, YH" ]
+        },
+        "synonyms" : null,
+        "ontology_name" : "clo",
+        "ontology_prefix" : "CLO",
+        "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+        "is_obsolete" : false,
+        "term_replaced_by" : null,
+        "is_defining_ontology" : true,
+        "has_children" : false,
+        "is_root" : false,
+        "short_form" : "CLO_0000008",
+        "obo_id" : "CLO:0000008",
+        "in_subset" : null,
+        "obo_definition_citation" : null,
+        "obo_xref" : null,
+        "obo_synonym" : null
+      } ],
+      "synonyms" : null,
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "short_form" : "CLO_0037315",
+      "obo_id" : "CLO:0037315",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037315"
+        },
+        "types" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037315/types"
+        },
+        "alltypes" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037315/alltypes"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037315/jstree"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/CLO_0000006",
+      "label" : "ATCC",
+      "description" : [ "an organization that stores a large number of cell lines. Its website is: http://www.atcc.org." ],
+      "annotation" : {
+        "术语编辑者" : [ "YH, SS. YL" ]
+      },
+      "type" : [ {
+        "iri" : "http://purl.obolibrary.org/obo/CLO_0000008",
+        "label" : "cell line repository",
+        "description" : [ "an organization that serves as a repository of cell lines.", "一个作为细胞系存储库的组织。" ],
+        "annotation" : {
+          "引自" : [ "http://purl.obolibrary.org/obo/clo.owl" ],
+          "术语编辑者" : [ "SS, YH" ]
+        },
+        "synonyms" : null,
+        "ontology_name" : "clo",
+        "ontology_prefix" : "CLO",
+        "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+        "is_obsolete" : false,
+        "term_replaced_by" : null,
+        "is_defining_ontology" : true,
+        "has_children" : false,
+        "is_root" : false,
+        "short_form" : "CLO_0000008",
+        "obo_id" : "CLO:0000008",
+        "in_subset" : null,
+        "obo_definition_citation" : null,
+        "obo_xref" : null,
+        "obo_synonym" : null
+      } ],
+      "synonyms" : null,
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "short_form" : "CLO_0000006",
+      "obo_id" : "CLO:0000006",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0000006"
+        },
+        "types" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0000006/types"
+        },
+        "alltypes" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0000006/alltypes"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0000006/jstree"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/CLO_0000007",
+      "label" : "CLO_0000007",
+      "description" : [ "an organization that serves as a cell ine repository. Its website is: http://bioinformatics.istge.it/hypercldb/." ],
+      "annotation" : {
+        "术语编辑者" : [ "SS, YH,YL" ]
+      },
+      "type" : [ {
+        "iri" : "http://purl.obolibrary.org/obo/CLO_0000008",
+        "label" : "cell line repository",
+        "description" : [ "an organization that serves as a repository of cell lines.", "一个作为细胞系存储库的组织。" ],
+        "annotation" : {
+          "引自" : [ "http://purl.obolibrary.org/obo/clo.owl" ],
+          "术语编辑者" : [ "SS, YH" ]
+        },
+        "synonyms" : null,
+        "ontology_name" : "clo",
+        "ontology_prefix" : "CLO",
+        "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+        "is_obsolete" : false,
+        "term_replaced_by" : null,
+        "is_defining_ontology" : true,
+        "has_children" : false,
+        "is_root" : false,
+        "short_form" : "CLO_0000008",
+        "obo_id" : "CLO:0000008",
+        "in_subset" : null,
+        "obo_definition_citation" : null,
+        "obo_xref" : null,
+        "obo_synonym" : null
+      } ],
+      "synonyms" : null,
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "short_form" : "CLO_0000007",
+      "obo_id" : "CLO:0000007",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0000007"
+        },
+        "types" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0000007/types"
+        },
+        "alltypes" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0000007/alltypes"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0000007/jstree"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/CLO_0037344",
+      "label" : "hPSCreg",
+      "description" : [ "hPSCreg is a freely accessible global registry for human pluripotent stem cell lines (hPSC-lines), which is managed by Charité / BCRT. The registry allows searching for cell lines and for information available about these cell lines. New cell lines can be registered and information can be added to already registered cell lines." ],
+      "annotation" : {
+        "定义来源" : [ "https://hpscreg.eu/" ],
+        "术语编辑者" : [ "Stefanie Seltmann, Oliver He" ]
+      },
+      "type" : [ {
+        "iri" : "http://purl.obolibrary.org/obo/CLO_0037343",
+        "label" : "cell line registry",
+        "description" : [ "an organization that provides a place for registration and search of cell line information." ],
+        "annotation" : {
+          "术语编辑者" : [ "Stefanie Seltmann, Oliver He" ]
+        },
+        "synonyms" : null,
+        "ontology_name" : "clo",
+        "ontology_prefix" : "CLO",
+        "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+        "is_obsolete" : false,
+        "term_replaced_by" : null,
+        "is_defining_ontology" : true,
+        "has_children" : false,
+        "is_root" : false,
+        "short_form" : "CLO_0037343",
+        "obo_id" : "CLO:0037343",
+        "in_subset" : null,
+        "obo_definition_citation" : null,
+        "obo_xref" : null,
+        "obo_synonym" : null
+      } ],
+      "synonyms" : null,
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "short_form" : "CLO_0037344",
+      "obo_id" : "CLO:0037344",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037344"
+        },
+        "types" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037344/types"
+        },
+        "alltypes" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037344/alltypes"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037344/jstree"
+        }
+      }
+    }, {
+      "iri" : "http://purl.obolibrary.org/obo/CLO_0037341",
+      "label" : "SAMEA3174344",
+      "description" : null,
+      "annotation" : {
+        "comment" : [ "This donor was used to generate several stem cell lines, including EDi008-A and EDi008-B." ],
+        "定义来源" : [ "https://www.ebi.ac.uk/biosamples/samples/SAMEA3174344" ],
+        "替代术语" : [ "G51D", "SNCA0912", "GS1D" ],
+        "术语编辑者" : [ "Stefanie Seltmann, Oliver He" ]
+      },
+      "type" : [ {
+        "iri" : "http://purl.obolibrary.org/obo/CLO_0037340",
+        "label" : "human tissue donor",
+        "description" : null,
+        "annotation" : {
+          "definition" : [ "A human thoat donotes tissue" ],
+          "术语编辑者" : [ "Stefanie Seltmann, Oliver He" ]
+        },
+        "synonyms" : null,
+        "ontology_name" : "clo",
+        "ontology_prefix" : "CLO",
+        "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+        "is_obsolete" : false,
+        "term_replaced_by" : null,
+        "is_defining_ontology" : true,
+        "has_children" : false,
+        "is_root" : false,
+        "short_form" : "CLO_0037340",
+        "obo_id" : "CLO:0037340",
+        "in_subset" : null,
+        "obo_definition_citation" : null,
+        "obo_xref" : null,
+        "obo_synonym" : null
+      } ],
+      "synonyms" : null,
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "short_form" : "CLO_0037341",
+      "obo_id" : "CLO:0037341",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037341"
+        },
+        "types" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037341/types"
+        },
+        "alltypes" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037341/alltypes"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/individuals/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037341/jstree"
+        }
+      }
+    }, {
       "iri" : "http://purl.obolibrary.org/obo/RO_0001901",
       "label" : "axiom holds for all times",
       "description" : [ "\n\n## Elucidation\n\nThis is used when the statement/axiom is assumed to hold true 'eternally'\n\n## How to interpret (informal)\n\nFirst the \"atemporal\" FOL is derived from the OWL using the standard\ninterpretation. This axiom is temporalized by embedding the axiom\nwithin a for-all-times quantified sentence. The t argument is added to\nall instantiation predicates and predicates that use this relation.\n\n## Example\n\n    Class: nucleus\n    SubClassOf: part_of some cell\n\n    forall t :\n      forall n :\n        instance_of(n,Nucleus,t)\n         implies\n        exists c :\n          instance_of(c,Cell,t)\n          part_of(n,c,t)\n\n## Notes\n\nThis interpretation is *not* the same as an at-all-times relation\n\n" ],
@@ -111,7 +693,7 @@ Content-Length: 5125
   },
   "page" : {
     "size" : 20,
-    "totalElements" : 2,
+    "totalElements" : 15,
     "totalPages" : 1,
     "number" : 0
   }

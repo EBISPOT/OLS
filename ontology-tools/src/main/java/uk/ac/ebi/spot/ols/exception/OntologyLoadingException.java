@@ -8,11 +8,7 @@ package uk.ac.ebi.spot.ols.exception;
 public class OntologyLoadingException extends Exception {
     public OntologyLoadingException() {
     }
-
-    public OntologyLoadingException(String message) {
-        super(message);
-    }
-
+    
     public OntologyLoadingException(String message, Throwable cause) {
         super(message, cause);
     }

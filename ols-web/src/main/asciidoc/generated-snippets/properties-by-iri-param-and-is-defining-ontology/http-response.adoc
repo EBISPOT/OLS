@@ -2,7 +2,7 @@
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 1505
+Content-Length: 1496
 
 {
   "_embedded" : {
@@ -10,7 +10,7 @@ Content-Length: 1505
       "annotation" : { },
       "synonyms" : null,
       "iri" : "http://www.ebi.ac.uk/efo/EFO_0000784",
-      "label" : "has_disease_location",
+      "label" : "EFO_0000784",
       "synonym" : null,
       "description" : null,
       "ontology_name" : "efo",

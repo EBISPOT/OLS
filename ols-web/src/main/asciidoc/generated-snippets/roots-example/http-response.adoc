@@ -2,17 +2,17 @@
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 5572
+Content-Length: 5565
 
 {
   "_embedded" : {
     "terms" : [ {
       "iri" : "http://www.geneontology.org/formats/oboInOwl#ObsoleteClass",
-      "label" : "obsolete class",
+      "label" : "ObsoleteClass",
       "description" : null,
       "annotation" : {
         "EFO_URI" : [ "http://www.ebi.ac.uk/efo/EFO_0000745" ],
-        "definition" : [ "An obsolete class is any class which is no longer required in the ontology but is maintained within the ontology file so that an audit trail exists for legacy reasons. Obsolete class and its children  is disjoint with the main body of the ontology.\n\nIn EFO's scope, an obsolete class that holds an external-ontology namespace (i.e., non-EFO identifier) may or may not be an obsolete class in the source ontology. Instead, it is only implied that the imported term are no longer needed or has been replaced by another term in EFO." ],
+        "IAO_0000115" : [ "An obsolete class is any class which is no longer required in the ontology but is maintained within the ontology file so that an audit trail exists for legacy reasons. Obsolete class and its children  is disjoint with the main body of the ontology.\n\nIn EFO's scope, an obsolete class that holds an external-ontology namespace (i.e., non-EFO identifier) may or may not be an obsolete class in the source ontology. Instead, it is only implied that the imported term are no longer needed or has been replaced by another term in EFO." ],
         "organizational_class" : [ "true" ]
       },
       "synonyms" : null,
@@ -52,16 +52,16 @@ Content-Length: 5572
       }
     }, {
       "iri" : "http://www.ebi.ac.uk/efo/EFO_0000001",
-      "label" : "experimental factor",
+      "label" : "EFO_0000001",
       "description" : null,
       "annotation" : {
+        "IAO_0000115" : [ "An experimental factor in Array Express which are essentially the variable aspects of an experiment design which can be used to describe an experiment, or set of experiments, in an increasingly detailed manner. This upper level class is really used to give a root class from which applications can rely on and not be tied to upper ontology classses which do change." ],
+        "IAO_0000117" : [ "Helen Parkinson", "James Malone", "Tomasz Adamusiak", "Jie Zheng" ],
         "MO_definition_citation" : [ "MO:10" ],
         "bioportal_provenance" : [ "ExperimentalFactor[accessedResource: MO_10][accessDate: 05-04-2011]" ],
         "comment" : [ "Concept naming convention is lower case natural naming with spaces, when necessary captials should be used, for example disease factor, HIV, breast carcinoma, Ewing's sarcoma" ],
         "created_by" : [ "Helen Parkinson", "James Malone", "Tomasz Adamusiak" ],
-        "definition" : [ "An experimental factor in Array Express which are essentially the variable aspects of an experiment design which can be used to describe an experiment, or set of experiments, in an increasingly detailed manner. This upper level class is really used to give a root class from which applications can rely on and not be tied to upper ontology classses which do change." ],
-        "organizational_class" : [ "true" ],
-        "term editor" : [ "Helen Parkinson", "James Malone", "Tomasz Adamusiak", "Jie Zheng" ]
+        "organizational_class" : [ "true" ]
       },
       "synonyms" : [ "ExperimentalFactor" ],
       "ontology_name" : "efo",

@@ -2,20 +2,20 @@
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 90369
+Content-Length: 90097
 
 {
   "_embedded" : {
     "terms" : [ {
       "iri" : "http://purl.obolibrary.org/obo/GO_0097597",
-      "label" : "ventral disc",
+      "label" : "GO_0097597",
       "description" : [ "Specialized organelle found in Giardia species (trophozoite stage) and characterized by a spiral array of microtubules and microtubule-associated structures including dorsal microribbons and crossbridges. The edge of the ventral disc narrows into a lateral crest. The ventral disk mediates mechanical attachment of the trophozoite to the host's intestinal wall, and contains the contractile proteins actinin, alpha-actinin, myosin, and tropomyosin working towards contraction of the disk involved in adherence." ],
       "annotation" : {
         "comment" : [ "Due to the asymmetric nature of the Giardia trophozoite, this term is defined spatially as the trophozoite is viewed from the dorsal side, with the two nuclei dorsal to the ventral disc, and the ventral disc toward the anterior." ],
         "created_by" : [ "paola" ],
         "creation_date" : [ "2014-04-03T11:29:58Z" ],
-        "has_obo_namespace" : [ "cellular_component" ],
-        "has_related_synonym" : [ "adhesive disc", "ventral disk" ],
+        "hasOBONamespace" : [ "cellular_component" ],
+        "hasRelatedSynonym" : [ "adhesive disc", "ventral disk" ],
         "id" : [ "GO:0097597" ]
       },
       "synonyms" : [ "ventral adhesive disc" ],
@@ -38,20 +38,20 @@ Content-Length: 90369
           "description" : null,
           "url" : "https://www.worldcat.org/search?q=bn%3A9780124260207"
         }, {
-          "database" : "GOC",
-          "id" : "giardia",
+          "database" : "PMID",
+          "id" : "4777416",
           "description" : null,
-          "url" : null
+          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/4777416"
         }, {
           "database" : "PMID",
           "id" : "11432808",
           "description" : null,
           "url" : "http://www.ncbi.nlm.nih.gov/pubmed/11432808"
         }, {
-          "database" : "PMID",
-          "id" : "4777416",
+          "database" : "GOC",
+          "id" : "giardia",
           "description" : null,
-          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/4777416"
+          "url" : null
         }, {
           "database" : "PMID",
           "id" : "5961344",
@@ -95,21 +95,21 @@ Content-Length: 90369
         "graph" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097597/graph"
         },
-        "has_part" : {
+        "BFO_0000051" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097597/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000051"
         }
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0005929",
-      "label" : "cilium",
+      "label" : "GO_0005929",
       "description" : [ "A specialized eukaryotic organelle that consists of a filiform extrusion of the cell surface and of some cytoplasmic parts. Each cilium is largely bounded by an extrusion of the cytoplasmic (plasma) membrane, and contains a regular longitudinal array of microtubules, anchored to a basal body." ],
       "annotation" : {
         "comment" : [ "Note that we deem cilium and microtubule-based flagellum to be equivalent. In most eukaryotic species, intracellular sub-components of the cilium, such as the ciliary base and rootlet, are located near the plasma membrane. In Diplomonads such as Giardia, instead, the same ciliary parts are located further intracellularly. Also, 'cilium' may be used when axonemal structure and/or motility are unknown, or when axonemal structure is unusual. For all other cases, please refer to children of 'cilium'. Finally, note that any role of ciliary proteins in sensory events should be captured by annotating to relevant biological process terms." ],
-        "database_cross_reference" : [ "NIF_Subcellular:sao787716553", "FMA:67181", "Wikipedia:Cilium" ],
-        "has_alternative_id" : [ "GO:0072372" ],
-        "has_narrow_synonym" : [ "primary cilium" ],
-        "has_obo_namespace" : [ "cellular_component" ],
-        "has_related_synonym" : [ "flagellum" ],
+        "hasAlternativeId" : [ "GO:0072372" ],
+        "hasDbXref" : [ "NIF_Subcellular:sao787716553", "FMA:67181", "Wikipedia:Cilium" ],
+        "hasNarrowSynonym" : [ "primary cilium" ],
+        "hasOBONamespace" : [ "cellular_component" ],
+        "hasRelatedSynonym" : [ "flagellum" ],
         "id" : [ "GO:0005929" ]
       },
       "synonyms" : [ "microtubule-based flagellum", "eukaryotic flagellum" ],
@@ -127,23 +127,13 @@ Content-Length: 90369
       "obo_definition_citation" : [ {
         "definition" : "A specialized eukaryotic organelle that consists of a filiform extrusion of the cell surface and of some cytoplasmic parts. Each cilium is largely bounded by an extrusion of the cytoplasmic (plasma) membrane, and contains a regular longitudinal array of microtubules, anchored to a basal body.",
         "oboXrefs" : [ {
+          "database" : "ISBN",
+          "id" : "0198547684",
+          "description" : null,
+          "url" : "https://www.worldcat.org/search?q=bn%3A0198547684"
+        }, {
           "database" : "GOC",
           "id" : "cilia",
-          "description" : null,
-          "url" : null
-        }, {
-          "database" : "PMID",
-          "id" : "16824949",
-          "description" : null,
-          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/16824949"
-        }, {
-          "database" : "PMID",
-          "id" : "17009929",
-          "description" : null,
-          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/17009929"
-        }, {
-          "database" : "GOC",
-          "id" : "curators",
           "description" : null,
           "url" : null
         }, {
@@ -152,15 +142,25 @@ Content-Length: 90369
           "description" : null,
           "url" : "http://www.ncbi.nlm.nih.gov/pubmed/20144998"
         }, {
+          "database" : "PMID",
+          "id" : "16824949",
+          "description" : null,
+          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/16824949"
+        }, {
+          "database" : "GOC",
+          "id" : "curators",
+          "description" : null,
+          "url" : null
+        }, {
           "database" : "GOC",
           "id" : "vw",
           "description" : null,
           "url" : null
         }, {
-          "database" : "ISBN",
-          "id" : "0198547684",
+          "database" : "PMID",
+          "id" : "17009929",
           "description" : null,
-          "url" : "https://www.worldcat.org/search?q=bn%3A0198547684"
+          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/17009929"
         }, {
           "database" : "GOC",
           "id" : "kmv",
@@ -169,20 +169,20 @@ Content-Length: 90369
         } ]
       } ],
       "obo_xref" : [ {
-        "database" : "FMA",
-        "id" : "67181",
+        "database" : "Wikipedia",
+        "id" : "Cilium",
         "description" : null,
-        "url" : null
+        "url" : "http://en.wikipedia.org/wiki/Cilium"
       }, {
         "database" : "NIF_Subcellular",
         "id" : "sao787716553",
         "description" : null,
         "url" : "http://www.neurolex.org/wiki/sao787716553"
       }, {
-        "database" : "Wikipedia",
-        "id" : "Cilium",
+        "database" : "FMA",
+        "id" : "67181",
         "description" : null,
-        "url" : "http://en.wikipedia.org/wiki/Cilium"
+        "url" : null
       } ],
       "obo_synonym" : null,
       "_links" : {
@@ -219,20 +219,20 @@ Content-Length: 90369
         "graph" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005929/graph"
         },
-        "has_part" : {
+        "BFO_0000051" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005929/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000051"
         }
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0097730",
-      "label" : "non-motile cilium",
+      "label" : "GO_0097730",
       "description" : [ "A cilium which may have a variable array of axonemal microtubules but does not contain molecular motors." ],
       "annotation" : {
         "created_by" : [ "paola" ],
         "creation_date" : [ "2016-09-29T14:02:11Z" ],
-        "has_alternative_id" : [ "GO:0031513" ],
-        "has_obo_namespace" : [ "cellular_component" ],
-        "has_related_synonym" : [ "nonmotile primary cilia", "nonmotile primary cilium", "immotile primary cilium", "sensory cilium" ],
+        "hasAlternativeId" : [ "GO:0031513" ],
+        "hasOBONamespace" : [ "cellular_component" ],
+        "hasRelatedSynonym" : [ "nonmotile primary cilia", "nonmotile primary cilium", "immotile primary cilium", "sensory cilium" ],
         "id" : [ "GO:0097730" ]
       },
       "synonyms" : [ "immotile cilium", "nonmotile cilium" ],
@@ -256,43 +256,33 @@ Content-Length: 90369
           "url" : null
         }, {
           "database" : "PMID",
-          "id" : "22118931",
-          "description" : null,
-          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/22118931"
-        }, {
-          "database" : "PMID",
           "id" : "17009929",
           "description" : null,
           "url" : "http://www.ncbi.nlm.nih.gov/pubmed/17009929"
+        }, {
+          "database" : "GOC",
+          "id" : "kmv",
+          "description" : null,
+          "url" : null
         }, {
           "database" : "PMID",
           "id" : "20144998",
           "description" : null,
           "url" : "http://www.ncbi.nlm.nih.gov/pubmed/20144998"
         }, {
-          "database" : "GOC",
-          "id" : "cilia",
+          "database" : "PMID",
+          "id" : "22118931",
           "description" : null,
-          "url" : null
+          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/22118931"
         }, {
           "database" : "GOC",
-          "id" : "kmv",
+          "id" : "cilia",
           "description" : null,
           "url" : null
         } ]
       } ],
       "obo_xref" : null,
       "obo_synonym" : [ {
-        "name" : "nonmotile primary cilia",
-        "scope" : "hasRelatedSynonym",
-        "type" : null,
-        "xrefs" : [ {
-          "database" : "GOC",
-          "id" : "curators",
-          "description" : null,
-          "url" : null
-        } ]
-      }, {
         "name" : "immotile primary cilium",
         "scope" : "hasRelatedSynonym",
         "type" : null,
@@ -304,6 +294,16 @@ Content-Length: 90369
         } ]
       }, {
         "name" : "sensory cilium",
+        "scope" : "hasRelatedSynonym",
+        "type" : null,
+        "xrefs" : [ {
+          "database" : "GOC",
+          "id" : "curators",
+          "description" : null,
+          "url" : null
+        } ]
+      }, {
+        "name" : "nonmotile primary cilia",
         "scope" : "hasRelatedSynonym",
         "type" : null,
         "xrefs" : [ {
@@ -350,14 +350,14 @@ Content-Length: 90369
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0097731",
-      "label" : "9+0 non-motile cilium",
+      "label" : "GO_0097731",
       "description" : [ "A non-motile cilium where the axoneme has a ring of nine outer microtubule doublets but no central microtubules (and is therefore called a 9+0 axoneme)." ],
       "annotation" : {
         "comment" : [ "This type of cilia may be present in solitary (authentic primary cilia in many cell types) or in multiple copies (e.g. in Grueneberg ganglion neurons)." ],
         "created_by" : [ "paola" ],
         "creation_date" : [ "2016-09-29T14:05:03Z" ],
-        "has_narrow_synonym" : [ "primary cilium" ],
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasNarrowSynonym" : [ "primary cilium" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0097731" ]
       },
       "synonyms" : [ "non-motile 9+0 cilium", "9+0 immotile cilium" ],
@@ -425,12 +425,12 @@ Content-Length: 90369
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0097733",
-      "label" : "photoreceptor cell cilium",
+      "label" : "GO_0097733",
       "description" : [ "A specialised 9+0 non-motile cilium found in photoreceptor cells. A ciliary transition zone called 'photoreceptor connecting cilium' links the photoreceptor outer segment to the inner segment." ],
       "annotation" : {
         "created_by" : [ "paola" ],
         "creation_date" : [ "2016-09-30T10:50:11Z" ],
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0097733" ]
       },
       "synonyms" : [ "photoreceptor cilium" ],
@@ -448,15 +448,15 @@ Content-Length: 90369
       "obo_definition_citation" : [ {
         "definition" : "A specialised 9+0 non-motile cilium found in photoreceptor cells. A ciliary transition zone called 'photoreceptor connecting cilium' links the photoreceptor outer segment to the inner segment.",
         "oboXrefs" : [ {
-          "database" : null,
-          "id" : "http://en.wikipedia.org/wiki/Photoreceptor_cell#Histology",
-          "description" : null,
-          "url" : "http://en.wikipedia.org/wiki/Photoreceptor_cell#Histology"
-        }, {
           "database" : "GOC",
           "id" : "cilia",
           "description" : null,
           "url" : null
+        }, {
+          "database" : null,
+          "id" : "http://en.wikipedia.org/wiki/Photoreceptor_cell#Histology",
+          "description" : null,
+          "url" : "http://en.wikipedia.org/wiki/Photoreceptor_cell#Histology"
         } ]
       } ],
       "obo_xref" : null,
@@ -498,14 +498,14 @@ Content-Length: 90369
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0097732",
-      "label" : "9+2 non-motile cilium",
+      "label" : "GO_0097732",
       "description" : [ "A non-motile cilium where the axoneme has a ring of nine outer microtubule doublets plus two central microtubules (and is therefore called a 9+2 axoneme)." ],
       "annotation" : {
         "comment" : [ "This type of cilia may be present in solitary (e.g. in inner hair cells) or in multiple copies (e.g. in olfactory neurons)." ],
         "created_by" : [ "paola" ],
         "creation_date" : [ "2016-09-29T14:07:33Z" ],
-        "has_obo_namespace" : [ "cellular_component" ],
-        "has_related_synonym" : [ "9+2 immotile cilium" ],
+        "hasOBONamespace" : [ "cellular_component" ],
+        "hasRelatedSynonym" : [ "9+2 immotile cilium" ],
         "id" : [ "GO:0097732" ]
       },
       "synonyms" : [ "non-motile 9+2 cilium" ],
@@ -524,11 +524,6 @@ Content-Length: 90369
         "definition" : "A non-motile cilium where the axoneme has a ring of nine outer microtubule doublets plus two central microtubules (and is therefore called a 9+2 axoneme).",
         "oboXrefs" : [ {
           "database" : "PMID",
-          "id" : "22118931",
-          "description" : null,
-          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/22118931"
-        }, {
-          "database" : "PMID",
           "id" : "21307074",
           "description" : null,
           "url" : "http://www.ncbi.nlm.nih.gov/pubmed/21307074"
@@ -537,6 +532,11 @@ Content-Length: 90369
           "id" : "cilia",
           "description" : null,
           "url" : null
+        }, {
+          "database" : "PMID",
+          "id" : "22118931",
+          "description" : null,
+          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/22118931"
         } ]
       } ],
       "obo_xref" : null,
@@ -575,17 +575,17 @@ Content-Length: 90369
         "graph" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097732/graph"
         },
-        "has_part" : {
+        "BFO_0000051" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097732/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000051"
         }
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0060091",
-      "label" : "kinocilium",
+      "label" : "GO_0060091",
       "description" : [ "A nonmotile primary cilium that is found at the apical surface of auditory receptor cells. The kinocilium is surrounded by actin-based stereocilia." ],
       "annotation" : {
-        "database_cross_reference" : [ "Wikipedia:Kinocilium" ],
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasDbXref" : [ "Wikipedia:Kinocilium" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0060091" ]
       },
       "synonyms" : null,
@@ -604,11 +604,6 @@ Content-Length: 90369
         "definition" : "A nonmotile primary cilium that is found at the apical surface of auditory receptor cells. The kinocilium is surrounded by actin-based stereocilia.",
         "oboXrefs" : [ {
           "database" : "GOC",
-          "id" : "dph",
-          "description" : null,
-          "url" : null
-        }, {
-          "database" : "GOC",
           "id" : "cilia",
           "description" : null,
           "url" : null
@@ -617,6 +612,11 @@ Content-Length: 90369
           "id" : "15882574",
           "description" : null,
           "url" : "http://www.ncbi.nlm.nih.gov/pubmed/15882574"
+        }, {
+          "database" : "GOC",
+          "id" : "dph",
+          "description" : null,
+          "url" : null
         } ]
       } ],
       "obo_xref" : [ {
@@ -660,18 +660,18 @@ Content-Length: 90369
         "graph" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0060091/graph"
         },
-        "part_of" : {
+        "BFO_0000050" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0060091/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
         }
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0031514",
-      "label" : "motile cilium",
+      "label" : "GO_0031514",
       "description" : [ "A cilium which may have a variable arrangement of axonemal microtubules and also contains molecular motors. It may beat with a whip-like pattern that promotes cell motility or transport of fluids and other cells across a cell surface, such as on epithelial cells that line the lumenal ducts of various tissues; or they may display a distinct twirling motion that directs fluid flow asymmetrically across the cellular surface to affect asymmetric body plan organization. Motile cilia can be found in single as well as multiple copies per cell." ],
       "annotation" : {
-        "has_alternative_id" : [ "GO:0009434", "GO:0031512" ],
-        "has_obo_namespace" : [ "cellular_component" ],
-        "has_related_synonym" : [ "nodal cilium", "motile primary cilia", "microtubule-based flagellum", "motile primary cilium", "motile secondary cilium" ],
+        "hasAlternativeId" : [ "GO:0009434", "GO:0031512" ],
+        "hasOBONamespace" : [ "cellular_component" ],
+        "hasRelatedSynonym" : [ "nodal cilium", "motile primary cilia", "microtubule-based flagellum", "motile primary cilium", "motile secondary cilium" ],
         "id" : [ "GO:0031514" ]
       },
       "synonyms" : [ "motile cilia" ],
@@ -690,6 +690,16 @@ Content-Length: 90369
         "definition" : "A cilium which may have a variable arrangement of axonemal microtubules and also contains molecular motors. It may beat with a whip-like pattern that promotes cell motility or transport of fluids and other cells across a cell surface, such as on epithelial cells that line the lumenal ducts of various tissues; or they may display a distinct twirling motion that directs fluid flow asymmetrically across the cellular surface to affect asymmetric body plan organization. Motile cilia can be found in single as well as multiple copies per cell.",
         "oboXrefs" : [ {
           "database" : "PMID",
+          "id" : "20144998",
+          "description" : null,
+          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/20144998"
+        }, {
+          "database" : "GOC",
+          "id" : "cilia",
+          "description" : null,
+          "url" : null
+        }, {
+          "database" : "PMID",
           "id" : "17009929",
           "description" : null,
           "url" : "http://www.ncbi.nlm.nih.gov/pubmed/17009929"
@@ -698,16 +708,6 @@ Content-Length: 90369
           "id" : "22118931",
           "description" : null,
           "url" : "http://www.ncbi.nlm.nih.gov/pubmed/22118931"
-        }, {
-          "database" : "GOC",
-          "id" : "cilia",
-          "description" : null,
-          "url" : null
-        }, {
-          "database" : "PMID",
-          "id" : "20144998",
-          "description" : null,
-          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/20144998"
         }, {
           "database" : "GOC",
           "id" : "dgh",
@@ -732,8 +732,8 @@ Content-Length: 90369
           "url" : null
         } ]
       }, {
-        "name" : "motile cilia",
-        "scope" : "hasExactSynonym",
+        "name" : "motile primary cilia",
+        "scope" : "hasRelatedSynonym",
         "type" : null,
         "xrefs" : [ {
           "database" : "GOC",
@@ -752,8 +752,8 @@ Content-Length: 90369
           "url" : null
         } ]
       }, {
-        "name" : "motile primary cilia",
-        "scope" : "hasRelatedSynonym",
+        "name" : "motile cilia",
+        "scope" : "hasExactSynonym",
         "type" : null,
         "xrefs" : [ {
           "database" : "GOC",
@@ -799,14 +799,14 @@ Content-Length: 90369
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0097728",
-      "label" : "9+0 motile cilium",
+      "label" : "GO_0097728",
       "description" : [ "A motile cilium where the axoneme has a ring of nine outer microtubule doublets but no central microtubules (and is therefore called a 9+0 axoneme)." ],
       "annotation" : {
         "comment" : [ "This type of cilia may be present in solitary (classic nodal cilia in embryonic nodes) or in multiple copies (e.g. in the choroid plexus epithelium)." ],
         "created_by" : [ "paola" ],
         "creation_date" : [ "2016-09-27T15:24:37Z" ],
-        "has_narrow_synonym" : [ "nodal cilium" ],
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasNarrowSynonym" : [ "nodal cilium" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0097728" ]
       },
       "synonyms" : [ "motile 9+0 cilium" ],
@@ -864,20 +864,20 @@ Content-Length: 90369
         "graph" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097728/graph"
         },
-        "has_part" : {
+        "BFO_0000051" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097728/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000051"
         }
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0097729",
-      "label" : "9+2 motile cilium",
+      "label" : "GO_0097729",
       "description" : [ "A motile cilium where the axoneme has a ring of nine outer microtubule doublets plus two central microtubules (and is therefore called a 9+2 axoneme)." ],
       "annotation" : {
         "comment" : [ "This type of cilia may be present in solitary (so-called flagella, e.g. in sperm) or in multiple copies (so-called conventional motile cilia, e.g. in tracheal epithelium, ependyma or oviduct epithelium)." ],
         "created_by" : [ "paola" ],
         "creation_date" : [ "2016-09-27T15:26:34Z" ],
-        "has_narrow_synonym" : [ "conventional motile cilium", "sperm flagellum" ],
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasNarrowSynonym" : [ "conventional motile cilium", "sperm flagellum" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0097729" ]
       },
       "synonyms" : [ "motile 9+2 cilium" ],
@@ -895,15 +895,15 @@ Content-Length: 90369
       "obo_definition_citation" : [ {
         "definition" : "A motile cilium where the axoneme has a ring of nine outer microtubule doublets plus two central microtubules (and is therefore called a 9+2 axoneme).",
         "oboXrefs" : [ {
-          "database" : "GOC",
-          "id" : "cilia",
-          "description" : null,
-          "url" : null
-        }, {
           "database" : "PMID",
           "id" : "22118931",
           "description" : null,
           "url" : "http://www.ncbi.nlm.nih.gov/pubmed/22118931"
+        }, {
+          "database" : "GOC",
+          "id" : "cilia",
+          "description" : null,
+          "url" : null
         } ]
       } ],
       "obo_xref" : null,
@@ -942,19 +942,19 @@ Content-Length: 90369
         "graph" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097729/graph"
         },
-        "has_part" : {
+        "BFO_0000051" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0097729/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000051"
         }
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0097608",
-      "label" : "transverse flagellum",
+      "label" : "GO_0097608",
       "description" : [ "A motile cilium found in dinoflagellates. It coils around the cell and provides the forward thrust for motility. It is often contained in a furrow called the cingulum, and emerges from a flagellar pore located in the cingulum." ],
       "annotation" : {
         "comment" : [ "Note that we deem cilium and microtubule-based flagellum to be equivalent. In this case community usage refers to 'flagellum' rather than 'cilium', hence the primary term name, but the cilium parentage is deliberate." ],
         "created_by" : [ "paola" ],
         "creation_date" : [ "2014-06-09T11:14:37Z" ],
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0097608" ]
       },
       "synonyms" : [ "transverse cilium" ],
@@ -973,19 +973,9 @@ Content-Length: 90369
         "definition" : "A motile cilium found in dinoflagellates. It coils around the cell and provides the forward thrust for motility. It is often contained in a furrow called the cingulum, and emerges from a flagellar pore located in the cingulum.",
         "oboXrefs" : [ {
           "database" : null,
-          "id" : "http://tolweb.org/Dinoflagellates/2445",
-          "description" : null,
-          "url" : "http://tolweb.org/Dinoflagellates/2445"
-        }, {
-          "database" : null,
           "id" : "http://www.sms.si.edu/irlspec/Phyl_Dinofl_Glossary.htm",
           "description" : null,
           "url" : "http://www.sms.si.edu/irlspec/Phyl_Dinofl_Glossary.htm"
-        }, {
-          "database" : "ISBN",
-          "id" : "0632009152",
-          "description" : null,
-          "url" : "https://www.worldcat.org/search?q=bn%3A0632009152"
         }, {
           "database" : "GOC",
           "id" : "at",
@@ -996,6 +986,16 @@ Content-Length: 90369
           "id" : "http://en.wikipedia.org/wiki/Dinoflagellate#Morphology",
           "description" : null,
           "url" : "http://en.wikipedia.org/wiki/Dinoflagellate#Morphology"
+        }, {
+          "database" : null,
+          "id" : "http://tolweb.org/Dinoflagellates/2445",
+          "description" : null,
+          "url" : "http://tolweb.org/Dinoflagellates/2445"
+        }, {
+          "database" : "ISBN",
+          "id" : "0632009152",
+          "description" : null,
+          "url" : "https://www.worldcat.org/search?q=bn%3A0632009152"
         } ]
       } ],
       "obo_xref" : null,
@@ -1025,13 +1025,13 @@ Content-Length: 90369
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0097609",
-      "label" : "longitudinal flagellum",
+      "label" : "GO_0097609",
       "description" : [ "A motile cilium found in dinoflagellates. It trails the cell and acts as a steering rudder. It is often partially contained in a furrow called the sulcus, and emerges from a flagellar pore located in the sulcus." ],
       "annotation" : {
         "comment" : [ "Note that we deem cilium and microtubule-based flagellum to be equivalent. In this case community usage refers to 'flagellum' rather than 'cilium', hence the primary term name, but the cilium parentage is deliberate." ],
         "created_by" : [ "paola" ],
         "creation_date" : [ "2014-06-09T11:21:10Z" ],
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0097609" ]
       },
       "synonyms" : [ "longitudinal cilium" ],
@@ -1049,10 +1049,10 @@ Content-Length: 90369
       "obo_definition_citation" : [ {
         "definition" : "A motile cilium found in dinoflagellates. It trails the cell and acts as a steering rudder. It is often partially contained in a furrow called the sulcus, and emerges from a flagellar pore located in the sulcus.",
         "oboXrefs" : [ {
-          "database" : "ISBN",
-          "id" : "0632009152",
+          "database" : null,
+          "id" : "http://tolweb.org/Dinoflagellates/2445",
           "description" : null,
-          "url" : "https://www.worldcat.org/search?q=bn%3A0632009152"
+          "url" : "http://tolweb.org/Dinoflagellates/2445"
         }, {
           "database" : null,
           "id" : "http://en.wikipedia.org/wiki/Dinoflagellate#Morphology",
@@ -1064,15 +1064,15 @@ Content-Length: 90369
           "description" : null,
           "url" : "http://www.sms.si.edu/irlspec/Phyl_Dinofl_Glossary.htm"
         }, {
-          "database" : null,
-          "id" : "http://tolweb.org/Dinoflagellates/2445",
-          "description" : null,
-          "url" : "http://tolweb.org/Dinoflagellates/2445"
-        }, {
           "database" : "GOC",
           "id" : "at",
           "description" : null,
           "url" : null
+        }, {
+          "database" : "ISBN",
+          "id" : "0632009152",
+          "description" : null,
+          "url" : "https://www.worldcat.org/search?q=bn%3A0632009152"
         } ]
       } ],
       "obo_xref" : null,
@@ -1102,13 +1102,13 @@ Content-Length: 90369
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0097554",
-      "label" : "left anterior flagellum",
+      "label" : "GO_0097554",
       "description" : [ "A cilium (also called flagellum) found in Giardia species (trophozoite stage). It originates at the left anterior basal body, extends laterally through the cytoplasm, crosses the right anterior axoneme, and exits as a membrane-bound flagellum on the anterior left side of the cell." ],
       "annotation" : {
         "comment" : [ "Note that we deem cilium and microtubule-based flagellum to be equivalent; the primary term name reflects frequency of use. Also note that, due to the asymmetric nature of the Giardia trophozoite, this term is defined spatially as the trophozoite is viewed from the dorsal side, with the two nuclei dorsal to the ventral disc, and the ventral disc toward the anterior." ],
         "created_by" : [ "paola" ],
         "creation_date" : [ "2014-02-05T12:47:41Z" ],
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0097554" ]
       },
       "synonyms" : [ "left anterior cilium" ],
@@ -1126,15 +1126,15 @@ Content-Length: 90369
       "obo_definition_citation" : [ {
         "definition" : "A cilium (also called flagellum) found in Giardia species (trophozoite stage). It originates at the left anterior basal body, extends laterally through the cytoplasm, crosses the right anterior axoneme, and exits as a membrane-bound flagellum on the anterior left side of the cell.",
         "oboXrefs" : [ {
-          "database" : "GOC",
-          "id" : "giardia",
-          "description" : null,
-          "url" : null
-        }, {
           "database" : "PMID",
           "id" : "5961344",
           "description" : null,
           "url" : "http://www.ncbi.nlm.nih.gov/pubmed/5961344"
+        }, {
+          "database" : "GOC",
+          "id" : "giardia",
+          "description" : null,
+          "url" : null
         }, {
           "database" : "ISBN",
           "id" : "9780124260207",
@@ -1186,13 +1186,13 @@ Content-Length: 90369
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0097555",
-      "label" : "right anterior flagellum",
+      "label" : "GO_0097555",
       "description" : [ "A cilium (also called flagellum) found in Giardia species (trophozoite stage). It originates at the right anterior basal body, extends laterally through the cytoplasm, crosses the left anterior axoneme, and exits as a membrane-bound flagellum on the anterior right side of the cell." ],
       "annotation" : {
         "comment" : [ "Note that we deem cilium and microtubule-based flagellum to be equivalent; the primary term name reflects frequency of use. Also note that, due to the asymmetric nature of the Giardia trophozoite, this term is defined spatially as the trophozoite is viewed from the dorsal side, with the two nuclei dorsal to the ventral disc, and the ventral disc toward the anterior." ],
         "created_by" : [ "paola" ],
         "creation_date" : [ "2014-02-05T13:18:36Z" ],
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0097555" ]
       },
       "synonyms" : [ "right anterior cilium" ],
@@ -1210,10 +1210,10 @@ Content-Length: 90369
       "obo_definition_citation" : [ {
         "definition" : "A cilium (also called flagellum) found in Giardia species (trophozoite stage). It originates at the right anterior basal body, extends laterally through the cytoplasm, crosses the left anterior axoneme, and exits as a membrane-bound flagellum on the anterior right side of the cell.",
         "oboXrefs" : [ {
-          "database" : "ISBN",
-          "id" : "9780124260207",
+          "database" : "PMID",
+          "id" : "16607022",
           "description" : null,
-          "url" : "https://www.worldcat.org/search?q=bn%3A9780124260207"
+          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/16607022"
         }, {
           "database" : "GOC",
           "id" : "giardia",
@@ -1221,14 +1221,14 @@ Content-Length: 90369
           "url" : null
         }, {
           "database" : "PMID",
-          "id" : "16607022",
-          "description" : null,
-          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/16607022"
-        }, {
-          "database" : "PMID",
           "id" : "5961344",
           "description" : null,
           "url" : "http://www.ncbi.nlm.nih.gov/pubmed/5961344"
+        }, {
+          "database" : "ISBN",
+          "id" : "9780124260207",
+          "description" : null,
+          "url" : "https://www.worldcat.org/search?q=bn%3A9780124260207"
         } ]
       } ],
       "obo_xref" : null,
@@ -1270,13 +1270,13 @@ Content-Length: 90369
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0097556",
-      "label" : "left posteriolateral flagellum",
+      "label" : "GO_0097556",
       "description" : [ "A cilium (also called flagellum) found in Giardia species (trophozoite stage). It is nucleated by the left posteriolateral basal body and extends cytoplasmically toward the cell posterior, marking the left anterior boundary of the lateral shield and the left lateral region of the funis before exiting at the left lateral region of the cell body." ],
       "annotation" : {
         "comment" : [ "Note that we deem cilium and microtubule-based flagellum to be equivalent; the primary term name reflects frequency of use. Also note that, due to the asymmetric nature of the Giardia trophozoite, this term is defined spatially as the trophozoite is viewed from the dorsal side, with the two nuclei dorsal to the ventral disc, and the ventral disc toward the anterior." ],
         "created_by" : [ "paola" ],
         "creation_date" : [ "2014-02-05T13:21:09Z" ],
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0097556" ]
       },
       "synonyms" : [ "left posteriolateral cilium", "left posterolateral flagellum", "left posterolateral cilium" ],
@@ -1354,13 +1354,13 @@ Content-Length: 90369
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0097557",
-      "label" : "right posteriolateral flagellum",
+      "label" : "GO_0097557",
       "description" : [ "A cilium (also called flagellum) found in Giardia species (trophozoite stage). It is nucleated by the right posteriolateral basal body and extends cytoplasmically toward the cell posterior, marking the right anterior boundary of the lateral shield and the right lateral region of the funis before exiting at the right lateral region of the cell body." ],
       "annotation" : {
         "comment" : [ "Note that we deem cilium and microtubule-based flagellum to be equivalent; the primary term name reflects frequency of use. Also note that, due to the asymmetric nature of the Giardia trophozoite, this term is defined spatially as the trophozoite is viewed from the dorsal side, with the two nuclei dorsal to the ventral disc, and the ventral disc toward the anterior." ],
         "created_by" : [ "paola" ],
         "creation_date" : [ "2014-02-05T13:24:55Z" ],
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0097557" ]
       },
       "synonyms" : [ "right posterolateral flagellum", "right posterolateral cilium", "right posteriolateral cilium" ],
@@ -1378,6 +1378,11 @@ Content-Length: 90369
       "obo_definition_citation" : [ {
         "definition" : "A cilium (also called flagellum) found in Giardia species (trophozoite stage). It is nucleated by the right posteriolateral basal body and extends cytoplasmically toward the cell posterior, marking the right anterior boundary of the lateral shield and the right lateral region of the funis before exiting at the right lateral region of the cell body.",
         "oboXrefs" : [ {
+          "database" : "GOC",
+          "id" : "giardia",
+          "description" : null,
+          "url" : null
+        }, {
           "database" : "ISBN",
           "id" : "9780124260207",
           "description" : null,
@@ -1392,11 +1397,6 @@ Content-Length: 90369
           "id" : "5961344",
           "description" : null,
           "url" : "http://www.ncbi.nlm.nih.gov/pubmed/5961344"
-        }, {
-          "database" : "GOC",
-          "id" : "giardia",
-          "description" : null,
-          "url" : null
         } ]
       } ],
       "obo_xref" : null,
@@ -1438,13 +1438,13 @@ Content-Length: 90369
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0097558",
-      "label" : "left ventral flagellum",
+      "label" : "GO_0097558",
       "description" : [ "A cilium (also called flagellum) found in Giardia species (trophozoite stage). It is nucleated by the left ventral basal body and exits the cell body proximally and dorsal to the ventral disc." ],
       "annotation" : {
         "comment" : [ "Note that we deem cilium and microtubule-based flagellum to be equivalent; the primary term name reflects frequency of use. Also note that, due to the asymmetric nature of the Giardia trophozoite, this term is defined spatially as the trophozoite is viewed from the dorsal side, with the two nuclei dorsal to the ventral disc, and the ventral disc toward the anterior." ],
         "created_by" : [ "paola" ],
         "creation_date" : [ "2014-02-05T13:26:51Z" ],
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0097558" ]
       },
       "synonyms" : [ "left ventral cilium" ],
@@ -1467,11 +1467,6 @@ Content-Length: 90369
           "description" : null,
           "url" : "http://www.ncbi.nlm.nih.gov/pubmed/5961344"
         }, {
-          "database" : "ISBN",
-          "id" : "9780124260207",
-          "description" : null,
-          "url" : "https://www.worldcat.org/search?q=bn%3A9780124260207"
-        }, {
           "database" : "GOC",
           "id" : "giardia",
           "description" : null,
@@ -1481,6 +1476,11 @@ Content-Length: 90369
           "id" : "16607022",
           "description" : null,
           "url" : "http://www.ncbi.nlm.nih.gov/pubmed/16607022"
+        }, {
+          "database" : "ISBN",
+          "id" : "9780124260207",
+          "description" : null,
+          "url" : "https://www.worldcat.org/search?q=bn%3A9780124260207"
         } ]
       } ],
       "obo_xref" : null,
@@ -1522,13 +1522,13 @@ Content-Length: 90369
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0097559",
-      "label" : "right ventral flagellum",
+      "label" : "GO_0097559",
       "description" : [ "A cilium (also called flagellum) found in Giardia species (trophozoite stage). It is nucleated by the right ventral basal body and exits the cell body proximally and dorsal to the ventral disc." ],
       "annotation" : {
         "comment" : [ "Note that we deem cilium and microtubule-based flagellum to be equivalent; the primary term name reflects frequency of use. Also note that, due to the asymmetric nature of the Giardia trophozoite, this term is defined spatially as the trophozoite is viewed from the dorsal side, with the two nuclei dorsal to the ventral disc, and the ventral disc toward the anterior." ],
         "created_by" : [ "paola" ],
         "creation_date" : [ "2014-02-05T13:28:20Z" ],
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0097559" ]
       },
       "synonyms" : [ "right ventral cilium" ],
@@ -1546,6 +1546,16 @@ Content-Length: 90369
       "obo_definition_citation" : [ {
         "definition" : "A cilium (also called flagellum) found in Giardia species (trophozoite stage). It is nucleated by the right ventral basal body and exits the cell body proximally and dorsal to the ventral disc.",
         "oboXrefs" : [ {
+          "database" : "GOC",
+          "id" : "giardia",
+          "description" : null,
+          "url" : null
+        }, {
+          "database" : "PMID",
+          "id" : "16607022",
+          "description" : null,
+          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/16607022"
+        }, {
           "database" : "ISBN",
           "id" : "9780124260207",
           "description" : null,
@@ -1555,16 +1565,6 @@ Content-Length: 90369
           "id" : "5961344",
           "description" : null,
           "url" : "http://www.ncbi.nlm.nih.gov/pubmed/5961344"
-        }, {
-          "database" : "PMID",
-          "id" : "16607022",
-          "description" : null,
-          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/16607022"
-        }, {
-          "database" : "GOC",
-          "id" : "giardia",
-          "description" : null,
-          "url" : null
         } ]
       } ],
       "obo_xref" : null,
@@ -1606,13 +1606,13 @@ Content-Length: 90369
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0097560",
-      "label" : "left caudal flagellum",
+      "label" : "GO_0097560",
       "description" : [ "A cilium (also called flagellum) found in Giardia species (trophozoite stage). It is nucleated by the left caudal basal body, extending cytoplasmically and exiting at the posterior end of the cell body." ],
       "annotation" : {
         "comment" : [ "Note that we deem cilium and microtubule-based flagellum to be equivalent; the primary term name reflects frequency of use. Also note that, due to the asymmetric nature of the Giardia trophozoite, this term is defined spatially as the trophozoite is viewed from the dorsal side, with the two nuclei dorsal to the ventral disc, and the ventral disc toward the anterior." ],
         "created_by" : [ "paola" ],
         "creation_date" : [ "2014-02-05T13:29:44Z" ],
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0097560" ]
       },
       "synonyms" : [ "left caudal cilium" ],
@@ -1630,11 +1630,6 @@ Content-Length: 90369
       "obo_definition_citation" : [ {
         "definition" : "A cilium (also called flagellum) found in Giardia species (trophozoite stage). It is nucleated by the left caudal basal body, extending cytoplasmically and exiting at the posterior end of the cell body.",
         "oboXrefs" : [ {
-          "database" : "PMID",
-          "id" : "16607022",
-          "description" : null,
-          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/16607022"
-        }, {
           "database" : "ISBN",
           "id" : "9780124260207",
           "description" : null,
@@ -1644,6 +1639,11 @@ Content-Length: 90369
           "id" : "giardia",
           "description" : null,
           "url" : null
+        }, {
+          "database" : "PMID",
+          "id" : "16607022",
+          "description" : null,
+          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/16607022"
         }, {
           "database" : "PMID",
           "id" : "5961344",
@@ -1690,13 +1690,13 @@ Content-Length: 90369
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0097561",
-      "label" : "right caudal flagellum",
+      "label" : "GO_0097561",
       "description" : [ "A cilium (also called flagellum) found in Giardia species (trophozoite stage). It is nucleated by the right caudal basal body, extending cytoplasmically and exiting at the posterior end of the cell body." ],
       "annotation" : {
         "comment" : [ "Note that we deem cilium and microtubule-based flagellum to be equivalent; the primary term name reflects frequency of use. Also note that, due to the asymmetric nature of the Giardia trophozoite, this term is defined spatially as the trophozoite is viewed from the dorsal side, with the two nuclei dorsal to the ventral disc, and the ventral disc toward the anterior." ],
         "created_by" : [ "paola" ],
         "creation_date" : [ "2014-02-05T13:31:15Z" ],
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0097561" ]
       },
       "synonyms" : [ "right caudal cilium" ],
@@ -1715,6 +1715,11 @@ Content-Length: 90369
         "definition" : "A cilium (also called flagellum) found in Giardia species (trophozoite stage). It is nucleated by the right caudal basal body, extending cytoplasmically and exiting at the posterior end of the cell body.",
         "oboXrefs" : [ {
           "database" : "PMID",
+          "id" : "16607022",
+          "description" : null,
+          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/16607022"
+        }, {
+          "database" : "PMID",
           "id" : "5961344",
           "description" : null,
           "url" : "http://www.ncbi.nlm.nih.gov/pubmed/5961344"
@@ -1728,11 +1733,6 @@ Content-Length: 90369
           "id" : "9780124260207",
           "description" : null,
           "url" : "https://www.worldcat.org/search?q=bn%3A9780124260207"
-        }, {
-          "database" : "PMID",
-          "id" : "16607022",
-          "description" : null,
-          "url" : "http://www.ncbi.nlm.nih.gov/pubmed/16607022"
         } ]
       } ],
       "obo_xref" : null,
@@ -1790,7 +1790,7 @@ Content-Length: 90369
   },
   "page" : {
     "size" : 20,
-    "totalElements" : 384,
+    "totalElements" : 385,
     "totalPages" : 20,
     "number" : 0
   }

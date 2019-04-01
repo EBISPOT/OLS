@@ -160,15 +160,9 @@
                             <p>
 
                                 <b>Cause:</b>
-                                <span th:if="${message} and ${message.length() != 0}"
-                              			th:text="${message}">message ...</span>
+                                <span>A server error occurred.</span>                              			
                             </p>
                     	</div>
-
-                    	<p
-                    		th:unless="${ex} or ${exception} or (${message} and ${message.length() != 0})">
-                    		Cause unknown (no exception details available)</p>
-
                 </section>
 
 

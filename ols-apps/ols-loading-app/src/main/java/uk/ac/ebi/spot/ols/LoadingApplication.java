@@ -144,7 +144,8 @@ public class LoadingApplication implements CommandLineRunner {
                         ontologyIndexingService.indexOntologyDocument(document);
                         updatedOntologies.add(document.getOntologyId());
                     } catch (Exception e) {
-                        getLog().error("Application failed creating indexes for " + document.getOntologyId() + ": " + e.getMessage());
+                        getLog().error("Application failed creating indexes for " + 
+                        		document.getOntologyId() + ": " + e.getMessage(), e);
                         haserror = true;
                     }
                 }

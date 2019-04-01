@@ -355,7 +355,7 @@ individual based on its IRI. The first illustrates finding an individual where t
 include::{snippets}/individuals-by-iri-path/curl-request.adoc[] 
 include::{snippets}/individuals-by-iri-param/curl-request.adoc[]
 
-=== Properties based on defining ontology
+=== Individual based on defining ontology
 Similar to terms, users may want to only access individuals that are related to a particular ontology.
 See <<terms-based-on-defining-ontology, Terms based on defining ontology>>.
 

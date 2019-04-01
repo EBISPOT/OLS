@@ -2,17 +2,17 @@
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 4219
+Content-Length: 4203
 
 {
   "_embedded" : {
     "terms" : [ {
       "iri" : "http://purl.obolibrary.org/obo/GO_0043226",
-      "label" : "organelle",
+      "label" : "GO_0043226",
       "description" : [ "Organized structure of distinctive morphology and function. Includes the nucleus, mitochondria, plastids, vacuoles, vesicles, ribosomes and the cytoskeleton, and prokaryotic structures such as anammoxosomes and pirellulosomes. Excludes the plasma membrane." ],
       "annotation" : {
-        "database_cross_reference" : [ "NIF_Subcellular:sao1539965131", "Wikipedia:Organelle" ],
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasDbXref" : [ "NIF_Subcellular:sao1539965131", "Wikipedia:Organelle" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0043226" ]
       },
       "synonyms" : null,

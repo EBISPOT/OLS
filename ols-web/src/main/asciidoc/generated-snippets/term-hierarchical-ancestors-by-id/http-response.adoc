@@ -2,20 +2,20 @@
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 5891
+Content-Length: 5862
 
 {
   "_embedded" : {
     "terms" : [ {
       "iri" : "http://purl.obolibrary.org/obo/GO_0005575",
-      "label" : "cellular_component",
+      "label" : "GO_0005575",
       "description" : [ "A location, relative to cellular compartments and structures, occupied by a macromolecular machine when it carries out a molecular function. There are two ways in which the gene ontology describes locations of gene products: (1) relative to cellular structures (e.g., cytoplasmic side of plasma membrane) or compartments (e.g., mitochondrion), and (2) the stable macromolecular complexes of which they are parts (e.g., the ribosome)." ],
       "annotation" : {
         "comment" : [ "Note that, in addition to forming the root of the cellular component ontology, this term is recommended for use for the annotation of gene products whose cellular component is unknown. When this term is used for annotation, it indicates that no information was available about the cellular component of the gene product annotated as of the date the annotation was made; the evidence code \"no data\" (ND), is used to indicate this." ],
-        "database_cross_reference" : [ "NIF_Subcellular:sao1337158144", "NIF_Subcellular:sao-1337158144" ],
-        "has_alternative_id" : [ "GO:0008372" ],
-        "has_obo_namespace" : [ "cellular_component" ],
-        "has_related_synonym" : [ "subcellular entity" ],
+        "hasAlternativeId" : [ "GO:0008372" ],
+        "hasDbXref" : [ "NIF_Subcellular:sao1337158144", "NIF_Subcellular:sao-1337158144" ],
+        "hasOBONamespace" : [ "cellular_component" ],
+        "hasRelatedSynonym" : [ "subcellular entity" ],
         "id" : [ "GO:0005575" ]
       },
       "synonyms" : [ "cellular component", "cell or subcellular entity" ],
@@ -33,15 +33,15 @@ Content-Length: 5891
       "obo_definition_citation" : [ {
         "definition" : "A location, relative to cellular compartments and structures, occupied by a macromolecular machine when it carries out a molecular function. There are two ways in which the gene ontology describes locations of gene products: (1) relative to cellular structures (e.g., cytoplasmic side of plasma membrane) or compartments (e.g., mitochondrion), and (2) the stable macromolecular complexes of which they are parts (e.g., the ribosome).",
         "oboXrefs" : [ {
-          "database" : "NIF_Subcellular",
-          "id" : "sao-1337158144",
-          "description" : null,
-          "url" : "http://www.neurolex.org/wiki/sao-1337158144"
-        }, {
           "database" : "GOC",
           "id" : "pdt",
           "description" : null,
           "url" : null
+        }, {
+          "database" : "NIF_Subcellular",
+          "id" : "sao-1337158144",
+          "description" : null,
+          "url" : "http://www.neurolex.org/wiki/sao-1337158144"
         } ]
       } ],
       "obo_xref" : [ {

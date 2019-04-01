@@ -2,17 +2,17 @@
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 68970
+Content-Length: 68677
 
 {
   "_embedded" : {
     "terms" : [ {
       "iri" : "http://purl.obolibrary.org/obo/GO_0044422",
-      "label" : "organelle part",
+      "label" : "GO_0044422",
       "description" : [ "Any constituent part of an organelle, an organized structure of distinctive morphology and function. Includes constituent parts of the nucleus, mitochondria, plastids, vacuoles, vesicles, ribosomes and the cytoskeleton, but excludes the plasma membrane." ],
       "annotation" : {
         "comment" : [ "Note that this term is in the subset of terms that should not be used for direct gene product annotation. Instead, select a child term or, if no appropriate child term exists, please request a new term. Direct annotations to this term may be amended during annotation QC." ],
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0044422" ]
       },
       "synonyms" : null,
@@ -72,18 +72,18 @@ Content-Length: 68970
         "graph" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0044422/graph"
         },
-        "part_of" : {
+        "BFO_0000050" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0044422/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
         }
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0044695",
-      "label" : "Dsc E3 ubiquitin ligase complex",
+      "label" : "GO_0044695",
       "description" : [ "An E3 ubiquitin ligase complex localized to the ER and Golgi membrane. In fission yeast comprises Dsc1, 2, 3 and 4. Involved in the processes of fission yeast sre1 (human SREBP) transcriptional activator proteolytic cleavage, the multivesicular body (MVB) pathway, and a post-endoplasmic reticulum pathway for protein catabolism." ],
       "annotation" : {
         "created_by" : [ "janelomax" ],
         "creation_date" : [ "2012-08-16T13:41:48Z" ],
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0044695" ]
       },
       "synonyms" : null,
@@ -101,15 +101,15 @@ Content-Length: 68970
       "obo_definition_citation" : [ {
         "definition" : "An E3 ubiquitin ligase complex localized to the ER and Golgi membrane. In fission yeast comprises Dsc1, 2, 3 and 4. Involved in the processes of fission yeast sre1 (human SREBP) transcriptional activator proteolytic cleavage, the multivesicular body (MVB) pathway, and a post-endoplasmic reticulum pathway for protein catabolism.",
         "oboXrefs" : [ {
-          "database" : "GOC",
-          "id" : "vw",
-          "description" : null,
-          "url" : null
-        }, {
           "database" : "PMID",
           "id" : "21504829",
           "description" : null,
           "url" : "http://www.ncbi.nlm.nih.gov/pubmed/21504829"
+        }, {
+          "database" : "GOC",
+          "id" : "vw",
+          "description" : null,
+          "url" : null
         }, {
           "database" : "GOC",
           "id" : "mah",
@@ -141,16 +141,16 @@ Content-Length: 68970
         "graph" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0044695/graph"
         },
-        "part_of" : {
+        "BFO_0000050" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0044695/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
         }
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0030096",
-      "label" : "plasma membrane-derived thylakoid photosystem II",
+      "label" : "GO_0030096",
       "description" : [ "A protein complex, located in the membrane-derived thylakoid, containing the P680 reaction center. In the light, PSII functions as a water-plastoquinone oxidoreductase, transferring electrons from water to plastoquinone." ],
       "annotation" : {
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0030096" ]
       },
       "synonyms" : [ "plasma membrane photosystem II" ],
@@ -169,12 +169,12 @@ Content-Length: 68970
         "definition" : "A protein complex, located in the membrane-derived thylakoid, containing the P680 reaction center. In the light, PSII functions as a water-plastoquinone oxidoreductase, transferring electrons from water to plastoquinone.",
         "oboXrefs" : [ {
           "database" : "GOC",
-          "id" : "mtg_sensu",
+          "id" : "jid",
           "description" : null,
           "url" : null
         }, {
           "database" : "GOC",
-          "id" : "jid",
+          "id" : "mtg_sensu",
           "description" : null,
           "url" : null
         } ]
@@ -203,16 +203,16 @@ Content-Length: 68970
         "graph" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030096/graph"
         },
-        "part_of" : {
+        "BFO_0000050" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030096/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
         }
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0030094",
-      "label" : "plasma membrane-derived photosystem I",
+      "label" : "GO_0030094",
       "description" : [ "A protein complex located in the plasma membrane-derived thylakoid. The photosystem functions as a light-dependent plastocyanin-ferredoxin oxidoreductase, transferring electrons from plastocyanin to ferredoxin. Examples of this complex are found in bacterial species." ],
       "annotation" : {
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0030094" ]
       },
       "synonyms" : [ "plasma membrane photosystem I" ],
@@ -265,18 +265,18 @@ Content-Length: 68970
         "graph" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030094/graph"
         },
-        "part_of" : {
+        "BFO_0000050" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030094/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
         }
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0044449",
-      "label" : "contractile fiber part",
+      "label" : "GO_0044449",
       "description" : [ "Any constituent part of a contractile fiber, a fiber composed of actin, myosin, and associated proteins, found in cells of smooth or striated muscle." ],
       "annotation" : {
         "comment" : [ "Note that this term is in the subset of terms that should not be used for direct gene product annotation. Instead, select a child term or, if no appropriate child term exists, please request a new term. Direct annotations to this term may be amended during annotation QC." ],
-        "has_broad_synonym" : [ "muscle fiber component", "muscle fibre component" ],
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasBroadSynonym" : [ "muscle fiber component", "muscle fibre component" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0044449" ]
       },
       "synonyms" : [ "contractile fibre component" ],
@@ -336,17 +336,17 @@ Content-Length: 68970
         "graph" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0044449/graph"
         },
-        "part_of" : {
+        "BFO_0000050" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0044449/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
         }
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0030017",
-      "label" : "sarcomere",
+      "label" : "GO_0030017",
       "description" : [ "The repeating unit of a myofibril in a muscle cell, composed of an array of overlapping thick and thin filaments between two adjacent Z discs." ],
       "annotation" : {
-        "database_cross_reference" : [ "Wikipedia:Sarcomere" ],
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasDbXref" : [ "Wikipedia:Sarcomere" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0030017" ]
       },
       "synonyms" : null,
@@ -411,16 +411,16 @@ Content-Length: 68970
         "graph" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030017/graph"
         },
-        "part_of" : {
+        "BFO_0000050" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030017/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
         }
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0005863",
-      "label" : "striated muscle myosin thick filament",
+      "label" : "GO_0005863",
       "description" : [ "Bipolar filaments formed of polymers of a muscle-specific myosin II isoform, found in the middle of sarcomeres in myofibrils." ],
       "annotation" : {
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0005863" ]
       },
       "synonyms" : null,
@@ -473,16 +473,16 @@ Content-Length: 68970
         "graph" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005863/graph"
         },
-        "part_of" : {
+        "BFO_0000050" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005863/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
         }
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0005865",
-      "label" : "striated muscle thin filament",
+      "label" : "GO_0005865",
       "description" : [ "Filaments formed of actin and associated proteins; attached to Z discs at either end of sarcomeres in myofibrils." ],
       "annotation" : {
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0005865" ]
       },
       "synonyms" : null,
@@ -542,16 +542,16 @@ Content-Length: 68970
         "graph" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005865/graph"
         },
-        "part_of" : {
+        "BFO_0000050" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005865/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
         }
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0005861",
-      "label" : "troponin complex",
+      "label" : "GO_0005861",
       "description" : [ "A complex of accessory proteins (typically troponin T, troponin I and troponin C) found associated with actin in muscle thin filaments; involved in calcium regulation of muscle contraction." ],
       "annotation" : {
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0005861" ]
       },
       "synonyms" : null,
@@ -611,20 +611,20 @@ Content-Length: 68970
         "graph" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005861/graph"
         },
-        "part_of" : {
+        "BFO_0000050" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005861/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
         }
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_1990584",
-      "label" : "cardiac Troponin complex",
+      "label" : "GO_1990584",
       "description" : [ "A complex of accessory proteins (cardiac troponin T, cardiac troponin I and cardiac troponin C) found associated with actin in cardiac muscle thin filaments; involved in calcium regulation important for muscle contraction." ],
       "annotation" : {
         "created_by" : [ "ame" ],
         "creation_date" : [ "2014-12-12T16:51:41Z" ],
-        "database_cross_reference" : [ "IntAct:EBI-9980814" ],
-        "has_obo_namespace" : [ "cellular_component" ],
-        "has_related_synonym" : [ "cTnC:cTnI:cTnT" ],
+        "hasDbXref" : [ "IntAct:EBI-9980814" ],
+        "hasOBONamespace" : [ "cellular_component" ],
+        "hasRelatedSynonym" : [ "cTnC:cTnI:cTnT" ],
         "id" : [ "GO:1990584" ]
       },
       "synonyms" : null,
@@ -685,10 +685,10 @@ Content-Length: 68970
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0005862",
-      "label" : "muscle thin filament tropomyosin",
+      "label" : "GO_0005862",
       "description" : [ "A form of the tropomyosin dimer found associated with actin and the troponin complex in muscle thin filaments." ],
       "annotation" : {
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0005862" ]
       },
       "synonyms" : null,
@@ -736,17 +736,17 @@ Content-Length: 68970
         "graph" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005862/graph"
         },
-        "part_of" : {
+        "BFO_0000050" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0005862/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
         }
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0031672",
-      "label" : "A band",
+      "label" : "GO_0031672",
       "description" : [ "The dark-staining region of a sarcomere, in which myosin thick filaments are present; the center is traversed by the paler H zone, which in turn contains the M line." ],
       "annotation" : {
-        "database_cross_reference" : [ "Wikipedia:Sarcomere#bands" ],
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasDbXref" : [ "Wikipedia:Sarcomere#bands" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0031672" ]
       },
       "synonyms" : [ "transverse disc", "A disc", "anisotropic disc", "Q disc" ],
@@ -811,16 +811,16 @@ Content-Length: 68970
         "graph" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031672/graph"
         },
-        "part_of" : {
+        "BFO_0000050" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031672/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
         }
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0014705",
-      "label" : "C zone",
+      "label" : "GO_0014705",
       "description" : [ "A region of the A band in which myosin-binding protein C is located and that can be seen by electron microscopy. This is a functional zone that also includes myosin." ],
       "annotation" : {
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0014705" ]
       },
       "synonyms" : null,
@@ -868,19 +868,19 @@ Content-Length: 68970
         "graph" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0014705/graph"
         },
-        "part_of" : {
+        "BFO_0000050" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0014705/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
         }
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0031430",
-      "label" : "M band",
+      "label" : "GO_0031430",
       "description" : [ "The midline of aligned thick filaments in a sarcomere; location of specific proteins that link thick filaments. Depending on muscle type the M band consists of different numbers of M lines." ],
       "annotation" : {
-        "database_cross_reference" : [ "Wikipedia:Sarcomere#bands" ],
-        "has_broad_synonym" : [ "midline" ],
-        "has_narrow_synonym" : [ "M line" ],
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasBroadSynonym" : [ "midline" ],
+        "hasDbXref" : [ "Wikipedia:Sarcomere#bands" ],
+        "hasNarrowSynonym" : [ "M line" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0031430" ]
       },
       "synonyms" : [ "mesophragma", "M disc" ],
@@ -898,15 +898,15 @@ Content-Length: 68970
       "obo_definition_citation" : [ {
         "definition" : "The midline of aligned thick filaments in a sarcomere; location of specific proteins that link thick filaments. Depending on muscle type the M band consists of different numbers of M lines.",
         "oboXrefs" : [ {
-          "database" : "GOC",
-          "id" : "mtg_muscle",
-          "description" : null,
-          "url" : null
-        }, {
           "database" : "ISBN",
           "id" : "0198506732",
           "description" : null,
           "url" : "https://www.worldcat.org/search?q=bn%3A0198506732"
+        }, {
+          "database" : "GOC",
+          "id" : "mtg_muscle",
+          "description" : null,
+          "url" : null
         }, {
           "database" : "ISBN",
           "id" : "0815316194",
@@ -943,17 +943,17 @@ Content-Length: 68970
         "graph" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031430/graph"
         },
-        "part_of" : {
+        "BFO_0000050" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031430/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
         }
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0031673",
-      "label" : "H zone",
+      "label" : "GO_0031673",
       "description" : [ "A relatively pale zone traversing the center of the A band of a sarcomere, visible in relaxed muscle fibers; consists of the central portion of thick (myosin) filaments that are not overlapped by thin (actin) filaments." ],
       "annotation" : {
-        "database_cross_reference" : [ "Wikipedia:Sarcomere#bands" ],
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasDbXref" : [ "Wikipedia:Sarcomere#bands" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0031673" ]
       },
       "synonyms" : [ "H band", "H disc" ],
@@ -1011,17 +1011,17 @@ Content-Length: 68970
         "graph" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031673/graph"
         },
-        "part_of" : {
+        "BFO_0000050" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031673/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
         }
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0031674",
-      "label" : "I band",
+      "label" : "GO_0031674",
       "description" : [ "A region of a sarcomere that appears as a light band on each side of the Z disc, comprising a region of the sarcomere where thin (actin) filaments are not overlapped by thick (myosin) filaments; contains actin, troponin, and tropomyosin; each sarcomere includes half of an I band at each end." ],
       "annotation" : {
-        "database_cross_reference" : [ "Wikipedia:Sarcomere#bands" ],
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasDbXref" : [ "Wikipedia:Sarcomere#bands" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0031674" ]
       },
       "synonyms" : [ "J disc", "isotropic disc", "I disc" ],
@@ -1086,16 +1086,16 @@ Content-Length: 68970
         "graph" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031674/graph"
         },
-        "part_of" : {
+        "BFO_0000050" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0031674/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
         }
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0030018",
-      "label" : "Z disc",
+      "label" : "GO_0030018",
       "description" : [ "Platelike region of a muscle sarcomere to which the plus ends of actin filaments are attached." ],
       "annotation" : {
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0030018" ]
       },
       "synonyms" : [ "Z line", "Z disk", "Z band" ],
@@ -1160,21 +1160,21 @@ Content-Length: 68970
         "graph" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030018/graph"
         },
-        "part_of" : {
+        "BFO_0000050" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_0030018/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
         }
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_1990733",
-      "label" : "titin-telethonin complex",
+      "label" : "GO_1990733",
       "description" : [ "A protein complex formed between the N-terminus of the giant sarcomeric filament protein titin and the Z-disk ligand, telethonin. The complex is part of the Z-disk of the skeletal and cardiac sarcomere. Telethonin binding to titin might be essential for the initial assembly, stabilization and functional integrity of the titin filament, and hence important for muscle contraction relaxation in mature myofibrils." ],
       "annotation" : {
         "comment" : [ "An example of this are TTN and TCAP in human (UniProt symbols Q8WZ42 and O15273 respectively) in PMID:16407954 (inferred from direct assay)." ],
         "created_by" : [ "ame" ],
         "creation_date" : [ "2015-04-24T14:57:08Z" ],
-        "database_cross_reference" : [ "IntAct:EBI-10711453" ],
-        "has_obo_namespace" : [ "cellular_component" ],
-        "has_related_synonym" : [ "Titin-Tcap complex" ],
+        "hasDbXref" : [ "IntAct:EBI-10711453" ],
+        "hasOBONamespace" : [ "cellular_component" ],
+        "hasRelatedSynonym" : [ "Titin-Tcap complex" ],
         "id" : [ "GO:1990733" ]
       },
       "synonyms" : null,
@@ -1232,16 +1232,16 @@ Content-Length: 68970
         "graph" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_1990733/graph"
         },
-        "part_of" : {
+        "BFO_0000050" : {
           "href" : "http://www.ebi.ac.uk/ols/api/ontologies/go/terms/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FGO_1990733/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000050"
         }
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0055120",
-      "label" : "striated muscle dense body",
+      "label" : "GO_0055120",
       "description" : [ "A vinculin-containing myofibril attachment structure of striated muscle that connects sarcomeres to the extracellular matrix. In nematode body wall muscle, the dense body performs the dual role of Z-disk and costamere." ],
       "annotation" : {
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0055120" ]
       },
       "synonyms" : null,
@@ -1297,10 +1297,10 @@ Content-Length: 68970
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/GO_0005859",
-      "label" : "muscle myosin complex",
+      "label" : "GO_0005859",
       "description" : [ "A filament of myosin found in a muscle cell of any type." ],
       "annotation" : {
-        "has_obo_namespace" : [ "cellular_component" ],
+        "hasOBONamespace" : [ "cellular_component" ],
         "id" : [ "GO:0005859" ]
       },
       "synonyms" : null,
@@ -1379,7 +1379,7 @@ Content-Length: 68970
   },
   "page" : {
     "size" : 20,
-    "totalElements" : 1943,
+    "totalElements" : 1944,
     "totalPages" : 98,
     "number" : 0
   }

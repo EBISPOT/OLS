@@ -520,7 +520,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_properties_based_on_defining_ontology">Properties based on defining ontology</a></li>
 <li><a href="#_retrieve_an_individual">Retrieve an individual</a></li>
 <li><a href="#_individual_matching_across_ontologies">Individual matching across ontologies</a></li>
-<li><a href="#_properties_based_on_defining_ontology_2">Properties based on defining ontology</a></li>
+<li><a href="#_individual_based_on_defining_ontology">Individual based on defining ontology</a></li>
 </ul>
 </li>
 </ul>
@@ -661,7 +661,7 @@ Content-Type: application/json;charset=UTF-8
 Content-Length: 153
 
 {
-  "timestamp" : 1551712810534,
+  "timestamp" : 1554117059039,
   "status" : 404,
   "error" : "Not Found",
   "message" : "Resource not found",
@@ -1019,23 +1019,23 @@ Content-Length: 3386
 
 {
   "ontologyId" : "efo",
-  "loaded" : "2019-02-19T13:33:18.314+0000",
-  "updated" : "2019-02-19T13:33:18.314+0000",
+  "loaded" : "2019-04-01T10:31:42.870+0000",
+  "updated" : "2019-04-01T10:31:42.870+0000",
   "status" : "LOADED",
   "message" : "",
   "version" : null,
-  "numberOfTerms" : 22615,
+  "numberOfTerms" : 22669,
   "numberOfProperties" : 328,
   "numberOfIndividuals" : 0,
   "config" : {
     "id" : "http://www.ebi.ac.uk/efo/efo.owl",
-    "versionIri" : "http://www.ebi.ac.uk/efo/releases/2019-02-18/efo.owl",
+    "versionIri" : "http://www.ebi.ac.uk/efo/releases/2019-03-18/efo.owl",
     "title" : "Experimental Factor Ontology",
     "namespace" : "efo",
     "preferredPrefix" : "EFO",
     "description" : "The Experimental Factor Ontology (EFO) provides a systematic description of many experimental variables available in EBI databases, and for external projects such as the NHGRI GWAS catalogue. It combines parts of several biological ontologies, such as anatomy, disease and chemical compounds. The scope of EFO is to support the annotation, analysis and visualization of data handled by many groups at the EBI and as the core ontology for the Centre for Therapeutic Validation (CTTV)",
     "homepage" : "http://www.ebi.ac.uk/efo",
-    "version" : "2.105",
+    "version" : "2.106",
     "mailingList" : "efo-users@lists.sourceforge.net",
     "creators" : [ ],
     "annotations" : {
@@ -1043,7 +1043,7 @@ Content-Length: 3386
       "creator" : [ "Gautier Koscielny", "Simon Jupp", "Jon Ison", "Laura Huerta Martinez", "Helen Parkinson", "Eleanor Williams", "James Malone", "Zoe May Pendlington", "Trish Whetzel", "Sirarat Sarntivijai", "Catherine Leroy", "Ele Holloway", "Tomasz Adamusiak", "Emma Kate Hastings", "Olamidipupo Ajigboye", "Paola Roncaglia", "Natalja Kurbatova", "Dani Welter", "Drashtti Vasant" ],
       "rights" : [ "Copyright [2014] EMBL - European Bioinformatics Institute \nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the \nLicense. " ],
       "format-version" : [ "1.4" ],
-      "comment" : [ "2019-02-18" ]
+      "comment" : [ "2019-03-18" ]
     },
     "fileLocation" : "http://www.ebi.ac.uk/efo/efo.owl",
     "reasonerType" : "OWL2",
@@ -1267,15 +1267,15 @@ Content-Length: 3386
 <pre class="highlight"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Disposition: inline;filename=f.txt
 Content-Type: application/json
-Content-Length: 3640
+Content-Length: 3624
 
 {
   "iri" : "http://purl.obolibrary.org/obo/GO_0043226",
-  "label" : "organelle",
+  "label" : "GO_0043226",
   "description" : [ "Organized structure of distinctive morphology and function. Includes the nucleus, mitochondria, plastids, vacuoles, vesicles, ribosomes and the cytoskeleton, and prokaryotic structures such as anammoxosomes and pirellulosomes. Excludes the plasma membrane." ],
   "annotation" : {
-    "database_cross_reference" : [ "NIF_Subcellular:sao1539965131", "Wikipedia:Organelle" ],
-    "has_obo_namespace" : [ "cellular_component" ],
+    "hasDbXref" : [ "NIF_Subcellular:sao1539965131", "Wikipedia:Organelle" ],
+    "hasOBONamespace" : [ "cellular_component" ],
     "id" : [ "GO:0043226" ]
   },
   "synonyms" : null,
@@ -1538,22 +1538,22 @@ this section.</p>
 <pre class="highlight"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Disposition: inline;filename=f.txt
 Content-Type: application/json
-Content-Length: 3029
+Content-Length: 3022
 
 {
   "_embedded" : {
     "terms" : [ {
       "iri" : "http://www.ebi.ac.uk/efo/EFO_0000001",
-      "label" : "experimental factor",
+      "label" : "EFO_0000001",
       "description" : null,
       "annotation" : {
+        "IAO_0000115" : [ "An experimental factor in Array Express which are essentially the variable aspects of an experiment design which can be used to describe an experiment, or set of experiments, in an increasingly detailed manner. This upper level class is really used to give a root class from which applications can rely on and not be tied to upper ontology classses which do change." ],
+        "IAO_0000117" : [ "Helen Parkinson", "James Malone", "Tomasz Adamusiak", "Jie Zheng" ],
         "MO_definition_citation" : [ "MO:10" ],
         "bioportal_provenance" : [ "ExperimentalFactor[accessedResource: MO_10][accessDate: 05-04-2011]" ],
         "comment" : [ "Concept naming convention is lower case natural naming with spaces, when necessary captials should be used, for example disease factor, HIV, breast carcinoma, Ewing's sarcoma" ],
         "created_by" : [ "Helen Parkinson", "James Malone", "Tomasz Adamusiak" ],
-        "definition" : [ "An experimental factor in Array Express which are essentially the variable aspects of an experiment design which can be used to describe an experiment, or set of experiments, in an increasingly detailed manner. This upper level class is really used to give a root class from which applications can rely on and not be tied to upper ontology classses which do change." ],
-        "organizational_class" : [ "true" ],
-        "term editor" : [ "Helen Parkinson", "James Malone", "Tomasz Adamusiak", "Jie Zheng" ]
+        "organizational_class" : [ "true" ]
       },
       "synonyms" : [ "ExperimentalFactor" ],
       "ontology_name" : "efo",
@@ -1651,22 +1651,22 @@ terms from that ontology. The requests and reponses in this section defines an A
 <pre class="highlight"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Disposition: inline;filename=f.txt
 Content-Type: application/json
-Content-Length: 3059
+Content-Length: 3052
 
 {
   "_embedded" : {
     "terms" : [ {
       "iri" : "http://www.ebi.ac.uk/efo/EFO_0000001",
-      "label" : "experimental factor",
+      "label" : "EFO_0000001",
       "description" : null,
       "annotation" : {
+        "IAO_0000115" : [ "An experimental factor in Array Express which are essentially the variable aspects of an experiment design which can be used to describe an experiment, or set of experiments, in an increasingly detailed manner. This upper level class is really used to give a root class from which applications can rely on and not be tied to upper ontology classses which do change." ],
+        "IAO_0000117" : [ "Helen Parkinson", "James Malone", "Tomasz Adamusiak", "Jie Zheng" ],
         "MO_definition_citation" : [ "MO:10" ],
         "bioportal_provenance" : [ "ExperimentalFactor[accessedResource: MO_10][accessDate: 05-04-2011]" ],
         "comment" : [ "Concept naming convention is lower case natural naming with spaces, when necessary captials should be used, for example disease factor, HIV, breast carcinoma, Ewing's sarcoma" ],
         "created_by" : [ "Helen Parkinson", "James Malone", "Tomasz Adamusiak" ],
-        "definition" : [ "An experimental factor in Array Express which are essentially the variable aspects of an experiment design which can be used to describe an experiment, or set of experiments, in an increasingly detailed manner. This upper level class is really used to give a root class from which applications can rely on and not be tied to upper ontology classses which do change." ],
-        "organizational_class" : [ "true" ],
-        "term editor" : [ "Helen Parkinson", "James Malone", "Tomasz Adamusiak", "Jie Zheng" ]
+        "organizational_class" : [ "true" ]
       },
       "synonyms" : [ "ExperimentalFactor" ],
       "ontology_name" : "efo",
@@ -1840,7 +1840,7 @@ individual based on its IRI. The first illustrates finding an individual where t
 </div>
 </div>
 <div class="sect2">
-<h3 id="_properties_based_on_defining_ontology_2"><a class="anchor" href="#_properties_based_on_defining_ontology_2"></a>Properties based on defining ontology</h3>
+<h3 id="_individual_based_on_defining_ontology"><a class="anchor" href="#_individual_based_on_defining_ontology"></a>Individual based on defining ontology</h3>
 <div class="paragraph">
 <p>Similar to terms, users may want to only access individuals that are related to a particular ontology.
 See <a href="#terms-based-on-defining-ontology">Terms based on defining ontology</a>.</p>
@@ -2077,7 +2077,7 @@ applications such as autocomplete.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-03-04 15:19:34 +00:00
+Last updated 2019-04-01 11:22:46 +01:00
 </div>
 </div>
 </body>

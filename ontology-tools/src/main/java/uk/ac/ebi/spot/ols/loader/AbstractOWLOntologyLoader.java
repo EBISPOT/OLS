@@ -19,8 +19,11 @@ import uk.ac.ebi.spot.ols.util.*;
 import uk.ac.ebi.spot.ols.xrefs.DatabaseService;
 import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxOWLObjectRendererImpl;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.lang.management.ManagementFactory;
+import java.lang.management.ThreadMXBean;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
@@ -81,6 +84,8 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     private OWLOntologyManager manager;
     private OWLDataFactory factory;
     private OWLOntology ontology;
+    
+    private boolean OWLAPIInitialized = false;
 
     private Collection<String> baseIRIs = new HashSet<>();
 
@@ -132,9 +137,25 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         this(config,null);
     }
 
-    public AbstractOWLOntologyLoader(OntologyResourceConfig config, DatabaseService service) throws OntologyLoadingException {
+    public AbstractOWLOntologyLoader(OntologyResourceConfig config, DatabaseService service) 
+    		throws OntologyLoadingException {
+    	
         databaseService = service;
-        // read from config
+    	readConfiguration(config);
+    	initializeOWLAPIWithoutReasoner();
+    	initializeEnglishLanguagePreference();
+    	initializeVocabularyToIgnore();
+    }
+    
+    private void initializeEnglishLanguagePreference() throws OntologyLoadingException {
+    	if (!OWLAPIInitialized) {
+    		initializeOWLAPIWithoutReasoner();
+    	} 
+    	setPreferredLanguageMap(factory.getOWLAnnotationProperty(getLabelIRI()), 
+        		Collections.singletonList("en") );
+    }
+
+    private void readConfiguration(OntologyResourceConfig config) throws OntologyLoadingException {
         setOntologyIRI(IRI.create(config.getId()));
         setOntologyName(config.getNamespace());
         setOntologyTitle(config.getTitle());
@@ -157,7 +178,6 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                         .collect(Collectors.toSet()));
 
         setLabelIRI(IRI.create(config.getLabelProperty()));
-        setPreferredLanguageMap(factory.getOWLAnnotationProperty(getLabelIRI()), Collections.singletonList("en") );
 
 
         setDefinitionIRIs(
@@ -170,14 +190,53 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                 .stream()
                 .map(IRI::create)
                 .collect(Collectors.toSet()));
+        
         try {
-            setOntologyResource(new UrlResource(config.getFileLocation()));
-        } catch (MalformedURLException e) {
-            throw new OntologyLoadingException("Can't load file from " + config.getFileLocation(), e);
-        }
+			setOntologyResource(new UrlResource(config.getFileLocation()));
+		} catch (MalformedURLException e) {
+			throw new OntologyLoadingException("Can't load file from " + 
+					config.getFileLocation(), e);
+		}
+    	
     }
+    
+    private void initializeOWLAPIWithoutReasoner() throws OntologyLoadingException {
+        this.manager = OWLManager.createOWLOntologyManager();
+        this.manager.setSilentMissingImportsHandling(true);
 
+        if (getOntologyResource() != null) {
+        	try {
+			getLog().info("Mapping ontology IRI from " + getOntologyIRI() + " to " + 
+					getOntologyResource().getURI());
+            this.manager.addIRIMapper(new SimpleIRIMapper(getOntologyIRI(),
+                    IRI.create(getOntologyResource().getURI())));
+        	} catch (IOException e) {
+        		throw new OntologyLoadingException("The ontology " + getOntologyIRI() + 
+        				" could not be loaded", e);
+        	}
+        }
+        if (getOntologyImportMappings() != null) {
+            for (IRI from : getOntologyImportMappings().keySet()) {
+                IRI to = getOntologyImportMappings().get(from);
+                getLog().info("Mapping imported ontology IRI from " + from + " to " + to);
+                this.manager.addIRIMapper(new SimpleIRIMapper(from, to));
+            }
+        }
+        this.factory = manager.getOWLDataFactory();
 
+        OWLAPIInitialized = true;
+    }
+    
+    private void initializeVocabularyToIgnore() throws OntologyLoadingException {
+    	if (!OWLAPIInitialized) {
+    		initializeOWLAPIWithoutReasoner();
+    	} 
+    	
+        owlVocabulary.add(factory.getOWLThing().getIRI());
+        owlVocabulary.add(factory.getOWLNothing().getIRI());
+        owlVocabulary.add(factory.getOWLTopObjectProperty().getIRI());
+        owlVocabulary.add(factory.getOWLBottomObjectProperty().getIRI());    	
+    }
 
     @Override
     public String getShortForm(IRI ontologyTermIRI) {
@@ -197,8 +256,10 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         return  null;
     }
 
+    
+    
     private <G> G lazyGet(Callable<G> callable) {
-        try {
+    	try {
             initOrWait();
             return callable.call();
         }
@@ -210,37 +271,13 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         }
     }
 
-    @Override protected void doInitialization() throws Exception {
-        // init owl fields
-
-        this.manager = OWLManager.createOWLOntologyManager();
-        this.manager.setSilentMissingImportsHandling(true);
-
-        if (getOntologyResource() != null) {
-            getLog().info("Mapping ontology IRI from " + getOntologyIRI() + " to " + getOntologyResource().getURI());
-            this.manager.addIRIMapper(new SimpleIRIMapper(getOntologyIRI(),
-                    IRI.create(getOntologyResource().getURI())));
-        }
-        if (getOntologyImportMappings() != null) {
-            for (IRI from : getOntologyImportMappings().keySet()) {
-                IRI to = getOntologyImportMappings().get(from);
-                getLog().info("Mapping imported ontology IRI from " + from + " to " + to);
-                this.manager.addIRIMapper(new SimpleIRIMapper(from, to));
-            }
-        }
-        this.factory = manager.getOWLDataFactory();
-
-        // collect things we want to ignore form OWL vocab
-        owlVocabulary.add(factory.getOWLThing().getIRI());
-        owlVocabulary.add(factory.getOWLNothing().getIRI());
-        owlVocabulary.add(factory.getOWLTopObjectProperty().getIRI());
-        owlVocabulary.add(factory.getOWLBottomObjectProperty().getIRI());
-
-        // load the ontology
+    @Override 
+    protected void doInitialization() throws Exception {        
         this.ontology = loadOntology();
     }
 
-    @Override protected void doTermination() throws Exception {
+    @Override 
+    protected void doTermination() throws Exception {
         // nothing to do
     }
 
@@ -940,7 +977,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                 IRI propertyIRI = property.getIRI();
 
                 if (getLabelIRI().equals(propertyIRI)) {
-                    if (getTermLabels().containsKey(owlEntityIRI)) {
+                    if (ontologyLabels.containsKey(owlEntityIRI)) {
                         addClassLabel(owlEntityIRI, evaluateLabelAnnotationValue(owlEntity, annotation.getValue()).get());
                     } else {
                         getLog().warn("Found multiple labels for class" + owlEntityIRI.toString());

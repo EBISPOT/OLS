@@ -3,7 +3,7 @@
 HTTP/1.1 200 OK
 Content-Disposition: inline;filename=f.txt
 Content-Type: application/json
-Content-Length: 1532
+Content-Length: 2236
 
 {
   "_embedded" : {
@@ -12,6 +12,27 @@ Content-Length: 1532
       "synonyms" : null,
       "iri" : "http://www.ebi.ac.uk/efo/EFO_0000784",
       "label" : "has_disease_location",
+      "synonym" : null,
+      "description" : null,
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : false,
+      "has_children" : false,
+      "is_root" : true,
+      "short_form" : "EFO_0000784",
+      "obo_id" : "EFO:0000784",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000784"
+        }
+      }
+    }, {
+      "annotation" : { },
+      "synonyms" : null,
+      "iri" : "http://www.ebi.ac.uk/efo/EFO_0000784",
+      "label" : "EFO_0000784",
       "synonym" : null,
       "description" : null,
       "ontology_name" : "efo",
@@ -46,7 +67,7 @@ Content-Length: 1532
   },
   "page" : {
     "size" : 20,
-    "totalElements" : 1,
+    "totalElements" : 2,
     "totalPages" : 1,
     "number" : 0
   }

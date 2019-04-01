@@ -2,35 +2,38 @@
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 23086
+Content-Length: 27002
 
 {
   "_embedded" : {
     "properties" : [ {
       "annotation" : {
-        "EFO_URI" : [ "http://www.ebi.ac.uk/efo/contains" ],
-        "database_cross_reference" : [ "RO:0001019" ],
-        "has_obo_namespace" : [ "uberon" ],
-        "id" : [ "contains" ],
-        "shorthand" : [ "contains" ]
+        "Description" : [ "Examples of a Contributor include a person, an \n         organisation, or a service.  Typically, the name of a \n         Contributor should be used to indicate the entity.", "贡献者的例子包括一个人，一个\n         组织或者一个服务。  典型地， 一个贡献者的名字\n         应该用于指示这个实体." ],
+        "comment" : [ "一个实体应该有助于\n         资源的内容", "An entity responsible for making contributions to the\n         content of the resource." ],
+        "hasDbXref" : [ "http://purl.org/dc/elements/1.1/contributor" ],
+        "hasOBONamespace" : [ "uberon" ],
+        "id" : [ "dc-贡献者", "dc-contributor" ],
+        "isDefinedBy" : [ "http://purl.org/dc/elements/1.1/" ],
+        "is_metadata_tag" : [ "true" ],
+        "shorthand" : [ "dc-贡献者", "dc-contributor" ]
       },
       "synonyms" : null,
-      "iri" : "http://purl.obolibrary.org/obo/RO_0001019",
-      "label" : "contains",
+      "iri" : "http://purl.org/dc/elements/1.1/contributor",
+      "label" : "贡献者",
       "synonym" : null,
       "description" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
       "is_obsolete" : false,
       "is_defining_ontology" : false,
       "has_children" : false,
       "is_root" : true,
-      "short_form" : "RO_0001019",
-      "obo_id" : "RO:0001019",
+      "short_form" : "contributor",
+      "obo_id" : null,
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0001019"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.org%252Fdc%252Felements%252F1.1%252Fcontributor"
         }
       }
     }, {
@@ -40,9 +43,9 @@ Content-Length: 23086
       "label" : "TopObjectProperty",
       "synonym" : null,
       "description" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
       "is_obsolete" : false,
       "is_defining_ontology" : false,
       "has_children" : false,
@@ -51,167 +54,89 @@ Content-Length: 23086
       "obo_id" : null,
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.w3.org%252F2002%252F07%252Fowl%2523TopObjectProperty"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fwww.w3.org%252F2002%252F07%252Fowl%2523TopObjectProperty"
         }
       }
     }, {
       "annotation" : {
-        "EFO_URI" : [ "http://www.ebi.ac.uk/efo/realizes" ],
-        "definition" : [ "Relation between a process and a material fulfilling a role (i.e. realizing a role within the context of the process).  For example a human realizing role of teacher within a lesson teching process." ]
+        "引自" : [ "http://purl.obolibrary.org/obo/cl.owl" ],
+        "有管理状态" : [ "http://purl.obolibrary.org/obo/IAO_0000125" ]
       },
-      "synonyms" : null,
-      "iri" : "http://purl.obolibrary.org/obo/OBI_0000308",
-      "label" : "realizes",
-      "synonym" : null,
-      "description" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
-      "is_obsolete" : false,
-      "is_defining_ontology" : false,
-      "has_children" : false,
-      "is_root" : true,
-      "short_form" : "OBI_0000308",
-      "obo_id" : "OBI:0000308",
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FOBI_0000308"
-        }
-      }
-    }, {
-      "annotation" : { },
-      "synonyms" : null,
-      "iri" : "http://purl.obolibrary.org/obo/HANCESTRO_0329",
-      "label" : "hasDemonym",
-      "synonym" : null,
-      "description" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
-      "is_obsolete" : false,
-      "is_defining_ontology" : false,
-      "has_children" : false,
-      "is_root" : true,
-      "short_form" : "HANCESTRO_0329",
-      "obo_id" : "HANCESTRO:0329",
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHANCESTRO_0329"
-        }
-      }
-    }, {
-      "annotation" : {
-        "PATO_definition_citation" : [ "http://www.ebi.ac.uk/efo/PATO_definition_citation is an annotation property that is drawn from PATO" ]
-      },
-      "synonyms" : null,
-      "iri" : "http://www.ebi.ac.uk/efo/PATO_definition_citation",
-      "label" : "PATO_definition_citation",
-      "synonym" : null,
-      "description" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
-      "is_obsolete" : false,
-      "is_defining_ontology" : false,
-      "has_children" : false,
-      "is_root" : false,
-      "short_form" : "PATO_definition_citation",
-      "obo_id" : "PATO_definition:citation",
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FPATO_definition_citation"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FPATO_definition_citation/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FPATO_definition_citation/ancestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FPATO_definition_citation/jstree"
-        }
-      }
-    }, {
-      "annotation" : {
-        "definition" : [ "A definition citation is a document, ontology class, person or organization from which the definition of the class is derived. It is used in the same sense as a citation in literature, in that the definition may have been derived from these sources or that this definition is related to these source." ]
-      },
-      "synonyms" : null,
-      "iri" : "http://www.ebi.ac.uk/efo/definition_citation",
-      "label" : "definition_citation",
-      "synonym" : null,
-      "description" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
-      "is_obsolete" : false,
-      "is_defining_ontology" : false,
-      "has_children" : true,
-      "is_root" : true,
-      "short_form" : "definition_citation",
-      "obo_id" : "definition:citation",
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252Fdefinition_citation"
-        },
-        "children" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252Fdefinition_citation/children"
-        },
-        "descendants" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252Fdefinition_citation/descendants"
-        }
-      }
-    }, {
-      "annotation" : {
-        "EFO_URI" : [ "http://www.ebi.ac.uk/efo/location_of" ],
-        "database_cross_reference" : [ "RO:0001015" ],
-        "has_obo_namespace" : [ "uberon" ],
-        "id" : [ "location_of" ],
-        "shorthand" : [ "location_of" ]
-      },
-      "synonyms" : null,
-      "iri" : "http://purl.obolibrary.org/obo/RO_0001015",
-      "label" : "location_of",
-      "synonym" : null,
-      "description" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
-      "is_obsolete" : false,
-      "is_defining_ontology" : false,
-      "has_children" : true,
-      "is_root" : true,
-      "short_form" : "RO_0001015",
-      "obo_id" : "RO:0001015",
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0001015"
-        },
-        "children" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0001015/children"
-        },
-        "descendants" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0001015/descendants"
-        }
-      }
-    }, {
-      "annotation" : { },
       "synonyms" : null,
       "iri" : "http://purl.obolibrary.org/obo/RO_0002104",
-      "label" : "has_plasma_membrane_part",
+      "label" : "has plasma membrane part",
       "synonym" : null,
-      "description" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
+      "description" : [ "Holds between a cell c and a protein complex or protein p if and only if that cell has as part a plasma_membrane[GO:0005886], and that plasma membrane has p as part." ],
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
       "is_obsolete" : false,
       "is_defining_ontology" : false,
-      "has_children" : false,
-      "is_root" : true,
+      "has_children" : true,
+      "is_root" : false,
       "short_form" : "RO_0002104",
       "obo_id" : "RO:0002104",
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0002104"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0002104"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0002104/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0002104/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0002104/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0002104/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0002104/descendants"
+        }
+      }
+    }, {
+      "annotation" : {
+        "editor note" : [ "Everything has itself as a part. Any part of any part of a thing is itself part of that thing. Two distinct things cannot have each other as a part.", "Occurrents are not subject to change and so parthood between occurrents holds for all the times that the part exists. Many continuants are subject to change, so parthood between continuants will only hold at certain times, but this is difficult to specify in OWL. See https://code.google.com/p/obo-relations/wiki/ROAndTime", "Parthood requires the part and the whole to have compatible classes: only an occurrent have an occurrent as part; only a process can have a process as part; only a continuant can have a continuant as part; only an independent continuant can have an independent continuant as part; only a specifically dependent continuant can have a specifically dependent continuant as part; only a generically dependent continuant can have a generically dependent continuant as part. (This list is not exhaustive.)\n\nA continuant cannot have an occurrent as part: use 'participates in'. An occurrent cannot have a continuant as part: use 'has participant'. An immaterial entity cannot have a material entity as part: use 'location of'. An independent continuant cannot have a specifically dependent continuant as part: use 'bearer of'. A specifically dependent continuant cannot have an independent continuant as part: use 'inheres in'." ],
+        "editor preferred label" : [ "has part" ],
+        "temporal interpretation" : [ "http://purl.obolibrary.org/obo/RO_0001901" ],
+        "引自" : [ "http://purl.obolibrary.org/obo/uberon.owl", "http://purl.obolibrary.org/obo/obi.owl", "http://purl.obolibrary.org/obo/BFO", "http://purl.obolibrary.org/obo/ro.owl", "http://purl.obolibrary.org/obo/cl.owl" ],
+        "替代术语" : [ "has_part" ],
+        "用法示例" : [ "this year has part this day (occurrent parthood)", "my body has part my brain (continuant parthood, two material entities)", "my stomach has part my stomach cavity (continuant parthood, material entity has part immaterial entity)" ]
+      },
+      "synonyms" : null,
+      "iri" : "http://purl.obolibrary.org/obo/BFO_0000051",
+      "label" : "has part",
+      "synonym" : null,
+      "description" : [ "a core relation that holds between a whole and its part" ],
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : false,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "BFO_0000051",
+      "obo_id" : "BFO:0000051",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000051"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000051/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000051/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000051/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000051/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FBFO_0000051/descendants"
         }
       }
     }, {
@@ -221,9 +146,9 @@ Content-Length: 23086
       "label" : "id",
       "synonym" : null,
       "description" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
       "is_obsolete" : false,
       "is_defining_ontology" : false,
       "has_children" : false,
@@ -232,55 +157,21 @@ Content-Length: 23086
       "obo_id" : null,
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.geneontology.org%252Fformats%252FoboInOwl%2523id"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fwww.geneontology.org%252Fformats%252FoboInOwl%2523id"
         }
       }
     }, {
       "annotation" : {
-        "galen_definition_citation" : [ "http://www.ebi.ac.uk/efo/galen_definition_citation is an annotation property that is drawn from galen" ]
-      },
-      "synonyms" : null,
-      "iri" : "http://www.ebi.ac.uk/efo/galen_definition_citation",
-      "label" : "galen_definition_citation",
-      "synonym" : null,
-      "description" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
-      "is_obsolete" : false,
-      "is_defining_ontology" : false,
-      "has_children" : false,
-      "is_root" : false,
-      "short_form" : "galen_definition_citation",
-      "obo_id" : "galen_definition:citation",
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252Fgalen_definition_citation"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252Fgalen_definition_citation/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252Fgalen_definition_citation/ancestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252Fgalen_definition_citation/jstree"
-        }
-      }
-    }, {
-      "annotation" : {
-        "definition" : [ "Use on obsolete terms, relating the term to another term that can be used as a substitute\n\nAdd as annotation triples in the granting ontology" ],
-        "has curation status" : [ "IAO_0000125" ],
-        "term editor" : [ "Person:Alan Ruttenberg" ]
+        "有管理状态" : [ "http://purl.obolibrary.org/obo/IAO_0000125" ]
       },
       "synonyms" : null,
       "iri" : "http://purl.obolibrary.org/obo/IAO_0100001",
-      "label" : "term replaced by",
+      "label" : "IAO_0100001",
       "synonym" : null,
       "description" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
       "is_obsolete" : false,
       "is_defining_ontology" : false,
       "has_children" : false,
@@ -289,7 +180,7 @@ Content-Length: 23086
       "obo_id" : "IAO:0100001",
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FIAO_0100001"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FIAO_0100001"
         }
       }
     }, {
@@ -299,9 +190,9 @@ Content-Length: 23086
       "label" : "has_broad_synonym",
       "synonym" : null,
       "description" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
       "is_obsolete" : false,
       "is_defining_ontology" : false,
       "has_children" : false,
@@ -310,19 +201,22 @@ Content-Length: 23086
       "obo_id" : null,
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.geneontology.org%252Fformats%252FoboInOwl%2523hasBroadSynonym"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fwww.geneontology.org%252Fformats%252FoboInOwl%2523hasBroadSynonym"
         }
       }
     }, {
-      "annotation" : { },
+      "annotation" : {
+        "hasOBONamespace" : [ "ncbi_taxonomy" ],
+        "has_obo_namespace" : [ "ncbi_taxonomy" ]
+      },
       "synonyms" : null,
       "iri" : "http://purl.obolibrary.org/obo/ncbitaxon#has_rank",
       "label" : "has_rank",
       "synonym" : null,
-      "description" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
+      "description" : [ "A metadata relation between a class and its taxonomic rank (eg species, family)" ],
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
       "is_obsolete" : false,
       "is_defining_ontology" : false,
       "has_children" : false,
@@ -331,180 +225,156 @@ Content-Length: 23086
       "obo_id" : "has:rank",
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252Fncbitaxon%2523has_rank"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252Fncbitaxon%2523has_rank"
         }
       }
     }, {
       "annotation" : {
-        "definition" : [ "http://www.ebi.ac.uk/efo/KEGG_DRUG_definition_citation is an annotation property that is drawn from KEGG_DRUG" ]
+        "Description" : [ "\n        Typically, a Title will be a name by which the resource is\n         formally known.\n    " ],
+        "comment" : [ "A name given to the resource." ],
+        "isDefinedBy" : [ "http://purl.org/dc/elements/1.1/" ]
       },
       "synonyms" : null,
-      "iri" : "http://www.ebi.ac.uk/efo/KEGG_DRUG_definition_citation",
-      "label" : "KEGG_DRUG_definition_citation",
+      "iri" : "http://purl.org/dc/elements/1.1/title",
+      "label" : "title",
       "synonym" : null,
       "description" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
       "is_obsolete" : false,
       "is_defining_ontology" : false,
       "has_children" : false,
-      "is_root" : false,
-      "short_form" : "KEGG_DRUG_definition_citation",
-      "obo_id" : "KEGG_DRUG_definition:citation",
+      "is_root" : true,
+      "short_form" : "title",
+      "obo_id" : null,
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FKEGG_DRUG_definition_citation"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FKEGG_DRUG_definition_citation/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FKEGG_DRUG_definition_citation/ancestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FKEGG_DRUG_definition_citation/jstree"
-        }
-      }
-    }, {
-      "annotation" : {
-        "WBbt_definition_citation" : [ "http://www.ebi.ac.uk/efo/WBbt_definition_citation is an annotation property that is drawn from WBbt" ]
-      },
-      "synonyms" : null,
-      "iri" : "http://www.ebi.ac.uk/efo/WBbt_definition_citation",
-      "label" : "WBbt_definition_citation",
-      "synonym" : null,
-      "description" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
-      "is_obsolete" : false,
-      "is_defining_ontology" : false,
-      "has_children" : false,
-      "is_root" : false,
-      "short_form" : "WBbt_definition_citation",
-      "obo_id" : "WBbt_definition:citation",
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FWBbt_definition_citation"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FWBbt_definition_citation/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FWBbt_definition_citation/ancestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FWBbt_definition_citation/jstree"
-        }
-      }
-    }, {
-      "annotation" : {
-        "DrerDO_definition_citation" : [ "http://www.ebi.ac.uk/efo/DrerDO_definition_citation is an annotation property that is drawn from DrerDO" ]
-      },
-      "synonyms" : null,
-      "iri" : "http://www.ebi.ac.uk/efo/DrerDO_definition_citation",
-      "label" : "DrerDO_definition_citation",
-      "synonym" : null,
-      "description" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
-      "is_obsolete" : false,
-      "is_defining_ontology" : false,
-      "has_children" : false,
-      "is_root" : false,
-      "short_form" : "DrerDO_definition_citation",
-      "obo_id" : "DrerDO_definition:citation",
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FDrerDO_definition_citation"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FDrerDO_definition_citation/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FDrerDO_definition_citation/ancestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FDrerDO_definition_citation/jstree"
-        }
-      }
-    }, {
-      "annotation" : {
-        "EHDAA_definition_citation" : [ "http://www.ebi.ac.uk/efo/EHDAA_definition_citation is an annotation property that is drawn from EHDAA" ],
-        "definition" : [ "http://www.ebi.ac.uk/efo/EHDAA_definition_citation is an annotation property that is drawn from EHDAA" ]
-      },
-      "synonyms" : null,
-      "iri" : "http://www.ebi.ac.uk/efo/EHDAA_definition_citation",
-      "label" : "EHDAA_definition_citation",
-      "synonym" : null,
-      "description" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
-      "is_obsolete" : false,
-      "is_defining_ontology" : false,
-      "has_children" : false,
-      "is_root" : false,
-      "short_form" : "EHDAA_definition_citation",
-      "obo_id" : "EHDAA_definition:citation",
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEHDAA_definition_citation"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEHDAA_definition_citation/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEHDAA_definition_citation/ancestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEHDAA_definition_citation/jstree"
-        }
-      }
-    }, {
-      "annotation" : {
-        "NIF_Subcellular_definition_citation" : [ "http://www.ebi.ac.uk/efo/NIF_Subcellular_definition_citation is an annotation property that is drawn from NIF_Subcellular" ]
-      },
-      "synonyms" : null,
-      "iri" : "http://www.ebi.ac.uk/efo/NIF_Subcellular_definition_citation",
-      "label" : "NIF_Subcellular_definition_citation",
-      "synonym" : null,
-      "description" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
-      "is_obsolete" : false,
-      "is_defining_ontology" : false,
-      "has_children" : false,
-      "is_root" : false,
-      "short_form" : "NIF_Subcellular_definition_citation",
-      "obo_id" : "NIF_Subcellular_definition:citation",
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FNIF_Subcellular_definition_citation"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FNIF_Subcellular_definition_citation/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FNIF_Subcellular_definition_citation/ancestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FNIF_Subcellular_definition_citation/jstree"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.org%252Fdc%252Felements%252F1.1%252Ftitle"
         }
       }
     }, {
       "annotation" : { },
       "synonyms" : null,
+      "iri" : "http://www.ebi.ac.uk/cellline#Fmaid",
+      "label" : "Fmaid",
+      "synonym" : null,
+      "description" : null,
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : false,
+      "has_children" : false,
+      "is_root" : true,
+      "short_form" : "Fmaid",
+      "obo_id" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fcellline%2523Fmaid"
+        }
+      }
+    }, {
+      "annotation" : { },
+      "synonyms" : null,
+      "iri" : "http://purl.obolibrary.org/obo/pr#has_gene_template",
+      "label" : "has_gene_template",
+      "synonym" : null,
+      "description" : null,
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : false,
+      "has_children" : false,
+      "is_root" : true,
+      "short_form" : "has_gene_template",
+      "obo_id" : "has_gene:template",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252Fpr%2523has_gene_template"
+        }
+      }
+    }, {
+      "annotation" : {
+        "NCIT_NHC0" : [ "P108" ],
+        "NCIT_P106" : [ "Conceptual Entity" ],
+        "NCIT_P107" : [ "Preferred Name" ],
+        "NCIT_P108" : [ "Preferred_Name" ]
+      },
+      "synonyms" : [ "Preferred Term", "Preferred Name", "Preferred_Name" ],
+      "iri" : "http://purl.obolibrary.org/obo/NCIT_P108",
+      "label" : "NCIT_P108",
+      "synonym" : [ "Preferred Term", "Preferred Name", "Preferred_Name" ],
+      "description" : [ "The word or phrase that NCI uses by preference to refer to the concept." ],
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : false,
+      "has_children" : false,
+      "is_root" : true,
+      "short_form" : "NCIT_P108",
+      "obo_id" : "NCIT:P108",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FNCIT_P108"
+        }
+      }
+    }, {
+      "annotation" : { },
+      "synonyms" : null,
+      "iri" : "http://purl.obolibrary.org/obo/shorthand",
+      "label" : "shorthand",
+      "synonym" : null,
+      "description" : null,
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : false,
+      "has_children" : false,
+      "is_root" : true,
+      "short_form" : "shorthand",
+      "obo_id" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252Fshorthand"
+        }
+      }
+    }, {
+      "annotation" : { },
+      "synonyms" : null,
+      "iri" : "http://purl.obolibrary.org/obo/hasRelatedSynonym",
+      "label" : "hasRelatedSynonym",
+      "synonym" : null,
+      "description" : null,
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : false,
+      "has_children" : false,
+      "is_root" : true,
+      "short_form" : "hasRelatedSynonym",
+      "obo_id" : null,
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FhasRelatedSynonym"
+        }
+      }
+    }, {
+      "annotation" : {
+        "引自" : [ "http://purl.obolibrary.org/obo/ro.owl" ]
+      },
+      "synonyms" : null,
       "iri" : "http://www.w3.org/2002/07/owl#topObjectProperty",
       "label" : "topObjectProperty",
       "synonym" : null,
       "description" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
       "is_obsolete" : false,
       "is_defining_ontology" : false,
       "has_children" : true,
@@ -513,34 +383,185 @@ Content-Length: 23086
       "obo_id" : null,
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.w3.org%252F2002%252F07%252Fowl%2523topObjectProperty"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fwww.w3.org%252F2002%252F07%252Fowl%2523topObjectProperty"
         },
         "children" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.w3.org%252F2002%252F07%252Fowl%2523topObjectProperty/children"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fwww.w3.org%252F2002%252F07%252Fowl%2523topObjectProperty/children"
         },
         "descendants" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.w3.org%252F2002%252F07%252Fowl%2523topObjectProperty/descendants"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fwww.w3.org%252F2002%252F07%252Fowl%2523topObjectProperty/descendants"
         }
       }
     }, {
-      "annotation" : { },
+      "annotation" : {
+        "editor preferred label" : [ "participates in" ],
+        "引自" : [ "http://purl.obolibrary.org/obo/obi.owl", "http://purl.obolibrary.org/obo/cl.owl" ],
+        "替代术语" : [ "participates_in" ],
+        "用法示例" : [ "this blood clot participates in this blood coagulation", "this input material (or this output material) participates in this process", "this investigator participates in this investigation" ]
+      },
       "synonyms" : null,
-      "iri" : "http://purl.obolibrary.org/obo/HANCESTRO_0330",
-      "label" : "isDemonymOf",
+      "iri" : "http://purl.obolibrary.org/obo/RO_0000056",
+      "label" : "participates in",
       "synonym" : null,
-      "description" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
+      "description" : [ "a relation between a continuant and a process, in which the continuant is somehow involved in the process" ],
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : false,
+      "has_children" : true,
+      "is_root" : true,
+      "short_form" : "RO_0000056",
+      "obo_id" : "RO:0000056",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0000056"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0000056/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0000056/descendants"
+        }
+      }
+    }, {
+      "annotation" : {
+        "替代术语" : [ "produces" ],
+        "有管理状态" : [ "http://purl.obolibrary.org/obo/IAO_0000125" ],
+        "术语编辑者" : [ "Chris Mungall" ]
+      },
+      "synonyms" : null,
+      "iri" : "http://purl.obolibrary.org/obo/RO_0002234",
+      "label" : "has output",
+      "synonym" : null,
+      "description" : [ "p has output c iff c is a participant in p, c is present at the end of p, and c is not present at the beginning of p." ],
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
       "is_obsolete" : false,
       "is_defining_ontology" : false,
       "has_children" : false,
-      "is_root" : true,
-      "short_form" : "HANCESTRO_0330",
-      "obo_id" : "HANCESTRO:0330",
+      "is_root" : false,
+      "short_form" : "RO_0002234",
+      "obo_id" : "RO:0002234",
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHANCESTRO_0330"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0002234"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0002234/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0002234/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0002234/jstree"
+        }
+      }
+    }, {
+      "annotation" : {
+        "editor note" : [ "Has_participant is a primitive instance-level relation between a process, a continuant, and a time at which the continuant participates in some way in the process. The relation obtains, for example, when this particular process of oxygen exchange across this particular alveolar membrane has_participant this particular sample of hemoglobin at this particular time." ],
+        "editor preferred label" : [ "has participant" ],
+        "source" : [ "http://www.obofoundry.org/ro/#OBO_REL:has_participant" ],
+        "引自" : [ "http://purl.obolibrary.org/obo/obi.owl", "http://purl.obolibrary.org/obo/cl.owl" ],
+        "替代术语" : [ "has_participant" ],
+        "用法示例" : [ "this investigation has participant this investigator", "this process has participant this input material (or this output material)", "this blood coagulation has participant this blood clot" ]
+      },
+      "synonyms" : null,
+      "iri" : "http://purl.obolibrary.org/obo/RO_0000057",
+      "label" : "has participant",
+      "synonym" : null,
+      "description" : [ "a relation between a process and a continuant, in which the continuant is somehow involved in the process" ],
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : false,
+      "has_children" : true,
+      "is_root" : true,
+      "short_form" : "RO_0000057",
+      "obo_id" : "RO:0000057",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0000057"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0000057/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0000057/descendants"
+        }
+      }
+    }, {
+      "annotation" : {
+        "editor note" : [ "A bearer can have many dependents, and its dependents can exist for different periods of time, but none of its dependents can exist when the bearer does not exist." ],
+        "editor preferred label" : [ "bearer of" ],
+        "temporal interpretation" : [ "http://purl.obolibrary.org/obo/RO_0001901" ],
+        "引自" : [ "http://purl.obolibrary.org/obo/obi.owl", "http://purl.obolibrary.org/obo/ro.owl", "http://purl.obolibrary.org/obo/cl.owl" ],
+        "替代术语" : [ "bearer_of", "is bearer of" ],
+        "用法示例" : [ "this apple is bearer of this red color", "this vase is bearer of this fragility" ]
+      },
+      "synonyms" : null,
+      "iri" : "http://purl.obolibrary.org/obo/RO_0000053",
+      "label" : "bearer of",
+      "synonym" : null,
+      "description" : [ "a relation between an independent continuant (the bearer) and a specifically dependent continuant (the dependent), in which the dependent specifically depends on the bearer for its existence" ],
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : false,
+      "has_children" : true,
+      "is_root" : true,
+      "short_form" : "RO_0000053",
+      "obo_id" : "RO:0000053",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0000053"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0000053/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0000053/descendants"
+        }
+      }
+    }, {
+      "annotation" : {
+        "引自" : [ "http://purl.obolibrary.org/obo/cl.owl" ]
+      },
+      "synonyms" : null,
+      "iri" : "http://purl.obolibrary.org/obo/RO_0002595",
+      "label" : "RO_0002595",
+      "synonym" : null,
+      "description" : [ "A relationship that holds between a material entity and a process in which causality is involved, with either the material entity or some part of the material entity exerting some influence over the process, or the process influencing some aspect of the material entity." ],
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : false,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "RO_0002595",
+      "obo_id" : "RO:0002595",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0002595"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0002595/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0002595/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0002595/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0002595/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FRO_0002595/descendants"
         }
       }
     } ]
@@ -556,13 +577,13 @@ Content-Length: 23086
       "href" : "http://www.ebi.ac.uk/ols/api/properties?page=1&size=20"
     },
     "last" : {
-      "href" : "http://www.ebi.ac.uk/ols/api/properties?page=102&size=20"
+      "href" : "http://www.ebi.ac.uk/ols/api/properties?page=68&size=20"
     }
   },
   "page" : {
     "size" : 20,
-    "totalElements" : 2054,
-    "totalPages" : 103,
+    "totalElements" : 1369,
+    "totalPages" : 69,
     "number" : 0
   }
 }

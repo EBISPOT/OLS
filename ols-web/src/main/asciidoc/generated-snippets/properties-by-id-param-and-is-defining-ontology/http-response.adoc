@@ -2,561 +2,561 @@
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 22369
+Content-Length: 25084
 
 {
   "_embedded" : {
     "properties" : [ {
-      "annotation" : { },
+      "annotation" : {
+        "definition_editor" : [ "Oliver He" ]
+      },
       "synonyms" : null,
-      "iri" : "http://www.ebi.ac.uk/efo/EFO_0000741",
-      "label" : "has_tumor_type",
+      "iri" : "http://purl.obolibrary.org/obo/CLO_0037229",
+      "label" : "cell line cell derived from organism",
       "synonym" : null,
-      "description" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
+      "description" : [ "a 'cell line cell derives from' object property between a cell line cell  and an organism  where the cell line cell is derived from some cell from the organism. \nThis is a short cut relation that represents:\n'derived from' some (cell and ('part of' some organism))" ],
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
       "is_obsolete" : false,
       "is_defining_ontology" : true,
       "has_children" : false,
       "is_root" : false,
-      "short_form" : "EFO_0000741",
-      "obo_id" : "EFO:0000741",
+      "short_form" : "CLO_0037229",
+      "obo_id" : "CLO:0037229",
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000741"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037229"
         },
         "parents" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000741/parents"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037229/parents"
         },
         "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000741/ancestors"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037229/ancestors"
         },
         "jstree" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000741/jstree"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037229/jstree"
         }
       }
     }, {
       "annotation" : { },
       "synonyms" : null,
-      "iri" : "http://www.ebi.ac.uk/efo/EFO_0000824",
-      "label" : "relationship",
+      "iri" : "http://purl.obolibrary.org/obo/CLO_0037207",
+      "label" : "derived from organism",
       "synonym" : null,
-      "description" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
+      "description" : [ "a 'cell line cell derives from' object property between an entity (e.g., cell line cell in CLO)  and an organism  where the cell line cell is derived from some cell from the organism. \nIn CLO, this is a short cut relation that represents:\n'derived from' some (cell and ('part of' some organism))" ],
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
       "is_obsolete" : false,
       "is_defining_ontology" : true,
       "has_children" : true,
-      "is_root" : true,
-      "short_form" : "EFO_0000824",
-      "obo_id" : "EFO:0000824",
+      "is_root" : false,
+      "short_form" : "CLO_0037207",
+      "obo_id" : "CLO:0037207",
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000824"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037207"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037207/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037207/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037207/jstree"
         },
         "children" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000824/children"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037207/children"
         },
         "descendants" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000824/descendants"
-        }
-      }
-    }, {
-      "annotation" : { },
-      "synonyms" : null,
-      "iri" : "http://www.ebi.ac.uk/efo/EFO_0000742",
-      "label" : "is_tumor_of",
-      "synonym" : null,
-      "description" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
-      "is_obsolete" : false,
-      "is_defining_ontology" : true,
-      "has_children" : false,
-      "is_root" : false,
-      "short_form" : "EFO_0000742",
-      "obo_id" : "EFO:0000742",
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000742"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000742/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000742/ancestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000742/jstree"
-        }
-      }
-    }, {
-      "annotation" : { },
-      "synonyms" : null,
-      "iri" : "http://www.ebi.ac.uk/efo/EFO_0005515",
-      "label" : "has_p-value",
-      "synonym" : null,
-      "description" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
-      "is_obsolete" : false,
-      "is_defining_ontology" : true,
-      "has_children" : false,
-      "is_root" : true,
-      "short_form" : "EFO_0005515",
-      "obo_id" : "EFO:0005515",
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0005515"
-        }
-      }
-    }, {
-      "annotation" : { },
-      "synonyms" : null,
-      "iri" : "http://www.ebi.ac.uk/efo/EFO_0005516",
-      "label" : "has_t-statistic",
-      "synonym" : null,
-      "description" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
-      "is_obsolete" : false,
-      "is_defining_ontology" : true,
-      "has_children" : false,
-      "is_root" : true,
-      "short_form" : "EFO_0005516",
-      "obo_id" : "EFO:0005516",
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0005516"
-        }
-      }
-    }, {
-      "annotation" : { },
-      "synonyms" : null,
-      "iri" : "http://www.ebi.ac.uk/efo/EFO_0000794",
-      "label" : "is_broader_than",
-      "synonym" : null,
-      "description" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
-      "is_obsolete" : false,
-      "is_defining_ontology" : true,
-      "has_children" : false,
-      "is_root" : false,
-      "short_form" : "EFO_0000794",
-      "obo_id" : "EFO:0000794",
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000794"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000794/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000794/ancestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000794/jstree"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037207/descendants"
         }
       }
     }, {
       "annotation" : {
-        "editor note" : [ "Do not use this property for anything. It is an accidental duplication of another property that was released and has now been obsoleted following the accepted obsolence procedure" ],
-        "obsoleted_in_version" : [ "2.89" ],
-        "reason_for_obsolescence" : [ "accidental duplication of property gwas_trait" ],
-        "term replaced by" : [ "http://www.ebi.ac.uk/efo/gwas_trait" ]
+        "definition_editor" : [ "Oliver He" ]
       },
       "synonyms" : null,
-      "iri" : "http://www.ebi.ac.uk/efo/EFO_0008147",
-      "label" : "obsolete_EFO_0008147",
+      "iri" : "http://purl.obolibrary.org/obo/CLO_0037226",
+      "label" : "cell line cell derived from",
+      "synonym" : null,
+      "description" : [ "a 'derived from' object property that specifies the domain of the property is a cell line cell." ],
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "CLO_0037226",
+      "obo_id" : "CLO:0037226",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037226"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037226/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037226/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037226/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037226/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037226/descendants"
+        }
+      }
+    }, {
+      "annotation" : {
+        "definition_editor" : [ "Oliver He" ]
+      },
+      "synonyms" : null,
+      "iri" : "http://purl.obolibrary.org/obo/CLO_0037227",
+      "label" : "cell line cell derived from anatomical part",
+      "synonym" : null,
+      "description" : [ "a 'cell line cell derives from' object property between a cell line cell  and an anatomic part from an organism  where the cell line cell is derived from some cell in the tissue. The anatomic part is typically defined by UBERON in CLO. \nThis is a short cut relation that represents:\n'derived from' some (cell and ('part of' some 'anatomic part'))" ],
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "CLO_0037227",
+      "obo_id" : "CLO:0037227",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037227"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037227/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037227/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037227/jstree"
+        }
+      }
+    }, {
+      "annotation" : { },
+      "synonyms" : null,
+      "iri" : "http://purl.obolibrary.org/obo/CLO_0037208",
+      "label" : "derived from anatomic part",
+      "synonym" : null,
+      "description" : [ "a 'derives from' object property between an entity (i.e., cell line cell in CLO) and an anatomic part from an organism  where the cell line cell is derived from some cell in the anatomic part (e.g., tissue or organ). The anatomic part is typically defined by UBERON in CLO. \nin CLO, this is a short cut relation that represents:\n'derived from' some (cell and ('part of' some 'anatomic part'))" ],
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "has_children" : true,
+      "is_root" : false,
+      "short_form" : "CLO_0037208",
+      "obo_id" : "CLO:0037208",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037208"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037208/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037208/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037208/jstree"
+        },
+        "children" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037208/children"
+        },
+        "descendants" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037208/descendants"
+        }
+      }
+    }, {
+      "annotation" : {
+        "definition" : [ "An annotation property that represents an LINCS ID of a cell line.", "表示细胞系的LINCS ID的注释属性。", "An annotation property that represents an ID used in the NIH LINCS project." ],
+        "definition_editor" : [ "Oliver He, Jiangan Xie", "Oliver He, Jiangan Xie, Jie Zheng" ]
+      },
+      "synonyms" : null,
+      "iri" : "http://purl.obolibrary.org/obo/CLO_0000178",
+      "label" : "Cell line LINCS ID",
       "synonym" : null,
       "description" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
       "is_obsolete" : false,
       "is_defining_ontology" : true,
       "has_children" : false,
       "is_root" : true,
-      "short_form" : "EFO_0008147",
-      "obo_id" : "EFO:0008147",
+      "short_form" : "CLO_0000178",
+      "obo_id" : "CLO:0000178",
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0008147"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0000178"
         }
       }
     }, {
-      "annotation" : { },
+      "annotation" : {
+        "comment" : [ "This object property is largely equivalent to the previous term 'is model for' (http://www.ebi.ac.uk/cellline#is_model_for)." ],
+        "definition" : [ "an object property that represents a relation between a cell line cell and a disease." ],
+        "definition_editor" : [ "Asiyah Yu Lin, Yongqun He" ]
+      },
       "synonyms" : null,
-      "iri" : "http://www.ebi.ac.uk/efo/EFO_0000784",
-      "label" : "has_disease_location",
+      "iri" : "http://purl.obolibrary.org/obo/CLO_0000179",
+      "label" : "is disease model for",
       "synonym" : null,
       "description" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
       "is_obsolete" : false,
       "is_defining_ontology" : true,
       "has_children" : false,
       "is_root" : false,
-      "short_form" : "EFO_0000784",
-      "obo_id" : "EFO:0000784",
+      "short_form" : "CLO_0000179",
+      "obo_id" : "CLO:0000179",
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000784"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0000179"
         },
         "parents" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000784/parents"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0000179/parents"
         },
         "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000784/ancestors"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0000179/ancestors"
         },
         "jstree" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000784/jstree"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0000179/jstree"
         }
       }
     }, {
-      "annotation" : { },
+      "annotation" : {
+        "术语编辑者" : [ "SS, YH, UV, SS" ]
+      },
       "synonyms" : null,
-      "iri" : "http://www.ebi.ac.uk/efo/EFO_0000785",
-      "label" : "is_location_of_disease",
+      "iri" : "http://purl.obolibrary.org/obo/CLO_0000174",
+      "label" : "is in cell line repository",
       "synonym" : null,
-      "description" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
-      "is_obsolete" : false,
-      "is_defining_ontology" : true,
-      "has_children" : false,
-      "is_root" : false,
-      "short_form" : "EFO_0000785",
-      "obo_id" : "EFO:0000785",
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000785"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000785/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000785/ancestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0000785/jstree"
-        }
-      }
-    }, {
-      "annotation" : { },
-      "synonyms" : null,
-      "iri" : "http://www.ebi.ac.uk/efo/EFO_URI",
-      "label" : "EFO_URI",
-      "synonym" : null,
-      "description" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
+      "description" : [ "an object property that specifies a cell line repository for a specifc cell line." ],
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
       "is_obsolete" : false,
       "is_defining_ontology" : true,
       "has_children" : false,
       "is_root" : true,
-      "short_form" : "EFO_URI",
-      "obo_id" : "EFO:URI",
+      "short_form" : "CLO_0000174",
+      "obo_id" : "CLO:0000174",
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_URI"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0000174"
         }
       }
     }, {
       "annotation" : { },
       "synonyms" : null,
-      "iri" : "http://www.ebi.ac.uk/efo/EFO_0006351",
-      "label" : "has_about_it",
+      "iri" : "http://purl.obolibrary.org/obo/CLO_0037210",
+      "label" : "derived from cell line",
       "synonym" : null,
       "description" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "CLO_0037210",
+      "obo_id" : "CLO:0037210",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037210"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037210/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037210/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037210/jstree"
+        }
+      }
+    }, {
+      "annotation" : { },
+      "synonyms" : null,
+      "iri" : "http://purl.obolibrary.org/obo/CLO_0037334",
+      "label" : "Cell culture condition",
+      "synonym" : null,
+      "description" : null,
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
       "is_obsolete" : false,
       "is_defining_ontology" : true,
       "has_children" : false,
       "is_root" : true,
-      "short_form" : "EFO_0006351",
-      "obo_id" : "EFO:0006351",
+      "short_form" : "CLO_0037334",
+      "obo_id" : "CLO:0037334",
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0006351"
-        }
-      }
-    }, {
-      "annotation" : { },
-      "synonyms" : null,
-      "iri" : "http://www.ebi.ac.uk/efo/EFO_0001697",
-      "label" : "is_unit_of",
-      "synonym" : null,
-      "description" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
-      "is_obsolete" : false,
-      "is_defining_ontology" : true,
-      "has_children" : false,
-      "is_root" : false,
-      "short_form" : "EFO_0001697",
-      "obo_id" : "EFO:0001697",
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0001697"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0001697/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0001697/ancestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0001697/jstree"
-        }
-      }
-    }, {
-      "annotation" : { },
-      "synonyms" : null,
-      "iri" : "http://www.ebi.ac.uk/efo/EFO_0001698",
-      "label" : "has_unit",
-      "synonym" : null,
-      "description" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
-      "is_obsolete" : false,
-      "is_defining_ontology" : true,
-      "has_children" : false,
-      "is_root" : false,
-      "short_form" : "EFO_0001698",
-      "obo_id" : "EFO:0001698",
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0001698"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0001698/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0001698/ancestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_0001698/jstree"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037334"
         }
       }
     }, {
       "annotation" : {
-        "EFO_definition_citation" : [ "http://www.ebi.ac.uk/efo/EFO_definition_citation is an annotation property that is drawn from EFO" ]
+        "definition" : [ "An annotation property that describes known mutation(s) about a cell." ],
+        "术语编辑者" : [ "Oliver He" ]
       },
       "synonyms" : null,
-      "iri" : "http://www.ebi.ac.uk/efo/EFO_definition_citation",
-      "label" : "EFO_definition_citation",
+      "iri" : "http://purl.obolibrary.org/obo/CLO_0037333",
+      "label" : "Known mutation annotation",
       "synonym" : null,
       "description" : null,
-      "ontology_name" : "efo",
-      "ontology_prefix" : "EFO",
-      "ontology_iri" : "http://www.ebi.ac.uk/efo/efo.owl",
-      "is_obsolete" : false,
-      "is_defining_ontology" : true,
-      "has_children" : false,
-      "is_root" : false,
-      "short_form" : "EFO_definition_citation",
-      "obo_id" : "EFO_definition:citation",
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_definition_citation"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_definition_citation/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_definition_citation/ancestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/properties/http%253A%252F%252Fwww.ebi.ac.uk%252Fefo%252FEFO_definition_citation/jstree"
-        }
-      }
-    }, {
-      "annotation" : {
-        "created_by" : [ "peter" ],
-        "date" : [ "2018-07-05T13:18:08Z" ]
-      },
-      "synonyms" : null,
-      "iri" : "http://purl.obolibrary.org/obo/HP_0031940",
-      "label" : "display label",
-      "synonym" : null,
-      "description" : null,
-      "ontology_name" : "hp",
-      "ontology_prefix" : "HP",
-      "ontology_iri" : "http://purl.obolibrary.org/obo/hp.owl",
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
       "is_obsolete" : false,
       "is_defining_ontology" : true,
       "has_children" : false,
       "is_root" : true,
-      "short_form" : "HP_0031940",
-      "obo_id" : "HP:0031940",
+      "short_form" : "CLO_0037333",
+      "obo_id" : "CLO:0037333",
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHP_0031940"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037333"
         }
       }
     }, {
       "annotation" : {
-        "created_by" : [ "peter" ],
-        "date" : [ "2018-05-05T19:01:17Z" ]
+        "definition" : [ "an object property that represents a relation between a cell line cell and a protein where the cell line cell is genetically transfected to stably express a foreign protein in the cell line cell." ],
+        "definition_editor" : [ "Oliver He, Asiyah Yu Lin" ],
+        "example_of_usage" : [ "HeLa ICRP cell is transfected to express a Initiator caspase reporter protein (IC-RP)" ]
       },
       "synonyms" : null,
-      "iri" : "http://purl.obolibrary.org/obo/HP_0031859",
-      "label" : "obsolete",
+      "iri" : "http://purl.obolibrary.org/obo/CLO_0037200",
+      "label" : "transfected to express",
       "synonym" : null,
       "description" : null,
-      "ontology_name" : "hp",
-      "ontology_prefix" : "HP",
-      "ontology_iri" : "http://purl.obolibrary.org/obo/hp.owl",
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
       "is_obsolete" : false,
       "is_defining_ontology" : true,
       "has_children" : false,
-      "is_root" : false,
-      "short_form" : "HP_0031859",
-      "obo_id" : "HP:0031859",
+      "is_root" : true,
+      "short_form" : "CLO_0037200",
+      "obo_id" : "CLO:0037200",
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHP_0031859"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHP_0031859/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHP_0031859/ancestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHP_0031859/jstree"
-        }
-      }
-    }, {
-      "annotation" : {
-        "created_by" : [ "HPO:skoehler" ]
-      },
-      "synonyms" : null,
-      "iri" : "http://purl.obolibrary.org/obo/HP_0045076",
-      "label" : "UK spelling",
-      "synonym" : null,
-      "description" : null,
-      "ontology_name" : "hp",
-      "ontology_prefix" : "HP",
-      "ontology_iri" : "http://purl.obolibrary.org/obo/hp.owl",
-      "is_obsolete" : false,
-      "is_defining_ontology" : true,
-      "has_children" : false,
-      "is_root" : false,
-      "short_form" : "HP_0045076",
-      "obo_id" : "HP:0045076",
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHP_0045076"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHP_0045076/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHP_0045076/ancestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHP_0045076/jstree"
-        }
-      }
-    }, {
-      "annotation" : {
-        "created_by" : [ "HPO:skoehler" ]
-      },
-      "synonyms" : null,
-      "iri" : "http://purl.obolibrary.org/obo/HP_0045077",
-      "label" : "abbreviation",
-      "synonym" : null,
-      "description" : null,
-      "ontology_name" : "hp",
-      "ontology_prefix" : "HP",
-      "ontology_iri" : "http://purl.obolibrary.org/obo/hp.owl",
-      "is_obsolete" : false,
-      "is_defining_ontology" : true,
-      "has_children" : false,
-      "is_root" : false,
-      "short_form" : "HP_0045077",
-      "obo_id" : "HP:0045077",
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHP_0045077"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHP_0045077/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHP_0045077/ancestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHP_0045077/jstree"
-        }
-      }
-    }, {
-      "annotation" : {
-        "created_by" : [ "HPO:skoehler" ]
-      },
-      "synonyms" : null,
-      "iri" : "http://purl.obolibrary.org/obo/HP_0045078",
-      "label" : "plural form",
-      "synonym" : null,
-      "description" : null,
-      "ontology_name" : "hp",
-      "ontology_prefix" : "HP",
-      "ontology_iri" : "http://purl.obolibrary.org/obo/hp.owl",
-      "is_obsolete" : false,
-      "is_defining_ontology" : true,
-      "has_children" : false,
-      "is_root" : false,
-      "short_form" : "HP_0045078",
-      "obo_id" : "HP:0045078",
-      "_links" : {
-        "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHP_0045078"
-        },
-        "parents" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHP_0045078/parents"
-        },
-        "ancestors" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHP_0045078/ancestors"
-        },
-        "jstree" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/hp/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FHP_0045078/jstree"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037200"
         }
       }
     }, {
       "annotation" : { },
       "synonyms" : null,
-      "iri" : "http://purl.obolibrary.org/obo/DUO_0000041",
-      "label" : "DUO_preferred_label",
+      "iri" : "http://purl.obolibrary.org/obo/CLO_0037209",
+      "label" : "derived from cell",
       "synonym" : null,
       "description" : null,
-      "ontology_name" : "duo",
-      "ontology_prefix" : "DUO",
-      "ontology_iri" : "http://purl.obolibrary.org/obo/duo.owl",
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : false,
+      "short_form" : "CLO_0037209",
+      "obo_id" : "CLO:0037209",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037209"
+        },
+        "parents" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037209/parents"
+        },
+        "ancestors" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037209/ancestors"
+        },
+        "jstree" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037209/jstree"
+        }
+      }
+    }, {
+      "annotation" : {
+        "definition" : [ "描述有问题的细胞系信息的注释属性。", "An annotation property that describes the information of a problematic cell line." ],
+        "definition_editor" : [ "Yongqun He" ]
+      },
+      "synonyms" : null,
+      "iri" : "http://purl.obolibrary.org/obo/CLO_0037275",
+      "label" : "问题细胞注释",
+      "synonym" : null,
+      "description" : null,
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
       "is_obsolete" : false,
       "is_defining_ontology" : true,
       "has_children" : false,
       "is_root" : true,
-      "short_form" : "DUO_0000041",
-      "obo_id" : "DUO:0000041",
+      "short_form" : "CLO_0037275",
+      "obo_id" : "CLO:0037275",
       "_links" : {
         "self" : {
-          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/duo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FDUO_0000041"
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0037275"
+        }
+      }
+    }, {
+      "annotation" : {
+        "definition" : [ "An annotation property that describes the frozen storage conditions of a cell line.", "描述细胞系冷冻储存条件的注释属性。" ],
+        "definition_editor" : [ "Hongjie Pan" ]
+      },
+      "synonyms" : null,
+      "iri" : "http://purl.obolibrary.org/obo/CLO_0051629",
+      "label" : "冻存条件",
+      "synonym" : null,
+      "description" : null,
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : true,
+      "short_form" : "CLO_0051629",
+      "obo_id" : "CLO:0051629",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0051629"
+        }
+      }
+    }, {
+      "annotation" : {
+        "definition" : [ "描述细胞系传代情况的注释属性。", "An annotation property that describes the passage situation of a cell line." ],
+        "definition_editor" : [ "Hongjie Pan" ]
+      },
+      "synonyms" : null,
+      "iri" : "http://purl.obolibrary.org/obo/CLO_0051628",
+      "label" : "passage situation",
+      "synonym" : null,
+      "description" : null,
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : true,
+      "short_form" : "CLO_0051628",
+      "obo_id" : "CLO:0051628",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0051628"
+        }
+      }
+    }, {
+      "annotation" : {
+        "definition" : [ "描述细胞系培养条件的注释属性。", "An annotation property that describes the culture conditions of a cell line." ],
+        "definition_editor" : [ "Hongjie Pan" ]
+      },
+      "synonyms" : null,
+      "iri" : "http://purl.obolibrary.org/obo/CLO_0051627",
+      "label" : "培养条件",
+      "synonym" : null,
+      "description" : null,
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : true,
+      "short_form" : "CLO_0051627",
+      "obo_id" : "CLO:0051627",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0051627"
+        }
+      }
+    }, {
+      "annotation" : {
+        "definition" : [ "描述细胞系基本特性的注释属性。", "An annotation property that describes the general characteristics of a cell line." ],
+        "definition_editor" : [ "Hongjie Pan" ]
+      },
+      "synonyms" : null,
+      "iri" : "http://purl.obolibrary.org/obo/CLO_0051626",
+      "label" : "specific characteristics",
+      "synonym" : null,
+      "description" : null,
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : true,
+      "short_form" : "CLO_0051626",
+      "obo_id" : "CLO:0051626",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0051626"
+        }
+      }
+    }, {
+      "annotation" : {
+        "definition" : [ "描述细胞系生长特性的注释属性。", "An annotation property that describes the growth characteristics of a cell line." ],
+        "definition_editor" : [ "Hongjie Pan" ]
+      },
+      "synonyms" : null,
+      "iri" : "http://purl.obolibrary.org/obo/CLO_0051625",
+      "label" : "Growth Characteristics",
+      "synonym" : null,
+      "description" : null,
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : true,
+      "short_form" : "CLO_0051625",
+      "obo_id" : "CLO:0051625",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0051625"
+        }
+      }
+    }, {
+      "annotation" : {
+        "definition" : [ "An annotation property that describes the morphological characteristics of a cell line.", "描述细胞系形态特征的注释属性。" ],
+        "definition_editor" : [ "Hongjie Pan" ]
+      },
+      "synonyms" : null,
+      "iri" : "http://purl.obolibrary.org/obo/CLO_0051624",
+      "label" : "Morphological Characteristics",
+      "synonym" : null,
+      "description" : null,
+      "ontology_name" : "clo",
+      "ontology_prefix" : "CLO",
+      "ontology_iri" : "http://purl.obolibrary.org/obo/clo.owl",
+      "is_obsolete" : false,
+      "is_defining_ontology" : true,
+      "has_children" : false,
+      "is_root" : true,
+      "short_form" : "CLO_0051624",
+      "obo_id" : "CLO:0051624",
+      "_links" : {
+        "self" : {
+          "href" : "http://www.ebi.ac.uk/ols/api/ontologies/clo/properties/http%253A%252F%252Fpurl.obolibrary.org%252Fobo%252FCLO_0051624"
         }
       }
     } ]
@@ -572,13 +572,13 @@ Content-Length: 22369
       "href" : "http://www.ebi.ac.uk/ols/api/properties/findByIdAndIsDefiningOntology?page=1&size=20"
     },
     "last" : {
-      "href" : "http://www.ebi.ac.uk/ols/api/properties/findByIdAndIsDefiningOntology?page=31&size=20"
+      "href" : "http://www.ebi.ac.uk/ols/api/properties/findByIdAndIsDefiningOntology?page=33&size=20"
     }
   },
   "page" : {
     "size" : 20,
-    "totalElements" : 639,
-    "totalPages" : 32,
+    "totalElements" : 673,
+    "totalPages" : 34,
     "number" : 0
   }
 }

@@ -185,7 +185,7 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
             return builder.build();
         }
         catch (Exception e) {
-            throw new ConfigParsingException("problem parsing yaml for " + id);
+            throw new ConfigParsingException("problem parsing yaml for " + id, e);
         }
 
     }

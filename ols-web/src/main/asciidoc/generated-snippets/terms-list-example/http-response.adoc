@@ -2,7 +2,7 @@
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 66760
+Content-Length: 66721
 
 {
   "_embedded" : {
@@ -12,9 +12,9 @@ Content-Length: 66760
       "description" : null,
       "annotation" : {
         "DOID_definition_citation" : [ "DOID:12237" ],
-        "MSH_definition_citation" : [ "MSH:D001655" ],
-        "definition" : [ "Retrograde bile flow. Reflux of bile can be from the duodenum to the stomach (DUODENOGASTRIC REFLUX); to the esophagus (GASTROESOPHAGEAL REFLUX); or to the PANCREAS." ],
-        "term editor" : [ "Dani Welter" ]
+        "IAO_0000115" : [ "Retrograde bile flow. Reflux of bile can be from the duodenum to the stomach (DUODENOGASTRIC REFLUX); to the esophagus (GASTROESOPHAGEAL REFLUX); or to the PANCREAS." ],
+        "IAO_0000117" : [ "Dani Welter" ],
+        "MSH_definition_citation" : [ "MSH:D001655" ]
       },
       "synonyms" : [ "Bile Reflux" ],
       "ontology_name" : "efo",
@@ -68,11 +68,11 @@ Content-Length: 66760
       "description" : null,
       "annotation" : {
         "DOID_definition_citation" : [ "DOID:9741" ],
+        "IAO_0000115" : [ "A disease involving the biliary tree." ],
         "ICD10_definition_citation" : [ "ICD10:K83", "ICD10:K83.9" ],
         "ICD9_definition_citation" : [ "ICD9:576.9" ],
         "MONDO_definition_citation" : [ "MONDO:0004868" ],
         "MSH_definition_citation" : [ "MESH:D001660" ],
-        "definition" : [ "A disease involving the biliary tree." ],
         "definition_citation" : [ "SCTID:105997008" ]
       },
       "synonyms" : [ "disorder of biliary tree", "biliary tree disease", "disease or disorder of biliary tree", "disease of biliary tree", "biliary tree disease or disorder" ],
@@ -139,12 +139,12 @@ Content-Length: 66760
       "description" : null,
       "annotation" : {
         "DOID_definition_citation" : [ "DOID:11355" ],
+        "IAO_0000115" : [ "Stones in the URINARY BLADDER; also known as vesical calculi, bladder stones, or cystoliths." ],
+        "IAO_0000117" : [ "Sirarat Sarntivijai" ],
         "MSH_definition_citation" : [ "MSH:D001744" ],
         "MedDRA_definition_citation" : [ "MedDRA:10005001" ],
         "NCI_Thesaurus_definition_citation" : [ "NCIt:C26707" ],
-        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:70650003" ],
-        "definition" : [ "Stones in the URINARY BLADDER; also known as vesical calculi, bladder stones, or cystoliths." ],
-        "term editor" : [ "Sirarat Sarntivijai" ]
+        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:70650003" ]
       },
       "synonyms" : [ "vesical calculi", "bladder stone", "cystoliths", "Urinary Bladder Calculi", "bladder stones" ],
       "ontology_name" : "efo",
@@ -198,11 +198,11 @@ Content-Length: 66760
       "description" : null,
       "annotation" : {
         "DOID_definition_citation" : [ "DOID:365" ],
+        "IAO_0000115" : [ "A disorder affecting the urinary bladder" ],
+        "IAO_0000117" : [ "Laura Huerta" ],
         "ICD10_definition_citation" : [ "ICD10:N32" ],
         "NCI_Thesaurus_definition_citation" : [ "NCIt:C2900" ],
-        "UMLS_definition_citation" : [ "UMLS:C0005686" ],
-        "definition" : [ "A disorder affecting the urinary bladder" ],
-        "term editor" : [ "Laura Huerta" ]
+        "UMLS_definition_citation" : [ "UMLS:C0005686" ]
       },
       "synonyms" : [ "urinary bladder disorder", "bladder disorder" ],
       "ontology_name" : "efo",
@@ -268,10 +268,10 @@ Content-Length: 66760
       "description" : null,
       "annotation" : {
         "DOID_definition_citation" : [ "DOID:3404" ],
+        "IAO_0000115" : [ "Conditions characterized by the presence of M protein (Monoclonal protein) in serum or urine without clinical manifestations of plasma cell dyscrasia." ],
+        "IAO_0000117" : [ "Sirarat Sarntivijai" ],
         "MSH_definition_citation" : [ "MSH:D008998" ],
-        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:58648008" ],
-        "definition" : [ "Conditions characterized by the presence of M protein (Monoclonal protein) in serum or urine without clinical manifestations of plasma cell dyscrasia." ],
-        "term editor" : [ "Sirarat Sarntivijai" ]
+        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:58648008" ]
       },
       "synonyms" : [ "benign Monoclonal Gammopathy", "benign monoclonal gammopathy (disorder)", "Monoclonal Gammopathy of Undetermined Significance", "BMH" ],
       "ontology_name" : "efo",
@@ -321,16 +321,16 @@ Content-Length: 66760
       }
     }, {
       "iri" : "http://www.ebi.ac.uk/efo/EFO_0000203",
-      "label" : "monoclonal gammopathy",
+      "label" : "EFO_0000203",
       "description" : null,
       "annotation" : {
         "DOID_definition_citation" : [ "DOID:7442" ],
+        "IAO_0000115" : [ "A plasma cell disorder in which an abnormal amount of a single immunoglobulin is present in the serum. Up to 25% of cases of monoclonal gammopathy of undetermined significance (MGUS) progress to a B-cell malignancy or myeloma. MGUS may occur in conjunction with various carcinomas, chronic inflammatory and infectious conditions, and other diseases." ],
+        "IAO_0000117" : [ "James Malone" ],
         "MSH_definition_citation" : [ "MSH:D008998" ],
         "NCI_Thesaurus_definition_citation" : [ "NCIt:C35548" ],
         "SNOMEDCT_definition_citation" : [ "SNOMEDCT:35601003", "SNOMEDCT:277577000", "SNOMEDCT:58648008" ],
-        "bioportal_provenance" : [ "monoclonal gammopathy of uncertain significance[accessedResource: DOID:7442][accessDate: 05-04-2011]", "MGUS - Monoclonal gammopathy of uncertain significance[accessedResource: SNOMEDCT:277577000][accessDate: 05-04-2011]", "Monoclonal gammopathy of undetermined significance (morphologic abnormality)[accessedResource: SNOMEDCT:35601003][accessDate: 05-04-2011]", "MGUS[accessedResource: DOID:7442][accessDate: 05-04-2011]", "Benign Monoclonal Gammopathy[accessedResource: NCIt:C3996][accessDate: 05-04-2011]", "Paraproteinaemia[accessedResource: SNOMEDCT:35601003][accessDate: 05-04-2011]", "Monoclonal Gammopathy of Unknown Significance[accessedResource: NCIt:C3996][accessDate: 05-04-2011]", "Monoclonal Gammopathy Of Undetermined Significance (MGUS)[accessedResource: NCIt:C3996][accessDate: 05-04-2011]", "A plasma cell disorder in which an abnormal amount of a single immunoglobulin is present in the serum. Up to 25% of cases of monoclonal gammopathy of undetermined significance (MGUS) progress to a B-cell malignancy or myeloma. MGUS may occur in conjunction with various carcinomas, chronic inflammatory and infectious conditions, and other diseases.[accessedResource: NCIt:C3996][accessDate: 05-04-2011]", "Paraproteinemia[accessedResource: SNOMEDCT:35601003][accessDate: 05-04-2011]", "Monoclonal gammopathy of undetermined significance[accessedResource: SNOMEDCT:35601003][accessDate: 05-04-2011]", "Monoclonal gammopathy of uncertain significance (disorder)[accessedResource: SNOMEDCT:277577000][accessDate: 05-04-2011]" ],
-        "definition" : [ "A plasma cell disorder in which an abnormal amount of a single immunoglobulin is present in the serum. Up to 25% of cases of monoclonal gammopathy of undetermined significance (MGUS) progress to a B-cell malignancy or myeloma. MGUS may occur in conjunction with various carcinomas, chronic inflammatory and infectious conditions, and other diseases." ],
-        "term editor" : [ "James Malone" ]
+        "bioportal_provenance" : [ "monoclonal gammopathy of uncertain significance[accessedResource: DOID:7442][accessDate: 05-04-2011]", "MGUS - Monoclonal gammopathy of uncertain significance[accessedResource: SNOMEDCT:277577000][accessDate: 05-04-2011]", "Monoclonal gammopathy of undetermined significance (morphologic abnormality)[accessedResource: SNOMEDCT:35601003][accessDate: 05-04-2011]", "MGUS[accessedResource: DOID:7442][accessDate: 05-04-2011]", "Benign Monoclonal Gammopathy[accessedResource: NCIt:C3996][accessDate: 05-04-2011]", "Paraproteinaemia[accessedResource: SNOMEDCT:35601003][accessDate: 05-04-2011]", "Monoclonal Gammopathy of Unknown Significance[accessedResource: NCIt:C3996][accessDate: 05-04-2011]", "Monoclonal Gammopathy Of Undetermined Significance (MGUS)[accessedResource: NCIt:C3996][accessDate: 05-04-2011]", "A plasma cell disorder in which an abnormal amount of a single immunoglobulin is present in the serum. Up to 25% of cases of monoclonal gammopathy of undetermined significance (MGUS) progress to a B-cell malignancy or myeloma. MGUS may occur in conjunction with various carcinomas, chronic inflammatory and infectious conditions, and other diseases.[accessedResource: NCIt:C3996][accessDate: 05-04-2011]", "Paraproteinemia[accessedResource: SNOMEDCT:35601003][accessDate: 05-04-2011]", "Monoclonal gammopathy of undetermined significance[accessedResource: SNOMEDCT:35601003][accessDate: 05-04-2011]", "Monoclonal gammopathy of uncertain significance (disorder)[accessedResource: SNOMEDCT:277577000][accessDate: 05-04-2011]" ]
       },
       "synonyms" : [ "MGUS - Monoclonal gammopathy of uncertain significance", "Paraproteinaemia", "Benign Monoclonal Gammopathy", "Monoclonal gammopathy of undetermined significance (morphologic abnormality)", "Monoclonal gammopathy of uncertain significance", "Paraproteinemia", "Monoclonal Gammopathy Of Undetermined Significance (MGUS)", "MGUS", "Monoclonal Gammopathy of Unknown Significance", "Monoclonal gammopathy of undetermined significance", "Monoclonal gammopathy of uncertain significance (disorder)" ],
       "ontology_name" : "efo",
@@ -384,15 +384,15 @@ Content-Length: 66760
       }
     }, {
       "iri" : "http://purl.obolibrary.org/obo/UBERON_0013702",
-      "label" : "body proper",
+      "label" : "UBERON_0013702",
       "description" : null,
       "annotation" : {
         "AEO_definition_citation" : [ "AEO:0000103" ],
         "FMA_definition_citation" : [ "FMA:231424" ],
-        "definition" : [ "\nThe region of the organism associated with the visceral organs.\n" ],
-        "external_definition" : [ "\nCardinal body part, which consists of a maximal set of diverse subclasses of organ and organ part spatially associated with the vertebral column and ribcage. Examples: There is only one body proper[FMA:231424].\n" ],
-        "has_obo_namespace" : [ "uberon" ],
-        "has_related_synonym" : [ "body" ],
+        "IAO_0000115" : [ "\nThe region of the organism associated with the visceral organs.\n" ],
+        "UBPROP_0000001" : [ "\nCardinal body part, which consists of a maximal set of diverse subclasses of organ and organ part spatially associated with the vertebral column and ribcage. Examples: There is only one body proper[FMA:231424].\n" ],
+        "hasOBONamespace" : [ "uberon" ],
+        "hasRelatedSynonym" : [ "body" ],
         "id" : [ "UBERON:0013702" ],
         "imported from" : [ "http://purl.obolibrary.org/obo/uberon.owl" ]
       },
@@ -436,11 +436,11 @@ Content-Length: 66760
       }
     }, {
       "iri" : "http://www.ebi.ac.uk/efo/EFO_0000787",
-      "label" : "animal component",
+      "label" : "EFO_0000787",
       "description" : null,
       "annotation" : {
-        "MAT_definition_citation" : [ "MAT:0000001" ],
-        "term editor" : [ "James Malone" ]
+        "IAO_0000117" : [ "James Malone" ],
+        "MAT_definition_citation" : [ "MAT:0000001" ]
       },
       "synonyms" : null,
       "ontology_name" : "efo",
@@ -498,12 +498,12 @@ Content-Length: 66760
       "description" : null,
       "annotation" : {
         "DOID_definition_citation" : [ "DOID:13725" ],
+        "IAO_0000115" : [ "A disease caused by a deficiency of thiamine (vitamin B1) and characterized by polyneuritis, cardiac pathology, and edema. The epidemic form is found primarily in areas in which white (polished) rice is the staple food, as in Japan, China, the Philippines, India, and other countries of southeast Asia. (Dorland, 27th ed)" ],
+        "IAO_0000117" : [ "Dani Welter" ],
         "ICD10_definition_citation" : [ "ICD10:E51.1" ],
         "MSH_definition_citation" : [ "MSH:D001602" ],
         "MedDRA_definition_citation" : [ "MedDRA:10004482" ],
-        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:36656008" ],
-        "definition" : [ "A disease caused by a deficiency of thiamine (vitamin B1) and characterized by polyneuritis, cardiac pathology, and edema. The epidemic form is found primarily in areas in which white (polished) rice is the staple food, as in Japan, China, the Philippines, India, and other countries of southeast Asia. (Dorland, 27th ed)" ],
-        "term editor" : [ "Dani Welter" ]
+        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:36656008" ]
       },
       "synonyms" : [ "Beriberi" ],
       "ontology_name" : "efo",
@@ -557,12 +557,12 @@ Content-Length: 66760
       "description" : null,
       "annotation" : {
         "DOID_definition_citation" : [ "DOID:5113" ],
+        "IAO_0000115" : [ "Any condition resulting from the lack of one or more nutrients that the body needs to maintain healthy tissues and organ function" ],
+        "IAO_0000117" : [ "Dani Welter" ],
         "ICD10_definition_citation" : [ "ICD10:E63" ],
         "MSH_definition_citation" : [ "MSH:D003677" ],
         "MedDRA_definition_citation" : [ "MedDRA:10046058" ],
-        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:70241007" ],
-        "definition" : [ "Any condition resulting from the lack of one or more nutrients that the body needs to maintain healthy tissues and organ function" ],
-        "term editor" : [ "Dani Welter" ]
+        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:70241007" ]
       },
       "synonyms" : null,
       "ontology_name" : "efo",
@@ -628,11 +628,11 @@ Content-Length: 66760
       "description" : null,
       "annotation" : {
         "DOID_definition_citation" : [ "DOID:4542" ],
+        "IAO_0000115" : [ "A small tumor of the anterior lobe of the pituitary gland whose cells stain with basic dyes. It may give rise to excessive secretion of ACTH, resulting in CUSHING SYNDROME. (Dorland, 27th ed)" ],
+        "IAO_0000117" : [ "Sirarat Sarntivijai" ],
         "MSH_definition_citation" : [ "MSH:D000237" ],
         "NCI_Thesaurus_definition_citation" : [ "NCIt:C2856" ],
-        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:9436005" ],
-        "definition" : [ "A small tumor of the anterior lobe of the pituitary gland whose cells stain with basic dyes. It may give rise to excessive secretion of ACTH, resulting in CUSHING SYNDROME. (Dorland, 27th ed)" ],
-        "term editor" : [ "Sirarat Sarntivijai" ]
+        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:9436005" ]
       },
       "synonyms" : [ "Pituitary gland Basophilic adenoma", "Adenoma, Basophil" ],
       "ontology_name" : "efo",
@@ -686,12 +686,12 @@ Content-Length: 66760
       "description" : null,
       "annotation" : {
         "DOID_definition_citation" : [ "DOID:3829" ],
+        "IAO_0000115" : [ "A non-metastasizing tumor that arises from the adenohypophysial cells of the anterior lobe of the pituitary gland. The tumor can be hormonally functioning or not. The diagnosis can be based on imaging studies and/or radioimmunoassays. Due to its location in the sella turcica, expansion of the tumor mass can impinge on the optic chiasm or involve the temporal lobe, third ventricle and posterior fossa. A frequently associated physical finding is bitemporal hemianopsia which may progress to further visual loss." ],
         "MedDRA_definition_citation" : [ "MedDRA:10035079" ],
         "NCI_Thesaurus_definition_citation" : [ "NCIt:C3329" ],
         "OMIM_definition_citation" : [ "OMIM:617686", "OMIM:617540", "OMIM:MTHU016150" ],
         "ORDO_definition_citation" : [ "ORDO:Orphanet_99408" ],
-        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:254956000" ],
-        "definition" : [ "A non-metastasizing tumor that arises from the adenohypophysial cells of the anterior lobe of the pituitary gland. The tumor can be hormonally functioning or not. The diagnosis can be based on imaging studies and/or radioimmunoassays. Due to its location in the sella turcica, expansion of the tumor mass can impinge on the optic chiasm or involve the temporal lobe, third ventricle and posterior fossa. A frequently associated physical finding is bitemporal hemianopsia which may progress to further visual loss." ]
+        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:254956000" ]
       },
       "synonyms" : [ "pituitary adenoma" ],
       "ontology_name" : "efo",
@@ -757,10 +757,10 @@ Content-Length: 66760
       "description" : null,
       "annotation" : {
         "DOID_definition_citation" : [ "DOID:2653" ],
+        "IAO_0000115" : [ "A rare neoplasm, usually benign, derived from mesenchymal fibroblasts located in the submesothelial lining of the PLEURA. It spite of its various synonyms, it has no features of mesothelial cells and is not related to malignant MESOTHELIOMA or asbestos exposure." ],
+        "IAO_0000117" : [ "Sirarat Sarntivijai" ],
         "MSH_definition_citation" : [ "MSH:D054363" ],
-        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:15702005" ],
-        "definition" : [ "A rare neoplasm, usually benign, derived from mesenchymal fibroblasts located in the submesothelial lining of the PLEURA. It spite of its various synonyms, it has no features of mesothelial cells and is not related to malignant MESOTHELIOMA or asbestos exposure." ],
-        "term editor" : [ "Sirarat Sarntivijai" ]
+        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:15702005" ]
       },
       "synonyms" : [ "localized benign fibrous Mesothelioma", "Solitary Fibrous Tumor, Pleural", "fibrous mesothelioma, benign (morphologic abnormality)" ],
       "ontology_name" : "efo",
@@ -810,18 +810,18 @@ Content-Length: 66760
       }
     }, {
       "iri" : "http://www.ebi.ac.uk/efo/EFO_0000588",
-      "label" : "mesothelioma",
+      "label" : "EFO_0000588",
       "description" : null,
       "annotation" : {
         "DOID_definition_citation" : [ "DOID:1790" ],
+        "IAO_0000115" : [ "A tumor derived from mesothelial tissue (peritoneum, pleura, pericardium). It appears as broad sheets of cells, with some regions containing spindle-shaped, sarcoma-like cells and other regions showing adenomatous patterns. Pleural mesotheliomas have been linked to exposure to asbestos. (Dorland, 27th ed)", "A usually malignant and aggressive neoplasm of the mesothelium which is often associated with exposure to asbestos." ],
+        "IAO_0000117" : [ "James Malone", "Tomasz Adamusiak" ],
         "ICD10_definition_citation" : [ "ICD10:C45" ],
         "MSH_definition_citation" : [ "MSH:D008654" ],
         "NCI_Thesaurus_definition_citation" : [ "NCIt:C3234" ],
         "OMIM_definition_citation" : [ "OMIM:156240" ],
         "SNOMEDCT_definition_citation" : [ "SNOMEDCT:62064005" ],
-        "bioportal_provenance" : [ "[M]Mesothelioma, unspecified[accessedResource: SNOMEDCT:189837000][accessDate: 05-04-2011]", "[X]Mesothelioma, unspecified[accessedResource: SNOMEDCT:190110008][accessDate: 05-04-2011]", "Mesotheliomas[accessedResource: MSH:D008654][accessDate: 05-04-2011]", "Mesothelioma, unspecified (disorder)[accessedResource: DOID:2645][accessDate: 05-04-2011]", "Mesothelioma, malignant (morphologic abnormality)[accessedResource: SNOMEDCT:62064005][accessDate: 05-04-2011]", "A usually malignant and aggressive neoplasm of the mesothelium which is often associated with exposure to asbestos.[accessedResource: NCIt:C3234][accessDate: 05-04-2011]", "Mesothelioma, malignant[accessedResource: SNOMEDCT:62064005][accessDate: 05-04-2011]", "A tumor derived from mesothelial tissue (peritoneum, pleura, pericardium). It appears as broad sheets of cells, with some regions containing spindle-shaped, sarcoma-like cells and other regions showing adenomatous patterns. Pleural mesotheliomas have been linked to exposure to asbestos. (Dorland, 27th ed)[accessedResource: MSH:D008654][accessDate: 05-04-2011]", "[M]Mesothelioma, unspecified (morphologic abnormality)[accessedResource: SNOMEDCT:189837000][accessDate: 05-04-2011]", "Mesothelioma, unspecified (morphologic abnormality)[accessedResource: DOID:2645][accessDate: 05-04-2011]", "[X]Mesothelioma, unspecified (disorder)[accessedResource: SNOMEDCT:190110008][accessDate: 05-04-2011]", "Mesothelioma, NOS[accessedResource: SNOMEDCT:62064005][accessDate: 05-04-2011]", "Malignant mesothelioma[accessedResource: SNOMEDCT:62064005][accessDate: 05-04-2011]" ],
-        "definition" : [ "A tumor derived from mesothelial tissue (peritoneum, pleura, pericardium). It appears as broad sheets of cells, with some regions containing spindle-shaped, sarcoma-like cells and other regions showing adenomatous patterns. Pleural mesotheliomas have been linked to exposure to asbestos. (Dorland, 27th ed)", "A usually malignant and aggressive neoplasm of the mesothelium which is often associated with exposure to asbestos." ],
-        "term editor" : [ "James Malone", "Tomasz Adamusiak" ]
+        "bioportal_provenance" : [ "[M]Mesothelioma, unspecified[accessedResource: SNOMEDCT:189837000][accessDate: 05-04-2011]", "[X]Mesothelioma, unspecified[accessedResource: SNOMEDCT:190110008][accessDate: 05-04-2011]", "Mesotheliomas[accessedResource: MSH:D008654][accessDate: 05-04-2011]", "Mesothelioma, unspecified (disorder)[accessedResource: DOID:2645][accessDate: 05-04-2011]", "Mesothelioma, malignant (morphologic abnormality)[accessedResource: SNOMEDCT:62064005][accessDate: 05-04-2011]", "A usually malignant and aggressive neoplasm of the mesothelium which is often associated with exposure to asbestos.[accessedResource: NCIt:C3234][accessDate: 05-04-2011]", "Mesothelioma, malignant[accessedResource: SNOMEDCT:62064005][accessDate: 05-04-2011]", "A tumor derived from mesothelial tissue (peritoneum, pleura, pericardium). It appears as broad sheets of cells, with some regions containing spindle-shaped, sarcoma-like cells and other regions showing adenomatous patterns. Pleural mesotheliomas have been linked to exposure to asbestos. (Dorland, 27th ed)[accessedResource: MSH:D008654][accessDate: 05-04-2011]", "[M]Mesothelioma, unspecified (morphologic abnormality)[accessedResource: SNOMEDCT:189837000][accessDate: 05-04-2011]", "Mesothelioma, unspecified (morphologic abnormality)[accessedResource: DOID:2645][accessDate: 05-04-2011]", "[X]Mesothelioma, unspecified (disorder)[accessedResource: SNOMEDCT:190110008][accessDate: 05-04-2011]", "Mesothelioma, NOS[accessedResource: SNOMEDCT:62064005][accessDate: 05-04-2011]", "Malignant mesothelioma[accessedResource: SNOMEDCT:62064005][accessDate: 05-04-2011]" ]
       },
       "synonyms" : [ "Malignant mesothelioma", "[X]Mesothelioma, unspecified (disorder)", "Mesothelioma, malignant", "[M]Mesothelioma, unspecified", "Mesothelioma, unspecified (morphologic abnormality)", "Mesotheliomas", "Mesothelioma, unspecified (disorder)", "Mesothelioma, malignant (morphologic abnormality)", "Mesothelioma, NOS", "[M]Mesothelioma, unspecified (morphologic abnormality)", "[X]Mesothelioma, unspecified" ],
       "ontology_name" : "efo",
@@ -879,9 +879,9 @@ Content-Length: 66760
       "description" : null,
       "annotation" : {
         "DOID_definition_citation" : [ "DOID:4641" ],
-        "MSH_definition_citation" : [ "MSH:D001442" ],
-        "definition" : [ "Infections with bacteria of the genus BACTEROIDES." ],
-        "term editor" : [ "Sirarat Sarntivijai" ]
+        "IAO_0000115" : [ "Infections with bacteria of the genus BACTEROIDES." ],
+        "IAO_0000117" : [ "Sirarat Sarntivijai" ],
+        "MSH_definition_citation" : [ "MSH:D001442" ]
       },
       "synonyms" : [ "Bacteroides Infections" ],
       "ontology_name" : "efo",
@@ -931,12 +931,12 @@ Content-Length: 66760
       }
     }, {
       "iri" : "http://www.ebi.ac.uk/efo/EFO_0000771",
-      "label" : "bacterial disease",
+      "label" : "EFO_0000771",
       "description" : null,
       "annotation" : {
-        "ICD10_definition_citation" : [ "ICD10:A04" ],
-        "definition" : [ "A bacterial disease is a disease factor that is caused primarily by bacteria." ],
-        "term editor" : [ "James Malone" ]
+        "IAO_0000115" : [ "A bacterial disease is a disease factor that is caused primarily by bacteria." ],
+        "IAO_0000117" : [ "James Malone" ],
+        "ICD10_definition_citation" : [ "ICD10:A04" ]
       },
       "synonyms" : null,
       "ontology_name" : "efo",
@@ -994,12 +994,12 @@ Content-Length: 66760
       "description" : null,
       "annotation" : {
         "DOID_definition_citation" : [ "DOID:13033" ],
+        "IAO_0000115" : [ "Inflammation of the head of the PENIS, glans penis." ],
+        "IAO_0000117" : [ "Dani Welter" ],
         "MSH_definition_citation" : [ "MSH:D001446" ],
         "MedDRA_definition_citation" : [ "MedDRA:10004073" ],
         "NCI_Thesaurus_definition_citation" : [ "NCIt:C26705" ],
-        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:44882003" ],
-        "definition" : [ "Inflammation of the head of the PENIS, glans penis." ],
-        "term editor" : [ "Dani Welter" ]
+        "SNOMEDCT_definition_citation" : [ "SNOMEDCT:44882003" ]
       },
       "synonyms" : [ "Balanitis", "Balanitis [Ambiguous]", "Balanitis (disorder)" ],
       "ontology_name" : "efo",
@@ -1053,12 +1053,12 @@ Content-Length: 66760
       "description" : null,
       "annotation" : {
         "DOID_definition_citation" : [ "DOID:48" ],
+        "IAO_0000115" : [ "A disease involving the male reproductive system." ],
         "ICD10_definition_citation" : [ "ICD10:N49", "ICD10:N48", "ICD10:N40.N51", "ICD10:N50.9", "ICD10:N51", "ICD10:N50" ],
         "ICD9_definition_citation" : [ "ICD9:600-608.99", "ICD9:608.9" ],
         "MONDO_definition_citation" : [ "MONDO:0003150" ],
         "MSH_definition_citation" : [ "MESH:D005832" ],
         "NCI_Thesaurus_definition_citation" : [ "NCIT:C27019" ],
-        "definition" : [ "A disease involving the male reproductive system." ],
         "definition_citation" : [ "SCTID:363194005" ]
       },
       "synonyms" : [ "disease or disorder of male reproductive system", "male reproductive system disease", "Male reproductive system disorder", "disease of male reproductive system", "male reproductive disease", "male reproductive system disease or disorder", "disorder of male reproductive system" ],
@@ -1121,7 +1121,7 @@ Content-Length: 66760
       }
     }, {
       "iri" : "http://www.orpha.net/ORDO/Orphanet_308459",
-      "label" : "Disorder of glycolysis",
+      "label" : "Orphanet_308459",
       "description" : null,
       "annotation" : { },
       "synonyms" : null,
@@ -1176,7 +1176,7 @@ Content-Length: 66760
       }
     }, {
       "iri" : "http://www.orpha.net/ORDO/Orphanet_79161",
-      "label" : "Disorder of carbohydrate metabolism",
+      "label" : "Orphanet_79161",
       "description" : null,
       "annotation" : {
         "MedDRA_definition_citation" : [ "MedDRA:10061023" ],
@@ -1245,13 +1245,13 @@ Content-Length: 66760
       "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms?page=1&size=20"
     },
     "last" : {
-      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms?page=1130&size=20"
+      "href" : "http://www.ebi.ac.uk/ols/api/ontologies/efo/terms?page=1133&size=20"
     }
   },
   "page" : {
     "size" : 20,
-    "totalElements" : 22616,
-    "totalPages" : 1131,
+    "totalElements" : 22670,
+    "totalPages" : 1134,
     "number" : 0
   }
 }

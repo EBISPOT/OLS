@@ -78,8 +78,8 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             }
 
         } catch (Exception e) {
-            message = e.getMessage() + ":" + e.getCause().getMessage();
-            getLog().error(message);
+            message = e.getMessage();
+            getLog().error(message, e);
             document.setStatus(Status.FAILED);
             document.setMessage(message);
             ontologyRepositoryService.update(document);

@@ -3,18 +3,18 @@
 HTTP/1.1 200 OK
 Content-Disposition: inline;filename=f.txt
 Content-Type: application/json
-Content-Length: 776
+Content-Length: 763
 
 {
   "annotation" : {
-    "database_cross_reference" : [ "BFO:0000050" ],
-    "has_obo_namespace" : [ "external" ],
+    "hasDbXref" : [ "BFO:0000050" ],
+    "hasOBONamespace" : [ "external" ],
     "id" : [ "part_of" ],
     "shorthand" : [ "part_of" ]
   },
   "synonyms" : null,
   "iri" : "http://purl.obolibrary.org/obo/BFO_0000050",
-  "label" : "part of",
+  "label" : "BFO_0000050",
   "synonym" : null,
   "description" : null,
   "ontology_name" : "go",

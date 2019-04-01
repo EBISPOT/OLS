@@ -6,7 +6,7 @@ package uk.ac.ebi.spot.ols.exception;
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
 public class ConfigParsingException extends Exception {
-    public ConfigParsingException(String message) {
+    public ConfigParsingException(String message, Throwable cause) {
         super(message);
     }
 }
