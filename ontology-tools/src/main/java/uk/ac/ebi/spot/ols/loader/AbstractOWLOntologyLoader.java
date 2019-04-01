@@ -152,7 +152,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     		initializeOWLAPIWithoutReasoner();
     	} 
     	setPreferredLanguageMap(factory.getOWLAnnotationProperty(getLabelIRI()), 
-        		Collections.singletonList("en") );
+        		Collections.singletonList("en"));
     }
 
     private void readConfiguration(OntologyResourceConfig config) throws OntologyLoadingException {
@@ -977,13 +977,15 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                 IRI propertyIRI = property.getIRI();
 
                 if (getLabelIRI().equals(propertyIRI)) {
-                    if (ontologyLabels.containsKey(owlEntityIRI)) {
-                        addClassLabel(owlEntityIRI, evaluateLabelAnnotationValue(owlEntity, annotation.getValue()).get());
+                    if (!ontologyLabels.containsKey(owlEntityIRI)) {
+                        addClassLabel(owlEntityIRI, evaluateLabelAnnotationValue(
+                        		owlEntity, annotation.getValue()).get());
                     } else {
                         getLog().warn("Found multiple labels for class" + owlEntityIRI.toString());
                         // if english, overide previous label
                         if (isEnglishLabel(annotation.getValue())) {
-                            addClassLabel(owlEntityIRI, evaluateLabelAnnotationValue(owlEntity, annotation.getValue()).get());
+                            addClassLabel(owlEntityIRI, evaluateLabelAnnotationValue(
+                            		owlEntity, annotation.getValue()).get());
                         }
                     }
                 }
@@ -1813,7 +1815,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     }
 
     public void setPreferredLanguageMap(OWLAnnotationProperty property, List<String> languages) {
-        this.preferredLanguageMap.put(property,languages );;
+        this.preferredLanguageMap.put(property, languages);
     }
 
 }
