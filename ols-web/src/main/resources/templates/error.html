@@ -160,8 +160,9 @@
                             <p>
 
                                 <b>Cause:</b>
-                                <span th:if="${message} and ${message.length() != 0}"
+                                <span th:if="${message} and ${message.length() != 0} and ${status != 500}"
                               			th:text="${message}">message ...</span>
+                                <span th:if="${status == 500}">A server error occurred.</span>                              			
                             </p>
                     	</div>
 
