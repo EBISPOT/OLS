@@ -152,7 +152,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     		initializeOWLAPIWithoutReasoner();
     	} 
     	setPreferredLanguageMap(factory.getOWLAnnotationProperty(getLabelIRI()), 
-        		Collections.singletonList("en"));
+        		Arrays.asList("en", ""));
     }
 
     private void readConfiguration(OntologyResourceConfig config) throws OntologyLoadingException {
