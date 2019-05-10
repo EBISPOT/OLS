@@ -26,7 +26,7 @@
             <groupId>com.hermit-reasoner</groupId>
             <artifactId>org.semanticweb.hermit</artifactId>
         </dependency>
-
+		
         <dependency>
             <groupId>org.semanticweb.elk</groupId>
             <artifactId>elk-owlapi</artifactId>

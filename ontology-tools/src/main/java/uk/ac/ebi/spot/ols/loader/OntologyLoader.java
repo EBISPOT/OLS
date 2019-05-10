@@ -252,5 +252,10 @@ public interface OntologyLoader {
     Map<IRI, Collection<IRI>> getRelatedClassesToIndividual(IRI entityIRI);
 
 
-
+    /**
+     * Returns the terms that the ontology designers deem to be the roots of their ontology.
+     * 
+     * @return a list of terms that are considered to be the preferred roots of the ontology.
+     */
+    Collection<IRI> getPreferredRootTerms();
 }

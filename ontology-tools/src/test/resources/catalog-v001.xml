@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
     <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
-        <uri id="Automatically generated entry, Timestamp=1456960206448" name="http://www.ebi.ac.uk/ols/test1.owl" uri="test1.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1557430085656" name="duplicate:http://purl.obolibrary.org/obo/duo.owl" uri="duo.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1557430085656" name="duplicate:http://purl.obolibrary.org/obo/duo.owl" uri="duo-preferred-roots%20(copy).owl"/>
+        <uri id="Automatically generated entry, Timestamp=1557430085656" name="duplicate:http://purl.obolibrary.org/obo/duo.owl" uri="duo-preferred-roots.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1557430085656" name="http://www.ebi.ac.uk/ols/test1.owl" uri="test1.owl"/>
     </group>
 </catalog>

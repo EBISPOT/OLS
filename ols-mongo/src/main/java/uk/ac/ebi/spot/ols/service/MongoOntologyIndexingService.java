@@ -4,8 +4,11 @@ import org.semanticweb.owlapi.model.IRI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Component;
+
+import uk.ac.ebi.spot.ols.config.OntologyLoadingConfiguration;
 import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
 import uk.ac.ebi.spot.ols.exception.IndexingException;
 import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
@@ -30,11 +33,7 @@ import java.util.List;
 @Component
 public class MongoOntologyIndexingService implements OntologyIndexingService{
 
-    private Logger log = LoggerFactory.getLogger(getClass());
-
-    public Logger getLog() {
-        return log;
-    }
+    private final Logger logger = LoggerFactory.getLogger(MongoOntologyIndexingService.class);
 
     @Autowired
     OntologyRepositoryService ontologyRepositoryService;
@@ -44,6 +43,9 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
 
     @Autowired
     DatabaseService databaseService;
+    
+    @Autowired 
+    OntologyLoadingConfiguration ontologyLoadingConfiguration;
 
     @Override
     public void indexOntologyDocument(OntologyDocument document) throws IndexingException {
@@ -55,8 +57,12 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
         String message = "";
         Status status = Status.FAILED;
 
+      logger.trace("annotationproperty.preferredroot.term = " + 
+		ontologyLoadingConfiguration.getPreferredRootTermAnnotationProperty());
+        
         try {
-            loader = OntologyLoaderFactory.getLoader(document.getConfig(), databaseService);
+            loader = OntologyLoaderFactory.getLoader(document.getConfig(), databaseService,
+            		ontologyLoadingConfiguration);
             if (document.getLocalPath() != null) {
                 // if updated get local path, and set location to local file
                 loader.setOntologyResource(new FileSystemResource(document.getLocalPath()));
@@ -68,7 +74,7 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
 
             // this means that file parsed, but had nothing in it, which is a bit suspect - indexing should fail until we undertand why/how this could happen
             if (classes.size() + properties.size() + individuals.size()== 0) {
-                getLog().error("A suspiciously small or zero classes or properties found in latest version of " + loader.getOntologyName() + ": Won't index!");
+            	logger.error("A suspiciously small or zero classes or properties found in latest version of " + loader.getOntologyName() + ": Won't index!");
                 message = "Failed to load - last update had no classes or properties so was rejected";
                 document.setStatus(Status.FAILED);
                 document.setMessage(message);
@@ -79,7 +85,7 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
 
         } catch (Exception e) {
             message = e.getMessage();
-            getLog().error(message, e);
+            logger.error(message, e);
             document.setStatus(Status.FAILED);
             document.setMessage(message);
             ontologyRepositoryService.update(document);
@@ -145,7 +151,7 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             document.setLoaded(new Date());
 
         } catch (Exception e) {
-            getLog().error("Error indexing " + document.getOntologyId(), e.getMessage());
+        	logger.error("Error indexing " + document.getOntologyId(), e.getMessage());
             status = Status.FAILED;
             message = e.getMessage();
             throw e;
@@ -174,7 +180,7 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             status = Status.REMOVED;
 
         } catch (Exception e) {
-            getLog().error("Error removing index for " + document.getOntologyId(), e.getMessage());
+        	logger.error("Error removing index for " + document.getOntologyId(), e.getMessage());
             status = Status.FAILED;
             message = e.getMessage();
             throw e;
