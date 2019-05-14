@@ -137,7 +137,7 @@ public class LoadingApplication implements CommandLineRunner {
         boolean haserror = false;
 
         // if force loading
-
+        long start = System.currentTimeMillis();
         StringBuilder exceptions = new StringBuilder();
 
         if (ontologies.length > 0) {
@@ -199,7 +199,8 @@ public class LoadingApplication implements CommandLineRunner {
         }
 
 
-
+        long end = System.currentTimeMillis();
+        logger.error("Duration of indexing = " + (end - start)/1000/60 + " minutes.");
         if (haserror) {
             System.exit(1);
         }

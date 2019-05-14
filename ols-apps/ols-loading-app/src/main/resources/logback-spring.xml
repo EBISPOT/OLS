@@ -4,11 +4,11 @@
     <include resource="org/springframework/boot/logging/logback/file-appender.xml"/>
 	<include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 	
-    <logger name="uk.ac.ebi.spot" level="DEBUG" additivity="false">
+    <logger name="uk.ac.ebi.spot" level="ERROR" additivity="false">
         <appender-ref ref="CONSOLE" />
     </logger>
 
-    <logger name="uk.ac.ebi.spot" level="TRACE" additivity="false">
+    <logger name="uk.ac.ebi.spot" level="ERROR" additivity="false">
         <appender-ref ref="FILE" />
     </logger>
     
