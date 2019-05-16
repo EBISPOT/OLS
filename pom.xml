@@ -49,7 +49,7 @@
    		<url>https://github.com/EBISPOT/ols/issues</url>
    	</issueManagement>
 
-    <modules>      
+    <modules>    
         <module>ols-core</module>
         <module>ols-solr</module>
         <module>ontology-tools</module>
@@ -99,7 +99,6 @@
 
     <properties>
         <maven.javadoc.failOnError>false</maven.javadoc.failOnError>
-        <junit5.version>5.2.0</junit5.version>
         <platform.version>1.2.0</platform.version>
         <surefire.version>2.21.0</surefire.version>
     </properties>

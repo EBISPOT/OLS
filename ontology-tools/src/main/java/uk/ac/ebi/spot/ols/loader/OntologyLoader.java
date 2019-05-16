@@ -87,8 +87,8 @@ public interface OntologyLoader {
     Collection<IRI> getAllAnnotationPropertyIRIs();
 
     /**
-     * Returns a mapping between the IRIs that identify classes in the loaded ontology and the corresponding class
-     * rdfs:label.
+     * Returns a mapping between the IRIs that identify classes in the loaded ontology and the 
+     * corresponding class rdfs:label.
      *
      * @return the class labels in this ontology, indexed by class IRI
      */
@@ -214,7 +214,9 @@ public interface OntologyLoader {
     Map<IRI, Collection<IRI>> getRelatedParentTerms(IRI entityIRI);
 
     /**
-     * Returns all transitive related terms that can be considered parents. Any relations that are considered hierarchical in nature (e.g. part-of, develops-from etc..). This includes superclasses
+     * Returns all transitive related terms that can be considered parents. Any relations that are 
+     * considered hierarchical in nature (e.g. part-of, develops-from etc..). This includes super 
+     * classes.
      *
      * @return the relationship IRI and the set of related terms
      */
@@ -222,7 +224,8 @@ public interface OntologyLoader {
 
 
     /**
-     * Returns all related terms that can be considered children. Any relations that are considered hierarchical in nature (e.g. part-of, develops-from etc..)
+     * Returns all related terms that can be considered children. Any relations that are considered 
+     * hierarchical in nature (e.g. part-of, develops-from etc..)
      *
      * @return the relationship IRI and the set of related terms
      */

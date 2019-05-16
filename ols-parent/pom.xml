@@ -27,7 +27,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
-        <junit5.version>5.2.0</junit5.version>
+        <junit5.version>5.4.0</junit5.version>
         <platform.version>1.2.0</platform.version>
         <surefire.version>2.21.0</surefire.version>        
     </properties>
@@ -37,7 +37,8 @@
    		<plugins>
 	         <plugin>
 	            <artifactId>maven-surefire-plugin</artifactId>
-	            <version>${surefire.version}</version>
+	            <!-- Override the version of surefire otherwise spring-boot version may interfere -->
+	            <version>${surefire.version}</version>	
 				<dependencies>
                     <dependency>
                         <groupId>org.junit.platform</groupId>
@@ -49,8 +50,19 @@
                         <groupId>org.junit.jupiter</groupId>
                         <artifactId>junit-jupiter-engine</artifactId>
                         <version>${junit5.version}</version>
-                    </dependency>	
-                    			    
+                    </dependency>	                   			    
+
+                    <dependency>
+                        <groupId>org.junit.jupiter</groupId>
+                        <artifactId>junit-jupiter-api</artifactId>
+                        <version>${junit5.version}</version>
+                    </dependency>
+                    
+                    <dependency>
+                        <groupId>org.junit.jupiter</groupId>
+                        <artifactId>junit-jupiter-params</artifactId>
+                        <version>${junit5.version}</version>
+                    </dependency>
 				</dependencies>
 				 	            
 	        </plugin>  		

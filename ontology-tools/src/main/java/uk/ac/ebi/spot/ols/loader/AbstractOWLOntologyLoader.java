@@ -444,13 +444,13 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                     setOntologyVersion(theValue.get());
                     internalMetadataProperties.add(OntologyDefaults.VERSION);
                 }
-            } if (annotationPropertyIri.toString().equals(
+            } /*else if (annotationPropertyIri.toString().equals(
             		ontologyLoadingConfiguration.getPreferredRootTermAnnotationProperty())) {
             	
             	if (annotationValue instanceof IRI) {
             		preferredRootTerms.add((IRI)annotationValue);
             	}
-            }
+            }*/
             else  {
                 String propertyLabel = ontologyLabels.get(annotationPropertyIri);
                 if (!annotations.containsKey(propertyLabel)) {
@@ -1011,10 +1011,10 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                             		owlEntity, annotationAssertionAxiom.getValue()).get());
                         }
                     }
-                } else if (annotationPropertyIRI.toString().equals(
+                } /*else if (annotationPropertyIRI.toString().equals(
                 		ontologyLoadingConfiguration.getPreferredRootTermAnnotationProperty())) {
                 	preferredRootTerms.add(owlEntityIRI);
-                }
+                }*/
                 else if (getSynonymIRIs().contains(annotationPropertyIRI)) {
                     synonyms.add(getOWLAnnotationValueAsString(annotationAssertionAxiom.getValue()).get());
                 }

@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -31,7 +32,8 @@ public class BatchInserterCreationTest {
 	private static final Logger logger = LoggerFactory.getLogger(BatchInserterCreationTest.class);
 	
 	private static final String TEST_NAME = "BatchInserterCreationTest";
-	private static final String NEO4J_DIR = "./" + TEST_NAME + "/neo4j";
+	private static final String TEST_ROOT_DIR = "./" + TEST_NAME; 
+	private static final String NEO4J_DIR = TEST_ROOT_DIR + "/neo4j";
 	
 	public BatchInserterCreationTest() {
 	}
@@ -39,29 +41,23 @@ public class BatchInserterCreationTest {
 	@ParameterizedTest
 	@MethodSource("provideNeo4jDirectories")
 	void testCreateBatchInserter(String neo4jDirectory) {
-		BatchInserter batchInserter = OLSBatchIndexerCreatorHelper.createBatchInserter(neo4jDirectory);
+		logger.debug("neo4jDirectory = " + neo4jDirectory);
+		BatchInserter batchInserter = OLSBatchIndexerCreatorTestHelper
+				.createBatchInserter(neo4jDirectory);
 		assertNotNull(batchInserter);
 	}
 	
 	
 	private static Stream<Arguments> provideNeo4jDirectories() {
 	    return Stream.of(
-	      Arguments.of(OlsNeo4jConfiguration.getNeo4JPath()),
+//	      Arguments.of(OlsNeo4jConfiguration.getNeo4JPath()),
 	      Arguments.of(FileSystems.getDefault().getPath(NEO4J_DIR).toString())
 	    );
 	}
 	
 	@AfterAll
 	static void tearDownAll() {
-		provideNeo4jDirectories().forEach(arguments-> {
-			Object[] argumentsAsObjects = arguments.get();
-			String neo4jDirectory = (String)argumentsAsObjects[0];
-			File neo4jDirectoryAsFile = new File(neo4jDirectory);
-			try {
-				FileUtils.deleteDirectory(neo4jDirectoryAsFile);
-			} catch (IOException e) {
-				logger.debug(neo4jDirectory + " directory could not be deleted", e);
-			}			
-		});
-	}	
+//		deleteTestDirectory(OlsNeo4jConfiguration.getNeo4JPath());
+		TestUtils.deleteTestDirectory(FileSystems.getDefault().getPath(NEO4J_DIR).toString());
+	}
 }

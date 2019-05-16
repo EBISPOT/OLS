@@ -7,6 +7,7 @@ import java.nio.file.FileSystems;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.neo4j.unsafe.batchinsert.BatchInserter;
 import org.slf4j.Logger;
@@ -24,15 +25,17 @@ public class CreateSchemaIndexesTest {
 	private static final Logger logger = LoggerFactory.getLogger(CreateSchemaIndexesTest.class);
 	
 	private static final String TEST_NAME = "CreateSchemaIndexesTest";
-	private static final String NEO4J_DIR = "./" + TEST_NAME + "/neo4j";
+	private static final String TEST_ROOT_DIR = "./" + TEST_NAME;
+	private static final String NEO4J_DIR = TEST_ROOT_DIR + "/neo4j";
 	
 	public CreateSchemaIndexesTest() {
 	}
 	
-//	@Disabled
+	@Disabled
+	@Tag("integrationTest")
 	@Test
 	void testCreateSchemaIndexes() {
-		BatchInserter batchInserter = OLSBatchIndexerCreatorHelper.createBatchInserter(
+		BatchInserter batchInserter = OLSBatchIndexerCreatorTestHelper.createBatchInserter(
 				FileSystems.getDefault().getPath(NEO4J_DIR).toString());
 		
 		OLSBatchIndexerCreator.createSchemaIndexes(batchInserter);
@@ -41,11 +44,6 @@ public class CreateSchemaIndexesTest {
 	
 	@AfterAll
 	static void tearDownAll() {
-		File neo4jDirectoryAsFile = new File(FileSystems.getDefault().getPath(NEO4J_DIR).toString());
-		try {
-			FileUtils.deleteDirectory(neo4jDirectoryAsFile);
-		} catch (IOException e) {
-			logger.debug(neo4jDirectoryAsFile.getAbsolutePath() + " directory could not be deleted", e);
-		}			
+		TestUtils.deleteTestDirectory(FileSystems.getDefault().getPath(TEST_ROOT_DIR).toString());
 	}	
 }

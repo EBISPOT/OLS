@@ -1,7 +1,8 @@
 package uk.ac.ebi.spot.ols.neo4j.model;
 
-public class TermPropertyNameConstants {
+public class Neo4JNodePropertyNameConstants {
 
+	public final static String OLS_ID = "olsID";
 	public final static String IRI = "iri";
 	public final static String LABEL = "label";
 	public final static String SYNONYM = "synonym";
@@ -21,4 +22,8 @@ public class TermPropertyNameConstants {
 	public final static String OBO_XREF = "obo_xref";
 	public final static String OBO_SYNONYM = "obo_synonym";
 	public final static String IS_PREFERRED_ROOT = "is_preferred_root";
+	
+	public final static String SUPER_CLASS_DESCRIPTION = "superClassDescription";
+	public final static String EQUIVALENT_CLASS_DESCRIPTION = "equivalentClassDescription";
+	public final static String ANNOTATION_DESIGNATION = "annotation-";
 }

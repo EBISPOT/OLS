@@ -1,6 +1,7 @@
 package uk.ac.ebi.spot.ols.loader;
 
 import static uk.ac.ebi.spot.ols.loader.Neo4JIndexerConstants.*;
+import static uk.ac.ebi.spot.ols.config.OntologyDefaults.THING;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -68,7 +69,12 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
     public BatchNeo4JIndexer() {
 
     }
-      
+
+    protected BatchNeo4JIndexer(String ontologyName, BatchInserterIndex batchInserterIndex) {
+    	nodeOntologyLabel = DynamicLabel.label(ontologyName.toUpperCase());
+    	entities = batchInserterIndex;
+    }
+    
     private Long getOrCreateMergedNode(BatchInserter inserter, Map<String, Long> mergedNodeMap,
     		OntologyLoader loader, IRI classIri, Label ... nodeLabel) {
 
@@ -281,7 +287,53 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
         }
     }
 
-    private void indexClasses(BatchInserter inserter, OntologyLoader loader, Map<String, Long> nodeMap, 
+    void indexClasses(BatchInserter inserter, OntologyLoader loader, Map<String, Long> nodeMap, 
+    		Map<String, Long> mergedNodeMap) {
+        getLogger().debug("Creating Neo4j index for " + loader.getAllClasses().size() + " classes");
+
+        for (IRI classIri : loader.getAllClasses()) {
+
+            Long node = NodeCreator.getOrCreateNode(inserter, nodeMap,loader, classIri, 
+            		new LinkedList<Label>(Arrays.asList(nodeLabel, nodeOntologyLabel, _nodeLabel)));
+
+            Long mergedNode = getOrCreateMergedNode(inserter, mergedNodeMap, loader, classIri, 
+            		mergedClassLabel);
+
+            // add refers link
+            inserter.createRelationship( node, mergedNode, refersTo, null);
+
+            addParentAndRelatedParentNodesWithRelationships(inserter, loader, nodeMap, classIri, node);
+            
+
+            indexRelatedNodes(inserter, loader, nodeMap, classIri, node);
+
+            indexRelatedIndividuals(node, loader.getRelatedIndividualsToClass(classIri), inserter,
+            		loader,nodeMap, new LinkedList<Label>(Arrays.asList(
+            				instanceLabel, nodeOntologyLabel, _instanceLabel)));
+        }
+    }
+
+	private void addParentAndRelatedParentNodesWithRelationships(BatchInserter inserter, OntologyLoader loader,
+			Map<String, Long> nodeMap, IRI classIri, Long node) {
+		// add parent nodes
+		if (!loader.getDirectParentTerms(classIri).isEmpty()) {
+		    for (IRI parent : loader.getDirectParentTerms().get(classIri)) {
+		        Long parentNode =  NodeCreator.getOrCreateNode(inserter, nodeMap, loader, parent, 
+		        		new LinkedList<Label>(Arrays.asList(nodeLabel, nodeOntologyLabel, _nodeLabel)));
+		        // create local relationship
+		        inserter.createRelationship(node, parentNode, isa, isaProperties);
+		    }
+		}
+		else if (loader.getRelatedParentTerms(classIri).isEmpty()) {
+		    Long thing = NodeCreator.getOrCreateNode(inserter, nodeMap, loader, 
+		    		IRI.create(THING), 
+		    		new LinkedList<Label>(Arrays.asList(nodeLabel, nodeOntologyLabel, _nodeLabel, 
+		    				rootLabel)));
+		    inserter.createRelationship( node, thing, isa, isaProperties);
+		}
+	}
+    
+    void indexClassesDeprecated(BatchInserter inserter, OntologyLoader loader, Map<String, Long> nodeMap, 
     		Map<String, Long> mergedNodeMap) {
     	
         getLogger().debug("Creating Neo4j index for " + loader.getAllClasses().size() + " classes");
@@ -297,22 +349,7 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
             // add refers link
             inserter.createRelationship( node, mergedNode, refersTo, null);
 
-            // add parent nodes
-            if (!loader.getDirectParentTerms(classIri).isEmpty()) {
-                for (IRI parent : loader.getDirectParentTerms().get(classIri)) {
-                    Long parentNode =  NodeCreator.getOrCreateNode(inserter, nodeMap, loader, parent, 
-                    		new LinkedList<Label>(Arrays.asList(nodeLabel, nodeOntologyLabel, _nodeLabel)));
-                    // create local relationship
-                    inserter.createRelationship(node, parentNode, isa, isaProperties);
-                }
-            }
-            else if (loader.getRelatedParentTerms(classIri).isEmpty()) {
-                Long thing = NodeCreator.getOrCreateNode(inserter, nodeMap,loader, 
-                		IRI.create("http://www.w3.org/2002/07/owl#Thing"), 
-                		new LinkedList<Label>(Arrays.asList(nodeLabel, nodeOntologyLabel, _nodeLabel, 
-                				rootLabel)));
-                inserter.createRelationship( node, thing, isa, isaProperties);
-            }
+            addParentAndRelatedParentNodesWithRelationships(inserter, loader, nodeMap, classIri, node);
             
 
             indexRelatedNodes(inserter, loader, nodeMap, classIri, node);

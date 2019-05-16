@@ -9,8 +9,11 @@ import java.io.File;
 
 import org.neo4j.graphdb.ConstraintViolationException;
 import org.neo4j.graphdb.Label;
+import org.neo4j.helpers.collection.MapUtil;
 import org.neo4j.kernel.DefaultFileSystemAbstraction;
 import org.neo4j.unsafe.batchinsert.BatchInserter;
+import org.neo4j.unsafe.batchinsert.BatchInserterIndex;
+import org.neo4j.unsafe.batchinsert.BatchInserterIndexProvider;
 import org.neo4j.unsafe.batchinsert.BatchInserters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,6 +51,12 @@ class OLSBatchIndexerCreator {
 		return createBatchInserter(OlsNeo4jConfiguration.getNeo4JPath());
 	}
 	
+	static BatchInserterIndex createBatchInserterIndex(BatchInserterIndexProvider indexProvider) {
+		BatchInserterIndex batchInserterIndex =
+                indexProvider.nodeIndex("Resource", MapUtil.stringMap("type", "exact"));
+		batchInserterIndex.setCacheCapacity("iri", 1000000);
+        return batchInserterIndex;		
+	}
 	
     static void createSchemaIndexes(BatchInserter inserter) {
         createSchemaIndexIfNotExists(inserter, mergedClassLabel, 

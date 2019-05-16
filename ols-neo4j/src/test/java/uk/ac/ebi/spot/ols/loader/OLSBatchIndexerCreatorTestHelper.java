@@ -10,9 +10,9 @@ import org.neo4j.unsafe.batchinsert.BatchInserter;
  * Samples, Phenotypes and Ontologies Team 
  * EMBL-EBI
  */
-class OLSBatchIndexerCreatorHelper extends OLSBatchIndexerCreator {
+class OLSBatchIndexerCreatorTestHelper extends OLSBatchIndexerCreator {
 
-	private OLSBatchIndexerCreatorHelper() {
+	private OLSBatchIndexerCreatorTestHelper() {
 	}
 	
 	static BatchInserter createBatchInserterForTesting(String neo4jDirectory) {
