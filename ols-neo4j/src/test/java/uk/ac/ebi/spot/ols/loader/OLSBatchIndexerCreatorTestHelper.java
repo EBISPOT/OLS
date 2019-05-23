@@ -16,6 +16,6 @@ class OLSBatchIndexerCreatorTestHelper extends OLSBatchIndexerCreator {
 	}
 	
 	static BatchInserter createBatchInserterForTesting(String neo4jDirectory) {
-		return OLSBatchIndexerCreator.createBatchInserter(neo4jDirectory);
+		return OLSBatchIndexerCreator.createBatchInserter(null, neo4jDirectory);
 	}
 }

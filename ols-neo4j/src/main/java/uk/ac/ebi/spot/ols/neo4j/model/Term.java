@@ -18,6 +18,7 @@ import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.ONTO
 import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.SHORT_FORM;
 import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.SYNONYM;
 import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.TERM_REPLACED_BY;
+import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.IS_PREFERRED_ROOT;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -136,6 +137,10 @@ public class Term {
     @RelatedToVia
     @Fetch Set<Related> related;
 
+    @GraphProperty(propertyName=IS_PREFERRED_ROOT)
+    @JsonProperty(value = IS_PREFERRED_ROOT)
+    private boolean isPreferredRoot;
+    
     public Term() {
     }
 
@@ -298,4 +303,9 @@ public class Term {
     public void setEquivalentClassDescription(Set<String> equivalentClassDescription) {
         this.equivalentClassDescription = equivalentClassDescription;
     }
+    
+    @JsonProperty(value = IS_PREFERRED_ROOT)
+    public boolean isPreferredRoot() {
+        return isPreferredRoot;
+    }    
 }

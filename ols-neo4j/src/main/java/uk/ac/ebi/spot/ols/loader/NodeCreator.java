@@ -61,11 +61,7 @@ class NodeCreator {
             addAppropriateHasChildrenProperty(loader, classIri, nodeLabels, nodeProperties);
 
             addAppropriateIsRootProperty(loader, classIri, nodeProperties);          
-//            if (loader.getPreferredRootTerms().contains(classIri)) {
-//            	properties.put("is_preferred_root", loader.getPreferredRootTerms().contains(classIri));
-//            	logger.debug("About to add preferredRootTermLabel");
-//            	nodeLabels.add(preferredRootTermLabel);
-//            }
+            addPreferredRootPropertyConditionally(loader, classIri, nodeLabels, nodeProperties);
             
             addShortFormPropertyConditionally(loader, classIri, nodeProperties);
             addOboIdPropertyConditionally(loader, classIri, nodeProperties);
@@ -88,6 +84,15 @@ class NodeCreator {
         }
         return nodeMap.get(classIri.toString());
     }
+
+	protected static void addPreferredRootPropertyConditionally(OntologyLoader loader, IRI classIri,
+			Collection<Label> nodeLabels, Map<String, Object> nodeProperties) {
+		if (loader.getPreferredRootTerms().contains(classIri)) {
+			nodeProperties.put("is_preferred_root", loader.getPreferredRootTerms().contains(classIri));
+			logger.debug("About to add preferredRootTermLabel");
+			nodeLabels.add(preferredRootTermLabel);
+		}
+	}
 
 	protected static Collection<Label> addObsoleteLabelConditionally(OntologyLoader loader, IRI classIri,
 			Collection<Label> nodeLabels) {

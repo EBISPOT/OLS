@@ -55,9 +55,6 @@ public class LoadingApplication implements CommandLineRunner {
 
     @Autowired
     MailService mailService;
-    
-//    @Autowired
-//    OntologyLoadingConfiguration ontologyLoadingConfiguration;
 
     private static String [] ontologies = {};
 
@@ -72,9 +69,7 @@ public class LoadingApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         int parseArgs = parseArguments(args);
-        
-//        logger.trace("annotationproperty.preferredroot.term = " + 
-//        		ontologyLoadingConfiguration.getPreferredRootTermAnnotationProperty());
+    
 
         System.setProperty("entityExpansionLimit", "10000000");
         Collection<String> updatedOntologies = new HashSet<>();

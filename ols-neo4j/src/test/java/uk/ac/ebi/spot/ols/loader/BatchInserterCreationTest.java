@@ -38,12 +38,13 @@ public class BatchInserterCreationTest {
 	public BatchInserterCreationTest() {
 	}
 	
+	@Disabled
 	@ParameterizedTest
 	@MethodSource("provideNeo4jDirectories")
 	void testCreateBatchInserter(String neo4jDirectory) {
 		logger.debug("neo4jDirectory = " + neo4jDirectory);
 		BatchInserter batchInserter = OLSBatchIndexerCreatorTestHelper
-				.createBatchInserter(neo4jDirectory);
+				.createBatchInserterForTesting(neo4jDirectory);
 		assertNotNull(batchInserter);
 	}
 	
@@ -58,6 +59,6 @@ public class BatchInserterCreationTest {
 	@AfterAll
 	static void tearDownAll() {
 //		deleteTestDirectory(OlsNeo4jConfiguration.getNeo4JPath());
-		TestUtils.deleteTestDirectory(FileSystems.getDefault().getPath(NEO4J_DIR).toString());
+		TestUtils.deleteTestDirectory(FileSystems.getDefault().getPath(TEST_NAME).toString());
 	}
 }

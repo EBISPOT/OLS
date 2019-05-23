@@ -1,6 +1,7 @@
 package uk.ac.ebi.spot.ols.loader;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static uk.ac.ebi.spot.ols.config.OntologyLoadingConfiguration.DEFAULT_PREFERRED_ROOT_TERM_ANNOTATION_PROPERTY;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,6 +41,7 @@ import org.slf4j.LoggerFactory;
 import org.neo4j.graphdb.Label;
 import org.neo4j.graphdb.Node;
 
+import uk.ac.ebi.spot.ols.config.OntologyLoadingConfiguration;
 import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
 import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
 
@@ -69,10 +71,10 @@ public class IndexClassesTest {
 	@ParameterizedTest
 	@MethodSource("provideOntologies")
 	void testIndexClasses(String ontologyIRI, String title, String namespace, String ontologyToIndex, 
-			String baseUri) {
+			String baseUri, String neo4JDir) {
 		
 		BatchInserter batchInserter = OLSBatchIndexerCreatorTestHelper
-				.createBatchInserter(INDEX_CLASSES_TEST_NEO4J_DIR);
+				.createBatchInserter(null, INDEX_CLASSES_TEST_NEO4J_DIR);
 		
         OntologyResourceConfig.OntologyResourceConfigBuilder builder =
                 new OntologyResourceConfig.OntologyResourceConfigBuilder(ontologyIRI, title, 
@@ -81,10 +83,12 @@ public class IndexClassesTest {
         builder.setBaseUris(Collections.singleton(baseUri));
 
         OntologyResourceConfig config = builder.build();
+        OntologyLoadingConfiguration ontologyLoadingConfiguration = new 
+        		OntologyLoadingConfiguration(DEFAULT_PREFERRED_ROOT_TERM_ANNOTATION_PROPERTY);
         
         OntologyLoader ontologyLoader = null;
         try {
-            ontologyLoader = new HermitOWLOntologyLoader(config);
+            ontologyLoader = new HermitOWLOntologyLoader(config, null, ontologyLoadingConfiguration);
         } catch (OntologyLoadingException e) {
             logger.error(e.getMessage(), e);
         }
@@ -95,7 +99,8 @@ public class IndexClassesTest {
         		.createBatchInserterIndex(batchInserterIndexProvider);
         
         BatchNeo4JIndexer batchNeo4JIndexer = new BatchNeo4JIndexerHelper(
-        		ontologyLoader.getOntologyName(), batchInserterIndex);
+        		ontologyLoader.getOntologyName(), batchInserterIndex, batchInserterIndexProvider, 
+        		batchInserter, neo4JDir);
         
         Map<String, Long> classNodeMap = new HashMap<>();
         Map<String, Long> mergedNodeMap = new HashMap<>();
@@ -111,10 +116,10 @@ public class IndexClassesTest {
 	@ParameterizedTest
 	@MethodSource("provideOntologies")
 	void testIndexClassesDeprecated(String ontologyIRI, String title, String namespace, String ontologyToIndex, 
-			String baseUri) {
+			String baseUri, String neo4JDir) {
 		
 		BatchInserter batchInserter = OLSBatchIndexerCreatorTestHelper
-				.createBatchInserter(INDEX_CLASSES_TEST_DEPRECATED_NEO4J_DIR);
+				.createBatchInserter(null, INDEX_CLASSES_TEST_DEPRECATED_NEO4J_DIR);
 		
         OntologyResourceConfig.OntologyResourceConfigBuilder builder =
                 new OntologyResourceConfig.OntologyResourceConfigBuilder(ontologyIRI, title, 
@@ -137,7 +142,8 @@ public class IndexClassesTest {
         		.createBatchInserterIndex(batchInserterIndexProvider);
         
         BatchNeo4JIndexer batchNeo4JIndexer = new BatchNeo4JIndexerHelper(
-        		ontologyLoader.getOntologyName(), batchInserterIndex);
+        		ontologyLoader.getOntologyName(), batchInserterIndex, batchInserterIndexProvider,
+        		batchInserter, neo4JDir);
         
         Map<String, Long> classNodeMap = new HashMap<>();
         Map<String, Long> mergedNodeMap = new HashMap<>();
@@ -227,8 +233,9 @@ public class IndexClassesTest {
 	
 	private static Stream<Arguments> provideOntologies() {
 	    return Stream.of(
-	      Arguments.of("http://purl.obolibrary.org/obo/duo", "Data Use Ontology", "DUO", "duo.owl",
-	    		  "http://purl.obolibrary.org/obo/DUO_")	
+	      Arguments.of("http://purl.obolibrary.org/obo/duo", "Data Use Ontology", "DUO", 
+	    		  "duo-preferred-roots.owl", "http://purl.obolibrary.org/obo/DUO_", 
+	    		  INDEX_CLASSES_TEST_NEO4J_DIR)	
 	    );
 	}
 	
@@ -236,7 +243,7 @@ public class IndexClassesTest {
 	@AfterAll
 	void tearDownAll() {
 		TestUtils.deleteTestDirectory(INDEX_CLASSES_TEST_ROOT_DIR);		
-		TestUtils.deleteTestDirectory(INDEX_CLASSES_TEST_DEPRECATED_ROOT_DIR);		
+//		TestUtils.deleteTestDirectory(INDEX_CLASSES_TEST_DEPRECATED_ROOT_DIR);		
 	}
 	
 }

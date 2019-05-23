@@ -69,25 +69,6 @@ public class OntologyResourceConfig  {
         this.internalMetadataProperties = internalMetadataProperties;
     }
 
-//    public OntologyResourceConfig(String id, String title, String namespace, String preferredPrefix, URI fileLocation, boolean isInferred, boolean classify, DLExpressivity reasonerType, boolean oboSlims, URI labelProperty, Collection<URI> definitionProperties, Collection<URI> synonymProperties, Collection<URI> hierarchicalProperties, Collection<String> baseUris, Collection<URI> hiddenProperties, boolean isSkos) {
-//        this.id = id;
-//        this.title = title;
-//        this.namespace = namespace.toLowerCase();
-//        this.fileLocation = fileLocation;
-//        this.isInferred = isInferred;
-//        this.classify = classify;
-//        this.reasonerType = reasonerType;
-//        this.oboSlims = oboSlims;
-//        this.labelProperty = labelProperty;
-//        this.definitionProperties = definitionProperties;
-//        this.synonymProperties = synonymProperties;
-//        this.hierarchicalProperties = hierarchicalProperties;
-//        this.baseUris = baseUris;
-//        this.hiddenProperties = hiddenProperties;
-//        this.preferredPrefix = preferredPrefix;
-//        this.isSkos = isSkos;
-//    }
-
     public OntologyResourceConfig() {
     }
 

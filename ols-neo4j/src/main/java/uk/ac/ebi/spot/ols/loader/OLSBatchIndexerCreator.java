@@ -35,20 +35,20 @@ class OLSBatchIndexerCreator {
 	protected OLSBatchIndexerCreator() {
 	}
 
-	protected static BatchInserter createBatchInserter(String neo4jDirectory) {
-		BatchInserter inserter = null;
+	protected static BatchInserter createBatchInserter(BatchInserter inserter, String neo4jDirectory) {
+		if (inserter == null ) {
+			File file = new File(neo4jDirectory);
 		
-		File file = new File(neo4jDirectory);
-		
-		inserter = BatchInserters.inserter(
+			inserter = BatchInserters.inserter(
                 file.getAbsolutePath(),
                 new DefaultFileSystemAbstraction());
+		}
 		
 		return inserter;
 	}
 	
 	static BatchInserter createBatchInserter() {
-		return createBatchInserter(OlsNeo4jConfiguration.getNeo4JPath());
+		return createBatchInserter(null, OlsNeo4jConfiguration.getNeo4JPath());
 	}
 	
 	static BatchInserterIndex createBatchInserterIndex(BatchInserterIndexProvider indexProvider) {

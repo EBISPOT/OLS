@@ -1,10 +1,7 @@
-package uk.ac.ebi.spot.ols.loader;
+	package uk.ac.ebi.spot.ols.loader;
 
-import java.io.File;
-import java.io.IOException;
 import java.nio.file.FileSystems;
 
-import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
@@ -35,7 +32,7 @@ public class CreateSchemaIndexesTest {
 	@Tag("integrationTest")
 	@Test
 	void testCreateSchemaIndexes() {
-		BatchInserter batchInserter = OLSBatchIndexerCreatorTestHelper.createBatchInserter(
+		BatchInserter batchInserter = OLSBatchIndexerCreatorTestHelper.createBatchInserterForTesting(
 				FileSystems.getDefault().getPath(NEO4J_DIR).toString());
 		
 		OLSBatchIndexerCreator.createSchemaIndexes(batchInserter);

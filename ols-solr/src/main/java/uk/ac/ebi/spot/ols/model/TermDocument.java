@@ -111,7 +111,9 @@ public class TermDocument {
     @Field("*_related")
    	private Map<String, List<String>> related;
 
-
+    @Field("is_preferred_root")
+    private boolean isPreferredRoot;
+    
     public TermDocument() {
 
     }
@@ -144,7 +146,8 @@ public class TermDocument {
             List<String> descendants,
             List<String> hierarchical_parents,
             List<String> hierarchical_ancestors,
-            Map<String, List<String>> related
+            Map<String, List<String>> related,
+            boolean isPreferredRoot
            ) {
         this.id = id;
         this.uri = uri;
@@ -174,6 +177,7 @@ public class TermDocument {
         this.hierarchical_parents = hierarchical_parents;
         this.hierarchical_ancestors = hierarchical_ancestors;
         this.related = related;
+        this.isPreferredRoot = isPreferredRoot;
     }
 
     public String getId() {
@@ -412,4 +416,11 @@ public class TermDocument {
         this.hierarchical_ancestors = hierarchical_ancestors;
     }
 
+	public boolean isPreferredRoot() {
+		return isPreferredRoot;
+	}
+
+	public void setPreferredRoot(boolean isPreferredRoot) {
+		this.isPreferredRoot = isPreferredRoot;
+	}    
 }

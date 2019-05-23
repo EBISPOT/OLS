@@ -43,7 +43,8 @@ import uk.ac.ebi.spot.ols.model.OntologyIndexer;
 @Component
 public class BatchNeo4JIndexer implements OntologyIndexer {
     private Logger logger = LoggerFactory.getLogger(getClass());
-    private BatchInserterIndex entities;
+    private BatchInserter inserter;
+    private BatchInserterIndex index;
     private BatchInserterIndexProvider indexProvider;
 
     public Logger getLogger() {
@@ -70,9 +71,13 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
 
     }
 
-    protected BatchNeo4JIndexer(String ontologyName, BatchInserterIndex batchInserterIndex) {
+    protected BatchNeo4JIndexer(String ontologyName, BatchInserterIndex batchInserterIndex,
+    		BatchInserterIndexProvider batchInserterIndexProvider, BatchInserter batchInserter) {
+    	
     	nodeOntologyLabel = DynamicLabel.label(ontologyName.toUpperCase());
-    	entities = batchInserterIndex;
+    	index = batchInserterIndex;
+    	indexProvider = batchInserterIndexProvider;
+    	inserter = batchInserter;
     }
     
     private Long getOrCreateMergedNode(BatchInserter inserter, Map<String, Long> mergedNodeMap,
@@ -81,14 +86,14 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
         if (!mergedNodeMap.containsKey(classIri.toString())) {
 
             // link to merged node
-            IndexHits<Long> hits = entities.get("iri", classIri);
+            IndexHits<Long> hits = index.get("iri", classIri);
             if (hits.size() == 0) {
                 Map<String, Object> properties = new HashMap<>();
                 properties.put("iri", classIri.toString());
                 properties.put("label", loader.getTermLabels().get(classIri));
 
                 Long hit = inserter.createNode(properties, nodeLabel);
-                entities.add(hit, properties);
+                index.add(hit, properties);
                 mergedNodeMap.put(classIri.toString(), hit);
             }
             else {
@@ -107,7 +112,7 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
     }
 
     private BatchInserter getBatchIndexer (String ontologyName) {
-        BatchInserter inserter = OLSBatchIndexerCreator.createBatchInserter(
+        inserter = OLSBatchIndexerCreator.createBatchInserter(inserter, 
         		OlsNeo4jConfiguration.getNeo4JPath());
 
         OLSBatchIndexerCreator.createSchemaIndexes(inserter);
@@ -127,7 +132,9 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
         rdfTypeProperties.put("ontology_name", ontologyName);
         rdfTypeProperties.put("__type__", "Type");
 
-        entities = getBatchInserterIndex(getIndexProvider(inserter));
+        if (index == null) {
+        	index = getBatchInserterIndex(getIndexProvider(inserter));
+        }
 
         return inserter;
 
@@ -136,8 +143,10 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
     private BatchInserterIndexProvider getIndexProvider (BatchInserter inserter) {
 
         // index for looking up merged classes
-        indexProvider =
+    	if (indexProvider == null) {
+    		indexProvider =
                 new LuceneBatchInserterIndexProvider(inserter);
+    	}
         return indexProvider;
     }
 
@@ -440,7 +449,7 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
 
         // check indexes online
 
-        db.shutdown();
+//        db.shutdown();
         db = getGraphDatabase();
 
         Transaction tx = db.beginTx();
@@ -464,6 +473,7 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
             tx.success();
         }
         catch (Exception e) {
+        	logger.debug(e.getMessage(), e);
             tx.failure();
             throw new IndexingException("Building Neo4j index failed as the schema index creation failed", e);
         }
@@ -473,8 +483,8 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
         }
     }
 
-    private GraphDatabaseService getGraphDatabase () {
-        return new GraphDatabaseFactory().newEmbeddedDatabase(neo4jConfiguration.getNeo4JPath());
+    protected GraphDatabaseService getGraphDatabase () {
+   		return new GraphDatabaseFactory().newEmbeddedDatabase(neo4jConfiguration.getNeo4JPath());
     }
 
     public void dropIndex(OntologyLoader loader) throws IndexingException {

@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 public class OntologyLoadingConfiguration {
 
 	public final static String DEFAULT_PREFERRED_ROOT_TERM_ANNOTATION_PROPERTY = 
-			"http://www.ebi.ac.uk/ols/hasPreferredRootTerm";
+			"http://www.ebi.ac.uk/ols/vocabulary/hasPreferredRootTerm";
 	
     public OntologyLoadingConfiguration() {
 		super();
