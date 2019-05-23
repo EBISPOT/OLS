@@ -195,7 +195,7 @@ public class LoadingApplication implements CommandLineRunner {
 
 
         long end = System.currentTimeMillis();
-        logger.error("Duration of indexing = " + (end - start)/1000/60 + " minutes.");
+        logger.debug("Duration of indexing = " + (end - start)/1000/60 + " minutes.");
         if (haserror) {
             System.exit(1);
         }
