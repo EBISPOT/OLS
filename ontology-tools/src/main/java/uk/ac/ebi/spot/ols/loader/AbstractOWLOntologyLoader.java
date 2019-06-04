@@ -900,25 +900,30 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
             // carry on and try some other strategies
         }
 
-        if (entityIRI.getRemainder().isPresent()) {
-            return Optional.of(entityIRI.getRemainder().get());
-        }
-        else if (entityIRI.toURI().getPath() != null) {
-            // no fragment, but there is a path so try and extract the final part...
-            if (entityIRI.toURI().getPath().contains("/")) {
-                getLog().trace("Extracting fragment name using final part of the path of the URI");
-                return Optional.of(entityIRI.toURI().getPath().substring(entityIRI.toURI().getPath().lastIndexOf('/') + 1));
-            }
-            else {
-                // no final path part, so just return whole path
-                getLog().trace("Extracting fragment name using the path of the URI");
-                return Optional.of(entityIRI.toURI().getPath());
-            }
-        }
-        else {
-            // no fragment, path is null, we've run out of rules so don't shorten
-            getLog().trace("No rules to shorten this URI could be found (" + termURI + ")");
-            return Optional.empty();
+        try {        
+	        if (entityIRI.getRemainder().isPresent()) {
+	            return Optional.of(entityIRI.getRemainder().get());
+	        }
+	        else if (entityIRI.toURI().getPath() != null) {
+	            // no fragment, but there is a path so try and extract the final part...
+	            if (entityIRI.toURI().getPath().contains("/")) {
+	                getLog().trace("Extracting fragment name using final part of the path of the URI");
+	                return Optional.of(entityIRI.toURI().getPath().substring(entityIRI.toURI().getPath().lastIndexOf('/') + 1));
+	            }
+	            else {
+	                // no final path part, so just return whole path
+	                getLog().trace("Extracting fragment name using the path of the URI");
+	                return Optional.of(entityIRI.toURI().getPath());
+	            }
+	        }
+	        else {
+	            // no fragment, path is null, we've run out of rules so don't shorten
+	            getLog().trace("No rules to shorten this URI could be found (" + termURI + ")");
+	            return Optional.empty();
+	        }
+        } catch (IllegalArgumentException iae) {
+        	getLog().debug("Workaround for IllegalArgumentException for :" + entityIRI);
+        	return Optional.empty();
         }
     }
 
