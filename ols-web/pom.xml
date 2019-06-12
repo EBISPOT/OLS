@@ -26,7 +26,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
+            <!--scope>provided</scope-->
         </dependency>
 
         <dependency>
@@ -50,6 +50,15 @@
             <!--<groupId>org.springframework.boot</groupId>-->
             <!--<artifactId>spring-boot-starter-cache</artifactId>-->
         <!--</dependency>-->
+
+        <!--
+        Please refer to https://github.com/spring-projects/spring-boot/issues/1270
+        -->
+        <dependency>
+            <groupId>net.sourceforge.nekohtml</groupId>
+            <artifactId>nekohtml</artifactId>
+            <version>1.9.22</version>
+        </dependency>
 
         <dependency>
             <groupId>uk.ac.ebi.spot</groupId>

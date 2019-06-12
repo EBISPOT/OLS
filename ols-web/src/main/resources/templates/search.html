@@ -4,47 +4,238 @@
 <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"/> <![endif]-->
 <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"/> <![endif]-->
 <!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
-<!--[if gt IE 8]><!-->
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" class="no-js" lang="en"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html  xmlns:th="https://www.thymeleaf.org" class="no-js" lang="en"> <!--<![endif]-->
+
+<link rel="stylesheet" href="../static/css/select2/4.0.0/select2.min.css" th:href="@{css/select2/4.0.0/select2.min.css}" type="text/css" media="screen"/>
+<head th:replace="fragments/head :: head">
+    <title>Ontology Xref Service   &lt; EMBL-EBI</title>
+    <!-- A few keywords that relate to the content of THIS PAGE (not the whole project)
+    <meta name="keywords" content="biosamples, europe, EBI" />
+    <!- - Describe what this page is about - ->
+    <meta name="description" content="EMBL-EBI" />
+    <meta name="ebi:last-review" content="2016-12-20" />
+    <!- - The last time the content was reviewed - ->
+    <meta name="ebi:expiry" content="2017-12-20" />
+    <!- - When this content is no longer relevant -->
+</head>
+<link rel="stylesheet" href="../static/css/typeahead/typeaheadjs.css" th:href="@{css/typeahead/typeaheadjs.css}" type="text/css" media="screen"/>
+
+<body>
+<th:block th:include="fragments/header :: header"></th:block>
+
+<section id="main-content-area" role="main">
+    <div class="row">
+
+        <div id="mainSearchDiv" class="small-12 columns breadcrumbDiv">
+            <form id="filter_form" onsubmit="resetPage()" name="local-search" action="search" method="get">
+                <div id="bloodhound" class="input-group">
+                    <input style="margin-bottom: 0.1em;" name="q" class="form-control typeahead" autofocus="autofocus" type="text" data-olswidget="multisearch" data-olsontology=""  placeholder="What are you looking for today?" aria-describedby="basic-addon1"/>
+                    <input id="group-id" name="groupField" type="hidden" value="iri"/>
+
+                            <span class="input-group-btn">
+                              <button class="button secondary searchButton glyphicon glyphicon-search" type="submit">Search!</button>
+                                <!-- <button class="button" type="submit"><span class="icon icon-functional" data-icon="j"></span></button> -->
+                            </span>
+
+                </div>
+                <div style="text-align: left" class="input-group">
+                    <div class="checkbox-inline">
+                        <label>
+                            <input id="exact-id" onclick="$('#filter_form').submit();" class="" name="exact" type="checkbox" th:checked="${searchOptions.isExact()}"/> Exact match
+                        </label>
+                    </div>
+                    <div class="checkbox-inline">
+                        <label>
+                            <input id="obsolete-id" onclick="$('#filter_form').submit();" class="" type="checkbox" name="obsoletes" th:checked="${searchOptions.isQueryObsoletes()}"/> Obsolete terms
+                        </label>
+                    </div>
+
+                </div>
+
+                <input id="query-id" type="hidden" th:value="${searchOptions.query}"/>
+                <input id="start" type="hidden" name="start" value="0" th:value="${searchOptions.start}"/>
+
+                <div style="visibility:hidden;position:absolute;">
+                    <select  id="ontology-id" name="ontology" multiple="multiple">
+                        <option
+                                th:value="${ontology}"
+                                th:each="ontology : ${searchOptions.getOntologies()}"
+                                selected="selected"
+                        >
+                        </option>
+                    </select>
+                </div>
+
+                <div style="visibility:hidden;position:absolute;">
+                    <select  id="ontology-type-id" name="type" multiple="multiple">
+                        <option
+                                th:value="${type}"
+                                th:each="type : ${searchOptions.getTypes()}"
+                                selected="selected"
+                        >
+                        </option>
+                    </select>
+                </div>
+            </form>
+        </div>
+
+        <div id="filterBox" class="small-3 columns" style="text-align: left;">
+              <form disabled="true">
+                <fieldset>
+                    <!--<legend><span class="glyphicon glyphicon-filter">Filters</span></legend>-->
+                    <h4>Term type</h4>
+                    <div class="filterBoxes">
+                        <select id="ontology-select-type-id" name="type" class="type-select" multiple="multiple" style="width:100%"
+                                th:with="types=${searchOptions.getTypes()}"
+                        >
+                            <option value="class"
+                                    th:selected="${#sets.contains(types , 'class')}">Class</option>
+                            <option value="property"
+                                    th:selected="${#sets.contains(types , 'property')}">Property</option>
+                            <option value="individual"
+                                    th:selected="${#sets.contains(types , 'individual')}">Individual</option>
+                            <option value="Ontology"
+                                    th:selected="${#sets.contains(types , 'ontology')}">Ontology</option>
+                        </select>
+                        <div id="type-summary">
+                        </div>
+                    </div>
+
+                    <h4>Ontologies</h4>
+                    <div class="filterBoxes">
+                        <select id="ontology-select-id" name="ontology" class="ontology-select" multiple="multiple" style="width:100%">
+                            <option
+                                    th:value="${{onto.getConfig().getNamespace()}}"
+                                    th:each="onto : ${all_ontologies}"
+                                    th:text="${{onto.getConfig().getTitle()}} + ' (' + ${{onto.getConfig().getPreferredPrefix()}} + ')'"
+                                    th:attr="data-ontology-title=${{onto.getConfig().getTitle()}}"
+                                    th:with="ontologies=${searchOptions.getOntologies()}"
+                                    th:selected="${#sets.contains(ontologies , onto.getConfig().getNamespace())}"
+                            >
+                            </option>
+                        </select>
+                        <div id="ontology-summary">
+                        </div>
+                    </div>
+                    <button id="clearFilters" type="button" class="button secondary" onclick="clearFilter()">Clear all filters</button>
+                </fieldset>
+            </form>
+        </div>
+
+
+        <div class="small-9 columns">
+            <div style="text-align: center;" id="searching">
+                <img th:src="@{img/loading1.gif}" src="../static/img/loading1.gif" alt="Search loading..."/>
+                <span>Searching OLS, please wait...</span>
+            </div>
+
+
+            <div id="search-results-summary" style="display: none;">
+                    <h2>Search results for <span class="searchterm" th:text="${searchOptions.query}">text</span>
+                    </h2>
+
+                    <nav>
+                        <ul style="text-align: left;" class="menu">
+                            <li><a class="pagingButton" onclick="clickPrev()">Previous</a></li>
+                            <span class="search-results-count">Showing <span class="start-display">0</span> to  <span class="end-display">10</span> of <span class="total-display">0</span> results</span>
+                            <li><a class="pagingButton" onclick="clickNext()">Next</a></li>
+                        </ul>
+                    </nav>
+                    <div id="search-results">
+                    </div>
+                    <nav class="bottom-nav">
+                        <ul style="text-align: left;" class="menu">
+                            <li><a class="pagingButton" onclick="clickPrev()">Previous</a></li>
+                            <span class="search-results-count">Showing <span class="start-display">0</span> to  <span class="end-display">10</span> of <span class="total-display">0</span> results</span>
+                            <li><a class="pagingButton" onclick="clickNext()">Next</a></li>
+                        </ul>
+                    </nav>
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+
+<th:block th:include="fragments/footer :: footer"></th:block>
+
+<!-- <script type="text/javascript" src="/js/oxo.js" th:src="@{/js/oxo.js}"></script> -->
+
+<script type="text/javascript" src="../static/js/ols.js" th:src="@{js/ols.js}"></script>
+<script type="text/javascript" src="../static/js/ols-termselect2.js" th:src="@{js/ols-termselect2.js (beta=r1)}"></script>
+<script type="text/javascript" src="../static/js/ols-adv-search.js" th:src="@{js/ols-adv-search.js (beta=r4)}"></script>
+<script type="text/javascript" src="../static/js/select2/4.0.0/select2.min.js" th:src="@{js/select2/4.0.0/select2.min.js}"></script>
+
+<script type="text/javascript" src="../static/js/typeahead/typeahead.bundle.js" th:src="@{js/typeahead/typeahead.bundle.js}"></script>
+<script type="text/javascript" src="../static/js/handlebars/4.0.5/handlebars.min.js" th:src="@{js/handlebars/4.0.5/handlebars.min.js}"></script>
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+
+
+
+<!DOCTYPE html>
+&lt;!&ndash; paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ &ndash;&gt;
+&lt;!&ndash;[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"/> <![endif]&ndash;&gt;
+&lt;!&ndash;[if IE 7]>    <html class="no-js ie7 oldie" lang="en"/> <![endif]&ndash;&gt;
+&lt;!&ndash;[if IE 8]>    <html class="no-js ie8 oldie" lang="en"/> <![endif]&ndash;&gt;
+&lt;!&ndash; Consider adding an manifest.appcache: h5bp.com/d/Offline &ndash;&gt;
+&lt;!&ndash;[if gt IE 8]>&lt;!&ndash;dash;&gt;
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" class="no-js" lang="en"> &lt;!&ndash;<![endif]&ndash;&gt;
 <head>
     <meta charset="utf-8"/>
 
-    <!-- Use the .htaccess and remove these lines to avoid edge case issues.
-         More info: h5bp.com/b/378 -->
-    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> --> <!-- Not yet implemented -->
+    &lt;!&ndash; Use the .htaccess and remove these lines to avoid edge case issues.
+         More info: h5bp.com/b/378 &ndash;&gt;
+    &lt;!&ndash; <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> &ndash;&gt; &lt;!&ndash; Not yet implemented &ndash;&gt;
 
     <title>Search &lt; Ontology Lookup Service &lt; EMBL-EBI</title>
-    <meta name="description" content="EMBL-EBI"/><!-- Describe what this page is about -->
-    <meta name="keywords" content="bioinformatics, europe, institute"/><!-- A few keywords that relate to the content of THIS PAGE (not the whol project) -->
-    <meta name="author" content="EMBL-EBI"/><!-- Your [project-name] here -->
+    <meta name="description" content="EMBL-EBI"/>&lt;!&ndash; Describe what this page is about &ndash;&gt;
+    <meta name="keywords" content="bioinformatics, europe, institute"/>&lt;!&ndash; A few keywords that relate to the content of THIS PAGE (not the whol project) &ndash;&gt;
+    <meta name="author" content="EMBL-EBI"/>&lt;!&ndash; Your [project-name] here &ndash;&gt;
 
-    <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+    &lt;!&ndash; Mobile viewport optimized: j.mp/bplateviewport &ndash;&gt;
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
 
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
+    &lt;!&ndash; Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons &ndash;&gt;
 
     <link rel="stylesheet" href="../static/css/bootstrap/3.3/css/bootstrap.min.css" th:href="@{css/bootstrap/3.3/css/bootstrap.min.css}" type="text/css" media="screen"/>
 
-    <!-- CSS: implied media=all -->
-    <!-- CSS concatenated and minified via ant build script-->
+    &lt;!&ndash; CSS: implied media=all &ndash;&gt;
+    &lt;!&ndash; CSS concatenated and minified via ant build script&ndash;&gt;
     <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/boilerplate-style.css"/>
     <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/ebi-global.css" type="text/css" media="screen"/>
     <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/ebi-visual.css" type="text/css" media="screen"/>
     <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/984-24-col-fluid.css" type="text/css" media="screen"/>
 
-    <!-- you can replace this with [projectname]-colours.css. See http://frontier.ebi.ac.uk/web/style/colour for details of how to do this -->
-    <!-- also inform ES so we can host your colour palette file -->
+    &lt;!&ndash; you can replace this with [projectname]-colours.css. See http://frontier.ebi.ac.uk/web/style/colour for details of how to do this &ndash;&gt;
+    &lt;!&ndash; also inform ES so we can host your colour palette file &ndash;&gt;
     <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/embl-petrol-colours.css" type="text/css" media="screen"/>
 
-    <link rel="stylesheet" href="../static/css/ols.css" th:href="@{css/ols.css}" type="text/css" media="screen"/>
-    <link rel="stylesheet" href="../static/css/ols-colors.css" th:href="@{css/ols-colors.css}" type="text/css" media="screen"/>
     <link rel="stylesheet" href="../static/css/typeahead/typeaheadjs.css" th:href="@{css/typeahead/typeaheadjs.css}" type="text/css" media="screen"/>
     <link rel="stylesheet" href="../static/css/select2/4.0.0/select2.min.css" th:href="@{css/select2/4.0.0/select2.min.css}" type="text/css" media="screen"/>
 
-    <!-- for production the above can be replaced with -->
-    <!--
+    &lt;!&ndash; for production the above can be replaced with &ndash;&gt;
+    &lt;!&ndash;
     <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/mini/ebi-fluid-embl.css">
-    -->
+    &ndash;&gt;
 
     <style type="text/css">
         /* You have the option of setting a maximum width for your page, and making sure everything is centered */
@@ -52,21 +243,21 @@
     </style>
 
 
-    <!--<link rel="stylesheet" type="text/css" href="css/spacelab.bootstrap.min.css" th:href="@{../css/spacelab.bootstrap.min.css}"/>-->
-    <!--<link rel="stylesheet" type="text/css" href="css/main.css" th:href="@{../css/main.css}"/>-->
+    &lt;!&ndash;<link rel="stylesheet" type="text/css" href="css/spacelab.bootstrap.min.css" th:href="@{../css/spacelab.bootstrap.min.css}"/>&ndash;&gt;
+    &lt;!&ndash;<link rel="stylesheet" type="text/css" href="css/main.css" th:href="@{../css/main.css}"/>&ndash;&gt;
 
-    <!-- end CSS-->
+    &lt;!&ndash; end CSS&ndash;&gt;
 
 
 
-    <!-- All JavaScript at the bottom, except for Modernizr / Respond.
+    &lt;!&ndash; All JavaScript at the bottom, except for Modernizr / Respond.
          Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
-         For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
+         For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ &ndash;&gt;
 
-    <!-- Full build -->
-    <!-- <script src="//www.ebi.ac.uk/web_guidelines/js/libs/modernizr.minified.2.1.6.js"></script> -->
+    &lt;!&ndash; Full build &ndash;&gt;
+    &lt;!&ndash; <script src="//www.ebi.ac.uk/web_guidelines/js/libs/modernizr.minified.2.1.6.js"></script> &ndash;&gt;
 
-    <!-- custom build (lacks most of the "advanced" HTML5 support -->
+    &lt;!&ndash; custom build (lacks most of the "advanced" HTML5 support &ndash;&gt;
     <script src="//www.ebi.ac.uk/web_guidelines/js/libs/modernizr.custom.49274.js"></script>
 
 </head>
@@ -84,24 +275,24 @@
 
 <div id="wrapper" class="container_24">
 
-    <!--&lt;!&ndash; @thymesVar id="searchOptions" type="AdvancedSearchOptions" &ndash;&gt;-->
-    <!--<div style="display: none">-->
-    <!--<ul id="variables">-->
-    <!--&lt;!&ndash;@thymesVar id="query" type=""&ndash;&gt;-->
-    <!--<li id="query" th:text="${searchOptions.query}">User query</li>-->
-    <!--</ul>-->
-    <!--</div>-->
+    &lt;!&ndash;&lt;!&ndash; @thymesVar id="searchOptions" type="AdvancedSearchOptions" &ndash;&gt;&ndash;&gt;
+    &lt;!&ndash;<div style="display: none">&ndash;&gt;
+    &lt;!&ndash;<ul id="variables">&ndash;&gt;
+    &lt;!&ndash;&lt;!&ndash;@thymesVar id="query" type=""&ndash;&gt;&ndash;&gt;
+    &lt;!&ndash;<li id="query" th:text="${searchOptions.query}">User query</li>&ndash;&gt;
+    &lt;!&ndash;</ul>&ndash;&gt;
+    &lt;!&ndash;</div>&ndash;&gt;
 
     <header>
 
         <div id="global-masthead" class="masthead grid_24">
 
-            <!--This has to be one line and no newline characters-->
+            &lt;!&ndash;This has to be one line and no newline characters&ndash;&gt;
             <a href="//www.ebi.ac.uk/" title="Go to the EMBL-EBI homepage"><img src="//www.ebi.ac.uk/web_guidelines/images/logos/EMBL-EBI/EMBL_EBI_Logo_white.png" alt="EMBL European Bioinformatics Institute"/></a>
 
             <nav>
                 <ul id="global-nav">
-                    <!-- set active class as appropriate -->
+                    &lt;!&ndash; set active class as appropriate &ndash;&gt;
                     <li id="services" class=" first active"><a href="//www.ebi.ac.uk/services" title="Services">Services</a></li>
                     <li id="research" class=""><a href="//www.ebi.ac.uk/research" title="Research">Research</a></li>
                     <li id="training" class=""><a href="//www.ebi.ac.uk/training" title="Training">Training</a></li>
@@ -114,8 +305,8 @@
 
         <div id="local-masthead" class="masthead grid_24 nomenu">
 
-            <!-- local-title -->
-            <!-- NB: for additional title style patterns, see http://frontier.ebi.ac.uk/web/style/patterns -->
+            &lt;!&ndash; local-title &ndash;&gt;
+            &lt;!&ndash; NB: for additional title style patterns, see http://frontier.ebi.ac.uk/web/style/patterns &ndash;&gt;
 
             <div id="local-title" class="alpha logo-title">
                 <a href="index" title="Back to OLS homepage">
@@ -123,13 +314,13 @@
                 <span><h1>Ontology Lookup Service</h1></span>
             </div>
 
-            <!-- /local-title -->
-            <!-- fix to remove search box -->
+            &lt;!&ndash; /local-title &ndash;&gt;
+            &lt;!&ndash; fix to remove search box &ndash;&gt;
             <div style="visibility: hidden">
                 <form id="local-search">
                 </form>
             </div>
-            <!-- -->
+            &lt;!&ndash; &ndash;&gt;
 
             <nav>
                 <ul class="grid_24" id="local-nav">
@@ -147,8 +338,8 @@
 
     <div id="content" role="main" class="grid_24 clearfix">
 
-        <!-- If you require a breadcrumb trail, its root should be your service.
-              You don't need a breadcrumb trail on the homepage of your service... -->
+        &lt;!&ndash; If you require a breadcrumb trail, its root should be your service.
+              You don't need a breadcrumb trail on the homepage of your service... &ndash;&gt;
         <nav id="breadcrumb">
             <p>
                 <a href="index">OLS</a> &gt;
@@ -165,15 +356,15 @@
                             <input style="margin-bottom: 0.1em;" name="q" class="form-control typeahead" autofocus="autofocus" type="text" data-olswidget="multisearch" data-olsontology=""  placeholder="What are you looking for today?" aria-describedby="basic-addon1"/>
                             <input id="group-id" name="groupField" type="hidden" value="iri"/>
 
-                            <!--<div class="input-group-btn">-->
-                            <!--<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>-->
-                            <!--</div>-->
-                            <!---->
+                            &lt;!&ndash;<div class="input-group-btn">&ndash;&gt;
+                            &lt;!&ndash;<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>&ndash;&gt;
+                            &lt;!&ndash;</div>&ndash;&gt;
+                            &lt;!&ndash;&ndash;&gt;
                             <span class="input-group-btn">
                               <button class="btn btn-default glyphicon glyphicon-search" type="submit"></button>
                             </span>
 
-                        </div><!-- /input-group -->
+                        </div>&lt;!&ndash; /input-group &ndash;&gt;
                         <div style="text-align: left" class="input-group">
                             <div class="checkbox-inline">
                                 <label>
@@ -192,7 +383,7 @@
                         <input id="start" type="hidden" name="start" value="0" th:value="${searchOptions.start}"/>
 
                         <div style="visibility:hidden;position:absolute;">
-                            <!--@thymesVar id="ontology" type="OntologyDocument"-->
+                            &lt;!&ndash;@thymesVar id="ontology" type="OntologyDocument"&ndash;&gt;
                             <select  id="ontology-id" name="ontology" multiple="multiple">
                                 <option
                                         th:value="${ontology}"
@@ -216,7 +407,7 @@
 
 
                     </form>
-                </div><!-- /.col-lg-6 -->
+                </div>&lt;!&ndash; /.col-lg-6 &ndash;&gt;
             </div>
 
             <div class="grid_24">
@@ -250,7 +441,7 @@
                             <h3>Ontologies</h3>
 
                             <div>
-                                <!--@thymesVar id="onto" type="OntologyDocument"-->
+                                &lt;!&ndash;@thymesVar id="onto" type="OntologyDocument"&ndash;&gt;
                                 <select id="ontology-select-id" name="ontology" class="ontology-select" multiple="multiple" style="width:100%">
                                     <option
                                             th:value="${{onto.getConfig().getNamespace()}}"
@@ -313,11 +504,11 @@
     </div>
 
     <footer>
-        <!-- Optional local footer (insert citation / project-specific copyright / etc here -->
-        <div id="elixir-banner" data-color="grey" data-name="The Ontology Lookup Service" data-description="OLS is an ELIXIR interoperability service" data-more-information-link="//www.elixir-europe.org/platforms/interoperability" data-use-basic-styles="true"></div>
+        &lt;!&ndash; Optional local footer (insert citation / project-specific copyright / etc here &ndash;&gt;
+        <div id="elixir-banner" data-color="grey" data-name="The Ontology Lookup Service" data-description="OLS is an Elixir interoperability service" data-more-information-link="//www.elixir-europe.org/platforms/interoperability" data-use-basic-styles="true"></div>
         <script src="//ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/js/elixirBanner.js"></script>
 
-        <!-- End optional local footer -->
+        &lt;!&ndash; End optional local footer &ndash;&gt;
 
         <div id="global-footer" class="grid_24 clearfix">
 
@@ -362,8 +553,8 @@
 
 <script type="text/javascript" src="../static/js/jquery/1.11.1/jquery.min.js" th:src="@{js/jquery/1.11.1/jquery.min.js}"></script>
 
-<!--<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
-<!--<script src="//twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.min.js"></script>-->
+&lt;!&ndash;<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>&ndash;&gt;
+&lt;!&ndash;<script src="//twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.min.js"></script>&ndash;&gt;
 <script type="text/javascript" src="../static/js/typeahead/typeahead.bundle.js" th:src="@{js/typeahead/typeahead.bundle.js}"></script>
 <script type="text/javascript" src="../static/js/handlebars/4.0.5/handlebars.min.js" th:src="@{js/handlebars/4.0.5/handlebars.min.js}"></script>
 
@@ -383,9 +574,7 @@
 
     ga('create', 'UA-69391170-1', 'auto');
     ga('send', 'pageview');
-    ga('set', 'anonymizeIp', true);
-
 
 </script>
 </body>
-</html>
+</html>-->

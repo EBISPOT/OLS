@@ -77,7 +77,7 @@ public class HomeController {
     public String goHome () {
         return "redirect:index";
     }
-    //
+
     @RequestMapping({"/index"})
     public String showHome(Model model) {
 
@@ -96,7 +96,7 @@ public class HomeController {
                 model.addAttribute("message", message);
             }
         } catch (Exception e) {
-            // couldn't determine if we are in maintenance mode..
+            // couldn't determine whether we are in maintenance mode..
         }
         model.addAttribute("summary", summaryInfo);
         return "index";
@@ -199,7 +199,6 @@ public class HomeController {
         return "search";
     }
 
-
     @RequestMapping({"contact"})
     public String showContact() {
         return "contact";
@@ -224,6 +223,7 @@ public class HomeController {
     public String showSparql() {
         return "comingsoon";
     }
+
     @RequestMapping({"about"})
     public String showAbout() {
         return "redirect:docs/about";
@@ -233,11 +233,13 @@ public class HomeController {
     public String showDocsIndex(Model model) {
         return "redirect:docs/index";
     }
+
     // ok, this is bad, need to find a way to deal with trailing slashes and constructing relative URLs in the thymeleaf template...
     @RequestMapping({"docs/"})
     public String showDocsIndex2(Model model) {
         return "redirect:index";
     }
+
     @RequestMapping({"docs/{page}"})
     public String showDocs(@PathVariable("page") String pageName, Model model) {
         model.addAttribute("page", pageName);
