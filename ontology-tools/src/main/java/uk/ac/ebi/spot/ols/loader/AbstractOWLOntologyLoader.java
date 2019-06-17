@@ -608,24 +608,68 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         addDirectChildren(property.getIRI(), subProperties);
     }
 
+    private Set<IRI> findAllDirectAndIndirectSuperProperties(OWLObjectProperty objectProperty, 
+    		Set<IRI> indirectSuperProperties) {
+    	
+        for (OWLObjectPropertyExpression superObjectPropertyExpression : 
+        	objectProperty.getSuperProperties(ontology)) {
+        	
+        	IRI superObjectPropertyIRI = superObjectPropertyExpression.asOWLObjectProperty().getIRI();
+            if (!superObjectPropertyExpression.isAnonymous() && 
+            		!indirectSuperProperties.contains(superObjectPropertyIRI)) {
+            	
+            	indirectSuperProperties.add(superObjectPropertyIRI);
+            	findAllDirectAndIndirectSuperProperties(superObjectPropertyExpression.asOWLObjectProperty(),
+            			indirectSuperProperties);
+            }
+        }
+    	return indirectSuperProperties;
+    }
+
+    private Set<IRI> findAllDirectAndIndirectSubProperties(OWLObjectProperty objectProperty, 
+    		Set<IRI> indirectSubProperties) {
+    	
+        for (OWLObjectPropertyExpression subObjectPropertyExpression : 
+        	objectProperty.getSubProperties(ontology)) {
+        	
+        	IRI subObjectPropertyIRI = subObjectPropertyExpression.asOWLObjectProperty().getIRI();
+            if (!subObjectPropertyExpression.isAnonymous() && 
+            		!indirectSubProperties.contains(subObjectPropertyIRI)) {
+            	
+            	indirectSubProperties.add(subObjectPropertyIRI);
+            	findAllDirectAndIndirectSubProperties(subObjectPropertyExpression.asOWLObjectProperty(),
+            			indirectSubProperties);
+            }
+        }
+    	return indirectSubProperties;
+    }
+    
     private void indexSubPropertyRelations(OWLObjectProperty property) {
 
-        Set<IRI> superProperties = new HashSet<>();
+        Set<IRI> directSuperProperties = new HashSet<>();
+        Set<IRI> indirectSuperProperties = new HashSet<>();
+        Set<IRI> indirectSubProperties = new HashSet<>();
+        
         for (OWLObjectPropertyExpression owlProperty : property.getSuperProperties(ontology)) {
             if (!owlProperty.isAnonymous()) {
-                superProperties.add(owlProperty.asOWLObjectProperty().getIRI());
+                directSuperProperties.add(owlProperty.asOWLObjectProperty().getIRI());
             }
         }
-        addDirectParents(property.getIRI(), superProperties);
+        addDirectParents(property.getIRI(), directSuperProperties);
+        addAllParents(property.getIRI(), findAllDirectAndIndirectSuperProperties(property, 
+        		indirectSuperProperties));
 
-        Set<IRI> subProperties = new HashSet<>();
+        Set<IRI> directSubProperties = new HashSet<>();
         for (OWLObjectPropertyExpression owlProperty : property.getSubProperties(ontology)) {
             if (!owlProperty.isAnonymous()) {
-                subProperties.add(owlProperty.asOWLObjectProperty().getIRI());
+                directSubProperties.add(owlProperty.asOWLObjectProperty().getIRI());
             }
         }
-        addDirectChildren(property.getIRI(), subProperties);
+        addDirectChildren(property.getIRI(), directSubProperties);
+        addAllParents(property.getIRI(), findAllDirectAndIndirectSubProperties(property, 
+        		indirectSubProperties));
     }
+
 
     protected  void indexSubclassRelations(OWLClass owlClass) throws OWLOntologyCreationException {
 
