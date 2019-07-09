@@ -355,7 +355,8 @@
 <script src="../static/js/jstree/jstree.min.js" th:src="@{../../js/jstree/jstree.min.js}"></script>
 
 <script type="text/javascript" src="../static/js/ols-termselect.js" th:src="@{../../js/ols-termselect2.js}"></script>
-<script type="text/javascript" src="../static/js/ols-treeview.min.js" th:src="@{../../js/ols-treeview.min.js}"></script>
+<!--<script type="text/javascript" src="../static/js/ols-treeview.min.js" th:src="@{../../js/ols-treeview.min.js}"></script>-->
+<script type="text/javascript" src="../static/js/ols-term-type-treeview.js" th:src="@{../../ols-term-type-treeview.js  (v=0.0.42)}"></script>
 <script type="text/javascript" src="../static/js/bootstrap/bootstrap.min.js" th:src="@{../../js/bootstrap/bootstrap.min.js}"></script>
 <script>
     $(document).ready(function() {
@@ -386,9 +387,18 @@
     var termIri = $("#term-tree").data("ols-iri");
     var relativePath = $("#term-tree").data("selectpath") ? $("#term-tree").data("selectpath") : '';
 
-    var app = require("ols-treeview");
-    var instance = new app();
-    instance.draw(div, false, ontologyName, termType, termIri, relativePath, {save_state: true});
+    // var app = require("ols-treeview");
+    // var instance = new app();
+    // instance.draw(div, false, ontologyName, termType, termIri, relativePath, {save_state: true});
+
+    var instance;
+
+    var OLSTermTypeTreeView = require("ols-term-type-treeview");
+
+    instance = new OLSTermTypeTreeView(relativePath, ontologyName, "#term-tree",
+        termIri, termType, true, "", true);
+
+    instance.draw();
 </script>
 
 <script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/cookiebanner.js"></script>

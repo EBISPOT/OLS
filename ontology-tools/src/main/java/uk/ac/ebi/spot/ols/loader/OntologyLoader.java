@@ -207,7 +207,8 @@ public interface OntologyLoader {
     Map<IRI, Collection<IRI>> getRelatedTerms(IRI entityIRI);
 
     /**
-     * Returns all related terms that can be considered parents. Any relations that are considered hierarchical in nature (e.g. part-of, develops-from etc..). Excludes supeclass/is-a parents
+     * Returns all related terms that can be considered parents. Any relations that are considered 
+     * hierarchical in nature (e.g. part-of, develops-from etc..). Excludes supeclass/is-a parents
      *
      * @return the relationship IRI and the set of related terms
      */

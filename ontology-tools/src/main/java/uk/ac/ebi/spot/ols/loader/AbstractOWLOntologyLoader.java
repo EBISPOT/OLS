@@ -77,6 +77,8 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     private IRI labelIRI = Namespaces.RDFS.createIRI("label");
     private Collection<IRI> synonymIRIs = new HashSet<IRI>();
     private Collection<IRI> definitionIRIs  = new HashSet<IRI>();
+    
+    // Henriette To do: Remove
     private Collection<IRI> hiddenIRIs  = new HashSet<IRI>();
 
     private Collection<IRI> unsatisfiableIris  = new HashSet<IRI>();
@@ -101,22 +103,78 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     private Collection<IRI> obsoleteTerms = new HashSet<>();
     private Map<IRI, Collection<String>> slims = new HashMap<>();
     private Map<IRI, String> termReplacedBy = new HashMap<>();
+    
+    /**
+     * The set of terms that have the same IRI as the ontology currently being loaded.
+     */
     private Collection<IRI> localTerms = new HashSet<>();
+    
+    /**
+     * Terms that have owl:Thing as direct parent.
+     */
     private Collection<IRI> rootTerms = new HashSet<>();
 
     private Map<IRI, Collection<IRI>> directParentTerms = new HashMap<>();
+    
+    /** 
+     * The direct types of individuals.
+     */
     private Map<IRI, Collection<IRI>> directTypes = new HashMap<>();
+    /**
+     * A map of all the terms that are ancestors of a term.
+     */
     private Map<IRI, Collection<IRI>> allParentTerms = new HashMap<>();
     private Map<IRI, Collection<IRI>> directChildTerms = new HashMap<>();
+    /**
+     * A map of all descendants of a term.
+     */
     private Map<IRI, Collection<IRI>> allChildTerms = new HashMap<>();
     private Map<IRI, Collection<IRI>> equivalentTerms = new HashMap<>();
+    
+    /**
+     * A map of a map of the property IRIs and the class IRIs the property IRI are related to for 
+     * each term in the ontology.
+     */
     private Map<IRI, Map<IRI,Collection<IRI>>> relatedTerms = new HashMap<>();
+    
+    /**
+     * A map of the terms that can be considered to be related to a term via a "hierarchical 
+     * relation". Here "hierarchical relation" refers to a property IRI that is considered to be
+     * hierarchical and is stored in {@link #hierarchicalRels}. A term is related to another term
+     * via such hierarchical relation if it is a subclass of existential restriction using such a 
+     * property IRI. This map is generated based on the IRIs stored in {@link #hierarchicalRels} and 
+     * the {@link #isPartOf(IRI)} method.
+     */
     private Map<IRI, Map<IRI,Collection<IRI>>> relatedParentTerms = new HashMap<>();
+    
+    /**
+     * This is a map of the terms that are subclasses of existential restrictions using via property
+     * IRIs that are considered to be hierarchical (i.e. stored in {@link #hierarchicalRels}) or for
+     * which the {@link #isPartOf(IRI)} method returns true. Any class that is a subclass of such a
+     * hierarchical relation is considered to be a related child of the filler of the given property
+     * IRIs.
+     */
     private Map<IRI, Collection<IRI>> relatedChildTerms = new HashMap<>();
+    
+    // Henriette To do: Is this used?
     private Map<IRI, Map<IRI,Collection<IRI>>> allRelatedTerms = new HashMap<>();
+    /**
+     * A map of the individuals which have existential restrictions as type where the filler of the
+     * existential restriction is a nominal. For each such individual a map is stored of the related 
+     * property IRI and its (n) filler(s).
+     */    
     private Map<IRI, Map<IRI,Collection<IRI>>> allRelatedIndividuals = new HashMap<>();
     private Map<IRI, Map<IRI,Collection<IRI>>> allRelatedIndividualsToClasses = new HashMap<>();
+    /**
+     * A map of the individuals which have existential restrictions as type where the filler of the
+     * existential restriction is a class. For each such individual a map is stored of the related 
+     * property IRI and its (class) filler(s).
+     */
     private Map<IRI, Map<IRI,Collection<IRI>>> allRelatedClassesToIndividuals = new HashMap<>();
+    /**
+     * Terms that have defined by the ontology designer as being preferred root terms for the 
+     * ontology.
+     */
     private Collection<IRI> preferredRootTerms = new HashSet<>();
 
     private Map<IRI, Collection<OBODefinitionCitation>> oboDefinitionCitations = new HashMap<>();
@@ -447,6 +505,9 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
             } else if (annotationPropertyIri.toString().equals(
             		ontologyLoadingConfiguration.getPreferredRootTermAnnotationProperty())) {
             	
+              getLogger().debug("Check whether we can add preferredRootTerms for: " 
+            		+ annotationPropertyIri);
+            	
             	if (annotationValue instanceof IRI) {
             		preferredRootTerms.add((IRI)annotationValue);
             	}
@@ -562,9 +623,11 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         for (OWLClassExpression expression : individual.getTypes(ontology)) {
             if (expression.isAnonymous())  {
                 if (expression instanceof OWLObjectSomeValuesFrom) {
-                    indexIndividualsToExistentialRestriction(instanceClassRelations, instanceRelations, (OWLObjectSomeValuesFrom) expression);
+                    indexIndividualsToExistentialRestriction(instanceClassRelations, instanceRelations, 
+                        (OWLObjectSomeValuesFrom) expression);
                 } else if(expression instanceof OWLObjectHasValue) {
-                    indexIndividualsToExistentialRestriction(instanceClassRelations, instanceRelations, (OWLObjectSomeValuesFrom) ((OWLObjectHasValue) expression).asSomeValuesFrom());
+                    indexIndividualsToExistentialRestriction(instanceClassRelations, instanceRelations, 
+                        (OWLObjectSomeValuesFrom) ((OWLObjectHasValue) expression).asSomeValuesFrom());
                 }
             }
         }
@@ -580,33 +643,39 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         }
     }
 
-    private void indexIndividualsToExistentialRestriction(Map<IRI, Collection<IRI>> instanceClassRelations, Map<IRI, Collection<IRI>> instanceRelations, OWLObjectSomeValuesFrom osv) {
-        //we cover only the specific case of an existential restriction to a named class,
+    private void indexIndividualsToExistentialRestriction(Map<IRI, Collection<IRI>> instanceClassRelations, 
+        Map<IRI, Collection<IRI>> instanceRelations, OWLObjectSomeValuesFrom objectSomeValuesFrom) {
+        
+      //we cover only the specific case of an existential restriction to a named class,
         //no inference, no syntactic equivalence (R some (A and A)
-        if (!osv.getProperty().isAnonymous()) {
-            OWLClassExpression ce = osv.getFiller();
-            OWLObjectProperty p = osv.getProperty().asOWLObjectProperty();
-            if (ce instanceof OWLClass) {
+        if (!objectSomeValuesFrom.getProperty().isAnonymous()) {
+            OWLClassExpression classExpressionFiller = objectSomeValuesFrom.getFiller();
+            OWLObjectProperty objectProperty = objectSomeValuesFrom.getProperty().asOWLObjectProperty();
+            if (classExpressionFiller instanceof OWLClass) {
 
-                if (!instanceClassRelations.containsKey(p.getIRI())) {
-                    instanceClassRelations.put(p.getIRI(), new HashSet<IRI>());
+                if (!instanceClassRelations.containsKey(objectProperty.getIRI())) {
+                    instanceClassRelations.put(objectProperty.getIRI(), new HashSet<IRI>());
                 }
-                instanceClassRelations.get(p.getIRI()).add(osv.getFiller().asOWLClass().getIRI());
+                instanceClassRelations.get(objectProperty.getIRI()).add(
+                    objectSomeValuesFrom.getFiller().asOWLClass().getIRI());
 
-            } else if(ce instanceof OWLObjectOneOf) {
-                indexRelationsFromExistentialRestrictionsToNominals(instanceRelations, (OWLObjectOneOf) ce, p);
+            } else if(classExpressionFiller instanceof OWLObjectOneOf) {
+                indexRelationsFromExistentialRestrictionsToNominals(instanceRelations, 
+                    (OWLObjectOneOf) classExpressionFiller, objectProperty);
             }
         }
     }
 
-    private void indexRelationsFromExistentialRestrictionsToNominals(Map<IRI, Collection<IRI>> instanceRelations, OWLObjectOneOf ce, OWLObjectProperty p) {
-        if(ce.getIndividuals().size()==1) { // If there is more than one, we cannot assume a relationship.
-            for (OWLIndividual i : ce.getIndividuals()) {
-                if (i.isNamed()) {
-                    if (!instanceRelations.containsKey(p.getIRI())) {
-                        instanceRelations.put(p.getIRI(), new HashSet<>());
+    private void indexRelationsFromExistentialRestrictionsToNominals(
+        Map<IRI, Collection<IRI>> instanceRelations, OWLObjectOneOf objectOneOf, 
+        OWLObjectProperty objectProperty) {
+        if(objectOneOf.getIndividuals().size()==1) { // If there is more than one, we cannot assume a relationship.
+            for (OWLIndividual individual : objectOneOf.getIndividuals()) {
+                if (individual.isNamed()) {
+                    if (!instanceRelations.containsKey(objectProperty.getIRI())) {
+                        instanceRelations.put(objectProperty.getIRI(), new HashSet<>());
                     }
-                    instanceRelations.get(p.getIRI()).add(i.asOWLNamedIndividual().getIRI());
+                    instanceRelations.get(objectProperty.getIRI()).add(individual.asOWLNamedIndividual().getIRI());
                 }
             }
         }
@@ -666,38 +735,44 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
         // get direct children
 
-        Set<IRI> ct = removeExcludedIRI(
+        Set<IRI> directChildTerms = removeExcludedIRI(
                 directSubClasses.parallelStream()
                         .map(OWLNamedObject::getIRI)
                         .collect(Collectors.toSet()),
                 owlVocabulary);
-        if (ct.size() >0) addDirectChildren(owlClass.getIRI(), ct) ;
+        if (directChildTerms.size() > 0) 
+          addDirectChildren(owlClass.getIRI(), directChildTerms) ;
 
         // get all children
-        Set<IRI> act = removeExcludedIRI(
+        Set<IRI> allDescendantTerms = removeExcludedIRI(
                 allSubClasses.parallelStream()
                         .map(OWLNamedObject::getIRI)
                         .collect(Collectors.toSet()),
                 owlVocabulary);
-        if (act.size() >0) addAllChildren(owlClass.getIRI(), act);
+        if (allDescendantTerms.size() >0) 
+          addAllChildren(owlClass.getIRI(), allDescendantTerms);
 
         // get parents
-        Set<IRI> dp =
+        Set<IRI> directParentTerms =
                 removeExcludedIRI(
                         directSuperClasses.parallelStream()
                                 .map(OWLNamedObject::getIRI)
                                 .collect(Collectors.toSet()),
                         owlVocabulary);
-        if (dp.size()>0) addDirectParents(owlClass.getIRI(), dp);
+        
+        if (directParentTerms.size()>0) 
+          addDirectParents(owlClass.getIRI(), directParentTerms);
 
         // get all parents
-        Set<IRI> ap =
+        Set<IRI> allAncestorTerms =
                 removeExcludedIRI(
                         allSuperClasses.parallelStream()
                                 .map(OWLNamedObject::getIRI)
                                 .collect(Collectors.toSet()),
                         owlVocabulary);
-        if (ap.size()>0) addAllParents(owlClass.getIRI(), ap);
+        
+        if (allAncestorTerms.size()>0) 
+          addAllParents(owlClass.getIRI(), allAncestorTerms);
 
         // map of related parent terms for hierarchy views
         Map<IRI, Collection<IRI>> relatedParentTerms = new HashMap<>();
@@ -741,7 +816,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
                         }
 
-                    } else if (someValuesFrom.getFiller().isAnonymous() && ! someValuesFrom.getProperty().isAnonymous()) {
+                    } else if (someValuesFrom.getFiller().isAnonymous() && !someValuesFrom.getProperty().isAnonymous()) {
                         indexTermToIndividualRelations(someValuesFrom,relatedIndividualsToClasses);
                     }
 
@@ -773,15 +848,18 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         // todo find transitive closure of related terms
     }
 
-    private void indexTermToIndividualRelations(OWLObjectSomeValuesFrom someValuesFrom, Map<IRI, Collection<IRI>> relatedIndividualsToClasses) {
-        OWLClassExpression ce = someValuesFrom.getFiller();
+    private void indexTermToIndividualRelations(OWLObjectSomeValuesFrom someValuesFrom, 
+        Map<IRI, Collection<IRI>> relatedIndividualsToClasses) {
+        
+      OWLClassExpression classExpression = someValuesFrom.getFiller();
         if(someValuesFrom.getProperty().isAnonymous()) {
             //Must be anonymous property
             return;
         }
-        OWLObjectProperty p = someValuesFrom.getProperty().asOWLObjectProperty();
-        if(ce instanceof OWLObjectOneOf) {
-            indexRelationsFromExistentialRestrictionsToNominals(relatedIndividualsToClasses, (OWLObjectOneOf) ce, p);
+        OWLObjectProperty objectProperty = someValuesFrom.getProperty().asOWLObjectProperty();
+        if(classExpression instanceof OWLObjectOneOf) {
+            indexRelationsFromExistentialRestrictionsToNominals(relatedIndividualsToClasses, 
+                (OWLObjectOneOf) classExpression, objectProperty);
         }
     }
 

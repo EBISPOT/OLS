@@ -39,3 +39,4 @@ public abstract class AbstractLoadingService implements DocumentLoadingService {
 
     public abstract OntologyResourceConfig getConfiguration () throws ConfigParsingException;
 }
+

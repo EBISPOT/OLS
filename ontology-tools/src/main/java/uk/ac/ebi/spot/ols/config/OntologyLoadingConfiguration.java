@@ -1,5 +1,7 @@
 package uk.ac.ebi.spot.ols.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +18,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class OntologyLoadingConfiguration {
-
+  
 	public final static String DEFAULT_PREFERRED_ROOT_TERM_ANNOTATION_PROPERTY = 
 			"http://www.ebi.ac.uk/ols/vocabulary/hasPreferredRootTerm";
 	

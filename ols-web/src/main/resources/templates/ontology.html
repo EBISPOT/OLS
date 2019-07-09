@@ -226,16 +226,20 @@
                             <li role="presentation"><a id="diachron-link" data-toggle="tab" class="icon icon-generic" data-icon="g" href="#diachron-tab">Ontology history</a></li>
                             <!--<li role="presentation"><a data-toggle="tab"  href="#graph-tab">Graph view</a></li>-->
                         </ul>
-
+                        <div class="btn-group btn-group-vertical" style="float: right;padding-top:5px;">
+                            <input type="radio" id="ontology_view_selection_id" name="ontology_view_selection" value="All"
+                                   th:checked="${#httpServletRequest.getParameter('viewMode') == null or #httpServletRequest.getParameter('viewMode') == 'All'} ? 'true': 'false'" onclick="olsTabbedTermTreeView.toggleOntologyView(this)">All terms</input><br/>
+                            <input type="radio" id="ontology_view_selection_id" name="ontology_view_selection" value="PreferredRoots"
+                                   th:checked="${#httpServletRequest.getParameter('viewMode') == 'PreferredRoots'} ? 'true': 'false'" onclick="olsTabbedTermTreeView.toggleOntologyView(this)">Preferred root terms</input>
+                        </div>
                         <!-- Tab panes -->
                         <div class="tab-content">
 
                             <div role="tabpanel" class="tab-pane active" id="tree-tab">
-
                                 <div id="term-tree" data-olswidget="tree" th:attr="data-olsontology=${ontologyDocument.getOntologyId()}" data-selectpath="../" data-ols-termtype="class" data-olsontology="" data-ols-iri=""  >
                                 </div>
 
-                            </div>
+                            </div>	
 
                             <div role="tabpanel" class="tab-pane" id="property-tree-tab">
 
@@ -252,7 +256,7 @@
 
                     </div>
                     <div id="right_info_box" class="grid_10 beta">
-
+						
                         <div id="ontology_info_box" class="panel panel-primary">
 
                             <div class="panel-heading">
@@ -358,7 +362,8 @@
 <script type="text/javascript" src="../static/js/ols.js" th:src="@{../js/ols.js}"></script>
 <script src="../static/js/jstree/jstree.min.js" th:src="@{../js/jstree/jstree.min.js}"></script>
 <script type="text/javascript" src="../static/js/ols-termselect.js" th:src="@{../js/ols-termselect2.js}"></script>
-<script type="text/javascript" src="../static/js/ols-treeview.min.js" th:src="@{../js/ols-treeview.min.js}"></script>
+<!--<script type="text/javascript" src="../static/js/ols-treeview.min.js" th:src="@{../js/ols-treeview.min.js}"></script>-->
+<script type="text/javascript" src="../static/js/ols-tabbed-term-treeview.js" th:src="@{../js/ols-tabbed-term-treeview.js}"></script>
 
 <!-- Include tags for the new CHARTS we have for the DIACHRON part of the ontology view-->
 <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -402,33 +407,22 @@
 </script>
 
 <script>
-    // initialise the tree
-    $(document).ready(function() {
-        var div=$("#term-tree");
-        var ontologyName = $("#term-tree").data("olsontology");
-        var termType = $("#term-tree").data("ols-termtype");
-        var termIri = $("#term-tree").data("ols-iri");
-        var relativePath = $("#term-tree").data("selectpath") ? $("#term-tree").data("selectpath") : '';
+    var termOntologyName = $("#term-tree").data("olsontology");
+    var termIri = $("#term-tree").data("ols-iri");
+    var termRelativePath = $("#term-tree").data("selectpath") ?
+        $("#term-tree").data("selectpath") : '';
 
-        var app = require("ols-treeview");
-        var instance = new app();
-        instance.draw(div, false, ontologyName, termType, termIri, relativePath, {save_state: true});
 
-    });
-
+    var olsTabbedTermTreeView;
     $(document).ready(function() {
 
-        var div=$("#property-tree");
-        var ontologyName = $("#property-tree").data("olsontology");
-        var termType = $("#property-tree").data("ols-termtype");
-        var termIri = $("#property-tree").data("ols-iri");
-        var relativePath = $("#property-tree").data("selectpath") ? $("#property-tree").data("selectpath") : '';
+        var OLSTabbedTermTreeView = require("ols-tabbed-term-treeview");
 
-        var app = require("ols-treeview");
-        var propertyInstance = new app();
-        propertyInstance.draw(div, false, ontologyName, termType, termIri, relativePath, {save_state: true});
+        olsTabbedTermTreeView = new OLSTabbedTermTreeView(termRelativePath, termOntologyName, "#term-tree",
+            "#property-tree", "", true, "ontology_view_selection_id", true);
 
-
+        console.log("olsTabbedTermTreeView = ", olsTabbedTermTreeView);
+        olsTabbedTermTreeView.draw();
     });
 </script>
 

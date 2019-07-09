@@ -182,8 +182,8 @@ public class OntologyTermGraphService {
         return termRepository.getRoots(ontologyId, includeObsoletes, pageable);
     }
 
-    public Page<Term> getPreferredRoots(String ontologyId, Pageable pageable) {
-        return termRepository.getPreferredRoots(ontologyId, pageable);
+    public Page<Term> getPreferredRoots(String ontologyId, boolean includeObsoletes, Pageable pageable) {
+        return termRepository.getPreferredRoots(ontologyId, includeObsoletes, pageable);
     }    
     
     public Page<Individual> getInstances(String ontologyId, String iri, Pageable pageable) {

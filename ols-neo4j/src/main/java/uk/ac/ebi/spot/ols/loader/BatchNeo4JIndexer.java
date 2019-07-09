@@ -335,9 +335,8 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
 		}
 		else if (loader.getRelatedParentTerms(classIri).isEmpty()) {
 		    Long thing = NodeCreator.getOrCreateNode(inserter, nodeMap, loader, 
-		    		IRI.create(THING), 
-		    		new LinkedList<Label>(Arrays.asList(nodeLabel, nodeOntologyLabel, _nodeLabel, 
-		    				rootLabel)));
+		    		IRI.create(THING), new LinkedList<Label>(Arrays.asList(nodeLabel, nodeOntologyLabel, 
+		    		    _nodeLabel, rootLabel)));
 		    inserter.createRelationship( node, thing, isa, isaProperties);
 		}
 	}
@@ -393,11 +392,11 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
 		        Long relatedNode =  NodeCreator.getOrCreateNode(inserter, nodeMap,loader, relatedTerm, 
 		        		new LinkedList<Label>(Arrays.asList(nodeLabel, nodeOntologyLabel, _nodeLabel)));
 		        // create local relationship
-		        inserter.createRelationship( node, relatedNode, related, relatedProperties);
+		        inserter.createRelationship(node, relatedNode, related, relatedProperties);
 		        // add a hierarchical relation if it is a related parent term
 		        if (!loader.getRelatedParentTerms(classIri).isEmpty()) {
 		            if (loader.getRelatedParentTerms(classIri).containsKey(relation)) {
-		                inserter.createRelationship( node, relatedNode, treeRelation, 
+		                inserter.createRelationship(node, relatedNode, treeRelation, 
 		                		relatedTreeProperties);
 		            }
 		        }
