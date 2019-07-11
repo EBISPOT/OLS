@@ -60,7 +60,7 @@ public class OntologyConfigController {
         }
 
         try {
-            return mapper.writeValueAsString(configs);
+            return mapper.writeValueAsString(new OntologyResourceConfigWrapper(configs));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -73,6 +73,23 @@ public class OntologyConfigController {
     @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Resource not found")
     @ExceptionHandler(ResourceNotFoundException.class)
     public void handleError(HttpServletRequest req, Exception exception) {
+    }
+
+    private class OntologyResourceConfigWrapper {
+
+        private List<OntologyResourceConfig> ontologies;
+
+        public OntologyResourceConfigWrapper(List<OntologyResourceConfig> ontologies) {
+            this.ontologies = ontologies;
+        }
+
+        public List<OntologyResourceConfig> getOntologies() {
+            return ontologies;
+        }
+
+        public void setOntologies(List<OntologyResourceConfig> ontologies) {
+            this.ontologies = ontologies;
+        }
     }
 
     private class OntologyResourceConfigFormatter extends OntologyResourceConfig {
