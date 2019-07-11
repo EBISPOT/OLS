@@ -1,13 +1,10 @@
-
-
 $(document).ready(function() {
-
 
   $( "input[data-olswidget='multisearch']" ).each(function() {
 
     var relativePath = $(this).data("selectpath") ? $(this).data("selectpath") : '';
-    var ontology =   $(this).data("olsontology") ? $(this).data("olsontology") : '';
-    var type =   $(this).data("olstype") ? $(this).data("olstype") : '';
+    var ontology = $(this).data("olsontology") ? $(this).data("olsontology") : '';
+    var type = $(this).data("olstype") ? $(this).data("olstype") : '';
 
     var source = [{
                 name: 'suggestion',
@@ -26,8 +23,8 @@ $(document).ready(function() {
   $( "input[data-olswidget='select']" ).each(function() {
 
     var relativePath = $(this).data("selectpath") ? $(this).data("selectpath") : '';
-    var ontology =   $(this).data("olsontology") ? $(this).data("olsontology") : '';
-    var type =   $(this).data("olstype") ? $(this).data("olstype") : '';
+    var ontology = $(this).data("olsontology") ? $(this).data("olsontology") : '';
+    var type = $(this).data("olstype") ? $(this).data("olstype") : '';
 
     var source = [
               {
@@ -38,13 +35,10 @@ $(document).ready(function() {
               }];
     createTypeAhead($(this), relativePath, source);
   });
-
-
 });
 
+
 function createTypeAhead (element, relativePath, source) {
-
-
 
   element.bind('typeahead:select', function(ev, suggestion) {
 
@@ -72,8 +66,8 @@ function createTypeAhead (element, relativePath, source) {
           },
           source
       ).focus()
-
 }
+
 
 function getSuggestTemplate () {
 
@@ -103,12 +97,11 @@ function getSuggestTemplate () {
 
     },
     footer:  Handlebars.compile('<hr/><div onclick="$(this).closest(\'form\').submit()" style="text-align: right;" class="tt-suggestion tt-selectable">Search OLS for <b>{{query}}</b></div>')
-
   };
 }
 
-function getSelectHound (relativePath, ontology, type) {
 
+function getSelectHound (relativePath, ontology, type) {
 
   var ontologyParam ='';
   if (ontology) {
@@ -129,8 +122,8 @@ function getSelectHound (relativePath, ontology, type) {
       }
     }
   });
-
 }
+
 
 function getSuggestHound (relativePath) {
   return new Bloodhound({
@@ -151,6 +144,7 @@ function getSuggestHound (relativePath) {
   });
 }
 
+
 function selectResponse (response) {
   // Map the remote source JSON array to a JavaScript object array
   var query = response.responseHeader.params.q;
@@ -170,7 +164,6 @@ function selectResponse (response) {
     else if (response.highlighting[id].label != undefined) {
       label = response.highlighting[id].label[0];
       cantHighlight = false;
-
     }
 
     if (cantHighlight) {

@@ -57,19 +57,18 @@
     <link rel="stylesheet" href="https://ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/css/ebi-global.css" type="text/css" media="all" />
     -->
 
-
+    <!-- jstree -->
+    <link rel="stylesheet" href="/js/jstree/themes/proton/style.min.css" th:href="@{/js/jstree/themes/proton/style.min.css}" type="text/css" media="screen" />
 
     <!-- Use this CSS file for any custom styling -->
     <!-- Css taken from old oxo
     <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/embl-petrol-colours.css" type="text/css" media="screen"/>
--->
-
+    -->
 
     <!-- Temporary remove  style
     <link rel="stylesheet" href="https://www.ebi.ac.uk/ols/css/ols.css" type="text/css" media="screen"/>
     <link rel="stylesheet" href="https://www.ebi.ac.uk/ols/css/ols-colors.css"  type="text/css" media="screen"/>
     <link rel="stylesheet" href="../static/css/oxo.css" th:href="@{/css/oxo.css}" type="text/css" media="screen"/>
-
 
     <link rel="stylesheet" href="../static/css/oxo.css" th:href="@{/css/oxo.css}" type="text/css" media="screen"/>
     <link rel="stylesheet" href="../static/css/oxo-d3.css" th:href="@{/css/oxo-d3.css}" type="text/css" media="screen"/>
@@ -77,9 +76,8 @@
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" type="text/css" media="screen"/>
     -->
 
-
     <!--  bootstrap though!
-     <link  rel="stylesheet" th:href="@{/webjars/bootstrap-slider/5.3.1/css/bootstrap-slider.min.css}" href="/webjars/bootstrap-slider/5.3.1/css/bootstrap-slider.min.css"  type="text/css" media="screen"/>
+    <link  rel="stylesheet" th:href="@{/webjars/bootstrap-slider/5.3.1/css/bootstrap-slider.min.css}" href="/webjars/bootstrap-slider/5.3.1/css/bootstrap-slider.min.css"  type="text/css" media="screen"/>
     -->
     <!--    bootstrap css needed?    -->
     <!--
@@ -95,25 +93,24 @@
     <meta name="ebi:masthead-color" content="#000" />
     <meta name="ebi:masthead-image"  content="https://www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.1/images/backgrounds/embl-ebi-background-4.jpg"/>
 
-    <link  rel="stylesheet" th:href="@{/css/new_ols.css}" href="/css/new_ols.css"  type="text/css" media="screen"/>
-
+    <link rel="stylesheet" th:href="@{/css/new_ols.css}" href="/css/new_ols.css" type="text/css" media="screen"/>
 
     <!-- you can replace this with theme-[projectname].css. See http://www.ebi.ac.uk/web/style/colour for details of how to do this -->
     <!-- also inform ES so we can host your colour palette file -->
 
-
     <!--
-        <link rel="stylesheet" href="https://www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.1/css/theme-embl-petrol.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="https://www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.1/css/theme-embl-petrol.css" type="text/css" media="all" />
     -->
 
     <!-- for production the above can be replaced with -->
     <!-- <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/mini/ebi-fluid-embl.css" /> -->
     <!-- end CSS-->
 
-
     <!-- All JavaScript at the bottom, except for Modernizr - - >
     <script src="https://www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.1/libraries/modernizr/modernizr.custom.49274.js"></script>
     -->
+    <!--link th:if="olscss" rel="stylesheet" href="../static/css/typeahead/typeaheadjs.css" th:href="@{css/typeahead/typeaheadjs.css}" type="text/css" media="screen"/-->
+    <link th:if="${olscss} == true" rel="stylesheet" th:href="@{css/typeahead/typeaheadjs.css}" type="text/css" media="screen"/>
 
 </head>
 <body>

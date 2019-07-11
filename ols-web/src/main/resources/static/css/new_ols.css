@@ -1,0 +1,453 @@
+#mainpageSearchBox{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    background:#F0F0F0;
+    padding: 35px 35px 35px 35px;
+    border-radius: 5px;
+}
+
+/*
+#mainpageSearchBox .form-control{
+    width:80%;
+    display: inline-block;
+}*/
+
+#dataContentDiv{
+    margin-top: 30px;
+}
+
+/* search Button css*/
+.searchButton{
+    margin-left: 7px;
+    margin-bottom: 0.1em;
+    margin-bottom: 0;
+    line-height: 0.88em;
+    position: relative;
+    vertical-align: top;
+}
+
+/*Next/Prev button */
+.pagingButton{
+    display: inline-block;
+    padding: 5px 14px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+}
+
+.pagingButton a:hover, a:focus, a:active, a:visited {
+    color: #015666;
+    border-bottom-color:#ddd ;
+}
+
+
+/*browse - List of all ontologies
+#ontologiesTable_previous {
+    display: inline-block;
+    padding: 5px 14px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+}
+
+#ontologiesTable_next {
+    display: inline-block;
+    padding: 5px 14px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+}
+*/
+
+
+/* Overwritting padding that comes from global ebi css */
+#ontologiesTable_paginate .pagination .current{
+    padding: 0px 0px 0px 0px !important;
+}
+
+
+#ontologiesTable_paginate a, a:visited{
+    border-bottom-width: 0px;
+    border-bottom-style: none;
+}
+
+#ontologiesTable_paginate a, a:hover{
+    color: #015666;
+}
+
+#ontologiesTable_paginate .paginate_button .current{
+    background: transparent;
+}
+
+
+/* Search Page */
+#filterBox {
+    margin-top: 60px;
+}
+
+#filter_form .input-group{
+    display:flex;
+}
+
+#filter_form .checkbox-inline {
+    margin-right:40px;
+}
+
+#filterBox{
+    background: #F0F0F0;
+}
+
+#search-results{
+    margin-top: 50px;
+    padding-left: 30px;
+}
+
+#search-results-summary{
+    padding-left:10px;
+}
+
+
+.search-results-count {
+    font-style: italic;
+}
+
+.search-results-count span {
+    font-style: italic;
+    font-weight: bold;
+}
+
+/**/
+
+#termPageSearchBox{
+    display:inline;
+}
+
+#bloodhound{
+    display: flex;
+}
+
+#bloodhound .form-control.typeahead{
+    margin: 0;
+}
+
+/* Ontology prefix/Term markup used on*/
+.ontology-source{
+    background-color: #5FBDCE;
+    padding:2px;
+    padding-right:4px;
+    color: white;
+    /*font-size: larger;*/
+    border-radius: 3px;
+    display: inline-block;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+a .ontology-source {
+    background-color: #5FBDCE;
+    padding:2px;
+    padding-right:4px;
+    color: white;
+    /*font-size: larger;*/
+    border-radius: 3px;
+    display: inline-block;
+    margin-right: 4px;
+    vertical-align: middle;
+    border-bottom: none;
+}
+
+.term-source{
+    background-color: #ffac1b;
+    padding:2px;
+    padding-right:4px;
+    color: white;
+    /*font-size: larger;*/
+    border-radius: 3px;
+    display: inline-block;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+
+/********Search page new css tries********/
+.static_search_ontology_badge{
+    display: inline;
+    margin-left: 20px;
+}
+
+
+.search_sub_result{
+    margin-bottom: 20px;
+}
+
+.term-source{
+    margin-left:10px;
+}
+
+.search_static_ontology{
+    font-size:smaller;
+    color: #ddd;
+}
+
+
+.search-results-label
+{
+    font-size: x-large;
+}
+
+
+
+/*Ontology View*/
+.panel{
+    border: solid 1px #F0F0F0;
+}
+
+#ontology_info_box .panel-heading{
+    background: #F0F0F0;
+    text-align: center;
+}
+
+#ontology_info_box .panel-body{
+    padding: 10px 10px 10px 10px;
+}
+
+
+#onto-tab-content .tabs-content{
+    min-height: 500px;
+    margin-bottom: 40px;
+}
+
+#bloodhound .twitter-typeahead{
+    width:inherit;
+}
+
+/*Term page */
+#right_info_box .panel-heading{
+    background: #F0F0F0;
+    text-align: center;
+}
+
+#right_info_box .panel-body{
+    padding: 10px 10px 10px 10px;
+}
+
+#terms-tab-content .tabs-content{
+    min-height: 500px;
+}
+
+
+#termPageSearchBox{
+    margin-top: 10px;
+}
+
+
+#termPageSearchBox .twitter-typeahead{
+    width:100%;
+}
+
+/*
+#termPageSearchBox .twitter-typeahead{
+    width: 70%;
+}*/
+
+#termPageSearchBox .button
+{
+    vertical-align: top;
+}
+
+
+.copyButton{
+    vertical-align: baseline;
+    cursor:pointer;
+    margin-left:10px;
+}
+
+
+/* Adding some space on the term page*/
+.breadcrumbDiv{
+    margin-top:10px;
+}
+
+#tree_tab_button_box{
+    float:right;
+    padding-top:5px;
+}
+
+#showSliblingsButton{
+    min-width: 120px;
+}
+
+
+/*generic  marginTop class*/
+.marginTop{
+    margin-top:20px;
+    padding-left: 13px;
+}
+
+
+
+/*Addintional style for the graphview - copy past for now from foundation button secondary css*/
+.btn{
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 0 1rem 0;
+    font-family: inherit;
+    padding: 0.85em 1em;
+    -webkit-appearance: none;
+    border: 1px solid transparent;
+    border-radius: 0;
+    transition: background-color 0.25s ease-out, color 0.25s ease-out;
+    font-size: 0.9rem;
+    line-height: 1;
+    text-align: center;
+    cursor: pointer;
+    background-color: #777;
+    color: #fefefe;
+}
+
+
+.awesomplete {
+    vertical-align:top;
+    width:160px;
+}
+
+#LookUpNodeTextfield{
+    width: 120px !important;
+}
+
+#TogglePhysics{
+    padding-right: 5px;
+}
+
+/* CSS for the asci doc pages*/
+#docs-content{
+}
+
+/* Footer - add some space */
+#elixir-banner{
+    margin-top: 100px;
+}
+
+/* maintenance page css*/
+.alert{
+    padding:15px;margin-bottom:20px;border:1px solid transparent;border-radius:4px
+
+}
+
+/* Main content area: adjust margins */
+#content {
+    padding-top: 12px;
+    padding-left: 12px;
+}
+
+/*Search Box*/
+#filterBox{
+    border-radius: 5px;
+    padding-top: 20px;
+}
+
+.checkbox-inline{
+    margin-top: -20px;
+}
+
+.badge{
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-color: #777;
+    border-radius: 10px;
+    float:right;
+}
+
+.list-group{
+    margin-bottom: 20px;
+}
+
+.list-group-item
+{
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    width:85%;
+    text-align: left;
+    margin: auto;
+}
+
+.filterBoxes .select2-selection{
+    margin: auto;
+    width: 85%;
+    height: 40px;
+
+}
+
+.select2-search__field{
+    margin-top: 0px !important;
+}
+
+#clearFilters{
+    float:right;
+    margin-top:10px;
+}
+
+
+#mainSearchDiv{
+    margin-top:40px;
+    margin-bottom: 30px;
+    padding-left:150px;
+}
+
+#mainSearchDiv .twitter-typeahead{
+    width: 80%;
+}
+
+
+/* Styling for code part in the documentation */
+.highlight{
+    padding-left: 50px;
+    margin-left: 20px;
+    margin-right: 50px;
+    background-color: #F2F2EC;
+    border-color: #999;
+}
+
+/* keywords - default cyan */
+.keyword {color: #007777;}
+.comment {color: green;}
+.some {color: #770077;}
+.only {color: #770077;}
+.value {color: #770077;}
+.min {color: #770077;}
+.max {color: #770077;}
+.exactly {color: #770077;}
+
+.ObjectProperty {
+    font-style: italic;
+}
+
+.synonym {
+    padding: 0.125rem 0.3125rem 0.0625rem;
+    border: 1px solid #777;
+    background-color: #e6e6e6;
+    font-family: Consolas, "Liberation Mono", Courier, monospace;
+    font-weight: normal;
+    color: #0a0a0a;
+}
+
+/* Modify class from ebi-global.css */
+.breadcrumbs {
+    padding-left: 13px;
+}
+
+div.row > * {
+    padding-left: 13px;
+}

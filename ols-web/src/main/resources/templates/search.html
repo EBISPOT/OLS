@@ -7,7 +7,7 @@
 <!--[if gt IE 8]><!--> <html  xmlns:th="https://www.thymeleaf.org" class="no-js" lang="en"> <!--<![endif]-->
 
 <link rel="stylesheet" href="../static/css/select2/4.0.0/select2.min.css" th:href="@{css/select2/4.0.0/select2.min.css}" type="text/css" media="screen"/>
-<head th:replace="fragments/head :: head">
+<head th:replace="fragments/head :: head(olscss=true)">
     <title>Ontology Xref Service   &lt; EMBL-EBI</title>
     <!-- A few keywords that relate to the content of THIS PAGE (not the whole project)
     <meta name="keywords" content="biosamples, europe, EBI" />
@@ -137,8 +137,10 @@
                     <nav>
                         <ul style="text-align: left;" class="menu">
                             <li><a class="pagingButton" onclick="clickPrev()">Previous</a></li>
+                            <!--li><button class="button secondary" onclick="clickPrev()">Previous</button></li-->
                             <span class="search-results-count">Showing <span class="start-display">0</span> to  <span class="end-display">10</span> of <span class="total-display">0</span> results</span>
                             <li><a class="pagingButton" onclick="clickNext()">Next</a></li>
+                            <!--li><button class="button secondary" onclick="clickNext()">Next</button></li-->
                         </ul>
                     </nav>
                     <div id="search-results">

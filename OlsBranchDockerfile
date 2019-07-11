@@ -2,6 +2,8 @@
 
 FROM debian:stretch-20190326-slim
 
+ARG ols_branch
+
 ENV LIBSSL_EXTRA="libssl1.0.0_1.0.1t-1+deb8u11_amd64.deb"
 ENV MONGO_VERSION="mongodb-linux-x86_64-debian71-2.7.8"
 ENV SOLR_VERSION_NO="5.5.5"
@@ -18,22 +20,27 @@ RUN mkdir -p /usr/share/man/man1
 #  See https://github.com/phusion/baseimage-docker/issues/58
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 
-# RUN apt-get update && apt-get upgrade -y && apt-get install -y \
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get -y install \
     procps apt-utils openjdk-8-jdk maven tomcat8 wget git emacs less lsof lynx
 
-WORKDIR /home/
+RUN groupadd ols && useradd -r -m -g ols ols && mkdir /opt/OLS && chown ols:ols /opt/OLS
+WORKDIR /home/ols/
 
 #  Get and install Solr
 RUN wget "http://archive.apache.org/dist/lucene/solr/${SOLR_VERSION_NO}/solr-${SOLR_VERSION_NO}.tgz"
+# RUN chown ols:ols ./solr-${SOLR_VERSION_NO}.tgz
 RUN tar -C /opt/ -zxvf solr-${SOLR_VERSION_NO}.tgz
+RUN chown -R ols:ols /opt/solr-${SOLR_VERSION_NO}
 
 #  Not strictly necessary if importing OLS configs from GitHub, unless the
 #  latter require subsequent modification anyway. Which is of course quite
 #  likely, so swings and roundabouts ...
 #
+# Actually changing ownership doesn't even work without prior configuration
 # COPY --chown=solr:nogroup ./ols-solr/src/main/solr-5-config /home/ols-solr-config
-COPY ./ols-solr/src/main/solr-5-config /home/ols-solr-config
+# COPY ./ols-solr/src/main/solr-5-config /home/ols-solr-config
+COPY --chown=ols:ols ./ols-solr/src/main/solr-5-config /home/ols/ols-solr-config
+RUN mkdir -p ./.ols/solr/autosuggest && mkdir ./.ols/solr/ontology && chown -R ols:ols ./.ols
 
 #  Get and install Mongo and its dependencies
 
@@ -43,25 +50,32 @@ RUN wget "http://security.debian.org/debian-security/pool/updates/main/o/openssl
 RUN dpkg --install "${LIBSSL_EXTRA}"
 
 #  Set up directories
-RUN mkdir -p /data/db
+RUN mkdir -p /data/db && chown ols:ols /data/db && mkdir /var/log/ols && chown ols:ols /var/log/ols
 
 #  Install Mongo itself
 RUN wget http://downloads.mongodb.org/linux/${MONGO_VERSION}.tgz
-RUN tar -C /opt/ -zxvf ${MONGO_VERSION}.tgz
+RUN tar --owner=ols --group=ols -C /opt/ -zxvf ${MONGO_VERSION}.tgz
+RUN chown -R ols:ols /opt/${MONGO_VERSION}
+
+#  Prepare tomcat8 for non-root startup
+# RUN sed -i 's/=tomcat8$/=ols/' /etc/default/tomcat8
+# RUN chown -R ols:ols /var/lib/tomcat8
+
+USER ols
 
 #  Import OLS from GitHub, and (maybe, in the future?) build
 
-# RUN git clone https://github.com/EBISPOT/OLS.git /opt/OLS
-# RUN cd /opt/OLS && git checkout 3.x-dev && git checkout new-ui
-RUN git clone https://github.com/EBISPOT/OLS.git
-RUN cd OLS && git checkout 3.x-dev && git checkout new-ui
+RUN git clone -b ${ols_branch} https://github.com/EBISPOT/OLS.git /opt/OLS
+# Distinct checkout of branch unnecessary given that it was specified when cloned
+# RUN cd /opt/OLS && git checkout ${ols_branch} && mvn clean install
+RUN cd /opt/OLS && mvn clean install
 
 #  Create daemon-summoner
-RUN echo "mongod --fork --logpath=/var/log/mongodb.log" > /home/daemonise.sh
+RUN echo "mongod --fork --logpath=/var/log/ols/mongodb.log" > /home/ols/daemonise.sh
 RUN echo \
-    "solr start -Dsolr.solr.home=/home/ols-solr-config -Dsolr.data.dir=/home/.ols/solr" \
-    >> /home/daemonise.sh
-RUN chmod a+x /home/daemonise.sh
+    "solr start -Dsolr.solr.home=/home/ols/ols-solr-config -Dsolr.data.dir=/home/ols/.ols/solr" \
+    >> /home/ols/daemonise.sh
+RUN chmod a+x /home/ols/daemonise.sh
 
 #  Configs here?
 
