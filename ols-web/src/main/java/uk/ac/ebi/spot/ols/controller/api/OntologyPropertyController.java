@@ -22,6 +22,7 @@ import org.springframework.web.util.UriUtils;
 import uk.ac.ebi.spot.ols.neo4j.model.Property;
 import uk.ac.ebi.spot.ols.neo4j.service.JsTreeBuilder;
 import uk.ac.ebi.spot.ols.neo4j.service.OntologyPropertyGraphService;
+import uk.ac.ebi.spot.ols.neo4j.service.PropertyJsTreeBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
@@ -43,7 +44,7 @@ public class OntologyPropertyController {
     PropertyAssembler termAssembler;
 
     @Autowired
-    JsTreeBuilder jsTreeBuilder;
+    PropertyJsTreeBuilder jsTreeBuilder;
 
     @RequestMapping(path = "/{onto}/properties", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<PagedResources<Property>> getAllPropertiesByOntology(
@@ -181,7 +182,7 @@ public class OntologyPropertyController {
         try {
             String decoded = UriUtils.decode(termId, "UTF-8");
 
-            Object object= jsTreeBuilder.getJsTreePropertyChildren(ontologyId, decoded, nodeId);
+            Object object= jsTreeBuilder.getJsTreeChildren(ontologyId, decoded, nodeId);
             ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
             return new HttpEntity<String>(ow.writeValueAsString(object));
         } catch (JsonProcessingException e) {
@@ -201,7 +202,7 @@ public class OntologyPropertyController {
         try {
             String decoded = UriUtils.decode(termId, "UTF-8");
 
-            Object object= jsTreeBuilder.getPropertyJsTree(ontologyId, decoded, siblings);
+            Object object= jsTreeBuilder.getJsTree(ontologyId, decoded, siblings);
             ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
             return new HttpEntity<String>(ow.writeValueAsString(object));
         } catch (JsonProcessingException e) {

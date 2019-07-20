@@ -5,7 +5,6 @@ import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.*;
@@ -103,7 +102,6 @@ public class JsTreeBuilder {
         this.rootName = rootName;
     }
 
-    @Transactional
     public Object getIndividualJsTree(String ontologyName, String iri) {
         Map<String, Object> paramt = new HashMap<>();
         paramt.put("0", ontologyName);
@@ -114,7 +112,6 @@ public class JsTreeBuilder {
         return getJsTreeObject(ontologyName, iri, res);
     }
 
-    @Transactional
     public Object getPropertyJsTree(String ontologyName, String iri, boolean siblings) {
         Map<String, Object> paramt = new HashMap<>();
         paramt.put("0", ontologyName);
@@ -127,7 +124,6 @@ public class JsTreeBuilder {
     }
 
 
-    @Transactional
     public Object getClassJsTree(String ontologyName, String iri, boolean siblings) {
         Map<String, Object> paramt = new HashMap<>();
         paramt.put("0", ontologyName);
@@ -147,7 +143,6 @@ public class JsTreeBuilder {
         return getJsTreeChildren("property", ontologyName, iri, parentNodeId);
     }
 
-    @Transactional
     private Object getJsTreeChildren(String type,String ontologyName, String iri, String parentNodeId) {
         Map<String, Object> paramt = new HashMap<>();
         paramt.put("0", ontologyName);

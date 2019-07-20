@@ -227,11 +227,15 @@
                             <!--<li role="presentation"><a data-toggle="tab"  href="#graph-tab">Graph view</a></li>-->
                         </ul>
                         <div class="btn-group btn-group-vertical" style="float: right;padding-top:5px;">
-                            <input type="radio" id="ontology_view_selection_id" name="ontology_view_selection" value="All"
-                                   th:checked="${#httpServletRequest.getParameter('viewMode') == null or #httpServletRequest.getParameter('viewMode') == 'All'} ? 'true': 'false'" onclick="olsTabbedTermTreeView.toggleOntologyView(this)">All terms</input><br/>
                             <input type="radio" id="ontology_view_selection_id" name="ontology_view_selection" value="PreferredRoots"
-                                   th:checked="${#httpServletRequest.getParameter('viewMode') == 'PreferredRoots'} ? 'true': 'false'" onclick="olsTabbedTermTreeView.toggleOntologyView(this)">Preferred root terms</input>
+                                   th:checked="${#httpServletRequest.getParameter('viewMode') == null or #httpServletRequest.getParameter('viewMode') == 'PreferredRoots'} ? 'true': 'false'"
+                                   onclick="olsTabbedTermTreeView.toggleOntologyView()">Preferred root terms</input><br/>
+                            <input type="radio" id="ontology_view_selection_id" name="ontology_view_selection" value="All"
+                                   th:checked="${#httpServletRequest.getParameter('viewMode') == 'All'} ? 'true': 'false'"
+                                   onclick="olsTabbedTermTreeView.toggleOntologyView()">All terms</input><br/>
                         </div>
+                        <input type="hidden" id="ontology_view_siblings_id" name="ontology_view_siblings"
+                               th:value="${#httpServletRequest.getParameter('siblings') == 'true'} ? 'true': 'false'"/>
                         <!-- Tab panes -->
                         <div class="tab-content">
 
@@ -407,6 +411,7 @@
 </script>
 
 <script>
+
     var termOntologyName = $("#term-tree").data("olsontology");
     var termIri = $("#term-tree").data("ols-iri");
     var termRelativePath = $("#term-tree").data("selectpath") ?
@@ -416,10 +421,11 @@
     var olsTabbedTermTreeView;
     $(document).ready(function() {
 
+        console.log("Initialize tabbed tree component.");
         var OLSTabbedTermTreeView = require("ols-tabbed-term-treeview");
 
         olsTabbedTermTreeView = new OLSTabbedTermTreeView(termRelativePath, termOntologyName, "#term-tree",
-            "#property-tree", "", true, "ontology_view_selection_id", true);
+            "#property-tree", "", "ontology_view_siblings_id", "ontology_view_selection_id", true);
 
         console.log("olsTabbedTermTreeView = ", olsTabbedTermTreeView);
         olsTabbedTermTreeView.draw();

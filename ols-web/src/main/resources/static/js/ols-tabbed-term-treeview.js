@@ -1691,21 +1691,39 @@ require('jstorage');
 $.jstree.defaults.core.data = true;
 $.jstree.defaults.core.expand_selected_onload = true;
 
-
-function OLSTermTypeTreeView(olsIRI, ontology, divId, termIRI, termType, showSiblings, viewModeElmId, saveState) {
+/**
+ *
+ *
+ * @param olsIRI
+ * @param ontology
+ * @param divId
+ * @param termIRI Having termIRI here does not make sense. It should be moved to the draw() method.
+ * @param termType
+ * @param siblingsElmId
+ * @param viewModeElmId
+ * @param saveState
+ * @constructor
+ */
+function OLSTermTypeTreeView(olsIRI, ontology, divId, termIRI, termType, siblingsElmId, viewModeElmId, saveState) {
     this.olsIRI = olsIRI;
     this.ontology = ontology;
     this.divId = divId;
     this.termIRI = termIRI;
     this.termType = getUrlType(termType);
-    this.showSiblings = showSiblings;
+    this.siblingsElmId = siblingsElmId;
     this.viewModeElmId = viewModeElmId;
     this.saveState = saveState;
     this.onClick = _onClick;
 }
 
 function _dataCB(node, cb, relativePath, url, ontology, termIRI, termType, viewMode, saveState, showSiblings) {
-    console.log("Data callback triggered, viewMode = ", viewMode);
+    console.log("_dataCB, relativePath = ", relativePath);
+    console.log("_dataCB, url = ", url);
+    console.log("_dataCB, ontology = ", ontology);
+    console.log("_dataCB, termType = ", termType);
+    console.log("_dataCB, viewMode = ", viewMode);
+    console.log("_dataCB, siblingsElmId = ", showSiblings);
+
     var rootUrl = _determineRootURL(relativePath, viewMode, termType, ontology);
 
     url += '?viewMode=' + viewMode;
@@ -1735,7 +1753,7 @@ function _dataCB(node, cb, relativePath, url, ontology, termIRI, termType, viewM
 
 OLSTermTypeTreeView.prototype.toString =  function () {
     return "(olsIRI = " + this.olsIRI + ", ontology = " + this.ontology + ", termType = " + this.termType +
-        ", viewMode = " + this.viewMode + ", divId = " + this.divId + ")";
+        ", viewModeElmId = " + this.viewModeElmId + ", divId = " + this.divId + ")";
 }
 
 function _determineUrl(relativePath, ontology, termType, termIRI) {
@@ -1756,17 +1774,17 @@ OLSTermTypeTreeView.prototype.draw =  function () {
     var localOnClick = this.onClick;
     var localViewModeElmId = this.viewModeElmId;
     var localOntology = this.ontology;
-    var localShowSiblings = this.showSiblings;
-    // var localTree = $(this).jstree(true);
+    var localSiblingsElmId = this.siblingsElmId;
     var localDivId = this.divId;
 
-    var treeDiv = $(this.divId).jstree({
+    var treeDiv = $(localDivId).jstree({
         'check_callback' : true,
         'core' : {
             'data': function(node, cb) {
                 var viewMode = $("#" + localViewModeElmId + ":checked").val();
+                var showSiblings = $("#" + localSiblingsElmId).val() == 'true';
                 _dataCB(node, cb, relativePath, url, localOntology, localTermIRI, localTermType, viewMode,
-                    localSaveState, localShowSiblings);
+                    localSaveState, showSiblings);
             },
             "themes": {
                 "dots": true
@@ -1782,12 +1800,14 @@ OLSTermTypeTreeView.prototype.draw =  function () {
         var ontology =  selected.node.original.ontology_name ? selected.node.original.ontology_name :
             selected.node.original.a_attr.ontology_name;
         var viewMode = $("#" + localViewModeElmId + ":checked").val();
+        var showSiblings = $("#" + localSiblingsElmId).val() == 'true';
 
-        if (localSaveState) {
+        if (this.saveState) {
             $.jStorage.set(iri, data);
         }
+        console.log("Before onclick localShowSiblings = ", showSiblings);
         localOnClick.call(this, event, selected, relativePath, localTermIRI, localTermType, iri, ontology, viewMode,
-            localShowSiblings);
+            showSiblings);
     }).bind('after_close.jstree', function (e, data) {
         var tree = $(localDivId).jstree(true).get_json();
         tree.delete_node(data.node.children);
@@ -1815,8 +1835,8 @@ function _determineRootURL(relativePath, viewMode, termType, ontology) {
     return rootUrl;
 }
 
-OLSTermTypeTreeView.prototype.toggleOntologyView=function(elm){
-    var viewMode = $(elm).val();
+OLSTermTypeTreeView.prototype.toggleOntologyView=function(){
+    var viewMode = $("#" + this.viewModeElmId + ":checked").val();
 
     console.log("toggleOntologyView viewMode = ", viewMode);
 
@@ -1827,7 +1847,7 @@ OLSTermTypeTreeView.prototype.toggleOntologyView=function(elm){
     var localSaveState = this.saveState;
     var localTermType = this.termType;
     var localOntology = this.ontology;
-    var showSiblings = this.showSiblings;
+    var showSiblings = this.siblingsElmId;
 
     $(this.divId).jstree(true).settings.core.data = function(node, cb){
         _dataCB(node, cb, relativePath, url, localOntology, localTermIRI, localTermType, viewMode,
@@ -1837,19 +1857,16 @@ OLSTermTypeTreeView.prototype.toggleOntologyView=function(elm){
 }
 
 
-OLSTermTypeTreeView.prototype.toggleSiblings=function(elm) {
-    var buttonValue = $(elm).val() == 'true';
-    var localShowSiblings = this.showSiblings;
+OLSTermTypeTreeView.prototype.toggleSiblings=function() {
+    var showSiblings = $("#" + this.siblingsElmId).val() == 'true';
 
-    if (buttonValue) {
-        this.showSiblings = false;
-        $(elm).text("Hide siblings");
-        $(elm).val(false);
+    if (showSiblings) {
+        $(this.siblingsElmId).text("Hide siblings");
+        $(this.siblingsElmId).val(false);
     }
     else {
-        this.showSiblings = true;
-        $(elm).text("Show siblings");
-        $(elm).val(true);
+        $(this.siblingsElmId).text("Show siblings");
+        $(this.siblingsElmId).val(true);
     }
 
     var relativePath = this.olsIRI ? this.olsIRI : '';
@@ -1858,12 +1875,12 @@ OLSTermTypeTreeView.prototype.toggleSiblings=function(elm) {
     var localTermIRI = this.termIRI;
     var localSaveState = this.saveState;
     var localTermType = this.termType;
-    var localViewMode = this.viewMode;
+    var localViewMode = $("#" + this.viewModeElmId + ":checked").val();
     var localOntology = this.ontology;
 
     $(this.divId).jstree(true).settings.core.data = function(node, cb){
         _dataCB(node, cb, relativePath, url, localOntology, localTermIRI, localTermType, localViewMode,
-            localSaveState, localShowSiblings);
+            localSaveState, showSiblings);
     };
     $(this.divId).jstree(true).refresh();
     // this.draw();
@@ -2000,8 +2017,8 @@ $.jstree.defaults.core.expand_selected_onload = true;
 
 var OLSTermTypeTreeView = require("ols-term-type-treeview");
 
-function OLSTabbedTermTreeView(olsIRI, ontology, termsDiv, propertiesDiv, individualsDiv, showSiblings, viewModeElmId, saveState) {
-    this.showSiblings = showSiblings;
+function OLSTabbedTermTreeView(olsIRI, ontology, termsDiv, propertiesDiv, individualsDiv, siblingsElmId, viewModeElmId, saveState) {
+    this.siblingsElmId = siblingsElmId;
     this.viewModeElmId = viewModeElmId;
     this.saveState = saveState;
     this.termsTree = undefined;
@@ -2009,11 +2026,11 @@ function OLSTabbedTermTreeView(olsIRI, ontology, termsDiv, propertiesDiv, indivi
     this.individualsTree = undefined;
 
     if (termsDiv != undefined && termsDiv != "") {
-        this.termsTree = new OLSTermTypeTreeView(olsIRI, ontology, termsDiv, "", "terms", showSiblings, viewModeElmId,
+        this.termsTree = new OLSTermTypeTreeView(olsIRI, ontology, termsDiv, "", "terms", siblingsElmId, viewModeElmId,
             saveState);
     }
     if (propertiesDiv != undefined && propertiesDiv != "") {
-        this.propertiesTree = new OLSTermTypeTreeView(olsIRI, ontology, propertiesDiv, "", "property", showSiblings, viewModeElmId,
+        this.propertiesTree = new OLSTermTypeTreeView(olsIRI, ontology, propertiesDiv, "", "property", siblingsElmId, viewModeElmId,
             saveState);
     }
     // if (individualsDiv != undefined && individualsDiv != "") {
@@ -2036,13 +2053,13 @@ OLSTabbedTermTreeView.prototype.draw =  function () {
     }
 }
 
-OLSTabbedTermTreeView.prototype.toggleOntologyView =  function (elm) {
+OLSTabbedTermTreeView.prototype.toggleOntologyView =  function () {
     if (this.termsTree != undefined) {
-        this.termsTree.toggleOntologyView(elm);
+        this.termsTree.toggleOntologyView();
     }
 
     if (this.propertiesTree != undefined) {
-        this.propertiesTree.toggleOntologyView(elm);
+        this.propertiesTree.toggleOntologyView();
     }
 
     if (this.individualsTree != undefined) {
@@ -2051,17 +2068,17 @@ OLSTabbedTermTreeView.prototype.toggleOntologyView =  function (elm) {
 }
 
 
-OLSTabbedTermTreeView.prototype.toggleSiblings =  function (elm) {
+OLSTabbedTermTreeView.prototype.toggleSiblings =  function () {
     if (this.termsTree != undefined) {
-        this.termsTree.toggleSiblings(elm);
+        this.termsTree.toggleSiblings();
     }
 
     if (this.propertiesTree != undefined) {
-        this.propertiesTree.toggleSiblings(elm);
+        this.propertiesTree.toggleSiblings();
     }
 
     if (this.individualsTree != undefined) {
-        this.individualsTree.toggleSiblings(elm);
+        this.individualsTree.toggleSiblings();
     }
 }
 
