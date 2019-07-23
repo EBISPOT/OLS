@@ -9,7 +9,9 @@ Ontology Lookup Service from SPOT at EBI.
 
 ## Overview
 
-This is the entire codebase for the EBI OLS. OLS has been developed around two key ontology indexes that can be built and used
+![OLS Architecture](OLS-Architecture.png)
+
+This is the codebase for the EBI OLS. OLS has been developed around two key ontology indexes that can be built and used
  independently from the core website. We provide service to build a SOLR index and and a Neo4j index. The SOLR index is used to provide text based queries over the ontologies while the neo4j index is used to query the ontology structure and is the primary driver of the OLS REST API. 
  
  OLS has been developed with the Spring data and Spring boot framework. You can build this project with Maven and the following Spring Boot applications will be available to run. 
@@ -25,3 +27,5 @@ To run a complete local OLS installation you will need a mongodb database. This 
  * [ols-apps/ols-loading-app](ols-apps/ols-loading-app) - Spring boot application for that build the complete OLS indexes. This app fetches ontologies specified in the config files, checks if they have changed form a previous download, and if hey have changed it will create all the necessary SOLR and Neo4j indexes. 
 
  * [ols-web](ols-web) - This will contain the WAR file that can be deployed in tomcat to launch the OLS website and REST API. 
+
+
