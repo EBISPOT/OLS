@@ -97,17 +97,15 @@ function solrSearch(queryTerm) {
         });
 }
 
-
 function clickPrev() {
     if (! $( ".prev-button" ).first().hasClass( "disabled" )) {
-        var start = $('.start-display').first().text() - 11;
+        var start = Math.max($('.start-display').first().text() - 11, 0);
         $('#start').val(start);
-        $('#filter_form').submit();
+        $('#filter_form').removeAttr('onsubmit').submit();
     }
 }
 
 function clickNext() {
-
     if (!$( ".next-button" ).first().hasClass( "disabled" )) {
         var end = $('.end-display').first().text();
         $('#start').val(end);
@@ -120,7 +118,8 @@ function processData(data) {
 
     // render results stats and pagination
     var start = data.response.start;
-    var end = data.response.numFound > 10 ? start + 10 : data.response.numFound;
+    // var end = data.response.numFound > 10 ? start + 10 : data.response.numFound;
+    var end = start + ((data.response.numFound - start) >= 10 ? 10 : ((data.response.numFound - start) % 10));
     var total = data.response.numFound;
 
     if (total == 0) {
