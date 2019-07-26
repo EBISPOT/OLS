@@ -118,7 +118,6 @@ function processData(data) {
 
     // render results stats and pagination
     var start = data.response.start;
-    // var end = data.response.numFound > 10 ? start + 10 : data.response.numFound;
     var end = start + ((data.response.numFound - start) >= 10 ? 10 : ((data.response.numFound - start) % 10));
     var total = data.response.numFound;
 
