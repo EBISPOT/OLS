@@ -187,7 +187,7 @@ function processData(data) {
 
         var resultHtml = $('<section></section>');
         resultHtml = resultHtml.append(link);
-        resultHtml = resultHtml.append('&nbsp;&nbsp;');
+        // resultHtml = resultHtml.append('&nbsp;&nbsp;');
 
 
         var shortId = row.obo_id;
@@ -218,12 +218,13 @@ function processData(data) {
 
             var ontologyTitle = ontologyList[row.ontology_name];
             var ontologyLink = $('<a>',{
-                class: 'nounderline',
+                // class: 'nounderline',
+                class: 'nounderline ontology-link',
                 text: ontologyTitle,
                 href: 'ontologies/' + row.ontology_name
             });
             resultHtml = resultHtml.append(ontologyLink);
-            resultHtml = resultHtml.append('&nbsp;');
+            // resultHtml = resultHtml.append('&nbsp;');
             var ontologies = $("<div class='ontology-source' title='"+ontologyList[row.ontology_name]+"'>" + row.ontology_prefix + "</div>");
             resultHtml = resultHtml.append(ontologies);
             resultHtml = resultHtml.append('<br/>');
@@ -244,8 +245,10 @@ function processData(data) {
             }
         }
 
+        /*
         resultHtml = resultHtml.append('<br/>');
         resultHtml = resultHtml.append('<br/>');
+         */
 
         searchResult.append(resultHtml);
     });
@@ -300,7 +303,15 @@ function renderTypesFacetField (facetArray, searchSummary) {
             var count = facetArray[x + 1];
 
             if (count > 0) {
-                fieldList.append('<button type=\'button\' id="'+name+'" class="type_list list-group-item">'+name+ '<span class="badge">' + count + '</span></button>');
+                fieldList.append(
+                    '<button type="button" id="' +
+                    name +
+                    '" class="type_list list-group-item"><span class="filter-type">' +
+                    name +
+                    '</span><span class="badge">' +
+                    count.toString() +
+                    '</span></button>'
+                );
                 numberOfFacets++;
             }
 

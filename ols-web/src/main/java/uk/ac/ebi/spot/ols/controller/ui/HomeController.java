@@ -152,7 +152,7 @@ public class HomeController {
             @RequestParam(value = "q", defaultValue = "*") String query,
             @RequestParam(value = "ontology", required = false) Collection<String> ontologies,
             @RequestParam(value = "type", required = false) Collection<String> types,
-            @RequestParam(value= "slim", required = false) Collection<String> slims,
+            @RequestParam(value = "slim", required = false) Collection<String> slims,
             @RequestParam(value = "queryFields", required = false) Collection<String> queryFields,
             @RequestParam(value = "exact", required = false) boolean exact,
             @RequestParam(value = "groupField", required = false) String groupField,

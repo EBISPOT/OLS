@@ -17,8 +17,8 @@
     <!- - The last time the content was reviewed - ->
     <meta name="ebi:expiry" content="2017-12-20" />
     <!- - When this content is no longer relevant -->
+    <link rel="stylesheet" href="../static/css/typeahead/typeaheadjs.css" th:href="@{css/typeahead/typeaheadjs.css}" type="text/css" media="screen"/>
 </head>
-<link rel="stylesheet" href="../static/css/typeahead/typeaheadjs.css" th:href="@{css/typeahead/typeaheadjs.css}" type="text/css" media="screen"/>
 
 <body>
 <th:block th:include="fragments/header :: header"></th:block>
@@ -56,7 +56,7 @@
                 <input id="start" type="hidden" name="start" value="0" th:value="${searchOptions.start}"/>
 
                 <div style="visibility:hidden;position:absolute;">
-                    <select  id="ontology-id" name="ontology" multiple="multiple">
+                    <select id="ontology-id" name="ontology" multiple="multiple" >
                         <option
                                 th:value="${ontology}"
                                 th:each="ontology : ${searchOptions.getOntologies()}"
@@ -67,7 +67,7 @@
                 </div>
 
                 <div style="visibility:hidden;position:absolute;">
-                    <select  id="ontology-type-id" name="type" multiple="multiple">
+                    <select id="ontology-type-id" name="type" multiple="multiple">
                         <option
                                 th:value="${type}"
                                 th:each="type : ${searchOptions.getTypes()}"
@@ -79,11 +79,12 @@
             </form>
         </div>
 
-        <div id="filterBox" class="small-3 columns" style="text-align: left;">
-              <form disabled="true">
-                <fieldset>
+        <div id="filterBoxBox" class="small-3 columns" style="text-align: left;">
+            <div id="filterBox">
+              <form id="ontofilter" disabled="true">
+                <fieldset form="ontofilter" display="block">
                     <!--<legend><span class="glyphicon glyphicon-filter">Filters</span></legend>-->
-                    <h4>Term type</h4>
+                    <h4 class="filterbox-header">Term type</h4>
                     <div class="filterBoxes">
                         <select id="ontology-select-type-id" name="type" class="type-select" multiple="multiple" style="width:100%"
                                 th:with="types=${searchOptions.getTypes()}"
@@ -101,7 +102,7 @@
                         </div>
                     </div>
 
-                    <h4>Ontologies</h4>
+                    <h4 class="filterbox-header">Ontologies</h4>
                     <div class="filterBoxes">
                         <select id="ontology-select-id" name="ontology" class="ontology-select" multiple="multiple" style="width:100%">
                             <option
@@ -117,9 +118,10 @@
                         <div id="ontology-summary">
                         </div>
                     </div>
-                    <button id="clearFilters" type="button" class="button secondary" onclick="clearFilter()">Clear all filters</button>
+                    <button id="clearFilters" type="button" class="button secondary filterbox-button" onclick="clearFilter()">Clear all filters</button>
                 </fieldset>
             </form>
+          </div>
         </div>
 
 
@@ -131,14 +133,15 @@
 
 
             <div id="search-results-summary" style="display: none;">
-                    <h2>Search results for <span class="searchterm" th:text="${searchOptions.query}">text</span>
+                    <h2 class="search-results-header">Search results for
+                        <span class="searchterm" th:text="${searchOptions.query}">text</span>
                     </h2>
 
                     <nav>
-                        <ul style="text-align: left;" class="menu">
+                        <ul class="menu search-results-top-navbar">
                             <li><a class="pagingButton" onclick="clickPrev()">Previous</a></li>
                             <!--li><button class="button secondary" onclick="clickPrev()">Previous</button></li-->
-                            <span class="search-results-count">Showing <span class="start-display">0</span> to  <span class="end-display">10</span> of <span class="total-display">0</span> results</span>
+                            <span class="search-results-count">Showing <span class="start-display">0</span> to <span class="end-display">10</span> of <span class="total-display">0</span> results</span>
                             <li><a class="pagingButton" onclick="clickNext()">Next</a></li>
                             <!--li><button class="button secondary" onclick="clickNext()">Next</button></li-->
                         </ul>
@@ -146,7 +149,7 @@
                     <div id="search-results">
                     </div>
                     <nav class="bottom-nav">
-                        <ul style="text-align: left;" class="menu">
+                        <ul class="menu search-results-bottom-navbar">
                             <li><a class="pagingButton" onclick="clickPrev()">Previous</a></li>
                             <span class="search-results-count">Showing <span class="start-display">0</span> to  <span class="end-display">10</span> of <span class="total-display">0</span> results</span>
                             <li><a class="pagingButton" onclick="clickNext()">Next</a></li>
@@ -154,8 +157,6 @@
                     </nav>
             </div>
         </div>
-
-
     </div>
 </section>
 
@@ -173,410 +174,5 @@
 <script type="text/javascript" src="../static/js/handlebars/4.0.5/handlebars.min.js" th:src="@{js/handlebars/4.0.5/handlebars.min.js}"></script>
 
 
-
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--
-
-
-
-<!DOCTYPE html>
-&lt;!&ndash; paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ &ndash;&gt;
-&lt;!&ndash;[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"/> <![endif]&ndash;&gt;
-&lt;!&ndash;[if IE 7]>    <html class="no-js ie7 oldie" lang="en"/> <![endif]&ndash;&gt;
-&lt;!&ndash;[if IE 8]>    <html class="no-js ie8 oldie" lang="en"/> <![endif]&ndash;&gt;
-&lt;!&ndash; Consider adding an manifest.appcache: h5bp.com/d/Offline &ndash;&gt;
-&lt;!&ndash;[if gt IE 8]>&lt;!&ndash;dash;&gt;
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" class="no-js" lang="en"> &lt;!&ndash;<![endif]&ndash;&gt;
-<head>
-    <meta charset="utf-8"/>
-
-    &lt;!&ndash; Use the .htaccess and remove these lines to avoid edge case issues.
-         More info: h5bp.com/b/378 &ndash;&gt;
-    &lt;!&ndash; <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> &ndash;&gt; &lt;!&ndash; Not yet implemented &ndash;&gt;
-
-    <title>Search &lt; Ontology Lookup Service &lt; EMBL-EBI</title>
-    <meta name="description" content="EMBL-EBI"/>&lt;!&ndash; Describe what this page is about &ndash;&gt;
-    <meta name="keywords" content="bioinformatics, europe, institute"/>&lt;!&ndash; A few keywords that relate to the content of THIS PAGE (not the whol project) &ndash;&gt;
-    <meta name="author" content="EMBL-EBI"/>&lt;!&ndash; Your [project-name] here &ndash;&gt;
-
-    &lt;!&ndash; Mobile viewport optimized: j.mp/bplateviewport &ndash;&gt;
-    <meta name="viewport" content="width=device-width,initial-scale=1"/>
-
-    &lt;!&ndash; Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons &ndash;&gt;
-
-    <link rel="stylesheet" href="../static/css/bootstrap/3.3/css/bootstrap.min.css" th:href="@{css/bootstrap/3.3/css/bootstrap.min.css}" type="text/css" media="screen"/>
-
-    &lt;!&ndash; CSS: implied media=all &ndash;&gt;
-    &lt;!&ndash; CSS concatenated and minified via ant build script&ndash;&gt;
-    <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/boilerplate-style.css"/>
-    <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/ebi-global.css" type="text/css" media="screen"/>
-    <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/ebi-visual.css" type="text/css" media="screen"/>
-    <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/984-24-col-fluid.css" type="text/css" media="screen"/>
-
-    &lt;!&ndash; you can replace this with [projectname]-colours.css. See http://frontier.ebi.ac.uk/web/style/colour for details of how to do this &ndash;&gt;
-    &lt;!&ndash; also inform ES so we can host your colour palette file &ndash;&gt;
-    <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/embl-petrol-colours.css" type="text/css" media="screen"/>
-
-    <link rel="stylesheet" href="../static/css/typeahead/typeaheadjs.css" th:href="@{css/typeahead/typeaheadjs.css}" type="text/css" media="screen"/>
-    <link rel="stylesheet" href="../static/css/select2/4.0.0/select2.min.css" th:href="@{css/select2/4.0.0/select2.min.css}" type="text/css" media="screen"/>
-
-    &lt;!&ndash; for production the above can be replaced with &ndash;&gt;
-    &lt;!&ndash;
-    <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/mini/ebi-fluid-embl.css">
-    &ndash;&gt;
-
-    <style type="text/css">
-        /* You have the option of setting a maximum width for your page, and making sure everything is centered */
-        /* body { max-width: 1600px; margin: 0 auto; } */
-    </style>
-
-
-    &lt;!&ndash;<link rel="stylesheet" type="text/css" href="css/spacelab.bootstrap.min.css" th:href="@{../css/spacelab.bootstrap.min.css}"/>&ndash;&gt;
-    &lt;!&ndash;<link rel="stylesheet" type="text/css" href="css/main.css" th:href="@{../css/main.css}"/>&ndash;&gt;
-
-    &lt;!&ndash; end CSS&ndash;&gt;
-
-
-
-    &lt;!&ndash; All JavaScript at the bottom, except for Modernizr / Respond.
-         Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
-         For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ &ndash;&gt;
-
-    &lt;!&ndash; Full build &ndash;&gt;
-    &lt;!&ndash; <script src="//www.ebi.ac.uk/web_guidelines/js/libs/modernizr.minified.2.1.6.js"></script> &ndash;&gt;
-
-    &lt;!&ndash; custom build (lacks most of the "advanced" HTML5 support &ndash;&gt;
-    <script src="//www.ebi.ac.uk/web_guidelines/js/libs/modernizr.custom.49274.js"></script>
-
-</head>
-
-<body class="level2">
-
-<div id="skip-to">
-    <ul>
-        <li><a href="#content">Skip to main content</a></li>
-        <li><a href="#local-nav">Skip to local navigation</a></li>
-        <li><a href="#global-nav">Skip to EBI global navigation menu</a></li>
-        <li><a href="#global-nav-expanded">Skip to expanded EBI global navigation menu (includes all sub-sections)</a></li>
-    </ul>
-</div>
-
-<div id="wrapper" class="container_24">
-
-    &lt;!&ndash;&lt;!&ndash; @thymesVar id="searchOptions" type="AdvancedSearchOptions" &ndash;&gt;&ndash;&gt;
-    &lt;!&ndash;<div style="display: none">&ndash;&gt;
-    &lt;!&ndash;<ul id="variables">&ndash;&gt;
-    &lt;!&ndash;&lt;!&ndash;@thymesVar id="query" type=""&ndash;&gt;&ndash;&gt;
-    &lt;!&ndash;<li id="query" th:text="${searchOptions.query}">User query</li>&ndash;&gt;
-    &lt;!&ndash;</ul>&ndash;&gt;
-    &lt;!&ndash;</div>&ndash;&gt;
-
-    <header>
-
-        <div id="global-masthead" class="masthead grid_24">
-
-            &lt;!&ndash;This has to be one line and no newline characters&ndash;&gt;
-            <a href="//www.ebi.ac.uk/" title="Go to the EMBL-EBI homepage"><img src="//www.ebi.ac.uk/web_guidelines/images/logos/EMBL-EBI/EMBL_EBI_Logo_white.png" alt="EMBL European Bioinformatics Institute"/></a>
-
-            <nav>
-                <ul id="global-nav">
-                    &lt;!&ndash; set active class as appropriate &ndash;&gt;
-                    <li id="services" class=" first active"><a href="//www.ebi.ac.uk/services" title="Services">Services</a></li>
-                    <li id="research" class=""><a href="//www.ebi.ac.uk/research" title="Research">Research</a></li>
-                    <li id="training" class=""><a href="//www.ebi.ac.uk/training" title="Training">Training</a></li>
-                    <li id="industry" class=""><a href="//www.ebi.ac.uk/industry" title="Industry">Industry</a></li>
-                    <li id="about" class=" last"><a href="//www.ebi.ac.uk/about" title="About us">About us</a></li>
-                </ul>
-            </nav>
-
-        </div>
-
-        <div id="local-masthead" class="masthead grid_24 nomenu">
-
-            &lt;!&ndash; local-title &ndash;&gt;
-            &lt;!&ndash; NB: for additional title style patterns, see http://frontier.ebi.ac.uk/web/style/patterns &ndash;&gt;
-
-            <div id="local-title" class="alpha logo-title">
-                <a href="index" title="Back to OLS homepage">
-                    <img style="width: 80px" th:src="@{img/ols-logo.jpg}" src="../static/img/ols-logo.jpg" alt="OLS logo"/></a>
-                <span><h1>Ontology Lookup Service</h1></span>
-            </div>
-
-            &lt;!&ndash; /local-title &ndash;&gt;
-            &lt;!&ndash; fix to remove search box &ndash;&gt;
-            <div style="visibility: hidden">
-                <form id="local-search">
-                </form>
-            </div>
-            &lt;!&ndash; &ndash;&gt;
-
-            <nav>
-                <ul class="grid_24" id="local-nav">
-                    <li class="first active"><a href="index">Home</a></li>
-                    <li><a href="ontologies">Ontologies</a></li>
-                    <li><a href="docs">Documentation</a></li>
-                    <li class="last" ><a href="about">About</a></li>
-                    <li class="functional last"><a href="contact" class="icon icon-generic" data-icon="C">Contact Us</a></li>
-                </ul>
-            </nav>
-        </div>
-
-
-    </header>
-
-    <div id="content" role="main" class="grid_24 clearfix">
-
-        &lt;!&ndash; If you require a breadcrumb trail, its root should be your service.
-              You don't need a breadcrumb trail on the homepage of your service... &ndash;&gt;
-        <nav id="breadcrumb">
-            <p>
-                <a href="index">OLS</a> &gt;
-                Search
-            </p>
-        </nav>
-
-        <div class="container">
-
-            <div class="grid_24">
-                <div style="text-align: left;">
-                    <form id="filter_form" onsubmit="resetPage()" name="local-search" action="search" method="get">
-                        <div id="bloodhound" class="input-group">
-                            <input style="margin-bottom: 0.1em;" name="q" class="form-control typeahead" autofocus="autofocus" type="text" data-olswidget="multisearch" data-olsontology=""  placeholder="What are you looking for today?" aria-describedby="basic-addon1"/>
-                            <input id="group-id" name="groupField" type="hidden" value="iri"/>
-
-                            &lt;!&ndash;<div class="input-group-btn">&ndash;&gt;
-                            &lt;!&ndash;<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>&ndash;&gt;
-                            &lt;!&ndash;</div>&ndash;&gt;
-                            &lt;!&ndash;&ndash;&gt;
-                            <span class="input-group-btn">
-                              <button class="btn btn-default glyphicon glyphicon-search" type="submit"></button>
-                            </span>
-
-                        </div>&lt;!&ndash; /input-group &ndash;&gt;
-                        <div style="text-align: left" class="input-group">
-                            <div class="checkbox-inline">
-                                <label>
-                                    <input id="exact-id" onclick="$('#filter_form').submit();" class="" name="exact" type="checkbox" th:checked="${searchOptions.isExact()}"/> Exact match
-                                </label>
-                            </div>
-                            <div class="checkbox-inline">
-                                <label>
-                                    <input id="obsolete-id" onclick="$('#filter_form').submit();" class="" type="checkbox" name="obsoletes" th:checked="${searchOptions.isQueryObsoletes()}"/> Obsolete terms
-                                </label>
-                            </div>
-
-                        </div>
-
-                        <input id="query-id" type="hidden" th:value="${searchOptions.query}"/>
-                        <input id="start" type="hidden" name="start" value="0" th:value="${searchOptions.start}"/>
-
-                        <div style="visibility:hidden;position:absolute;">
-                            &lt;!&ndash;@thymesVar id="ontology" type="OntologyDocument"&ndash;&gt;
-                            <select  id="ontology-id" name="ontology" multiple="multiple">
-                                <option
-                                        th:value="${ontology}"
-                                        th:each="ontology : ${searchOptions.getOntologies()}"
-                                        selected="selected"
-                                >
-                                </option>
-                            </select>
-                        </div>
-
-                        <div style="visibility:hidden;position:absolute;">
-                            <select  id="ontology-type-id" name="type" multiple="multiple">
-                                <option
-                                        th:value="${type}"
-                                        th:each="type : ${searchOptions.getTypes()}"
-                                        selected="selected"
-                                >
-                                </option>
-                            </select>
-                        </div>
-
-
-                    </form>
-                </div>&lt;!&ndash; /.col-lg-6 &ndash;&gt;
-            </div>
-
-            <div class="grid_24">
-                <section class="grid_6 alpha" id="search-extras">
-                    <form disabled="true">
-                        <fieldset>
-                            <legend><span class="glyphicon glyphicon-filter">Filters</span></legend>
-
-                            <h3>Term type</h3>
-
-                            <div>
-                                <select id="ontology-select-type-id" name="type" class="type-select" multiple="multiple" style="width:100%"
-                                        th:with="types=${searchOptions.getTypes()}"
-                                >
-                                    <option value="class"
-                                            th:selected="${#sets.contains(types , 'class')}">Class</option>
-                                    <option value="property"
-                                            th:selected="${#sets.contains(types , 'property')}">Property</option>
-                                    <option value="individual"
-                                            th:selected="${#sets.contains(types , 'individual')}">Individual</option>
-                                    <option value="Ontology"
-                                            th:selected="${#sets.contains(types , 'ontology')}">Ontology</option>
-                                </select>
-                                <div id="type-summary">
-
-                                </div>
-                            </div>
-
-
-
-                            <h3>Ontologies</h3>
-
-                            <div>
-                                &lt;!&ndash;@thymesVar id="onto" type="OntologyDocument"&ndash;&gt;
-                                <select id="ontology-select-id" name="ontology" class="ontology-select" multiple="multiple" style="width:100%">
-                                    <option
-                                            th:value="${{onto.getConfig().getNamespace()}}"
-                                            th:each="onto : ${all_ontologies}"
-                                            th:text="${{onto.getConfig().getTitle()}} + ' (' + ${{onto.getConfig().getPreferredPrefix()}} + ')'"
-                                            th:attr="data-ontology-title=${{onto.getConfig().getTitle()}}"
-                                            th:with="ontologies=${searchOptions.getOntologies()}"
-                                            th:selected="${#sets.contains(ontologies , onto.getConfig().getNamespace())}"
-                                    >
-                                    </option>
-                                </select>
-                                <div id="ontology-summary">
-
-                                </div>
-                            </div>
-                            <button type="button" class="btn btn-default" onclick="clearFilter()">Clear filters</button>
-
-                        </fieldset>
-                    </form>
-                </section>
-
-                <section class="grid_18 beta">
-
-                    <div style="text-align: center;" id="searching">
-                        <img th:src="@{img/loading1.gif}" src="../static/img/loading1.gif" alt="Search loading..."/>
-                        <span>Searching OLS, please wait...</span>
-                    </div>
-
-
-                    <div id="search-results-summary" style="display: none;">
-                        <section>
-                            <h2>Search results for <span class="searchterm" th:text="${searchOptions.query}">text</span>
-                            </h2>
-
-                            <nav>
-                                <ul style="text-align: left;" class="pager">
-                                    <li class="btn-group disabled prev-button"  ><a onclick="clickPrev()">Previous</a></li>
-                                    <span class="search-results-count">Showing <span class="start-display">0</span> to  <span class="end-display">10</span> of <span class="total-display">0</span> results</span>
-                                    <li class="btn-group disabled next-button"  ><a onclick="clickNext()">Next</a></li>
-                                </ul>
-                            </nav>
-                            <div id="search-results">
-
-                            </div>
-                            <nav class="bottom-nav">
-                                <ul style="text-align: left;" class="pager">
-                                    <li class="btn-group disabled prev-button"><a onclick="clickPrev()">Previous</a></li>
-                                    <span class="search-results-count">Showing <span class="start-display">0</span> to  <span class="end-display">10</span> of <span class="total-display">0</span> results</span>
-                                    <li class="btn-group disabled next-button" ><a onclick="clickNext()">Next</a></li>
-                                </ul>
-                            </nav>
-                        </section>
-                    </div>
-
-                </section>
-            </div>
-
-
-        </div>
-    </div>
-
-    <footer>
-        &lt;!&ndash; Optional local footer (insert citation / project-specific copyright / etc here &ndash;&gt;
-        <div id="elixir-banner" data-color="grey" data-name="The Ontology Lookup Service" data-description="OLS is an Elixir interoperability service" data-more-information-link="//www.elixir-europe.org/platforms/interoperability" data-use-basic-styles="true"></div>
-        <script src="//ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/js/elixirBanner.js"></script>
-
-        &lt;!&ndash; End optional local footer &ndash;&gt;
-
-        <div id="global-footer" class="grid_24 clearfix">
-
-            <nav id="global-nav-expanded">
-
-                <div class="grid_4 alpha">
-                    <h3 class="embl-ebi"><a href="//www.ebi.ac.uk/" title="EMBL-EBI">EMBL-EBI</a></h3>
-                </div>
-
-                <div class="grid_4">
-                    <h3 class="services"><a href="//www.ebi.ac.uk/services">Services</a></h3>
-                </div>
-
-                <div class="grid_4">
-                    <h3 class="research"><a href="//www.ebi.ac.uk/research">Research</a></h3>
-                </div>
-
-                <div class="grid_4">
-                    <h3 class="training"><a href="//www.ebi.ac.uk/training">Training</a></h3>
-                </div>
-
-                <div class="grid_4">
-                    <h3 class="industry"><a href="//www.ebi.ac.uk/industry">Industry</a></h3>
-                </div>
-
-                <div class="grid_4 omega">
-                    <h3 class="about"><a href="//www.ebi.ac.uk/about">About us</a></h3>
-                </div>
-
-            </nav>
-
-            <section id="ebi-footer-meta">
-                <p class="address">EMBL-EBI, Wellcome Trust Genome Campus, Hinxton, Cambridgeshire, CB10 1SD, UK &nbsp; &nbsp; +44 (0)1223 49 44 44</p>
-                <p class="legal">Copyright &copy; EMBL-EBI 2013 | EBI is an outstation of the <a href="http://www.embl.org">European Molecular Biology Laboratory</a> | <a href="/about/privacy">Privacy</a> | <a href="/about/cookies">Cookies</a> | <a href="/about/terms-of-use">Terms of use</a></p>
-            </section>
-
-        </div>
-
-    </footer>
-
-</div>
-
-<script type="text/javascript" src="../static/js/jquery/1.11.1/jquery.min.js" th:src="@{js/jquery/1.11.1/jquery.min.js}"></script>
-
-&lt;!&ndash;<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>&ndash;&gt;
-&lt;!&ndash;<script src="//twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.min.js"></script>&ndash;&gt;
-<script type="text/javascript" src="../static/js/typeahead/typeahead.bundle.js" th:src="@{js/typeahead/typeahead.bundle.js}"></script>
-<script type="text/javascript" src="../static/js/handlebars/4.0.5/handlebars.min.js" th:src="@{js/handlebars/4.0.5/handlebars.min.js}"></script>
-
-
-<script type="text/javascript" src="../static/js/ols.js" th:src="@{js/ols.js}"></script>
-<script type="text/javascript" src="../static/js/ols-termselect2.js" th:src="@{js/ols-termselect2.js (beta=r1)}"></script>
-<script type="text/javascript" src="../static/js/ols-adv-search.js" th:src="@{js/ols-adv-search.js (beta=r4)}"></script>
-<script type="text/javascript" src="../static/js/select2/4.0.0/select2.min.js" th:src="@{js/select2/4.0.0/select2.min.js}"></script>
-
-<script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/cookiebanner.js"></script>
-<script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/foot.js"></script>
-<script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-69391170-1', 'auto');
-    ga('send', 'pageview');
-
-</script>
-</body>
-</html>-->

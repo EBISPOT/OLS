@@ -1,4 +1,4 @@
-#mainpageSearchBox{
+#mainpageSearchBox {
     margin-top: 30px;
     margin-bottom: 30px;
     background:#F0F0F0;
@@ -7,17 +7,17 @@
 }
 
 /*
-#mainpageSearchBox .form-control{
+#mainpageSearchBox .form-control {
     width:80%;
     display: inline-block;
 }*/
 
-#dataContentDiv{
+#dataContentDiv {
     margin-top: 30px;
 }
 
-/* search Button css*/
-.searchButton{
+/* search Button css */
+.searchButton {
     margin-left: 7px;
     margin-bottom: 0.1em;
     margin-bottom: 0;
@@ -26,22 +26,24 @@
     vertical-align: top;
 }
 
-/*Next/Prev button */
-.pagingButton{
+/* Next/Prev button */
+a.pagingButton {
     display: inline-block;
-    padding: 5px 14px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 15px;
+    /* padding: 8px 14px 6px 14px; */
+    padding: 9px 15px 7px 15px;
+    background-color: /* #fff */ rgb(0, 130, 124);
+    /* border: 1px solid /**//* #ddd *//* rgb(0, 130, 124); */
+    color: white;
+    border-radius: /* 12px */ 0.8em;
+    border-bottom: none;
 }
 
-.pagingButton a:hover, a:focus, a:active, a:visited {
-    color: #015666;
-    border-bottom-color:#ddd ;
+a.pagingButton:hover /* , a.pagingButton:focus, a.pagingButton:active, a.pagingButton:visited */ {
+    /* border-bottom-color: #ddd ; */
+    /* color: white; */
 }
 
-
-/*browse - List of all ontologies
+/* browse - List of all ontologies
 #ontologiesTable_previous {
     display: inline-block;
     padding: 5px 14px;
@@ -65,50 +67,70 @@
     padding: 0px 0px 0px 0px !important;
 }
 
-
-#ontologiesTable_paginate a, a:visited{
+#ontologiesTable_paginate a, a:visited {
     border-bottom-width: 0px;
     border-bottom-style: none;
 }
 
-#ontologiesTable_paginate a, a:hover{
+/*
+#ontologiesTable_paginate a, a:hover {
     color: #015666;
 }
+ */
 
-#ontologiesTable_paginate .paginate_button .current{
+#ontologiesTable_paginate .paginate_button .current {
     background: transparent;
 }
 
 
 /* Search Page */
 #filterBox {
-    margin-top: 60px;
+    margin-top: /* 60px */ 8px;
+    border-radius: /* 5px */ 9px;
+    padding-top: /* 20px */ 12px;
+    padding-right: 18px;
+    padding-left: 18px;
+    background: rgba(0, 124, 130, .2);
 }
 
-#filter_form .input-group{
-    display:flex;
+.filterbox-header {
+    color: rgb(0, 130, 124);
+}
+
+.button.secondary.filterbox-button, .button.secondary.searchButton {
+    background-color: rgb(0, 130, 124);
+    border-radius: 6px;
+}
+
+fieldset {
+    min-width: 0;
+}
+
+#filter_form .input-group {
+    display: flex;
 }
 
 #filter_form .checkbox-inline {
-    margin-right:40px;
+    margin-right: 24px;
 }
 
-#filterBox{
-    background: #F0F0F0;
+#search-results {
+    margin-top: /* 50px */ 1.5rem;
+    /* padding-left: 30px */;
 }
 
-#search-results{
-    margin-top: 50px;
-    padding-left: 30px;
+#search-results > section {
+    margin-bottom: 2rem;
 }
 
-#search-results-summary{
-    padding-left:10px;
+#search-results-summary {
+    padding-left: 10px;
 }
-
 
 .search-results-count {
     font-style: italic;
+    /* display: inline-block; */
+    padding: 0 0.5rem;
 }
 
 .search-results-count span {
@@ -116,113 +138,130 @@
     font-weight: bold;
 }
 
-/**/
-
-#termPageSearchBox{
-    display:inline;
+.search-results-header {
+    margin-bottom: 0;
 }
 
-#bloodhound{
+.search-results-top-navbar {
+    text-align: left;
+    margin-bottom: 2.33rem;
+}
+
+.search-results-bottom-navbar {
+    text-align: left;
+    margin-top: 3rem;
+}
+
+#bloodhound {
+    padding-bottom: 8px;
+}
+
+span.twitter-typeahead:first-child .form-control.typeahead.tt-input {
+    border-radius: 4px;
+}
+
+a.nounderline.ontology-link {
+    color: rgb(0, 130, 124);
+}
+
+.select2-container .select2-selection--multiple .select2-selection__rendered .select2-selection__choice {
+    white-space: normal;
+}
+
+/**/
+
+#termPageSearchBox {
+    display: inline;
+}
+
+#bloodhound {
     display: flex;
 }
 
-#bloodhound .form-control.typeahead{
+#bloodhound .form-control.typeahead {
     margin: 0;
 }
 
 /* Ontology prefix/Term markup used on*/
-.ontology-source{
-    background-color: #5FBDCE;
-    padding:2px;
-    padding-right:4px;
+.ontology-source {
+    background-color: #5fbdce;
+    padding: 3px 4px 1px 4px;
     color: white;
-    /*font-size: larger;*/
+    /* font-size: larger; */
     border-radius: 3px;
     display: inline-block;
     margin-right: 4px;
+    margin-left: 0.9em;
     vertical-align: middle;
 }
 
-a .ontology-source {
-    background-color: #5FBDCE;
-    padding:2px;
-    padding-right:4px;
-    color: white;
-    /*font-size: larger;*/
-    border-radius: 3px;
-    display: inline-block;
-    margin-right: 4px;
-    vertical-align: middle;
-    border-bottom: none;
-}
-
-.term-source{
+.term-source {
     background-color: #ffac1b;
-    padding:2px;
-    padding-right:4px;
+    padding: 3px 4px 1px 4px;
     color: white;
-    /*font-size: larger;*/
+    /* font-size: larger; */
     border-radius: 3px;
     display: inline-block;
     margin-right: 4px;
+    margin-left: /* 10px */ 0.9em;
     vertical-align: middle;
+}
+
+#exact-id, #obsolete-id {
+    margin-right: 4px;
 }
 
 
 /********Search page new css tries********/
-.static_search_ontology_badge{
+.static_search_ontology_badge {
     display: inline;
     margin-left: 20px;
 }
 
-
-.search_sub_result{
+.search_sub_result {
     margin-bottom: 20px;
 }
 
-.term-source{
-    margin-left:10px;
-}
-
-.search_static_ontology{
-    font-size:smaller;
+.search_static_ontology {
+    font-size: smaller;
     color: #ddd;
 }
 
-
-.search-results-label
-{
+.search-results-label {
     font-size: x-large;
 }
 
 
-
 /*Ontology View*/
-.panel{
+.panel {
     border: solid 1px #F0F0F0;
 }
 
-#ontology_info_box .panel-heading{
+#ontology_info_box .panel-heading {
     background: #F0F0F0;
     text-align: center;
 }
 
-#ontology_info_box .panel-body{
+#ontology_info_box .panel-body {
     padding: 10px 10px 10px 10px;
 }
 
-
-#onto-tab-content .tabs-content{
+#onto-tab-content .tabs-content {
     min-height: 500px;
     margin-bottom: 40px;
 }
 
-#bloodhound .twitter-typeahead{
-    width:inherit;
+#bloodhound .twitter-typeahead {
+    width: inherit;
 }
 
-/*Term page */
-#right_info_box .panel-heading{
+input[type="search"].select2-search__field {
+    margin-bottom: 0;
+}
+
+
+/* Term page */
+#right_info_box .panel-heading {
     background: #F0F0F0;
     text-align: center;
 }
@@ -231,63 +270,59 @@ a .ontology-source {
     padding: 10px 10px 10px 10px;
 }
 
-#terms-tab-content .tabs-content{
+#terms-tab-content .tabs-content {
     min-height: 500px;
 }
 
-
-#termPageSearchBox{
+#termPageSearchBox {
     margin-top: 10px;
 }
 
-
-#termPageSearchBox .twitter-typeahead{
-    width:100%;
+#termPageSearchBox .twitter-typeahead {
+    width: 100%;
 }
 
 /*
-#termPageSearchBox .twitter-typeahead{
+#termPageSearchBox .twitter-typeahead {
     width: 70%;
 }*/
 
-#termPageSearchBox .button
-{
+#termPageSearchBox .button {
     vertical-align: top;
 }
 
-
-.copyButton{
+.copyButton {
     vertical-align: baseline;
-    cursor:pointer;
-    margin-left:10px;
+    cursor: pointer;
+    margin-left: 10px;
 }
 
 
 /* Adding some space on the term page*/
-.breadcrumbDiv{
-    margin-top:10px;
+.breadcrumbDiv {
+    margin-top: 10px;
 }
 
-#tree_tab_button_box{
-    float:right;
+#tree_tab_button_box {
+    float: right;
     padding-top:5px;
 }
 
-#showSliblingsButton{
+#showSliblingsButton {
     min-width: 120px;
 }
 
 
-/*generic  marginTop class*/
-.marginTop{
-    margin-top:20px;
+/* generic marginTop class */
+.marginTop {
+    margin-top: 20px;
     padding-left: 13px;
 }
 
 
 
-/*Addintional style for the graphview - copy past for now from foundation button secondary css*/
-.btn{
+/* Additional style for the graphview - copy/paste for now from foundation button secondary css */
+.btn {
     display: inline-block;
     vertical-align: middle;
     margin: 0 0 1rem 0;
@@ -305,33 +340,34 @@ a .ontology-source {
     color: #fefefe;
 }
 
-
 .awesomplete {
-    vertical-align:top;
-    width:160px;
+    vertical-align: top;
+    width: 160px;
 }
 
-#LookUpNodeTextfield{
+#LookUpNodeTextfield {
     width: 120px !important;
 }
 
-#TogglePhysics{
+#TogglePhysics {
     padding-right: 5px;
 }
 
 /* CSS for the asci doc pages*/
-#docs-content{
+#docs-content {
 }
 
 /* Footer - add some space */
-#elixir-banner{
+#elixir-banner {
     margin-top: 100px;
 }
 
 /* maintenance page css*/
-.alert{
-    padding:15px;margin-bottom:20px;border:1px solid transparent;border-radius:4px
-
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px
 }
 
 /* Main content area: adjust margins */
@@ -340,20 +376,15 @@ a .ontology-source {
     padding-left: 12px;
 }
 
-/*Search Box*/
-#filterBox{
-    border-radius: 5px;
-    padding-top: 20px;
-}
-
-.checkbox-inline{
+/* Search Box stuff(?) */
+.checkbox-inline {
     margin-top: -20px;
 }
 
-.badge{
+.badge {
     display: inline-block;
-    min-width: 10px;
-    padding: 3px 7px;
+    min-width: /* 10px */ 7px;
+    padding: /* 3px 7px */ 5px 7px 3px 7px;
     font-size: 12px;
     font-weight: 700;
     line-height: 1;
@@ -361,64 +392,66 @@ a .ontology-source {
     text-align: center;
     white-space: nowrap;
     vertical-align: middle;
-    background-color: #777;
+    background-color: /* #777 */ rgb(0, 124, 130);
     border-radius: 10px;
     float:right;
 }
 
-.list-group{
+.list-group {
     margin-bottom: 20px;
 }
 
-.list-group-item
-{
+.list-group-item {
     position: relative;
     display: block;
     padding: 10px 15px;
     margin-bottom: -1px;
     background-color: #fff;
     border: 1px solid #ddd;
-    width:85%;
+    width: /* 85% */ 100%;
     text-align: left;
     margin: auto;
 }
 
-.filterBoxes .select2-selection{
-    margin: auto;
-    width: 85%;
-    height: 40px;
-
+.filter-type {
+    vertical-align: middle;
 }
 
-.select2-search__field{
+.filterBoxes .select2-selection {
+    width: /* 85% */ 100%;
+    /* height: 40px; */
+    margin: -0.2rem auto auto;
+}
+
+.select2-search__field {
     margin-top: 0px !important;
 }
 
-#clearFilters{
+#clearFilters {
     float:right;
     margin-top:10px;
 }
 
-
-#mainSearchDiv{
+#mainSearchDiv {
     margin-top:40px;
-    margin-bottom: 30px;
-    padding-left:150px;
+    margin-bottom: /* 30px */ 0;
+    /* padding-left:150px; */
 }
 
-#mainSearchDiv .twitter-typeahead{
+#mainSearchDiv .twitter-typeahead {
     width: 80%;
 }
 
 
 /* Styling for code part in the documentation */
-.highlight{
+.highlight {
     padding-left: 50px;
     margin-left: 20px;
     margin-right: 50px;
     background-color: #F2F2EC;
     border-color: #999;
 }
+
 
 /* keywords - default cyan */
 .keyword {color: #007777;}
@@ -448,6 +481,6 @@ a .ontology-source {
     padding-left: 13px;
 }
 
-div.row > * {
+div.row {
     padding-left: 13px;
 }
