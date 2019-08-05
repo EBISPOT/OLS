@@ -292,6 +292,11 @@ public class OntologyResourceConfig  {
         this.hiddenProperties = hiddenProperties;
     }
 
+    public void setNamespace(String namespace) {
+        this.namespace = namespace;
+    }
+
+
     public static class OntologyResourceConfigBuilder {
         private  String id;
         private  String versionIri;

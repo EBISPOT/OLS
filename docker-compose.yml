@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+
+  mongo:
+      image: mongo:3.2
+      ports:
+          - 27017:27017
+      volumes:
+          - mongo_data:/data/db
+      command:
+          - mongod
+  solr:
+    build: ./solr
+#    image: solr:5.3.1
+    ports:
+     - "8983:8983"
+    volumes:
+      - ./ols-solr/src/main/solr-5-config:/opt/solr/server/solr
+      -  solr_data:/opt/solr/mydata
+    command: ["bin/solr", "-f", "-a", "-Dsolr.data.dir=/opt/solr/mydata"]
+
+volumes:
+  solr_data:
+  mongo_data:
