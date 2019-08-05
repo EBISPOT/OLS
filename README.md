@@ -1,6 +1,6 @@
 # OLS
 
-Ontology Lookup Service from SPOT at EBI. 
+Ontology Lookup Service from SPOT at EBI.
 
 * OLS is currently live at the EBI here http://www.ebi.ac.uk/ols
 * A REST API for OLS is described here http://www.ebi.ac.uk/ols/docs/api
@@ -15,35 +15,35 @@ Ontology Lookup Service from SPOT at EBI.
 
 This is the entire codebase for the EBI OLS. OLS has been developed
 around two key ontology indexes that can be built and used independently
-from the core website. We provide service to build a Solr index and and
-a Neo4j index. The Solr index is used to provide text based queries over
+from the core website. We provide services to build a Solr index and a
+Neo4j index. The Solr index is used to provide text-based queries over
 the ontologies while the Neo4j index is used to query the ontology
 structure and is the primary driver of the OLS REST API.
  
-OLS has been developed with the Spring data and Spring boot framework.
+OLS has been developed with the Spring Data and Spring Boot framework.
 You can build this project with Maven and the following Spring Boot
 applications will be available to run.
  
 All of the apps are available under the ols-apps module.
 
-* [ols-apps/ols-solr-app](ols-apps/ols-solr-app) - Spring boot
-  application for building a Solr index for one of more ontologies.
+* [ols-apps/ols-solr-app](ols-apps/ols-solr-app) - Spring Boot
+  application for building a Solr index for one or more ontologies.
   Requires access to a Solr server.
-* [ols-apps/ols-neo4j-app](ols-apps/ols-neo4j-app) - Spring boot
-  application for building a Neo4j index for one of more ontologies.
+* [ols-apps/ols-neo4j-app](ols-apps/ols-neo4j-app) - Spring Boot
+  application for building a Neo4j index for one or more ontologies.
   Builds an embedded Neo4j database. You can run a Neo4j server that
   uses the generated Neo4j database.
 
-To run a complete local OLS installation you will need a mongodb
-database. This is a lightweight database that used to store all the
+To run a complete local OLS installation you will need a MongoDB
+database. This is a lightweight database that is used to store all the
 ontology configuration and application state information. See here for
 more information http://www.ebi.ac.uk/ols/docs/installation-guide
 
 * [ols-apps/ols-config-importer](ols-apps/ols-config-importer) - Spring
-  boot application for loading config files into the mongodb database.
+  Boot application for loading config files into the MongoDB database.
   This includes support for reading config files specified using the OBO
-  foundry YAML format.
-* [ols-apps/ols-loading-app](ols-apps/ols-loading-app) - Spring boot
+  Foundry YAML format.
+* [ols-apps/ols-loading-app](ols-apps/ols-loading-app) - Spring Boot
   application for building the complete OLS indexes. This app fetches
   ontologies specified in the config files, checks whether they have
   changed from a previous download, and if they have changed, will
