@@ -13,6 +13,8 @@ Ontology Lookup Service from SPOT at EBI.
 
 ## Overview
 
+![OLS Architecture](OLS-Architecture.png)
+
 This is the entire codebase for the EBI OLS. OLS has been developed
 around two key ontology indexes that can be built and used independently
 from the core website. We provide services to build a Solr index and a
