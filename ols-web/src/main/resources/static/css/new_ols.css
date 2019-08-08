@@ -413,6 +413,14 @@ input[type="search"].select2-search__field {
     margin: auto;
 }
 
+button.list-group-item {
+    cursor: pointer;
+}
+
+button.list-group-item:hover, button.list-group-item:focus {
+    background-color: rgba(0, 124, 130, .3);
+}
+
 .filter-type {
     vertical-align: middle;
 }
