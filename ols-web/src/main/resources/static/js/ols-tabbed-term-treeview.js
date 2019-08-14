@@ -1691,8 +1691,6 @@ require('jstorage');
 $.jstree.defaults.core.data = true;
 $.jstree.defaults.core.expand_selected_onload = true;
 
-// var globalViewMode = undefined;
-// var globalShowSiblings = undefined;
 
 /**
  *
@@ -1702,21 +1700,20 @@ $.jstree.defaults.core.expand_selected_onload = true;
  * @param divId
  * @param termIRI Having termIRI here does not make sense. It should be moved to the draw() method.
  * @param termType
- * @param siblingsElmId
+ * @param siblingsElm
  * @param viewModeElm
  * @param saveState
  * @constructor
  */
-function OLSTermTypeTreeView(olsIRI, ontology, divId, termIRI, termType, siblingsElmId, viewModeElm, saveState) {
+function OLSTermTypeTreeView(olsIRI, ontology, divId, termIRI, termType, siblingsElm, viewModeElm, saveState) {
     this.olsIRI = olsIRI;
     this.ontology = ontology;
     this.divId = divId;
     this.termIRI = termIRI;
     this.termType = getUrlType(termType);
-    this.siblingsElmId = siblingsElmId;
+    this.siblingsElm = siblingsElm;
     this.viewModeElm = viewModeElm;
     this.saveState = saveState;
-    // this.onClick = _onClick;
 }
 
 function _dataCB(node, cb, relativePath, url, ontology, termIRI, termType, showSiblings, viewMode, saveState) {
@@ -1778,9 +1775,6 @@ OLSTermTypeTreeView.prototype.draw =  function (showSiblings, viewMode) {
     console.log("showSiblings = ", showSiblings);
     console.log("viewMode = ", viewMode);
 
-    // globalViewMode = viewMode;
-    // globalShowSiblings = showSiblings;
-
     var relativePath = this.olsIRI ? this.olsIRI : '';
     var url = _determineUrl(relativePath, this.ontology, this.termType, this.termIRI);
 
@@ -1789,8 +1783,8 @@ OLSTermTypeTreeView.prototype.draw =  function (showSiblings, viewMode) {
     var localTermType = this.termType;
     var localOntology = this.ontology;
     var localDivId = this.divId;
-    var localShowSiblings = this.siblingsElmId;
-    var localViewMode = this.viewModeElm;
+    var localShowSiblingsElm = this.siblingsElm;
+    var localViewModeElm = this.viewModeElm;
 
     var treeDiv = $(localDivId).jstree({
         'check_callback' : true,
@@ -1812,8 +1806,8 @@ OLSTermTypeTreeView.prototype.draw =  function (showSiblings, viewMode) {
         var iri  = selected.node.original.iri ? selected.node.original.iri : selected.node.original.a_attr.iri;
         var ontology =  selected.node.original.ontology_name ? selected.node.original.ontology_name :
             selected.node.original.a_attr.ontology_name;
-        var showSiblings = $("button[name='" + localShowSiblings + "']").val() == 'true';
-        var viewMode = $("input[name='" + localViewMode + "']:checked").val();
+        var showSiblings = $("button[name='" + localShowSiblingsElm + "']").val() == 'true';
+        var viewMode = $("input[name='" + localViewModeElm + "']:checked").val();
         if (this.saveState) {
             $.jStorage.set(iri, data);
         }
@@ -1859,7 +1853,7 @@ OLSTermTypeTreeView.prototype.toggleOntologyView=function(){
     var localTermType = this.termType;
     var localOntology = this.ontology;
 
-    var showSiblings = $("button[name='" + this.siblingsElmId + "']").val() == 'true';
+    var showSiblings = $("button[name='" + this.siblingsElm + "']").val() == 'true';
 
     // globalShowSiblings = showSiblings;
     $(this.divId).jstree(true).settings.core.data = function(node, cb){
@@ -1874,18 +1868,18 @@ OLSTermTypeTreeView.prototype.toggleOntologyView=function(){
 OLSTermTypeTreeView.prototype.toggleSiblings=function() {
     console.log("toggleSiblings() called.");
 
-    var showSiblings = $("button[name='" + this.siblingsElmId + "']").val() == 'true';
+    var showSiblings = $("button[name='" + this.siblingsElm + "']").val() == 'true';
 
     console.log("toggleSiblings() showSiblings = ", showSiblings);
 
     showSiblings = !(showSiblings);
     if (showSiblings) {
-        $("button[name='" + this.siblingsElmId + "']").text("Hide siblings");
+        $("button[name='" + this.siblingsElm + "']").text("Hide siblings");
     }
     else {
-        $("button[name='" + this.siblingsElmId + "']").text("Show all siblings");
+        $("button[name='" + this.siblingsElm + "']").text("Show all siblings");
     }
-    $("button[name='" + this.siblingsElmId + "']").val(showSiblings);
+    $("button[name='" + this.siblingsElm + "']").val(showSiblings);
 
 
 
@@ -2034,8 +2028,8 @@ $.jstree.defaults.core.expand_selected_onload = true;
 
 var OLSTermTypeTreeView = require("ols-term-type-treeview");
 
-function OLSTabbedTermTreeView(olsIRI, ontology, termsDiv, propertiesDiv, individualsDiv, siblingsElmId, viewModeElm, saveState) {
-    this.siblingsElmId = siblingsElmId;
+function OLSTabbedTermTreeView(olsIRI, ontology, termsDiv, propertiesDiv, individualsDiv, siblingsElm, viewModeElm, saveState) {
+    this.siblingsElm = siblingsElm;
     this.viewModeElm = viewModeElm;
     this.saveState = saveState;
     this.termsTree = undefined;
@@ -2043,11 +2037,11 @@ function OLSTabbedTermTreeView(olsIRI, ontology, termsDiv, propertiesDiv, indivi
     this.individualsTree = undefined;
 
     if (termsDiv != undefined && termsDiv != "") {
-        this.termsTree = new OLSTermTypeTreeView(olsIRI, ontology, termsDiv, "", "terms", siblingsElmId, viewModeElm,
+        this.termsTree = new OLSTermTypeTreeView(olsIRI, ontology, termsDiv, "", "terms", siblingsElm, viewModeElm,
             saveState);
     }
     if (propertiesDiv != undefined && propertiesDiv != "") {
-        this.propertiesTree = new OLSTermTypeTreeView(olsIRI, ontology, propertiesDiv, "", "property", siblingsElmId, viewModeElm,
+        this.propertiesTree = new OLSTermTypeTreeView(olsIRI, ontology, propertiesDiv, "", "property", siblingsElm, viewModeElm,
             saveState);
     }
     // if (individualsDiv != undefined && individualsDiv != "") {
