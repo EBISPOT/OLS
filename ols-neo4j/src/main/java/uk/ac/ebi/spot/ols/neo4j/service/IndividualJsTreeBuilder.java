@@ -44,4 +44,9 @@ public class IndividualJsTreeBuilder extends AbstractJsTreeBuilder {
     String getRootName() {
         return "Thing";
     }
+
+    @Override
+    String getJsTreeRoots(ViewMode viewMode) {
+        throw new UnsupportedOperationException("Implementation not necessary.");
+    }
 }

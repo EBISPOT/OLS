@@ -120,4 +120,19 @@ public class JsTreeObject {
     public void setIsLeaf(boolean isLeaf) {
         this.hasChildren = isLeaf;
     }
+
+    @Override
+    public String toString() {
+        return "JsTreeObject{" +
+                "id='" + id + '\'' +
+                ", parent='" + parent + '\'' +
+                ", iri='" + iri + '\'' +
+                ", ontologyName='" + ontologyName + '\'' +
+                ", text='" + text + '\'' +
+                ", hasChildren=" + hasChildren +
+                ", state=" + state +
+                ", children=" + children +
+                ", a_attr=" + a_attr +
+                '}';
+    }
 }

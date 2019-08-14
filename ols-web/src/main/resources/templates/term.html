@@ -324,16 +324,35 @@
                                 <div class="btn-group btn-group-vertical" style="float: right;padding-top:5px;">
                                     <button class="icon icon-conceptual  btn  btn-default" data-icon ="o" th:onclick="'javascript:window.open(\'' + @{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})} + '\')'" title="Visualisation of this term">Graph view</button>
                                     <button class="btn btn-default" value="true" title="Redraw the tree to focus on this terms" onclick="location.reload(true)">Reset tree</button>
-                                    <button class="btn btn-default" id="ontology_view_siblings_id"
+                                    <!--                                            th:value="${#httpServletRequest.getParameter('siblings') == 'true'} ? 'true': 'false'"-->
+                                    <button class="btn btn-default" name="ontology_view_siblings"
                                             th:value="${#httpServletRequest.getParameter('siblings') == 'true'} ? 'true': 'false'"
                                             title="Expand the tree to show sibling terms"
                                             onclick="termInstance.toggleSiblings()">Show all siblings</button>
-                                    <input type="radio" id="ontology_view_selection_id" name="ontology_view_selection" value="PreferredRoots"
-                                           th:checked="${#httpServletRequest.getParameter('viewMode') == 'PreferredRoots'} ? 'true': 'false'"
-                                           onclick="termInstance.toggleOntologyView()">Preferred root terms</input><br/>
-                                    <input type="radio" id="ontology_view_selection_id" name="ontology_view_selection" value="All"
-                                           th:checked="${#httpServletRequest.getParameter('viewMode') == null or #httpServletRequest.getParameter('viewMode') == 'All'} ? 'true': 'false'"
-                                           onclick="termInstance.toggleOntologyView()">All terms</input>
+                                    <div>
+                                        <input type="radio"
+                                               id="ontology_view_selection_id1"
+                                               name="ontology_view_selection"
+                                               style="margin: 0;"
+                                               value="PreferredRoots"
+                                               class="radio small white-background ebi-color"
+                                               th:checked="${#httpServletRequest.getParameter('viewMode') == null or #httpServletRequest.getParameter('viewMode') == 'PreferredRoots'} ? 'true': 'false'"
+                                               onclick="termInstance.toggleOntologyView()"/>
+                                        <label for="ontology_view_selection_id1"
+                                               style="margin: 0 0.1rem 0 0.2rem; color: rgb(0, 124, 130);">Preferred root terms</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio"
+                                               id="ontology_view_selection_id2"
+                                               name="ontology_view_selection"
+                                               style="margin: 0;"
+                                               value="All"
+                                               class="radio small white-background ebi-color"
+                                               th:checked="${#httpServletRequest.getParameter('viewMode') == 'All'} ? 'true': 'false'"
+                                               onclick="termInstance.toggleOntologyView()"/>
+                                        <label for="ontology_view_selection_id2"
+                                               style="margin: 0 0.1rem 0 0.2rem; color: rgb(0, 124, 130);">All terms</label>
+                                    </div>
                                 </div>
 
 
@@ -617,9 +636,15 @@
     var OLSTermTypeTreeView = require("ols-term-type-treeview");
 
     termInstance = new OLSTermTypeTreeView(relativePath, ontologyName, "#term-tree",
-        termIri, termType, "ontology_view_siblings_id", "ontology_view_selection_id", true);
+        termIri, termType, "ontology_view_siblings", "ontology_view_selection", true);
 
-    termInstance.draw();
+    var showSiblings = $("button[name='ontology_view_siblings']").val() == 'true';
+    var viewMode = $("input[name='ontology_view_selection']:checked").val();
+    console.log("term.html showSiblings = ", showSiblings);
+    console.log("term.html viewMode = ", viewMode);
+    console.log("$(button[name='ontology_view_siblings']).val() = ", $("button[name='ontology_view_siblings']").val());
+
+    termInstance.draw(showSiblings, viewMode);
 </script>
 
 <script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/cookiebanner.js"></script>

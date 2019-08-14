@@ -226,15 +226,31 @@
                             <li role="presentation"><a id="diachron-link" data-toggle="tab" class="icon icon-generic" data-icon="g" href="#diachron-tab">Ontology history</a></li>
                             <!--<li role="presentation"><a data-toggle="tab"  href="#graph-tab">Graph view</a></li>-->
                         </ul>
-                        <div class="btn-group btn-group-vertical" style="float: right;padding-top:5px;">
-                            <input type="radio" id="ontology_view_selection_id" name="ontology_view_selection" value="PreferredRoots"
+                        <div>
+                            <input type="radio"
+                                   id="ontology_view_selection_id1"
+                                   name="ontology_view_selection"
+                                   style="margin: 0;"
+                                   value="PreferredRoots"
+                                   class="radio small white-background ebi-color"
                                    th:checked="${#httpServletRequest.getParameter('viewMode') == null or #httpServletRequest.getParameter('viewMode') == 'PreferredRoots'} ? 'true': 'false'"
-                                   onclick="olsTabbedTermTreeView.toggleOntologyView()">Preferred root terms</input><br/>
-                            <input type="radio" id="ontology_view_selection_id" name="ontology_view_selection" value="All"
-                                   th:checked="${#httpServletRequest.getParameter('viewMode') == 'All'} ? 'true': 'false'"
-                                   onclick="olsTabbedTermTreeView.toggleOntologyView()">All terms</input><br/>
+                                   onclick="olsTabbedTermTreeView.toggleOntologyView()"/>
+                            <label for="ontology_view_selection_id1"
+                                   style="margin: 0 0.1rem 0 0.2rem; color: rgb(0, 124, 130);">Preferred root terms</label>
                         </div>
-                        <input type="hidden" id="ontology_view_siblings_id" name="ontology_view_siblings"
+                        <div>
+                            <input type="radio"
+                                   id="ontology_view_selection_id2"
+                                   name="ontology_view_selection"
+                                   style="margin: 0;"
+                                   value="All"
+                                   class="radio small white-background ebi-color"
+                                   th:checked="${#httpServletRequest.getParameter('viewMode') == 'All'} ? 'true': 'false'"
+                                   onclick="olsTabbedTermTreeView.toggleOntologyView()"/>
+                            <label for="ontology_view_selection_id2"
+                                   style="margin: 0 0.1rem 0 0.2rem; color: rgb(0, 124, 130);">All terms</label>
+                        </div>
+                        <input type="hidden" name="ontology_view_siblings"
                                th:value="${#httpServletRequest.getParameter('siblings') == 'true'} ? 'true': 'false'"/>
                         <!-- Tab panes -->
                         <div class="tab-content">
@@ -300,7 +316,6 @@
 
                         </div>
                     </div>
-
                 </div>
             </section>
 
@@ -425,10 +440,14 @@
         var OLSTabbedTermTreeView = require("ols-tabbed-term-treeview");
 
         olsTabbedTermTreeView = new OLSTabbedTermTreeView(termRelativePath, termOntologyName, "#term-tree",
-            "#property-tree", "", "ontology_view_siblings_id", "ontology_view_selection_id", true);
+            "#property-tree", "", "ontology_view_siblings", "ontology_view_selection", true);
 
         console.log("olsTabbedTermTreeView = ", olsTabbedTermTreeView);
-        olsTabbedTermTreeView.draw();
+
+        var showSiblings = $("button[name='ontology_view_siblings']").val() == 'true';
+        var viewMode = $("input[name='ontology_view_selection']:checked").val();
+
+        olsTabbedTermTreeView.draw(showSiblings, viewMode);
     });
 </script>
 

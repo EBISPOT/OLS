@@ -6,7 +6,6 @@ import org.neo4j.graphdb.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.*;
@@ -21,9 +20,12 @@ public abstract class AbstractJsTreeBuilder {
 
     private static Logger logger = LoggerFactory.getLogger(AbstractJsTreeBuilder.class);
 
+    protected Map<String, Set<String>> ontologyPreferredRoots = new HashMap<>();
+
     public AbstractJsTreeBuilder() {
 
     }
+
 
     public void setRootName(String rootName) {
         this.rootName = rootName;
@@ -36,38 +38,61 @@ public abstract class AbstractJsTreeBuilder {
     abstract String getJsTreeParentSiblingQuery(ViewMode viewMode);
     abstract String getJsTreeChildrenQuery();
     abstract String getRootName();
+    abstract String getJsTreeRoots(ViewMode viewMode);
 
 
     public Object getJsTree(String ontologyName, String iri, boolean sibling) {
+        logger.debug("ontologyName = " + ontologyName);
+        logger.debug("iri = " + iri);
+        logger.debug("sibling = " + sibling);
+
         Map<String, Object> paramt = new HashMap<>();
         paramt.put("0", ontologyName);
         paramt.put("1", iri);
 
         String query = (sibling) ? getJsTreeParentSiblingQuery() : getJsTreeParentQuery();
-        Result res = graphDatabaseService.execute(query, paramt);
+        Result result = graphDatabaseService.execute(query, paramt);
 
         setRootName(getRootName());
-        return getJsTreeObject(ontologyName, iri, res);
+        Object jsTreeObject = getJsTreeObject(ontologyName, iri, result, ViewMode.PREFERRED_ROOTS);
+
+        logger.debug("Return jsTreeObject = " + jsTreeObject);
+        return jsTreeObject;
     }
 
     public Object getJsTree(String ontologyName, String iri, boolean sibling, ViewMode viewMode) {
+        logger.debug("ontologyName = " + ontologyName);
+        logger.debug("iri = " + iri);
+        logger.debug("sibling = " + sibling);
+        logger.debug("viewMode = " + viewMode);
         Map<String, Object> paramt = new HashMap<>();
         paramt.put("0", ontologyName);
         paramt.put("1", iri);
 
         String query = (sibling) ? getJsTreeParentSiblingQuery(viewMode) : getJsTreeParentQuery(viewMode);
 
-        logger.debug("ontologyName = " + ontologyName);
-        logger.debug("iri = " + iri);
+
         logger.debug("query = " + query);
 
-        Result res = graphDatabaseService.execute(query, paramt);
+        Result result = graphDatabaseService.execute(query, paramt);
 
+        if (!result.hasNext()) {
+            result = graphDatabaseService.execute(getJsTreeRoots(viewMode), paramt);
+        }
+        cacheRoots(ontologyName, viewMode);
         setRootName(getRootName());
-        return getJsTreeObject(ontologyName, iri, res);
+        Object jsTreeObject = getJsTreeObject(ontologyName, iri, result, viewMode);
+
+        logger.debug("Return jsTreeObject = " + jsTreeObject);
+        return jsTreeObject;
     }
 
     public Object getJsTreeChildren(String ontologyName, String iri, String parentNodeId) {
+        logger.debug("ontologyName = " + ontologyName);
+        logger.debug("iri = " + iri);
+        logger.debug("parentNodeId = " + parentNodeId);
+
+
         Map<String, Object> paramt = new HashMap<>();
         paramt.put("0", ontologyName);
         paramt.put("1", iri);
@@ -80,24 +105,10 @@ public abstract class AbstractJsTreeBuilder {
         int counter = 1;
         while (res.hasNext()) {
             Map<String, Object> row = res.next();
+
             String nodeId = row.get("startId").toString();
-            String startIri = row.get("startIri").toString();
-            String startLabel = row.get("startLabel").toString();
-            String relation = row.get("relation").toString().replaceAll(" ", "_");
-            boolean hasChildren = Boolean.parseBoolean(row.get("hasChildren").toString());
 
-            String startNode = nodeId + "_child_" + counter;
-
-
-            JsTreeObject jsTreeObject = new JsTreeObject(
-                    startNode,
-                    startIri,
-                    ontologyName,
-                    startLabel,
-                    relation,
-                    hasChildren,
-                    parentNodeId
-            );
+            JsTreeObject jsTreeObject = createJsTreeObject(nodeId, ontologyName, counter, row, parentNodeId, "_child_");
 
             if (jsTreeObject.isHasChildren()) {
                 jsTreeObject.setChildren(true);
@@ -108,27 +119,64 @@ public abstract class AbstractJsTreeBuilder {
             counter++;
         }
 
+        logger.debug("Return treeObjects = " + treeObjects);
         return treeObjects;
     }
 
-    private Object getJsTreeObject(String ontologyName, String iri, Result res) {
+    private void cacheRoots(String ontologyName, ViewMode viewMode) {
+        switch (viewMode){
+            case ALL:
+                break;
+            case PREFERRED_ROOTS:
+                cachePreferredRoots(ontologyName);
+                break;
+            default:
+                logger.error("Unknown viewMode = " + viewMode);
+        }
+    }
+
+    private void cachePreferredRoots(String ontologyName) {
+        if (!ontologyPreferredRoots.containsKey(ontologyName)) {
+            Set<String> preferredRootsSet = new HashSet<>();
+
+            Map<String, Object> parameterMap = new HashMap<>();
+            parameterMap.put("0", ontologyName);
+
+            String query = getJsTreeRoots(ViewMode.PREFERRED_ROOTS);
+            logger.debug("query = " + query);
+            Result result = graphDatabaseService.execute(query, parameterMap);
+
+            while (result.hasNext()) {
+                Map<String, Object> r = result.next();
+                String nodeId = r.get("startId").toString();
+                preferredRootsSet.add(nodeId);
+            }
+            ontologyPreferredRoots.put(ontologyName, preferredRootsSet);
+        }
+    }
+
+    /**
+     * Creates a map of maps with the id as key to the map of maps. For each key a map is created that stores a row from
+     * the result as key value pairs.
+     *
+     *
+     * @param ontologyName
+     * @param iri
+     * @param result
+     * @return
+     */
+    private Object getJsTreeObject(String ontologyName, String iri, Result result, ViewMode viewMode) {
+        logger.debug("ontologyName = " + ontologyName);
+        logger.debug("iri = " + iri);
 
         // create a map of the start node to the rows in the results
-        Map<String, List<Map<String, Object>>> resultsMap = new HashMap<>();
-        while (res.hasNext()) {
-            Map<String, Object> r = res.next();
-            String nodeId = r.get("startId").toString();
-            if (!resultsMap.containsKey(nodeId)) {
-                resultsMap.put(nodeId, new ArrayList<>());
-            }
-            resultsMap.get(nodeId).add(r);
-        }
+        Map<String, List<Map<String, Object>>> resultsMap = createMapOfListOfMapQueryResults(result);
 
         Map<String, Collection<JsTreeObject>> jsTreeObjectMap = new HashMap<>();
         Collection<String> parentIds = new HashSet<>();
 
         for (String id : resultsMap.keySet()) {
-            generateJsTreeObject(id, ontologyName, jsTreeObjectMap, resultsMap, parentIds);
+            generateJsTreeObject(id, ontologyName, jsTreeObjectMap, resultsMap, parentIds, viewMode);
         }
 
         // find all the nodes that are parents (i.e. should be expanded)
@@ -156,12 +204,33 @@ public abstract class AbstractJsTreeBuilder {
             jsTreeObjects.addAll(jsTreeObjectMap.get(key));
         }
 
+        logger.debug("Return jsTreeObjects = " + jsTreeObjects);
         return jsTreeObjects;
     }
 
     /**
+     * Returns a map of list of maps containing the result. The node id is the key to the generated map.
      *
-     * This method walks up graph and splits parent nodes when a term has more than one.
+     * @param result
+     * @return
+     */
+    private Map<String, List<Map<String, Object>>> createMapOfListOfMapQueryResults(Result result) {
+        Map<String, List<Map<String, Object>>> resultsMap = new HashMap<>();
+        while (result.hasNext()) {
+            Map<String, Object> r = result.next();
+            String nodeId = r.get("startId").toString();
+            if (!resultsMap.containsKey(nodeId)) {
+                resultsMap.put(nodeId, new ArrayList<>());
+            }
+            resultsMap.get(nodeId).add(r);
+        }
+        return resultsMap;
+    }
+
+    /**
+     *
+     * This method walks up a graph and splits parent nodes when a term has more than one parent.
+     * This method updates the {@code jsTreeObjectMap} with {@link JsTreeObject}s.
      *
      * @param nodeId starting node
      * @param ontologyName the active ontology
@@ -172,25 +241,69 @@ public abstract class AbstractJsTreeBuilder {
     private void generateJsTreeObject(String nodeId, String ontologyName,
                                       Map<String, Collection<JsTreeObject>> jsTreeObjectMap,
                                       Map<String, List<Map<String, Object>>> resultsMap,
-                                      Collection<String> parentIdCollector) {
+                                      Collection<String> parentIdCollector,
+                                      ViewMode viewMode) {
         try {
             Collection<JsTreeObject> objectVersions = getJsObjectTree(nodeId, ontologyName, resultsMap, jsTreeObjectMap,
-                    parentIdCollector);
+                    parentIdCollector, viewMode);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private Collection<JsTreeObject> getJsObjectTree(String nodeId, String ontologyName, Map<String, List<Map<String, Object>>> resultsMap, Map<String, Collection<JsTreeObject>> jsTreeObjectMap, Collection<String> parentIdCollector) throws IOException {
+    private boolean isRootNode(String nodeId, String ontologyName, Map<String, List<Map<String, Object>>> resultsMap,
+                               ViewMode viewMode)
+     throws IOException {
+        logger.debug("nodeId = " + nodeId);
+        logger.debug("viewMode = " + viewMode);
+        boolean isRootNode = false;
+        switch (viewMode){
+            case ALL:
+                isRootNode = !resultsMap.containsKey(nodeId);
+                logger.debug("Return isRootNode = " + isRootNode);
+                break;
+            case PREFERRED_ROOTS:
+                Set<String> preferredRoots = ontologyPreferredRoots.get(ontologyName);
+                isRootNode = ontologyPreferredRoots.containsKey(ontologyName) && preferredRoots.contains(nodeId);
+                break;
+            default:
+                logger.error("Unknown viewMode = " + viewMode);
+        }
+        logger.debug("Return isRootNode = " + isRootNode);
+        return isRootNode;
+    }
+
+    /**
+     *
+     *
+     * @param nodeId
+     * @param ontologyName
+     * @param resultsMap
+     * @param jsTreeObjectMap
+     * @param parentIdCollector
+     * @return
+     * @throws IOException
+     */
+    private Collection<JsTreeObject> getJsObjectTree(String nodeId, String ontologyName,
+                                                     Map<String, List<Map<String, Object>>> resultsMap,
+                                                     Map<String, Collection<JsTreeObject>> jsTreeObjectMap,
+                                                     Collection<String> parentIdCollector,
+                                                     ViewMode viewMode) throws IOException {
 
         // return the object if we have seen it before
         if (jsTreeObjectMap.containsKey(nodeId)) {
             return jsTreeObjectMap.get(nodeId);
         }
 
-        // if no key, then we are at a root
-        if (!resultsMap.containsKey(nodeId)) {
-            return Collections.singleton(new JsTreeObject("#", "#", ontologyName, "",rootName, false, "#"));
+        if (isRootNode(nodeId, ontologyName, resultsMap, viewMode)) {
+            switch (viewMode) {
+                case ALL:
+                    return Collections.singleton(new JsTreeObject("#", "#", ontologyName, "", rootName,
+                            false, "#"));
+                case PREFERRED_ROOTS:
+                   return Collections.singleton(createJsTreeNode(nodeId, ontologyName, jsTreeObjectMap, parentIdCollector, 1,
+                            resultsMap.get(nodeId).get(0),"#", "_"));
+            }
         }
 
         int x = 1;
@@ -203,35 +316,51 @@ public abstract class AbstractJsTreeBuilder {
                 String parentId = pid.toString();
 
                 for (JsTreeObject parentObject : getJsObjectTree(parentId, ontologyName, resultsMap, jsTreeObjectMap,
-                        parentIdCollector)) {
+                        parentIdCollector, viewMode)) {
 
-                    String startIri = row.get("startIri").toString();
-                    String startLabel = row.get("startLabel").toString();
-                    String relation = row.get("relation").toString().replaceAll(" ", "_");
-                    boolean hasChildren = Boolean.parseBoolean(row.get("hasChildren").toString());
-
-                    String startNode = nodeId + "_" + x;
-
-                    JsTreeObject jsTreeObject = new JsTreeObject(
-                            startNode,
-                            startIri,
-                            ontologyName,
-                            startLabel,
-                            relation,
-                            hasChildren,
-                            parentObject.getId()
-                    );
-
-                    if (!jsTreeObjectMap.containsKey(nodeId)) {
-                        jsTreeObjectMap.put(nodeId, new HashSet<>());
-                    }
-                    jsTreeObjectMap.get(nodeId).add(jsTreeObject);
-                    parentIdCollector.add(parentObject.getId());
+                    createJsTreeNode(nodeId, ontologyName, jsTreeObjectMap, parentIdCollector, x, row,
+                            parentObject.getId(), "_");
                     x++;
                 }
             }
         }
 
         return jsTreeObjectMap.get(nodeId);
+    }
+
+    private JsTreeObject createJsTreeNode(String nodeId, String ontologyName,
+                                          Map<String, Collection<JsTreeObject>> jsTreeObjectMap,
+                                          Collection<String> parentIdCollector, int x, Map<String, Object> row,
+                                          String parentObjectId, String nodeLabelInsert) {
+
+        JsTreeObject jsTreeObject = createJsTreeObject(nodeId, ontologyName, x, row, parentObjectId, nodeLabelInsert);
+
+        if (!jsTreeObjectMap.containsKey(nodeId)) {
+            jsTreeObjectMap.put(nodeId, new HashSet<>());
+        }
+        jsTreeObjectMap.get(nodeId).add(jsTreeObject);
+        parentIdCollector.add(parentObjectId);
+        return jsTreeObject;
+    }
+
+    private JsTreeObject createJsTreeObject(String nodeId, String ontologyName, int x,
+                                            Map<String, Object> row, String parentObjectId, String nodeLabelInsert) {
+
+        String startIri = row.get("startIri").toString();
+        String startLabel = row.get("startLabel").toString();
+        String relation = row.get("relation").toString().replaceAll(" ", "_");
+        boolean hasChildren = Boolean.parseBoolean(row.get("hasChildren").toString());
+
+        String startNode = nodeId + nodeLabelInsert + x;
+
+        return new JsTreeObject(
+                startNode,
+                startIri,
+                ontologyName,
+                startLabel,
+                relation,
+                hasChildren,
+                parentObjectId
+        );
     }
 }

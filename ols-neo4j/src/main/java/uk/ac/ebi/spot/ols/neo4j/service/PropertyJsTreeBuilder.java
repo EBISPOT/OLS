@@ -65,4 +65,9 @@ public class PropertyJsTreeBuilder extends AbstractJsTreeBuilder {
     String getRootName() {
         return "TopObjectProperty";
     }
+
+    @Override
+    String getJsTreeRoots(ViewMode viewMode) {
+        throw new UnsupportedOperationException("Implementation not necessary.");
+    }
 }
