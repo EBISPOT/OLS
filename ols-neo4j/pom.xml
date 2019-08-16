@@ -56,27 +56,10 @@
 			<artifactId>spring-data-rest-core</artifactId>
 		</dependency>
 
-		<!--<dependency>-->
-		<!--<groupId>org.springframework.data</groupId>-->
-		<!--<artifactId>spring-data-neo4j-aspects</artifactId>-->
-		<!--<version>3.4.0.M1</version>-->
-		<!--</dependency>-->
-		<!--<dependency>-->
-		<!--<groupId>org.neo4j</groupId>-->
-		<!--<artifactId>neo4j</artifactId>-->
-		<!--<version>2.2.2</version>-->
-		<!--</dependency>-->
-
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-rest-webmvc</artifactId>
 		</dependency>
-
-		<!--<dependency>-->
-		<!--<groupId>org.springframework.data</groupId>-->
-		<!--<artifactId>spring-data-neo4j-rest</artifactId>-->
-		<!--<version>2.3.0.RELEASE</version>-->
-		<!--</dependency>-->
 
 		<dependency>
 			<groupId>org.neo4j</groupId>
@@ -89,25 +72,34 @@
 			<artifactId>ols-core</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>uk.ac.ebi.spot</groupId>
+			<artifactId>ontology-tools</artifactId>
+		</dependency>
+		
+        <dependency>
+            <groupId>net.sourceforge.owlapi</groupId>
+            <artifactId>owlapi-distribution</artifactId>
+        </dependency>
 
+         <dependency>
+             <groupId>org.junit.jupiter</groupId>
+             <artifactId>junit-jupiter-engine</artifactId>
+         </dependency>
+         		
+         <dependency>
+             <groupId>org.junit.jupiter</groupId>
+             <artifactId>junit-jupiter-params</artifactId>
+             <scope>test</scope>
+         </dependency>
+
+         <dependency>
+             <groupId>org.junit.jupiter</groupId>
+             <artifactId>junit-jupiter-api</artifactId>
+             <scope>test</scope>
+         </dependency>
 	</dependencies>
 
-
-	<!--<build>-->
-	<!--<plugins>-->
-	<!--<plugin>-->
-	<!--<groupId>org.springframework.boot</groupId>-->
-	<!--<artifactId>spring-boot-maven-plugin</artifactId>-->
-	<!--<executions>-->
-	<!--<execution>-->
-	<!--<goals>-->
-	<!--<goal>repackage</goal>-->
-	<!--</goals>-->
-	<!--</execution>-->
-	<!--</executions>-->
-	<!--</plugin>-->
-	<!--</plugins>-->
-	<!--</build>-->
 
 
 </project>

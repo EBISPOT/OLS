@@ -74,6 +74,10 @@ public interface OntologyTermRepository extends GraphRepository<Term> {
     @Query (countQuery = "MATCH (n:Class)-[SUBCLASSOF]->(r:Root) WHERE r.ontology_name = {0} AND n.is_obsolete = {1}  RETURN count(n)",
             value = "MATCH (n:Class)-[SUBCLASSOF]->(r:Root) WHERE r.ontology_name = {0} AND n.is_obsolete = {1}  RETURN n")
     Page<Term> getRoots(String ontologyId, boolean obsolete, Pageable pageable);
+    
+    @Query (countQuery = "MATCH (n:PreferredRootTerm) WHERE n.ontology_name = {0} AND n.is_obsolete = {1} RETURN count(n)",
+            value = "MATCH (n:PreferredRootTerm) WHERE n.ontology_name = {0} AND n.is_obsolete = {1} RETURN n")    
+    Page<Term> getPreferredRoots(String ontologyId,  boolean obsolete, Pageable pageable);    
 
     @Query (countQuery = "MATCH (n:Class) RETURN count(n)",
             value = "MATCH (n:Class) RETURN n")

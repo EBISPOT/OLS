@@ -26,7 +26,8 @@ public class JsTreeObject {
     private Map<String, String> a_attr;
 
 
-    public JsTreeObject(String id, String iri, String ontologyName, String text, String relation, boolean hasChildren, String parent) {
+    public JsTreeObject(String id, String iri, String ontologyName, String text, String relation, boolean hasChildren,
+                        String parent) {
         this.id = id;
         this.iri = iri;
         this.ontologyName = ontologyName;
@@ -118,5 +119,20 @@ public class JsTreeObject {
 
     public void setIsLeaf(boolean isLeaf) {
         this.hasChildren = isLeaf;
+    }
+
+    @Override
+    public String toString() {
+        return "JsTreeObject{" +
+                "id='" + id + '\'' +
+                ", parent='" + parent + '\'' +
+                ", iri='" + iri + '\'' +
+                ", ontologyName='" + ontologyName + '\'' +
+                ", text='" + text + '\'' +
+                ", hasChildren=" + hasChildren +
+                ", state=" + state +
+                ", children=" + children +
+                ", a_attr=" + a_attr +
+                '}';
     }
 }

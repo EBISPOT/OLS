@@ -52,3 +52,8 @@ more information http://www.ebi.ac.uk/ols/docs/installation-guide
   create all the necessary Solr and Neo4j indexes.
 * [ols-web](ols-web) - This will contain the WAR file that can be
   deployed in Tomcat to launch the OLS website and REST API.
+ * [ols-apps/ols-config-importer](ols-apps/ols-config-importer) - Spring boot application for loading config files into the mongodb database. This includes support for reading config files specified using the OBO foundry YAML format. 
+ * [ols-apps/ols-loading-app](ols-apps/ols-loading-app) - Spring boot application for that build the complete OLS indexes. This app fetches ontologies specified in the config files, checks if they have changed form a previous download, and if hey have changed it will create all the necessary SOLR and Neo4j indexes. 
+
+ * [ols-web](ols-web) - This contains the WAR file that can be deployed in Tomcat to launch the OLS website and REST API. 
+It depends on [ols-term-type-treeview](https://github.com/EBISPOT/ols-term-type-treeview) and [ols-tabbed-term-treeview](https://github.com/EBISPOT/ols-tabbed-term-treeview).

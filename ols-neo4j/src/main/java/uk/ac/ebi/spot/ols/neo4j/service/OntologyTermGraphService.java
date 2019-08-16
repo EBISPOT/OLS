@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import uk.ac.ebi.spot.ols.neo4j.model.Individual;
 import uk.ac.ebi.spot.ols.neo4j.model.Related;
 import uk.ac.ebi.spot.ols.neo4j.model.Term;
@@ -49,7 +48,6 @@ public class OntologyTermGraphService {
     }
 
 
-    @Transactional
     public Object getGraphJson(String ontologyName, String iri, int distance) {
 
         Map<String, Object> paramt = new HashMap<>();
@@ -139,7 +137,6 @@ public class OntologyTermGraphService {
         return termRepository.getRelated(ontologyId, iri, relation, pageable);
     }
 
-    @Transactional
     public Map<String, Collection<Map<String, String>>> getRelatedFrom(String ontologyId, String iri) {
         Map<String, Object> paramt = new HashMap<>();
         paramt.put("0", ontologyId);
@@ -156,7 +153,6 @@ public class OntologyTermGraphService {
         return relatedFromMap;
     }
 
-    @Transactional
     public Collection<Map<String, String>> getOntologyUsage (String iri) {
         Map<String, Object> paramt = new HashMap<>();
         paramt.put("0", iri);
@@ -182,6 +178,10 @@ public class OntologyTermGraphService {
         return termRepository.getRoots(ontologyId, includeObsoletes, pageable);
     }
 
+    public Page<Term> getPreferredRoots(String ontologyId, boolean includeObsoletes, Pageable pageable) {
+        return termRepository.getPreferredRoots(ontologyId, includeObsoletes, pageable);
+    }    
+    
     public Page<Individual> getInstances(String ontologyId, String iri, Pageable pageable) {
         return termRepository.getInstances(ontologyId, iri, pageable);
     }

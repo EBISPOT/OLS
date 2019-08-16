@@ -48,12 +48,6 @@ public class IndividualController implements
     @Autowired
     IndividualAssembler individualAssembler;
 
-    @Autowired
-    TermAssembler termAssembler;
-
-    @Autowired
-    JsTreeBuilder jsTreeBuilder;
-
     @Override
     public RepositoryLinksResource process(RepositoryLinksResource resource) {
         resource.add(ControllerLinkBuilder.linkTo(IndividualController.class).withRel("individuals"));

@@ -7,8 +7,6 @@ package uk.ac.ebi.spot.ols.util;
  */
 public enum TermType {
     CLASS,
-    CONCEPT,
     PROPERTY,
     INDIVIDUAL
-
 }

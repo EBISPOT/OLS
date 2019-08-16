@@ -46,6 +46,10 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-actuator</artifactId>-->
+<!--        </dependency>-->
         <!--<dependency>-->
             <!--<groupId>org.springframework.boot</groupId>-->
             <!--<artifactId>spring-boot-starter-cache</artifactId>-->
@@ -89,7 +93,7 @@
     <build>
         <finalName>ols-boot</finalName>
         <plugins>
-            <plugin>
+            <!-- <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
@@ -97,7 +101,7 @@
                         <include>**/*Documentation.java</include>
                     </includes>
                 </configuration>
-            </plugin>
+            </plugin>-->
             <plugin>
                 <groupId>org.asciidoctor</groupId>
                 <artifactId>asciidoctor-maven-plugin</artifactId>

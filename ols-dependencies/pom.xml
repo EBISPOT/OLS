@@ -22,6 +22,7 @@
         <commons-cli.version>1.2</commons-cli.version>
         <springboot.maven>1.2.5.RELEASE</springboot.maven>
         <mongodb.version>2.14.3</mongodb.version>
+        <junit.jupiter.version>5.4.0</junit.jupiter.version>       
     </properties>
 
     <dependencies>
@@ -94,7 +95,26 @@
                 <version>${springboot.maven}</version>
             </dependency>
 
+		    <dependency>
+		        <groupId>org.junit.jupiter</groupId>
+		        <artifactId>junit-jupiter-engine</artifactId>
+		        <version>${junit.jupiter.version}</version>
+		        <scope>test</scope>
+		    </dependency>
 
+		    <dependency>
+		        <groupId>org.junit.jupiter</groupId>
+		        <artifactId>junit-jupiter-api</artifactId>
+		        <version>${junit.jupiter.version}</version>
+		        <scope>test</scope>
+		    </dependency>
+		    
+		    <dependency>
+		        <groupId>org.junit.jupiter</groupId>
+		        <artifactId>junit-jupiter-params</artifactId>
+		        <version>${junit.jupiter.version}</version>
+		        <scope>test</scope>
+		    </dependency>	
         </dependencies>
     </dependencyManagement>
 

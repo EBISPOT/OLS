@@ -3,6 +3,8 @@ package uk.ac.ebi.spot.ols.loader;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
+
+import uk.ac.ebi.spot.ols.config.OntologyLoadingConfiguration;
 import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
 import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
 import uk.ac.ebi.spot.ols.xrefs.DatabaseService;
@@ -13,8 +15,9 @@ import uk.ac.ebi.spot.ols.xrefs.DatabaseService;
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
 public class SKOSLoader extends AbstractOWLOntologyLoader {
-    public SKOSLoader(OntologyResourceConfig config, DatabaseService databaseService) throws OntologyLoadingException {
-        super(config, databaseService);
+    public SKOSLoader(OntologyResourceConfig config, DatabaseService databaseService,
+    		OntologyLoadingConfiguration ontologyLoadingConfiguration) throws OntologyLoadingException {
+        super(config, databaseService, ontologyLoadingConfiguration);
     }
     public SKOSLoader(OntologyResourceConfig config) throws OntologyLoadingException {
         super(config);
