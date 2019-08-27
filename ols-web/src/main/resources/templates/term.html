@@ -83,6 +83,7 @@
 
     <!-- custom build (lacks most of the "advanced" HTML5 support -->
     <script src="//www.ebi.ac.uk/web_guidelines/js/libs/modernizr.custom.49274.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/icheck-bootstrap@3.0.1/icheck-bootstrap.min.css" />
 
 </head>
 
@@ -329,29 +330,26 @@
                                             th:value="${#httpServletRequest.getParameter('siblings') == 'true'} ? 'true': 'false'"
                                             title="Expand the tree to show sibling terms"
                                             onclick="termInstance.toggleSiblings()">Show all siblings</button>
-                                    <div>
+
+                                    <div class="radio icheck-belizehole">
                                         <input type="radio"
-                                               id="ontology_view_selection_id1"
+                                               id="ontology_view_selection_id_preferred_roots"
                                                name="ontology_view_selection"
-                                               style="margin: 0;"
                                                value="PreferredRoots"
-                                               class="radio small white-background ebi-color"
                                                th:checked="${#httpServletRequest.getParameter('viewMode') == null or #httpServletRequest.getParameter('viewMode') == 'PreferredRoots'} ? 'true': 'false'"
                                                onclick="termInstance.toggleOntologyView()"/>
-                                        <label for="ontology_view_selection_id1"
-                                               style="margin: 0 0.1rem 0 0.2rem; color: rgb(0, 124, 130);">Preferred root terms</label>
+                                        <label for="ontology_view_selection_id_preferred_roots"
+                                               style="margin: 0 0.1rem 0 0.2rem; color: #000000;">Preferred root terms</label>
                                     </div>
-                                    <div>
+                                    <div class="radio icheck-belizehole">
                                         <input type="radio"
-                                               id="ontology_view_selection_id2"
+                                               id="ontology_view_selection_id_all"
                                                name="ontology_view_selection"
-                                               style="margin: 0;"
                                                value="All"
-                                               class="radio small white-background ebi-color"
                                                th:checked="${#httpServletRequest.getParameter('viewMode') == 'All'} ? 'true': 'false'"
                                                onclick="termInstance.toggleOntologyView()"/>
-                                        <label for="ontology_view_selection_id2"
-                                               style="margin: 0 0.1rem 0 0.2rem; color: rgb(0, 124, 130);">All terms</label>
+                                        <label for="ontology_view_selection_id_all"
+                                               style="margin: 0 0.1rem 0 0.2rem; color: #000000;">All terms</label>
                                     </div>
                                 </div>
 
@@ -619,17 +617,10 @@
 </script>
 
 <script>
-    // initialise the tree
-
-    // var div=$("#term-tree");
     var ontologyName = $("#term-tree").data("olsontology");
     var termType = $("#term-tree").data("ols-termtype");
     var termIri = $("#term-tree").data("ols-iri");
     var relativePath = $("#term-tree").data("selectpath") ? $("#term-tree").data("selectpath") : '';
-    //
-    // var app = require("ols-treeview");
-    // var termInstance = new app();
-    // termInstance.draw(div, false, ontologyName, termType, termIri, relativePath, {save_state: true});
 
     var termInstance;
 
@@ -640,9 +631,7 @@
 
     var showSiblings = $("button[name='ontology_view_siblings']").val() == 'true';
     var viewMode = $("input[name='ontology_view_selection']:checked").val();
-    console.log("term.html showSiblings = ", showSiblings);
-    console.log("term.html viewMode = ", viewMode);
-    console.log("$(button[name='ontology_view_siblings']).val() = ", $("button[name='ontology_view_siblings']").val());
+
 
     termInstance.draw(showSiblings, viewMode);
 </script>

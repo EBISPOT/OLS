@@ -84,6 +84,8 @@
     <!-- custom build (lacks most of the "advanced" HTML5 support -->
     <script src="//www.ebi.ac.uk/web_guidelines/js/libs/modernizr.custom.49274.js"></script>
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/icheck-bootstrap@3.0.1/icheck-bootstrap.min.css" />
+
 </head>
 
 <body class="level2">
@@ -226,39 +228,38 @@
                             <li role="presentation"><a id="diachron-link" data-toggle="tab" class="icon icon-generic" data-icon="g" href="#diachron-tab">Ontology history</a></li>
                             <!--<li role="presentation"><a data-toggle="tab"  href="#graph-tab">Graph view</a></li>-->
                         </ul>
-                        <div>
-                            <input type="radio"
-                                   id="ontology_view_selection_id1"
-                                   name="ontology_view_selection"
-                                   style="margin: 0;"
-                                   value="PreferredRoots"
-                                   class="radio small white-background ebi-color"
-                                   th:checked="${#httpServletRequest.getParameter('viewMode') == null or #httpServletRequest.getParameter('viewMode') == 'PreferredRoots'} ? 'true': 'false'"
-                                   onclick="olsTabbedTermTreeView.toggleOntologyView()"/>
-                            <label for="ontology_view_selection_id1"
-                                   style="margin: 0 0.1rem 0 0.2rem; color: rgb(0, 124, 130);">Preferred root terms</label>
-                        </div>
-                        <div>
-                            <input type="radio"
-                                   id="ontology_view_selection_id2"
-                                   name="ontology_view_selection"
-                                   style="margin: 0;"
-                                   value="All"
-                                   class="radio small white-background ebi-color"
-                                   th:checked="${#httpServletRequest.getParameter('viewMode') == 'All'} ? 'true': 'false'"
-                                   onclick="olsTabbedTermTreeView.toggleOntologyView()"/>
-                            <label for="ontology_view_selection_id2"
-                                   style="margin: 0 0.1rem 0 0.2rem; color: rgb(0, 124, 130);">All terms</label>
-                        </div>
                         <input type="hidden" name="ontology_view_siblings"
                                th:value="${#httpServletRequest.getParameter('siblings') == 'true'} ? 'true': 'false'"/>
                         <!-- Tab panes -->
                         <div class="tab-content">
 
                             <div role="tabpanel" class="tab-pane active" id="tree-tab">
+                                <div class="btn-group btn-group-vertical" style="float: right;padding-top:5px;">
+                                    <div>
+                                        <div class="radio icheck-belizehole">
+                                            <input type="radio"
+                                                   id="ontology_view_selection_id_preferred_roots"
+                                                   name="ontology_view_selection"
+                                                   value="PreferredRoots"
+                                                   th:checked="${#httpServletRequest.getParameter('viewMode') == null or #httpServletRequest.getParameter('viewMode') == 'PreferredRoots'} ? 'true': 'false'"
+                                                   onclick="olsTabbedTermTreeView.toggleOntologyView()"/>
+                                            <label for="ontology_view_selection_id_preferred_roots"
+                                                   style="margin: 0 0.1rem 0 0.2rem; color: #000000;">Preferred root terms</label>
+                                        </div>
+                                        <div class="radio icheck-belizehole">
+                                            <input type="radio"
+                                                   id="ontology_view_selection_id_all"
+                                                   name="ontology_view_selection"
+                                                   value="All"
+                                                   th:checked="${#httpServletRequest.getParameter('viewMode') == 'All'} ? 'true': 'false'"
+                                                   onclick="olsTabbedTermTreeView.toggleOntologyView()"/>
+                                            <label for="ontology_view_selection_id_all"
+                                                   style="margin: 0 0.1rem 0 0.2rem; color: #000000;">All terms</label>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div id="term-tree" data-olswidget="tree" th:attr="data-olsontology=${ontologyDocument.getOntologyId()}" data-selectpath="../" data-ols-termtype="class" data-olsontology="" data-ols-iri=""  >
                                 </div>
-
                             </div>	
 
                             <div role="tabpanel" class="tab-pane" id="property-tree-tab">
@@ -266,10 +267,9 @@
                                 <div id="property-tree" data-olswidget="tree" th:attr="data-olsontology=${ontologyDocument.getOntologyId()}" data-selectpath="../" data-ols-termtype="property" data-olsontology="" data-ols-iri=""  >
                                 </div>
 
-                            </div>
-
-                            <div role="tabpanel" class="tab-pane" id="diachron-tab" data-selectpath="../" th:attr="data-olsontology=${ontologyDocument.getOntologyId()}">
-                                <div id="diachron-wrapper"></div>
+                                <div role="tabpanel" class="tab-pane" id="diachron-tab" data-selectpath="../" th:attr="data-olsontology=${ontologyDocument.getOntologyId()}">
+                                    <div id="diachron-wrapper"></div>
+                                </div>
                             </div>
 
                         </div>
@@ -441,8 +441,6 @@
 
         olsTabbedTermTreeView = new OLSTabbedTermTreeView(termRelativePath, termOntologyName, "#term-tree",
             "#property-tree", "", "ontology_view_siblings", "ontology_view_selection", true);
-
-        console.log("olsTabbedTermTreeView = ", olsTabbedTermTreeView);
 
         var showSiblings = $("button[name='ontology_view_siblings']").val() == 'true';
         var viewMode = $("input[name='ontology_view_selection']:checked").val();
