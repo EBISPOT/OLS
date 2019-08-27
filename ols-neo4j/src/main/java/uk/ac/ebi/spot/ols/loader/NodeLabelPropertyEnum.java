@@ -18,7 +18,7 @@ public enum NodeLabelPropertyEnum {
 	
 	private final String propertyName;
 	
-	private NodeLabelPropertyEnum(String propertyName) {
+	NodeLabelPropertyEnum(String propertyName) {
 		this.propertyName = propertyName;
 	}
 	

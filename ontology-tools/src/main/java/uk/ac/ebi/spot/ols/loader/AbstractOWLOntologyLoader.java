@@ -257,6 +257,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                 .stream()
                 .map(IRI::create)
                 .collect(Collectors.toSet()));
+
         
         try {
 			setOntologyResource(new UrlResource(config.getFileLocation()));
@@ -264,7 +265,11 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 			throw new OntologyLoadingException("Can't load file from " + 
 					config.getFileLocation(), e);
 		}
-    	
+
+        setPreferredRootTerms(config.getPreferredRootTerms()
+                .stream()
+                .map(IRI::create)
+                .collect(Collectors.toSet()));
     }
     
     private void initializeOWLAPIWithoutReasoner() throws OntologyLoadingException {
@@ -450,7 +455,8 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
         Set<String> creators = new HashSet<>();
         Map<String, Collection<String>> annotations = new HashMap<>();
-        for (OWLAnnotation annotation : owlAnnotations) {
+        Collection<IRI> preferredRootTermAnnotations = new HashSet<>();
+         for (OWLAnnotation annotation : owlAnnotations) {
 
             OWLAnnotationProperty annotationProperty = annotation.getProperty();
             OWLAnnotationValue annotationValue = annotation.getValue();
@@ -504,11 +510,11 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
             } else if (annotationPropertyIri.toString().equals(
             		ontologyLoadingConfiguration.getPreferredRootTermAnnotationProperty())) {
 
-              getLogger().debug("Check whether we can add preferredRootTerms for: "
+                getLogger().debug("Check whether we can add preferredRootTerms for: "
             		+ annotationPropertyIri);
 
             	if (annotationValue instanceof IRI) {
-            		preferredRootTerms.add((IRI)annotationValue);
+                    preferredRootTermAnnotations.add((IRI)annotationValue);
             	}
             }
             else  {
@@ -519,8 +525,20 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                 annotations.get(propertyLabel).add(theValue.get());
             }
         }
+        overrideConfiguredPreferredRootTerms(preferredRootTermAnnotations);
+
         setOntologyCreators(creators);
         setOntologyAnnotations(annotations);
+    }
+
+    private void overrideConfiguredPreferredRootTerms(Collection<IRI> preferredRootTermAnnotations) {
+        if (!preferredRootTermAnnotations.isEmpty()) {
+            getLogger().debug("Preferred root term annotations are overriding configured annotations: " +
+                    preferredRootTerms);
+            preferredRootTerms = preferredRootTermAnnotations;
+        }
+
+        getLogger().debug("Preferred root terms = " + preferredRootTerms);
     }
 
     protected void indexTerms(Collection<OWLEntity> entities) {
@@ -1035,7 +1053,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         try {
             if (!StringUtils.isEmpty(entityIRI.toURI().getFragment())) {
                 // a uri with a non-null fragment, so use this...
-                getLogger().trace("Extracting fragment name using URI fragment (" + entityIRI.toURI().getFragment() + ")");
+                getLogger().trace("Extracting fragment name using ONTOLOGY_URI fragment (" + entityIRI.toURI().getFragment() + ")");
                 return Optional.of(entityIRI.toURI().getFragment());
             }
         } catch (Exception e) {
@@ -1049,18 +1067,18 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 	        else if (entityIRI.toURI().getPath() != null) {
 	            // no fragment, but there is a path so try and extract the final part...
 	            if (entityIRI.toURI().getPath().contains("/")) {
-	                getLogger().trace("Extracting fragment name using final part of the path of the URI");
+	                getLogger().trace("Extracting fragment name using final part of the path of the ONTOLOGY_URI");
 	                return Optional.of(entityIRI.toURI().getPath().substring(entityIRI.toURI().getPath().lastIndexOf('/') + 1));
 	            }
 	            else {
 	                // no final path part, so just return whole path
-	                getLogger().trace("Extracting fragment name using the path of the URI");
+	                getLogger().trace("Extracting fragment name using the path of the ONTOLOGY_URI");
 	                return Optional.of(entityIRI.toURI().getPath());
 	            }
 	        }
 	        else {
 	            // no fragment, path is null, we've run out of rules so don't shorten
-	            getLogger().trace("No rules to shorten this URI could be found (" + entityIRI + ")");
+	            getLogger().trace("No rules to shorten this ONTOLOGY_URI could be found (" + entityIRI + ")");
 	            return Optional.empty();
 	        }
         } catch (IllegalArgumentException iae) {
@@ -1088,7 +1106,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         // get label annotations
         Optional<String> label = getOWLAnnotationValueAsString(value);
         if (!label.isPresent()) {
-            // try and get the URI fragment and use that as label
+            // try and get the ONTOLOGY_URI fragment and use that as label
             Optional<String> fragment = extractShortForm(entity.getIRI());
             if (fragment.isPresent()) {
                 return Optional.of(fragment.get());
@@ -1973,4 +1991,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     	return preferredRootTerms;
     }
 
+    public void setPreferredRootTerms(Collection<IRI> preferredRootTerms) {
+        this.preferredRootTerms = preferredRootTerms;
+    }
 }
