@@ -61,6 +61,8 @@ public class TermControllerUI {
         ontologyId = ontologyId.toLowerCase();
         Term term = null;
 
+        OntologyDocument document = repositoryService.get(ontologyId);
+
         if (termIri != null) {
             term = ontologyTermGraphService.findByOntologyAndIri(ontologyId, termIri);
         }
@@ -79,13 +81,13 @@ public class TermControllerUI {
 
             Page<Term> termsPage = ontologyTermGraphService.findAllByOntology(ontologyId, pageable);
 
-            OntologyDocument document = repositoryService.get(ontologyId);
             model.addAttribute("ontologyName", document.getOntologyId());
             model.addAttribute("ontologyTitle", document.getConfig().getTitle());
             model.addAttribute("ontologyPrefix", document.getConfig().getPreferredPrefix());
             model.addAttribute("pageable", pageable);
             model.addAttribute("allterms", termsPage);
             model.addAttribute("alltermssize", termsPage.getTotalElements());
+
             return "allterms";
         }
 
@@ -150,7 +152,8 @@ public class TermControllerUI {
             }
         }
 
-
+        model.addAttribute("preferredRootsDisabled",
+                document.getConfig().getPreferredRootTerms().isEmpty());
 
         return "term";
     }

@@ -330,26 +330,27 @@
                                             th:value="${#httpServletRequest.getParameter('siblings') == 'true'} ? 'true': 'false'"
                                             title="Expand the tree to show sibling terms"
                                             onclick="termInstance.toggleSiblings()">Show all siblings</button>
-
-                                    <div class="radio icheck-belizehole">
-                                        <input type="radio"
-                                               id="ontology_view_selection_id_preferred_roots"
-                                               name="ontology_view_selection"
-                                               value="PreferredRoots"
-                                               th:checked="${#httpServletRequest.getParameter('viewMode') == null or #httpServletRequest.getParameter('viewMode') == 'PreferredRoots'} ? 'true': 'false'"
-                                               onclick="termInstance.toggleOntologyView()"/>
-                                        <label for="ontology_view_selection_id_preferred_roots"
-                                               style="margin: 0 0.1rem 0 0.2rem; color: #000000;">Preferred root terms</label>
-                                    </div>
-                                    <div class="radio icheck-belizehole">
-                                        <input type="radio"
-                                               id="ontology_view_selection_id_all"
-                                               name="ontology_view_selection"
-                                               value="All"
-                                               th:checked="${#httpServletRequest.getParameter('viewMode') == 'All'} ? 'true': 'false'"
-                                               onclick="termInstance.toggleOntologyView()"/>
-                                        <label for="ontology_view_selection_id_all"
-                                               style="margin: 0 0.1rem 0 0.2rem; color: #000000;">All terms</label>
+                                    <div  th:attr="style=${preferredRootsDisabled} ? 'display:none' : 'display:initial'">
+                                        <div class="radio icheck-belizehole">
+                                            <input type="radio"
+                                                   id="ontology_view_selection_id_preferred_roots"
+                                                   name="ontology_view_selection"
+                                                   value="PreferredRoots"
+                                                   th:checked="${#httpServletRequest.getParameter('viewMode') == null or #httpServletRequest.getParameter('viewMode') == 'PreferredRoots'} ? 'true': 'false'"
+                                                   onclick="termInstance.toggleOntologyView()"/>
+                                            <label for="ontology_view_selection_id_preferred_roots"
+                                                   style="margin: 0 0.1rem 0 0.2rem; color: #000000;">Preferred root terms</label>
+                                        </div>
+                                        <div class="radio icheck-belizehole">
+                                            <input type="radio"
+                                                   id="ontology_view_selection_id_all"
+                                                   name="ontology_view_selection"
+                                                   value="All"
+                                                   th:checked="${#httpServletRequest.getParameter('viewMode') == 'All'} ? 'true': 'false'"
+                                                   onclick="termInstance.toggleOntologyView()"/>
+                                            <label for="ontology_view_selection_id_all"
+                                                   style="margin: 0 0.1rem 0 0.2rem; color: #000000;">All terms</label>
+                                        </div>
                                     </div>
                                 </div>
 

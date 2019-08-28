@@ -6,6 +6,7 @@ import uk.ac.ebi.spot.ols.util.ReasonerType;
 import java.net.URI;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -40,7 +41,7 @@ public class OntologyResourceConfig  {
     private  Collection<URI> hierarchicalProperties;
     private  Collection<String> baseUris;
     private  Collection<URI> hiddenProperties;
-    private  Collection<URI> preferredRootTerms;
+    private  Collection<URI> preferredRootTerms = new HashSet<>();
     private boolean isSkos;
 
     // these are any metadata properties for the ontology, such as title or definition that are included in the ontology as OWL ontology annotation

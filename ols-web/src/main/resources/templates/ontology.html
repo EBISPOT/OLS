@@ -235,7 +235,7 @@
 
                             <div role="tabpanel" class="tab-pane active" id="tree-tab">
                                 <div class="btn-group btn-group-vertical" style="float: right;padding-top:5px;">
-                                    <div>
+                                    <div  th:attr="style=${ontologyDocument.getConfig().getPreferredRootTerms().isEmpty()} ? 'display:none' : 'display:initial'">
                                         <div class="radio icheck-belizehole">
                                             <input type="radio"
                                                    id="ontology_view_selection_id_preferred_roots"
@@ -251,7 +251,7 @@
                                                    id="ontology_view_selection_id_all"
                                                    name="ontology_view_selection"
                                                    value="All"
-                                                   th:checked="${#httpServletRequest.getParameter('viewMode') == 'All'} ? 'true': 'false'"
+                                                   th:checked="${#httpServletRequest.getParameter('viewMode') == 'All' or ontologyDocument.getConfig().getPreferredRootTerms().isEmpty()} ? 'true': 'false'"
                                                    onclick="olsTabbedTermTreeView.toggleOntologyView()"/>
                                             <label for="ontology_view_selection_id_all"
                                                    style="margin: 0 0.1rem 0 0.2rem; color: #000000;">All terms</label>
