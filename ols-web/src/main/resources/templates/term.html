@@ -346,7 +346,7 @@
                                                    id="ontology_view_selection_id_all"
                                                    name="ontology_view_selection"
                                                    value="All"
-                                                   th:checked="${#httpServletRequest.getParameter('viewMode') == 'All'} ? 'true': 'false'"
+                                                   th:checked="${#httpServletRequest.getParameter('viewMode') == 'All' or not preferredRootTermEnabled} ? 'true': 'false'"
                                                    onclick="termInstance.toggleOntologyView()"/>
                                             <label for="ontology_view_selection_id_all"
                                                    style="margin: 0 0.1rem 0 0.2rem; color: #000000;">All terms</label>
