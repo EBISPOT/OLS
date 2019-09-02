@@ -1,85 +1,59 @@
-#  Use debian base, and build up components from there
+#  Use Alpine base, and build up components from there
 
-FROM debian:stretch-20190326-slim
+FROM amd64/alpine:3.7.3
 
 ARG ols_branch
+ARG ols_commit=HEAD
 
-ENV LIBSSL_EXTRA="libssl1.0.0_1.0.1t-1+deb8u11_amd64.deb"
-ENV MONGO_VERSION="mongodb-linux-x86_64-debian71-2.7.8"
+RUN mkdir /opt
+
+ENV REM=""
 ENV SOLR_VERSION_NO="5.5.5"
-ENV PATH="/opt/solr-${SOLR_VERSION_NO}/bin:/opt/${MONGO_VERSION}/bin:${PATH}"
+ENV TOMCAT_VERSION_NO="8.5.45"
+ENV PATH="/opt/ols/solr-${SOLR_VERSION_NO}/bin:/opt/ols/apache-tomcat-${TOMCAT_VERSION_NO}/bin:${PATH}"
 
-#  Copy this file as a test, should you care to
-# COPY ./OlsDockerfile /home/
+RUN apk update && \
+    apk add openjdk8 maven procps bash wget git emacs less lsof lynx sudo shadow mongodb supervisor
 
-#  Install OpenJDK 8
+#  Create non-root-privileged user 'ols'; set up directories for Solr and Tomcat
+RUN groupadd ols && useradd -rmg ols ols && mkdir /opt/ols && chown ols:ols /opt/ols
 
-#  See https://github.com/debuerreotype/docker-debian-artifacts/issues/24
-RUN mkdir -p /usr/share/man/man1
-
-#  See https://github.com/phusion/baseimage-docker/issues/58
-RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
-
-RUN apt-get update && apt-get -y install \
-    procps apt-utils openjdk-8-jdk maven tomcat8 wget git emacs less lsof lynx
-
-RUN groupadd ols && useradd -r -m -g ols ols && mkdir /opt/OLS && chown ols:ols /opt/OLS
+USER ols
 WORKDIR /home/ols/
 
-#  Get and install Solr
+#  Download and install Tomcat 8
+RUN wget http://mirrors.ukfast.co.uk/sites/ftp.apache.org/tomcat/tomcat-8/v${TOMCAT_VERSION_NO}/bin/apache-tomcat-${TOMCAT_VERSION_NO}.tar.gz
+RUN tar -C /opt/ols/ -zxvf apache-tomcat-${TOMCAT_VERSION_NO}.tar.gz
+
+#  Download and install Solr
 RUN wget "http://archive.apache.org/dist/lucene/solr/${SOLR_VERSION_NO}/solr-${SOLR_VERSION_NO}.tgz"
-# RUN chown ols:ols ./solr-${SOLR_VERSION_NO}.tgz
-RUN tar -C /opt/ -zxvf solr-${SOLR_VERSION_NO}.tgz
-RUN chown -R ols:ols /opt/solr-${SOLR_VERSION_NO}
+RUN tar -C /opt/ols/ -zxvf solr-${SOLR_VERSION_NO}.tgz
 
 #  Not strictly necessary if importing OLS configs from GitHub, unless the
 #  latter require subsequent modification anyway. Which is of course quite
 #  likely, so swings and roundabouts ...
 #
-# Actually changing ownership doesn't even work without prior configuration
-# COPY --chown=solr:nogroup ./ols-solr/src/main/solr-5-config /home/ols-solr-config
-# COPY ./ols-solr/src/main/solr-5-config /home/ols-solr-config
 COPY --chown=ols:ols ./ols-solr/src/main/solr-5-config /home/ols/ols-solr-config
-RUN mkdir -p ./.ols/solr/autosuggest && mkdir ./.ols/solr/ontology && chown -R ols:ols ./.ols
+RUN mkdir -p ./.ols/solr/autosuggest && mkdir ./.ols/solr/ontology && mkdir ./.ols/neo4j
 
-#  Get and install Mongo and its dependencies
+#  Import OLS from GitHub, and build it with Maven
+RUN git clone -b ${ols_branch} --single-branch https://github.com/EBISPOT/OLS.git
 
-#  First install libssl 1.0.0, alongside stretch's default libssl 1.1
-#  See https://github.com/paritytech/parity-ethereum/issues/5893
-RUN wget "http://security.debian.org/debian-security/pool/updates/main/o/openssl/${LIBSSL_EXTRA}"
-RUN dpkg --install "${LIBSSL_EXTRA}"
+RUN cd ./OLS && \
+    git checkout ${ols_commit} && \
+    printf "\nols.home=/home/ols/.ols\n" >> ./ols-web/src/main/resources/application.properties && \
+    mvn clean install ${REM# -Dmaven.test.skip=true : Surefire 2.21+ is broken on Alpine, at least without procps} && \
+    cp -v ./ols-web/target/ols-boot.war /opt/ols/apache-tomcat-${TOMCAT_VERSION_NO}/webapps/
 
-#  Set up directories
-RUN mkdir -p /data/db && chown ols:ols /data/db && mkdir /var/log/ols && chown ols:ols /var/log/ols
+USER root
+COPY ./supervisord.conf /etc/
+COPY ./supervisord_tomcat_conf.txt /tmp/
+RUN cat /etc/supervisord.conf /tmp/supervisord_tomcat_conf.txt >> /etc/supervisord_with_tomcat.conf && \
+    rm /tmp/supervisord_tomcat_conf.txt
 
-#  Install Mongo itself
-RUN wget http://downloads.mongodb.org/linux/${MONGO_VERSION}.tgz
-RUN tar --owner=ols --group=ols -C /opt/ -zxvf ${MONGO_VERSION}.tgz
-RUN chown -R ols:ols /opt/${MONGO_VERSION}
+#  Probably, better not to use CMD, which gets overriden by runtime arguments (arguments passed to 'docker run');
+#  because runtime arguments are useful (e.g. do we want to run tomcat or not?), we'll invoke ENTRYPOINT instead
+COPY entrypoint.sh /root/
+ENTRYPOINT ["/root/entrypoint.sh"]
 
-#  Prepare tomcat8 for non-root startup
-# RUN sed -i 's/=tomcat8$/=ols/' /etc/default/tomcat8
-# RUN chown -R ols:ols /var/lib/tomcat8
-
-USER ols
-
-#  Import OLS from GitHub, and (maybe, in the future?) build
-
-RUN git clone -b ${ols_branch} https://github.com/EBISPOT/OLS.git /opt/OLS
-# Distinct checkout of branch unnecessary given that it was specified when cloned
-# RUN cd /opt/OLS && git checkout ${ols_branch} && mvn clean install
-RUN cd /opt/OLS && mvn clean install
-
-#  Create daemon-summoner
-RUN echo "mongod --fork --logpath=/var/log/ols/mongodb.log" > /home/ols/daemonise.sh
-RUN echo \
-    "solr start -Dsolr.solr.home=/home/ols/ols-solr-config -Dsolr.data.dir=/home/ols/.ols/solr" \
-    >> /home/ols/daemonise.sh
-RUN chmod a+x /home/ols/daemonise.sh
-
-#  Configs here?
-
-# RUN cd /opt/OLS/ && mvn clean install
-
-#  Summon daemons
-# ENTRYPOINT [ "bash", "-l", "/docker-entrypoint.sh" ]
+#  Ultimately, we may want to run the container in detached mode: might be possible to run 'docker -exec'; otherwise start an ssh server
