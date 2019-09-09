@@ -322,8 +322,8 @@ function renderTypesFacetField (facetArray, searchSummary) {
         $(".type_list").on('click', function(e){
             //$('#ontology-select-id').val('');
             $("#ontology-type-id").append($('<option/>', {
-                value: e.target.id.toLowerCase(),
-                text : e.target.id.toLowerCase(),
+                value: e.delegateTarget.id.toLowerCase(),
+                text : e.delegateTarget.id.toLowerCase(),
                 selected : 'selected'
             }));
 
@@ -361,8 +361,8 @@ function renderOntologyFacetField (facetArray, searchSummary) {
         $(".onto_list").on('click', function(e){
             //$('#ontology-select-id').val('');
             $("#ontology-id").append($('<option/>', {
-                value: e.target.id.toLowerCase(),
-                text : e.target.id.toLowerCase(),
+                value: e.delegateTarget.id.toLowerCase(),
+                text : e.delegateTarget.id.toLowerCase(),
                 selected : 'selected'
             }));
 
