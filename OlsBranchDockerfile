@@ -13,7 +13,8 @@ ENV TOMCAT_VERSION_NO="8.5.45"
 ENV PATH="/opt/ols/solr-${SOLR_VERSION_NO}/bin:/opt/ols/apache-tomcat-${TOMCAT_VERSION_NO}/bin:${PATH}"
 
 RUN apk update && \
-    apk add openjdk8 maven procps bash wget git emacs less lsof lynx sudo shadow mongodb supervisor
+    apk add openjdk8 maven procps bash wget git emacs less lsof lynx sudo \
+            shadow mongodb supervisor grep
 
 #  Create non-root-privileged user 'ols'; set up directories for Solr and Tomcat
 RUN groupadd ols && useradd -rmg ols ols && mkdir /opt/ols && chown ols:ols /opt/ols

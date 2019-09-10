@@ -484,9 +484,13 @@ button.list-group-item:hover, button.list-group-item:focus {
     color: #0a0a0a;
 }
 
-/* Modify class from ebi-global.css */
+/* Modify classes from ebi-global.css */
 .breadcrumbs {
     padding-left: 13px;
+}
+[type="search"], [type="search"]:focus {
+    box-shadow: none;
+    transition: none;
 }
 
 div.row {
