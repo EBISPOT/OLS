@@ -262,8 +262,10 @@ input[type="search"].select2-search__field {
 
 /* Term page */
 #right_info_box .panel-heading {
-    background: #F0F0F0;
+    background: rgba(0, 124, 132, .2);
     text-align: center;
+    padding-top: 0.4rem;
+    padding-bottom: 0.05rem;
 }
 
 #right_info_box .panel-body{
