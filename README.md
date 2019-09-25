@@ -52,3 +52,87 @@ more information http://www.ebi.ac.uk/ols/docs/installation-guide
   create all the necessary Solr and Neo4j indexes.
 * [ols-web](ols-web) - This will contain the WAR file that can be
   deployed in Tomcat to launch the OLS website and REST API.
+
+## Run OLS dockerised, specifying branch and commit hash / HEAD
+
+If you have docker installed on your desktop or laptop, you can build a
+docker image by running the shell script `./build_ols_branch_image.sh`
+with two parameters, the first being the branch you wish to check out
+(often, if not typically, "master"), the second being the commit
+(usually "HEAD", but you can also enter the start of the commit hash).
+The image will take several minutes to build; an example invocation,
+which creates a docker image from the latest commit to OLS's main
+development branch, is shown below:
+
+**```bash#```**```./build_ols_branch_image.sh 3.x-dev HEAD```
+
+Once built, run the image by invoking the shell script
+`./run_ols_branch_image.sh`. This requires not just two but an obligate
+third and an optional fourth parameter:
+
+1. the branch relating to the required pre-built image;
+2. the commit relating to the required pre-built image;
+3. a numeric (integer) increment to the default port numbers on which
+   the various contained services will be exposed to the host;
+4. "tomcat" as a literal string, if you simply want to run OLS with your
+   own previously loaded data.
+   
+Parameter 3. above enables you to avoid clashes between port assignments
+when running multiple contained instances of OLS. These port assignments
+relate specifically to Tomcat (default port 8080), Solr (8983) and
+MongoDB (27017). Parameter 4 should be added if you don't want to load
+any new ontologies; Tomcat should be run only when all required data are
+loaded. So, for example, to run a container for the first time, based on
+the prebuilt image which you created above:
+
+**```bash#```**```./run_ols_branch_image.sh 3.x-dev HEAD 1```
+
+Or, if all required ontologies are loaded and up-to-date, and Tomcat is
+ready to run:
+
+**```bash#```**```./run_ols_branch_image.sh 3.x-dev HEAD 1 tomcat```
+
+Whether you are running Tomcat or not, you will drop into a
+non-interactive terminal inside your newly-created guest container; log
+output from the various services will appear here. If you need to do
+more than simply run Tomcat with existing data (i.e. data pre-loaded
+from a previous session), you will need interactive access to the
+running container, in a separate terminal. First you need the id of your
+running container; from a separate terminal, enter:
+
+**```bash#```**```docker ps```
+
+To initiate an interactive termninal session on your already-running
+container, enter:
+
+**```bash#```**```docker exec -it -u ols```*```container_id```*```bash```
+
+Your username will be set to "ols", which is privileged both to load
+data into OLS, and to run Tomcat. Commands to load or refresh ontology
+data in OLS are documented elsewhere. If you wish to invoke Tomcat and
+start OLS interactively (once your ontology load is complete), enter:
+
+**```bash#```**```catalina.sh run```
+
+This runs Tomcat in the foreground. The catalina directory should
+already be in your PATH variable, so there is no need for further
+configuration.
+
+Tomcat (if running) will be exposed on port 8081 on the host, Solr on
+port 8984 and MongoDB on port 27018. Inside the container itself, the
+default (original) port assignments are retained; they are simply mapped
+to their respective incremented ports on the host (your desktop). To run
+more containers (based on other git commits) simultaneously, ensure that
+the third parameter is given a higher increment (2, 3, 4, ...). If you
+have previously loaded data in a past container using the same base
+image, this will have been stored in a managed docker volume and will be
+reloaded by your new container. Otherwise, or possibly in addition, you
+may want to load data for one or more ontologies using the ols-indexer
+under the directory `ols-loading-app`. Loading can take several minutes.
+Do not run Tomcat at the same time as loading data.
+
+Multiple containers can be run simultaneously on the same host machine,
+as long as each represents a unique git commit of OLS. Each container
+runs Solr, MongoDB, Tomcat and embedded Neo4J servers simultaneously in
+the same isolated namespace: there is no separation of services into
+different containers, or any explicit orchestration.
