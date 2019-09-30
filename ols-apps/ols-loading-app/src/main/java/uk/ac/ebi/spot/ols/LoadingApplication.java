@@ -159,7 +159,8 @@ public class LoadingApplication implements CommandLineRunner {
                         ontologyRepositoryService.delete(document);
                         updatedOntologies.add(document.getOntologyId());
                     } catch (Exception e) {
-                    	logger.error("Application failed deleting indexes for " + document.getOntologyId() + ": " + e.getMessage());
+                    	logger.error("Application failed deleting indexes for " + document.getOntologyId() + ": " +
+                                e.getMessage(), e);
                         haserror = true;
                     }
                 }
@@ -172,7 +173,8 @@ public class LoadingApplication implements CommandLineRunner {
                     ontologyIndexingService.indexOntologyDocument(document);
                     updatedOntologies.add(document.getOntologyId());
                 } catch (Exception e) {
-                	logger.error("Application failed creating indexes for " + document.getOntologyId() + ": " + e.getMessage());
+                	logger.error("Application failed creating indexes for " + document.getOntologyId() + ": " +
+                            e.getMessage(), e);
                     exceptions.append(e.getMessage());
                     exceptions.append("\n");
                     haserror = true;

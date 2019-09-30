@@ -423,7 +423,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         }
         catch (Exception e) {
             setInitializationException(e);
-            getLogger().error("Failed to parse " + getOntologyName() + " : " + e.getMessage());
+            getLogger().error("Failed to parse " + getOntologyName() + " : " + e.getMessage(), e);
             throw e;
         }
         finally {
@@ -584,7 +584,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                         }
 
                     } catch (OWLOntologyCreationException e) {
-                        getLogger().error("unable to index classes, unable to create reasoner");
+                        getLogger().error("unable to index classes, unable to create reasoner", e);
                     }
 
                 }
@@ -610,7 +610,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                     indexPropertyRelations(individual);
 
                 } catch(OWLOntologyCreationException e) {
-                    getLogger().error("unable to index individuals, unable to create reasoner");
+                    getLogger().error("unable to index individuals, unable to create reasoner", e);
                 }
 
                 }

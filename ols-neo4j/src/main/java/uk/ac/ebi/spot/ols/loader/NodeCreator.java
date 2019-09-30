@@ -78,7 +78,14 @@ class NodeCreator {
         	Label labelArray[] = nodeLabels.toArray(new Label[nodeLabels.size()]);
         	logger.debug("classIri = " + classIri);
         	logger.debug("nodeLabels = " + nodeLabels);
-        	long classNode = inserter.createNode(nodeProperties, labelArray);           
+        	logger.debug("inserter = " + inserter);
+
+			long classNode = 0;
+        	try {
+				classNode = inserter.createNode(nodeProperties, labelArray);
+			} catch (Throwable t) {
+        		logger.error(t.getMessage(), t);
+			}
 
             nodeMap.put(classIri.toString(), classNode);
         }

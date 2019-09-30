@@ -53,7 +53,7 @@ public abstract class Initializable {
     	synchronized (this) {
 	        if (t != null) {
 	            getLogger().error("Failed to initialize " + Initializable.this.getClass().getSimpleName() + ". " +
-	                                   "Initialization exception updated", t.getMessage());
+	                                   "Initialization exception updated : " + t.getMessage(), t);
 	        }
 	        this.initializationException = t;
 	        notifyAll();

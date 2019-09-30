@@ -86,8 +86,16 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
         if (!mergedNodeMap.containsKey(classIri.toString())) {
 
             // link to merged node
-            IndexHits<Long> hits = index.get("iri", classIri);
-            if (hits.size() == 0) {
+            IndexHits<Long> hits = null;
+
+            try {
+                getLogger().debug("classIri = " + classIri);
+                hits = index.get("iri", classIri);
+            } catch (Throwable t) {
+                getLogger().error(t.getMessage(), t);
+            }
+
+            if (hits != null && hits.size() == 0) {
                 Map<String, Object> properties = new HashMap<>();
                 properties.put("iri", classIri.toString());
                 properties.put("label", loader.getTermLabels().get(classIri));
@@ -97,7 +105,7 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
                 mergedNodeMap.put(classIri.toString(), hit);
             }
             else {
-                if (hits.size() > 1) {
+                if (hits != null && hits.size() > 1) {
                     System.out.println("WARING: found more than one iri in merged terms for: " + classIri);
                 }
                 Long mergedNode = hits.getSingle();
@@ -132,9 +140,7 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
         rdfTypeProperties.put("ontology_name", ontologyName);
         rdfTypeProperties.put("__type__", "Type");
 
-        if (index == null) {
-        	index = getBatchInserterIndex(getIndexProvider(inserter));
-        }
+       	index = getBatchInserterIndex(getIndexProvider(inserter));
 
         return inserter;
 
@@ -142,19 +148,20 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
 
     private BatchInserterIndexProvider getIndexProvider (BatchInserter inserter) {
 
-        // index for looking up merged classes
-    	if (indexProvider == null) {
-    		indexProvider =
-                new LuceneBatchInserterIndexProvider(inserter);
-    	}
+        indexProvider =
+            new LuceneBatchInserterIndexProvider(inserter);
         return indexProvider;
     }
 
     private BatchInserterIndex getBatchInserterIndex(BatchInserterIndexProvider indexProvider) {
-        BatchInserterIndex entites =
-                indexProvider.nodeIndex("Resource", MapUtil.stringMap("type", "exact"));
-        entites.setCacheCapacity("iri", 1000000);
-        return entites;
+        BatchInserterIndex entities = null;
+        try {
+            entities = indexProvider.nodeIndex("Resource", MapUtil.stringMap("type", "exact"));
+            entities.setCacheCapacity("iri", 1000000);
+        } catch (Throwable t) {
+            getLogger().error(t.getMessage(), t);
+        }
+        return entities;
     }
 
     private void indexProperties(BatchInserter inserter, OntologyLoader loader, Map<String, Long> nodeMap, Map<String, Long> mergedNodeMap) {

@@ -36,13 +36,13 @@ class OLSBatchIndexerCreator {
 	}
 
 	protected static BatchInserter createBatchInserter(BatchInserter inserter, String neo4jDirectory) {
-		if (inserter == null ) {
+//		if (inserter == null ) {
 			File file = new File(neo4jDirectory);
 		
 			inserter = BatchInserters.inserter(
                 file.getAbsolutePath(),
                 new DefaultFileSystemAbstraction());
-		}
+//		}
 		
 		return inserter;
 	}
@@ -52,10 +52,14 @@ class OLSBatchIndexerCreator {
 	}
 	
 	static BatchInserterIndex createBatchInserterIndex(BatchInserterIndexProvider indexProvider) {
-		BatchInserterIndex batchInserterIndex =
-                indexProvider.nodeIndex("Resource", MapUtil.stringMap("type", "exact"));
-		batchInserterIndex.setCacheCapacity("iri", 1000000);
-        return batchInserterIndex;		
+		BatchInserterIndex batchInserterIndex = null;
+		try {
+			batchInserterIndex = indexProvider.nodeIndex("Resource", MapUtil.stringMap("type", "exact"));
+			batchInserterIndex.setCacheCapacity("iri", 1000000);
+		} catch (Throwable t) {
+			logger.error(t.getMessage(), t);
+		}
+        return batchInserterIndex;
 	}
 	
     static void createSchemaIndexes(BatchInserter inserter) {
@@ -80,8 +84,10 @@ class OLSBatchIndexerCreator {
             inserter.createDeferredSchemaIndex( label ).on(propertyName).create();
             return true;
         } catch (ConstraintViolationException e) {
-        	logger.debug("Couldn't create index for label '" + label.name() + "' with property '" + 
+        	logger.error("Couldn't create index for label '" + label.name() + "' with property '" +
         			propertyName + "' as it already exists, continuing...");
+			logger.debug("Couldn't create index for label '" + label.name() + "' with property '" +
+					propertyName + "' as it already exists, continuing...", e);
         }
         return false;
     }    

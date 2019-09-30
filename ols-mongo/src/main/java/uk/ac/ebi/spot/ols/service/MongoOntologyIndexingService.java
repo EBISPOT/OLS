@@ -151,7 +151,7 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             document.setLoaded(new Date());
 
         } catch (Exception e) {
-        	logger.error("Error indexing " + document.getOntologyId(), e.getMessage());
+        	logger.error("Error indexing " + document.getOntologyId(), e);
             status = Status.FAILED;
             message = e.getMessage();
             throw e;
