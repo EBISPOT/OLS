@@ -21,17 +21,19 @@ public class DocumentUpdater {
 
 
     /**
-     * This method updates fileds in an ontology document with info from a new ontology document
+     * This method updates fields in an ontology document with info from a new ontology document
      * @param originalDocument the original document that needs updating
-     * @param newDocument the new document that conatins the data that needs to be added to the original document
+     * @param newDocument the new document that contains the data that needs to be added to the original document
      * @return the original document iwth fields updated
      */
     public static OntologyDocument updateFields(OntologyDocument originalDocument, OntologyResourceConfig newDocument) {
 
 
         // if location has changed, update the info
-        if (newDocument.getFileLocation() != null && !originalDocument.getConfig().getFileLocation().equals(newDocument.getFileLocation())) {
-            log.info("Location of " + newDocument.getNamespace() + " changed from " + originalDocument.getConfig().getFileLocation() + " to " + newDocument.getFileLocation());
+        if (newDocument.getFileLocation() != null &&
+                !originalDocument.getConfig().getFileLocation().equals(newDocument.getFileLocation())) {
+            log.info("Location of " + newDocument.getNamespace() + " changed from " +
+                    originalDocument.getConfig().getFileLocation() + " to " + newDocument.getFileLocation());
             originalDocument.getConfig().setFileLocation(newDocument.getFileLocation());
             originalDocument.setStatus(Status.TOLOAD);
         }
@@ -48,17 +50,23 @@ public class DocumentUpdater {
         }
 
         // check description
-        if (newDocument.getDescription() != null && !newDocument.getDescription().equals(originalDocument.getConfig().getDescription()) && !dontUpdate.contains(OntologyDefaults.DEFINITION)) {
+        if (newDocument.getDescription() != null &&
+                !newDocument.getDescription().equals(originalDocument.getConfig().getDescription()) &&
+                !dontUpdate.contains(OntologyDefaults.DEFINITION)) {
             originalDocument.getConfig().setDescription(newDocument.getDescription());
         }
 
         // check homepage
-        if (newDocument.getHomepage() != null && !newDocument.getHomepage().equals(originalDocument.getConfig().getHomepage()) && !dontUpdate.contains(OntologyDefaults.HOMEPAGE)) {
+        if (newDocument.getHomepage() != null &&
+                !newDocument.getHomepage().equals(originalDocument.getConfig().getHomepage()) &&
+                !dontUpdate.contains(OntologyDefaults.HOMEPAGE)) {
             originalDocument.getConfig().setHomepage(newDocument.getHomepage());
         }
 
         // check mailing list
-        if (newDocument.getMailingList() != null && !newDocument.getMailingList().equals(originalDocument.getConfig().getMailingList()) && !dontUpdate.contains(OntologyDefaults.MAILINGLIST)) {
+        if (newDocument.getMailingList() != null &&
+                !newDocument.getMailingList().equals(originalDocument.getConfig().getMailingList()) &&
+                !dontUpdate.contains(OntologyDefaults.MAILINGLIST)) {
             originalDocument.getConfig().setMailingList(newDocument.getMailingList());
         }
 
@@ -76,13 +84,15 @@ public class DocumentUpdater {
         originalDocument.getConfig().setLabelProperty(newDocument.getLabelProperty());
         originalDocument.getConfig().setDefinitionProperties(newDocument.getDefinitionProperties());
         originalDocument.getConfig().setSynonymProperties(newDocument.getSynonymProperties());
-
         originalDocument.getConfig().setHierarchicalProperties(newDocument.getHierarchicalProperties());
+        originalDocument.getConfig().setPreferredRootTerms(newDocument.getPreferredRootTerms());
 
         if (!newDocument.getBaseUris().isEmpty()) {
             originalDocument.getConfig().setBaseUris(newDocument.getBaseUris());
         }
 
+
+        // Henriette To do: Remove because this is not used.
         if (newDocument.getHiddenProperties() != null) {
             originalDocument.getConfig().setHiddenProperties(newDocument.getHiddenProperties());
         }

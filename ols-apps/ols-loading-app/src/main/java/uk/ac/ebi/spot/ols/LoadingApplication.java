@@ -8,12 +8,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.data.neo4j.config.EnableNeo4jRepositories;
 import org.springframework.data.neo4j.core.GraphDatabase;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import uk.ac.ebi.spot.ols.service.OntologyRepositoryService;
+import uk.ac.ebi.spot.ols.config.OntologyLoadingConfiguration;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
 import uk.ac.ebi.spot.ols.service.FileUpdatingService;
 import uk.ac.ebi.spot.ols.service.OntologyIndexingService;
@@ -40,11 +42,7 @@ import java.util.concurrent.CountDownLatch;
 @EnableMongoRepositories(basePackages = "uk.ac.ebi.spot.ols.repository.mongo")
 public class LoadingApplication implements CommandLineRunner {
 
-    private Logger log = LoggerFactory.getLogger(getClass());
-
-    public Logger getLog() {
-        return log;
-    }
+    private final Logger logger = LoggerFactory.getLogger(LoadingApplication.class);
 
     @Autowired
     OntologyRepositoryService ontologyRepositoryService;
@@ -71,6 +69,7 @@ public class LoadingApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         int parseArgs = parseArguments(args);
+    
 
         System.setProperty("entityExpansionLimit", "10000000");
         Collection<String> updatedOntologies = new HashSet<>();
@@ -110,7 +109,7 @@ public class LoadingApplication implements CommandLineRunner {
                     ontologyRepositoryService.update(document);
                 }
                 else {
-                    log.warn("Can't delete ontology " + ontologyName + " as it doesn't exist in OLS");
+                    logger.warn("Can't delete ontology " + ontologyName + " as it doesn't exist in OLS");
                 }
 
             }
@@ -133,7 +132,7 @@ public class LoadingApplication implements CommandLineRunner {
         boolean haserror = false;
 
         // if force loading
-
+        long start = System.currentTimeMillis();
         StringBuilder exceptions = new StringBuilder();
 
         if (ontologies.length > 0) {
@@ -144,7 +143,7 @@ public class LoadingApplication implements CommandLineRunner {
                         ontologyIndexingService.indexOntologyDocument(document);
                         updatedOntologies.add(document.getOntologyId());
                     } catch (Exception e) {
-                        getLog().error("Application failed creating indexes for " + 
+                        logger.error("Application failed creating indexes for " + 
                         		document.getOntologyId() + ": " + e.getMessage(), e);
                         haserror = true;
                     }
@@ -160,7 +159,8 @@ public class LoadingApplication implements CommandLineRunner {
                         ontologyRepositoryService.delete(document);
                         updatedOntologies.add(document.getOntologyId());
                     } catch (Exception e) {
-                        getLog().error("Application failed deleting indexes for " + document.getOntologyId() + ": " + e.getMessage());
+                    	logger.error("Application failed deleting indexes for " + document.getOntologyId() + ": " +
+                                e.getMessage(), e);
                         haserror = true;
                     }
                 }
@@ -173,7 +173,8 @@ public class LoadingApplication implements CommandLineRunner {
                     ontologyIndexingService.indexOntologyDocument(document);
                     updatedOntologies.add(document.getOntologyId());
                 } catch (Exception e) {
-                    getLog().error("Application failed creating indexes for " + document.getOntologyId() + ": " + e.getMessage());
+                	logger.error("Application failed creating indexes for " + document.getOntologyId() + ": " +
+                            e.getMessage(), e);
                     exceptions.append(e.getMessage());
                     exceptions.append("\n");
                     haserror = true;
@@ -195,7 +196,8 @@ public class LoadingApplication implements CommandLineRunner {
         }
 
 
-
+        long end = System.currentTimeMillis();
+        logger.debug("Duration of indexing = " + (end - start)/1000/60 + " minutes.");
         if (haserror) {
             System.exit(1);
         }

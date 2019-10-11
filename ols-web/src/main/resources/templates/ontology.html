@@ -84,6 +84,8 @@
     <!-- custom build (lacks most of the "advanced" HTML5 support -->
     <script src="//www.ebi.ac.uk/web_guidelines/js/libs/modernizr.custom.49274.js"></script>
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/icheck-bootstrap@3.0.1/icheck-bootstrap.min.css" />
+
 </head>
 
 <body class="level2">
@@ -226,33 +228,55 @@
                             <li role="presentation"><a id="diachron-link" data-toggle="tab" class="icon icon-generic" data-icon="g" href="#diachron-tab">Ontology history</a></li>
                             <!--<li role="presentation"><a data-toggle="tab"  href="#graph-tab">Graph view</a></li>-->
                         </ul>
-
+                        <input type="hidden" name="ontology_view_siblings"
+                               th:value="${#httpServletRequest.getParameter('siblings') == 'true'} ? 'true': 'false'"/>
                         <!-- Tab panes -->
                         <div class="tab-content">
 
                             <div role="tabpanel" class="tab-pane active" id="tree-tab">
-
+                                <div class="btn-group btn-group-vertical" style="float: right;padding-top:5px;">
+                                    <div  th:attr="style=${preferredRootTermDisplayStyle}">
+                                        <div class="radio icheck-belizehole">
+                                            <input type="radio"
+                                                   id="ontology_view_selection_id_preferred_roots"
+                                                   name="ontology_view_selection"
+                                                   value="PreferredRoots"
+                                                   th:checked="${#httpServletRequest.getParameter('viewMode') == null or #httpServletRequest.getParameter('viewMode') == 'PreferredRoots'} ? 'true': 'false'"
+                                                   onclick="olsTabbedTermTreeView.toggleOntologyView()"/>
+                                            <label for="ontology_view_selection_id_preferred_roots"
+                                                   style="margin: 0 0.1rem 0 0.2rem; color: #000000;">Preferred root terms</label>
+                                        </div>
+                                        <div class="radio icheck-belizehole">
+                                            <input type="radio"
+                                                   id="ontology_view_selection_id_all"
+                                                   name="ontology_view_selection"
+                                                   value="All"
+                                                   th:checked="${#httpServletRequest.getParameter('viewMode') == 'All' or not preferredRootTermEnabled} ? 'true': 'false'"
+                                                   onclick="olsTabbedTermTreeView.toggleOntologyView()"/>
+                                            <label for="ontology_view_selection_id_all"
+                                                   style="margin: 0 0.1rem 0 0.2rem; color: #000000;">All terms</label>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div id="term-tree" data-olswidget="tree" th:attr="data-olsontology=${ontologyDocument.getOntologyId()}" data-selectpath="../" data-ols-termtype="class" data-olsontology="" data-ols-iri=""  >
                                 </div>
-
-                            </div>
+                            </div>	
 
                             <div role="tabpanel" class="tab-pane" id="property-tree-tab">
 
                                 <div id="property-tree" data-olswidget="tree" th:attr="data-olsontology=${ontologyDocument.getOntologyId()}" data-selectpath="../" data-ols-termtype="property" data-olsontology="" data-ols-iri=""  >
                                 </div>
 
-                            </div>
-
-                            <div role="tabpanel" class="tab-pane" id="diachron-tab" data-selectpath="../" th:attr="data-olsontology=${ontologyDocument.getOntologyId()}">
-                                <div id="diachron-wrapper"></div>
+                                <div role="tabpanel" class="tab-pane" id="diachron-tab" data-selectpath="../" th:attr="data-olsontology=${ontologyDocument.getOntologyId()}">
+                                    <div id="diachron-wrapper"></div>
+                                </div>
                             </div>
 
                         </div>
 
                     </div>
                     <div id="right_info_box" class="grid_10 beta">
-
+						
                         <div id="ontology_info_box" class="panel panel-primary">
 
                             <div class="panel-heading">
@@ -292,7 +316,6 @@
 
                         </div>
                     </div>
-
                 </div>
             </section>
 
@@ -358,7 +381,8 @@
 <script type="text/javascript" src="../static/js/ols.js" th:src="@{../js/ols.js}"></script>
 <script src="../static/js/jstree/jstree.min.js" th:src="@{../js/jstree/jstree.min.js}"></script>
 <script type="text/javascript" src="../static/js/ols-termselect.js" th:src="@{../js/ols-termselect2.js}"></script>
-<script type="text/javascript" src="../static/js/ols-treeview.min.js" th:src="@{../js/ols-treeview.min.js}"></script>
+<!--<script type="text/javascript" src="../static/js/ols-treeview.min.js" th:src="@{../js/ols-treeview.min.js}"></script>-->
+<script type="text/javascript" src="../static/js/ols-tabbed-term-treeview.js" th:src="@{../js/ols-tabbed-term-treeview.js}"></script>
 
 <!-- Include tags for the new CHARTS we have for the DIACHRON part of the ontology view-->
 <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -402,33 +426,26 @@
 </script>
 
 <script>
-    // initialise the tree
-    $(document).ready(function() {
-        var div=$("#term-tree");
-        var ontologyName = $("#term-tree").data("olsontology");
-        var termType = $("#term-tree").data("ols-termtype");
-        var termIri = $("#term-tree").data("ols-iri");
-        var relativePath = $("#term-tree").data("selectpath") ? $("#term-tree").data("selectpath") : '';
 
-        var app = require("ols-treeview");
-        var instance = new app();
-        instance.draw(div, false, ontologyName, termType, termIri, relativePath, {save_state: true});
+    var termOntologyName = $("#term-tree").data("olsontology");
+    var termIri = $("#term-tree").data("ols-iri");
+    var termRelativePath = $("#term-tree").data("selectpath") ?
+        $("#term-tree").data("selectpath") : '';
 
-    });
 
+    var olsTabbedTermTreeView;
     $(document).ready(function() {
 
-        var div=$("#property-tree");
-        var ontologyName = $("#property-tree").data("olsontology");
-        var termType = $("#property-tree").data("ols-termtype");
-        var termIri = $("#property-tree").data("ols-iri");
-        var relativePath = $("#property-tree").data("selectpath") ? $("#property-tree").data("selectpath") : '';
+        console.log("Initialize tabbed tree component.");
+        var OLSTabbedTermTreeView = require("ols-tabbed-term-treeview");
 
-        var app = require("ols-treeview");
-        var propertyInstance = new app();
-        propertyInstance.draw(div, false, ontologyName, termType, termIri, relativePath, {save_state: true});
+        olsTabbedTermTreeView = new OLSTabbedTermTreeView(termRelativePath, termOntologyName, "#term-tree",
+            "#property-tree", "", "ontology_view_siblings", "ontology_view_selection", true);
 
+        var showSiblings = $("button[name='ontology_view_siblings']").val() == 'true';
+        var viewMode = $("input[name='ontology_view_selection']:checked").val();
 
+        olsTabbedTermTreeView.draw(showSiblings, viewMode);
     });
 </script>
 

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,6 +60,8 @@ public class TermControllerUI {
         ontologyId = ontologyId.toLowerCase();
         Term term = null;
 
+        OntologyDocument document = repositoryService.get(ontologyId);
+
         if (termIri != null) {
             term = ontologyTermGraphService.findByOntologyAndIri(ontologyId, termIri);
         }
@@ -79,13 +80,13 @@ public class TermControllerUI {
 
             Page<Term> termsPage = ontologyTermGraphService.findAllByOntology(ontologyId, pageable);
 
-            OntologyDocument document = repositoryService.get(ontologyId);
             model.addAttribute("ontologyName", document.getOntologyId());
             model.addAttribute("ontologyTitle", document.getConfig().getTitle());
             model.addAttribute("ontologyPrefix", document.getConfig().getPreferredPrefix());
             model.addAttribute("pageable", pageable);
             model.addAttribute("allterms", termsPage);
             model.addAttribute("alltermssize", termsPage.getTotalElements());
+
             return "allterms";
         }
 
@@ -150,7 +151,7 @@ public class TermControllerUI {
             }
         }
 
-
+        DisplayUtils.setPreferredRootTermsModelAttributes(ontologyId, document, ontologyTermGraphService, model);
 
         return "term";
     }

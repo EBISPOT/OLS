@@ -1,35 +1,33 @@
 package uk.ac.ebi.spot.ols;
 
-import junit.framework.TestCase;
-import org.junit.Test;
-import uk.ac.ebi.spot.ols.xrefs.OboDatabaseImpl;
-import uk.ac.ebi.spot.ols.xrefs.OboXrefLoader;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import uk.ac.ebi.spot.ols.xrefs.OboXrefLoader;
 
 /**
  * @author Simon Jupp
  * @date 13/06/2016
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
-public class OboXrefLoaderTest  extends TestCase {
+public class OboXrefLoaderTest {
 
     OboXrefLoader databaseService;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-
+    @BeforeEach
+    public void setUp() throws Exception {
         databaseService = new OboXrefLoader("db-xrefs.yaml");
-
     }
 
     @Test
     public void testNumberOfDatabases () {
-
         assertEquals(databaseService.getDatabases().size(), 218);
-
     }
 
     @Test
@@ -43,7 +41,5 @@ public class OboXrefLoaderTest  extends TestCase {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-
-
     }
 }

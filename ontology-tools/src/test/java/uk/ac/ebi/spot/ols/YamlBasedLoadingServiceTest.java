@@ -1,13 +1,16 @@
 package uk.ac.ebi.spot.ols;
 
-import junit.framework.TestCase;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.model.IRI;
 import uk.ac.ebi.spot.ols.config.OboDefaults;
 import uk.ac.ebi.spot.ols.config.YamlBasedLoadingService;
 import uk.ac.ebi.spot.ols.exception.ConfigParsingException;
 import uk.ac.ebi.spot.ols.loader.AbstractOWLOntologyLoader;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.net.URI;
 import java.util.*;
@@ -17,12 +20,12 @@ import java.util.*;
  * @date 29/09/15
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
-public class YamlBasedLoadingServiceTest extends TestCase {
+public class YamlBasedLoadingServiceTest {
 
     private LinkedHashMap ontology;
     private YamlBasedLoadingService yamlBasedLoadingService;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
 
         this.ontology = new LinkedHashMap();
@@ -104,7 +107,7 @@ public class YamlBasedLoadingServiceTest extends TestCase {
         }
     }
 
-
+    @Test
     public void testLocation () {
 
         ontology.put("ontology_purl", "http://foobar.com/foobar.owl");

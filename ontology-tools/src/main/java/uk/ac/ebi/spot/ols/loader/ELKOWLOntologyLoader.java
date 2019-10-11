@@ -6,6 +6,8 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.*;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 import org.slf4j.Logger;
+
+import uk.ac.ebi.spot.ols.config.OntologyLoadingConfiguration;
 import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
 import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
 import uk.ac.ebi.spot.ols.xrefs.Database;
@@ -26,8 +28,10 @@ import java.util.stream.Collectors;
 public class ELKOWLOntologyLoader extends AbstractOWLOntologyLoader {
 
     OWLReasoner reasoner = null;
-    public ELKOWLOntologyLoader(OntologyResourceConfig config, DatabaseService databaseService) throws OntologyLoadingException {
-        super(config, databaseService);
+    public ELKOWLOntologyLoader(OntologyResourceConfig config, DatabaseService databaseService,
+    		OntologyLoadingConfiguration ontologyLoadingConfiguration) 
+    				throws OntologyLoadingException {
+        super(config, databaseService, ontologyLoadingConfiguration);
     }
     public ELKOWLOntologyLoader(OntologyResourceConfig config) throws OntologyLoadingException {
         super(config);
@@ -38,32 +42,32 @@ public class ELKOWLOntologyLoader extends AbstractOWLOntologyLoader {
         org.apache.log4j.Logger.getLogger("org.semanticweb.elk").setLevel(Level.ERROR);
 
         if (reasoner == null) {
-            getLog().debug("Trying to create a reasoner over ontology '" + getOntologyIRI() + "'");
+            getLogger().debug("Trying to create a reasoner over ontology '" + getOntologyIRI() + "'");
             OWLReasonerFactory factory = new ElkReasonerFactory();
-            ReasonerProgressMonitor progressMonitor = new LoggingReasonerProgressMonitor(getLog());
+            ReasonerProgressMonitor progressMonitor = new LoggingReasonerProgressMonitor(getLogger());
             OWLReasonerConfiguration owlReasonerConfiguration = new SimpleConfiguration(progressMonitor);
             reasoner = factory.createReasoner(ontology, owlReasonerConfiguration);
 
-            getLog().debug("Precomputing inferences...");
+            getLogger().debug("Precomputing inferences...");
             reasoner.precomputeInferences();
 
-            getLog().debug("Checking ontology consistency...");
+            getLogger().debug("Checking ontology consistency...");
             if ( ! reasoner.isConsistent()) {
-                getLog().warn("Inconsistent ontology " + getOntologyIRI() + ", reverting to structural reasoner");
+                getLogger().warn("Inconsistent ontology " + getOntologyIRI() + ", reverting to structural reasoner");
                 reasoner.dispose();
                 OWLReasonerFactory structuralReasonerFactory = new StructuralReasonerFactory();
                 return structuralReasonerFactory.createReasoner(ontology);
             }
 
-            getLog().debug("Checking for unsatisfiable classes...");
+            getLogger().debug("Checking for unsatisfiable classes...");
             if (reasoner.getUnsatisfiableClasses().getEntitiesMinusBottom().size() > 0) {
-                getLog().warn(
+                getLogger().warn(
                         "Once classified, unsatisfiable classes were detected in '" + getOntologyIRI() + ", reverting to structural reasoner'");
                 OWLReasonerFactory structuralReasonerFactory = new StructuralReasonerFactory();
                 reasoner = structuralReasonerFactory.createReasoner(ontology);
             }
             else {
-                getLog().debug("Reasoning complete! ");
+                getLogger().debug("Reasoning complete! ");
             }
         }
 

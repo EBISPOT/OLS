@@ -32,6 +32,7 @@ public class TermDocumentBuilder {
     private List<String> hierarchical_parents = new ArrayList<>();
     private List<String> hierarchical_ancestors = new ArrayList<>();
     private Map<String, List<String>> relatedTerms = new HashMap<>();
+    private boolean isPreferredRoot = false;
 
     public TermDocumentBuilder setId(String id) {
         this.id = id;
@@ -177,8 +178,15 @@ public class TermDocumentBuilder {
         }
         return this;
     }
+    
+    
 
-    public TermDocument createTermDocument() {
+    public TermDocumentBuilder setPreferredRoot(boolean isPreferredRoot) {
+		this.isPreferredRoot = isPreferredRoot;
+		return this;
+	}
+
+	public TermDocument createTermDocument() {
         return new TermDocument(
                 id,
                 uri,
@@ -207,7 +215,8 @@ public class TermDocumentBuilder {
                 descendants,
                 hierarchical_parents,
                 hierarchical_ancestors,
-                relatedTerms
+                relatedTerms,
+                isPreferredRoot
                 );
     }
 }

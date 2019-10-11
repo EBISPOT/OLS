@@ -1,5 +1,6 @@
 package uk.ac.ebi.spot.ols.loader;
 
+import uk.ac.ebi.spot.ols.config.OntologyLoadingConfiguration;
 import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
 import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
 import uk.ac.ebi.spot.ols.util.ReasonerType;
@@ -32,19 +33,21 @@ public class OntologyLoaderFactory {
         }
     }
 
-    public static OntologyLoader getLoader(OntologyResourceConfig config, DatabaseService databaseService) throws OntologyLoadingException {
+    public static OntologyLoader getLoader(OntologyResourceConfig config, 
+    		DatabaseService databaseService, 
+    		OntologyLoadingConfiguration ontologyLoadingConfiguration) throws OntologyLoadingException {
 
         if (config.getReasonerType().equals(ReasonerType.OWL2)) {
-            return new HermitOWLOntologyLoader(config, databaseService);
+            return new HermitOWLOntologyLoader(config, databaseService, ontologyLoadingConfiguration);
         }
         else if (config.getReasonerType().equals(ReasonerType.EL)) {
-            return new ELKOWLOntologyLoader(config, databaseService);
+            return new ELKOWLOntologyLoader(config, databaseService, ontologyLoadingConfiguration);
         }
         else if (config.isSkos()) {
-            return new SKOSLoader(config, databaseService);
+            return new SKOSLoader(config, databaseService, ontologyLoadingConfiguration);
         }
         else {
-            return new StructuralOWLOntologyLoader(config);
+            return new StructuralOWLOntologyLoader(config, databaseService, ontologyLoadingConfiguration);
         }
     }
 }

@@ -1,19 +1,42 @@
 package uk.ac.ebi.spot.ols.neo4j.model;
 
+import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.DESCRIPTION;
+import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.HAS_CHILDREN;
+import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.IN_SUBSET;
+import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.IRI;
+import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.IS_DEFINING_ONTOLOGY;
+import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.IS_OBSOLETE;
+import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.IS_ROOT;
+import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.LABEL;
+import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.OBO_DEFINITION_CITATION;
+import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.OBO_ID;
+import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.OBO_SYNONYM;
+import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.OBO_XREF;
+import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.ONTOLOGY_IRI;
+import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.ONTOLOGY_NAME;
+import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.ONTOLOGY_PREFIX;
+import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.SHORT_FORM;
+import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.SYNONYM;
+import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.TERM_REPLACED_BY;
+import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.IS_PREFERRED_ROOT;
+
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+
+import org.springframework.data.annotation.TypeAlias;
+import org.springframework.data.neo4j.annotation.Fetch;
+import org.springframework.data.neo4j.annotation.GraphId;
+import org.springframework.data.neo4j.annotation.GraphProperty;
+import org.springframework.data.neo4j.annotation.NodeEntity;
+import org.springframework.data.neo4j.annotation.RelatedToVia;
+import org.springframework.data.neo4j.fieldaccess.DynamicProperties;
+import org.springframework.data.neo4j.fieldaccess.DynamicPropertiesContainer;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRawValue;
-import com.fasterxml.jackson.annotation.ObjectIdGenerator;
-import org.springframework.data.annotation.TypeAlias;
-import org.springframework.data.neo4j.annotation.*;
-import org.springframework.data.neo4j.fieldaccess.DynamicProperties;
-import org.springframework.data.neo4j.fieldaccess.DynamicPropertiesContainer;
-import org.springframework.hateoas.core.Relation;
-import uk.ac.ebi.spot.ols.util.OBODefinitionCitation;
-import uk.ac.ebi.spot.ols.util.OBOSynonym;
-import uk.ac.ebi.spot.ols.util.OBOXref;
-
-import java.util.*;
 
 /**
  * @author Simon Jupp
@@ -31,28 +54,28 @@ public class Term {
     @JsonIgnore
     private String olsId;
 
-    @GraphProperty(propertyName="iri")
+    @GraphProperty(propertyName=IRI)
     private String iri;
 
-    @GraphProperty(propertyName="label")
+    @GraphProperty(propertyName=LABEL)
     private String label;
 
-    @GraphProperty(propertyName="synonym")
+    @GraphProperty(propertyName=SYNONYM)
     private Set<String> synonym;
 
-    @GraphProperty(propertyName="description")
+    @GraphProperty(propertyName=DESCRIPTION)
     private Set<String> description;
 
-    @GraphProperty(propertyName="ontology_name")
-    @JsonProperty(value = "ontology_name")
+    @GraphProperty(propertyName=ONTOLOGY_NAME)
+    @JsonProperty(value = ONTOLOGY_NAME)
     private String ontologyName;
 
-    @GraphProperty(propertyName="ontology_prefix")
-    @JsonProperty(value = "ontology_prefix")
+    @GraphProperty(propertyName=ONTOLOGY_PREFIX)
+    @JsonProperty(value = ONTOLOGY_PREFIX)
     private String ontologyPrefix;
 
-    @GraphProperty(propertyName="ontology_iri")
-    @JsonProperty(value = "ontology_iri")
+    @GraphProperty(propertyName=ONTOLOGY_IRI)
+    @JsonProperty(value = ONTOLOGY_IRI)
     private String ontologyIri;
 
     @JsonIgnore
@@ -61,52 +84,52 @@ public class Term {
     @JsonIgnore
     private Set<String> equivalentClassDescription;
 
-    @GraphProperty(propertyName="is_obsolete")
-    @JsonProperty(value = "is_obsolete")
+    @GraphProperty(propertyName=IS_OBSOLETE)
+    @JsonProperty(value = IS_OBSOLETE)
     private boolean isObsolete;
 
-    @GraphProperty(propertyName="term_replaced_by")
-    @JsonProperty(value = "term_replaced_by")
+    @GraphProperty(propertyName=TERM_REPLACED_BY)
+    @JsonProperty(value = TERM_REPLACED_BY)
     private String termReplacedBy;
 
-    @GraphProperty(propertyName="is_defining_ontology")
-    @JsonProperty(value = "is_defining_ontology")
+    @GraphProperty(propertyName=IS_DEFINING_ONTOLOGY)
+    @JsonProperty(value = IS_DEFINING_ONTOLOGY)
     private boolean isLocal;
 
-    @GraphProperty(propertyName="has_children")
-    @JsonProperty(value = "has_children")
+    @GraphProperty(propertyName=HAS_CHILDREN)
+    @JsonProperty(value = HAS_CHILDREN)
     private boolean hasChildren;
 
-    @GraphProperty(propertyName="is_root")
-    @JsonProperty(value = "is_root")
+    @GraphProperty(propertyName=IS_ROOT)
+    @JsonProperty(value = IS_ROOT)
     private boolean isRoot;
 
-    @GraphProperty(propertyName="short_form")
-    @JsonProperty(value = "short_form")
+    @GraphProperty(propertyName=SHORT_FORM)
+    @JsonProperty(value = SHORT_FORM)
     private String shortForm;
 
-    @GraphProperty(propertyName="obo_id")
-    @JsonProperty(value = "obo_id")
+    @GraphProperty(propertyName=OBO_ID)
+    @JsonProperty(value = OBO_ID)
     private String oboId;
 
-    @GraphProperty(propertyName="in_subset")
-    @JsonProperty(value = "in_subset")
+    @GraphProperty(propertyName=IN_SUBSET)
+    @JsonProperty(value = IN_SUBSET)
     private Set<String> inSubsets;
 
     private DynamicProperties annotation = new DynamicPropertiesContainer();
 
-    @GraphProperty(propertyName="obo_definition_citation")
-    @JsonProperty(value = "obo_definition_citation")
+    @GraphProperty(propertyName=OBO_DEFINITION_CITATION)
+    @JsonProperty(value = OBO_DEFINITION_CITATION)
     @JsonRawValue
     private Set<String> oboDefinitionCitations;
 
-    @GraphProperty(propertyName="obo_xref")
-    @JsonProperty(value = "obo_xref")
+    @GraphProperty(propertyName=OBO_XREF)
+    @JsonProperty(value = OBO_XREF)
     @JsonRawValue
     private Set<String> oboXrefs;
 
-    @GraphProperty(propertyName="obo_synonym")
-    @JsonProperty(value = "obo_synonym")
+    @GraphProperty(propertyName=OBO_SYNONYM)
+    @JsonProperty(value = OBO_SYNONYM)
     @JsonRawValue
     private Set<String> oboSynonyms;
 
@@ -114,6 +137,10 @@ public class Term {
     @RelatedToVia
     @Fetch Set<Related> related;
 
+    @GraphProperty(propertyName=IS_PREFERRED_ROOT)
+    @JsonProperty(value = IS_PREFERRED_ROOT)
+    private boolean isPreferredRoot;
+    
     public Term() {
     }
 
@@ -201,7 +228,7 @@ public class Term {
         this.termReplacedBy = termReplacedBy;
     }
 
-    @JsonProperty(value = "is_obsolete")
+    @JsonProperty(value = IS_OBSOLETE)
     public boolean isObsolete() {
         return isObsolete;
     }
@@ -210,17 +237,17 @@ public class Term {
         return new TreeMap<String, Object>(annotation.asMap());
     }
 
-    @JsonProperty(value = "is_defining_ontology")
+    @JsonProperty(value = IS_DEFINING_ONTOLOGY)
     public boolean isLocal() {
         return isLocal;
     }
 
-    @JsonProperty(value = "is_root")
+    @JsonProperty(value = IS_ROOT)
     public boolean isRoot() {
         return isRoot;
     }
 
-    @JsonProperty(value = "has_children")
+    @JsonProperty(value = HAS_CHILDREN)
     public boolean hasChildren() {
         return hasChildren;
     }
@@ -276,4 +303,9 @@ public class Term {
     public void setEquivalentClassDescription(Set<String> equivalentClassDescription) {
         this.equivalentClassDescription = equivalentClassDescription;
     }
+    
+    @JsonProperty(value = IS_PREFERRED_ROOT)
+    public boolean isPreferredRoot() {
+        return isPreferredRoot;
+    }    
 }

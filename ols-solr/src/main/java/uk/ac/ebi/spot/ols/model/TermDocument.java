@@ -110,8 +110,7 @@ public class TermDocument {
     @JsonIgnore
     @Field("*_related")
    	private Map<String, List<String>> related;
-
-
+    
     public TermDocument() {
 
     }
@@ -144,7 +143,8 @@ public class TermDocument {
             List<String> descendants,
             List<String> hierarchical_parents,
             List<String> hierarchical_ancestors,
-            Map<String, List<String>> related
+            Map<String, List<String>> related,
+            boolean isPreferredRoot
            ) {
         this.id = id;
         this.uri = uri;
@@ -410,6 +410,5 @@ public class TermDocument {
 
     public void setHierarchical_ancestors(List<String> hierarchical_ancestors) {
         this.hierarchical_ancestors = hierarchical_ancestors;
-    }
-
+    }    
 }
