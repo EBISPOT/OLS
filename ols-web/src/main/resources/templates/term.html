@@ -4,8 +4,8 @@
 <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"/> <![endif]-->
 <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"/> <![endif]-->
 <!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
-<!--[if gt IE 8]><!--> <html  xmlns:th="https://www.thymeleaf.org" class="no-js" lang="en"> <!--<![endif]-->
-
+<!--[if gt IE 8]> <html xmlns:th="https://www.thymeleaf.org" class="no-js" lang="en"> <![endif]-->
+<!--[if !IE] -->  <html xmlns:th="https://www.thymeleaf.org" class="no-js" lang="en"> <!-- <![endif]-->
 
 
 <head th:replace="fragments/head :: head(olscss=true)">
@@ -54,14 +54,12 @@
             <nav aria-label="You are here:" role="navigation">
                 <ul class="breadcrumbs">
                 <li><a href="../../index">OLS</a></li>
-                <li><a class="nounderline" th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__}" th:text="${ontologyName}">ontology</a>
-                <a property="codingSystem" th:attr="content=${ontologyTerm.getOntologyName()}" th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__}" href="#">
-                     <span class="ontology-source" th:text="${ontologyTerm.getOntologyPrefix()}">parent 1</span>
-                </a>
+                <li><a class="nounderline" th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__}" th:text="${ontologyName}">ontology</a><a property="codingSystem" th:attr="content=${ontologyTerm.getOntologyName()}" th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__}" href="#">
+                    <!--span class="source-wrapper"--><span class="ontology-source" th:text="${ontologyTerm.getOntologyPrefix()}">parent 1</span><!--/span--></a>
                 </li>
                 <li>
-                    <span id='shortForm' th:if="${ontologyTerm.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyTerm.getOboId()}">id</span>
-                    <span id='shortForm' th:unless="${ontologyTerm.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyTerm.getShortForm()}">id</span>
+                    <!--span class="source-wrapper"--><span id='shortForm' th:if="${ontologyTerm.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyTerm.getOboId()}">id</span><!--/span-->
+                    <!--span class="source-wrapper"--><span id='shortForm' th:unless="${ontologyTerm.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyTerm.getShortForm()}">id</span><!--/span-->
                     <button title="Copy id to clipboard" id='copyShortForm' data-clipboard-action="copy" data-clipboard-target="#shortForm" class="secondary-color tiny copyButton" type="button"><span class="icon icon-functional" data-icon="c"></span>Copy</button>
                 </li>
                 </ul>
@@ -71,12 +69,12 @@
         </div>
                 <div>
                     <div class="small-8 column">
-                        <!-- old Style // image got replaced by icomn, see below
+                        <!-- old Style // image got replaced by icon; see below
                         <h2 property="name"  style="margin: 0px;" th:text="${ontologyTerm.getLabel()}">Term Label</h2>
                         <a style="padding: 9px;border-bottom: none;" th:href="@{${ontologyTerm.getIri()}}" class="nounderline" target="blank"><img th:src="@{../../img/external_link.png}" src="../static/img/external_link.png" alt="^" title="Go to external page"/></a>
                         <span property="url" id="OLS_ID" style="font-size: small;color: grey;" th:text="${ontologyTerm.getIri()}">http://www.example.com/onto/id</span>
                         -->
-                        <h2 property="name"  style="margin-bottom-b" th:text="${ontologyTerm.getLabel()}">Term Label</h2>
+                        <h2 property="name" style="margin-bottom: 0;" th:text="${ontologyTerm.getLabel()}">Term Label</h2>
                         <a style="padding: 9px;border-bottom: none;" th:href="@{${ontologyTerm.getIri()}}" class="nounderline" target="blank"><span class="show-for-sr">Go to external page</span><span class="icon icon-generic" data-icon="x"></span></a>
                         <span property="url" id="OLS_ID" style="font-size: small;color: grey;" th:text="${ontologyTerm.getIri()}">http://www.example.com/onto/id</span>
 
@@ -257,15 +255,22 @@
                             -->
 
                             <div th:if="${not #sets.isEmpty(xrefs)}">
-                                <a href="#" th:href="@{../../search(q='database_cross_reference',exact='true', type=property, ontology=${ontologyTerm.ontologyName})}">database cross reference</a>
+                                <a href="#"
+                                   th:href="@{../../search(q='database_cross_reference', exact='true', type='property', ontology=${ontologyTerm.ontologyName})}">database cross reference</a>
                                 <ul>
-                                    <li style="margin-left:9px;" th:each="oboXref: ${xrefs}">
-                                        <a th:if="${oboXref.getUrl() != null and oboXref.getDatabase() != null and oboXref.getId() != null}" target="_blank" th:href="${oboXref.getUrl()}" th:text="${oboXref.getDatabase() + ':' + oboXref.getId()}"></a>
-                                        <a th:if="${oboXref.getUrl() != null and oboXref.getDatabase() == null}" target="_blank" th:href="${oboXref.getUrl()}" th:text="${oboXref.getId()}"></a>
-                                        <span th:if="${oboXref.getDatabase() != null and oboXref.getUrl() == null}" th:text="${oboXref.getDatabase()}"></span>
-                                        <!--<span th:if="${oboXref.getId() != null and oboXref.getDatabase() != null and oboXref.getUrl() == null}">:</span>
-                                        <span th:if="${oboXref.getId() != null and oboXref.getUrl() == null}" th:text="${oboXref.getId()}"></span> -->
-                                        <span th:if="${oboXref.getDescription() != null}" th:text="'(' + ${oboXref.getDescription()} + ')'"></span>
+                                    <li style="margin-left: 9px;" th:each="oboXref: ${xrefs}">
+                                        <a th:if="${oboXref.getUrl() != null and oboXref.getDatabase() != null and oboXref.getId() != null}"
+                                           target="_blank"
+                                           th:href="${oboXref.getUrl()}"
+                                           th:text="${oboXref.getDatabase() + ':' + oboXref.getId()}"></a>
+                                        <a th:if="${oboXref.getUrl() != null and oboXref.getDatabase() == null}"
+                                           target="_blank"
+                                           th:href="${oboXref.getUrl()}"
+                                           th:text="${oboXref.getId()}"></a>
+                                        <span th:if="${oboXref.getDatabase() != null and oboXref.getUrl() == null}"
+                                              th:text="${oboXref.getDatabase()}"></span>
+                                        <span th:if="${oboXref.getDescription() != null}"
+                                              th:text="'(' + ${oboXref.getDescription()} + ')'"></span>
                                     </li>
                                 </ul>
                             </div>

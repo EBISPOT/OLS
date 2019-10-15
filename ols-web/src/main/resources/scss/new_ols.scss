@@ -1,7 +1,12 @@
+:root {
+    --ols_orange: #ffac1b;
+    --ols_turquoise: #5fbdce;
+}
+
 #mainpageSearchBox {
     margin-top: 30px;
     margin-bottom: 30px;
-    background:#F0F0F0;
+    background: #F0F0F0;
     padding: 35px 35px 35px 35px;
     border-radius: 5px;
 }
@@ -16,7 +21,7 @@
     margin-top: 30px;
 }
 
-/* search Button css */
+/* search button css */
 .searchButton {
     margin-left: 7px;
     margin-bottom: 0.1em;
@@ -182,30 +187,41 @@ a.nounderline.ontology-link {
     margin: 0;
 }
 
-/* Ontology prefix/Term markup used on*/
-.ontology-source {
-    background-color: #5fbdce;
-    padding: 3px 4px 1px 4px;
+.source-wrapper {
     color: white;
-    /* font-size: larger; */
-    border-radius: 3px;
     display: inline-block;
+    margin-top: -5px;
     margin-right: 4px;
-    margin-left: 0.9em;
-    vertical-align: middle;
+    margin-left: 4px;
+    display: inline-block;
 }
 
-.term-source {
-    background-color: #ffac1b;
-    padding: 3px 4px 1px 4px;
-    color: white;
-    /* font-size: larger; */
-    border-radius: 3px;
-    display: inline-block;
-    margin-right: 4px;
-    margin-left: /* 10px */ 0.9em;
-    vertical-align: middle;
-}
+/* Ontology prefix/Term markup used on */
+// .ontology-source {
+//     background-color: #5fbdce;
+//     padding: 3px 4px 1px 4px;
+//     color: white;
+//     /* font-size: larger; */
+//     border-radius: 3px;
+//     display: inline-block;
+//     /* margin-top: -5px;
+//     margin-right: 4px;
+//     margin-left: 0.9em; */
+//     vertical-align: middle;
+// }
+
+// .term-source {
+//     background-color: #ffac1b;
+//     padding: 3px 4px 1px 4px;
+//     color: white;
+//     /* font-size: larger; */
+//     border-radius: 3px;
+//     display: inline-block;
+//     /* margin-top: -5px;
+//     margin-right: 4px;
+//     margin-left: 0.9em; */
+//     vertical-align: middle;
+// }
 
 #exact-id, #obsolete-id {
     margin-right: 4px;
@@ -438,12 +454,12 @@ button.list-group-item:hover, button.list-group-item:focus {
 }
 
 #clearFilters {
-    float:right;
-    margin-top:10px;
+    float: right;
+    margin-top: 10px;
 }
 
 #mainSearchDiv {
-    margin-top:40px;
+    margin-top: 40px;
     margin-bottom: /* 30px */ 0;
     /* padding-left:150px; */
 }
@@ -489,7 +505,20 @@ button.list-group-item:hover, button.list-group-item:focus {
 /* Modify classes from ebi-global.css */
 .breadcrumbs {
     padding-left: 13px;
+    font-size: 0;
+    > * {
+        font-size: 1rem;
+    }
+    > li {
+        height: 100%;
+        vertical-align: middle;
+        font-size: 0.84rem;
+        &:not(:last-child)::after {
+            margin: 0 0.4rem;
+        }
+    }
 }
+
 [type="search"], [type="search"]:focus {
     box-shadow: none;
     transition: none;
@@ -497,4 +526,35 @@ button.list-group-item:hover, button.list-group-item:focus {
 
 div.row {
     padding-left: 13px;
+}
+
+/* SCSS button styler */
+@mixin aligned_button($padfactor, /* $spacefactor, */ $padcolour) {
+    position: relative;
+    font-size: 1rem;
+    color: white;
+    display: inline-block;
+    margin-top: 0.25rem * $padfactor;
+    margin-right: 1.25rem * $padfactor;
+    margin-bottom: 0.125 * $padfactor;
+    margin-left: 1.25rem * $padfactor;
+    &::before {
+        content: "";
+        position: absolute;
+        top: -0.25rem * $padfactor;
+        right: -0.625rem * $padfactor;
+        bottom: -0.125rem * $padfactor;
+        left: -0.625rem * $padfactor;
+        background-color: $padcolour;
+        border-radius: 0.5rem * $padfactor;
+        z-index: -1;
+    }
+}
+
+.term-source {
+    @include aligned_button(1, var(--ols_orange));
+}
+
+.ontology-source {
+    @include aligned_button(1, var(--ols_turquoise));
 }
