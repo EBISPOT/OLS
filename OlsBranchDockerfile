@@ -9,7 +9,7 @@ RUN mkdir /opt
 
 ENV REM=""
 ENV SOLR_VERSION_NO="5.5.5"
-ENV TOMCAT_VERSION_NO="8.5.45"
+ENV TOMCAT_VERSION_NO="8.5.47"
 ENV PATH="/opt/ols/solr-${SOLR_VERSION_NO}/bin:/opt/ols/apache-tomcat-${TOMCAT_VERSION_NO}/bin:${PATH}"
 
 RUN apk update && \
