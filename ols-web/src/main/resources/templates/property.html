@@ -44,10 +44,10 @@
                 <a th:href="@{../../ontologies/__${ontologyProperty.getOntologyName()}__}" th:text="${ontologyName}">ontology</a>
                 &nbsp;
                 <a property="codingSystem" th:attr="content=${ontologyProperty.getOntologyName()}" href="#" style="border-bottom-width: 0px;">
-                    <span class="ontology-source" th:text="${ontologyProperty.getOntologyPrefix()}">parent 1</span>
+                    <span class="ontology-source-valign" th:text="${ontologyProperty.getOntologyPrefix()}">parent 1</span>
                 </a>   &gt;
-                <span id="shortForm" th:if="${ontologyProperty.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyProperty.getOboId()}">id</span>
-                <span id="shortForm" th:unless="${ontologyProperty.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyProperty.getShortForm()}">id</span>
+                <span id="shortForm" th:if="${ontologyProperty.getOboId()} != null" class="term-source-valign" property="codeValue" th:text="${ontologyProperty.getOboId()}">id</span>
+                <span id="shortForm" th:unless="${ontologyProperty.getOboId()} != null" class="term-source-valign" property="codeValue" th:text="${ontologyProperty.getShortForm()}">id</span>
 
                 <button id='copyShortForm' class="button tiny third copyButton" data-clipboard-action="copy" data-clipboard-target="#shortForm" type="button">C</button>
 

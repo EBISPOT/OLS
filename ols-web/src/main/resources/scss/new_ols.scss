@@ -529,32 +529,46 @@ div.row {
 }
 
 /* SCSS button styler */
-@mixin aligned_button($padfactor, /* $spacefactor, */ $padcolour) {
+@mixin aligned_button($padfactor, $vertmarginfactor, $padcolour) {
+    @if $vertmarginfactor == 0 {
+        font-size: 1em;
+    } @else if $vertmarginfactor == 1 {
+        font-size: 1rem;
+    }
     position: relative;
-    font-size: 1rem;
     color: white;
     display: inline-block;
-    margin-top: 0.25rem * $padfactor;
-    margin-right: 1.25rem * $padfactor;
-    margin-bottom: 0.125 * $padfactor;
-    margin-left: 1.25rem * $padfactor;
+    margin-top: 0.25em * $vertmarginfactor;
+    // margin-right: 1.25em * $padfactor;
+    margin-right: 0.625em * ($padfactor + $vertmarginfactor);
+    margin-bottom: 0.125em * $vertmarginfactor;
+    // margin-left: 1.25em * $padfactor;
+    margin-left: 0.625em * ($padfactor + $vertmarginfactor);
     &::before {
         content: "";
         position: absolute;
-        top: -0.25rem * $padfactor;
-        right: -0.625rem * $padfactor;
-        bottom: -0.125rem * $padfactor;
-        left: -0.625rem * $padfactor;
+        top: -0.25em * $padfactor;
+        right: -0.625em * $padfactor;
+        bottom: -0.125em * $padfactor;
+        left: -0.625em * $padfactor;
         background-color: $padcolour;
-        border-radius: 0.5rem * $padfactor;
+        border-radius: 0.5em * $padfactor;
         z-index: -1;
     }
 }
 
 .term-source {
-    @include aligned_button(1, var(--ols_orange));
+    @include aligned_button(1, 1, var(--ols_orange));
+}
+
+.term-source-valign {
+    @include aligned_button(1, 0, var(--ols_orange));
 }
 
 .ontology-source {
-    @include aligned_button(1, var(--ols_turquoise));
+    @include aligned_button(1, 1, var(--ols_turquoise));
+}
+
+.ontology-source-valign {
+    @include aligned_button(1, 0, var(--ols_turquoise));
 }
