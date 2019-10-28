@@ -719,13 +719,15 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         for (OWLObjectPropertyExpression superObjectPropertyExpression :
         	objectProperty.getSuperProperties(ontology)) {
 
-        	IRI superObjectPropertyIRI = superObjectPropertyExpression.asOWLObjectProperty().getIRI();
-            if (!superObjectPropertyExpression.isAnonymous() &&
-            		!indirectSuperProperties.contains(superObjectPropertyIRI)) {
+            if (!superObjectPropertyExpression.isAnonymous()) {
+                IRI superObjectPropertyIRI = superObjectPropertyExpression.asOWLObjectProperty().getIRI();
 
-            	indirectSuperProperties.add(superObjectPropertyIRI);
-            	findAllDirectAndIndirectSuperProperties(superObjectPropertyExpression.asOWLObjectProperty(),
-            			indirectSuperProperties);
+                if (!indirectSuperProperties.contains(superObjectPropertyIRI)) {
+
+                    indirectSuperProperties.add(superObjectPropertyIRI);
+                    findAllDirectAndIndirectSuperProperties(superObjectPropertyExpression.asOWLObjectProperty(),
+                            indirectSuperProperties);
+                }
             }
         }
     	return indirectSuperProperties;

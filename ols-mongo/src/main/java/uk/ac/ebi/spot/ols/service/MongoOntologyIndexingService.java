@@ -48,14 +48,14 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
     OntologyLoadingConfiguration ontologyLoadingConfiguration;
 
     @Override
-    public void indexOntologyDocument(OntologyDocument document) throws IndexingException {
+    public boolean indexOntologyDocument(OntologyDocument document) throws IndexingException {
 
         OntologyLoader loader = null;
         Collection<IRI> classes;
         Collection<IRI> properties;
         Collection<IRI> individuals;
         String message = "";
-        Status status = Status.FAILED;
+        Status status = Status.LOADING;
 
       logger.trace("annotationproperty.preferredroot.term = " + 
 		ontologyLoadingConfiguration.getPreferredRootTermAnnotationProperty());
@@ -83,14 +83,14 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
                 throw new IndexingException("Empty ontology found", new RuntimeException());
             }
 
-        } catch (Exception e) {
-            message = e.getMessage();
-            logger.error(message, e);
+        } catch (Throwable t) {
+            message = t.getMessage();
+            logger.error(message, t);
             document.setStatus(Status.FAILED);
             document.setMessage(message);
             ontologyRepositoryService.update(document);
             // just set document to failed and return
-            return;
+            return false;
         }
 
         document.setStatus(Status.LOADING);
@@ -150,11 +150,11 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             status = Status.LOADED;
             document.setLoaded(new Date());
 
-        } catch (Exception e) {
-        	logger.error("Error indexing " + document.getOntologyId(), e);
+        } catch (Throwable t) {
+        	logger.error("Error indexing " + document.getOntologyId(), t);
             status = Status.FAILED;
-            message = e.getMessage();
-            throw e;
+            message = t.getMessage();
+            throw t;
         }
         finally {
 
@@ -162,6 +162,7 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             document.setUpdated(new Date());
             document.setMessage(message);
             ontologyRepositoryService.update(document);
+            return true;
         }
     }
 
@@ -179,11 +180,11 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             }
             status = Status.REMOVED;
 
-        } catch (Exception e) {
-        	logger.error("Error removing index for " + document.getOntologyId(), e.getMessage());
+        } catch (Throwable t) {
+        	logger.error("Error removing index for " + document.getOntologyId(), t.getMessage());
             status = Status.FAILED;
-            message = e.getMessage();
-            throw e;
+            message = t.getMessage();
+            throw t;
         }
         finally {
             document.setStatus(status);

@@ -142,9 +142,9 @@ public class LoadingApplication implements CommandLineRunner {
                     try {
                         ontologyIndexingService.indexOntologyDocument(document);
                         updatedOntologies.add(document.getOntologyId());
-                    } catch (Exception e) {
+                    } catch (Throwable t) {
                         logger.error("Application failed creating indexes for " + 
-                        		document.getOntologyId() + ": " + e.getMessage(), e);
+                        		document.getOntologyId() + ": " + t.getMessage(), t);
                         haserror = true;
                     }
                 }
@@ -158,9 +158,9 @@ public class LoadingApplication implements CommandLineRunner {
                         ontologyIndexingService.removeOntologyDocumentFromIndex(document);
                         ontologyRepositoryService.delete(document);
                         updatedOntologies.add(document.getOntologyId());
-                    } catch (Exception e) {
+                    } catch (Throwable t) {
                     	logger.error("Application failed deleting indexes for " + document.getOntologyId() + ": " +
-                                e.getMessage(), e);
+                                t.getMessage(), t);
                         haserror = true;
                     }
                 }
@@ -170,12 +170,17 @@ public class LoadingApplication implements CommandLineRunner {
             // otherwise load everything set TOLOAD
             for (OntologyDocument document : ontologyRepositoryService.getAllDocumentsByStatus(Status.TOLOAD)) {
                 try {
-                    ontologyIndexingService.indexOntologyDocument(document);
-                    updatedOntologies.add(document.getOntologyId());
-                } catch (Exception e) {
+                    boolean loadResult = ontologyIndexingService.indexOntologyDocument(document);
+                    if (loadResult)
+                        updatedOntologies.add(document.getOntologyId());
+                    else {
+                        haserror = true;
+                        document.setStatus(Status.FAILED);
+                    }
+                } catch (Throwable t) {
                 	logger.error("Application failed creating indexes for " + document.getOntologyId() + ": " +
-                            e.getMessage(), e);
-                    exceptions.append(e.getMessage());
+                            t.getMessage(), t);
+                    exceptions.append(t.getMessage());
                     exceptions.append("\n");
                     haserror = true;
                 }
