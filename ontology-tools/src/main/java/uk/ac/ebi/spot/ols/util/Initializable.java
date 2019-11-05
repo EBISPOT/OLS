@@ -19,14 +19,14 @@ public abstract class Initializable {
     private boolean ready;
     private Throwable initializationException;
     
-    private Logger log = LoggerFactory.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    protected Logger getLog() {
-        return log;
+    protected Logger getLogger() {
+        return logger;
     }
 
     protected void setInitStarted() {
-    	getLog().trace("Thread.currentThread().id = " + Thread.currentThread().getId() + " setInitStarted.");
+    	getLogger().trace("Thread.currentThread().id = " + Thread.currentThread().getId() + " setInitStarted.");
     	synchronized (this) {
 	        this.initStarted = true;
 	        notifyAll();
@@ -34,7 +34,7 @@ public abstract class Initializable {
     }
 
     protected void setInitStopped() {
-    	getLog().trace("Thread.currentThread().id = " + Thread.currentThread().getId() + " setInitStopped.");
+    	getLogger().trace("Thread.currentThread().id = " + Thread.currentThread().getId() + " setInitStopped.");
     	synchronized (this) {
 	        this.initStarted = false;
 	        notifyAll();
@@ -42,7 +42,7 @@ public abstract class Initializable {
     }
 
     protected void setReady(boolean ready) {
-    	getLog().trace("Thread.currentThread().id = " + Thread.currentThread().getId() + " setReady.");
+    	getLogger().trace("Thread.currentThread().id = " + Thread.currentThread().getId() + " setReady.");
     	synchronized (this) {
 	        this.ready = ready;
 	        notifyAll();
@@ -52,8 +52,8 @@ public abstract class Initializable {
     protected void setInitializationException(Throwable t) {
     	synchronized (this) {
 	        if (t != null) {
-	            getLog().error("Failed to initialize " + Initializable.this.getClass().getSimpleName() + ". " +
-	                                   "Initialization exception updated", t.getMessage());
+	            getLogger().error("Failed to initialize " + Initializable.this.getClass().getSimpleName() + ". " +
+	                                   "Initialization exception updated : " + t.getMessage(), t);
 	        }
 	        this.initializationException = t;
 	        notifyAll();
@@ -62,7 +62,7 @@ public abstract class Initializable {
 
     protected boolean hasInitStarted() throws IllegalStateException {
     	synchronized (this) {
-    		getLog().trace("Thread.currentThread().id = " + Thread.currentThread().getId() + 
+    		getLogger().trace("Thread.currentThread().id = " + Thread.currentThread().getId() + 
     				" initStarted = " + initStarted);
     		return initStarted;
     	}
@@ -75,7 +75,7 @@ public abstract class Initializable {
 	                    "Initialization of " + getClass().getSimpleName() + " failed: " + initializationException.getMessage(), initializationException);
 	        }
 	        else {
-	        	getLog().trace("Thread.currentThread().id = " + Thread.currentThread().getId() + 
+	        	getLogger().trace("Thread.currentThread().id = " + Thread.currentThread().getId() + 
 	        			" ready = " + ready);
 	            return ready;
 	        }
@@ -83,20 +83,20 @@ public abstract class Initializable {
     }
 
     public void waitUntilReady() throws IllegalStateException, InterruptedException {
-    	getLog().trace("Thread.currentThread().id = " + Thread.currentThread().getId() + " waitUntilReady.");
+    	getLogger().trace("Thread.currentThread().id = " + Thread.currentThread().getId() + " waitUntilReady.");
     	synchronized (this) {
 	        while (!isReady()) {
 	        	Thread thread = Thread.currentThread();
-	            getLog().debug("Thread with id = " + thread.getId() +  
+	            getLogger().debug("Thread with id = " + thread.getId() +  
 	            		" Waiting until " + getClass().getSimpleName() + " is ready...");
 	            wait();
 	        }
-	        getLog().debug(getClass().getSimpleName() + " is now ready");
+	        getLogger().debug(getClass().getSimpleName() + " is now ready");
     	}
     }
 
     protected void initOrWait() throws IllegalStateException, InterruptedException {
-    	getLog().trace("Thread.currentThread().id = " + Thread.currentThread().getId() + 
+    	getLogger().trace("Thread.currentThread().id = " + Thread.currentThread().getId() + 
     			" Current object id = " + this.hashCode() + " initOrWait.");
 	    synchronized (this) {
 	        if (hasInitStarted()) {
@@ -114,7 +114,7 @@ public abstract class Initializable {
     }
 
     protected void interrupt() {
-    	getLog().trace("Thread.currentThread().id = " + Thread.currentThread().getId() + " interrupt.");
+    	getLogger().trace("Thread.currentThread().id = " + Thread.currentThread().getId() + " interrupt.");
     	synchronized (this) {
 	        // if initializing, then interrupt
 	        if (hasInitStarted()) {
@@ -130,7 +130,7 @@ public abstract class Initializable {
     }
 
     public void init() {
-    	getLog().trace("Thread.currentThread().id = " + Thread.currentThread().getId() + " init.");
+    	getLogger().trace("Thread.currentThread().id = " + Thread.currentThread().getId() + " init.");
         // if not already started an init thread or fully initialized, then init
         synchronized (this) {
             if (!hasInitStarted() && !isReady()) {
@@ -143,20 +143,20 @@ public abstract class Initializable {
                     public void run() {
                         // call doInitialization() provided by subclasses
                         try {
-                            getLog().debug("Initializing " + Initializable.this.getClass().getSimpleName() + "...");
+                            getLogger().debug("Initializing " + Initializable.this.getClass().getSimpleName() + "...");
                             doInitialization();
                             setReady(true);
-                            getLog().debug("..." + Initializable.this.getClass().getSimpleName() + " initialized ok");
+                            getLogger().debug("..." + Initializable.this.getClass().getSimpleName() + " initialized ok");
                         }
                         catch (Exception e) {
-                            getLog().debug("Caught exception whilst initializing, " +
+                            getLogger().debug("Caught exception whilst initializing, " +
                                                    "attempting to handle with clean termination", e);
                             setInitializationException(e);
                         }
                         setInitStopped();
                     }
                 }));
-                getLog().trace("New initThread = " + initThread.getId() + " about to start.");
+                getLogger().trace("New initThread = " + initThread.getId() + " about to start.");
                 // kick off init
                 initThread.start();
             }
@@ -164,13 +164,13 @@ public abstract class Initializable {
     }
 
     public void destroy() {
-    	getLog().trace("Thread.currentThread().id = " + Thread.currentThread().getId() + " destroy.");
+    	getLogger().trace("Thread.currentThread().id = " + Thread.currentThread().getId() + " destroy.");
         synchronized (this) {
             try {
                 doTermination();
             }
             catch (Exception e) {
-                getLog().error("Failed to terminate " + Initializable.this.getClass().getSimpleName() + ": " +
+                getLogger().error("Failed to terminate " + Initializable.this.getClass().getSimpleName() + ": " +
                                        "this may result in stale threads and a possible memory leak", e);
                 setInitializationException(e);
             }

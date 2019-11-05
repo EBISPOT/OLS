@@ -5,7 +5,6 @@ import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.*;
@@ -34,21 +33,27 @@ public class JsTreeBuilder {
             "USING INDEX n:Class(iri)\n" +
             "WHERE n.ontology_name = {0} AND n.iri = {1}\n"+
             "UNWIND rels(path) as r1\n" +
-            "RETURN distinct id(startNode(r1)) as startId, startNode(r1).iri as startIri, startNode(r1).label as startLabel, startNode(r1).has_children as hasChildren, r1.label as relation";
+            "RETURN distinct id(startNode(r1)) as startId, startNode(r1).iri as startIri, " + 
+              "startNode(r1).label as startLabel, startNode(r1).has_children as hasChildren, r1.label as relation";
 
     String parentTreeQuery = "MATCH path = (n:Class)-[r:SUBCLASSOF|RelatedTree*]->(parent)\n"+
             "USING INDEX n:Class(iri)\n" +
             "WHERE n.ontology_name = {0} AND n.iri = {1}\n"+
             "UNWIND rels(path) as r1\n" +
-            "RETURN distinct id(startNode(r1)) as startId, startNode(r1).iri as startIri, startNode(r1).label as startLabel, startNode(r1).has_children as hasChildren, r1.label as relation, collect( distinct id(endNode(r1)) ) as parents";
+            "RETURN distinct id(startNode(r1)) as startId, startNode(r1).iri as startIri," + 
+              "startNode(r1).label as startLabel, startNode(r1).has_children as hasChildren, " + 
+              "r1.label as relation, collect( distinct id(endNode(r1)) ) as parents";
 
-    String parentSiblingTreeQuery = "MATCH path = (n:Class)-[r:SUBCLASSOF|RelatedTree*]->(parent)<-[r2:SUBCLASSOF|RelatedTree]-(n1:Class)\n"+
+    String parentSiblingTreeQuery = "MATCH path = (n:Class)-[r:SUBCLASSOF|RelatedTree*]" + 
+            "->(parent)<-[r2:SUBCLASSOF|RelatedTree]-(n1:Class)\n"+
             "USING INDEX n:Class(iri)\n" +
             "WHERE n.ontology_name = {0} AND n.iri = {1}\n"+
             "UNWIND rels(path) as r1\n" +
             "WITH r1\n" +
             "WHERE startNode(r1).is_obsolete=false\n"+
-            "RETURN distinct id(startNode(r1)) as startId, startNode(r1).iri as startIri, startNode(r1).label as startLabel, startNode(r1).has_children as hasChildren, r1.label as relation, collect( distinct id(endNode(r1)) ) as parents";
+            "RETURN distinct id(startNode(r1)) as startId, startNode(r1).iri as startIri, " + 
+              "startNode(r1).label as startLabel, startNode(r1).has_children as hasChildren, " + 
+              "r1.label as relation, collect( distinct id(endNode(r1)) ) as parents";
 
 
     // Property queries
@@ -97,7 +102,6 @@ public class JsTreeBuilder {
         this.rootName = rootName;
     }
 
-    @Transactional
     public Object getIndividualJsTree(String ontologyName, String iri) {
         Map<String, Object> paramt = new HashMap<>();
         paramt.put("0", ontologyName);
@@ -108,7 +112,6 @@ public class JsTreeBuilder {
         return getJsTreeObject(ontologyName, iri, res);
     }
 
-    @Transactional
     public Object getPropertyJsTree(String ontologyName, String iri, boolean siblings) {
         Map<String, Object> paramt = new HashMap<>();
         paramt.put("0", ontologyName);
@@ -121,7 +124,6 @@ public class JsTreeBuilder {
     }
 
 
-    @Transactional
     public Object getClassJsTree(String ontologyName, String iri, boolean siblings) {
         Map<String, Object> paramt = new HashMap<>();
         paramt.put("0", ontologyName);
@@ -141,7 +143,6 @@ public class JsTreeBuilder {
         return getJsTreeChildren("property", ontologyName, iri, parentNodeId);
     }
 
-    @Transactional
     private Object getJsTreeChildren(String type,String ontologyName, String iri, String parentNodeId) {
         Map<String, Object> paramt = new HashMap<>();
         paramt.put("0", ontologyName);

@@ -87,8 +87,8 @@ public interface OntologyLoader {
     Collection<IRI> getAllAnnotationPropertyIRIs();
 
     /**
-     * Returns a mapping between the IRIs that identify classes in the loaded ontology and the corresponding class
-     * rdfs:label.
+     * Returns a mapping between the IRIs that identify classes in the loaded ontology and the 
+     * corresponding class rdfs:label.
      *
      * @return the class labels in this ontology, indexed by class IRI
      */
@@ -207,14 +207,17 @@ public interface OntologyLoader {
     Map<IRI, Collection<IRI>> getRelatedTerms(IRI entityIRI);
 
     /**
-     * Returns all related terms that can be considered parents. Any relations that are considered hierarchical in nature (e.g. part-of, develops-from etc..). Excludes supeclass/is-a parents
+     * Returns all related terms that can be considered parents. Any relations that are considered 
+     * hierarchical in nature (e.g. part-of, develops-from etc..). Excludes supeclass/is-a parents
      *
      * @return the relationship IRI and the set of related terms
      */
     Map<IRI, Collection<IRI>> getRelatedParentTerms(IRI entityIRI);
 
     /**
-     * Returns all transitive related terms that can be considered parents. Any relations that are considered hierarchical in nature (e.g. part-of, develops-from etc..). This includes superclasses
+     * Returns all transitive related terms that can be considered parents. Any relations that are 
+     * considered hierarchical in nature (e.g. part-of, develops-from etc..). This includes super 
+     * classes.
      *
      * @return the relationship IRI and the set of related terms
      */
@@ -222,7 +225,8 @@ public interface OntologyLoader {
 
 
     /**
-     * Returns all related terms that can be considered children. Any relations that are considered hierarchical in nature (e.g. part-of, develops-from etc..)
+     * Returns all related terms that can be considered children. Any relations that are considered 
+     * hierarchical in nature (e.g. part-of, develops-from etc..)
      *
      * @return the relationship IRI and the set of related terms
      */
@@ -252,5 +256,10 @@ public interface OntologyLoader {
     Map<IRI, Collection<IRI>> getRelatedClassesToIndividual(IRI entityIRI);
 
 
-
+    /**
+     * Returns the terms that the ontology designers deem to be the roots of their ontology.
+     * 
+     * @return a list of terms that are considered to be the preferred roots of the ontology.
+     */
+    Collection<IRI> getPreferredRootTerms();
 }

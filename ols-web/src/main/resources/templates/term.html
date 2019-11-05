@@ -183,16 +183,36 @@
                     <!-- Tab panes -->
                     <div class="tabs-content" data-tabs-content="terms_tabs">
                         <div class="tabs-panel is-active" id="tree-tab">
-                            <div id="tree_tab_button_box">
-                                <!--
-                                <button class="button secondary" value="true" title="Redraw the tree to focus on this terms" onclick="location.reload(true)">Reset tree</button>
-                                <button id="showSliblingsButton" class="button secondary" value="true" title="Expand the tree to show sibling terms" onclick="termInstance.toggleSiblings(this)">Show siblings</button>
-                                <button class="button icon icon-conceptual" data-icon ="o" th:onclick="'javascript:window.open(\'' + @{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})} + '\')'" title="Visualisation of this term">Graph view</button>
-                                -->
-                                <!-- "Less disruptive buttons? Do we want it this way? Above, it's the old way" -->
-                                <button class="button small white-background secondary-color" value="true" title="Redraw the tree to focus on this terms" onclick="location.reload(true)"><span class="icon icon-functional" data-icon="R"></span> Reset tree</button>
-                                <button id="showSliblingsButton" class="button small white-background secondary-color" value="true" title="Expand the tree to show sibling terms" onclick="termInstance.toggleSiblings(this)">Show siblings</button>
-                                <button class="button small white-background ebi-color" title="Visualisation of this term" th:onclick="'javascript:window.open(\'' + @{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})} + '\')'"><span class="icon icon-conceptual" data-icon="o"></span> Graph view</button>
+                            <div class="btn-group btn-group-vertical" style="float: right;padding-top:5px;">
+                                <button class="icon icon-conceptual  btn  btn-default" data-icon ="o" th:onclick="'javascript:window.open(\'' + @{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})} + '\')'" title="Visualisation of this term">Graph view</button>
+                                <button class="btn btn-default" value="true" title="Redraw the tree to focus on this terms" onclick="location.reload(true)">Reset tree</button>
+                                <!--                                            th:value="${#httpServletRequest.getParameter('siblings') == 'true'} ? 'true': 'false'"-->
+                                <button class="btn btn-default" name="ontology_view_siblings"
+                                        th:value="${#httpServletRequest.getParameter('siblings') == 'true'} ? 'true': 'false'"
+                                        title="Expand the tree to show sibling terms"
+                                        onclick="termInstance.toggleSiblings()">Show all siblings</button>
+                                <div  th:attr="style=${preferredRootTermDisplayStyle}">
+                                    <div class="radio icheck-belizehole">
+                                        <input type="radio"
+                                               id="ontology_view_selection_id_preferred_roots"
+                                               name="ontology_view_selection"
+                                               value="PreferredRoots"
+                                               th:checked="${#httpServletRequest.getParameter('viewMode') == null or #httpServletRequest.getParameter('viewMode') == 'PreferredRoots'} ? 'true': 'false'"
+                                               onclick="termInstance.toggleOntologyView()"/>
+                                        <label for="ontology_view_selection_id_preferred_roots"
+                                               style="margin: 0 0.1rem 0 0.2rem; color: #000000;">Preferred root terms</label>
+                                    </div>
+                                    <div class="radio icheck-belizehole">
+                                        <input type="radio"
+                                               id="ontology_view_selection_id_all"
+                                               name="ontology_view_selection"
+                                               value="All"
+                                               th:checked="${#httpServletRequest.getParameter('viewMode') == 'All' or not preferredRootTermEnabled} ? 'true': 'false'"
+                                               onclick="termInstance.toggleOntologyView()"/>
+                                        <label for="ontology_view_selection_id_all"
+                                               style="margin: 0 0.1rem 0 0.2rem; color: #000000;">All terms</label>
+                                    </div>
+                                </div>
                             </div>
 
 
@@ -404,7 +424,10 @@
 <script src="../static/js/jstree/jstree.min.js" th:src="@{../../js/jstree/jstree.min.js}"></script>
 
 <script type="text/javascript" src="../static/js/ols-termselect2.js" th:src="@{../../js/ols-termselect2.js (beta=r1)}"></script>
-<script type="text/javascript" src="../static/js/ols-treeview.min.js" th:src="@{../../js/ols-treeview.min.js  (v=0.0.42)}"></script>
+<!--<script type="text/javascript" src="../static/js/ols-treeview.min.js" th:src="@{../../js/ols-treeview.min.js  (v=0.0.42)}"></script>-->
+<script type="text/javascript" src="../static/js/ols-term-type-treeview.js" th:src="@{../../js/ols-term-type-treeview.js}"></script>
+<script type="text/javascript" src="../static/js/bootstrap/bootstrap.min.js" th:src="@{../../js/bootstrap/bootstrap.min.js}"></script>
+
 <script type="text/javascript" src="../static/js/clipboard.min.js" th:src="@{../../js/clipboard.min.js}"></script>
 
 <script>
@@ -499,17 +522,23 @@
 </script>
 
 <script>
-    console.log("Initialize tree")
-    // initialise the tree
-    var div=$("#term-tree");
     var ontologyName = $("#term-tree").data("olsontology");
     var termType = $("#term-tree").data("ols-termtype");
     var termIri = $("#term-tree").data("ols-iri");
     var relativePath = $("#term-tree").data("selectpath") ? $("#term-tree").data("selectpath") : '';
 
-    var app = require("ols-treeview");
-    var termInstance = new app();
-    termInstance.draw(div, false, ontologyName, termType, termIri, relativePath, {save_state: true});
+    var termInstance;
+
+    var OLSTermTypeTreeView = require("ols-term-type-treeview");
+
+    termInstance = new OLSTermTypeTreeView(relativePath, ontologyName, "#term-tree",
+        termIri, termType, "ontology_view_siblings", "ontology_view_selection", true);
+
+    var showSiblings = $("button[name='ontology_view_siblings']").val() == 'true';
+    var viewMode = $("input[name='ontology_view_selection']:checked").val();
+
+
+    termInstance.draw(showSiblings, viewMode);
 </script>
 
 

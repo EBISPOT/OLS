@@ -50,8 +50,10 @@ more information http://www.ebi.ac.uk/ols/docs/installation-guide
   ontologies specified in the config files, checks whether they have
   changed from a previous download, and if they have changed, will
   create all the necessary Solr and Neo4j indexes.
-* [ols-web](ols-web) - This will contain the WAR file that can be
-  deployed in Tomcat to launch the OLS website and REST API.
+* [ols-web](ols-web) - This contains the WAR file that can be deployed in Tomcat to
+ launch the OLS website and REST API. It depends on [ols-term-type-treeview]
+ (https://github.com/EBISPOT/ols-term-type-treeview) and [ols-tabbed-term-treeview]
+ (https://github.com/EBISPOT/ols-tabbed-term-treeview).
 
 ## Run OLS dockerised, specifying branch and commit hash / HEAD
 

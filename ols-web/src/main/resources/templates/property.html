@@ -107,16 +107,32 @@
                     </ul>
 
                     <!-- Tab panes -->
-                    <div class="tabs-content" data-tabs-content="property_tabs">
+                    <div class="btn-group btn-group-vertical" style="float: right;padding-top:5px;">
+                        <input type="radio" id="ontology_view_selection_id" name="ontology_view_selection" value="PreferredRoots"
+                               th:checked="${#httpServletRequest.getParameter('viewMode') == 'PreferredRoots'} ? 'true': 'false'"
+                               onclick="instance.toggleOntologyView()">Preferred root terms</input><br/>
+                        <input type="radio" id="ontology_view_selection_id" name="ontology_view_selection" value="All"
+                               th:checked="${#httpServletRequest.getParameter('viewMode') == null or #httpServletRequest.getParameter('viewMode') == 'All'} ? 'true': 'false'"
+                               onclick="instance.toggleOntologyView()">All terms</input>
+                    </div>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+
+                        <div role="tabpanel" class="tab-pane active" id="tree-tab">
 
                             <div class="btn-group btn-group-vertical" style="float: right;padding-top:5px;">
-                                <button class="button secondary" value="true" title="Expand the tree to show sibling terms" onclick="instance.toggleSiblings(this)">Show siblings</button>
+                                <button class="btn  btn-default" id="ontology_view_siblings_id"
+                                        th:value="${#httpServletRequest.getParameter('siblings') == 'true'} ? 'true': 'false'"
+                                        title="Expand the tree to show sibling terms"
+                                        onclick="instance.toggleSiblings()">Show all siblings</button>
                             </div>
 
                             <div id="term-tree" data-olswidget="tree" th:attr="data-olsontology=${ontologyProperty.getOntologyName()},data-ols-iri=${ontologyProperty.getIri()}" data-selectpath="../../" data-ols-termtype="property" data-olsontology="" data-ols-iri=""  >
                             </div>
 
+                        </div>
                     </div>
+
                 </div>
 
                 <div id="right_info_box" class="small-4 columns">
@@ -173,7 +189,8 @@
 <script src="../static/js/jstree/jstree.min.js" th:src="@{../../js/jstree/jstree.min.js}"></script>
 
 <script type="text/javascript" src="../static/js/ols-termselect2.js" th:src="@{../../js/ols-termselect2.js}"></script>
-<script type="text/javascript" src="../static/js/ols-treeview.min.js" th:src="@{../../js/ols-treeview.min.js}"></script>
+<!--<script type="text/javascript" src="../static/js/ols-treeview.min.js" th:src="@{../../js/ols-treeview.min.js}"></script>-->
+<script type="text/javascript" src="../static/js/ols-term-type-treeview.js" th:src="@{../../ols-term-type-treeview.js  (v=0.0.42)}"></script>
 <script type="text/javascript" src="../static/js/bootstrap/bootstrap.min.js" th:src="@{../../js/bootstrap/bootstrap.min.js}"></script>
 
 <script type="text/javascript" src="../static/js/clipboard.min.js" th:src="@{../../js/clipboard.min.js}"></script>
@@ -204,15 +221,25 @@
 
 <script>
     // initialise the tree
+
     var div=$("#term-tree");
     var ontologyName = $("#term-tree").data("olsontology");
     var termType = $("#term-tree").data("ols-termtype");
     var termIri = $("#term-tree").data("ols-iri");
     var relativePath = $("#term-tree").data("selectpath") ? $("#term-tree").data("selectpath") : '';
 
-    var app = require("ols-treeview");
-    var instance = new app();
-    instance.draw(div, false, ontologyName, termType, termIri, relativePath, {save_state: true});
+    // var app = require("ols-treeview");
+    // var instance = new app();
+    // instance.draw(div, false, ontologyName, termType, termIri, relativePath, {save_state: true});
+
+    var instance;
+
+    var OLSTermTypeTreeView = require("ols-term-type-treeview");
+
+    instance = new OLSTermTypeTreeView(relativePath, ontologyName, "#term-tree",
+        termIri, termType, "ontology_view_siblings_id", "ontology_view_selection_id", true);
+
+    instance.draw();
 </script>
 
 

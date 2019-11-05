@@ -42,7 +42,9 @@ public class OntologyDocument {
 
     private OntologyResourceConfig config;
 
-    public OntologyDocument(String ontologyId, Date updated, Status status, String message, String localPath, int numberOfTerms, int numberOfProperties, int numberOfIndividuals, OntologyResourceConfig config) {
+    public OntologyDocument(String ontologyId, Date updated, Status status, String message, String localPath,
+                            int numberOfTerms, int numberOfProperties, int numberOfIndividuals,
+                            OntologyResourceConfig config) {
         this.ontologyId = ontologyId;
         this.updated = updated;
         this.status = status;
@@ -60,7 +62,8 @@ public class OntologyDocument {
     }
 
     public OntologyDocument(String ontologyId, OntologyResourceConfig config) {
-        this(ontologyId, new Date(), Status.NOTLOADED, "No ontology loaded", null, 0,0,0, config);
+        this(ontologyId, new Date(), Status.NOTLOADED, "No ontology loaded", null, 0,
+                0,0, config);
     }
 
     public String getVersion() {

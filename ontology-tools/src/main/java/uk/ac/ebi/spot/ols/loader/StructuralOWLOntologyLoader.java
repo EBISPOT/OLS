@@ -5,6 +5,8 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.reasoner.*;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 import org.slf4j.Logger;
+
+import uk.ac.ebi.spot.ols.config.OntologyLoadingConfiguration;
 import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
 import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
 import uk.ac.ebi.spot.ols.xrefs.DatabaseService;
@@ -14,21 +16,23 @@ import uk.ac.ebi.spot.ols.xrefs.DatabaseService;
  * @date 14/07/2015
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
-public class StructuralOWLOntologyLoader  extends AbstractOWLOntologyLoader {
+public class StructuralOWLOntologyLoader extends AbstractOWLOntologyLoader {
 
     OWLReasoner reasoner = null;
-    public StructuralOWLOntologyLoader(OntologyResourceConfig config)  throws OntologyLoadingException {
+    public StructuralOWLOntologyLoader(OntologyResourceConfig config)  
+    		throws OntologyLoadingException {
         super(config);
     }
-    public StructuralOWLOntologyLoader(OntologyResourceConfig config, DatabaseService databaseService)  throws OntologyLoadingException {
-        super(config, databaseService);
+    public StructuralOWLOntologyLoader(OntologyResourceConfig config, DatabaseService databaseService,
+    		OntologyLoadingConfiguration ontologyLoadingConfiguration)  
+    				throws OntologyLoadingException {
+        super(config, databaseService, ontologyLoadingConfiguration);
     }
 
     protected OWLReasoner getOWLReasoner(OWLOntology ontology) throws OWLOntologyCreationException {
 
-
         if (reasoner == null) {
-            getLog().debug("Trying to create a reasoner over ontology '" + getOntologyIRI() + "'");
+            getLogger().debug("Trying to create a reasoner over ontology '" + getOntologyIRI() + "'");
             OWLReasonerFactory factory = new StructuralReasonerFactory();
             reasoner = factory.createReasoner(ontology);
         }

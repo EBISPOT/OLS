@@ -31,7 +31,6 @@ import java.util.Set;
 
 
 @SpringBootApplication
-@EnableAutoConfiguration
 @Configuration
 public class YamlLoader implements CommandLineRunner {
 
