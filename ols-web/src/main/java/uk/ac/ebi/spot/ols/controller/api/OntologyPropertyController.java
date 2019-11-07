@@ -23,6 +23,7 @@ import uk.ac.ebi.spot.ols.neo4j.model.Property;
 import uk.ac.ebi.spot.ols.neo4j.service.JsTreeBuilder;
 import uk.ac.ebi.spot.ols.neo4j.service.OntologyPropertyGraphService;
 import uk.ac.ebi.spot.ols.neo4j.service.PropertyJsTreeBuilder;
+import uk.ac.ebi.spot.ols.neo4j.service.ViewMode;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
@@ -193,16 +194,21 @@ public class OntologyPropertyController {
         throw new ResourceNotFoundException();
     }
 
-    @RequestMapping(path = "/{onto}/properties/{id}/jstree", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
-    HttpEntity<String> getJsTree(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId,
-                                 @RequestParam(value = "siblings", defaultValue = "false", required = false) boolean siblings)
+    @RequestMapping(path = "/{onto}/properties/{id}/jstree",
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE},
+            method = RequestMethod.GET)
+    HttpEntity<String> getJsTree(
+            @PathVariable("onto") String ontologyId,
+            @PathVariable("id") String termId,
+            @RequestParam(value = "siblings", defaultValue = "false", required = false) boolean siblings,
+            @RequestParam(value = "viewMode", defaultValue = "PreferredRoots", required = false) String viewMode)
     {
         ontologyId = ontologyId.toLowerCase();
 
         try {
             String decoded = UriUtils.decode(termId, "UTF-8");
 
-            Object object= jsTreeBuilder.getJsTree(ontologyId, decoded, siblings);
+            Object object= jsTreeBuilder.getJsTree(ontologyId, decoded, siblings, ViewMode.getFromShortName(viewMode));
             ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
             return new HttpEntity<String>(ow.writeValueAsString(object));
         } catch (JsonProcessingException e) {

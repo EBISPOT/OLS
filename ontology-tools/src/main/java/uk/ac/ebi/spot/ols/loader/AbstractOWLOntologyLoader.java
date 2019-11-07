@@ -382,8 +382,10 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
             if (ontology.getOntologyID().getVersionIRI() != null) {
                 ontologyVersionIRI = ontology.getOntologyID().getVersionIRI();
 
+                getLogger().debug("Version IRI = " + ontologyVersionIRI);
                 String oboVersion = parseOboVersion(ontologyVersionIRI);
                 if (oboVersion != null) {
+                    getLogger().debug("Set obo version");
                     setOntologyVersion(oboVersion);
                 }
 
@@ -433,12 +435,12 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     }
 
     public static String parseOboVersion(IRI ontologyVersionIRI) {
-        Pattern p = Pattern.compile(".*\\/(\\d{4}-\\d{2}-\\d{2})\\/.*");
+        Pattern pattern = Pattern.compile(".*\\/(\\d{4}-\\d{2}-\\d{2})\\/.*");
         String DATE_FORMAT = "yyyy-MM-dd";
         String iriAsString = ontologyVersionIRI.toString();
-        Matcher m = p.matcher(iriAsString);
-        if (m.matches()) {
-            String versionDate = m.group(1);
+        Matcher matcher = pattern.matcher(iriAsString);
+        if (matcher.matches()) {
+            String versionDate = matcher.group(1);
 
             SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
             try {

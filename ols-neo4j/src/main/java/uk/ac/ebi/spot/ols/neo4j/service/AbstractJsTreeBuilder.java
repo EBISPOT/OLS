@@ -54,7 +54,7 @@ public abstract class AbstractJsTreeBuilder {
         Result result = graphDatabaseService.execute(query, paramt);
 
         setRootName(getRootName());
-        Object jsTreeObject = getJsTreeObject(ontologyName, iri, result, ViewMode.PREFERRED_ROOTS);
+        Object jsTreeObject = getJsTreeObject(ontologyName, iri, result, ViewMode.ALL);
 
         logger.debug("Return jsTreeObject = " + jsTreeObject);
         return jsTreeObject;
