@@ -73,6 +73,7 @@ public class LoadingApplication implements CommandLineRunner {
 
         System.setProperty("entityExpansionLimit", "10000000");
         Collection<String> updatedOntologies = new HashSet<>();
+        Map<String, String> failingOntologies= new HashMap<>();
 
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(10);
@@ -109,7 +110,11 @@ public class LoadingApplication implements CommandLineRunner {
                     ontologyRepositoryService.update(document);
                 }
                 else {
-                    logger.warn("Can't delete ontology " + ontologyName + " as it doesn't exist in OLS");
+                    StringBuffer errorMessage = new StringBuffer("Could not detele ontology ");
+                    errorMessage.append(ontologyName);
+                    errorMessage.append(" as it doesn't exist in OLS");
+                    logger.warn(errorMessage.toString());
+                    failingOntologies.put(document.getOntologyId(), errorMessage.toString());
                 }
 
             }
@@ -142,10 +147,11 @@ public class LoadingApplication implements CommandLineRunner {
                     try {
                         ontologyIndexingService.indexOntologyDocument(document);
                         updatedOntologies.add(document.getOntologyId());
-                    } catch (Exception e) {
+                    } catch (Throwable t) {
                         logger.error("Application failed creating indexes for " + 
-                        		document.getOntologyId() + ": " + e.getMessage(), e);
+                        		document.getOntologyId() + ": " + t.getMessage(), t);
                         haserror = true;
+                        failingOntologies.put(document.getOntologyId(), t.getMessage());
                     }
                 }
             }
@@ -158,10 +164,11 @@ public class LoadingApplication implements CommandLineRunner {
                         ontologyIndexingService.removeOntologyDocumentFromIndex(document);
                         ontologyRepositoryService.delete(document);
                         updatedOntologies.add(document.getOntologyId());
-                    } catch (Exception e) {
+                    } catch (Throwable t) {
                     	logger.error("Application failed deleting indexes for " + document.getOntologyId() + ": " +
-                                e.getMessage(), e);
+                                t.getMessage(), t);
                         haserror = true;
+                        failingOntologies.put(document.getOntologyId(), t.getMessage());
                     }
                 }
             }
@@ -170,19 +177,24 @@ public class LoadingApplication implements CommandLineRunner {
             // otherwise load everything set TOLOAD
             for (OntologyDocument document : ontologyRepositoryService.getAllDocumentsByStatus(Status.TOLOAD)) {
                 try {
-                    ontologyIndexingService.indexOntologyDocument(document);
-                    updatedOntologies.add(document.getOntologyId());
-                } catch (Exception e) {
+                    boolean loadResult = ontologyIndexingService.indexOntologyDocument(document);
+                    if (loadResult)
+                        updatedOntologies.add(document.getOntologyId());
+                    else {
+                        haserror = true;
+                        failingOntologies.put(document.getOntologyId(), "An error occurred. Check logs.");
+                    }
+                } catch (Throwable t) {
                 	logger.error("Application failed creating indexes for " + document.getOntologyId() + ": " +
-                            e.getMessage(), e);
-                    exceptions.append(e.getMessage());
+                            t.getMessage(), t);
+                    exceptions.append(t.getMessage());
                     exceptions.append("\n");
                     haserror = true;
+                    failingOntologies.put(document.getOntologyId(),t.getMessage());
                 }
             }
         }
 
-        Map<String, String> failingOntologies= new HashMap<>();
         for (OntologyDocument document : ontologyRepositoryService.getAllDocumentsByStatus(Status.FAILED)) {
             failingOntologies.put(document.getOntologyId(), document.getMessage());
         }
@@ -203,7 +215,6 @@ public class LoadingApplication implements CommandLineRunner {
         }
         System.exit(0);
     }
-
 
     private static int parseArguments(String[] args) {
 
