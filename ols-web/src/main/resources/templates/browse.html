@@ -104,7 +104,9 @@
 <!-- All JS that is just used on this page should go here, I suppose-->
 <script>
     $(document).ready(function() {
-        $('#ontologiesTable').dataTable();
+        $('#ontologiesTable').dataTable({
+            "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]
+        } );
     });
 </script>
 
