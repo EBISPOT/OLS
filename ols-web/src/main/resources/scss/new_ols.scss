@@ -544,6 +544,7 @@ div.row {
     margin-bottom: 0.125em * $vertmarginfactor;
     // margin-left: 1.25em * $padfactor;
     margin-left: 0.625em * ($padfactor + $vertmarginfactor);
+    z-index: 2;
     &::before {
         content: "";
         position: absolute;
