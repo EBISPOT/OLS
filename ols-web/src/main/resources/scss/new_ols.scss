@@ -528,8 +528,19 @@ div.row {
     padding-left: 13px;
 }
 
-/* SCSS button styler */
-@mixin aligned_button($padfactor, $vertmarginfactor, $padcolour) {
+/// SCSS button styler mixin which surrounds buttons with correct coloured padding and
+/// extra spacing. Left-hand spacing should collapse within lists of similar buttons.
+///
+/// @author Warren Read
+///
+/// @param $padfactor - Colour padding extent multiplier: typically set to 1.
+/// @param $vertmarginfactor - Extra surrounding margin specifier: set to 1 within text,
+///                            or lists, otherwise 0.
+/// @paran $padcolour - Button colour: may refer to CSS variable.
+/// @param $leftshirt - To collapse left margin: set to 1 for second and higher elements
+///                     within button list, otherwise 0.
+
+@mixin aligned_button($padfactor, $vertmarginfactor, $padcolour, $leftshift) {
     @if $vertmarginfactor == 0 {
         font-size: 1em;
     } @else if $vertmarginfactor == 1 {
@@ -543,7 +554,8 @@ div.row {
     margin-right: 0.625em * ($padfactor + $vertmarginfactor);
     margin-bottom: 0.125em * $vertmarginfactor;
     // margin-left: 1.25em * $padfactor;
-    margin-left: 0.625em * ($padfactor + $vertmarginfactor);
+    // margin-left: 0.625em * ($padfactor + (1 - $leftshift) * $vertmarginfactor);
+    margin-left: 0.625em * ($padfactor + $vertmarginfactor - $leftshift);
     z-index: 2;
     &::before {
         content: "";
@@ -559,17 +571,33 @@ div.row {
 }
 
 .term-source {
-    @include aligned_button(1, 1, var(--ols_orange));
+    @include aligned_button(1, 1, var(--ols_orange), 0);
+}
+
+a + a > .term-source {
+    @include aligned_button(1, 1, var(--ols_orange), 1);
 }
 
 .term-source-valign {
-    @include aligned_button(1, 0, var(--ols_orange));
+    @include aligned_button(1, 0, var(--ols_orange), 0);
+}
+
+a + a > .term-source-valign {
+    @include aligned_button(1, 0, var(--ols_orange), 1);
 }
 
 .ontology-source {
-    @include aligned_button(1, 1, var(--ols_turquoise));
+    @include aligned_button(1, 1, var(--ols_turquoise), 0);
+}
+
+a + a > .ontology-source {
+    @include aligned_button(1, 1, var(--ols_turquoise), 1);
 }
 
 .ontology-source-valign {
-    @include aligned_button(1, 0, var(--ols_turquoise));
+    @include aligned_button(1, 0, var(--ols_turquoise), 0);
+}
+
+a + a > .ontology-source-valign {
+    @include aligned_button(1, 0, var(--ols_turquoise), 1);
 }
