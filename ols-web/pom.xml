@@ -221,6 +221,7 @@
                     <!--outputPath>${project.basedir}/target/</outputPath-->
                     <outputPath>${project.basedir}/src/main/resources/static/css/</outputPath>
                     <!--includePath>${project.basedir}/src/main/sass/plugins/</includePath-->
+                    <sourceMapOutputPath>${project.basedir}/src/main/resources/static/css/</sourceMapOutputPath>
                 </configuration>
             </plugin>
          </plugins>

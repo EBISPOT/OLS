@@ -201,32 +201,13 @@ a.nounderline.ontology-link {
     display: inline-block;
 }
 
-/* Ontology prefix/Term markup used on */
-// .ontology-source {
-//     background-color: #5fbdce;
-//     padding: 3px 4px 1px 4px;
-//     color: white;
-//     /* font-size: larger; */
-//     border-radius: 3px;
-//     display: inline-block;
-//     /* margin-top: -5px;
-//     margin-right: 4px;
-//     margin-left: 0.9em; */
-//     vertical-align: middle;
-// }
+/// An element of class 'decoy' can be thrown in to deconfuse button effect styling in lists.
 
-// .term-source {
-//     background-color: #ffac1b;
-//     padding: 3px 4px 1px 4px;
-//     color: white;
-//     /* font-size: larger; */
-//     border-radius: 3px;
-//     display: inline-block;
-//     /* margin-top: -5px;
-//     margin-right: 4px;
-//     margin-left: 0.9em; */
-//     vertical-align: middle;
-// }
+.decoy {
+    display: inline-block;
+    // visibility: hidden;
+    margin: 0 0.2rem;
+}
 
 #exact-id, #obsolete-id {
     margin-right: 4px;
