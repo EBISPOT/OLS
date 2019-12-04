@@ -363,7 +363,7 @@ input[type="search"].select2-search__field {
 
 /* Footer - add some space */
 #elixir-banner {
-    margin-top: 100px;
+    // margin-top: 100px;
 }
 
 /* maintenance page css*/
@@ -511,6 +511,7 @@ button.list-group-item:hover, button.list-group-item:focus {
 }
 
 div.row {
+    padding-top: 13px;
     padding-left: 13px;
 }
 
