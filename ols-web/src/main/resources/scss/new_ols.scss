@@ -499,6 +499,7 @@ button.list-group-item:hover, button.list-group-item:focus {
         height: 100%;
         vertical-align: middle;
         font-size: 0.84rem;
+        text-transform: none;
         &:not(:last-child)::after {
             margin: 0 0.4rem;
         }
