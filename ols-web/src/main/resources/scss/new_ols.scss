@@ -488,6 +488,18 @@ button.list-group-item:hover, button.list-group-item:focus {
     color: #0a0a0a;
 }
 
+.part_of:before {
+    content: "";
+    display: block;
+    background: url("../img/part_of.gif") no-repeat;
+    width: 15px;
+    height: 15px;
+    float: left;
+    // margin: 4px 6px 0 0;
+    margin: 4px 6px 0 2px;
+}
+
+
 /* Modify classes from ebi-global.css */
 .breadcrumbs {
     padding-left: 13px;
@@ -515,6 +527,7 @@ div.row {
     padding-top: 13px;
     padding-left: 13px;
 }
+
 
 /// SCSS button styler mixin which surrounds buttons with correct coloured padding and
 /// extra spacing. Left-hand spacing should collapse within lists of similar buttons.
