@@ -92,7 +92,7 @@
                         <form name="local-search" action="../../search" method="get">
                             <div id="bloodhound">
                                 <input class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="select" th:placeholder="'Search ' + ${ontologyTerm.getOntologyPrefix()}" th:attr="data-olsontology=${ontologyTerm.getOntologyName()}" data-olsontology=""  data-selectpath="../../" placeholder="Search OLS" aria-describedby="basic-addon1"/>
-                                <button class="button secondary searchButton glyphicon glyphicon-search" style="" type="submit">Search!</button>
+                                <button class="button secondary searchButton glyphicon glyphicon-search" style="" type="submit">Search</button>
                          </div>
                          <input type="hidden" name="ontology" th:value="${ontologyTerm.getOntologyName()}"/>
                      </form>
