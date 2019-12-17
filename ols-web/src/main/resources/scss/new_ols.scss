@@ -24,7 +24,7 @@
 /* search button css */
 .searchButton {
     margin-left: 7px;
-    margin-bottom: 0.1em;
+    // margin-bottom: 0.1em;
     margin-bottom: 0;
     line-height: 0.88em;
     position: relative;
@@ -69,11 +69,11 @@ a.pagingButton:hover /* , a.pagingButton:focus, a.pagingButton:active, a.pagingB
 
 /* Overwritting padding that comes from global ebi css */
 #ontologiesTable_paginate .pagination .current{
-    padding: 0px 0px 0px 0px !important;
+    padding: 0 !important;
 }
 
 #ontologiesTable_paginate a, a:visited {
-    border-bottom-width: 0px;
+    border-bottom-width: 0;
     border-bottom-style: none;
 }
 
@@ -198,7 +198,6 @@ a.nounderline.ontology-link {
     margin-top: -5px;
     margin-right: 4px;
     margin-left: 4px;
-    display: inline-block;
 }
 
 /// An element of class 'decoy' can be thrown in to deconfuse button effect styling in lists.
@@ -409,12 +408,12 @@ input[type="search"].select2-search__field {
     position: relative;
     display: block;
     padding: 10px 15px;
-    margin-bottom: -1px;
+    // margin-bottom: -1px;
+    margin: auto;
     background-color: #fff;
     border: 1px solid #ddd;
     width: /* 85% */ 100%;
     text-align: left;
-    margin: auto;
 }
 
 button.list-group-item {
@@ -436,7 +435,7 @@ button.list-group-item:hover, button.list-group-item:focus {
 }
 
 .select2-search__field {
-    margin-top: 0px !important;
+    margin-top: 0 !important;
 }
 
 #clearFilters {
@@ -601,4 +600,11 @@ a + a > .ontology-source {
 
 a + a > .ontology-source-valign {
     @include aligned_button(1, 0, var(--ols_turquoise), 1);
+}
+
+
+// Fun stuff
+
+.thinspace:before {
+    content: "\202F";
 }
