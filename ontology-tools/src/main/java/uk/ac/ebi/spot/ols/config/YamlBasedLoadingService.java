@@ -223,8 +223,10 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
         else if (base != null) {
             uri = base + id;
         }
-        else {
+        else if (ontologyPURL != null) {
             uri = ontologyPURL.toString();
+        } else {
+            uri = null;
         }
         return uri;
     }

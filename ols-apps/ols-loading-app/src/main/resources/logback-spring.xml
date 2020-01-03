@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
-    <include resource="org/springframework/boot/logging/logback/file-appender.xml"/>
-	<include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
-	
-    <logger name="uk.ac.ebi.spot" level="ERROR" additivity="false">
-        <appender-ref ref="CONSOLE" />
-    </logger>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{ISO8601} %p %t %c{0}.%M - %m%n</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>ols-loading-app.log</file>
+        <append>false</append>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} %M - %msg%n</pattern>
+        </encoder>
+    </appender>
 
     <logger name="uk.ac.ebi.spot" level="DEBUG" additivity="false">
         <appender-ref ref="FILE" />
     </logger>
-    
-    <logger name="org.semanticweb.elk" level="ERROR" additivity="false">
-        <appender-ref ref="CONSOLE" />
-    </logger>
 
     <root level="ERROR">
+        <appender-ref ref="CONSOLE" />
         <appender-ref ref="FILE" />
     </root>
 
