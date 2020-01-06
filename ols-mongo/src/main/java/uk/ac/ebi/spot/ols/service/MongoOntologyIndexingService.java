@@ -56,6 +56,7 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
         Collection<IRI> individuals;
         String message = "";
         Status status = Status.LOADING;
+        boolean result = false;
 
       logger.trace("annotationproperty.preferredroot.term = " + 
 		ontologyLoadingConfiguration.getPreferredRootTermAnnotationProperty());
@@ -90,7 +91,7 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             document.setMessage(message);
             ontologyRepositoryService.update(document);
             // just set document to failed and return
-            return false;
+            return result;
         }
 
         document.setStatus(Status.LOADING);
@@ -128,6 +129,8 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             }
             if (loader.getOntologyVersionIRI() != null) {
                 config.setVersionIri(loader.getOntologyVersionIRI().toString());
+            } else {
+                config.setVersionIri("");
             }
             if (!loader.getInternalMetadataProperties().isEmpty()) {
                 config.setInternalMetadataProperties(loader.getInternalMetadataProperties());
@@ -140,21 +143,17 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             if (loader.getVersionNumber() != null) {
                 config.setVersion(loader.getVersionNumber());
             }
-            else {
-                config.setVersion(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
-            }
             document.setConfig(config);
             document.setNumberOfTerms(classes.size());
             document.setNumberOfProperties(properties.size());
             document.setNumberOfIndividuals(individuals.size());
             status = Status.LOADED;
             document.setLoaded(new Date());
-
+            result = true;
         } catch (Throwable t) {
         	logger.error("Error indexing " + document.getOntologyId(), t);
             status = Status.FAILED;
             message = t.getMessage();
-            throw t;
         }
         finally {
 
@@ -162,7 +161,7 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             document.setUpdated(new Date());
             document.setMessage(message);
             ontologyRepositoryService.update(document);
-            return true;
+            return result;
         }
     }
 

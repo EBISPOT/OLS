@@ -17,7 +17,7 @@ public class LoadingReportPrinter {
             builder.append("---------------------------\n");
         }
         else  {
-            builder.append("The following ontologies were sucessfully updated\n");
+            builder.append("The following ontologies were successfully updated\n");
             builder.append("-------------------------------------------------\n");
 
             for (String name: loadingReport.getUpdatedOntologies())  {
