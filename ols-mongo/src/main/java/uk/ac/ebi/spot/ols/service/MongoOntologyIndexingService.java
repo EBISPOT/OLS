@@ -129,8 +129,6 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             }
             if (loader.getOntologyVersionIRI() != null) {
                 config.setVersionIri(loader.getOntologyVersionIRI().toString());
-            } else {
-                config.setVersionIri("");
             }
             if (!loader.getInternalMetadataProperties().isEmpty()) {
                 config.setInternalMetadataProperties(loader.getInternalMetadataProperties());
