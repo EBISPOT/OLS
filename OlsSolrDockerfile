@@ -1,0 +1,2 @@
+FROM solr:5.5.5
+COPY --chown=solr:solr ./ols-solr/src/main/solr-5-config /opt/mysolrhome
