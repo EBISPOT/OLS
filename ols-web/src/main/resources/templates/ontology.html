@@ -54,7 +54,7 @@
             <form style="padding-left: 0;" name="local-search" action="../search" method="get">
                 <div id="bloodhound" class="">
                     <input style="margin-bottom: 0.1em; display:block; width:393px" class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="select" th:attr="data-olsontology=${ontologyDocument.getOntologyId()}" data-olsontology=""  data-selectpath="../" th:placeholder="'Search ' + ${ontologyDocument.getConfig().getPreferredPrefix()}" placeholder="Search OLS" aria-describedby="basic-addon1"/>
-                    <button class="button secondary searchButton glyphicon glyphicon-search" type="submit">Search!</button>
+                    <button class="button secondary searchButton glyphicon glyphicon-search" type="submit">Search</button>
                     <input type="hidden" name="ontology" th:value="${ontologyDocument.getOntologyId()}"/>
                 </div>
             </form>

@@ -39,7 +39,7 @@
             <form id="filter_form" name="local-search" action="search" method="get">
                 <div id="bloodhound" class="input-group">
                     <input style="margin-bottom: 0.1em;" class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olstype="ontology" data-olswidget="select" data-olsontology=""  data-selectpath="" placeholder="Enter an Ontology name" aria-describedby="basic-addon1"/>
-                    <button class="button secondary searchButton glyphicon glyphicon-search" type="submit">Search!</button>
+                    <button class="button secondary searchButton glyphicon glyphicon-search" type="submit">Search</button>
                     <input type="hidden" name="type" value="ontology"/>
                 </div>
             </form>
@@ -104,7 +104,9 @@
 <!-- All JS that is just used on this page should go here, I suppose-->
 <script>
     $(document).ready(function() {
-        $('#ontologiesTable').dataTable();
+        $('#ontologiesTable').dataTable({
+            "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]
+        } );
     });
 </script>
 

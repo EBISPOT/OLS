@@ -24,7 +24,7 @@
 /* search button css */
 .searchButton {
     margin-left: 7px;
-    margin-bottom: 0.1em;
+    // margin-bottom: 0.1em;
     margin-bottom: 0;
     line-height: 0.88em;
     position: relative;
@@ -69,11 +69,11 @@ a.pagingButton:hover /* , a.pagingButton:focus, a.pagingButton:active, a.pagingB
 
 /* Overwritting padding that comes from global ebi css */
 #ontologiesTable_paginate .pagination .current{
-    padding: 0px 0px 0px 0px !important;
+    padding: 0 !important;
 }
 
 #ontologiesTable_paginate a, a:visited {
-    border-bottom-width: 0px;
+    border-bottom-width: 0;
     border-bottom-style: none;
 }
 
@@ -157,6 +157,11 @@ fieldset {
     margin-top: 3rem;
 }
 
+.search-results-url {
+    color: dimgrey;
+    font-size: 88%;
+}
+
 #bloodhound {
     padding-bottom: 8px;
 }
@@ -193,35 +198,15 @@ a.nounderline.ontology-link {
     margin-top: -5px;
     margin-right: 4px;
     margin-left: 4px;
-    display: inline-block;
 }
 
-/* Ontology prefix/Term markup used on */
-// .ontology-source {
-//     background-color: #5fbdce;
-//     padding: 3px 4px 1px 4px;
-//     color: white;
-//     /* font-size: larger; */
-//     border-radius: 3px;
-//     display: inline-block;
-//     /* margin-top: -5px;
-//     margin-right: 4px;
-//     margin-left: 0.9em; */
-//     vertical-align: middle;
-// }
+/// An element of class 'decoy' can be thrown in to deconfuse button effect styling in lists.
 
-// .term-source {
-//     background-color: #ffac1b;
-//     padding: 3px 4px 1px 4px;
-//     color: white;
-//     /* font-size: larger; */
-//     border-radius: 3px;
-//     display: inline-block;
-//     /* margin-top: -5px;
-//     margin-right: 4px;
-//     margin-left: 0.9em; */
-//     vertical-align: middle;
-// }
+.decoy {
+    display: inline-block;
+    // visibility: hidden;
+    margin: 0 0.2rem;
+}
 
 #exact-id, #obsolete-id {
     margin-right: 4px;
@@ -377,7 +362,7 @@ input[type="search"].select2-search__field {
 
 /* Footer - add some space */
 #elixir-banner {
-    margin-top: 100px;
+    // margin-top: 100px;
 }
 
 /* maintenance page css*/
@@ -423,12 +408,12 @@ input[type="search"].select2-search__field {
     position: relative;
     display: block;
     padding: 10px 15px;
-    margin-bottom: -1px;
+    // margin-bottom: -1px;
+    margin: auto;
     background-color: #fff;
     border: 1px solid #ddd;
     width: /* 85% */ 100%;
     text-align: left;
-    margin: auto;
 }
 
 button.list-group-item {
@@ -450,7 +435,7 @@ button.list-group-item:hover, button.list-group-item:focus {
 }
 
 .select2-search__field {
-    margin-top: 0px !important;
+    margin-top: 0 !important;
 }
 
 #clearFilters {
@@ -502,6 +487,18 @@ button.list-group-item:hover, button.list-group-item:focus {
     color: #0a0a0a;
 }
 
+.part_of:before {
+    content: "";
+    display: block;
+    background: url("../img/part_of.gif") no-repeat;
+    width: 15px;
+    height: 15px;
+    float: left;
+    // margin: 4px 6px 0 0;
+    margin: 4px 6px 0 2px;
+}
+
+
 /* Modify classes from ebi-global.css */
 .breadcrumbs {
     padding-left: 13px;
@@ -513,6 +510,7 @@ button.list-group-item:hover, button.list-group-item:focus {
         height: 100%;
         vertical-align: middle;
         font-size: 0.84rem;
+        text-transform: none;
         &:not(:last-child)::after {
             margin: 0 0.4rem;
         }
@@ -525,11 +523,24 @@ button.list-group-item:hover, button.list-group-item:focus {
 }
 
 div.row {
+    padding-top: 13px;
     padding-left: 13px;
 }
 
-/* SCSS button styler */
-@mixin aligned_button($padfactor, $vertmarginfactor, $padcolour) {
+
+/// SCSS button styler mixin which surrounds buttons with correct coloured padding and
+/// extra spacing. Left-hand spacing should collapse within lists of similar buttons.
+///
+/// @author Warren Read
+///
+/// @param $padfactor - Colour padding extent multiplier: typically set to 1.
+/// @param $vertmarginfactor - Extra surrounding margin specifier: set to 1 within text,
+///                            or lists, otherwise 0.
+/// @paran $padcolour - Button colour: may refer to CSS variable.
+/// @param $leftshirt - To collapse left margin: set to 1 for second and higher elements
+///                     within button list, otherwise 0.
+
+@mixin aligned_button($padfactor, $vertmarginfactor, $padcolour, $leftshift) {
     @if $vertmarginfactor == 0 {
         font-size: 1em;
     } @else if $vertmarginfactor == 1 {
@@ -543,7 +554,9 @@ div.row {
     margin-right: 0.625em * ($padfactor + $vertmarginfactor);
     margin-bottom: 0.125em * $vertmarginfactor;
     // margin-left: 1.25em * $padfactor;
-    margin-left: 0.625em * ($padfactor + $vertmarginfactor);
+    // margin-left: 0.625em * ($padfactor + (1 - $leftshift) * $vertmarginfactor);
+    margin-left: 0.625em * ($padfactor + $vertmarginfactor - $leftshift);
+    z-index: 2;
     &::before {
         content: "";
         position: absolute;
@@ -558,17 +571,40 @@ div.row {
 }
 
 .term-source {
-    @include aligned_button(1, 1, var(--ols_orange));
+    @include aligned_button(1, 1, var(--ols_orange), 0);
+}
+
+a + a > .term-source {
+    @include aligned_button(1, 1, var(--ols_orange), 1);
 }
 
 .term-source-valign {
-    @include aligned_button(1, 0, var(--ols_orange));
+    @include aligned_button(1, 0, var(--ols_orange), 0);
+}
+
+a + a > .term-source-valign {
+    @include aligned_button(1, 0, var(--ols_orange), 1);
 }
 
 .ontology-source {
-    @include aligned_button(1, 1, var(--ols_turquoise));
+    @include aligned_button(1, 1, var(--ols_turquoise), 0);
+}
+
+a + a > .ontology-source {
+    @include aligned_button(1, 1, var(--ols_turquoise), 1);
 }
 
 .ontology-source-valign {
-    @include aligned_button(1, 0, var(--ols_turquoise));
+    @include aligned_button(1, 0, var(--ols_turquoise), 0);
+}
+
+a + a > .ontology-source-valign {
+    @include aligned_button(1, 0, var(--ols_turquoise), 1);
+}
+
+
+// Fun stuff
+
+.thinspace:before {
+    content: "\202F";
 }

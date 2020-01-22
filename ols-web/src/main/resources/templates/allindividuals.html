@@ -26,7 +26,8 @@
 
 
 <section id="main-content-area" role="main">
-    <div class="row" th:unless="${#lists.isEmpty(allterms)}">
+    <div class="row" th:if="${#lists.isEmpty(allindividuals)}"><h2 th:text="'No individuals found in ' + ${ontologyPrefix}" class="strapline">No individuals found in X</h2></div>
+    <div class="row" th:unless="${#lists.isEmpty(allindividuals)}">
 
         <h2 th:text="'All individuals in ' + ${ontologyPrefix}" class="strapline">List of all individuals in X</h2>
 
@@ -69,7 +70,7 @@
 
                         <input type="hidden" name="ontology" th:value="${ontologyName}"/>
                                             <span class="input-group-btn">
-                                              <button class="button secondary searchButton glyphicon glyphicon-search" type="submit">Search!</button>
+                                              <button class="button secondary searchButton glyphicon glyphicon-search" type="submit">Search</button>
                                             </span>
                     </div><!-- /input-group -->
                 </form>

@@ -37,60 +37,73 @@
                     <img th:src="@{../../img/file_JSON.png}" src="../static/img/file_JSON.png" alt="JSON" title="Get data as JSON"/>
                 </a>
             </div>
-            <!-- Old breadcrumb style
-            <nav id="breadcrumb"  >
-                <p style="display:inline;">
-                    <a href="../../index">OLS</a> &gt;
-                    <a class="nounderline" th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__}" th:text="${ontologyName}">ontology</a>
-                    &nbsp;
-                    <a class="nounderline" property="codingSystem" th:attr="content=${ontologyTerm.getOntologyName()}" th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__}" href="#" style="border-bottom-width: 0px;">
-                        <span class="ontology-source" th:text="${ontologyTerm.getOntologyPrefix()}">parent 1</span>
-                   </a>   &gt;
-                    <span id='shortForm' th:if="${ontologyTerm.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyTerm.getOboId()}">id</span>
-                    <span id='shortForm' th:unless="${ontologyTerm.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyTerm.getShortForm()}">id</span>
-                    <button title="Copy id to clipboard" id='copyShortForm' data-clipboard-action="copy" data-clipboard-target="#shortForm" class="secondary-color tiny copyButton" type="button"><span class="icon icon-functional" data-icon="c"></span>Copy</button>
-                </p>
-            </nav>  -->
             <nav aria-label="You are here:" role="navigation">
                 <ul class="breadcrumbs">
-                <li><a href="../../index">OLS</a></li>
-                <li><a class="nounderline" th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__}" th:text="${ontologyName}">ontology</a><a property="codingSystem" th:attr="content=${ontologyTerm.getOntologyName()}" th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__}" href="#">
-                    <span class="ontology-source-valign" th:text="${ontologyTerm.getOntologyPrefix()}">parent 1</span></a>
-                </li>
-                <li>
-                    <span id='shortForm' th:if="${ontologyTerm.getOboId()} != null" class="term-source-valign" property="codeValue" th:text="${ontologyTerm.getOboId()}">id</span>
-                    <span id='shortForm' th:unless="${ontologyTerm.getOboId()} != null" class="term-source-valign" property="codeValue" th:text="${ontologyTerm.getShortForm()}">id</span>
-                    <button title="Copy id to clipboard" id='copyShortForm' data-clipboard-action="copy" data-clipboard-target="#shortForm" class="secondary-color tiny copyButton" type="button"><span class="icon icon-functional" data-icon="c"></span>Copy</button>
-                </li>
+                    <li><a href="../../index">OLS</a></li>
+                    <li><a class="nounderline"
+                           th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__}"
+                           th:text="${ontologyName}">ontology</a><div class="decoy"></div
+                       ><a property="codingSystem"
+                           th:attr="content=${ontologyTerm.getOntologyName()}"
+                           th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__}"
+                           href="#"><span class="ontology-source-valign"
+                                          th:text="${ontologyTerm.getOntologyPrefix()}">parent 1</span></a></li>
+                    <li><span id='shortForm'
+                              th:if="${ontologyTerm.getOboId()} != null"
+                              class="term-source-valign"
+                              property="codeValue"
+                              th:text="${ontologyTerm.getOboId()}">id</span><!--
+                     --><span id='shortForm'
+                              th:unless="${ontologyTerm.getOboId()} != null"
+                              class="term-source-valign"
+                              property="codeValue"
+                              th:text="${ontologyTerm.getShortForm()}">id</span><!--
+                     --><button title="Copy id to clipboard"
+                                id='copyShortForm'
+                                data-clipboard-action="copy"
+                                data-clipboard-target="#shortForm"
+                                class="secondary-color tiny copyButton"
+                                type="button"><span class="icon icon-functional"
+                                                    data-icon="c"></span><span
+                                                    class="thinspace"></span>Copy</button></li>
                 </ul>
             </nav>
-
-
         </div>
-                <div>
-                    <div class="small-8 column">
-                        <!-- old Style // image got replaced by icon; see below
-                        <h2 property="name"  style="margin: 0px;" th:text="${ontologyTerm.getLabel()}">Term Label</h2>
-                        <a style="padding: 9px;border-bottom: none;" th:href="@{${ontologyTerm.getIri()}}" class="nounderline" target="blank"><img th:src="@{../../img/external_link.png}" src="../static/img/external_link.png" alt="^" title="Go to external page"/></a>
-                        <span property="url" id="OLS_ID" style="font-size: small;color: grey;" th:text="${ontologyTerm.getIri()}">http://www.example.com/onto/id</span>
-                        -->
-                        <h2 property="name" style="margin-bottom: 0;" th:text="${ontologyTerm.getLabel()}">Term Label</h2>
-                        <a style="padding: 9px;border-bottom: none;" th:href="@{${ontologyTerm.getIri()}}" class="nounderline" target="blank"><span class="show-for-sr">Go to external page</span><span class="icon icon-generic" data-icon="x"></span></a>
-                        <span property="url" id="OLS_ID" style="font-size: small;color: grey;" th:text="${ontologyTerm.getIri()}">http://www.example.com/onto/id</span>
 
-                        <p style="display:inline;"><button title="Copy id to clipboard" id='copyThis' data-clipboard-action="copy" data-clipboard-target="#OLS_ID" class="secondary-color small copyButton" type="button"><span class="icon icon-functional" data-icon="c"></span>Copy</button></p>
+        <div>
+            <div class="small-8 column">
+                <h2 property="name" style="margin-bottom: 0;" th:text="${ontologyTerm.getLabel()}">Term Label</h2>
+                <a style="padding-left: 3px; border-bottom: none;"
+                   th:href="@{${ontologyTerm.getIri()}}"
+                   class="nounderline secondary-color"
+                   title="Go to external page"
+                   target="blank"><span class="show-for-sr">Go to external page</span><!--
+                               --><span class="icon icon-generic"
+                                        data-icon="x"></span><!--
+             --><span class="thinspace"></span><!--
+             --><span property="url"
+                      id="OLS_ID" style="font-size: small;"
+                      th:text="${ontologyTerm.getIri()}">http://www.example.com/onto/id</span></a><!--
+             --><p style="display:inline;"><button title="Copy id to clipboard"
+                                                   id='copyThis'
+                                                   data-clipboard-action="copy"
+                                                   data-clipboard-target="#OLS_ID"
+                                                   class="secondary-color small copyButton"
+                                                   type="button"><span class="icon icon-functional"
+                                                                       data-icon="c"></span><span
+                                                                       class="thinspace"></span>Copy</button></p>
+            </div>
+
+            <div id="termPageSearchBox" class="small-4 columns">
+                <form name="local-search" action="../../search" method="get">
+                    <div id="bloodhound">
+                        <input class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="select" th:placeholder="'Search ' + ${ontologyTerm.getOntologyPrefix()}" th:attr="data-olsontology=${ontologyTerm.getOntologyName()}" data-olsontology=""  data-selectpath="../../" placeholder="Search OLS" aria-describedby="basic-addon1"/>
+                        <button class="button secondary searchButton glyphicon glyphicon-search" style="" type="submit">Search</button>
                     </div>
-
-                    <div id="termPageSearchBox" class="small-4 columns">
-                        <form name="local-search" action="../../search" method="get">
-                            <div id="bloodhound">
-                                <input class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="select" th:placeholder="'Search ' + ${ontologyTerm.getOntologyPrefix()}" th:attr="data-olsontology=${ontologyTerm.getOntologyName()}" data-olsontology=""  data-selectpath="../../" placeholder="Search OLS" aria-describedby="basic-addon1"/>
-                                <button class="button secondary searchButton glyphicon glyphicon-search" style="" type="submit">Search!</button>
-                         </div>
-                         <input type="hidden" name="ontology" th:value="${ontologyTerm.getOntologyName()}"/>
-                     </form>
-                 </div>
-             </div>
+                    <input type="hidden" name="ontology" th:value="${ontologyTerm.getOntologyName()}"/>
+                </form>
+            </div>
+        </div>
 
              <!--
              <div class="grid_24 clearfix">
