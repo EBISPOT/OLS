@@ -527,6 +527,11 @@ div.row {
     padding-left: 13px;
 }
 
+[type="text"] {
+    border: 1px solid rgb(0, 130, 124);
+    box-shadow: 0 0 5px rgba(0, 130, 124, 0.5);
+}
+
 
 /// SCSS button styler mixin which surrounds buttons with correct coloured padding and
 /// extra spacing. Left-hand spacing should collapse within lists of similar buttons.
