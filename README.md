@@ -50,14 +50,38 @@ more information http://www.ebi.ac.uk/ols/docs/installation-guide
   ontologies specified in the config files, checks whether they have
   changed from a previous download, and if they have changed, will
   create all the necessary Solr and Neo4j indexes.
-* [ols-web](ols-web) - This contains the WAR file that can be deployed in Tomcat to
- launch the OLS website and REST API. It depends on [ols-term-type-treeview]
- (https://github.com/EBISPOT/ols-term-type-treeview) and [ols-tabbed-term-treeview]
- (https://github.com/EBISPOT/ols-tabbed-term-treeview).
+* [ols-web](ols-web) - This contains the WAR file that can be deployed
+  in Tomcat to launch the OLS website and REST API. It depends on
+  [ols-term-type-treeview]
+  (https://github.com/EBISPOT/ols-term-type-treeview) and
+  [ols-tabbed-term-treeview]
+  (https://github.com/EBISPOT/ols-tabbed-term-treeview).
 
-## Run OLS dockerised, specifying branch and commit hash / HEAD
+## Run Solr and MongoDB services out of separate Docker containers
 
-If you have docker installed on your desktop or laptop, you can build a
+If you have Docker installed on your desktop or laptop, you now have the
+option to run either or both of OLS's prequisite background services out
+of their own containers. This saves you having to install and configure
+historical versions of both these servers locally. The MongoDB server
+image can be downloaded directly from DockerHub, while OLS's Solr server
+requires a prior build process to recognise both of its cores. To build
+the ols-solr image from the command line, enter:
+
+**```bash#```**```./build_ols_solr_image.sh```
+
+To run an instance (i.e. a container) of your freshly-minted ols-solr
+image, alongside a separate mongo container, from the command line,
+enter:
+
+**```bash#```**```./run_ols_background_services.sh```
+
+Any data you load into MongoDB and Solr are persistent, and will be
+saved inside named Docker volumes, stored on your local machine, managed
+and mounted by Docker itself.
+
+## Run OLS dockerised (monolithic), specifying branch and commit hash / HEAD
+
+If you have Docker installed on your desktop or laptop, you can build a
 docker image by running the shell script `./build_ols_branch_image.sh`
 with two parameters, the first being the branch you wish to check out
 (often, if not typically, "master"), the second being the commit
