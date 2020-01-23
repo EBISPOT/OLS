@@ -527,9 +527,9 @@ div.row {
     padding-left: 13px;
 }
 
-[type="text"] {
+[type="text"]:focus {
     border: 1px solid rgb(0, 130, 124);
-    box-shadow: 0 0 5px rgba(0, 130, 124, 0.5);
+    box-shadow: 0 0 7px rgba(0, 130, 124, 0.7);
 }
 
 
