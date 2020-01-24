@@ -231,14 +231,19 @@ function processData(data) {
                 if (data.expanded[row.iri] != undefined) {
                     resultHtml = resultHtml.append('<b>Also in: </b>');
 
+                    var otherOntologies = {};
+
                     $.each (data.expanded[row.iri].docs, function (expandedIndex, expandedRow) {
                         var exLink = getTermLink(expandedRow.ontology_prefix, expandedRow.ontology_name,expandedRow.type, expandedRow.iri )
 
                         var ontoLink = $("<a title='"+ontologyList[expandedRow.ontology_name]+"' href='" + exLink.attr('href') + "' style='border-bottom-width: 0px;'></a>")
                             .append($("<span class='ontology-source'></span>").text(exLink.text()))
-                        resultHtml.append(ontoLink);
-                    })
+                        otherOntologies[exLink.text()] = ontoLink;
+                    });
 
+                    Object.keys(otherOntologies).sort().forEach(function(key) {
+                        resultHtml.append(otherOntologies[key]);
+                    });
                 }
             }
         }
