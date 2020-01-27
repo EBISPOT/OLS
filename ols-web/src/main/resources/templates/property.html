@@ -81,13 +81,28 @@
                     </div>
 
 
-                <div class="small-12 columns">
-                    <hr style="margin-left: 9px;"/>
-                    <div property="description">
-                        <p th:each="description : ${ontologyProperty.getDescription()}" th:text="${description}">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget <nulla class=""></nulla>                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum.
-                        </p>
-                    </div>
+            <section>
+
+                <div class="grid_24 clearfix">
+                    <div class="grid_14 alpha clearfix">
+
+                        <ul  class="nav nav-tabs">
+                            <li role="presentation" class="active"><a class="icon icon-functional" data-icon="h" data-toggle="tab" href="#tree-tab">Tree view</a></li>
+                            <!--<li role="presentation"><a data-toggle="tab"  href="#graph-tab">Graph view</a></li>-->
+                        </ul>
+                        <input type="hidden" name="ontology_view_selection"/>
+                        <input type="hidden" name="viewMode" value="All"/>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+
+                            <div role="tabpanel" class="tab-pane active" id="tree-tab">
+
+                                <div class="btn-group btn-group-vertical" style="float: right;padding-top:5px;">
+                                    <button class="btn  btn-default" name="ontology_view_siblings"
+                                            th:value="${#httpServletRequest.getParameter('siblings') == 'true'} ? 'true': 'false'"
+                                            title="Expand the tree to show sibling terms"
+                                            onclick="instance.toggleSiblings()">Show all siblings</button>
+                                </div>
 
                     <div th:if="${ontologyProperty.getSynonyms() !=null}">
                         <p><b>Synonyms:</b>
@@ -190,7 +205,7 @@
 
 <script type="text/javascript" src="../static/js/ols-termselect2.js" th:src="@{../../js/ols-termselect2.js}"></script>
 <!--<script type="text/javascript" src="../static/js/ols-treeview.min.js" th:src="@{../../js/ols-treeview.min.js}"></script>-->
-<script type="text/javascript" src="../static/js/ols-term-type-treeview.js" th:src="@{../../ols-term-type-treeview.js  (v=0.0.42)}"></script>
+<script type="text/javascript" src="../static/js/ols-term-type-treeview.js" th:src="@{../../js/ols-term-type-treeview.js  (v=0.0.42)}"></script>
 <script type="text/javascript" src="../static/js/bootstrap/bootstrap.min.js" th:src="@{../../js/bootstrap/bootstrap.min.js}"></script>
 
 <script type="text/javascript" src="../static/js/clipboard.min.js" th:src="@{../../js/clipboard.min.js}"></script>
@@ -220,26 +235,26 @@
 </script>
 
 <script>
-    // initialise the tree
-
-    var div=$("#term-tree");
+    var div = $("#term-tree");
     var ontologyName = $("#term-tree").data("olsontology");
     var termType = $("#term-tree").data("ols-termtype");
     var termIri = $("#term-tree").data("ols-iri");
     var relativePath = $("#term-tree").data("selectpath") ? $("#term-tree").data("selectpath") : '';
-
-    // var app = require("ols-treeview");
-    // var instance = new app();
-    // instance.draw(div, false, ontologyName, termType, termIri, relativePath, {save_state: true});
 
     var instance;
 
     var OLSTermTypeTreeView = require("ols-term-type-treeview");
 
     instance = new OLSTermTypeTreeView(relativePath, ontologyName, "#term-tree",
-        termIri, termType, "ontology_view_siblings_id", "ontology_view_selection_id", true);
+        termIri, termType, "ontology_view_siblings", "ontology_view_selection", true);
 
-    instance.draw();
+    var showSiblings = $("button[name='ontology_view_siblings']").val() == 'true';
+
+    var viewMode = "All";
+
+    console.log("showSiblings = ", showSiblings);
+    console.log("viewMode = ", viewMode);
+    instance.draw(showSiblings, viewMode);
 </script>
 
 

@@ -64,9 +64,10 @@ public class FileUpdatingService {
             // check if was previously failing
             boolean wasFailing = false;
             if (document.getStatus() != null) {
-                //
-                if (document.getStatus().equals(Status.FAILED) || document.getStatus().equals(Status.NOTLOADED)) {
+                if (document.getStatus().equals(Status.FAILED) || document.getStatus().equals(Status.NOTLOADED) ||
+                        document.getStatus().equals(Status.LOADING) || document.getStatus().equals(Status.DOWNLOADING)) {
                     wasFailing = true;
+                    getLog().debug(document.getOntologyId() + " + failed previously with status = " + document.getStatus());
                 }
             }
 
