@@ -73,6 +73,7 @@ public class LoadingApplication implements CommandLineRunner {
 
         System.setProperty("entityExpansionLimit", "10000000");
         Collection<String> updatedOntologies = new HashSet<>();
+        Map<String, String> failingOntologies= new HashMap<>();
 
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(10);
@@ -109,7 +110,11 @@ public class LoadingApplication implements CommandLineRunner {
                     ontologyRepositoryService.update(document);
                 }
                 else {
-                    logger.warn("Can't delete ontology " + ontologyName + " as it doesn't exist in OLS");
+                    StringBuffer errorMessage = new StringBuffer("Could not detele ontology ");
+                    errorMessage.append(ontologyName);
+                    errorMessage.append(" as it doesn't exist in OLS");
+                    logger.warn(errorMessage.toString());
+                    failingOntologies.put(document.getOntologyId(), errorMessage.toString());
                 }
 
             }
@@ -146,6 +151,7 @@ public class LoadingApplication implements CommandLineRunner {
                         logger.error("Application failed creating indexes for " + 
                         		document.getOntologyId() + ": " + t.getMessage(), t);
                         haserror = true;
+                        failingOntologies.put(document.getOntologyId(), t.getMessage());
                     }
                 }
             }
@@ -162,6 +168,7 @@ public class LoadingApplication implements CommandLineRunner {
                     	logger.error("Application failed deleting indexes for " + document.getOntologyId() + ": " +
                                 t.getMessage(), t);
                         haserror = true;
+                        failingOntologies.put(document.getOntologyId(), t.getMessage());
                     }
                 }
             }
@@ -175,7 +182,7 @@ public class LoadingApplication implements CommandLineRunner {
                         updatedOntologies.add(document.getOntologyId());
                     else {
                         haserror = true;
-                        document.setStatus(Status.FAILED);
+                        failingOntologies.put(document.getOntologyId(), "An error occurred. Check logs.");
                     }
                 } catch (Throwable t) {
                 	logger.error("Application failed creating indexes for " + document.getOntologyId() + ": " +
@@ -183,11 +190,11 @@ public class LoadingApplication implements CommandLineRunner {
                     exceptions.append(t.getMessage());
                     exceptions.append("\n");
                     haserror = true;
+                    failingOntologies.put(document.getOntologyId(),t.getMessage());
                 }
             }
         }
 
-        Map<String, String> failingOntologies= new HashMap<>();
         for (OntologyDocument document : ontologyRepositoryService.getAllDocumentsByStatus(Status.FAILED)) {
             failingOntologies.put(document.getOntologyId(), document.getMessage());
         }
@@ -208,7 +215,6 @@ public class LoadingApplication implements CommandLineRunner {
         }
         System.exit(0);
     }
-
 
     private static int parseArguments(String[] args) {
 

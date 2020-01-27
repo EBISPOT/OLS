@@ -22,7 +22,7 @@ public class PropertyJsTreeBuilder extends AbstractJsTreeBuilder {
 
     @Override
     String getJsTreeParentQuery(ViewMode viewMode) {
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return getJsTreeParentQuery();
     }
 
     @Override
@@ -44,7 +44,7 @@ public class PropertyJsTreeBuilder extends AbstractJsTreeBuilder {
 
     @Override
     String getJsTreeParentSiblingQuery(ViewMode viewMode) {
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return getJsTreeParentSiblingQuery();
     }
 
     @Override

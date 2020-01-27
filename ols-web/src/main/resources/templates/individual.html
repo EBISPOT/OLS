@@ -81,8 +81,18 @@
                 <!--</div>-->
             </div>
 
-        </div>
+                    <div class="grid_14 alpha clearfix">
+                        <ul  class="nav nav-tabs">
+                            <li role="presentation" class="active"><a data-toggle="tab" href="#tree-tab">Tree view</a></li>
+                            <!--<li role="presentation"><a data-toggle="tab"  href="#graph-tab">Graph view</a></li>-->
+                        </ul>
+                        <input type="hidden" name="ontology_view_selection"/>
+                        <input type="hidden" name="viewMode" value="All"/>
 
+                        <input type="hidden" name="ontology_view_siblings"/>
+                        <input type="hidden" name="showSiblings" value="true"/>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
 
 
         <div id="right_info_box" class="small-4 columns">
@@ -136,7 +146,7 @@
 
 <script type="text/javascript" src="../static/js/ols-termselect.js" th:src="@{../../js/ols-termselect2.js}"></script>
 <!--<script type="text/javascript" src="../static/js/ols-treeview.min.js" th:src="@{../../js/ols-treeview.min.js}"></script>-->
-<script type="text/javascript" src="../static/js/ols-term-type-treeview.js" th:src="@{../../ols-term-type-treeview.js  (v=0.0.42)}"></script>
+<script type="text/javascript" src="../static/js/ols-term-type-treeview.js" th:src="@{../../js/ols-term-type-treeview.js  (v=0.0.42)}"></script>
 <script type="text/javascript" src="../static/js/bootstrap/bootstrap.min.js" th:src="@{../../js/bootstrap/bootstrap.min.js}"></script>
 <script>
     $(document).ready(function() {
@@ -176,9 +186,13 @@
     var OLSTermTypeTreeView = require("ols-term-type-treeview");
 
     instance = new OLSTermTypeTreeView(relativePath, ontologyName, "#term-tree",
-        termIri, termType, "", "", true);
+        termIri, termType, "ontology_view_siblings", "ontology_view_selection", true);
 
-    instance.draw();
+    var showSiblings = "true";
+    var viewMode = "All";
+    console.log("showSiblings = ", showSiblings);
+    console.log("viewMode = ", viewMode);
+    instance.draw(showSiblings, viewMode);
 </script>
 
 <script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/cookiebanner.js"></script>
