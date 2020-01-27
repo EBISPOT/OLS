@@ -324,9 +324,9 @@
                                             <span th:if="${not #sets.isEmpty(synonym.getXrefs())}">[</span>
                                                 <span th:each="oboXref: ${synonym.getXrefs()}">
                                                     <a th:if="${oboXref.getUrl() != null}" target="_blank" th:href="${oboXref.getUrl()}" th:text="${oboXref.getUrl()}"></a>
-                                                    <span th:if="${oboXref.getDatabase() != null and oboXref.getUrl() == null}" th:text="${oboXref.getDatabase()}"></span>&lt;!&ndash;
-                                                    &ndash;&gt;<span th:if="${oboXref.getId() != null and oboXref.getDatabase() != null and oboXref.getUrl() == null}">:</span>&lt;!&ndash;
-                                                    &ndash;&gt;<span th:if="${oboXref.getId() != null and oboXref.getUrl() == null}" th:text="${oboXref.getId()}"></span>
+                                                    <span th:if="${oboXref.getDatabase() != null and oboXref.getUrl() == null}" th:text="${oboXref.getDatabase()}"></span><!--
+                                                    --><span th:if="${oboXref.getId() != null and oboXref.getDatabase() != null and oboXref.getUrl() == null}">:</span><!--
+                                                    --><span th:if="${oboXref.getId() != null and oboXref.getUrl() == null}" th:text="${oboXref.getId()}"></span>
                                                     <span th:if="${oboXref.getDescription() != null}" th:text="'(' + ${oboXref.getDescription()} + ')'"></span>
                                                 </span>
                                             <span th:if="${not #sets.isEmpty(synonym.getXrefs())}">]</span>
