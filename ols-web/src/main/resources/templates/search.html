@@ -6,8 +6,8 @@
 <!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
 <!--[if gt IE 8]><!--> <html  xmlns:th="https://www.thymeleaf.org" class="no-js" lang="en"> <!--<![endif]-->
 
-<link rel="stylesheet" href="../static/css/select2/4.0.0/select2.min.css" th:href="@{css/select2/4.0.0/select2.min.css}" type="text/css" media="screen"/>
-<head th:replace="fragments/head :: head(olscss=true)">
+
+<head th:replace="fragments/head :: head(olscss=true, select2=true)">
     <title>Ontology Xref Service   &lt; EMBL-EBI</title>
     <!-- A few keywords that relate to the content of THIS PAGE (not the whole project)
     <meta name="keywords" content="biosamples, europe, EBI" />
@@ -17,8 +17,8 @@
     <!- - The last time the content was reviewed - ->
     <meta name="ebi:expiry" content="2017-12-20" />
     <!- - When this content is no longer relevant -->
-    <link rel="stylesheet" href="../static/css/typeahead/typeaheadjs.css" th:href="@{css/typeahead/typeaheadjs.css}" type="text/css" media="screen"/>
 </head>
+
 
 <body>
 <th:block th:include="fragments/header :: header"></th:block>

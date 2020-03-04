@@ -7,8 +7,7 @@
 <!--[if gt IE 8]><!--> <html  xmlns:th="https://www.thymeleaf.org" class="no-js" lang="en"> <!--<![endif]-->
 
 
-
-<head th:replace="fragments/head :: head(olscss=true)">
+<head th:replace="fragments/head :: head(olscss=true, proton=true, visualise=true)">
     <title>Ontology Xref Service   &lt; EMBL-EBI</title>
     <!-- A few keywords that relate to the content of THIS PAGE (not the whole project)
     <meta name="keywords" content="biosamples, europe, EBI" />
@@ -19,18 +18,10 @@
     <meta name="ebi:expiry" content="2017-12-20" />
     <!- - When this content is no longer relevant -->
 </head>
-<link rel="stylesheet" href="../static/css/ontology_vis_plugin/awesomplete.css" th:href="@{../../../css/ontology_vis_plugin/awesomplete.css}" type="text/css" />
-<link rel="stylesheet" href="../static/css/ontology_vis_plugin/ontology_vis_plugin.css" th:href="@{../../../css/ontology_vis_plugin/ontology_vis_plugin.css}" type="text/css" media="screen" />
-<link rel="stylesheet" href="../static/css/ontology_vis_plugin/vis.css" th:href="@{../../../css/ontology_vis_plugin/vis.css}" type="text/css" />   <!-- THIS is for the VIS BUTTONS -->
-
-
-<!-- Place css that is need after head, because the head gets replaced, could potentially put this into the header if we don't mind loading it all the time -->
-<link rel="stylesheet" href="/js/jstree/themes/proton/style.min.css" th:href="@{/js/jstree/themes/proton/style.min.css}" type="text/css" media="screen" />
 
 
 <body>
 <th:block th:include="fragments/header :: header"></th:block>
-
 
 <section id="main-content-area" role="main">
 
@@ -39,25 +30,38 @@
             <nav id="breadcrumb">
                 <p>
                     <a href="../../../index">OLS</a> &gt;
-                    <a href="#" th:href="@{../../../ontologies/__${ontologyTerm.getOntologyName()}__}" style="border-bottom-width: 0px;"><span class="ontology-source" th:text="${ontologyTerm.getOntologyPrefix()}">parent 1</span></a>   &gt;
+                    <a href="#"
+                       th:href="@{../../../ontologies/__${ontologyTerm.getOntologyName()}__}"
+                       style="border-bottom-width: 0px;"><span class="ontology-source"
+                                                               th:text="${ontologyTerm.getOntologyPrefix()}">parent 1</span></a>   &gt;
                     <span th:text="${ontologyTerm.getShortForm()}">id</span>
-                    <a href="../../../docs/graphview-help" style="position:absolute; right:20px;">Do you NEED HELP with the visualisation?</a>
+                    <a href="../../../docs/graphview-help"
+                       style="position: absolute; right: 20px;">Do you NEED HELP with the visualisation?</a>
                 </p>
             </nav>
         </div>
 
-        <div class="container" style="margin:9px;">
-            <!--<div class="grid_24 alpha">-->
+        <div class="container" style="margin: 9px;">
+            <!--div class="grid_24 alpha"-->
 
             <section>
                     <div class="small-12 columnx">
                         <div class="grid_24 clearfix">
-                            <span style="font-size: small;color: grey;padding: 9px;" th:text="${'Visualized term: '+ontologyTerm.getLabel()+' ('+ontologyTerm.getIri()+')'}" >http://www.example.com/onto/id</span>
-                            <a id="dataElement" th:data="${ontologyTerm.getIri()}" th:href="@{${ontologyTerm.getIri()}}" class="nounderline" target="blank"><img th:src="@{../../../img/external_link.png}" src="../static/img/external_link.png" alt="^" title="Go to external page"/></a>
-                            <!-- <a style="float:right;" class="nounderline"  th:href="@{../../../ontologies/__${ontologyTerm.getOntologyName()}__}" th:text="${'ontology: '+{ontologyTerm.ontologyName}+' ('+ontologyName+')'}">ontology</a>
-                           <hr style="margin-left: 9px;"/>-->
+                            <span style="font-size: small; color: grey; padding: 9px;"
+                                  th:text="${'Visualized term: '+ontologyTerm.getLabel()+' ('+ontologyTerm.getIri()+')'}">http://www.example.com/onto/id</span>
+                            <a id="dataElement"
+                               th:data="${ontologyTerm.getIri()}"
+                               th:href="@{${ontologyTerm.getIri()}}"
+                               class="nounderline" target="blank"><img th:src="@{../../../img/external_link.png}"
+                                                                       src="../static/img/external_link.png"
+                                                                       alt="^"
+                                                                       title="Go to external page" /></a>
+                            <!--a style="float:right;"
+                                  class="nounderline"
+                                  th:href="@{../../../ontologies/__${ontologyTerm.getOntologyName()}__}"
+                                  th:text="${'ontology: '+{ontologyTerm.ontologyName}+' ('+ontologyName+')'}">ontology</a>
+                            <hr style="margin-left: 9px;" /-->
                         </div>
-
 
                         <!-- Visualisation div-->
                         <div id="ontology_vis"></div>
@@ -65,12 +69,9 @@
 
             </section>
 
-            <!--</div>-->
+            <!--/div-->
         </div>
     </div>
-
-
-
 </section>
 
 
@@ -80,7 +81,7 @@
     $(document).ready(function() {
         $('.mansyntax').each(function ()
         {
-//            $(this).trigger('click');//for clicking element
+            // $(this).trigger('click');//for clicking element
             var href = $(this).attr("href");
             if ($(this).hasClass('ObjectProperty')) {
                 $(this).attr("href", getUrlType('property') + '?iri=' + encodeURIComponent(href));
@@ -92,9 +93,6 @@
                 $(this).attr("href", getUrlType('individual') + '?iri=' + encodeURIComponent(href));
             }
         });
-
-
-
 
         /*Construct the webservice URL from the document.URL*/
         var termURL=document.URL;
@@ -119,370 +117,7 @@
     });
 </script>
 
-
-
 <script src="../static/js/ols-graphview.js" th:src="@{../../../js/ontology_vis_plugin/ols-graphview.js}"></script>
 
 </body>
 </html>
-
-
-
-
-
-<!--<!DOCTYPE html>-->
-<!--&lt;!&ndash; paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ &ndash;&gt;-->
-<!--&lt;!&ndash;[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"/> <![endif]&ndash;&gt;-->
-<!--&lt;!&ndash;[if IE 7]>    <html class="no-js ie7 oldie" lang="en"/> <![endif]&ndash;&gt;-->
-<!--&lt;!&ndash;[if IE 8]>    <html class="no-js ie8 oldie" lang="en"/> <![endif]&ndash;&gt;-->
-<!--&lt;!&ndash; Consider adding an manifest.appcache: h5bp.com/d/Offline &ndash;&gt;-->
-<!--&lt;!&ndash;[if gt IE 8]>&lt;!&ndash;> <html  xmlns:th="http://www.thymeleaf.org" class="no-js" lang="en"> &lt;!&ndash;<![endif]&ndash;&gt;-->
-<!--<head>-->
-    <!--<meta charset="utf-8"/>-->
-
-    <!--&lt;!&ndash; Use the .htaccess and remove these lines to avoid edge case issues.-->
-         <!--More info: h5bp.com/b/378 &ndash;&gt;-->
-    <!--&lt;!&ndash; <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> &ndash;&gt; &lt;!&ndash; Not yet implemented &ndash;&gt;-->
-
-    <!--&lt;!&ndash;@thymesVar id="ontologyTerm" type="uk.ac.ebi.spot.ols.neo4j.model.Term"&ndash;&gt;-->
-    <!--<title th:text="${ontologyTerm.getShortForm()} + ' &lt; Ontology Lookup Service &lt; EMBL-EBI'"> Term &lt; Ontology Lookup Service &lt; EMBL-EBI</title>-->
-    <!--<meta name="description" th:content="${ontologyTerm.getDescription()}"  content="EMBL-EBI"/>&lt;!&ndash; Describe what this page is about &ndash;&gt;-->
-    <!--<meta name="keywords" content="ontology, ontologies, bioinformatics, europe, institute"/>&lt;!&ndash; A few keywords that relate to the content of THIS PAGE (not the whol project) &ndash;&gt;-->
-    <!--<meta name="author" content="EMBL-EBI Ontology Lookup Service"/>&lt;!&ndash; Your [project-name] here &ndash;&gt;-->
-
-    <!--&lt;!&ndash; Mobile viewport optimized: j.mp/bplateviewport &ndash;&gt;-->
-    <!--<meta name="viewport" content="width=device-width,initial-scale=1"/>-->
-
-    <!--&lt;!&ndash; Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons &ndash;&gt;-->
-
-    <!--<link rel="stylesheet" href="../static/css/bootstrap/3.3/css/bootstrap.min.css" th:href="@{../../../css/bootstrap/3.3/css/bootstrap.min.css}" type="text/css" media="screen"/>-->
-
-    <!--&lt;!&ndash;<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>&ndash;&gt;-->
-    <!--&lt;!&ndash;<link rel="stylesheet" href="../static/css/bootstrap/bootstrap.css" th:href="@{../../../css/bootstrap/bootstrap.css}" type="text/css" media="screen" />&ndash;&gt;-->
-
-    <!--<link rel="stylesheet" href="../static/js/jstree/themes/proton/style.min.css" th:href="@{../../../js/jstree/themes/proton/style.min.css}" type="text/css" media="screen" />-->
-
-    <!--&lt;!&ndash; CSS: implied media=all &ndash;&gt;-->
-    <!--&lt;!&ndash; CSS concatenated and minified via ant build script&ndash;&gt;-->
-    <!--<link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/boilerplate-style.css"/>-->
-    <!--<link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/ebi-global.css" type="text/css" media="screen"/>-->
-    <!--<link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/ebi-visual.css" type="text/css" media="screen"/>-->
-    <!--<link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/984-24-col-fluid.css" type="text/css" media="screen"/>-->
-
-    <!--&lt;!&ndash; you can replace this with [projectname]-colours.css. See http://frontier.ebi.ac.uk/web/style/colour for details of how to do this &ndash;&gt;-->
-    <!--&lt;!&ndash; also inform ES so we can host your colour palette file &ndash;&gt;-->
-    <!--<link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/embl-petrol-colours.css" type="text/css" media="screen"/>-->
-
-  <!--&lt;!&ndash;  <link rel="stylesheet" href="../static/css/typeahead/typeaheadjs.css" th:href="@{../../css/typeahead/typeaheadjs.css}" type="text/css" media="screen"/> &ndash;&gt;-->
-
-
-    <!--<link rel="stylesheet" href="../static/css/ontology_vis_plugin/awesomplete.css" th:href="@{../../../css/ontology_vis_plugin/awesomplete.css}" type="text/css" />-->
-    <!--<link rel="stylesheet" href="../static/css/ontology_vis_plugin/ontology_vis_plugin.css" th:href="@{../../../css/ontology_vis_plugin/ontology_vis_plugin.css}" type="text/css" media="screen" />-->
-    <!--<link rel="stylesheet" href="../static/css/ontology_vis_plugin/vis.css" th:href="@{../../../css/ontology_vis_plugin/vis.css}" type="text/css" />   &lt;!&ndash; THIS is for the VIS BUTTONS&ndash;&gt;-->
-
-    <!--&lt;!&ndash; Css lionk for dataTable &ndash;&gt;-->
-    <!--<link rel="stylesheet" href="//cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css"/>-->
-
-    <!--&lt;!&ndash; for production the above can be replaced with &ndash;&gt;-->
-    <!--&lt;!&ndash;-->
-    <!--<link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/mini/ebi-fluid-embl.css">-->
-    <!--&ndash;&gt;-->
-    <!--&lt;!&ndash; Latest compiled and minified CSS &ndash;&gt;-->
-    <!--<style type="text/css">-->
-        <!--/* You have the option of setting a maximum width for your page, and making sure everything is centered */-->
-        <!--/* body { max-width: 1600px; margin: 0 auto; } */-->
-        <!--.tt-menu {-->
-            <!--left: auto !important;-->
-            <!--right: 0 !important;-->
-        <!--}-->
-    <!--</style>-->
-
-
-    <!--&lt;!&ndash;<link rel="stylesheet" type="text/css" href="css/spacelab.bootstrap.min.css" th:href="@{../css/spacelab.bootstrap.min.css}"/>&ndash;&gt;-->
-    <!--&lt;!&ndash;<link rel="stylesheet" type="text/css" href="css/main.css" th:href="@{../css/main.css}"/>&ndash;&gt;-->
-
-    <!--&lt;!&ndash; end CSS&ndash;&gt;-->
-
-
-
-    <!--&lt;!&ndash; All JavaScript at the bottom, except for Modernizr / Respond.-->
-         <!--Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries-->
-         <!--For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ &ndash;&gt;-->
-
-    <!--&lt;!&ndash; Full build &ndash;&gt;-->
-    <!--&lt;!&ndash; <script src="//www.ebi.ac.uk/web_guidelines/js/libs/modernizr.minified.2.1.6.js"></script> &ndash;&gt;-->
-
-    <!--&lt;!&ndash; custom build (lacks most of the "advanced" HTML5 support &ndash;&gt;-->
-    <!--<script src="//www.ebi.ac.uk/web_guidelines/js/libs/modernizr.custom.49274.js"></script>-->
-
-<!--</head>-->
-
-<!--<body class="level2">-->
-
-<!--<div id="skip-to">-->
-    <!--<ul>-->
-        <!--<li><a href="#content">Skip to main content</a></li>-->
-        <!--<li><a href="#local-nav">Skip to local navigation</a></li>-->
-        <!--<li><a href="#global-nav">Skip to EBI global navigation menu</a></li>-->
-        <!--<li><a href="#global-nav-expanded">Skip to expanded EBI global navigation menu (includes all sub-sections)</a></li>-->
-    <!--</ul>-->
-<!--</div>-->
-
-
-
-
-<!--<div id="wrapper" class="container_24">-->
-
-    <!--<header>-->
-
-        <!--<div id="global-masthead" class="masthead grid_24">-->
-
-            <!--&lt;!&ndash;This has to be one line and no newline characters&ndash;&gt;-->
-            <!--<a href="//www.ebi.ac.uk/" title="Go to the EMBL-EBI homepage"><img src="//www.ebi.ac.uk/web_guidelines/images/logos/EMBL-EBI/EMBL_EBI_Logo_white.png" alt="EMBL European Bioinformatics Institute"/></a>-->
-
-            <!--<nav>-->
-                <!--<ul id="global-nav">-->
-                    <!--&lt;!&ndash; set active class as appropriate &ndash;&gt;-->
-                    <!--<li id="services" class=" first active"><a href="//www.ebi.ac.uk/services" title="Services">Services</a></li>-->
-                    <!--<li id="research" class=""><a href="//www.ebi.ac.uk/research" title="Research">Research</a></li>-->
-                    <!--<li id="training" class=""><a href="//www.ebi.ac.uk/training" title="Training">Training</a></li>-->
-                    <!--<li id="industry" class=""><a href="//www.ebi.ac.uk/industry" title="Industry">Industry</a></li>-->
-                    <!--<li id="about" class=" last"><a href="//www.ebi.ac.uk/about" title="About us">About us</a></li>-->
-                <!--</ul>-->
-            <!--</nav>-->
-
-        <!--</div>-->
-
-        <!--<div id="local-masthead" class="masthead grid_24 nomenu">-->
-
-            <!--&lt;!&ndash; local-title &ndash;&gt;-->
-            <!--&lt;!&ndash; NB: for additional title style patterns, see http://frontier.ebi.ac.uk/web/style/patterns &ndash;&gt;-->
-
-            <!--<div id="local-title" class="grid_14 alpha logo-title">-->
-                <!--<a href="../../../index" title="Back to OLS homepage">-->
-                    <!--<img style="width: 80px" th:src="@{../../../img/ols-logo.jpg}" src="../static/img/ols-logo.jpg" alt="OLS logo"/></a>-->
-                <!--<span><h1>Ontology Lookup Service</h1></span>-->
-            <!--</div>-->
-
-            <!--&lt;!&ndash; /local-title &ndash;&gt;-->
-
-            <!--&lt;!&ndash;-->
-            <!--<div class="grid_10 omega">-->
-                <!--<form id="local-search" name="local-search" action="../../../search" method="get">-->
-                    <!--<fieldset><div class="left">-->
-                        <!--<label>-->
-                            <!--<input style="font-weight: normal;" type="text" name="q" data-olswidget="select" th:attr="data-olsontology=${ontologyTerm.getOntologyName()}" data-olsontology="urr" data-selectpath="../../" id="local-searchbox" placeholder="Enter the term you are looking for" class="ac_input">-->
-                            <!--</input>-->
-                        <!--</label>-->
-                        <!--<span class="examples">Examples: <a href="../../../search?q=cancer">cancer</a>,-->
-                            <!--<a href="../../../search?q=GO:0098743">GO:0098743</a>,-->
-                        <!--</span>-->
-                    <!--</div>-->
-                        <!--<div class="right">-->
-                            <!--<input type="submit" value="Search" class="submit">-->
-                            <!--</input>-->
-                            <!--<span class="adv">-->
-                                <!--<a href="../../../search" id="adv-search" title="Advanced">Advanced</a>-->
-                            <!--</span>-->
-                        <!--</div>-->
-                    <!--</fieldset>-->
-                <!--</form>-->
-            <!--</div>&ndash;&gt;-->
-
-            <!--<nav>-->
-                <!--<ul class="grid_24" id="local-nav">-->
-                    <!--<li class="first"><a href="../../../index">Home</a></li>-->
-                    <!--<li class="active"><a href="../../../ontologies">Ontologies</a></li>-->
-                    <!--<li><a href="../../../docs">Documentation</a></li>-->
-                    <!--<li class="last" ><a href="../../../about">About</a></li>-->
-                    <!--<li class="functional last"><a href="../../../contact" class="icon icon-generic" data-icon="C">Contact Us</a></li>-->
-                <!--</ul>-->
-            <!--</nav>-->
-
-        <!--</div>-->
-    <!--</header>-->
-
-    <!--&lt;!&ndash;@thymesVar id="ontologyTerm" type="uk.ac.ebi.spot.ols.neo4j.model.Term"&ndash;&gt;-->
-    <!--&lt;!&ndash;@thymesVar id="ontologyName" type="String"&ndash;&gt;-->
-    <!--&lt;!&ndash;@thymesVar id="parentTerms" type="Set"&ndash;&gt;-->
-    <!--&lt;!&ndash;@thymesVar id="relatedFroms" type="Set"&ndash;&gt;-->
-    <!--<div id="content" role="main" class="grid_24 clearfix">-->
-
-        <!--<nav id="breadcrumb">-->
-          <!--<p>-->
-              <!--<a href="../../../index">OLS</a> &gt;-->
-              <!--<a href="#" th:href="@{../../../ontologies/__${ontologyTerm.getOntologyName()}__}" style="border-bottom-width: 0px;"><span class="ontology-source" th:text="${ontologyTerm.getOntologyPrefix()}">parent 1</span></a>   &gt;-->
-              <!--<span th:text="${ontologyTerm.getShortForm()}">id</span>-->
-             <!--<a href="../../../docs/graphview-help" style="position:absolute; right:20px;">Do you NEED HELP with the visualisation?</a>-->
-          <!--</p>-->
-        <!--</nav>-->
-
-      <!--<div class="container" style="margin:9px;">-->
-            <!--&lt;!&ndash;<div class="grid_24 alpha">&ndash;&gt;-->
-
-            <!--<section>-->
-                <!--<div class="grid_24 clearfix">-->
-                    <!--<div class="grid_24 clearfix">-->
-                        <!--<div class="grid_24 clearfix">-->
-                            <!--<span style="font-size: small;color: grey;padding: 9px;" th:text="${'Visualized term: '+ontologyTerm.getLabel()+' ('+ontologyTerm.getIri()+')'}" >http://www.example.com/onto/id</span>-->
-                            <!--<a id="dataElement" th:data="${ontologyTerm.getIri()}" th:href="@{${ontologyTerm.getIri()}}" class="nounderline" target="blank"><img th:src="@{../../../img/external_link.png}" src="../static/img/external_link.png" alt="^" title="Go to external page"/></a>-->
-                           <!--&lt;!&ndash; <a style="float:right;" class="nounderline"  th:href="@{../../../ontologies/__${ontologyTerm.getOntologyName()}__}" th:text="${'ontology: '+{ontologyTerm.ontologyName}+' ('+ontologyName+')'}">ontology</a>-->
-                          <!--<hr style="margin-left: 9px;"/>&ndash;&gt;-->
-                        <!--</div>-->
-
-
-                        <!--&lt;!&ndash; Visualisation div&ndash;&gt;-->
-                        <!--<div id="ontology_vis"></div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</section>-->
-
-            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-        <!--</div>-->
-      <!--</div>-->
-
-
-
-
-
-
-
-    <!--<footer>-->
-        <!--&lt;!&ndash; Optional local footer (insert citation / project-specific copyright / etc here &ndash;&gt;-->
-        <!--<div id="elixir-banner" data-color="grey" data-name="The Ontology Lookup Service" data-description="OLS is an Elixir interoperability service" data-more-information-link="//www.elixir-europe.org/platforms/interoperability" data-use-basic-styles="true"></div>-->
-        <!--<script src="//ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/js/elixirBanner.js"></script>-->
-
-        <!--&lt;!&ndash; End optional local footer &ndash;&gt;-->
-
-        <!--<div id="global-footer" class="grid_24 clearfix">-->
-
-            <!--<nav id="global-nav-expanded">-->
-
-                <!--<div class="grid_4 alpha">-->
-                    <!--<h3 class="embl-ebi"><a href="//www.ebi.ac.uk/" title="EMBL-EBI">EMBL-EBI</a></h3>-->
-                <!--</div>-->
-
-                <!--<div class="grid_4">-->
-                    <!--<h3 class="services"><a href="//www.ebi.ac.uk/services">Services</a></h3>-->
-                <!--</div>-->
-
-                <!--<div class="grid_4">-->
-                    <!--<h3 class="research"><a href="//www.ebi.ac.uk/research">Research</a></h3>-->
-                <!--</div>-->
-
-                <!--<div class="grid_4">-->
-                    <!--<h3 class="training"><a href="//www.ebi.ac.uk/training">Training</a></h3>-->
-                <!--</div>-->
-
-                <!--<div class="grid_4">-->
-                    <!--<h3 class="industry"><a href="//www.ebi.ac.uk/industry">Industry</a></h3>-->
-                <!--</div>-->
-
-                <!--<div class="grid_4 omega">-->
-                    <!--<h3 class="about"><a href="//www.ebi.ac.uk/about">About us</a></h3>-->
-                <!--</div>-->
-
-            <!--</nav>-->
-
-            <!--<section id="ebi-footer-meta">-->
-                <!--<p class="address">EMBL-EBI, Wellcome Trust Genome Campus, Hinxton, Cambridgeshire, CB10 1SD, UK &nbsp; &nbsp; +44 (0)1223 49 44 44</p>-->
-                <!--<p class="legal">Copyright &copy; EMBL-EBI 2013 | EBI is an outstation of the <a href="http://www.embl.org">European Molecular Biology Laboratory</a> | <a href="/about/privacy">Privacy</a> | <a href="/about/cookies">Cookies</a> | <a href="/about/terms-of-use">Terms of use</a></p>-->
-            <!--</section>-->
-
-        <!--</div>-->
-
-    <!--</footer>-->
-
-<!--</div>-->
-
-<!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
-<!--<script type="text/javascript" src="../static/js/jquery/jquery.autocomplete.min.js" th:src="@{../../../js/jquery/jquery.autocomplete.min.js}"></script>-->
-<!--<script type="text/javascript" src="../static/js/ols.js" th:src="@{../../../js/ols.js}"></script>-->
-<!--&lt;!&ndash;<script src="../static/js/jstree/jstree.min.js" th:src="@{../../js/jstree/jstree.min.js}"></script>&ndash;&gt;-->
-
-<!--<script type="text/javascript" src="../static/js/ols-termselect.js" th:src="@{../../../js/ols-termselect.js}"></script>-->
-<!--&lt;!&ndash;<script type="text/javascript" src="../static/js/ols-tree.js" th:src="@{../../js/ols-tree.js}"></script>&ndash;&gt;-->
-<!--<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>-->
-<!--<script>-->
-    <!--$(document).ready(function() {-->
-        <!--$('.mansyntax').each(function ()-->
-        <!--{-->
-<!--//            $(this).trigger('click');//for clicking element-->
-            <!--var href = $(this).attr("href");-->
-            <!--if ($(this).hasClass('ObjectProperty')) {-->
-                <!--$(this).attr("href", getUrlType('property') + '?iri=' + encodeURIComponent(href));-->
-            <!--}-->
-            <!--else if ($(this).hasClass('Class')) {-->
-                <!--$(this).attr("href", getUrlType('class') + '?iri=' + encodeURIComponent(href));-->
-            <!--}-->
-            <!--else if ($(this).hasClass('Individual')) {-->
-                <!--$(this).attr("href", getUrlType('individual') + '?iri=' + encodeURIComponent(href));-->
-            <!--}-->
-        <!--});-->
-
-
-
-
-        <!--/*Construct the webservice URL from the document.URL*/-->
-        <!--var termURL=document.URL;-->
-            <!--/*Add "api" in front of ontologies in the URL*/-->
-            <!--var first=termURL.substring(0,termURL.indexOf("/ontologies/"));-->
-            <!--first=first+"/api";-->
-            <!--/*Get rid of /graph at the end of the URL and add ?iri to the URL. The value for the parameter is fetched from Thymleaf later on*/-->
-            <!--var second=termURL.substring(termURL.indexOf("/ontologies/"),termURL.indexOf("/graph"));-->
-            <!--second=second+"?iri=";-->
-            <!--var webserviceURL=first+second;-->
-            <!--// console.log("Fetching data from...."+webserviceURL);-->
-        <!--/*End of webserviceURL construction, can see result with console log above if interested*/-->
-
-
-
-        <!--/*Define options and call the visualisation for the corresponding div element* /-->
-        <!--var networkOptions={webservice : {URL:webserviceURL, OLSschema:true}};-->
-        <!--var visoptions={};-->
-        <!--var term=$("#dataElement").attr("data");-->
-        <!--$("#ontology_vis").visstart(term, networkOptions, visoptions);-->
-        <!--*/-->
-
-
-        <!--/*Variante 2*/-->
-
-
-        <!--var tmpnetworkOptions={ webservice : {URL: webserviceURL, OLSschema:true},-->
-        <!--loadingBar:{pictureURL:"../../../img/loading1.gif"}-->
-        <!--}-->
-        <!--var term=$("#dataElement").attr("data");-->
-
-        <!--var app = require("ols-graphview");-->
-        <!--var instance = new app();-->
-        <!--instance.visstart("ontology_vis", term, tmpnetworkOptions,{})-->
-
-
-
-    <!--});-->
-<!--</script>-->
-
-    <!--<script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/cookiebanner.js"></script>-->
-    <!--<script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/foot.js"></script>-->
-
-
-<!--&lt;!&ndash;-->
-	<!--<script src="../static/js/ontology_vis_plugin/vis.min.js" th:src="@{../../../js/ontology_vis_plugin/vis.min.js}"></script>-->
-	<!--<script src="../static/js/ontology_vis_plugin/ontology_vis_plugin.js" th:src="@{../../../js/ontology_vis_plugin/ontology_vis_plugin.js}"></script>-->
-	<!--<script src="../static/js/ontology_vis_plugin/underscore-min.js" th:src="@{../../../js/ontology_vis_plugin/underscore-min.js}"></script>-->
-	<!--<script src="../static/js/ontology_vis_plugin/awesomplete.min.js" th:src="@{../../../js/ontology_vis_plugin/awesomplete.min.js}"></script>-->
-<!--&ndash;&gt;-->
-
- <!--<script src="../static/js/ols-graphview.js" th:src="@{../../../js/ontology_vis_plugin/ols-graphview.js}"></script>-->
-
-
-<!--<script>-->
-<!--(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){-->
-<!--(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),-->
-<!--m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)-->
-<!--})(window,document,'script','//www.google-analytics.com/analytics.js','ga');-->
-<!--ga('create', 'UA-69391170-1', 'auto');-->
-<!--ga('send', 'pageview');-->
-<!--</script>-->
-<!--</body>-->
-<!--</html>-->

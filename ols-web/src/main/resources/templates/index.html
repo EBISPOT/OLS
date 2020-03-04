@@ -26,80 +26,88 @@
 
 <section id="main-content-area" role="main">
 
-        <!--@thymesVar id="summary" type="uk.ac.ebi.spot.ols.controller.ui.HomeController.SummaryInfo" -->
-            <div class="row">
-                <div th:if="${start}" style="font-size: larger;" class="callout alert">
-                    <span class="icon icon-generic" data-icon="alert">Maintenance</span>
-                    <ul><li>OLS is due for maintenance and will be unavailable between <span th:text="${start}"/> and <span th:text="${end}"/>. Apologies for any inconvenience.</li><li th:if="${message}" th:text="${message}"></li></ul>
+    <!--@thymesVar id="summary" type="uk.ac.ebi.spot.ols.controller.ui.HomeController.SummaryInfo" -->
+    <div class="row">
+        <div th:if="${start}" style="font-size: larger;" class="callout alert">
+            <span class="icon icon-generic" data-icon="alert">Maintenance</span>
+            <ul>
+                <li>OLS is due for maintenance and will be unavailable between <span th:text="${start}"/> and
+                    <span th:text="${end}"/>. Apologies for any inconvenience.</li>
+                <li th:if="${message}" th:text="${message}"></li>
+            </ul>
+        </div>
+
+        <div class="small-9 columns">
+
+            <div id="mainpageSearchBox">
+                <h4>Welcome to the EMBL-EBI Ontology Lookup Service</h4>
+                <form id="filter_form" name="local-search" action="search" method="get">
+                    <div id="bloodhound" class="input-group">
+                        <input style="margin-bottom: 0.1em;" class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="multisearch" data-olsontology=""  placeholder="Search OLS..." aria-describedby="basic-addon1"/>
+                              <button class="button secondary searchButton glyphicon glyphicon-search" type="submit">Search</button>
+                    </div>
+                        <span class="examples">Examples: <a class="nounderline ontology-link" href="search?q=diabetes">diabetes</a>,
+                             <a class="nounderline ontology-link" href="search?q=GO:0098743">GO:0098743</a></span>
+                        <span style="float: right;" class="examples"><a class="nounderline ontology-link" href="ontologies">Looking for a particular ontology?</a>
+                         </span>
+                </form>
+            </div>
+
+            <div>
+                <div class="small-4 columns">
+                    <h4 style="color: #BF8230;" class="icon icon-functional" data-icon="b">
+                        <a href="docs/about">About OLS</a></h4>
+                    <p class="about">
+                        The Ontology Lookup Service (OLS) is a repository for biomedical ontologies that aims to provide
+                        a single point of access to the latest ontology versions. You can browse the ontologies through
+                        the website as well as programmatically via the OLS API. OLS is developed and maintained by the
+                        <a href="http://www.ebi.ac.uk/about/spot-team">Samples, Phenotypes and Ontologies Team</a>
+                        (SPOT) at EMBL-EBI.
+                    </p>
                 </div>
 
-
-
-                <div class="small-9 columns">
-                    <div id="mainpageSearchBox">
-                        <h4>Welcome to the EMBL-EBI Ontology Lookup Service</h4>
-                        <form id="filter_form" name="local-search" action="search" method="get">
-                            <div id="bloodhound" class="input-group">
-                                <input style="margin-bottom: 0.1em;" class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="multisearch" data-olsontology=""  placeholder="Search OLS..." aria-describedby="basic-addon1"/>
-                                      <button class="button secondary searchButton glyphicon glyphicon-search" type="submit">Search</button>
-                            </div>
-                                <span class="examples">Examples: <a class="nounderline ontology-link" href="search?q=diabetes">diabetes</a>,
-                                     <a class="nounderline ontology-link" href="search?q=GO:0098743">GO:0098743</a>
-                                 </span>
-
-                                <span style="float: right;" class="examples"><a class="nounderline ontology-link" href="ontologies">Looking for a particular ontology?</a>
-                                 </span>
-                        </form>
-                    </div>
-
-
-                    <div>
-                        <div class="small-4 columns">
-                            <h4 style="color: #BF8230;" class="icon icon-functional" data-icon="b">
-                                <a href="docs/about">About OLS</a></h4>
-                            <p class="about">
-                                The Ontology Lookup Service (OLS) is a repository for biomedical ontologies that aims to provide a single point of access to the latest ontology versions. You can browse the ontologies through the website as well as programmatically via the OLS API. OLS is developed and maintained by the <a href="http://www.ebi.ac.uk/about/spot-team">Samples, Phenotypes and Ontologies Team</a> (SPOT) at EMBL-EBI.
-                            </p>
-                        </div>
-
-                        <div class="small-4 columns">
-                            <h4 style="color: #BF8230;" class="icon icon-functional" data-icon="t">
-                                <a href="https://www.ebi.ac.uk/spot/ontology/">Related Tools</a></h4>
-                            <p class="about">
-                                In addition to OLS the SPOT team also provides the OxO, Zooma and Webulous services.  <a href="//www.ebi.ac.uk/spot/oxo">OxO</a> provides cross-ontology mappings between terms from different ontologies. <a href="//www.ebi.ac.uk/spot/zooma">Zooma</a> is a service to assist in mapping data to ontologies in OLS and <a href="//www.ebi.ac.uk/spot/webulous">Webulous</a> is a tool for building ontologies from spreadsheets.
-                            </p>
-                        </div>
-
-                        <div class="small-4 columns">
-                            <h4 style="color: #BF8230;" class="icon icon-generic" data-icon="C">
-                                <a href="contact">Contact Us</a></h4>
-                            <p class="about">
-                                For feedback, enquiries or suggestion about OLS or to request a new ontology please contact ols-support @ ebi.ac.uk.
-                                For bugs or problems with the code or API please report on <a href="https://github.com/EBISPOT/OLS/issues">GitHub issue</a>
-                                For announcements relating to OLS, such as new releases and new features sign up to the <a href="https://listserver.ebi.ac.uk/mailman/listinfo/ols-announce">OLS announce mailing list</a>
-
-                            </p>
-                        </div>
-
-                    </div>
+                <div class="small-4 columns">
+                    <h4 style="color: #BF8230;" class="icon icon-functional" data-icon="t">
+                        <a href="https://www.ebi.ac.uk/spot/ontology/">Related Tools</a></h4>
+                    <p class="about">
+                        In addition to OLS the SPOT team also provides the OxO, Zooma and Webulous services.
+                        <a href="//www.ebi.ac.uk/spot/oxo">OxO</a> provides cross-ontology mappings between terms from
+                        different ontologies. <a href="//www.ebi.ac.uk/spot/zooma">Zooma</a> is a service to assist in
+                        mapping data to ontologies in OLS and <a href="//www.ebi.ac.uk/spot/webulous">Webulous</a> is a
+                        tool for building ontologies from spreadsheets.
+                    </p>
                 </div>
 
-
-                <div id="dataContentDiv" class="small-3 columns">
-                    <h4 class="icon icon-generic" data-icon="g"> Data Content</h4>
-                    <h5>Updated <span th:text="${#calendars.format(summary.getLastUpdated(), 'dd MMM yyyy HH:mm')}">Today at 07:00</span></h5>
-                    <ul>
-                        <li><span th:text="${summary.getNumberOfOntologies()}">102</span> ontologies</li>
-                        <li th:if="${summary.getNumberOfTerms() &gt; 0}"><span th:text="${#numbers.formatInteger(summary.getNumberOfTerms(),3,'COMMA')}">102</span> terms</li>
-                        <li th:if="${summary.getNumberOfProperties() &gt; 0}"><span th:text="${#numbers.formatInteger(summary.getNumberOfProperties(),3,'COMMA')}">102</span> properties</li>
-                        <li th:if="${summary.getNumberOfIndividuals() &gt; 0}"><span th:text="${#numbers.formatInteger(summary.getNumberOfIndividuals(),3,'COMMA')}">102</span> individuals</li>
-                        <li th:if="${summary.getSoftwareVersion() != null}">Version <span th:text="${summary.getSoftwareVersion()}">102</span></li>
-                    </ul>
-
-                  <a class="twitter-timeline" data-height="600" href="https://twitter.com/EBIOLS">Tweets by OLS</a> <script async="async" src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                <div class="small-4 columns">
+                    <h4 style="color: #BF8230;" class="icon icon-generic" data-icon="C">
+                        <a href="contact">Contact Us</a></h4>
+                    <p class="about">
+                        For feedback, enquiries or suggestion about OLS or to request a new ontology please contact
+                        ols-support @ ebi.ac.uk. For bugs or problems with the code or API please report on
+                        <a href="https://github.com/EBISPOT/OLS/issues">GitHub issue</a>. For announcements relating to
+                        OLS, such as new releases and new features sign up to the
+                        <a href="https://listserver.ebi.ac.uk/mailman/listinfo/ols-announce">OLS announce mailing
+                        list</a>
+                    </p>
                 </div>
             </div>
-            </section>
+        </div>
+
+        <div id="dataContentDiv" class="small-3 columns">
+            <h4 class="icon icon-generic" data-icon="g"> Data Content</h4>
+            <h5>Updated <span th:text="${#calendars.format(summary.getLastUpdated(), 'dd MMM yyyy HH:mm')}">Today at 07:00</span></h5>
+            <ul>
+                <li><span th:text="${summary.getNumberOfOntologies()}">102</span> ontologies</li>
+                <li th:if="${summary.getNumberOfTerms() &gt; 0}"><span th:text="${#numbers.formatInteger(summary.getNumberOfTerms(),3,'COMMA')}">102</span> terms</li>
+                <li th:if="${summary.getNumberOfProperties() &gt; 0}"><span th:text="${#numbers.formatInteger(summary.getNumberOfProperties(),3,'COMMA')}">102</span> properties</li>
+                <li th:if="${summary.getNumberOfIndividuals() &gt; 0}"><span th:text="${#numbers.formatInteger(summary.getNumberOfIndividuals(),3,'COMMA')}">102</span> individuals</li>
+                <li th:if="${summary.getSoftwareVersion() != null}">Version <span th:text="${summary.getSoftwareVersion()}">102</span></li>
+            </ul>
+
+            <a class="twitter-timeline" data-height="600" href="https://twitter.com/EBIOLS">Tweets by OLS</a> <script async="async" src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+    </div>
+</section>
 
 
 <th:block th:include="fragments/footer :: footer"></th:block>
@@ -144,7 +152,7 @@
     //Message for mozilla browsers
     //if ($.browser.mozilla === true) {     }
     //Message to all mobile devices trying to use OLS
-    //if ($.browser.mobile ===true) {       }
+    //if ($.browser.mobile === true) {       }
 </script>
 
 <!-- All JS that is just used on this page should go here, I suppose-->

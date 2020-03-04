@@ -7,7 +7,7 @@
 <!--[if gt IE 8]><!--> <html  xmlns:th="https://www.thymeleaf.org" class="no-js" lang="en"> <!--<![endif]-->
 
 
-<head th:replace="fragments/head :: head(olscss=true)">
+<head th:replace="fragments/head :: head(olscss=true, datatables=true)">
     <title>Ontology Xref Service   &lt; EMBL-EBI</title>
     <!-- A few keywords that relate to the content of THIS PAGE (not the whole project)
     <meta name="keywords" content="biosamples, europe, EBI" />
@@ -19,11 +19,9 @@
     <!- - When this content is no longer relevant -->
 </head>
 
-<link rel="stylesheet" href="//cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css"/>
 
 <body>
 <th:block th:include="fragments/header :: header"></th:block>
-
 
 <section id="main-content-area" role="main">
     <div class="row">

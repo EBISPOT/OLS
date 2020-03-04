@@ -4,11 +4,10 @@
 <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"/> <![endif]-->
 <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"/> <![endif]-->
 <!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
-<!--[if gt IE 8]><!--> <html  xmlns:th="https://www.thymeleaf.org" class="no-js" lang="en"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html xmlns:th="https://www.thymeleaf.org" class="no-js" lang="en"> <!--<![endif]-->
 
 
-
-<head th:replace="fragments/head :: head(olscss=true)">
+<head th:replace="fragments/head :: head(olscss=true, proton=true)">
     <title>Ontology Xref Service   &lt; EMBL-EBI</title>
     <!-- A few keywords that relate to the content of THIS PAGE (not the whole project)
     <meta name="keywords" content="biosamples, europe, EBI" />
@@ -21,201 +20,251 @@
 </head>
 
 
-<!-- Place css that is need after head, because the head gets replaced, could potentially put this into the header if we don't mind loading it all the time -->
-<link rel="stylesheet" href="/js/jstree/themes/proton/style.min.css" th:href="@{/js/jstree/themes/proton/style.min.css}" type="text/css" media="screen" />
-
-
 <body>
 <th:block th:include="fragments/header :: header"></th:block>
-
 
 <section id="main-content-area" role="main">
     <div vocab="http://schema.org/" typeof="MedicalCode" id="content" role="main" class="row">
          <div class="breadcrumbDiv">
-            <div style="float:right;padding-right: 5px;">
-                <a style="float:right; border-bottom: none;" th:href="@{../../api/ontologies/__${ontologyProperty.getOntologyName()}__/properties (iri=${ontologyProperty.getIri()})}"  href="#">
-                    <img th:src="@{../../img/file_JSON.png}" src="../static/img/file_JSON.png" alt="JSON" title="Get data as JSON"/>
+            <div style="float: right; padding-right: 5px;">
+                <a style="float: right; border-bottom: none;"
+                   th:href="@{../../api/ontologies/__${ontologyProperty.getOntologyName()}__/properties (iri=${ontologyProperty.getIri()})}"
+                   href="#">
+                    <img th:src="@{../../img/file_JSON.png}"
+                         src="../static/img/file_JSON.png"
+                         alt="JSON"
+                         title="Get data as JSON" />
                 </a>
             </div>
 
             <nav id="breadcrumb">
                 <p>
-                <a href="../../index">OLS</a> &gt;
-                <a th:href="@{../../ontologies/__${ontologyProperty.getOntologyName()}__}" th:text="${ontologyName}">ontology</a>
-                &nbsp;
-                <a property="codingSystem" th:attr="content=${ontologyProperty.getOntologyName()}" href="#" style="border-bottom-width: 0px;">
-                    <span class="ontology-source-valign" th:text="${ontologyProperty.getOntologyPrefix()}">parent 1</span>
-                </a>   &gt;
-                <span id="shortForm" th:if="${ontologyProperty.getOboId()} != null" class="term-source-valign" property="codeValue" th:text="${ontologyProperty.getOboId()}">id</span>
-                <span id="shortForm" th:unless="${ontologyProperty.getOboId()} != null" class="term-source-valign" property="codeValue" th:text="${ontologyProperty.getShortForm()}">id</span>
-
-                <button id='copyShortForm' class="button tiny third copyButton" data-clipboard-action="copy" data-clipboard-target="#shortForm" type="button">C</button>
-
+                    <a href="../../index">OLS</a> &gt;
+                    <a th:href="@{../../ontologies/__${ontologyProperty.getOntologyName()}__}"
+                       th:text="${ontologyName}">ontology</a>
+                    <a property="codingSystem"
+                       th:attr="content=${ontologyProperty.getOntologyName()}"
+                       style="border-bottom-width: 0px;"
+                       href="#"><span class="ontology-source-valign"
+                                      th:text="${ontologyProperty.getOntologyPrefix()}">parent 1</span></a>   &gt;
+                    <span id="shortForm"
+                          th:if="${ontologyProperty.getOboId()} != null"
+                          class="term-source-valign"
+                          property="codeValue"
+                          th:text="${ontologyProperty.getOboId()}">id</span>
+                    <span id="shortForm"
+                          th:unless="${ontologyProperty.getOboId()} != null"
+                          class="term-source-valign"
+                          property="codeValue"
+                          th:text="${ontologyProperty.getShortForm()}">id</span>
+                    <button id='copyShortForm'
+                            class="button tiny third copyButton"
+                            data-clipboard-action="copy"
+                            data-clipboard-target="#shortForm"
+                            type="button">C</button>
                 </p>
             </nav>
         </div>
 
-
         <!--<div class="grid_24 alpha">-->
-            <div class="">
-                    <div class="small-8 column">
-                        <h2 property="name"  style="margin: 0px;" th:text="${ontologyProperty.getLabel()}">Term label</h2>
-                        <a style="padding: 9px;border-bottom: none;" th:href="@{${ontologyProperty.getIri()}}" class="nounderline" target="blank"><img th:src="@{../../img/external_link.png}" src="../static/img/external_link.png" alt="^" title="Go to external page"/></a>
-                        <span id="OLS_ID"  property="url" style="font-size: small;color: grey;" th:text="${ontologyProperty.getIri()}">http://www.example.com/onto/id</span>
-                        <p style="display:inline;"><button id='copyThis' class="button tiny third copyButton" data-clipboard-action="copy" data-clipboard-target="#OLS_ID" type="button">C</button></p>
-
-                    </div>
-
-                    <div class="small-4 columns">
-                        <form id="filter_form" name="local-search" action="../../search" method="get">
-                            <div id="bloodhound" class="input-group">
-                                <input style="margin-bottom: 0.1em;" class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="select" th:placeholder="'Search ' + ${ontologyProperty.getOntologyPrefix()}" th:attr="data-olsontology=${ontologyProperty.getOntologyName()}" data-olsontology=""  data-selectpath="../../" placeholder="Search OLS" aria-describedby="basic-addon1"/>
-                                <button class="button secondary searchButton glyphicon glyphicon-search" style="" type="submit">Search</button>
-
-                                <!--<span class="input-group-btn">
-                                  <button class="button secondary searchButton glyphicon glyphicon-search" style="" type="submit">Search</button>
-                                </span> -->
-                            </div>
-                            <input type="hidden" name="ontology" th:value="${ontologyProperty.getOntologyName()}"/>
-                        </form>
-                    </div>
-
-
-            <section>
-
-                <div class="grid_24 clearfix">
-                    <div class="grid_14 alpha clearfix">
-
-                        <ul  class="nav nav-tabs">
-                            <li role="presentation" class="active"><a class="icon icon-functional" data-icon="h" data-toggle="tab" href="#tree-tab">Tree view</a></li>
-                            <!--<li role="presentation"><a data-toggle="tab"  href="#graph-tab">Graph view</a></li>-->
-                        </ul>
-                        <input type="hidden" name="ontology_view_selection"/>
-                        <input type="hidden" name="viewMode" value="All"/>
-                        <!-- Tab panes -->
-                        <div class="tab-content">
-
-                            <div role="tabpanel" class="tab-pane active" id="tree-tab">
-
-                                <div class="btn-group btn-group-vertical" style="float: right;padding-top:5px;">
-                                    <button class="btn  btn-default" name="ontology_view_siblings"
-                                            th:value="${#httpServletRequest.getParameter('siblings') == 'true'} ? 'true': 'false'"
-                                            title="Expand the tree to show sibling terms"
-                                            onclick="instance.toggleSiblings()">Show all siblings</button>
-                                </div>
-
-                    <div th:if="${ontologyProperty.getSynonyms() !=null}">
-                        <p><b>Synonyms:</b>
-                            <span property="alternateName" style="margin-left:9px;" th:text="${#strings.setJoin(ontologyProperty.getSynonyms(), ', ')}">NCBI_9606</span>
-                        </p>
-
-                    </div>
-                </div>
-
+        <div class="">
+            <div class="small-8 column">
+                <h2 property="name"  style="margin: 0px;" th:text="${ontologyProperty.getLabel()}">Term label</h2>
+                <a style="padding: 9px; border-bottom: none;"
+                   th:href="@{${ontologyProperty.getIri()}}"
+                   class="nounderline"
+                   target="blank"><img th:src="@{../../img/external_link.png}"
+                                       src="../static/img/external_link.png"
+                                       alt="^"
+                                       title="Go to external page"></a>
+                <span id="OLS_ID"
+                      property="url"
+                      style="font-size: small; color: grey;"
+                      th:text="${ontologyProperty.getIri()}">http://www.example.com/onto/id</span>
+                <p style="display: inline;"><button id='copyThis'
+                                                    class="button tiny third copyButton"
+                                                    data-clipboard-action="copy"
+                                                    data-clipboard-target="#OLS_ID"
+                                                    type="button">C</button></p>
             </div>
 
-
-                <div id="terms-tab-content" class="small-8 columns">
-                    <ul  class="tabs" data-tabs="true" id="property_tabs">
-                        <li class="tabs-title active"><a data-toggle="tab" class="icon icon-functional" data-icon="h" href="#tree-tab">Tree view</a></li>
-                        <!--<li role="presentation"><a data-toggle="tab"  href="#graph-tab">Graph view</a></li>-->
-                    </ul>
-
-                    <!-- Tab panes -->
-                    <div class="btn-group btn-group-vertical" style="float: right;padding-top:5px;">
-                        <input type="radio" id="ontology_view_selection_id" name="ontology_view_selection" value="PreferredRoots"
-                               th:checked="${#httpServletRequest.getParameter('viewMode') == 'PreferredRoots'} ? 'true': 'false'"
-                               onclick="instance.toggleOntologyView()">Preferred root terms</input><br/>
-                        <input type="radio" id="ontology_view_selection_id" name="ontology_view_selection" value="All"
-                               th:checked="${#httpServletRequest.getParameter('viewMode') == null or #httpServletRequest.getParameter('viewMode') == 'All'} ? 'true': 'false'"
-                               onclick="instance.toggleOntologyView()">All terms</input>
+            <div class="small-4 columns">
+                <form id="filter_form" name="local-search" action="../../search" method="get">
+                    <div id="bloodhound" class="input-group">
+                        <input style="margin-bottom: 0.1em;"
+                               class="form-control typeahead"
+                               autofocus="autofocus"
+                               type="text"
+                               name="q"
+                               data-olswidget="select"
+                               th:placeholder="'Search ' + ${ontologyProperty.getOntologyPrefix()}"
+                               th:attr="data-olsontology=${ontologyProperty.getOntologyName()}"
+                               data-olsontology=""
+                               data-selectpath="../../"
+                               placeholder="Search OLS"
+                               aria-describedby="basic-addon1"/>
+                        <button class="button secondary searchButton glyphicon glyphicon-search"
+                                style=""
+                                type="submit">Search</button>
+                        <!--span class="input-group-btn">
+                            <button class="button secondary searchButton glyphicon glyphicon-search"
+                                    style=""
+                                    type="submit">Search</button>
+                        </span-->
                     </div>
+                    <input type="hidden" name="ontology" th:value="${ontologyProperty.getOntologyName()}"/>
+                </form>
+            </div>
+        </div>
+
+        <section>
+            <div class="grid_24 clearfix">
+                <div class="grid_14 alpha clearfix">
+
+                    <!--ul class="nav nav-tabs">
+                        <li role="presentation" class="active"><a class="icon icon-functional"
+                                                                  data-icon="h"
+                                                                  data-toggle="tab"
+                                                                  href="#tree-tab">Tree view</a></li>
+                        <!- -li role="presentation"><a data-toggle="tab" href="#graph-tab">Graph view</a></li- ->
+                    </ul>
+                    <input type="hidden" name="ontology_view_selection"/>
+                    <input type="hidden" name="viewMode" value="All"/-->
+
                     <!-- Tab panes -->
-                    <div class="tab-content">
+                    <!--div class="tab-content">
 
                         <div role="tabpanel" class="tab-pane active" id="tree-tab">
 
-                            <div class="btn-group btn-group-vertical" style="float: right;padding-top:5px;">
-                                <button class="btn  btn-default" id="ontology_view_siblings_id"
+                            <div class="btn-group btn-group-vertical" style="float: right; padding-top: 5px;">
+                                <button class="btn btn-default" name="ontology_view_siblings"
                                         th:value="${#httpServletRequest.getParameter('siblings') == 'true'} ? 'true': 'false'"
                                         title="Expand the tree to show sibling terms"
                                         onclick="instance.toggleSiblings()">Show all siblings</button>
                             </div>
 
-                            <div id="term-tree" data-olswidget="tree" th:attr="data-olsontology=${ontologyProperty.getOntologyName()},data-ols-iri=${ontologyProperty.getIri()}" data-selectpath="../../" data-ols-termtype="property" data-olsontology="" data-ols-iri=""  >
+                            <div th:if="${ontologyProperty.getSynonyms() != null}">
+                                <p><b>Synonyms:</b>
+                                    <span property="alternateName"
+                                          style="margin-left: 9px;"
+                                          th:text="${#strings.setJoin(ontologyProperty.getSynonyms(), ', ')}">NCBI_9606</span></p>
                             </div>
-
                         </div>
-                    </div>
+                    </div-->
 
-                </div>
+                    <div id="terms-tab-content" class="small-8 columns">
+                        <ul class="tabs nav nav-tabs" data-tabs="true" id="property_tabs">
+                            <li class="tabs-title is-active"><a class="icon icon-functional"
+                                                                data-icon="h"
+                                                                aria-selected="true"
+                                                                href="#tree-tab">Tree view</a></li>
+                            <!--li role="presentation"><a data-toggle="tab" href="#graph-tab">Graph view</a></li-->
+                        </ul>
 
-                <div id="right_info_box" class="small-4 columns">
+                        <!-- Tab panes -->
+                        <!--div class="btn-group btn-group-vertical" style="float: right; padding-top: 5px;">
+                            <input type="radio" id="ontology_view_selection_id"
+                                   name="ontology_view_selection" value="PreferredRoots"
+                                   th:checked="${#httpServletRequest.getParameter('viewMode') == 'PreferredRoots'} ? 'true': 'false'"
+                                   onclick="instance.toggleOntologyView()">Preferred root terms</input><br/>
+                            <input type="radio" id="ontology_view_selection_id2"
+                                   name="ontology_view_selection" value="All"
+                                   th:checked="${#httpServletRequest.getParameter('viewMode') == null or #httpServletRequest.getParameter('viewMode') == 'All'} ? 'true': 'false'"
+                                   onclick="instance.toggleOntologyView()">All terms</input>
+                        </div-->
 
-                    <div id="term_info_box" class="panel">
+                        <!-- Tab panes -->
+                        <div class="tabs-content" data-tabs-content="property_tabs">
+                            <div role="tabpanel" class="tabs-panel is-active" id="tree-tab">
 
-                        <div class="panel-heading">
-                            <h3 style="padding: 0" class="panel-title">Property info</h3>
-                        </div>
-                        <div class="panel-body">
+                                <div class="btn-group btn-group-vertical" style="float: right; padding-top: 5px;">
+                                    <button class="btn btn-default"
+                                            id="ontology_view_siblings_id"
+                                            name="ontology_view_siblings"
+                                            th:value="${#httpServletRequest.getParameter('siblings') == 'true'} ? 'true': 'false'"
+                                            title="Expand the tree to show sibling terms"
+                                            onclick="instance.toggleSiblings()">Show all siblings</button>
+                                </div>
 
-                            <div th:each="annotations: ${ontologyProperty.getAnnotation()}">
-                                <b>
-                                    <a href="#" th:href="@{../../search(q=${annotations.key},exact='true', type=property, ontology=${ontologyProperty.ontologyName})}" th:text="${annotations.key.replaceAll('_', ' ')}">property name</a>
-                                </b>
-                                <p style="margin-left:9px;" th:text="${#strings.setJoin(annotations.value, ',')}">NCBI_9606</p>
-                            </div>
-
-
-                        </div>
-                    </div>
-
-
-                    <div id="term_relation_box" class="panel">
-
-                        <div class="panel-heading">
-                            <h3 style="padding: 0" class="panel-title">Property relations</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div th:if="${parentProperties != null}">
-                                <b>Parents</b>
-                                <br/>
-                                <div th:each="parentProperty : ${parentProperties}">
-                                    <a href="#" th:href="@{properties (iri=${parentProperty.getIri()})}" th:text="${parentProperty.getLabel()}">parent 1</a>
+                                <div id="term-tree"
+                                     data-olswidget="tree"
+                                     th:attr="data-olsontology=${ontologyProperty.getOntologyName()},data-ols-iri=${ontologyProperty.getIri()}"
+                                     data-selectpath="../../"
+                                     data-ols-termtype="property"
+                                     data-olsontology=""
+                                     data-ols-iri="">
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
-                </div>
-        </div>
+                    <div id="right_info_box" class="small-4 columns">
+                        <div id="term_info_box" class="panel">
+                            <div class="panel-heading">
+                                <h3 style="padding: 0;" class="panel-title">Property info</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div th:each="annotations: ${ontologyProperty.getAnnotation()}">
+                                    <b><a href="#"
+                                          th:href="@{../../search(q=${annotations.key},exact='true', type=property, ontology=${ontologyProperty.ontologyName})}"
+                                          th:text="${annotations.key.replaceAll('_', ' ')}">property name</a></b>
+                                    <p style="margin-left: 9px;"
+                                       th:text="${#strings.setJoin(annotations.value, ',')}">NCBI_9606</p>
+                                </div>
+                            </div>
+                        </div>
 
+                        <div id="term_relation_box" class="panel">
+                            <div class="panel-heading">
+                                <h3 style="padding: 0;" class="panel-title">Property relations</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div th:if="${parentProperties != null}">
+                                    <b>Parents</b>
+                                    <br/>
+                                    <div th:each="parentProperty : ${parentProperties}">
+                                        <a href="#"
+                                           th:href="@{properties (iri=${parentProperty.getIri()})}"
+                                           th:text="${parentProperty.getLabel()}">parent 1</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 </section>
+
 <th:block th:include="fragments/footer :: footer"></th:block>
 
 
-
-
-<script type="text/javascript" src="../static/js/typeahead/typeahead.bundle.js" th:src="@{../../js/typeahead/typeahead.bundle.js}"></script>
-<script type="text/javascript" src="../static/js/handlebars/4.0.5/handlebars.min.js" th:src="@{../../js/handlebars/4.0.5/handlebars.min.js}"></script>
+<script type="text/javascript"
+        src="../static/js/typeahead/typeahead.bundle.js"
+        th:src="@{../../js/typeahead/typeahead.bundle.js}"></script>
+<script type="text/javascript"
+        src="../static/js/handlebars/4.0.5/handlebars.min.js"
+        th:src="@{../../js/handlebars/4.0.5/handlebars.min.js}"></script>
 
 <script type="text/javascript" src="../static/js/ols.js" th:src="@{../../js/ols.js}"></script>
 <script src="../static/js/jstree/jstree.min.js" th:src="@{../../js/jstree/jstree.min.js}"></script>
 
 <script type="text/javascript" src="../static/js/ols-termselect2.js" th:src="@{../../js/ols-termselect2.js}"></script>
-<!--<script type="text/javascript" src="../static/js/ols-treeview.min.js" th:src="@{../../js/ols-treeview.min.js}"></script>-->
-<script type="text/javascript" src="../static/js/ols-term-type-treeview.js" th:src="@{../../js/ols-term-type-treeview.js  (v=0.0.42)}"></script>
-<script type="text/javascript" src="../static/js/bootstrap/bootstrap.min.js" th:src="@{../../js/bootstrap/bootstrap.min.js}"></script>
+<!--script type="text/javascript" src="../static/js/ols-treeview.min.js" th:src="@{../../js/ols-treeview.min.js}"></script-->
+<script type="text/javascript"
+        src="../static/js/ols-term-type-treeview.js"
+        th:src="@{../../js/ols-term-type-treeview.js  (v=0.0.42)}"></script>
+<script type="text/javascript"
+        src="../static/js/bootstrap/bootstrap.min.js"
+        th:src="@{../../js/bootstrap/bootstrap.min.js}"></script>
 
 <script type="text/javascript" src="../static/js/clipboard.min.js" th:src="@{../../js/clipboard.min.js}"></script>
 
-
 <script>
     $(document).ready(function() {
-        $('.mansyntax').each(function ()
-        {
-//            $(this).trigger('click');//for clicking element
+        $('.mansyntax').each(function() {
+            // $(this).trigger('click');  // for clicking element
             var href = $(this).attr("href");
 
             if ($(this).hasClass('ObjectProperty')) {
@@ -229,8 +278,8 @@
             }
         });
 
-        new Clipboard('#copyThis')
-        new Clipboard('#copyShortForm')
+        new Clipboard('#copyThis');
+        new Clipboard('#copyShortForm');
     });
 </script>
 
@@ -256,8 +305,6 @@
     console.log("viewMode = ", viewMode);
     instance.draw(showSiblings, viewMode);
 </script>
-
-
 
 
 </body>

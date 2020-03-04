@@ -91,7 +91,7 @@ function getSuggestTemplate () {
 
       }
 
-      return "<div style='width: 100%; display: table;'> <div style='display: table-row'><div  style='display: table-cell;' class='ontology-suggest'><div class='suggestion-value'>" + label + "</div>" + extra + "</div><div style='vertical-align:middle; text-align: right; width:60px; display: table-cell;'>" + objectTypeHtml + "</div></div></div>";
+      return "<div style='width: 100%; display: table;'> <div style='display: table-row'><div style='display: table-cell;' class='ontology-suggest'><div class='suggestion-value'>" + label + "</div>" + extra + "</div><div style='vertical-align:middle; text-align: right; width:60px; display: table-cell;'>" + objectTypeHtml + "</div></div></div>";
 
       //Handlebars.compile('<div><strong>{{value}}</strong> – {{data.ontology}}</div>');
 

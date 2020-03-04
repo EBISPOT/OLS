@@ -10,6 +10,7 @@ docker run -d -p 27017:27017 -v ols_mongo_data:/data/db: mongo:3.4.23-xenial
 docker run -d -p 8983:8983 \
        -v ols_solr_ontology_data:/opt/mysolrhome/ontology: \
        -v ols_solr_autosuggest_data:/opt/mysolrhome/autosuggest: \
+       -v ols_solr_data:/opt/solr/server/solr: \
        --name ols-solr-container \
        ols-solr:latest \
        -Dsolr.solr.home=/opt/mysolrhome \

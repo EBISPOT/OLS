@@ -7,7 +7,6 @@
 <!--[if gt IE 8]><!--> <html  xmlns:th="https://www.thymeleaf.org" class="no-js" lang="en"> <!--<![endif]-->
 
 
-
 <head th:replace="fragments/head :: head(olscss=true)">
     <title>Ontology Xref Service   &lt; EMBL-EBI</title>
     <!-- A few keywords that relate to the content of THIS PAGE (not the whole project)
@@ -24,15 +23,23 @@
 <body>
 <th:block th:include="fragments/header :: header"></th:block>
 
-
 <section id="main-content-area" role="main">
 
     <div class="row">
 
         <div class="small-12 columns">
-            <a style="padding: 9px;border-bottom: none;" th:href="@{${ontologyIndividual.getIri()}}" class="nounderline" target="blank"><img th:src="@{../../img/external_link.png}" src="../static/img/external_link.png" alt="^" title="Go to external page"/></a>
-            <span property="url" style="font-size: small;color: grey;" th:text="${ontologyIndividual.getIri()}">http://www.example.com/onto/id</span>
+            <a style="padding: 9px; border-bottom: none;"
+               th:href="@{${ontologyIndividual.getIri()}}"
+               class="nounderline"
+               target="blank"><img th:src="@{../../img/external_link.png}"
+                                   src="../static/img/external_link.png"
+                                   alt="^"
+                                   title="Go to external page" /></a>
+            <span property="url"
+                  style="font-size: small; color: grey;"
+                  th:text="${ontologyIndividual.getIri()}">http://www.example.com/onto/id</span>
         </div>
+
         <div class="small-12 columns">
             <hr style="margin-left: 9px;"/>
             <div property="description">
@@ -43,57 +50,83 @@
 
             <div th:if="${ontologyIndividual.getSynonyms() !=null}">
                 <p><b>Synonyms:</b>
-                    <span property="alternateName" style="margin-left:9px;" th:text="${#strings.setJoin(ontologyIndividual.getSynonyms(), ', ')}">NCBI_9606</span>
+                   <span property="alternateName"
+                         style="margin-left: 9px;"
+                         th:text="${#strings.setJoin(ontologyIndividual.getSynonyms(), ', ')}">NCBI_9606</span>
                 </p>
-
             </div>
         </div>
 
         <div class="small-8 column">
-                <h2 property="name" style="margin: 0px;" th:text="${ontologyIndividual.getLabel()}">Term label</h2>
-            </div>
-            <div class="small-4 columns">
-                <form name="local-search" action="../../search" method="get">
-                    <div id="bloodhound" class="input-group">
-                        <input style="margin-bottom: 0.1em;" class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="select" th:placeholder="'Search ' + ${ontologyIndividual.getOntologyPrefix()}" th:attr="data-olsontology=${ontologyIndividual.getOntologyName()}" data-olsontology=""  data-selectpath="../../" placeholder="Search OLS" aria-describedby="basic-addon1"/>
-                        <input type="hidden" name="ontology" th:value="${ontologyIndividual.getOntologyName()}"/>
-                        <button class="button secondary searchButton glyphicon glyphicon-search" type="submit">Search</button>
-
-                    </div><!-- /input-group -->
-                </form>
-            </div>
+            <h2 property="name" style="margin: 0;" th:text="${ontologyIndividual.getLabel()}">Term label</h2>
+        </div>
+        <div class="small-4 columns">
+            <form name="local-search" action="../../search" method="get">
+                <div id="bloodhound" class="input-group">
+                    <input style="margin-bottom: 0.1em;"
+                           class="form-control typeahead"
+                           autofocus="autofocus"
+                           type="text"
+                           name="q"
+                           data-olswidget="select"
+                           th:placeholder="'Search ' + ${ontologyIndividual.getOntologyPrefix()}"
+                           th:attr="data-olsontology=${ontologyIndividual.getOntologyName()}"
+                           data-olsontology=""
+                           data-selectpath="../../"
+                           placeholder="Search OLS"
+                           aria-describedby="basic-addon1" />
+                    <input type="hidden" name="ontology" th:value="${ontologyIndividual.getOntologyName()}" />
+                    <button class="button secondary searchButton glyphicon glyphicon-search"
+                            type="submit">Search</button>
+                </div><!-- /input-group -->
+            </form>
+        </div>
 
         <div id="terms-tab-content" class="small-8 columns">
-            <ul  class="tabs" data-tabs="true" id="terms_tabs">
-                <li class="tabs-title active"><a data-toggle="tab" class="icon icon-functional" data-icon="h" id="tree-tab" href="#tree-tab">Tree view</a></li>
+            <ul class="tabs" data-tabs="true" id="terms_tabs">
+                <li class="tabs-title active"><a data-toggle="tab"
+                                                 class="icon icon-functional"
+                                                 data-icon="h"
+                                                 id="tree-tab"
+                                                 href="#tree-tab">Tree view</a></li>
             </ul>
 
             <!-- Tab panes -->
             <div class="tabs-content" data-tabs-content="terms_tabs">
 
                 <div class="tabs-panel is-active" id="tree-tab">
-                    <div id="term-tree" data-olswidget="tree" th:attr="data-olsontology=${ontologyIndividual.getOntologyName()},data-ols-iri=${ontologyIndividual.getIri()}" data-selectpath="../../" data-ols-termtype="individual" data-olsontology="" data-ols-iri=""  >
+                    <div id="term-tree"
+                         data-olswidget="tree"
+                         th:attr="data-olsontology=${ontologyIndividual.getOntologyName()},data-ols-iri=${ontologyIndividual.getIri()}"
+                         data-selectpath="../../"
+                         data-ols-termtype="individual"
+                         data-olsontology=""
+                         data-ols-iri="">
                     </div>
                 </div>
 
-                <!--<div role="tabpanel" class="tab-pane" id="graph-tab">-->
-                <!--graph goes here-->
-                <!--</div>-->
+                <!--div role="tabpanel" class="tab-pane" id="graph-tab"-->
+                    <!--graph goes here-->
+                <!--/div-->
             </div>
 
-                    <div class="grid_14 alpha clearfix">
-                        <ul  class="nav nav-tabs">
-                            <li role="presentation" class="active"><a data-toggle="tab" href="#tree-tab">Tree view</a></li>
-                            <!--<li role="presentation"><a data-toggle="tab"  href="#graph-tab">Graph view</a></li>-->
-                        </ul>
-                        <input type="hidden" name="ontology_view_selection"/>
-                        <input type="hidden" name="viewMode" value="All"/>
+            <!--
+            <div class="grid_14 alpha clearfix">
+                <ul class="nav nav-tabs">
+                    <li role="presentation" class="active"><a data-toggle="tab" href="#tree-tab">Tree view</a></li>
+                    <!- -li role="presentation"><a data-toggle="tab"  href="#graph-tab">Graph view</a></li- ->
+                </ul>
 
-                        <input type="hidden" name="ontology_view_siblings"/>
-                        <input type="hidden" name="showSiblings" value="true"/>
-                        <!-- Tab panes -->
-                        <div class="tab-content">
+                <input type="hidden" name="ontology_view_selection" />
+                <input type="hidden" name="viewMode" value="All" />
 
+                <input type="hidden" name="ontology_view_siblings" />
+                <input type="hidden" name="showSiblings" value="true" />
+
+                <!- - Tab panes - ->
+                <div class="tab-content">
+            -->
+        </div>
 
         <div id="right_info_box" class="small-4 columns">
             <div id="term_info_box" class="panel">
@@ -104,39 +137,39 @@
 
                     <div th:each="annotations: ${ontologyIndividual.getAnnotation()}">
                         <b>
-                            <a href="#" th:href="@{../../search(q=${annotations.key},exact='true', type=property, ontology=${ontologyIndividual.ontologyName})}" th:text="${annotations.key.replaceAll('_', ' ')}">property name</a>
+                            <a href="#"
+                               th:href="@{../../search(q=${annotations.key},exact='true', type=property, ontology=${ontologyIndividual.ontologyName})}"
+                               th:text="${annotations.key.replaceAll('_', ' ')}">property name</a>
                         </b>
-                        <p style="margin-left:9px;" th:text="${#strings.setJoin(annotations.value, ',')}">NCBI_9606</p>
+                        <p style="margin-left: 9px;"
+                           th:text="${#strings.setJoin(annotations.value, ',')}">NCBI_9606</p>
                     </div>
-
                 </div>
             </div>
 
-
-
             <div id="term_relation_box" class="panel">
+
                 <div class="panel-heading">
                     <h3 class="panel-title">Instance relations</h3>
                 </div>
-                <div class="panel-body">
 
+                <div class="panel-body">
                     <div th:if="${indvidualTypes != null}">
                         <b>Types</b>
-                        <br/>
+                        <br />
                         <div th:each="type : ${indvidualTypes}">
                             <a href="#" th:href="@{terms (iri=${type.getIri()})}" th:text="${type.getLabel()}">parent 1</a>
                         </div>
                     </div>
-
                 </div>
             </div>
-
         </div>
-
     </div>
-
 </section>
+
 <th:block th:include="fragments/footer :: footer"></th:block>
+
+
 <script type="text/javascript" src="../static/js/jquery/1.11.1/jquery.min.js" th:src="@{../../js/jquery/1.11.1/jquery.min.js}"></script>
 <script type="text/javascript" src="../static/js/typeahead/typeahead.bundle.js" th:src="@{../../js/typeahead/typeahead.bundle.js}"></script>
 <script type="text/javascript" src="../static/js/handlebars/4.0.5/handlebars.min.js" th:src="@{../../js/handlebars/4.0.5/handlebars.min.js}"></script>
@@ -145,14 +178,14 @@
 <script src="../static/js/jstree/jstree.min.js" th:src="@{../../js/jstree/jstree.min.js}"></script>
 
 <script type="text/javascript" src="../static/js/ols-termselect.js" th:src="@{../../js/ols-termselect2.js}"></script>
-<!--<script type="text/javascript" src="../static/js/ols-treeview.min.js" th:src="@{../../js/ols-treeview.min.js}"></script>-->
+<!--script type="text/javascript" src="../static/js/ols-treeview.min.js" th:src="@{../../js/ols-treeview.min.js}"></script-->
 <script type="text/javascript" src="../static/js/ols-term-type-treeview.js" th:src="@{../../js/ols-term-type-treeview.js  (v=0.0.42)}"></script>
 <script type="text/javascript" src="../static/js/bootstrap/bootstrap.min.js" th:src="@{../../js/bootstrap/bootstrap.min.js}"></script>
 <script>
     $(document).ready(function() {
         $('.mansyntax').each(function ()
         {
-//            $(this).trigger('click');//for clicking element
+            // $(this).trigger('click');//for clicking element
             var href = $(this).attr("href");
 
             if ($(this).hasClass('ObjectProperty')) {
@@ -169,7 +202,7 @@
 </script>
 
 <script>
-    // initialise the tree
+    //  Initialise the tree
 
     var div=$("#term-tree");
     var ontologyName = $("#term-tree").data("olsontology");
@@ -198,6 +231,7 @@
 <script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/cookiebanner.js"></script>
 <script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/foot.js"></script>
 <script>
+
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -206,7 +240,6 @@
   ga('create', 'UA-69391170-1', 'auto');
   ga('send', 'pageview');
   ga('set', 'anonymizeIp', true);
-
 
 </script>
 </body>

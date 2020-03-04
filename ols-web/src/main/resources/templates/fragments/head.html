@@ -98,19 +98,43 @@
     <!-- you can replace this with theme-[projectname].css. See http://www.ebi.ac.uk/web/style/colour for details of how to do this -->
     <!-- also inform ES so we can host your colour palette file -->
 
-    <!--
-    <link rel="stylesheet" href="https://www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.1/css/theme-embl-petrol.css" type="text/css" media="all" />
-    -->
+    <!--link rel="stylesheet" href="https://www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.1/css/theme-embl-petrol.css" type="text/css" media="all" /-->
 
     <!-- for production the above can be replaced with -->
-    <!-- <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/mini/ebi-fluid-embl.css" /> -->
-    <!-- end CSS-->
+    <!--link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/mini/ebi-fluid-embl.css" /-->
+    <!-- end CSS -->
 
     <!-- All JavaScript at the bottom, except for Modernizr - - >
     <script src="https://www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.1/libraries/modernizr/modernizr.custom.49274.js"></script>
     -->
-    <!--link th:if="olscss" rel="stylesheet" href="../static/css/typeahead/typeaheadjs.css" th:href="@{css/typeahead/typeaheadjs.css}" type="text/css" media="screen"/-->
-    <link th:if="${olscss} == true" rel="stylesheet" th:href="@{css/typeahead/typeaheadjs.css}" type="text/css" media="screen"/>
+    <link th:if="${proton} == true" rel="stylesheet" th:href="@{/js/jstree/themes/proton/style.min.css}" type="text/css" media="screen" />
+    <link th:if="${diachron} == true" rel="stylesheet" th:href="@{/css/diachron/pikaday.css}" type="text/css" media="screen" />
+    <link th:if="${diachron} == true" rel="stylesheet" th:href="@{/css/diachron/widget.css}" type="text/css" media="screen" />
+    <link th:if="${olscss} == true" rel="stylesheet" th:href="@{/css/typeahead/typeaheadjs.css}" type="text/css" media="screen" />
+
+    <!-- TABLE css (originally from ontology.html, already commented out)
+    <link rel="stylesheet" href="../static/css/diachron/tablesort-blue/style.css"
+          th:href="@{../css/diachron/tablesort-blue/style.css}" type="text/css" media="screen" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.css" />
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css" /-->
+    <link th:if="${datatables} == true" rel="stylesheet" type="text/css"
+          th:href="@{//cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css}" />
+
+    <!-- originally from browse.html -->
+    <link th:if="${datatables_old} == true" rel="stylesheet" type="text/css"
+          th:href="@{//cdn.datatables.net/r/zf-5.5.2/jqc-1.11.3,dt-1.10.8/datatables.min.css}" />
+
+    <!-- originally from search.html -->
+    <link th:if="${select2} == true" rel="stylesheet" th:href="@{/css/select2/4.0.0/select2.min.css}" type="text/css" media="screen" />
+
+    <!-- originally from graph.html -->
+    <link th:if="${visualise} == true" rel="stylesheet" th:href="@{/css/ontology_vis_plugin/awesomplete.css}" type="text/css" />
+    <link th:if="${visualise} == true" rel="stylesheet" th:href="@{/css/ontology_vis_plugin/ontology_vis_plugin.css}" type="text/css" media="screen" />
+    <!-- THIS is for the VIS BUTTONS -->
+    <link th:if="${visualise} == true" rel="stylesheet" th:href="@{../../../css/ontology_vis_plugin/vis.css}" type="text/css" />
+
+    <!-- Also needed? (originally from ontology.html, already commented out)
+    <link rel="stylesheet" href="../static/css/bootstrap/3.3/css/bootstrap.min.css" th:href="@{../css/bootstrap/3.3/css/bootstrap.min.css}" type="text/css" media="screen" /-->
 
 </head>
 <body>

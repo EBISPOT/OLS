@@ -4,11 +4,10 @@
 <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"/> <![endif]-->
 <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"/> <![endif]-->
 <!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
-<!--[if gt IE 8]><!--> <html  xmlns:th="https://www.thymeleaf.org" class="no-js" lang="en"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html xmlns:th="https://www.thymeleaf.org" class="no-js" lang="en"> <!--<![endif]-->
 
 
-
-<head th:replace="fragments/head :: head(olscss=true)">
+<head th:replace="fragments/head :: head(olscss=true, diachron=true, proton=true)">
     <title>Ontology Xref Service   &lt; EMBL-EBI</title>
     <!-- A few keywords that relate to the content of THIS PAGE (not the whole project)
     <meta name="keywords" content="biosamples, europe, EBI" />
@@ -21,25 +20,8 @@
 </head>
 
 
-<!-- Place css that is need after head, because the head gets replaced, could potentially put this into the header if we don't mind loading it all the time -->
-<link rel="stylesheet" href="/js/jstree/themes/proton/style.min.css" th:href="@{/js/jstree/themes/proton/style.min.css}" type="text/css" media="screen" />
-<link rel="stylesheet" href="../static/css/diachron/pikaday.css" th:href="@{../css/diachron/pikaday.css}" type="text/css" media="screen"/>
-<link rel="stylesheet" href="../static/css/diachron/widget.css" th:href="@{../../css/diachron/widget.css}" type="text/css" media="screen"/>
-<link rel="stylesheet" href="../static/css/typeahead/typeaheadjs.css" th:href="@{/css/typeahead/typeaheadjs.css}" type="text/css" media="screen"/>
-
-<!-- TABLE css
-<link rel="stylesheet" href="../static/css/diachron/tablesort-blue/style.css" th:href="@{../css/diachron/tablesort-blue/style.css}" type="text/css" media="screen"/>
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.css"/>
-<link rel="stylesheet" href="//cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css"/>-->
-
-<!-- Also needed?
-<link rel="stylesheet" href="../static/css/bootstrap/3.3/css/bootstrap.min.css" th:href="@{../css/bootstrap/3.3/css/bootstrap.min.css}" type="text/css" media="screen"/>-->
-
-
-
 <body>
 <th:block th:include="fragments/header :: header"></th:block>
-
 
 <div id="main-content-area" role="main">
     <div vocab="http://schema.org/" class="row">
@@ -53,7 +35,12 @@
 
             <form style="padding-left: 0;" name="local-search" action="../search" method="get">
                 <div id="bloodhound" class="">
-                    <input style="margin-bottom: 0.1em; display:block; width:393px" class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="select" th:attr="data-olsontology=${ontologyDocument.getOntologyId()}" data-olsontology=""  data-selectpath="../" th:placeholder="'Search ' + ${ontologyDocument.getConfig().getPreferredPrefix()}" placeholder="Search OLS" aria-describedby="basic-addon1"/>
+                    <input style="margin-bottom: 0.1em; display:block; width: 393px;" class="form-control typeahead"
+                           autofocus="autofocus" type="text" name="q"
+                           data-olswidget="select" data-olsontology="" data-selectpath="../"
+                           th:attr="data-olsontology=${ontologyDocument.getOntologyId()}"
+                           th:placeholder="'Search ' + ${ontologyDocument.getConfig().getPreferredPrefix()}"
+                           placeholder="Search OLS" aria-describedby="basic-addon1" />
                     <button class="button secondary searchButton glyphicon glyphicon-search" type="submit">Search</button>
                     <input type="hidden" name="ontology" th:value="${ontologyDocument.getOntologyId()}"/>
                 </div>
@@ -74,19 +61,35 @@
 
         <div id="onto-tab-content" class="small-8 columns">
             <ul class="tabs" data-tabs="true" id="onto_tabs">
-                <li class="tabs-title is-active"><a id="tree-link" class="icon icon-functional" data-icon="h" data-tabs-target="tree-tab" href="#tree-tab" aria-selected="true"> Browse Terms</a></li>
-                <li class="tabs-title"><a id="property-link" class="icon icon-functional" data-icon="h"  data-tabs-target="property-tree-tab" href="#property-tree-tab"> Browse Properties</a></li>
-                <li class="tabs-title"><a id="diachron-link" class="icon icon-generic" data-icon="g" data-tabs-target="diachron-tab" href="#diachron-tab"> Ontology history</a></li>
+                <li class="tabs-title is-active"><a id="tree-link"
+                                                    class="icon icon-functional"
+                                                    data-icon="h"
+                                                    data-x-tabs-target="tree-tab"
+                                                    href="#tree-tab"
+                                                    aria-selected="true"> Browse Terms</a></li>
+                <li class="tabs-title"><a id="property-link"
+                                          class="icon icon-functional"
+                                          data-icon="h"
+                                          data-x-tabs-target="property-tree-tab"
+                                          href="#property-tree-tab"> Browse Properties</a></li>
+                <li class="tabs-title"><a id="diachron-link"
+                                          class="icon icon-generic"
+                                          data-icon="g"
+                                          data-x-tabs-target="diachron-tab"
+                                          href="#diachron-tab"> Ontology history</a></li>
             </ul>
             <input type="hidden" name="ontology_view_siblings"
                    th:value="${#httpServletRequest.getParameter('siblings') == 'true'} ? 'true': 'false'"/>
 
             <!-- Tab panes -->
-            <div class="tab-content">
+            <div class="tabs-content" data-tabs-content="onto_tabs">
 
-                <div role="tabpanel" class="tab-pane active" id="tree-tab">
-                    <div class="btn-group btn-group-vertical" style="float: right;padding-top:5px;">
-                        <div  th:attr="style=${preferredRootTermDisplayStyle}">
+                <div role="tabpanel"
+                     class="tabs-panel is-active"
+                     id="tree-tab"
+                     data-x-aria-labelledby="tree-tab-label">
+                    <div class="btn-group btn-group-vertical" style="float: right; padding-top: 5px;">
+                        <div th:attr="style=${preferredRootTermDisplayStyle}">
                             <div class="radio icheck-belizehole">
                                 <input type="radio"
                                        id="ontology_view_selection_id_preferred_roots"
@@ -109,23 +112,38 @@
                             </div>
                         </div>
                     </div>
-                    <div id="term-tree" data-olswidget="tree" th:attr="data-olsontology=${ontologyDocument.getOntologyId()}" data-selectpath="../" data-ols-termtype="class" data-olsontology="" data-ols-iri=""  >
+                    <div id="term-tree" data-olswidget="tree"
+                         th:attr="data-olsontology=${ontologyDocument.getOntologyId()}"
+                         data-selectpath="../" data-ols-termtype="class" data-olsontology="" data-ols-iri="">
                     </div>
                 </div>
 
-                <div role="tabpanel" class="tab-pane" id="property-tree-tab">
+                <div role="tabpanel"
+                     class="tabs-panel"
+                     id="property-tree-tab"
+                     data-x-aria-labelledby="property-tree-tab-label">
 
-                    <div id="property-tree" data-olswidget="tree" th:attr="data-olsontology=${ontologyDocument.getOntologyId()}" data-selectpath="../" data-ols-termtype="property" data-olsontology="" data-ols-iri=""  >
-                    </div>
-
-                    <div role="tabpanel" class="tab-pane" id="diachron-tab" data-selectpath="../" th:attr="data-olsontology=${ontologyDocument.getOntologyId()}">
-                        <div id="diachron-wrapper"></div>
+                    <div id="property-tree"
+                         data-olswidget="tree"
+                         th:attr="data-olsontology=${ontologyDocument.getOntologyId()}"
+                         data-selectpath="../"
+                         data-ols-termtype="property"
+                         data-olsontology=""
+                         data-ols-iri="">
                     </div>
                 </div>
 
+                <div role="tabpanel"
+                     class="tabs-panel"
+                     id="diachron-tab"
+                     data-x-aria-labelledby="diachron-tab-label"
+                     data-selectpath="../"
+                     th:attr="data-olsontology=${ontologyDocument.getOntologyId()}">
+                    <div id="diachron-wrapper"></div>
+                </div>
             </div>
-
         </div>
+
         <div id="right_info_box" class="grid_10 beta">
         </div>
 
@@ -165,24 +183,18 @@
                         <p style="margin-left:9px;" th:each="annovalue : ${annotations.value}" th:text="${annovalue}">NCBI_9606</p>
                     </div>
                 </div>
-
             </div>
         </div>
-
     </div>
 </div>
 
-
 <th:block th:include="fragments/footer :: footer"></th:block>
-
-
 
 
 <!-- <script type="text/javascript" src="/js/oxo.js" th:src="@{/js/oxo.js}"></script> -->
 <script type="text/javascript" src="https://cdn.datatables.net/r/zf-5.5.2/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script>
 <script type="text/javascript" src="../static/js/typeahead/typeahead.bundle.js" th:src="@{../js/typeahead/typeahead.bundle.js}"></script>
 <script type="text/javascript" src="../static/js/handlebars/4.0.5/handlebars.min.js" th:src="@{../js/handlebars/4.0.5/handlebars.min.js}"></script>
-
 
 <script type="text/javascript" src="../static/js/bootstrap/bootstrap.min.js" th:src="@{../js/bootstrap/bootstrap.min.js}"></script>
 
@@ -203,14 +215,9 @@
 <script src="../static/js/diachron/pikaday.js" th:src="@{../js/diachron/pikaday.js}"></script>
 <script src="../static/js/diachron/tablesorter.min.js" th:src="@{../js/diachron/tablesorter.min.js}"></script>
 
-
-<!--
-<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.js"></script>
+<!--script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/locale/bootstrap-table-en-US.min.js"></script>
-<script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>-->
-
-
-
+<script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script-->
 
 <!-- END OF THE DIACHRON INCLUDE TAGS-->
 <script type="text/javascript" src="../static/js/ols.js" th:src="@{../js/ols.js}"></script>
@@ -224,7 +231,7 @@
     $(document).ready(function() {
         $('.mansyntax').each(function ()
         {
-//            $(this).trigger('click');//for clicking element
+            // $(this).trigger('click');//for clicking element
             var href = $(this).attr("href");
 
             if ($(this).hasClass('ObjectProperty')) {
