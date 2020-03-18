@@ -48,19 +48,19 @@
                               th:if="${ontologyTerm.getOboId()} != null"
                               class="term-source-valign"
                               property="codeValue"
-                              th:text="${ontologyTerm.getOboId()}">id</span><!--
-                 --><span id='shortForm'
-                          th:unless="${ontologyTerm.getOboId()} != null"
-                          class="term-source-valign"
-                          property="codeValue"
-                          th:text="${ontologyTerm.getShortForm()}">id</span><!--
-                 --><button title="Copy id to clipboard"
-                            id='copyShortForm'
-                            data-clipboard-action="copy"
-                            data-clipboard-target="#shortForm"
-                            class="secondary-color tiny copyButton"
-                            type="button"><span class="icon icon-functional"
-                                                data-icon="c"></span><span class="thinspace"></span>Copy</button></li>
+                              th:text="${ontologyTerm.getOboId()}">id</span
+                       ><span id='shortForm'
+                              th:unless="${ontologyTerm.getOboId()} != null"
+                              class="term-source-valign"
+                              property="codeValue"
+                              th:text="${ontologyTerm.getShortForm()}">id</span
+                       ><button title="Copy id to clipboard"
+                                id='copyShortForm'
+                                data-clipboard-action="copy"
+                                data-clipboard-target="#shortForm"
+                                class="secondary-color tiny copyButton"
+                                type="button"><span class="icon icon-functional"
+                                                    data-icon="0"></span><span class="thinspace"></span>Copy</button></li>
                 </ul>
             </nav>
         </div>
@@ -74,18 +74,18 @@
                    title="Go to external page"
                    target="blank"><span class="show-for-sr">Go to external page</span><!--
                                --><span class="icon icon-generic"
-                                        data-icon="x"></span><!--
-             --><span class="thinspace"></span><!--
-             --><span property="url"
+                                        data-icon="x"></span
+               ><span class="thinspace"></span
+               ><span property="url"
                       id="OLS_ID" style="font-size: small;"
-                      th:text="${ontologyTerm.getIri()}">http://www.example.com/onto/id</span></a><!--
-             --><p style="display: inline;"><button title="Copy id to clipboard"
+                      th:text="${ontologyTerm.getIri()}">http://www.example.com/onto/id</span></a
+               ><p style="display: inline;"><button title="Copy id to clipboard"
                                                     id='copyThis'
                                                     data-clipboard-action="copy"
                                                     data-clipboard-target="#OLS_ID"
                                                     class="secondary-color small copyButton"
                                                     type="button"><span class="icon icon-functional"
-                                                                        data-icon="c"></span><span
+                                                                        data-icon="0"></span><span
                                                                         class="thinspace"></span>Copy</button></p>
             </div>
 
@@ -122,7 +122,7 @@
         </div-->
 
         <div class="small-12 columns">
-            <hr/>
+            <hr />
             <div th:if="${ontologyTerm.isObsolete()}">
                 <div class="obsolete">This term is obsolete</div>
                 <br/>
@@ -460,7 +460,7 @@
 <script>
     $(document).ready(function () {
         $('.mansyntax').each(function () {
-//            $(this).trigger('click');//for clicking element
+            // $(this).trigger('click');  // for clicking element
             var href = $(this).attr("href");
             if ($(this).hasClass('ObjectProperty')) {
                 $(this).attr("href", getUrlType('property') + '?iri=' + encodeURIComponent(href));
@@ -480,7 +480,7 @@
                 img.css('width', '100%');
                 img.css('height', 'auto');
                 img.attr('src', value);
-                $(this).append(img)
+                $(this).append(img);
             } else if (value.match(/^(http|https|ftp):\/\//)) {
                 $(this).text("");
                 var link = $('<a/>');
@@ -488,21 +488,24 @@
                 link.attr('text', value);
                 link.attr('class', "icon icon-generic");
                 link.attr('data-ico', "x");
-
             }
-
         });
 
-        /*$('#citeThis').on('click', function (){
-         $('#overlay').html('<p id="overlay" style="display:inline; opacity:0.5; background:light-gray;">Imaging here to be text to be cited we still think about the layout <a id="close" href="">close</a></p>')
-         $('#close').on('click', function(){  $("#overlay").hide();})
-         })*/
+        /*
+        $('#citeThis').on('click', function() {
+        $('#overlay').html(
+            '<p id="overlay" style="display:inline; opacity:0.5; background:light-gray;">Imaging here to be text to \
+             be cited we still think about the layout <a id="close" href="">close</a></p>'
+        );
+        $('#close').on('click', function() { $("#overlay").hide(); });
+        });
+         */
 
-        new Clipboard('#copyThis')
-        new Clipboard('#copyShortForm')
+        new Clipboard('#copyThis');
+        new Clipboard('#copyShortForm');
 
         /*Working on mappings*/
-        console.log('Short Form')
+        console.log('Short Form');
         var shortForm = $('#shortForm').text();
 
         // shortForm="EFO:0000400";
@@ -511,33 +514,40 @@
         var buttonLink = "https://www.ebi.ac.uk/spot/oxo/terms/" + shortForm;
         // console.log(URL);
 
-        $("#oxo-tab").empty()
+        $("#oxo-tab").empty();
 
         $.getJSON(URL, function (data) {
-            console.log(data)
+            console.log(data);
 
             if (data["page"]["totalElements"] > 0) {
-                $("#oxo-tab").append("<h4>Known Mappings for this term</h4>")
+                $("#oxo-tab").append("<h4>Known Mappings for this term</h4>");
 
                 var mappings = data["_embedded"]["mappings"];
 
                 var i = 0;
-                htmlString = "<table>";
+                var htmlString = "<table>";
+                var label;
+                var curie;
                 for (i = 0; mappings.length > i; i = i + 1) {
                     console.log(mappings[i]["toTerm"]["label"]);
-                    label = mappings[i]["toTerm"]["label"]
-                    curie = mappings[i]["toTerm"]["curie"]
-                    htmlString = htmlString + "<tr><td>" + label + "</td><td>" + curie + "</td></tr>"
+                    label = mappings[i]["toTerm"]["label"];
+                    curie = mappings[i]["toTerm"]["curie"];
+                    htmlString = htmlString + "<tr><td>" + label + "</td><td>" + curie + "</td></tr>";
                 }
-                htmlString = htmlString + "</table>"
-                $("#oxo-tab").append(htmlString)
+                htmlString = htmlString + "</table>";
+                $("#oxo-tab").append(htmlString);
 
-                htmlString = '<a class="button secondary" href="' + buttonLink + '" target="_blank">More details about these mappings</a>'
-                $('#oxo-tab').append(htmlString)
+                htmlString = '<a class="button secondary" href="' + buttonLink +
+                             '" target="_blank">More details about these mappings</a>';
+                $('#oxo-tab').append(htmlString);
             } else {
-                $('#oxo-tab').append('<p>Could not find any direct mappings for this term. Use our <a href="https://www.ebi.ac.uk/spot/oxo/">Ontology Xreference service</a> to explore mappings in more detail!</p>')
+                $('#oxo-tab').append(
+                    '<p>Could not find any direct mappings for this term. Use our \
+                     <a href="https://www.ebi.ac.uk/spot/oxo/">Ontology Xreference service</a> \
+                     to explore mappings in more detail!</p>'
+                );
             }
-        })
+        });
     });
 
     var ontologyName = $("#term-tree").data("olsontology");

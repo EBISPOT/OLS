@@ -37,55 +37,62 @@
                 </a>
             </div>
 
-            <nav id="breadcrumb">
-                <p>
-                    <a href="../../index">OLS</a> &gt;
-                    <a th:href="@{../../ontologies/__${ontologyProperty.getOntologyName()}__}"
-                       th:text="${ontologyName}">ontology</a>
-                    <a property="codingSystem"
-                       th:attr="content=${ontologyProperty.getOntologyName()}"
-                       style="border-bottom-width: 0px;"
-                       href="#"><span class="ontology-source-valign"
-                                      th:text="${ontologyProperty.getOntologyPrefix()}">parent 1</span></a>   &gt;
-                    <span id="shortForm"
-                          th:if="${ontologyProperty.getOboId()} != null"
-                          class="term-source-valign"
-                          property="codeValue"
-                          th:text="${ontologyProperty.getOboId()}">id</span>
-                    <span id="shortForm"
-                          th:unless="${ontologyProperty.getOboId()} != null"
-                          class="term-source-valign"
-                          property="codeValue"
-                          th:text="${ontologyProperty.getShortForm()}">id</span>
-                    <button id='copyShortForm'
-                            class="button tiny third copyButton"
-                            data-clipboard-action="copy"
-                            data-clipboard-target="#shortForm"
-                            type="button">C</button>
-                </p>
+            <nav aria-label="Here you are" role="navigation">
+                <ul class="breadcrumbs">
+                    <li><a href="../../index">OLS</a></li>
+                    <li><a th:href="@{../../ontologies/__${ontologyProperty.getOntologyName()}__}"
+                           th:text="${ontologyName}">ontology</a><div class="decoy"></div
+                       ><a property="codingSystem"
+                           th:attr="content=${ontologyProperty.getOntologyName()}"
+                           data-x-style="border-bottom-width: 0px;"
+                           href="#"><span class="ontology-source-valign"
+                                          th:text="${ontologyProperty.getOntologyPrefix()}">parent 1</span></a></li>
+                    <li><span id="shortForm"
+                              th:if="${ontologyProperty.getOboId()} != null"
+                              class="term-source-valign"
+                              property="codeValue"
+                              th:text="${ontologyProperty.getOboId()}">id</span
+                       ><span id="shortForm"
+                              th:unless="${ontologyProperty.getOboId()} != null"
+                              class="term-source-valign"
+                              property="codeValue"
+                              th:text="${ontologyProperty.getShortForm()}">id</span
+                       ><button id='copyShortForm'
+                                data-x-class="button tiny third copyButton"
+				class="secondary-color tiny copyButton"
+                                data-clipboard-action="copy"
+                                data-clipboard-target="#shortForm"
+                                type="button"><span class="icon icon-functional"
+                                                    data-icon="0"></span><span class="thinspace"></span>Copy</button></li>
+                </ul>
             </nav>
         </div>
 
         <!--<div class="grid_24 alpha">-->
         <div class="">
             <div class="small-8 column">
-                <h2 property="name"  style="margin: 0px;" th:text="${ontologyProperty.getLabel()}">Term label</h2>
-                <a style="padding: 9px; border-bottom: none;"
+                <h2 property="name" style="margin-bottom: 0;" th:text="${ontologyProperty.getLabel()}">Property label</h2>
+                <a data-x-style="padding: 9px; border-bottom: none;"
+		   style="padding-left: 3px; border-bottom:none;"
                    th:href="@{${ontologyProperty.getIri()}}"
-                   class="nounderline"
-                   target="blank"><img th:src="@{../../img/external_link.png}"
-                                       src="../static/img/external_link.png"
-                                       alt="^"
-                                       title="Go to external page"></a>
-                <span id="OLS_ID"
-                      property="url"
-                      style="font-size: small; color: grey;"
-                      th:text="${ontologyProperty.getIri()}">http://www.example.com/onto/id</span>
+                   class="nounderline secondary-color"
+		   title="Go to external page"
+                   target="blank"><span class="show-for-sr">Go to external page</span
+			         ><span class="icon icon-generic"
+					data-icon="x"></span
+				 ><span class="thinspace"></span
+				 ><span id="OLS_ID"
+                                        property="url"
+                                        style="font-size: small; /* color: grey; */"
+                                        th:text="${ontologyProperty.getIri()}">http://www.example.com/onto/id</span></a>
                 <p style="display: inline;"><button id='copyThis'
-                                                    class="button tiny third copyButton"
+                                                    data-x-class="button tiny third copyButton"
+						    class="secondary-color small copyButton"
                                                     data-clipboard-action="copy"
                                                     data-clipboard-target="#OLS_ID"
-                                                    type="button">C</button></p>
+                                                    type="button"><span class="icon icon-functional"
+									data-icon="0"></span
+						                 ><span class="thinspace"></span>Copy</button></p>
             </div>
 
             <div class="small-4 columns">
@@ -117,7 +124,8 @@
             </div>
         </div>
 
-        <section>
+	    <div class="small-12 columns">
+	        <hr />
             <div class="grid_24 clearfix">
                 <div class="grid_14 alpha clearfix">
 
@@ -233,7 +241,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
     </div>
 </section>
 
