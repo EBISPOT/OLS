@@ -607,14 +607,8 @@ a + a > .ontology-source-valign {
     @include aligned_button(1, 0, var(--ols_turquoise), 1);
 }
 
-
-// Fun stuff
-
-.thinspace:before {
-    content: "\202F";
-}
-
 .jstree-proton {
     font-family: Helvetica, Arial, FreeSans, 'Liberation Sans', sans-serif !important;
 }
+
 

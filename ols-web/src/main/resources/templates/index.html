@@ -29,7 +29,7 @@
     <!--@thymesVar id="summary" type="uk.ac.ebi.spot.ols.controller.ui.HomeController.SummaryInfo" -->
     <div class="row">
         <div th:if="${start}" style="font-size: larger;" class="callout alert">
-            <span class="icon icon-generic" data-icon="alert">Maintenance</span>
+            <span><i class="icon icon-generic" data-icon="alert"></i> Maintenance</span>
             <ul>
                 <li>OLS is due for maintenance and will be unavailable between <span th:text="${start}"/> and
                     <span th:text="${end}"/>. Apologies for any inconvenience.</li>
@@ -55,8 +55,10 @@
 
             <div>
                 <div class="small-4 columns">
-                    <h4 style="color: #BF8230;" class="icon icon-functional" data-icon="b">
-                        <a href="docs/about">About OLS</a></h4>
+                    <h4>
+                        <i style="color: #BF8230;" class="icon icon-functional" data-icon="b"></i>
+                        <a href="docs/about">About OLS</a>
+                    </h4>
                     <p class="about">
                         The Ontology Lookup Service (OLS) is a repository for biomedical ontologies that aims to provide
                         a single point of access to the latest ontology versions. You can browse the ontologies through
@@ -67,8 +69,10 @@
                 </div>
 
                 <div class="small-4 columns">
-                    <h4 style="color: #BF8230;" class="icon icon-functional" data-icon="t">
-                        <a href="https://www.ebi.ac.uk/spot/ontology/">Related Tools</a></h4>
+                    <h4>
+                        <i style="color: #BF8230;" class="icon icon-functional" data-icon="t"></i>
+                        <a href="https://www.ebi.ac.uk/spot/ontology/">Related Tools</a>
+                    </h4>
                     <p class="about">
                         In addition to OLS the SPOT team also provides the OxO, Zooma and Webulous services.
                         <a href="//www.ebi.ac.uk/spot/oxo">OxO</a> provides cross-ontology mappings between terms from
@@ -79,8 +83,10 @@
                 </div>
 
                 <div class="small-4 columns">
-                    <h4 style="color: #BF8230;" class="icon icon-generic" data-icon="C">
-                        <a href="contact">Contact Us</a></h4>
+                    <h4>
+                        <i style="color: #BF8230;" class="icon icon-generic" data-icon="C"></i>
+                        <a href="contact">Contact Us</a>
+                    </h4>
                     <p class="about">
                         For feedback, enquiries or suggestion about OLS or to request a new ontology please contact
                         ols-support @ ebi.ac.uk. For bugs or problems with the code or API please report on
@@ -94,7 +100,9 @@
         </div>
 
         <div id="dataContentDiv" class="small-3 columns">
-            <h4 class="icon icon-generic" data-icon="g"> Data Content</h4>
+            <h4>
+                <i class="icon icon-generic" data-icon="g"></i> Data Content
+            </h4>
             <h5>Updated <span th:text="${#calendars.format(summary.getLastUpdated(), 'dd MMM yyyy HH:mm')}">Today at 07:00</span></h5>
             <ul>
                 <li><span th:text="${summary.getNumberOfOntologies()}">102</span> ontologies</li>

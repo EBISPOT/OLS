@@ -62,8 +62,8 @@
 				class="secondary-color tiny copyButton"
                                 data-clipboard-action="copy"
                                 data-clipboard-target="#shortForm"
-                                type="button"><span class="icon icon-functional"
-                                                    data-icon="0"></span><span class="thinspace"></span>Copy</button></li>
+                                type="button"><i class="icon icon-functional"
+                                                    data-icon="0"></i> Copy</button></li>
                 </ul>
             </nav>
         </div>
@@ -78,10 +78,9 @@
                    class="nounderline secondary-color"
 		   title="Go to external page"
                    target="blank"><span class="show-for-sr">Go to external page</span
-			         ><span class="icon icon-generic"
-					data-icon="x"></span
-				 ><span class="thinspace"></span
-				 ><span id="OLS_ID"
+			         ><i class="icon icon-generic"
+					data-icon="x"></i>
+				 <span id="OLS_ID"
                                         property="url"
                                         style="font-size: small; /* color: grey; */"
                                         th:text="${ontologyProperty.getIri()}">http://www.example.com/onto/id</span></a>
@@ -90,9 +89,8 @@
 						    class="secondary-color small copyButton"
                                                     data-clipboard-action="copy"
                                                     data-clipboard-target="#OLS_ID"
-                                                    type="button"><span class="icon icon-functional"
-									data-icon="0"></span
-						                 ><span class="thinspace"></span>Copy</button></p>
+                                                    type="button"><i class="icon icon-functional"
+									data-icon="0"></i> Copy</button></p>
             </div>
 
             <div class="small-4 columns">
@@ -162,10 +160,8 @@
 
                     <div id="terms-tab-content" class="small-8 columns">
                         <ul class="tabs nav nav-tabs" data-tabs="true" id="property_tabs">
-                            <li class="tabs-title is-active"><a class="icon icon-functional"
-                                                                data-icon="h"
-                                                                aria-selected="true"
-                                                                href="#tree-tab">Tree view</a></li>
+                            <li class="tabs-title is-active"><a aria-selected="true"
+                                                                href="#tree-tab"><i class="icon icon-functional" data-icon="h"></i> Tree view</a></li>
                             <!--li role="presentation"><a data-toggle="tab" href="#graph-tab">Graph view</a></li-->
                         </ul>
 

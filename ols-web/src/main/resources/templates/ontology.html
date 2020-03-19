@@ -62,21 +62,15 @@
         <div id="onto-tab-content" class="small-8 columns">
             <ul class="tabs" data-tabs="true" id="onto_tabs">
                 <li class="tabs-title is-active"><a id="tree-link"
-                                                    class="icon icon-functional"
-                                                    data-icon="h"
                                                     data-x-tabs-target="tree-tab"
                                                     href="#tree-tab"
-                                                    aria-selected="true"> Browse Terms</a></li>
+                                                    aria-selected="true"><i class="icon icon-functional" data-icon="h"></i> Browse Terms</a></li>
                 <li class="tabs-title"><a id="property-link"
-                                          class="icon icon-functional"
-                                          data-icon="h"
                                           data-x-tabs-target="property-tree-tab"
-                                          href="#property-tree-tab"> Browse Properties</a></li>
+                                          href="#property-tree-tab"><i class="icon icon-functional" data-icon="h"></i> Browse Properties</a></li>
                 <li class="tabs-title"><a id="diachron-link"
-                                          class="icon icon-generic"
-                                          data-icon="g"
                                           data-x-tabs-target="diachron-tab"
-                                          href="#diachron-tab"> Ontology history</a></li>
+                                          href="#diachron-tab"><i class="icon icon-generic" data-icon="g"></i> Ontology history</a></li>
             </ul>
             <input type="hidden" name="ontology_view_siblings"
                    th:value="${#httpServletRequest.getParameter('siblings') == 'true'} ? 'true': 'false'"/>
@@ -154,10 +148,18 @@
                 </div>
                 <div class="panel-body">
                     <div>
-                        <b>Ontology IRI: </b> <a property="url" target="blank" class="icon icon-generic" data-icon="L" th:href="@{${ontologyDocument.getConfig().getId()}}" th:text="${ontologyDocument.getConfig().getId()}">http://www.example.com/onto/id</a>
+                        <b>Ontology IRI: </b>
+                        <a property="url" target="blank" th:href="@{${ontologyDocument.getConfig().getId()}}">
+                            <i class="icon icon-generic" data-icon="L"></i>
+                            <span h:text="${ontologyDocument.getConfig().getId()}">http://www.example.com/onto/id</span> 
+                        </a>
                     </div>
                     <div th:if="${ontologyDocument.getConfig().getVersionIri()}">
-                        <b>Version IRI: </b> <a property="url" target="blank" class="icon icon-generic" data-icon="L" th:href="@{${ontologyDocument.getConfig().getVersionIri()}}" th:text="${ontologyDocument.getConfig().getVersionIri()}">http://www.example.com/onto/id</a>
+                        <b>Version IRI: </b>
+                        <a property="url" target="blank" th:href="@{${ontologyDocument.getConfig().getVersionIri()}}">
+                        <i class="icon icon-generic" data-icon="L"></i>
+                        <span h:text="${ontologyDocument.getConfig().getVersionIri()}">http://www.example.com/onto/id</span> 
+                        </a>
                     </div>
                     <div>
                         <b>Ontology id: </b> <span th:text="${ontologyDocument.getOntologyId()}" >ontology id</span>
