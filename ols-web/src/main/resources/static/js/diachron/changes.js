@@ -103,7 +103,7 @@ $(document).ready(function() {
           var htmlString='';
 
           htmlString+='<table id="testTable" class="display" cellspacing="0" width="100%">'
-          htmlString+='<thead><tr><th>date</th><th>change</th><th>Info</th><th></th></tr></thead>'
+          htmlString+='<thead><tr><th>date</th><th>change</th><th>Information</th><th></th></tr></thead>'
 
           for (i=0;i<obj.length;i++)
           {

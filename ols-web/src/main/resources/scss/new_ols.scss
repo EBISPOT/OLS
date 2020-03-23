@@ -239,8 +239,12 @@ a.nounderline.ontology-link {
 }
 
 #ontology_info_box .panel-heading {
-    background: #F0F0F0;
+    background: #00827c;
     text-align: center;
+}
+
+#ontology_info_box .panel-heading h4 {
+    color: white;
 }
 
 #ontology_info_box .panel-body {
@@ -263,10 +267,14 @@ input[type="search"].select2-search__field {
 
 /* Term page */
 #right_info_box .panel-heading {
-    background: rgba(0, 124, 132, .2);
+    background: #00827c;
     text-align: center;
     padding-top: 0.4rem;
     padding-bottom: 0.05rem;
+}
+
+#right_info_box .panel-heading h4 {
+    color: white;
 }
 
 #right_info_box .panel-body{
@@ -609,6 +617,17 @@ a + a > .ontology-source-valign {
 
 .jstree-proton {
     font-family: Helvetica, Arial, FreeSans, 'Liberation Sans', sans-serif !important;
+}
+
+.icheck-belizehole > input:first-child:not(:checked):not(:disabled):hover + label::before,
+.icheck-belizehole > input:first-child:not(:checked):not(:disabled):hover + input[type="hidden"] + label::before {
+    border-color:#00827c !important;
+}
+
+.icheck-belizehole > input:first-child:checked + label::before,
+.icheck-belizehole > input:first-child:checked + input[type="hidden"] + label::before {
+    background-color:#00827c !important;
+    border-color:#00827c !important;
 }
 
 

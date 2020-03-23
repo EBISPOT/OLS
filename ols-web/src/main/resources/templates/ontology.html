@@ -144,7 +144,7 @@
         <div id="right_info_box" class="small-4 columns">
             <div id="ontology_info_box" class="panel">
                 <div class="panel-heading">
-                    <h3>Ontology info</h3>
+                    <h4>Ontology information</h4>
                 </div>
                 <div class="panel-body">
                     <div>
@@ -162,7 +162,7 @@
                         </a>
                     </div>
                     <div>
-                        <b>Ontology id: </b> <span th:text="${ontologyDocument.getOntologyId()}" >ontology id</span>
+                        <b>Ontology ID: </b> <span th:text="${ontologyDocument.getOntologyId()}" >ontology id</span>
                     </div>
                     <div th:if="${ontologyDocument.getConfig().getVersion() != null}">
                         <b>Version: </b> <span th:text="${ontologyDocument.getConfig().getVersion()}">NCBI:9606</span>
