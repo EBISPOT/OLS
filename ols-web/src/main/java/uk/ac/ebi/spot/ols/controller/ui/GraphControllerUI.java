@@ -1,6 +1,7 @@
 package uk.ac.ebi.spot.ols.controller.ui;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -71,6 +72,9 @@ public class GraphControllerUI {
         }*/
 
 
+    @Value("${ols.debrand:false}")
+    private boolean debrand;
+
     @RequestMapping(path = "{onto}/terms/graph", method = RequestMethod.GET)
     String getTerm(
             @PathVariable("onto") String ontologyId,
@@ -127,6 +131,8 @@ public class GraphControllerUI {
 
         String title = repositoryService.get(ontologyId).getConfig().getTitle();
         model.addAttribute("ontologyName", title);
+
+        model.addAttribute("debrand", debrand);
 
         return "graph";
     }

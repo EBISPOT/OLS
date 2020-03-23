@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -41,6 +42,9 @@ public class TermControllerUI {
 
     @Autowired
     private OntologyTermGraphService ontologyTermGraphService;
+
+    @Value("${ols.debrand:false}")
+    private boolean debrand;
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -86,6 +90,7 @@ public class TermControllerUI {
             model.addAttribute("pageable", pageable);
             model.addAttribute("allterms", termsPage);
             model.addAttribute("alltermssize", termsPage.getTotalElements());
+            model.addAttribute("debrand", debrand);
 
             return "allterms";
         }

@@ -1,6 +1,7 @@
 package uk.ac.ebi.spot.ols.controller.ui;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -38,6 +39,9 @@ public class IndividualControllerUI {
 
     @Autowired
     private OntologyIndividualService ontologyIndividualService;
+
+    @Value("${ols.debrand:false}")
+    private boolean debrand;
 
     @RequestMapping(path = "/{onto}/individuals", method = RequestMethod.GET)
     String getIndividuals(
@@ -77,6 +81,7 @@ public class IndividualControllerUI {
             model.addAttribute("pageable", pageable);
             model.addAttribute("allindividuals", termsPage);
             model.addAttribute("allindividualssize", termsPage.getTotalElements());
+            model.addAttribute("debrand", debrand);
             return "allindividuals";
         }
 

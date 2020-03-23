@@ -16,7 +16,7 @@
     -->
     <!-- End optional local footer -->
     <div class="row">
-        <div id="elixir-banner" data-color="none" data-name="The Ontology Lookup Service" data-description="OLS is an Elixir interoperability service" data-more-information-link="//www.elixir-europe.org/platforms/interoperability" data-use-basic-styles="true"></div>
+        <div th:if="${debrand} == false" id="elixir-banner" data-color="none" data-name="The Ontology Lookup Service" data-description="OLS is an Elixir interoperability service" data-more-information-link="//www.elixir-europe.org/platforms/interoperability" data-use-basic-styles="true"></div>
         <script src="//ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/js/elixirBanner.js"></script>
     </div>
 
@@ -24,7 +24,7 @@
         <!-- https://www.ebi.ac.uk/style-lab/websites/patterns/banner-elixir.html
         <div id="elixir-banner" data-color="none" data-name="This service" data-description="I am a super cool service" data-more-information-link="https://www.elixir-europe.org/about-us/who-we-are/nodes/embl-ebi" data-use-basic-styles="true"></div>
         -->
-        <div id="global-footer" class="global-footer">
+        <div th:if="${debrand} == false" id="global-footer" class="global-footer">
             <nav id="global-nav-expanded" class="global-nav-expanded row">
                 <!-- Footer will be automatically inserted by footer.js -->
             </nav>
@@ -35,7 +35,7 @@
     </footer>
 
 
-    <script defer="defer" src="https://ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/js/elixirBanner.js"></script>
+    <script th:if="${debrand} == false" defer="defer" src="https://ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/js/elixirBanner.js"></script>
 
 
 

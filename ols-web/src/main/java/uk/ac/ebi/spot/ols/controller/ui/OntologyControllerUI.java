@@ -43,11 +43,14 @@ public class OntologyControllerUI {
     @Value("${ols.downloads.folder:}")
     private String downloadsFolder;
 
+    @Value("${ols.debrand:false}")
+    private boolean debrand;
 
     @RequestMapping(path = "", method = RequestMethod.GET)
     String getAll(Model model) {
         List list = repositoryService.getAllDocuments(new Sort(new Sort.Order(Sort.Direction.ASC, "ontologyId")));
         model.addAttribute("all_ontologies", list);
+        model.addAttribute("debrand", debrand);
         return "browse";
     }
 
@@ -73,6 +76,8 @@ public class OntologyControllerUI {
             model.addAttribute("contact", contact);
 
             model.addAttribute("ontologyDocument", document);
+
+            model.addAttribute("debrand", debrand);
 
             DisplayUtils.setPreferredRootTermsModelAttributes(ontologyId, document, ontologyTermGraphService, model);
         }
