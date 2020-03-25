@@ -87,6 +87,10 @@ a.pagingButton:hover /* , a.pagingButton:focus, a.pagingButton:active, a.pagingB
     background: transparent;
 }
 
+#ontologiesTable td {
+    vertical-align: top !important;
+}
+
 
 /* Search Page */
 #filterBox {
