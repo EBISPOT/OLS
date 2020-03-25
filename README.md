@@ -57,6 +57,35 @@ more information http://www.ebi.ac.uk/ols/docs/installation-guide
   [ols-tabbed-term-treeview]
   (https://github.com/EBISPOT/ols-tabbed-term-treeview).
 
+## Building OLS
+To build OLS you will need to use Java 8 and Maven 3.x.
+
+To build OLS, in the root directory of OLS, run:
+`mvn clean package`. Currently this will fail with the following error:
+
+`[ERROR] Failed to execute goal on project ols-neo4j: Could not resolve dependencies for project uk.ac.ebi.spot:ols-neo4j:jar:3.2.1-SNAPSHOT: Failed to collect dependencies at org.springframework.data:spring-data-neo4j:jar:3.4.5.RELEASE -> org.neo4j:neo4j-cypher-dsl:jar:2.0.1: Failed to read artifact descriptor for org.neo4j:neo4j-cypher-dsl:jar:2.0.1: Could not transfer artifact org.neo4j:neo4j-cypher-dsl:pom:2.0.1 from/to maven-neo4j (https://m2.neo4j.org/content/repositories/releases/): Failed to transfer file https://m2.neo4j.org/content/repositories/releases/org/neo4j/neo4j-cypher-dsl/2.0.1/neo4j-cypher-dsl-2.0.1.pom with status code 502 -> [Help 1]`
+
+To correct this, copy the contents of the `build-fix` directory into your Maven 
+repository under `~/m2/repository`.
+
+Run `mvn clean package` again. OLS should now build successfully. 
+
+### Other build errors
+Other build errors you may come across are the following:
+
+1. Wrong version of Java used:
+
+`[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.1:compile (default-compile) on project ols-solr: Compilation failure: Compilation failure: 
+ [ERROR] /Users/james/OLS/ols-solr/src/main/java/uk/ac/ebi/spot/ols/config/SolrContext.java:[15,24] package javax.annotation does not exist
+ [ERROR] /Users/james/OLS/ols-solr/src/main/java/uk/ac/ebi/spot/ols/config/SolrContext.java:[25,4] cannot find symbol
+ [ERROR]  symbol:  class Resource
+ [ERROR]  location: class uk.ac.ebi.spot.ols.config.SolrContext
+ [ERROR] -> [Help 1]` 
+ 
+This is the error you get when you compile OLS with Java 11. The fix for this 
+build error is to ensure your Maven installation is indeed using Java 8 for 
+compilation.  
+
 ## Run Solr and MongoDB services out of separate Docker containers
 
 If you have Docker installed on your desktop or laptop, you now have the
@@ -171,3 +200,4 @@ It is possible to customise several branding options in `ols-web/src/main/resour
 * `ols.customisation.title` — A custom title for your instance, e.g. "My OLS Instance"
 * `ols.customisation.short-title` — A shorter version of the custom title, e.g. "MYOLS"
 * `ols.customisation.org` — The organisation hosting your instance
+

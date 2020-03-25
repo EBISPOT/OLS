@@ -716,10 +716,10 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     }
 
     private Set<IRI> findAllDirectAndIndirectSuperProperties(OWLObjectProperty objectProperty,
-    		Set<IRI> indirectSuperProperties) {
+    		Set<IRI> indirectSuperProperties, Set<OWLOntology> ontologyImportClosure) {
 
         for (OWLObjectPropertyExpression superObjectPropertyExpression :
-        	objectProperty.getSuperProperties(ontology)) {
+        	objectProperty.getSuperProperties(ontologyImportClosure)) {
 
             if (!superObjectPropertyExpression.isAnonymous()) {
                 IRI superObjectPropertyIRI = superObjectPropertyExpression.asOWLObjectProperty().getIRI();
@@ -728,7 +728,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
                     indirectSuperProperties.add(superObjectPropertyIRI);
                     findAllDirectAndIndirectSuperProperties(superObjectPropertyExpression.asOWLObjectProperty(),
-                            indirectSuperProperties);
+                            indirectSuperProperties, ontologyImportClosure);
                 }
             }
         }
@@ -736,10 +736,10 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     }
 
     private Set<IRI> findAllDirectAndIndirectSubProperties(OWLObjectProperty objectProperty,
-    		Set<IRI> indirectSubProperties) {
+    		Set<IRI> indirectSubProperties, Set<OWLOntology> ontologyImportClosure) {
 
         for (OWLObjectPropertyExpression subObjectPropertyExpression :
-        	objectProperty.getSubProperties(ontology)) {
+        	objectProperty.getSubProperties(ontologyImportClosure)) {
 
         	IRI subObjectPropertyIRI = subObjectPropertyExpression.asOWLObjectProperty().getIRI();
             if (!subObjectPropertyExpression.isAnonymous() &&
@@ -747,36 +747,43 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
             	indirectSubProperties.add(subObjectPropertyIRI);
             	findAllDirectAndIndirectSubProperties(subObjectPropertyExpression.asOWLObjectProperty(),
-            			indirectSubProperties);
+            			indirectSubProperties, ontologyImportClosure);
             }
         }
     	return indirectSubProperties;
     }
 
     private void indexSubPropertyRelations(OWLObjectProperty property) {
+        getLogger().debug("indexSubPropertyRelations = " + property);
 
         Set<IRI> directSuperProperties = new HashSet<>();
         Set<IRI> indirectSuperProperties = new HashSet<>();
         Set<IRI> indirectSubProperties = new HashSet<>();
 
-        for (OWLObjectPropertyExpression owlProperty : property.getSuperProperties(ontology)) {
+        Set<OWLOntology> ontologyImportClosure = ontology.getImportsClosure();
+
+        for (OWLObjectPropertyExpression owlProperty : property.getSuperProperties(ontologyImportClosure)) {
             if (!owlProperty.isAnonymous()) {
                 directSuperProperties.add(owlProperty.asOWLObjectProperty().getIRI());
             }
         }
         addDirectParents(property.getIRI(), directSuperProperties);
         addAllParents(property.getIRI(), findAllDirectAndIndirectSuperProperties(property,
-        		indirectSuperProperties));
+        		indirectSuperProperties, ontologyImportClosure));
+        getLogger().debug("indexSubPropertyRelations: " + property + " directSuperProperties = " + directSuperProperties);
+        getLogger().debug("indexSubPropertyRelations: " + property + " indirectSuperProperties = " + indirectSuperProperties);
 
         Set<IRI> directSubProperties = new HashSet<>();
-        for (OWLObjectPropertyExpression owlProperty : property.getSubProperties(ontology)) {
+        for (OWLObjectPropertyExpression owlProperty : property.getSubProperties(ontologyImportClosure)) {
             if (!owlProperty.isAnonymous()) {
                 directSubProperties.add(owlProperty.asOWLObjectProperty().getIRI());
             }
         }
         addDirectChildren(property.getIRI(), directSubProperties);
         addAllParents(property.getIRI(), findAllDirectAndIndirectSubProperties(property,
-        		indirectSubProperties));
+        		indirectSubProperties, ontologyImportClosure));
+        getLogger().debug("indexSubPropertyRelations: " + property + " directSubProperties = " + directSubProperties);
+        getLogger().debug("indexSubPropertyRelations: " + property + " indirectSubProperties = " + indirectSubProperties);
     }
 
 

@@ -1,0 +1,4 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Fri Jan 17 16:17:27 GMT 2020
+neo4j-cypher-dsl-2.0.1.pom>maven-neo4j=
+neo4j-cypher-dsl-2.0.1.jar>maven-neo4j=
