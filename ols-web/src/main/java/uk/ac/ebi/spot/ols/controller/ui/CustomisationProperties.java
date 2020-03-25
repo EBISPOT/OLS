@@ -32,4 +32,8 @@ public class CustomisationProperties {
         model.addAttribute("shortTitle", shortTitle);
         model.addAttribute("org", org);
     }
+
+    public boolean getDebrand() {
+        return debrand;
+    }
 }

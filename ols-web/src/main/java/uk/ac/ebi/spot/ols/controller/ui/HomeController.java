@@ -248,6 +248,11 @@ public class HomeController {
 
     @RequestMapping({"docs/{page}"})
     public String showDocs(@PathVariable("page") String pageName, Model model) {
+
+        if(customisationProperties.getDebrand()) {
+            return "redirect:../index";
+        }
+
         model.addAttribute("page", pageName);
         customisationProperties.setCustomisationModelAttributes(model);
         return "docs-template";
