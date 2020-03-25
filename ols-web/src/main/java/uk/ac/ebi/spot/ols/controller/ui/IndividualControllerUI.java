@@ -40,8 +40,8 @@ public class IndividualControllerUI {
     @Autowired
     private OntologyIndividualService ontologyIndividualService;
 
-    @Value("${ols.debrand:false}")
-    private boolean debrand;
+    @Autowired
+    private CustomisationProperties customisationProperties;
 
     @RequestMapping(path = "/{onto}/individuals", method = RequestMethod.GET)
     String getIndividuals(
@@ -81,7 +81,7 @@ public class IndividualControllerUI {
             model.addAttribute("pageable", pageable);
             model.addAttribute("allindividuals", termsPage);
             model.addAttribute("allindividualssize", termsPage.getTotalElements());
-            model.addAttribute("debrand", debrand);
+            customisationProperties.setCustomisationModelAttributes(model);
             return "allindividuals";
         }
 

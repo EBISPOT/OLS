@@ -73,7 +73,7 @@
                            th:attr="data-olsontology=${ontologyIndividual.getOntologyName()}"
                            data-olsontology=""
                            data-selectpath="../../"
-                           placeholder="Search OLS"
+                           th:attr="placeholder='Search ' + ${shortTitle}"
                            aria-describedby="basic-addon1" />
                     <input type="hidden" name="ontology" th:value="${ontologyIndividual.getOntologyName()}" />
                     <button class="button secondary searchButton glyphicon glyphicon-search"

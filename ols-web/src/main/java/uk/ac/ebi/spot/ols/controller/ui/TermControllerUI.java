@@ -43,8 +43,8 @@ public class TermControllerUI {
     @Autowired
     private OntologyTermGraphService ontologyTermGraphService;
 
-    @Value("${ols.debrand:false}")
-    private boolean debrand;
+    @Autowired
+    private CustomisationProperties customisationProperties;
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -90,7 +90,8 @@ public class TermControllerUI {
             model.addAttribute("pageable", pageable);
             model.addAttribute("allterms", termsPage);
             model.addAttribute("alltermssize", termsPage.getTotalElements());
-            model.addAttribute("debrand", debrand);
+
+            customisationProperties.setCustomisationModelAttributes(model);
 
             return "allterms";
         }

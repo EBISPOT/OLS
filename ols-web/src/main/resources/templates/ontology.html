@@ -41,7 +41,7 @@
                            data-olswidget="select" data-olsontology="" data-selectpath="../"
                            th:attr="data-olsontology=${ontologyDocument.getOntologyId()}"
                            th:placeholder="'Search ' + ${ontologyDocument.getConfig().getPreferredPrefix()}"
-                           placeholder="Search OLS" aria-describedby="basic-addon1" />
+                           aria-describedby="basic-addon1" />
                     <button class="button secondary searchButton glyphicon glyphicon-search" type="submit">Search</button>
                     <input type="hidden" name="ontology" th:value="${ontologyDocument.getOntologyId()}"/>
                 </div>

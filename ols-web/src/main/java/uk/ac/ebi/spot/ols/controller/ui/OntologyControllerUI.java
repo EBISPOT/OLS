@@ -38,19 +38,18 @@ public class OntologyControllerUI {
     @Autowired
     private OntologyTermGraphService ontologyTermGraphService;
 
+    @Autowired
+    private CustomisationProperties customisationProperties;
 
     // Reading these from application.properties
     @Value("${ols.downloads.folder:}")
     private String downloadsFolder;
 
-    @Value("${ols.debrand:false}")
-    private boolean debrand;
-
     @RequestMapping(path = "", method = RequestMethod.GET)
     String getAll(Model model) {
         List list = repositoryService.getAllDocuments(new Sort(new Sort.Order(Sort.Direction.ASC, "ontologyId")));
         model.addAttribute("all_ontologies", list);
-        model.addAttribute("debrand", debrand);
+        customisationProperties.setCustomisationModelAttributes(model);
         return "browse";
     }
 
@@ -77,8 +76,7 @@ public class OntologyControllerUI {
 
             model.addAttribute("ontologyDocument", document);
 
-            model.addAttribute("debrand", debrand);
-
+            customisationProperties.setCustomisationModelAttributes(model);
             DisplayUtils.setPreferredRootTermsModelAttributes(ontologyId, document, ontologyTermGraphService, model);
         }
         else {

@@ -40,8 +40,8 @@ public class PropertyControllerUI {
     @Autowired
     private OntologyPropertyGraphService ontologyPropertyGraphService;
 
-    @Value("${ols.debrand:false}")
-    private boolean debrand;
+    @Autowired
+    private CustomisationProperties customisationProperties;
 
     @RequestMapping(path = "/{onto}/properties", method = RequestMethod.GET)
     String getProperty(
@@ -80,7 +80,7 @@ public class PropertyControllerUI {
             model.addAttribute("pageable", pageable);
             model.addAttribute("allproperties", termsPage);
             model.addAttribute("allpropertiessize", termsPage.getTotalElements());
-            model.addAttribute("debrand", debrand);
+            customisationProperties.setCustomisationModelAttributes(model);
             return "allproperties";
         }
 
@@ -93,7 +93,7 @@ public class PropertyControllerUI {
 
         String title = repositoryService.get(ontologyId).getConfig().getTitle();
         model.addAttribute("ontologyName", title);
-        model.addAttribute("debrand", debrand);
+        customisationProperties.setCustomisationModelAttributes(model);
 
         return "property";
     }

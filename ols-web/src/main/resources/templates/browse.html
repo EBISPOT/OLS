@@ -28,7 +28,7 @@
 
     <!--@thymesVar id="summary" type="uk.ac.ebi.spot.ols.controller.ui.HomeController.SummaryInfo" -->
     <div class="row">
-        <h3 class="strapline marginTop">List of all ontologies in OLS</h3>
+        <h3 class="strapline marginTop" th:inline="text">List of all ontologies in [[${shortName}]]</h3>
 
         <!-- Deactivate Ontology search box for now, since the new data tables have a build in search functionality
         <div class="small-12 columns">

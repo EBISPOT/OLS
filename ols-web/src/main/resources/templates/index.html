@@ -31,7 +31,7 @@
         <div th:if="${start}" style="font-size: larger;" class="callout alert">
             <span><i class="icon icon-generic" data-icon="alert"></i> Maintenance</span>
             <ul>
-                <li>OLS is due for maintenance and will be unavailable between <span th:text="${start}"/> and
+                <li th:inline="text">[[${shortName}]] is due for maintenance and will be unavailable between <span th:text="${start}"/> and
                     <span th:text="${end}"/>. Apologies for any inconvenience.</li>
                 <li th:if="${message}" th:text="${message}"></li>
             </ul>
@@ -40,10 +40,10 @@
         <div class="small-9 columns">
 
             <div id="mainpageSearchBox">
-                <h4>Welcome to the EMBL-EBI Ontology Lookup Service</h4>
+                <h4 th:inline="text">Welcome to the [[${org}]] [[${title}]]</h4>
                 <form id="filter_form" name="local-search" action="search" method="get">
                     <div id="bloodhound" class="input-group">
-                        <input style="margin-bottom: 0.1em;" class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="multisearch" data-olsontology=""  placeholder="Search OLS..." aria-describedby="basic-addon1"/>
+                        <input style="margin-bottom: 0.1em;" class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="multisearch" data-olsontology="" th:placeholder="'Search ' + ${shortTitle} + '...'" aria-describedby="basic-addon1"/>
                               <button class="button secondary searchButton glyphicon glyphicon-search" type="submit">Search</button>
                     </div>
                         <span class="examples">Examples: <a class="nounderline ontology-link" href="search?q=diabetes">diabetes</a>,
@@ -53,7 +53,7 @@
                 </form>
             </div>
 
-            <div>
+            <div th:if="${debrand} == false">
                 <div class="small-4 columns">
                     <h4>
                         <i style="color: #BF8230;" class="icon icon-functional" data-icon="b"></i>
@@ -112,7 +112,9 @@
                 <li th:if="${summary.getSoftwareVersion() != null}">Version <span th:text="${summary.getSoftwareVersion()}">102</span></li>
             </ul>
 
-            <a class="twitter-timeline" data-height="600" href="https://twitter.com/EBIOLS">Tweets by OLS</a> <script async="async" src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <div th:if="${debrand} == false">
+                <a class="twitter-timeline" data-height="600" href="https://twitter.com/EBIOLS">Tweets by OLS</a> <script async="async" src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+            </div>
         </div>
     </div>
 </section>
@@ -129,7 +131,7 @@
 <script type="text/javascript" src="../static/js/ols-termselect2.js" th:src="@{js/ols-termselect2.js}"></script>
 
 
-<script type="text/javascript" src="../static/js/jquery.browser.min.js" th:src="@{js/jquery.browser.min.js}"></script> /*Check browser version*/
+<script type="text/javascript" src="../static/js/jquery.browser.min.js" th:src="@{js/jquery.browser.min.js}"></script>
 <script>
     // See https://github.com/gabceb/jquery-browser-plugin for futher details how to use the plugin
     var version;

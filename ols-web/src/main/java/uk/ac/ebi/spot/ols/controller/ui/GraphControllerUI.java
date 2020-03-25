@@ -71,9 +71,8 @@ public class GraphControllerUI {
                   return "graph";
         }*/
 
-
-    @Value("${ols.debrand:false}")
-    private boolean debrand;
+    @Autowired
+    private CustomisationProperties customisationProperties;
 
     @RequestMapping(path = "{onto}/terms/graph", method = RequestMethod.GET)
     String getTerm(
@@ -132,7 +131,7 @@ public class GraphControllerUI {
         String title = repositoryService.get(ontologyId).getConfig().getTitle();
         model.addAttribute("ontologyName", title);
 
-        model.addAttribute("debrand", debrand);
+        customisationProperties.setCustomisationModelAttributes(model);
 
         return "graph";
     }

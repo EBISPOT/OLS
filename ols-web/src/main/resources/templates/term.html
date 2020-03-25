@@ -35,7 +35,7 @@
             </div>
             <nav aria-label="You are here:" role="navigation">
                 <ul class="breadcrumbs">
-                    <li><a href="../../index">OLS</a></li>
+                    <li><a th:inline="text" href="../../index">[[${shortTitle}]]</a></li>
                     <li><a class="nounderline"
                            th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__}"
                            th:text="${ontologyName}">ontology</a><div class="decoy"></div
@@ -93,7 +93,6 @@
                                th:attr="data-olsontology=${ontologyTerm.getOntologyName()}"
                                data-olsontology=""
                                data-selectpath="../../"
-                               placeholder="Search OLS"
                                aria-describedby="basic-addon1"/>
                         <button class="button secondary searchButton glyphicon glyphicon-search"
                                 type="submit">Search</button>

@@ -49,6 +49,9 @@ public class HomeController {
     @Autowired
     Environment environment;
 
+    @Autowired
+    private CustomisationProperties customisationProperties;
+
     @Value("${ols.maintenance.start:#{null}}")
     String start = null;
 
@@ -57,9 +60,6 @@ public class HomeController {
 
     @Value("${ols.maintenance.message:#{null}}")
     String message;
-
-    @Value("${ols.debrand:false}")
-    private boolean debrand;
 
     // Reading these from application.properties
     @Value("${ols.sitemap.folder:}")
@@ -100,7 +100,9 @@ public class HomeController {
             // couldn't determine whether we are in maintenance mode..
         }
         model.addAttribute("summary", summaryInfo);
-        model.addAttribute("debrand", debrand);
+
+        customisationProperties.setCustomisationModelAttributes(model);
+
         return "index";
     }
 
@@ -198,7 +200,7 @@ public class HomeController {
 
 
         model.addAttribute("searchOptions", searchOptions);
-        model.addAttribute("debrand", debrand);
+        customisationProperties.setCustomisationModelAttributes(model);
         return "search";
     }
 
@@ -219,7 +221,7 @@ public class HomeController {
         model.addAttribute("start", start);
         model.addAttribute("end", end);
         model.addAttribute("message", message);
-        model.addAttribute("debrand", debrand);
+        customisationProperties.setCustomisationModelAttributes(model);
         return "maintenance";
     }
 
@@ -247,7 +249,7 @@ public class HomeController {
     @RequestMapping({"docs/{page}"})
     public String showDocs(@PathVariable("page") String pageName, Model model) {
         model.addAttribute("page", pageName);
-        model.addAttribute("debrand", debrand);
+        customisationProperties.setCustomisationModelAttributes(model);
         return "docs-template";
     }
 

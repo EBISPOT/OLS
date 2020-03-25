@@ -29,7 +29,7 @@
         <div class="breadcrumbDiv">
             <nav id="breadcrumb">
                 <p>
-                    <a href="../../../index">OLS</a> &gt;
+                    <a th:inline="text" href="../../../index">[[${shortTitle}]]</a> &gt;
                     <a href="#"
                        th:href="@{../../../ontologies/__${ontologyTerm.getOntologyName()}__}"
                        style="border-bottom-width: 0px;"><span class="ontology-source"
