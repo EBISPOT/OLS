@@ -60,7 +60,7 @@
                     <form id="filter_form" name="local-search" action="../../search" method="get">
                         <div id="bloodhound" class="input-group">
                             <input style="margin-bottom: 0.1em;" class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="select" th:placeholder="'Search ' + ${ontologyPrefix}" th:attr="data-olsontology=${ontologyName}" data-olsontology=""  data-selectpath="../../"
-                                    th:placeholder="'Search ' + ${shortName}" aria-describedby="basic-addon1"/>
+                                    th:placeholder="'Search ' + ${shortTitle}" aria-describedby="basic-addon1"/>
                             <input type="hidden" name="ontology" th:value="${ontologyName}"/>
                                         <span class="input-group-btn">
                                           <button class="button secondary searchButton glyphicon glyphicon-search" type="submit">Search</button>

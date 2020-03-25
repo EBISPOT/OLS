@@ -31,7 +31,7 @@
         <div th:if="${start}" style="font-size: larger;" class="callout alert">
             <span><i class="icon icon-generic" data-icon="alert"></i> Maintenance</span>
             <ul>
-                <li th:inline="text">[[${shortName}]] is due for maintenance and will be unavailable between <span th:text="${start}"/> and
+                <li th:inline="text">[[${shortTitle}]] is due for maintenance and will be unavailable between <span th:text="${start}"/> and
                     <span th:text="${end}"/>. Apologies for any inconvenience.</li>
                 <li th:if="${message}" th:text="${message}"></li>
             </ul>

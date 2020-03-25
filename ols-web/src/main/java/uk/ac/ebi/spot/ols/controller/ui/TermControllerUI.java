@@ -159,6 +159,8 @@ public class TermControllerUI {
 
         DisplayUtils.setPreferredRootTermsModelAttributes(ontologyId, document, ontologyTermGraphService, model);
 
+        customisationProperties.setCustomisationModelAttributes(model);
+
         return "term";
     }
 
