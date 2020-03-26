@@ -1,6 +1,6 @@
 :root {
     --ols_orange: #ffac1b;
-    --ols_turquoise: #5fbdce;
+    --ols_green: #00827c;
 }
 
 #mainpageSearchBox {
@@ -604,23 +604,36 @@ a + a > .term-source-valign {
 }
 
 .ontology-source {
-    @include aligned_button(1, 1, var(--ols_turquoise), 0);
+    @include aligned_button(1, 1, var(--ols_green), 0);
 }
 
 a + a > .ontology-source {
-    @include aligned_button(1, 1, var(--ols_turquoise), 1);
+    @include aligned_button(1, 1, var(--ols_green), 1);
 }
 
 .ontology-source-valign {
-    @include aligned_button(1, 0, var(--ols_turquoise), 0);
+    @include aligned_button(1, 0, var(--ols_green), 0);
 }
 
 a + a > .ontology-source-valign {
-    @include aligned_button(1, 0, var(--ols_turquoise), 1);
+    @include aligned_button(1, 0, var(--ols_green), 1);
 }
 
 .jstree-proton {
     font-family: Helvetica, Arial, FreeSans, 'Liberation Sans', sans-serif !important;
+}
+
+.jstree-hovered {
+    background: #6dadab !important;
+    box-shadow: inset 0 0 1px #6dadab !important;
+}
+.jstree-clicked {
+    background: #00938d !important;
+    box-shadow: inset 0 0 1px #00938d !important;
+}
+
+.jstree-proton * {
+    transition: none !important;
 }
 
 .icheck-belizehole > input:first-child:not(:checked):not(:disabled):hover + label::before,
@@ -634,4 +647,9 @@ a + a > .ontology-source-valign {
     border-color:#00827c !important;
 }
 
-
+#ontologiesTable a, #ontologiesTable a:visited { 
+    color: #00827c;
+}
+#ontologiesTable a:hover {
+    color: #00938d;
+}
