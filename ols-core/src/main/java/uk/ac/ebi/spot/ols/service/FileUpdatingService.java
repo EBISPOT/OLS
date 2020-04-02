@@ -81,7 +81,7 @@ public class FileUpdatingService {
             try {
                 status = fileUpdateService.getFile(config.getNamespace(), config.getFileLocation());
                 document.setLocalPath(status.getFile().getCanonicalPath());
-                if (force || status.isNew() || wasFailing) {
+                if (force || !document.getFileHash().equals(status.getLatestHash()) || wasFailing) {
                     document.setStatus(Status.TOLOAD);
                     document.setMessage("");
                 }
@@ -113,6 +113,7 @@ public class FileUpdatingService {
                 getLog().info("Status of " + document.getOntologyId() + " is " + document.getStatus());
 
                 document.setUpdated(new Date());
+                document.setFileHash(status.getLatestHash());
                 ontologyRepositoryService.update(document);
                 latch.countDown();
             }

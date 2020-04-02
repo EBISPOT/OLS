@@ -34,7 +34,7 @@ public class FileUpdateTests {
             e.printStackTrace();
         }
 
-        System.out.println(status.isNew());
+        System.out.println(status.getLatestHash());
 
 
     }
