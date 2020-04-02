@@ -120,23 +120,19 @@ public class FileUpdater {
 
                 // create one for the downloaded file
 
-                // if they are the same, the file hasn't changed
-                if (latestChecksum.equals(downloadChecksum)) {
-                    return new FileStatus(latestFile, false);
-                }
-                else {
+                // if they are different, the file has changed
+                if (!latestChecksum.equals(downloadChecksum)) {
                     // if they are different, copy the downloaded file to the latest file
                     FileCopyUtils.copy(downloadFile, latestFile );
                     // update the latest file checksum
                     writeChecksum(latestFileChecksum, downloadChecksum);
-                    return new FileStatus(latestFile, true);
                 }
             }
             else {
                 FileCopyUtils.copy(downloadFile, latestFile );
                 writeChecksum(latestFileChecksum, downloadChecksum);
-                return new FileStatus(latestFile, true);
             }
+            return new FileStatus(latestFile, downloadChecksum);
 
         } catch (Exception e) {
             throw new FileUpdateServiceException("Failed to download file: " + e.getMessage(), e);
@@ -240,20 +236,19 @@ public class FileUpdater {
 
     public class FileStatus {
         private File file;
-        private boolean isNew;
+        private String latestHash;
 
-
-        public FileStatus(File latestFile, boolean b) {
+        public FileStatus(File latestFile, String latestHash) {
             this.file = latestFile;
-            this.isNew = b;
+            this.latestHash = latestHash;
         }
 
         public File getFile() {
             return file;
         }
 
-        public boolean isNew() {
-            return isNew;
+        public String getLatestHash() {
+            return latestHash;
         }
     }
 
