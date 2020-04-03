@@ -89,11 +89,26 @@
     </properties>
 
     <packaging>war</packaging>
-
     <build>
-        <finalName>ols-boot</finalName>
         <plugins>
-            <!-- <plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>1.2.5.RELEASE</version>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <mainClass>uk.ac.ebi.spot.ols.OlsWebApp</mainClass>
+                            <finalName>ols</finalName>
+                            <classifier>-boot</classifier>
+                        </configuration>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
@@ -101,7 +116,7 @@
                         <include>**/*Documentation.java</include>
                     </includes>
                 </configuration>
-            </plugin>-->
+            </plugin>
             <plugin>
                 <groupId>org.asciidoctor</groupId>
                 <artifactId>asciidoctor-maven-plugin</artifactId>
@@ -121,15 +136,10 @@
                     <backend>html</backend>
                     <doctype>book</doctype>
                     <attributes>
-                        <!--<toc />-->
-                        <!--<imagesdir>img</imagesdir>-->
                         <snippets>${snippetsDirectory}</snippets>
                     </attributes>
-                    <!--<headerFooter>false</headerFooter>-->
-                    <!--<preserveDirectories>true</preserveDirectories>-->
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
 </project>
