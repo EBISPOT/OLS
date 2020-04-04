@@ -9,6 +9,7 @@ stages:
   - build
 #  - package
 
+
 maven-build:
   image: maven:3-jdk-8
   stage: build
@@ -26,4 +27,3 @@ maven-build:
 #  - docker build -t ebispot/ols:3.3.$CI_PROJECT_BUILDS .
 #  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 #  - docker push ebispot/ols:3.3.$CI_PROJECT_BUILDS
-

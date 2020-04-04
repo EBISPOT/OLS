@@ -49,7 +49,9 @@ public class YamlConfigParser {
 
 
         ArrayList<LinkedHashMap> ontologies = (ArrayList<LinkedHashMap>)linkedHashMap.get("ontologies");
-
+        if(ontologies ==null){
+            return documentLoadingServices;
+        }
         for (LinkedHashMap ontology : ontologies) {
 
             boolean _isObo = isObo;
