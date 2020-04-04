@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+</head>
+<body>
+<div th:fragment="footer">
+
+    <!-- Optional local footer (insert citation / project-specific copyright / etc here -->
+    <!--
+    <footer id="local-footer" class="local-footer" role="local-footer">
+      <div class="row">
+        <span class="reference">How to reference this page: ...</span>
+      </div>
+    </footer>
+    -->
+    <!-- End optional local footer -->
+    <div class="row">
+        <div th:if="${debrand} == false" id="elixir-banner" data-color="none" data-name="The Ontology Lookup Service" data-description="OLS is an Elixir interoperability service" data-more-information-link="//www.elixir-europe.org/platforms/interoperability" data-use-basic-styles="true"></div>
+        <script src="//ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/js/elixirBanner.js"></script>
+    </div>
+
+    <footer>
+        <!-- https://www.ebi.ac.uk/style-lab/websites/patterns/banner-elixir.html
+        <div id="elixir-banner" data-color="none" data-name="This service" data-description="I am a super cool service" data-more-information-link="https://www.elixir-europe.org/about-us/who-we-are/nodes/embl-ebi" data-use-basic-styles="true"></div>
+        -->
+        <div th:if="${debrand} == false" id="global-footer" class="global-footer">
+            <nav id="global-nav-expanded" class="global-nav-expanded row">
+                <!-- Footer will be automatically inserted by footer.js -->
+            </nav>
+            <section id="ebi-footer-meta" class="ebi-footer-meta row">
+                <!-- Footer meta will be automatically inserted by footer.js -->
+            </section>
+        </div>
+    </footer>
+
+
+    <script th:if="${debrand} == false" defer="defer" src="https://ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/js/elixirBanner.js"></script>
+
+
+
+    <!-- JavaScript -->
+
+    <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+    <!--
+    <script>window.jQuery || document.write('<script src="../js/libs/jquery-1.10.2.min.js"><\/script>')</script>
+    We include Jquery from war below, then we'd don't need this line  .... -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-69391170-2', 'auto');
+        ga('send', 'pageview');
+        ga('set', 'anonymizeIp', true);
+    </script>
+
+    <!-- Using other URL for v1.3 does not change anything -->
+    <script defer="defer" src="//www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.3/js/script.js"></script>
+    <script src="//www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.3/libraries/foundation-6/js/foundation.js"></script>
+    <script src="//www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.3/js/foundationExtendEBI.js"></script>
+    <script type="text/JavaScript">$(document).foundation();</script>
+    <script type="text/JavaScript">$(document).foundationExtendEBI();</script>
+
+    <!--<script type="text/javascript" th:src="@{/webjars/d3js/3.5.17/d3.min.js}" src="/webjars/d3js/3.5.17/d3.min.js"></script>
+        <script type="text/javascript" th:src="@{/webjars/select2/4.0.0/dist/js/select2.min.js}" src="/webjars/select2/4.0.0/dist/js/select2.min.js"></script>-->
+
+
+
+</div>
+</body>
+</html>

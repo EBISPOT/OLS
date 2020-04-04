@@ -18,3 +18,9 @@ function getUrlType (type) {
 function goTo (url) {
     window.location.href =  url;
 }
+
+$(function() {
+    $('p.annotation-value').each(function(i, el) {
+        $(el).html($(el).html().replace(/((http|https|ftp):\/\/[^\s,]+)/g, "<a href=\"$1\">$1</a>"))
+    })
+})

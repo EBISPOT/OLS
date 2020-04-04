@@ -28,14 +28,16 @@ return tmp;
 
 $(document).ready(function() {
 //Register onclicks for other tab links to hide the Legend when leaving ontology history
-$("#tree-link").on('click', hideLegend)
-$("#property-link").on('click', hideLegend)
-$("#meta-link").on('click', hideLegend)
+$("#tree-link").on('click', hideLegend);
+$("#property-link").on('click', hideLegend);
+$("#meta-link").on('click', hideLegend);
 
 $("#diachron-link").on('click', function(){
 
     ontologyName = $("#diachron-tab").data("olsontology");
     var serviceURL= $("#diachron-tab").data("selectpath");
+
+    // alert('ontology is ' + ontologyName);
 
     URL=constructURL(document.URL)
     //hardcoded
@@ -43,7 +45,7 @@ $("#diachron-link").on('click', function(){
 
     date=new Date();
     dateBefore=date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
-    //Default date if webservice call is not successful
+    //  Default date if webservice call is not successful
     dateAfter="2015-01-01"
 
   /*  THIS is how we can get DATES later on, when there are MORE changes*/
@@ -59,7 +61,7 @@ $("#diachron-link").on('click', function(){
       if (obj.length!==0)
         dateAfter=obj[obj.length-1]["changeDate"]
 
-        //Append general structur of window
+        //  Append general structure of window
         $("#diachron-wrapper").append("<div id='graphpart'><div>")
         $("#diachron-wrapper").append("<div id='buttonBox' style='text-align:center; margin-top:20px;'><div>")
         //Append datepicker
@@ -78,14 +80,15 @@ $("#diachron-link").on('click', function(){
 })
 
 
-function hideLegend(){
+function hideLegend() {
     //$("#LegendDiv").hide();
     $("#LegendDiv").fadeOut(200, function() {
-    $("#ontology_info_box").fadeIn();
+        // alert('non-diachron tab clicked');
+        $("#ontology_info_box").fadeIn();
     });
 }
 
-function buildLegend(){
+function buildLegend() {
   var keys=_.keys(colorObject)
   var htmlString='<div id="LegendDiv" class="panel panel-primary"><div class="panel-heading"><h3 class="panel-title">Legend</h3></div><div id="LegendBody" class="panel-body">'
   htmlString+="<table>";

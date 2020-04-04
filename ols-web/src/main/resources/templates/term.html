@@ -4,620 +4,539 @@
 <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"/> <![endif]-->
 <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"/> <![endif]-->
 <!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
-<!--[if gt IE 8]><!--> <html  xmlns:th="http://www.thymeleaf.org" class="no-js" lang="en"> <!--<![endif]-->
-<head>
-    <meta charset="utf-8"/>
-
-    <!-- Use the .htaccess and remove these lines to avoid edge case issues.
-         More info: h5bp.com/b/378 -->
-    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> --> <!-- Not yet implemented -->
-
-    <!--@thymesVar id="ontologyTerm" type="uk.ac.ebi.spot.ols.neo4j.model.Term"-->
-    <title th:text="${ontologyTerm.getLabel()}"> Term &lt; Ontology Lookup Service &lt; EMBL-EBI</title>
-    <meta name="description" th:content="${ontologyTerm.getDescription()}"  content="EMBL-EBI"/><!-- Describe what this page is about -->
-    <meta name="keywords" content="ontology, ontologies, bioinformatics, europe, institute"/><!-- A few keywords that relate to the content of THIS PAGE (not the whol project) -->
-    <meta name="author" content="EMBL-EBI Ontology Lookup Service"/><!-- Your [project-name] here -->
-
-    <!-- Mobile viewport optimized: j.mp/bplateviewport -->
-    <meta name="viewport" content="width=device-width,initial-scale=1"/>
-
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
-
-    <link rel="stylesheet" href="../static/css/bootstrap/3.3/css/bootstrap.min.css" th:href="@{../../css/bootstrap/3.3/css/bootstrap.min.css}" type="text/css" media="screen"/>
-
-    <!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>-->
-    <!--<link rel="stylesheet" href="../static/css/bootstrap/bootstrap.css" th:href="@{../../../css/bootstrap/bootstrap.css}" type="text/css" media="screen" />-->
-
-    <link rel="stylesheet" href="../static/js/jstree/themes/proton/style.min.css" th:href="@{../../js/jstree/themes/proton/style.min.css}" type="text/css" media="screen" />
-
-    <!-- CSS: implied media=all -->
-    <!-- CSS concatenated and minified via ant build script-->
-    <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/boilerplate-style.css"/>
-    <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/ebi-global.css" type="text/css" media="screen"/>
-    <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/ebi-visual.css" type="text/css" media="screen"/>
-    <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/984-24-col-fluid.css" type="text/css" media="screen"/>
-
-    <!-- you can replace this with [projectname]-colours.css. See http://frontier.ebi.ac.uk/web/style/colour for details of how to do this -->
-    <!-- also inform ES so we can host your colour palette file -->
-    <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/embl-petrol-colours.css" type="text/css" media="screen"/>
+<!--[if gt IE 8]> <html xmlns:th="https://www.thymeleaf.org" class="no-js" lang="en"> <![endif]-->
+<!--[if !IE] -->  <html xmlns:th="https://www.thymeleaf.org" class="no-js" lang="en"> <!-- <![endif]-->
 
 
-    <link rel="stylesheet" href="../static/css/ols-colors.css" th:href="@{../../css/ols-colors.css}" type="text/css" media="screen"/>
-    <link rel="stylesheet" href="../static/css/ols.css" th:href="@{../../css/ols.css}" type="text/css" media="screen"/>
-
-    <link rel="stylesheet" href="../static/css/diachron/widget.css" th:href="@{../../css/diachron/widget.css}" type="text/css" media="screen"/>
-
-    <link rel="stylesheet" href="../static/css/typeahead/typeaheadjs.css" th:href="@{../../css/typeahead/typeaheadjs.css}" type="text/css" media="screen"/>
-
-    <!--<link rel="stylesheet" href="//cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" type="text/css" media="screen"/>-->
-    <!--<link rel="stylesheet" href="//localhost:8081/oxo/webjars/bootstrap-slider/5.3.1/css/bootstrap-slider.min.css" type="text/css" media="screen"/>-->
-
-    <!-- for production the above can be replaced with -->
-    <!--
-    <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/mini/ebi-fluid-embl.css">
-    -->
-    <!-- Latest compiled and minified CSS -->
-    <style type="text/css">
-        /* You have the option of setting a maximum width for your page, and making sure everything is centered */
-        /* body { max-width: 1600px; margin: 0 auto; } */
-        .tt-menu {
-            left: auto !important;
-            right: 0 !important;
-        }
-    </style>
-
-
-    <!--<link rel="stylesheet" type="text/css" href="css/spacelab.bootstrap.min.css" th:href="@{../css/spacelab.bootstrap.min.css}"/>-->
-    <!--<link rel="stylesheet" type="text/css" href="css/main.css" th:href="@{../css/main.css}"/>-->
-
-    <!-- end CSS-->
-
-
-
-    <!-- All JavaScript at the bottom, except for Modernizr / Respond.
-         Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
-         For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
-
-    <!-- Full build -->
-    <!-- <script src="//www.ebi.ac.uk/web_guidelines/js/libs/modernizr.minified.2.1.6.js"></script> -->
-
-    <!-- custom build (lacks most of the "advanced" HTML5 support -->
-    <script src="//www.ebi.ac.uk/web_guidelines/js/libs/modernizr.custom.49274.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/icheck-bootstrap@3.0.1/icheck-bootstrap.min.css" />
-
+<head th:replace="fragments/head :: head(olscss=true, proton=true)">
+    <title>Ontology Xref Service   &lt; EMBL-EBI</title>
+    <!-- A few keywords that relate to the content of THIS PAGE (not the whole project)
+    <meta name="keywords" content="biosamples, europe, EBI" />
+    <!- - Describe what this page is about - ->
+    <meta name="description" content="EMBL-EBI" />
+    <meta name="ebi:last-review" content="2016-12-20" />
+    <!- - The last time the content was reviewed - ->
+    <meta name="ebi:expiry" content="2017-12-20" />
+    <!- - When this content is no longer relevant -->
 </head>
 
-<body class="level2">
 
-<div id="skip-to">
-    <ul>
-        <li><a href="#content">Skip to main content</a></li>
-        <li><a href="#local-nav">Skip to local navigation</a></li>
-        <li><a href="#global-nav">Skip to EBI global navigation menu</a></li>
-        <li><a href="#global-nav-expanded">Skip to expanded EBI global navigation menu (includes all sub-sections)</a></li>
-    </ul>
-</div>
+<body>
+<th:block th:include="fragments/header :: header"></th:block>
 
-<div id="wrapper" class="container_24">
-
-    <header>
-
-        <div id="global-masthead" class="masthead grid_24">
-
-            <!--This has to be one line and no newline characters-->
-            <a href="//www.ebi.ac.uk/" title="Go to the EMBL-EBI homepage"><img src="//www.ebi.ac.uk/web_guidelines/images/logos/EMBL-EBI/EMBL_EBI_Logo_white.png" alt="EMBL European Bioinformatics Institute"/></a>
-
-            <nav>
-                <ul id="global-nav">
-                    <!-- set active class as appropriate -->
-                    <li id="services" class=" first active"><a href="//www.ebi.ac.uk/services" title="Services">Services</a></li>
-                    <li id="research" class=""><a href="//www.ebi.ac.uk/research" title="Research">Research</a></li>
-                    <li id="training" class=""><a href="//www.ebi.ac.uk/training" title="Training">Training</a></li>
-                    <li id="industry" class=""><a href="//www.ebi.ac.uk/industry" title="Industry">Industry</a></li>
-                    <li id="about" class=" last"><a href="//www.ebi.ac.uk/about" title="About us">About us</a></li>
+<section id="main-content-area" role="main">
+    <div vocab="http://schema.org/" typeof="MedicalCode" id="content" role="main" class="row">
+        <div class="breadcrumbDiv">
+            <div style="float: right; padding-right: 5px;">
+                <a style="float: right; border-bottom: none;" href="#"
+                   th:href="@{../../api/ontologies/__${ontologyTerm.getOntologyName()}__/terms (iri=${ontologyTerm.getIri()})}">
+                    <img th:src="@{../../img/file_JSON.png}" src="../static/img/file_JSON.png" alt="JSON" title="Get data as JSON" />
+                </a>
+            </div>
+            <nav aria-label="You are here:" role="navigation">
+                <ul class="breadcrumbs">
+                    <li><a th:inline="text" href="../../index">[[${shortTitle}]]</a></li>
+                    <li><a class="nounderline"
+                           th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__}"
+                           th:text="${ontologyName}">ontology</a><div class="decoy"></div
+                       ><a property="codingSystem"
+                           th:attr="content=${ontologyTerm.getOntologyName()}"
+                           th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__}"
+                           href="#"><span class="ontology-source-valign"
+                                          th:text="${ontologyTerm.getOntologyPrefix()}">parent 1</span></a></li>
+                    <li><span id='shortForm'
+                              th:if="${ontologyTerm.getOboId()} != null"
+                              class="term-source-valign"
+                              property="codeValue"
+                              th:text="${ontologyTerm.getOboId()}">id</span
+                       ><span id='shortForm'
+                              th:unless="${ontologyTerm.getOboId()} != null"
+                              class="term-source-valign"
+                              property="codeValue"
+                              th:text="${ontologyTerm.getShortForm()}">id</span
+                       ><button title="Copy id to clipboard"
+                                id='copyShortForm'
+                                data-clipboard-action="copy"
+                                data-clipboard-target="#shortForm"
+                                class="secondary-color tiny copyButton"
+                                type="button"><i class="icon icon-functional"
+                                                    data-icon="0"></i> Copy</button></li>
                 </ul>
             </nav>
-
         </div>
 
-        <div id="local-masthead" class="masthead grid_24 nomenu">
-
-            <!-- local-title -->
-            <!-- NB: for additional title style patterns, see http://frontier.ebi.ac.uk/web/style/patterns -->
-
-            <div id="local-title" class=" alpha logo-title">
-                <a href="../../index" title="Back to OLS homepage">
-                    <img style="width: 80px" th:src="@{../../img/ols-logo.jpg}" src="../static/img/ols-logo.jpg" alt="OLS logo"/></a>
-                <span><h1>Ontology Lookup Service</h1></span>
+        <div>
+            <div class="small-8 column">
+                <h2 property="name" style="margin-bottom: 0;" th:text="${ontologyTerm.getLabel()}">Term Label</h2>
+                <a style="padding-left: 3px; border-bottom: none;" th:href="@{${ontologyTerm.getIri()}}" class="nounderline secondary-color" title="Go to external page" target="blank">
+                    <span class="show-for-sr">Go to external page</span>
+                    <i class="icon icon-generic" data-icon="x"></i>
+                    <span property="url" id="OLS_ID" style="font-size: small;" th:text="${ontologyTerm.getIri()}">http://www.example.com/onto/id</span>
+                </a>
+                <p style="display: inline;">
+                    <button title="Copy id to clipboard" id="copyThis" data-clipboard-action="copy" data-clipboard-target="#OLS_ID" class="secondary-color small copyButton" type="button">
+                        <i class="icon icon-functional" data-icon="0"></i>
+                        Copy
+                    </button>
+                </p>
             </div>
 
-            <!-- /local-title -->
-
-            <!-- fix to remove search box -->
-            <div style="visibility: hidden">
-                <form id="local-search">
+            <div id="termPageSearchBox" class="small-4 columns">
+                <form name="local-search" action="../../search" method="get">
+                    <div id="bloodhound">
+                        <input class="form-control typeahead"
+                               autofocus="autofocus"
+                               type="text"
+                               name="q"
+                               data-olswidget="select"
+                               th:placeholder="'Search ' + ${ontologyTerm.getOntologyPrefix()}"
+                               th:attr="data-olsontology=${ontologyTerm.getOntologyName()}"
+                               data-olsontology=""
+                               data-selectpath="../../"
+                               aria-describedby="basic-addon1"/>
+                        <button class="button secondary searchButton glyphicon glyphicon-search"
+                                type="submit">Search</button>
+                    </div>
+                    <input type="hidden" name="ontology" th:value="${ontologyTerm.getOntologyName()}"/>
                 </form>
             </div>
-            <!-- -->
+        </div>
 
-            <nav>
-                <ul class="grid_24" id="local-nav">
-                    <li class="first"><a href="../../index">Home</a></li>
-                    <li class="active"><a href="../../ontologies">Ontologies</a></li>
-                    <li><a href="../../docs">Documentation</a></li>
-                    <li class="last" ><a href="../../about">About</a></li>
-                    <li class="functional last"><a href="../../contact" class="icon icon-generic" data-icon="C">Contact Us</a></li>
-                </ul>
-            </nav>
+        <!--div class="grid_24 clearfix">
+            <p style="display:inline;"><button id='copyThis'
+                                               data-clipboard-action="copy"
+                                               data-clipboard-target="#test"
+                                               type="button">Copy to clipboard</button></p>
+            <p id="citeThis" style="display:inline;"><button type="button" title="Click here">Cite this</button></p>
+            <p id="overlay" style="display:inline;"></p>
+        </div-->
+
+        <div class="small-12 columns">
+            <hr />
+            <div th:if="${ontologyTerm.isObsolete()}">
+                <div class="obsolete">This term is obsolete</div>
+                <br/>
+                <br/>
+
+                <div th:if="${ontologyTerm.getAnnotation().containsKey('reason_for_obsolescence')}" >
+                    <b>Reason for obsolescence</b>
+                    <p style="margin-left: 9px;"
+                       th:text="${#strings.setJoin(ontologyTerm.getAnnotation().get('reason_for_obsolescence'), ',')}">NCBI_9606</p>
+                </div>
+
+                <div th:if="${ontologyTerm.getAnnotation().containsKey('replacedBy')}" >
+                    <b>Replaced by</b>
+                    <p style="margin-left: 9px;"
+                       th:text="${#strings.setJoin(ontologyTerm.getAnnotation().get('replacedBy'), ',')}">NCBI_9606</p>
+                </div>
+
+                <div th:if="${ontologyTerm.getAnnotation().containsKey('term replaced by')}" >
+                    <b>Replaced by</b>
+                    <p style="margin-left: 9px;"
+                       th:text="${#strings.setJoin(ontologyTerm.getAnnotation().get('term replaced by'), ',')}">NCBI_9606</p>
+                </div>
+
+                <div th:if="${ontologyTerm.getAnnotation().containsKey('consider')}" >
+                    <b>Consider</b>
+                    <p style="margin-left: 9px;"
+                       th:text="${#strings.setJoin(ontologyTerm.getAnnotation().get('consider'), ',')}">NCBI_9606</p>
+                </div>
+            </div>
+
+            <div property="description">
+
+                <div th:each="definitionCitation : ${definitionCitations}">
+                    <p>
+                        <span th:text="${definitionCitation.getDefinition()}"></span>
+                        [
+                        <span th:each="oboXref : ${definitionCitation.getOboXrefs()}">
+                            <a th:if="${oboXref.getUrl() != null}" target="_blank" th:href="${oboXref.getUrl()}" th:text="${oboXref.getUrl()}"></a>
+                            <!--span th:if="${oboXref.getDatabase() != null and oboXref.getUrl() == null}" th:text="${oboXref.getDatabase()}"></span-->
+                            <!--span th:if="${oboXref.getId() != null and oboXref.getDatabase() != null and oboXref.getUrl() == null}">:</span-->
+                            <!--span th:if="${oboXref.getId() != null and oboXref.getUrl() == null}" th:text="${oboXref.getId()}"></span-->
+                            <span th:if="${oboXref.getDescription() != null}" th:text="'(' + ${oboXref.getDescription()} + ')'"></span>
+                        </span>
+                        ]
+                    </p>
+                </div>
+
+                <p th:unless="${definitionCitations}" th:each="description : ${ontologyTerm.getDescription()}" th:text="${description}">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget <nulla class=""></nulla>                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum.
+                </p>
+            </div>
+
+            <div th:if="${ontologyTerm.getSynonyms() !=null}">
+                <p><b>Synonyms:</b>
+                    <span property="alternateName" class="label synonym" th:each="synonym : ${ontologyTerm.getSynonyms()}" th:text="${synonym}">NCBI_9606</span>
+                </p>
+            </div>
         </div>
 
 
-    </header>
+        <div id="terms-tab-content" class="small-8 columns">
+            <ul  class="tabs" data-tabs="true" id="terms_tabs">
+                <li class="tabs-title is-active"><a id="tree-link"
+                                                    data-tabs-target="tree-tab"
+                                                    href="#tree-tab"
+                                                    aria-selected="true"><i class="icon icon-functional" data-icon="h"></i> Tree view</a></li>
+                <li class="tabs-title"><a id="oxo-link"
+                                          data-tabs-target="oxo-tab"
+                                          href="#oxo-tab"><i class="icon icon-functional" data-icon="0"></i> Term mappings</a></li>
+                <li class="tabs-title"><a id="diachron-link"
+                                          data-tabs-target="diachron-tab"
+                                          href="#diachron-tab"><i class="icon icon-generic" data-icon="g"></i> Term history</a></li>
 
-    <!--@thymesVar id="ontologyTerm" type="uk.ac.ebi.spot.ols.neo4j.model.Term"-->
-    <!--@thymesVar id="ontologyName" type="String"-->
-    <!--@thymesVar id="parentTerms" type="Set"-->
-    <!--@thymesVar id="relatedFroms" type="Set"-->
-    <!--@thymesVar id="definitionCitations" type="Set<uk.ac.ebi.spot.ols.util.OBODefinitionCitation>"-->
+                <!--li role="presentation"><a data-toggle="tab"
+                                              href="#graph-tab"th:onclick="'window.open(\'@{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})\'})'"
+                                              th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})}"
+                                              target="_blank">Visualisation</a></li-->
+                <!--li role="presentation"><a data-toggle="tab" href="#graph-tab">Graph view</a></li-->
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tabs-content" data-tabs-content="terms_tabs">
+                <div class="tabs-panel is-active" id="tree-tab">
+                    <div class="btn-group btn-group-vertical" style="float: right; padding-top: 5px;">
+                        <button class="btn btn-default" data-icon ="o" th:onclick="'javascript:window.open(\'' + @{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})} + '\')'" title="Visualisation of this term">
+                            <i class="icon icon-conceptual" data-icon="o"></i>
+                            Graph view
+                        </button>
+                        <button class="btn btn-default" value="true" title="Redraw the tree to focus on this terms" onclick="location.reload(true)">Reset tree</button>
+                        <!--th:value="${#httpServletRequest.getParameter('siblings') == 'true'} ? 'true': 'false'"-->
+                        <button class="btn btn-default" name="ontology_view_siblings"
+                                th:value="${#httpServletRequest.getParameter('siblings') == 'true'} ? 'true': 'false'"
+                                title="Expand the tree to show sibling terms"
+                                onclick="termInstance.toggleSiblings()">Show all siblings</button>
+                        <div th:attr="style=${preferredRootTermDisplayStyle}">
+                            <div class="radio icheck-belizehole">
+                                <input type="radio"
+                                       id="ontology_view_selection_id_preferred_roots"
+                                       name="ontology_view_selection"
+                                       value="PreferredRoots"
+                                       th:checked="${#httpServletRequest.getParameter('viewMode') == null or #httpServletRequest.getParameter('viewMode') == 'PreferredRoots'} ? 'true': 'false'"
+                                       onclick="termInstance.toggleOntologyView()"/>
+                                <label for="ontology_view_selection_id_preferred_roots"
+                                       style="margin: 0 0.1rem 0 0.2rem; color: #000000;">Preferred root terms</label>
+                            </div>
+                            <div class="radio icheck-belizehole">
+                                <input type="radio"
+                                       id="ontology_view_selection_id_all"
+                                       name="ontology_view_selection"
+                                       value="All"
+                                       th:checked="${#httpServletRequest.getParameter('viewMode') == 'All' or not preferredRootTermEnabled} ? 'true': 'false'"
+                                       onclick="termInstance.toggleOntologyView()"/>
+                                <label for="ontology_view_selection_id_all"
+                                       style="margin: 0 0.1rem 0 0.2rem; color: #000000;">All terms</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="term-tree"
+                         data-olswidget="tree"
+                         th:attr="data-olsontology=${ontologyTerm.getOntologyName()},data-ols-iri=${ontologyTerm.getIri()}" data-selectpath="../../"
+                         data-ols-termtype="class" data-olsontology=""
+                         data-ols-iri="">
+                    </div>
+                </div>
+
+                <div class="tabs-panel" id="diachron-tab">
+                    <div id="diachron-wrapper"></div>
+                </div>
+
+                <div class="tabs-panel" id="oxo-tab">
+                    This is just here as a test because I lose it
+                </div>
+
+                <!--div role="tabpanel" class="tab-pane" id="oxo-tab">
+                    <div id="oxo-wrapper">
+                        <form>
+                            <span>Mapping Distance: </span>
+                            <div style="margin-left: 15px; display: inline;">
+                                <input  type="text" id="distance-slider" name="distance" data-slider-id='ex1Slider' data-slider-value="1" value="1"/>
+                            </div>
+                            <input type="hidden" name="inputSource" th:value="${inputSource}"/>
+                            <input th:each="target : ${mappingTarget}" type="hidden" name="mappingTarget" th:value="${target}"/>
+                            <input type="hidden" name="ids" th:value="${ontologyTerm.getShortForm()}"/>
+                        </form>;
 
 
-
-    <div vocab="http://schema.org/" typeof="MedicalCode" id="content" role="main" class="grid_24 clearfix">
-
-        <div style="float:right;padding-right: 5px;">
-            <a style="float:right; border-bottom: none;" th:href="@{../../api/ontologies/__${ontologyTerm.getOntologyName()}__/terms (iri=${ontologyTerm.getIri()})}"  href="#">
-                <img th:src="@{../../img/file_JSON.png}" src="../static/img/file_JSON.png" alt="JSON" title="Get data as JSON"/>
-            </a>
+                        <div>
+                            <table id="example"
+                                   style="border-collapse: collapse;"
+                                   data-hide-from-col="true"
+                                   data-hide-table-info="true" data-api-path="//localhost:8081/oxo/" data-with-progress="false">
+                            </table>
+                        </div>
+                    </div>
+                </div>-->
+            </div>
         </div>
 
-        <nav id="breadcrumb"  >
-            <p style="display:inline;">
-                <a href="../../index">OLS</a> &gt;
-                <a class="nounderline" th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__}" th:text="${ontologyName}">ontology</a>
-                &nbsp;
-                <a class="nounderline" property="codingSystem" th:attr="content=${ontologyTerm.getOntologyName()}" th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__}" href="#" style="border-bottom-width: 0px;">
-                    <span class="ontology-source" th:text="${ontologyTerm.getOntologyPrefix()}">parent 1</span>
-                </a>   &gt;
 
-                <span id='shortForm' th:if="${ontologyTerm.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyTerm.getOboId()}">id</span>
-                <span id='shortForm' th:unless="${ontologyTerm.getOboId()} != null" class="term-source" property="codeValue" th:text="${ontologyTerm.getShortForm()}">id</span>
+        <div id="right_info_box" class="small-4 columns">
+            <div id="term_info_box" class="panel">
+                <!--div id="term_info_box" class="callout white-background"-->
+                <div class="panel-heading">
+                    <h4>Term information</h4>
+                </div>
+                <div class="panel-body">
 
-                <button title="Copy id to clipboard" id='copyShortForm' data-clipboard-action="copy" data-clipboard-target="#shortForm" class="glyphicon glyphicon-copy" type="button"></button>
-            </p>
-        </nav>
+                    <!--div>
+                        <span>Short id: </span>
+                        <p th:text="${ontologyTerm.getShortForm()}">NCBI_9606</p>
+                    </div-->
 
+                    <!--div th:if="${ontologyTerm.getOboId() != null}">
+                        <span>OBO id: </span>
+                        <p th:text="${ontologyTerm.getOboId()}">NCBI:9606</p>
+                    </div-->
 
-
-        <div class="container" style="margin:9px;">
-            <!--<div class="grid_24 alpha">-->
-
-            <section>
-                <div class="grid_24 clearfix">
-                    <div class="grid_24 clearfix">
-                        <div class="grid_18 alpha">
-                            <h1 property="name"  style="margin: 0px;" th:text="${ontologyTerm.getLabel()}">Term Label</h1>
-                        </div>
-
-                        <div class="grid_6">
-                            <form name="local-search" action="../../search" method="get">
-                                <div id="bloodhound" class="input-group">
-                                    <input style="margin-bottom: 0.1em;" class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="select" th:placeholder="'Search ' + ${ontologyTerm.getOntologyPrefix()}" th:attr="data-olsontology=${ontologyTerm.getOntologyName()}" data-olsontology=""  data-selectpath="../../" placeholder="Search OLS" aria-describedby="basic-addon1"/>
-
-                                    <input type="hidden" name="ontology" th:value="${ontologyTerm.getOntologyName()}"/>
-
-                                    <span class="input-group-btn">
-                                      <button class="btn btn-default glyphicon glyphicon-search" type="submit">
-                                      </button>
-                                    </span>
-                                </div><!-- /input-group -->
-                            </form>
-                        </div>
-
+                    <div th:if="${not #sets.isEmpty(xrefs)}">
+                        <a href="#"
+                           th:href="@{../../search(q='database_cross_reference', exact='true', type='property', ontology=${ontologyTerm.ontologyName})}">database cross reference</a>
+                        <ul>
+                            <li style="margin-left: 9px;" th:each="oboXref: ${xrefs}">
+                                <a th:if="${oboXref.getUrl() != null and oboXref.getDatabase() != null and oboXref.getId() != null}"
+                                   target="_blank"
+                                   th:href="${oboXref.getUrl()}"
+                                   th:text="${oboXref.getDatabase() + ':' + oboXref.getId()}"></a>
+                                <a th:if="${oboXref.getUrl() != null and oboXref.getDatabase() == null}"
+                                   target="_blank"
+                                   th:href="${oboXref.getUrl()}"
+                                   th:text="${oboXref.getId()}"></a>
+                                <span th:if="${oboXref.getDatabase() != null and oboXref.getUrl() == null}"
+                                      th:text="${oboXref.getDatabase()}"></span>
+                                <span th:if="${oboXref.getDescription() != null}"
+                                      th:text="'(' + ${oboXref.getDescription()} + ')'"></span>
+                            </li>
+                        </ul>
                     </div>
 
-
-                    <div class="grid_24 clearfix">
-                        <a style="padding: 9px;border-bottom: none;" th:href="@{${ontologyTerm.getIri()}}" class="nounderline" target="blank"><img th:src="@{../../img/external_link.png}" src="../static/img/external_link.png" alt="^" title="Go to external page"/></a>
-                        <span property="url" id="OLS_ID" style="font-size: small;color: grey;" th:text="${ontologyTerm.getIri()}">http://www.example.com/onto/id</span>
-                        <p style="display:inline;"><button title="Copy id to clipboard" id='copyThis' data-clipboard-action="copy" data-clipboard-target="#OLS_ID" class="glyphicon glyphicon-copy" type="button"></button></p>
-
-                        <!--<p style="display:inline;"><button id='copyThis' data-clipboard-action="copy" data-clipboard-target="#test" type="button">Copy to clipboard</button></p>
-                        <p id="citeThis" style="display:inline;"><button type="button" title="Click here">Cite this</button></p>
-                        <p id="overlay" style="display:inline;"></p> -->
+                    <div th:if="${ontologyTerm.getInSubsets()}">
+                        <b>Subsets</b>
+                        <p class="annotation-value"
+                           style="margin-left: 9px;"
+                           th:text="${#strings.setJoin(ontologyTerm.getInSubsets(), ', ')}">NCBI_9606</p>
                     </div>
-                    <div class="grid_24 alpha clearfix">
 
-                        <hr style="margin-left: 9px;"/>
-
-                        <div style="margin-left:9px;" th:if="${ontologyTerm.isObsolete()}">
-                            <div class="obsolete">This term is obsolete</div>
-                            <br/>
-                            <br/>
-
-                            <div th:if="${ontologyTerm.getAnnotation().containsKey('reason_for_obsolescence')}" >
-                                <b>
-                                    Reason for obsolescence
-                                </b>
-                                <p style="margin-left:9px;" th:text="${#strings.setJoin(ontologyTerm.getAnnotation().get('reason_for_obsolescence'), ',')}">NCBI_9606</p>
-                            </div>
-
-                            <div th:if="${ontologyTerm.getAnnotation().containsKey('replacedBy')}" >
-                                <b>
-                                    Replaced by
-                                </b>
-                                <p style="margin-left:9px;" th:text="${#strings.setJoin(ontologyTerm.getAnnotation().get('replacedBy'), ',')}">NCBI_9606</p>
-                            </div>
-
-                            <div th:if="${ontologyTerm.getAnnotation().containsKey('term replaced by')}" >
-                                <b>
-                                    Replaced by
-                                </b>
-                                <p style="margin-left:9px;" th:text="${#strings.setJoin(ontologyTerm.getAnnotation().get('term replaced by'), ',')}">NCBI_9606</p>
-                            </div>
-
-                            <div th:if="${ontologyTerm.getAnnotation().containsKey('consider')}" >
-                                <b>
-                                    Consider
-                                </b>
-                                <p style="margin-left:9px;" th:text="${#strings.setJoin(ontologyTerm.getAnnotation().get('consider'), ',')}">NCBI_9606</p>
-                            </div>
-
-                        </div>
-                        <div property="description">
-
-                            <!--@thymesVar id="definitionCitation" type="uk.ac.ebi.spot.ols.util.OBODefinitionCitation"-->
-
-                            <div th:each="definitionCitation : ${definitionCitations}">
-
-                                <p>
-                                    <span th:text="${definitionCitation.getDefinition()}">
-
-                                    </span>
-                                    [
-                                    <span th:each="oboXref : ${definitionCitation.getOboXrefs()}">
+                    <div th:if="${not #sets.isEmpty(synonyms)}">
+                        <div th:each="synonym: ${synonyms}">
+                            <div th:if="${synonym.getType()}">
+                                <a href="#" th:href="@{../../search(q=${synonym.getType()}, type=property, ontology=${ontologyTerm.ontologyName})}" th:text="${synonym.getType().replaceAll('_', ' ')}">property name</a>
+                                <div style="margin-left:9px;">
+                                    <span th:text="${synonym.getName()}"></span>
+                                    <span th:if="${not #sets.isEmpty(synonym.getXrefs())}">[</span>
+                                    <span th:each="oboXref: ${synonym.getXrefs()}">
                                         <a th:if="${oboXref.getUrl() != null}" target="_blank" th:href="${oboXref.getUrl()}" th:text="${oboXref.getUrl()}"></a>
                                         <span th:if="${oboXref.getDatabase() != null and oboXref.getUrl() == null}" th:text="${oboXref.getDatabase()}"></span><!--
-                                        --><span th:if="${oboXref.getId() != null and oboXref.getDatabase() != null and oboXref.getUrl() == null}">:</span><!--
-                                        --><span th:if="${oboXref.getId() != null and oboXref.getUrl() == null}" th:text="${oboXref.getId()}"></span>
+                                     --><span th:if="${oboXref.getId() != null and oboXref.getDatabase() != null and oboXref.getUrl() == null}">:</span><!--
+                                     --><span th:if="${oboXref.getId() != null and oboXref.getUrl() == null}" th:text="${oboXref.getId()}"></span>
                                         <span th:if="${oboXref.getDescription() != null}" th:text="'(' + ${oboXref.getDescription()} + ')'"></span>
                                     </span>
-                                    ]
-                                </p>
+                                    <span th:if="${not #sets.isEmpty(synonym.getXrefs())}">]</span>
+                                </div>
+                                <br/>
                             </div>
-
-                            <p th:unless="${definitionCitations}" th:each="description : ${ontologyTerm.getDescription()}" th:text="${description}">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget <nulla class=""></nulla>                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum.
-                            </p>
                         </div>
-
-                        <div th:if="${ontologyTerm.getSynonyms() !=null}">
-                            <p><b>Synonyms:</b>
-                                <span property="alternateName" style="margin-left:9px;" th:text="${#strings.setJoin(ontologyTerm.getSynonyms(), ', ')}">NCBI_9606</span>
-                            </p>
-                        </div>
-
                     </div>
 
+                    <div th:each="annotations: ${ontologyTerm.getAnnotation()}">
+                        <div th:unless="${annotations.key} eq 'database_cross_reference'">
+                            <b><a href="#"
+                                  th:href="@{../../search(q=${annotations.key},exact='true', type=property, ontology=${ontologyTerm.ontologyName})}"
+                                  th:text="${annotations.key.replaceAll('_', ' ')}">property name</a></b>
+                            <p class="annotation-value" style="margin-left:9px;" th:text="${#strings.setJoin(annotations.value, ', ')}">NCBI_9606</p>
+                        </div>
+                    </div>
                 </div>
-            </section>
+            </div>
 
-            <section>
+            <div id="term_relation_box" class="panel">
+                <div class="panel-heading">
+                    <h4>Term relations</h4>
+                </div>
 
+                <div class="panel-body">
 
+                    <!--div th:if="${parentTerms != null}">
+                        <b>Parents</b>
+                        <br/>
+                    </div-->
 
-
-                <div class="grid_24 clearfix">
-                    <div class="grid_14 alpha">
-                        <ul  class="nav nav-tabs">
-                            <li role="presentation" class="active"><a data-toggle="tab" class="icon icon-functional" data-icon="h" id="tree-link" href="#tree-tab">Tree view</a></li>
-                            <!--<li role="presentation"><a data-toggle="tab" id="oxo-link"  class="icon icon-generic" data-icon="g" href="#oxo-tab">Term mappings</a></li>-->
-                            <li role="presentation"><a data-toggle="tab" id="diachron-link"  class="icon icon-generic" data-icon="g" href="#diachron-tab">Term history</a></li>
-
-                            <!--<li role="presentation"><a data-toggle="tab" href="#graph-tab"  th:onclick="'window.open(\'@{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})\'})'" th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})}" target="_blank">Visualisation</a></li>-->
-                            <!--<li role="presentation"><a data-toggle="tab"  href="#graph-tab">Graph view</a></li>-->
+                    <div th:if="${ontologyTerm.getEquivalentClassDescription() != null}">
+                        <b>Equivalent to: </b>
+                        <br/>
+                        <ul>
+                            <li th:each="equivclassDesc : ${ontologyTerm.getEquivalentClassDescription()}"
+                                th:utext="${equivclassDesc}">NCBI_9606</li>
                         </ul>
-
-                        <!-- Tab panes -->
-                        <div class="tab-content">
-
-                            <div role="tabpanel" class="tab-pane active" id="tree-tab">
-
-                                <div class="btn-group btn-group-vertical" style="float: right;padding-top:5px;">
-                                    <button class="icon icon-conceptual  btn  btn-default" data-icon ="o" th:onclick="'javascript:window.open(\'' + @{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})} + '\')'" title="Visualisation of this term">Graph view</button>
-                                    <button class="btn btn-default" value="true" title="Redraw the tree to focus on this terms" onclick="location.reload(true)">Reset tree</button>
-                                    <!--                                            th:value="${#httpServletRequest.getParameter('siblings') == 'true'} ? 'true': 'false'"-->
-                                    <button class="btn btn-default" name="ontology_view_siblings"
-                                            th:value="${#httpServletRequest.getParameter('siblings') == 'true'} ? 'true': 'false'"
-                                            title="Expand the tree to show sibling terms"
-                                            onclick="termInstance.toggleSiblings()">Show all siblings</button>
-                                    <div  th:attr="style=${preferredRootTermDisplayStyle}">
-                                        <div class="radio icheck-belizehole">
-                                            <input type="radio"
-                                                   id="ontology_view_selection_id_preferred_roots"
-                                                   name="ontology_view_selection"
-                                                   value="PreferredRoots"
-                                                   th:checked="${#httpServletRequest.getParameter('viewMode') == null or #httpServletRequest.getParameter('viewMode') == 'PreferredRoots'} ? 'true': 'false'"
-                                                   onclick="termInstance.toggleOntologyView()"/>
-                                            <label for="ontology_view_selection_id_preferred_roots"
-                                                   style="margin: 0 0.1rem 0 0.2rem; color: #000000;">Preferred root terms</label>
-                                        </div>
-                                        <div class="radio icheck-belizehole">
-                                            <input type="radio"
-                                                   id="ontology_view_selection_id_all"
-                                                   name="ontology_view_selection"
-                                                   value="All"
-                                                   th:checked="${#httpServletRequest.getParameter('viewMode') == 'All' or not preferredRootTermEnabled} ? 'true': 'false'"
-                                                   onclick="termInstance.toggleOntologyView()"/>
-                                            <label for="ontology_view_selection_id_all"
-                                                   style="margin: 0 0.1rem 0 0.2rem; color: #000000;">All terms</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div id="term-tree" data-olswidget="tree" th:attr="data-olsontology=${ontologyTerm.getOntologyName()},data-ols-iri=${ontologyTerm.getIri()}" data-selectpath="../../" data-ols-termtype="class" data-olsontology="" data-ols-iri=""  >
-                                </div>
-                            </div>
-
-                            <div role="tabpanel" class="tab-pane" id="diachron-tab">
-                                <div id="diachron-wrapper"></div>
-                            </div>
-
-                        </div>
-
+                        <br/>
                     </div>
 
+                    <div>
+                        <b>Subclass of: </b>
+                        <br/>
+                        <ul>
+                            <li th:each="parentTerm : ${parentTerms}">
+                                <a href="#" th:title="${parentTerm.getIri()}"
+                                   th:href="@{terms (iri=${parentTerm.getIri()})}"
+                                   th:text="${parentTerm.getLabel()}">parent 1</a></li>
+                            <li th:each="superclassDesc : ${ontologyTerm.getSuperClassDescription()}"
+                                th:utext="${superclassDesc}">NCBI_9606</li>
+                        </ul>
+                        <br/>
+                    </div>
 
-                    <div id="right_info_box" class="grid_10 info-box">
-
-                        <div id="term_info_box" class="panel panel-primary">
-
-                            <div class="panel-heading">
-                                <h3 style="padding: 0" class="panel-title">Term info</h3>
-                            </div>
-                            <div class="panel-body">
-
-
-                                <!--<div>-->
-                                <!--<span>Short id: </span>-->
-                                <!--<p th:text="${ontologyTerm.getShortForm()}">NCBI_9606</p>-->
-                                <!--</div>-->
-
-                                <!--<div th:if="${ontologyTerm.getOboId() != null}">-->
-                                <!--<span>OBO id: </span>-->
-                                <!--<p th:text="${ontologyTerm.getOboId()}">NCBI:9606</p>-->
-                                <!--</div>-->
-
-                                <div th:if="${not #sets.isEmpty(xrefs)}">
-                                    <a href="#" th:href="@{../../search(q='database_cross_reference',exact='true', type=property, ontology=${ontologyTerm.ontologyName})}">database cross reference</a>
-                                    <ul>
-                                        <li style="margin-left:9px;" th:each="oboXref: ${xrefs}">
-                                            <a th:if="${oboXref.getUrl() != null and oboXref.getDatabase() != null and oboXref.getId() != null}" target="_blank" th:href="${oboXref.getUrl()}" th:text="${oboXref.getDatabase() + ':' + oboXref.getId()}"></a>
-                                            <a th:if="${oboXref.getUrl() != null and oboXref.getDatabase() == null}" target="_blank" th:href="${oboXref.getUrl()}" th:text="${oboXref.getId()}"></a>
-                                            <span th:if="${oboXref.getDatabase() != null and oboXref.getUrl() == null}" th:text="${oboXref.getDatabase()}"></span><!--
-                                            --><span th:if="${oboXref.getId() != null and oboXref.getDatabase() != null and oboXref.getUrl() == null}">:</span><!--
-                                            --><span th:if="${oboXref.getId() != null and oboXref.getUrl() == null}" th:text="${oboXref.getId()}"></span>
-                                            <span th:if="${oboXref.getDescription() != null}" th:text="'(' + ${oboXref.getDescription()} + ')'"></span>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div th:if="${ontologyTerm.getInSubsets()}">
-                                    <b>
-                                        Subsets
-                                    </b>
-                                    <p class="annotation-value" style="margin-left:9px;" th:text="${#strings.setJoin(ontologyTerm.getInSubsets(), ', ')}">NCBI_9606</p>
-                                </div>
-
-                                <div th:if="${not #sets.isEmpty(synonyms)}">
-                                    <div th:each="synonym: ${synonyms}">
-                                        <div th:if="${synonym.getType()}">
-                                            <a href="#" th:href="@{../../search(q=${synonym.getType()}, type=property, ontology=${ontologyTerm.ontologyName})}" th:text="${synonym.getType().replaceAll('_', ' ')}">property name</a>
-                                            <div style="margin-left:9px;">
-                                                <span th:text="${synonym.getName()}"></span>
-                                                <span th:if="${not #sets.isEmpty(synonym.getXrefs())}">[</span>
-                                                <span th:each="oboXref: ${synonym.getXrefs()}">
-                                                    <a th:if="${oboXref.getUrl() != null}" target="_blank" th:href="${oboXref.getUrl()}" th:text="${oboXref.getUrl()}"></a>
-                                                    <span th:if="${oboXref.getDatabase() != null and oboXref.getUrl() == null}" th:text="${oboXref.getDatabase()}"></span><!--
-                                                    --><span th:if="${oboXref.getId() != null and oboXref.getDatabase() != null and oboXref.getUrl() == null}">:</span><!--
-                                                    --><span th:if="${oboXref.getId() != null and oboXref.getUrl() == null}" th:text="${oboXref.getId()}"></span>
-                                                    <span th:if="${oboXref.getDescription() != null}" th:text="'(' + ${oboXref.getDescription()} + ')'"></span>
-                                                </span>
-                                                <span th:if="${not #sets.isEmpty(synonym.getXrefs())}">]</span>
-                                            </div>
-                                            <br/>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div th:each="annotations: ${ontologyTerm.getAnnotation()}">
-                                    <div th:unless="${annotations.key} eq 'database_cross_reference'">
-                                        <b>
-                                            <a href="#" th:href="@{../../search(q=${annotations.key},exact='true', type=property, ontology=${ontologyTerm.ontologyName})}" th:text="${annotations.key.replaceAll('_', ' ')}">property name</a>
-                                        </b>
-                                        <p class="annotation-value" style="margin-left:9px;" th:text="${#strings.setJoin(annotations.value, ', ')}">NCBI_9606</p>
-                                    </div>
-                                </div>
-
-                            </div>
+                    <div th:if="${not #maps.isEmpty(relatedFroms)}">
+                        <b>Related from:</b>
+                        <br/>
+                        <div th:each="relation : ${relatedFroms}">
+                            <a class="ObjectProperty"
+                               th:href="@{../../search(q=${relation.key},exact='true', type=property, ontology=${ontologyTerm.ontologyName})}"
+                               th:text="${relation.key}"></a>
+                            <ul>
+                                <li th:each="term,iterStat: ${relation.value}"><a href="#"
+                                                                                  th:title="${term.iri}"
+                                                                                  th:href="@{terms (iri=${term.iri})}"
+                                                                                  th:text="${term.label}">parent 1</a></li>
+                            </ul>
+                            <!--span th:each="term,iterStat: ${relation.value}">
+                                <a href="#" th:href="@{terms (iri=${term.iri})}" th:text="${term.label}">parent 1</a>
+                                <span th:if="${iterStat.count &lt; iterStat.size}">, </span>
+                            </span-->
                         </div>
+                    </div>
 
-                        <div id="term_relation_box" class="panel panel-primary">
-
-                            <div class="panel-heading">
-                                <h3 style="padding: 0" class="panel-title">Term relations</h3>
-                            </div>
-                            <div class="panel-body">
-
-                                <!--<div th:if="${parentTerms != null}">-->
-                                <!--<b>Parents</b>-->
-                                <!--<br/>-->
-
-                                <!--</div>-->
-
-                                <div  th:if="${ontologyTerm.getEquivalentClassDescription() != null}">
-                                    <b>Equivalent to: </b>
-                                    <br/>
-                                    <ul>
-                                        <li th:each="equivclassDesc : ${ontologyTerm.getEquivalentClassDescription()}" th:utext="${equivclassDesc}">NCBI_9606</li>
-                                    </ul>
-                                    <br/>
-                                </div>
-
-                                <div>
-                                    <b>Subclass of: </b>
-                                    <br/>
-                                    <ul>
-                                        <li th:each="parentTerm : ${parentTerms}">
-                                            <a href="#" th:title="${parentTerm.getIri()}" th:href="@{terms (iri=${parentTerm.getIri()})}" th:text="${parentTerm.getLabel()}">parent 1</a>
-                                        </li>
-                                        <li th:each="superclassDesc : ${ontologyTerm.getSuperClassDescription()}" th:utext="${superclassDesc}">NCBI_9606</li>
-                                    </ul>
-
-
-                                    <br/>
-                                </div>
-
-
-                                <div th:if="${not #maps.isEmpty(relatedFroms)}">
-                                    <b>Related from:</b>
-                                    <br/>
-                                    <div th:each="relation : ${relatedFroms}">
-                                        <a class="ObjectProperty" th:href="@{../../search(q=${relation.key},exact='true', type=property, ontology=${ontologyTerm.ontologyName})}" th:text="${relation.key}"></a>
-                                        <ul>
-                                            <li th:each="term,iterStat: ${relation.value}">
-                                                <a href="#" th:title="${term.iri}" th:href="@{terms (iri=${term.iri})}" th:text="${term.label}">parent 1</a>
-                                            </li>
-
-                                        </ul>
-                                        <!--<span th:each="term,iterStat: ${relation.value}">-->
-                                        <!--<a href="#" th:href="@{terms (iri=${term.iri})}" th:text="${term.label}">parent 1</a>-->
-                                        <!--<span th:if="${iterStat.count &lt; iterStat.size}">, </span>-->
-                                        <!--</span>-->
-                                    </div>
-                                </div>
-
-                                <div th:if="${not #sets.isEmpty(instances)}"> 
-                                    <b>Instances:</b> 
-                                    <ul> 
-                                        <li th:each="instance : ${instances}">
-                                            <a href="#" th:title="${instance.iri}" th:href="@{individuals (iri=${instance.iri})}" th:text="${instance.label}">parent 1</a> 
-                                        </li>  
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                    <div th:if="${not #sets.isEmpty(instances)}">
+                        <b>Instances:</b>
+                        <ul>
+                            <li th:each="instance : ${instances}"><a href="#"
+                                                                     th:title="${instance.iri}"
+                                                                     th:href="@{individuals (iri=${instance.iri})}"
+                                                                     th:text="${instance.label}">parent 1</a></li>
+                        </ul>
                     </div>
                 </div>
-            </section>
+            </div>
         </div>
     </div>
+</section>
 
-    <footer>
-        <!-- Optional local footer (insert citation / project-specific copyright / etc here -->
-        <div id="elixir-banner" data-color="grey" data-name="The Ontology Lookup Service" data-description="OLS is an ELIXIR interoperability service" data-more-information-link="//www.elixir-europe.org/platforms/interoperability" data-use-basic-styles="true"></div>
-        <script src="//ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/js/elixirBanner.js"></script>
+<th:block th:include="fragments/footer :: footer"></th:block>
 
-        <!-- End optional local footer -->
 
-        <div id="global-footer" class="grid_24 clearfix">
-
-            <nav id="global-nav-expanded">
-
-                <div class="grid_4 alpha">
-                    <h3 class="embl-ebi"><a href="//www.ebi.ac.uk/" title="EMBL-EBI">EMBL-EBI</a></h3>
-                </div>
-
-                <div class="grid_4">
-                    <h3 class="services"><a href="//www.ebi.ac.uk/services">Services</a></h3>
-                </div>
-
-                <div class="grid_4">
-                    <h3 class="research"><a href="//www.ebi.ac.uk/research">Research</a></h3>
-                </div>
-
-                <div class="grid_4">
-                    <h3 class="training"><a href="//www.ebi.ac.uk/training">Training</a></h3>
-                </div>
-
-                <div class="grid_4">
-                    <h3 class="industry"><a href="//www.ebi.ac.uk/industry">Industry</a></h3>
-                </div>
-
-                <div class="grid_4 omega">
-                    <h3 class="about"><a href="//www.ebi.ac.uk/about">About us</a></h3>
-                </div>
-
-            </nav>
-
-            <section id="ebi-footer-meta">
-                <p class="address">EMBL-EBI, Wellcome Trust Genome Campus, Hinxton, Cambridgeshire, CB10 1SD, UK &nbsp; &nbsp; +44 (0)1223 49 44 44</p>
-                <p class="legal">Copyright &copy; EMBL-EBI 2013 | EBI is an outstation of the <a href="http://www.embl.org">European Molecular Biology Laboratory</a> | <a href="/about/privacy">Privacy</a> | <a href="/about/cookies">Cookies</a> | <a href="/about/terms-of-use">Terms of use</a></p>
-            </section>
-
-        </div>
-
-    </footer>
-
-</div>
-
-<script type="text/javascript" src="../static/js/jquery/1.11.1/jquery.min.js" th:src="@{../../js/jquery/1.11.1/jquery.min.js}"></script>
+<!--script type="text/javascript" src="../static/js/jquery/1.11.1/jquery.min.js" th:src="@{../../js/jquery/1.11.1/jquery.min.js}"></script>
 <script type="text/javascript" src="../static/js/typeahead/typeahead.bundle.js" th:src="@{../../js/typeahead/typeahead.bundle.js}"></script>
 <script type="text/javascript" src="../static/js/handlebars/4.0.5/handlebars.min.js" th:src="@{../../js/handlebars/4.0.5/handlebars.min.js}"></script>
+<script type="text/javascript" src="../static/js/bootstrap/bootstrap.min.js" th:src="@{../../js/bootstrap/bootstrap.min.js}"></script-->
 
+<script type="text/javascript" src="https://cdn.datatables.net/r/zf-5.5.2/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script>
+<script type="text/javascript" src="../static/js/typeahead/typeahead.bundle.js" th:src="@{../../js/typeahead/typeahead.bundle.js}"></script>
+<script type="text/javascript" src="../static/js/handlebars/4.0.5/handlebars.min.js" th:src="@{../../js/handlebars/4.0.5/handlebars.min.js}"></script>
 
 <script type="text/javascript" src="../static/js/ols.js" th:src="@{../../js/ols.js}"></script>
 <script src="../static/js/jstree/jstree.min.js" th:src="@{../../js/jstree/jstree.min.js}"></script>
 
 <script type="text/javascript" src="../static/js/ols-termselect2.js" th:src="@{../../js/ols-termselect2.js (beta=r1)}"></script>
-<!--<script type="text/javascript" src="../static/js/ols-treeview.min.js" th:src="@{../../js/ols-treeview.min.js  (v=0.0.42)}"></script>-->
+<!--script type="text/javascript" src="../static/js/ols-treeview.min.js" th:src="@{../../js/ols-treeview.min.js  (v=0.0.42)}"></script-->
 <script type="text/javascript" src="../static/js/ols-term-type-treeview.js" th:src="@{../../js/ols-term-type-treeview.js}"></script>
 <script type="text/javascript" src="../static/js/bootstrap/bootstrap.min.js" th:src="@{../../js/bootstrap/bootstrap.min.js}"></script>
 
 <script type="text/javascript" src="../static/js/clipboard.min.js" th:src="@{../../js/clipboard.min.js}"></script>
 
 <script>
-    $(document).ready(function() {
-        $('.mansyntax').each(function ()
-        {
-//            $(this).trigger('click');//for clicking element
+    $(document).ready(function () {
+        $('.mansyntax').each(function () {
+            // $(this).trigger('click');  // for clicking element
             var href = $(this).attr("href");
             if ($(this).hasClass('ObjectProperty')) {
                 $(this).attr("href", getUrlType('property') + '?iri=' + encodeURIComponent(href));
-            }
-            else if ($(this).hasClass('Class')) {
+            } else if ($(this).hasClass('Class')) {
                 $(this).attr("href", getUrlType('class') + '?iri=' + encodeURIComponent(href));
-            }
-            else if ($(this).hasClass('Individual')) {
+            } else if ($(this).hasClass('Individual')) {
                 $(this).attr("href", getUrlType('individual') + '?iri=' + encodeURIComponent(href));
             }
         });
 
         $('.annotation-value').each(function () {
             var value = $(this).text();
-            if (value.match(/.+\.(gif|png|jpe?g)$/i))  {
+            if (value.match(/.+\.(gif|png|jpe?g)$/i)) {
                 $(this).text("");
                 var img = $('<img/>');
                 img.css('max-width', '200px');
                 img.css('width', '100%');
                 img.css('height', 'auto');
                 img.attr('src', value);
-                $(this).append(img)
+                $(this).append(img);
+            } else if (value.match(/^(http|https|ftp):\/\//)) {
+                $(this).text("");
+                var link = $('<a/>');
+                link.attr('href', value);
+                link.attr('text', value);
+                link.attr('class', "icon icon-generic");
+                link.attr('data-ico', "x");
             }
-
         });
 
-        /*$('#citeThis').on('click', function (){
-         $('#overlay').html('<p id="overlay" style="display:inline; opacity:0.5; background:light-gray;">Imaging here to be text to be cited we still think about the layout <a id="close" href="">close</a></p>')
-         $('#close').on('click', function(){  $("#overlay").hide();})
-         })*/
+        /*
+        $('#citeThis').on('click', function() {
+        $('#overlay').html(
+            '<p id="overlay" style="display:inline; opacity:0.5; background:light-gray;">Imaging here to be text to \
+             be cited we still think about the layout <a id="close" href="">close</a></p>'
+        );
+        $('#close').on('click', function() { $("#overlay").hide(); });
+        });
+         */
 
-        new Clipboard('#copyThis')
-        new Clipboard('#copyShortForm')
+        new Clipboard('#copyThis');
+        new Clipboard('#copyShortForm');
+
+        /*Working on mappings*/
+        console.log('Short Form');
+        var shortForm = $('#shortForm').text();
+
+        // shortForm="EFO:0000400";
+        var baseURL = "https://www.ebi.ac.uk/spot/oxo/api/mappings?fromId=";
+        var URL = baseURL + shortForm;
+        var buttonLink = "https://www.ebi.ac.uk/spot/oxo/terms/" + shortForm;
+        // console.log(URL);
+
+        $("#oxo-tab").empty();
+
+        $.getJSON(URL, function (data) {
+            console.log(data);
+
+            if (data["page"]["totalElements"] > 0) {
+                $("#oxo-tab").append("<h4>Known Mappings for this term</h4>");
+
+                var mappings = data["_embedded"]["mappings"];
+
+                var i = 0;
+                var htmlString = "<table>";
+                var label;
+                var curie;
+                for (i = 0; mappings.length > i; i = i + 1) {
+                    console.log(mappings[i]["toTerm"]["label"]);
+                    label = mappings[i]["toTerm"]["label"];
+                    curie = mappings[i]["toTerm"]["curie"];
+                    htmlString = htmlString + "<tr><td>" + label + "</td><td>" + curie + "</td></tr>";
+                }
+                htmlString = htmlString + "</table>";
+                $("#oxo-tab").append(htmlString);
+
+                htmlString = '<a class="button secondary" href="' + buttonLink +
+                             '" target="_blank">More details about these mappings</a>';
+                $('#oxo-tab').append(htmlString);
+            } else {
+                $('#oxo-tab').append(
+                    '<p>Could not find any direct mappings for this term. Use our \
+                     <a href="https://www.ebi.ac.uk/spot/oxo/">Ontology Xreference service</a> \
+                     to explore mappings in more detail!</p>'
+                );
+            }
+        });
     });
-</script>
 
-<script>
     var ontologyName = $("#term-tree").data("olsontology");
     var termType = $("#term-tree").data("ols-termtype");
     var termIri = $("#term-tree").data("ols-iri");
@@ -633,14 +552,10 @@
     var showSiblings = $("button[name='ontology_view_siblings']").val() == 'true';
     var viewMode = $("input[name='ontology_view_selection']:checked").val();
 
-
     termInstance.draw(showSiblings, viewMode);
 </script>
 
-<script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/cookiebanner.js"></script>
-<script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/foot.js"></script>
 
-<!-- Start Diachron include scripts-->
 <script src="//code.highcharts.com/highcharts.js"></script>
 <script src="//code.highcharts.com/highcharts-more.js"></script>
 <script src="//code.highcharts.com/modules/exporting.js"></script>
@@ -650,48 +565,6 @@
 <script src="../../static/js/diachron/moment.js" th:src="@{../../js/diachron/moment.js}"></script>
 <script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
 
-<!--<script src="../../static/js/diachron/tablesorter.min.js" th:src="@{../../js/diachron/tablesorter.min.js}"></script>-->
 
-<!-- oxo libs -->
-<!--<script type="text/javascript" src="//cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>-->
-<!--<script type="text/javascript" src="//www.ebi.ac.uk/spot/oxo/webjars/bootstrap-slider/5.3.1/bootstrap-slider.min.js"></script>-->
-<!--<script type="text/javascript" th:src="@{../../js/oxo-search.js}"></script>-->
-
-<!-- END Diachron scripts-->
-
-<script>
-    $(document).ready(function() {
-
-//        $('#distance-slider').bootstrapSlider({
-//            step: 1, min: 1, max: 3,
-//            ticks: [1, 2, 3],
-//            ticks_labels: ['1', '2', '3'],
-//            ticks_snap_bounds: 50
-//        }).on('slideStop', function () {
-//            reinitialiseTable()
-////            drawGraph()
-//
-//        });
-//        $('a[data-toggle = "tab"]').on('show.bs.tab', function (e) {
-//            console.log("oxo loading...")
-//            reinitialiseTable()
-//        })
-    });
-
-
-
-</script>
-
-
-<script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-69391170-1', 'auto');
-    ga('send', 'pageview');
-    ga('set', 'anonymizeIp', true);
-
-</script>
 </body>
 </html>

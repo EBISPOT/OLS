@@ -31,7 +31,8 @@ public class OntologyTermGraphService {
             "WHERE n.ontology_name = {0} AND n.iri = {1}\n"+
             "UNWIND nodes(path) as p\n" +
             "UNWIND rels(path) as r1\n" +
-            "RETURN {nodes: collect( distinct {iri: p.iri, label: p.label})[0..200], edges: collect (distinct {source: startNode(r1).iri, target: endNode(r1).iri, label: r1.label, uri: r1.uri}  )[0..200]} as result";
+            "RETURN {nodes: collect( distinct {iri: p.iri, label: p.label})[0..200], " +
+            "edges: collect (distinct {source: startNode(r1).iri, target: endNode(r1).iri, label: r1.label, uri: r1.uri}  )[0..200]} as result";
 
 
     String relatedFromQuery =  "MATCH (x)-[r:Related]->(n:Class) WHERE n.ontology_name = {0} AND n.iri = {1} RETURN r.label as relation, collect( {iri: x.iri, label: x.label})[0..99] as terms limit 100";

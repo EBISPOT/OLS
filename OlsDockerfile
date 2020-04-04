@@ -1,0 +1,71 @@
+#  Use debian base, and build up components from there
+
+FROM debian:stretch-20190326-slim
+
+ENV LIBSSL_EXTRA="libssl1.0.0_1.0.1t-1+deb8u11_amd64.deb"
+ENV MONGO_VERSION="mongodb-linux-x86_64-debian71-2.7.8"
+ENV SOLR_VERSION_NO="5.5.5"
+ENV PATH="/opt/solr-${SOLR_VERSION_NO}/bin:/opt/${MONGO_VERSION}/bin:${PATH}"
+
+#  Copy this file as a test, should you care to
+# COPY ./OlsDockerfile /home/
+
+#  Install OpenJDK 8
+
+#  See https://github.com/debuerreotype/docker-debian-artifacts/issues/24
+RUN mkdir -p /usr/share/man/man1
+
+#  See https://github.com/phusion/baseimage-docker/issues/58
+RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+
+# RUN apt-get update && apt-get upgrade -y && apt-get install -y \
+RUN apt-get update && apt-get install -y \
+    procps apt-utils openjdk-8-jdk maven tomcat8 wget git emacs less lsof lynx
+
+WORKDIR /home/
+
+#  Get and install Solr
+RUN wget "http://archive.apache.org/dist/lucene/solr/${SOLR_VERSION_NO}/solr-${SOLR_VERSION_NO}.tgz"
+RUN tar -C /opt/ -zxvf solr-${SOLR_VERSION_NO}.tgz
+
+#  Not strictly necessary if importing OLS configs from GitHub, unless the
+#  latter require subsequent modification anyway. Which is of course quite
+#  likely, so swings and roundabouts ...
+#
+# COPY --chown=solr:nogroup ./ols-solr/src/main/solr-5-config /home/ols-solr-config
+COPY ./ols-solr/src/main/solr-5-config /home/ols-solr-config
+
+#  Get and install Mongo and its dependencies
+
+#  First install libssl 1.0.0, alongside stretch's default libssl 1.1
+#  See https://github.com/paritytech/parity-ethereum/issues/5893
+RUN wget "http://security.debian.org/debian-security/pool/updates/main/o/openssl/${LIBSSL_EXTRA}"
+RUN dpkg --install "${LIBSSL_EXTRA}"
+
+#  Set up directories
+RUN mkdir -p /data/db
+
+#  Install Mongo itself
+RUN wget http://downloads.mongodb.org/linux/${MONGO_VERSION}.tgz
+RUN tar -C /opt/ -zxvf ${MONGO_VERSION}.tgz
+
+#  Import OLS from GitHub, and (maybe, in the future?) build
+
+# RUN git clone https://github.com/EBISPOT/OLS.git /opt/OLS
+# RUN cd /opt/OLS && git checkout 3.x-dev && git checkout new-ui
+RUN git clone https://github.com/EBISPOT/OLS.git
+RUN cd OLS && git checkout 3.x-dev && git checkout new-ui
+
+#  Create daemon-summoner
+RUN echo "mongod --fork --logpath=/var/log/mongodb.log" > /home/daemonise.sh
+RUN echo \
+    "solr start -Dsolr.solr.home=/home/ols-solr-config -Dsolr.data.dir=/home/.ols/solr" \
+    >> /home/daemonise.sh
+RUN chmod a+x /home/daemonise.sh
+
+#  Configs here?
+
+# RUN cd /opt/OLS/ && mvn clean install
+
+#  Summon daemons
+# ENTRYPOINT [ "bash", "-l", "/docker-entrypoint.sh" ]

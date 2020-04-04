@@ -1,6 +1,7 @@
 package uk.ac.ebi.spot.ols.controller.ui;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -39,6 +40,9 @@ public class PropertyControllerUI {
     @Autowired
     private OntologyPropertyGraphService ontologyPropertyGraphService;
 
+    @Autowired
+    private CustomisationProperties customisationProperties;
+
     @RequestMapping(path = "/{onto}/properties", method = RequestMethod.GET)
     String getProperty(
             @PathVariable("onto") String ontologyId,
@@ -76,6 +80,7 @@ public class PropertyControllerUI {
             model.addAttribute("pageable", pageable);
             model.addAttribute("allproperties", termsPage);
             model.addAttribute("allpropertiessize", termsPage.getTotalElements());
+            customisationProperties.setCustomisationModelAttributes(model);
             return "allproperties";
         }
 
@@ -88,6 +93,7 @@ public class PropertyControllerUI {
 
         String title = repositoryService.get(ontologyId).getConfig().getTitle();
         model.addAttribute("ontologyName", title);
+        customisationProperties.setCustomisationModelAttributes(model);
 
         return "property";
     }
