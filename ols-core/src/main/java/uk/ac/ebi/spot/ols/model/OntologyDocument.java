@@ -34,6 +34,7 @@ public class OntologyDocument {
     private String localPath;
 
     private String version;
+    private String fileHash;
 
 
     private int numberOfTerms;
@@ -43,6 +44,7 @@ public class OntologyDocument {
     private OntologyResourceConfig config;
 
     public OntologyDocument(String ontologyId, Date updated, Status status, String message, String localPath,
+                            String fileHash,
                             int numberOfTerms, int numberOfProperties, int numberOfIndividuals,
                             OntologyResourceConfig config) {
         this.ontologyId = ontologyId;
@@ -50,6 +52,7 @@ public class OntologyDocument {
         this.status = status;
         this.message = message;
         this.localPath = localPath;
+        this.fileHash = fileHash;
         this.numberOfTerms = numberOfTerms;
         this.numberOfProperties = numberOfProperties;
         this.numberOfIndividuals = numberOfIndividuals;
@@ -62,7 +65,7 @@ public class OntologyDocument {
     }
 
     public OntologyDocument(String ontologyId, OntologyResourceConfig config) {
-        this(ontologyId, new Date(), Status.NOTLOADED, "No ontology loaded", null, 0,
+        this(ontologyId, new Date(), Status.NOTLOADED, "No ontology loaded", null,"", 0,
                 0,0, config);
     }
 
@@ -152,5 +155,13 @@ public class OntologyDocument {
 
     public void setLocalPath(String localPath) {
         this.localPath = localPath;
+    }
+
+    public String getFileHash() {
+        return fileHash;
+    }
+
+    public void setFileHash(String fileHash) {
+        this.fileHash = fileHash;
     }
 }
