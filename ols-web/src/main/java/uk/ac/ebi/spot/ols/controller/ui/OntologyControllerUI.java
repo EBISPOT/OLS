@@ -93,6 +93,19 @@ public class OntologyControllerUI {
 
     @RequestMapping(path = "/{onto}/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE, method = RequestMethod.GET)
     public @ResponseBody  FileSystemResource getDownloadOntology(@PathVariable("onto") String ontologyId, HttpServletResponse response) throws ResourceNotFoundException {
+
+        ontologyId = ontologyId.toLowerCase();
+
+        OntologyDocument document = repositoryService.get(ontologyId);
+
+        if (document == null) {
+            throw new ResourceNotFoundException("Ontology called " + ontologyId + " not found");
+        }
+
+        if(document.getConfig().getAllowDownload() == false) {
+            throw new ResourceNotFoundException("This ontology is not available for download");
+        }
+
         try {
             response.setHeader( "Content-Disposition", "filename=" + ontologyId + ".owl" );
             return new FileSystemResource(getDownloadFile(ontologyId));

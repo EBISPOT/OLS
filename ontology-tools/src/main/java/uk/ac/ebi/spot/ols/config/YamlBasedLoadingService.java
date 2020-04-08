@@ -77,6 +77,7 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
             populateMailingList(builder);
             populateCreator(builder);
             populatePreferredRootTerms(builder);
+            populateAllowDownload(builder);
 
             return builder.build();
         }
@@ -255,5 +256,13 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
             prefix =  (String) ontology.get(PREFERRED_PREFIX.getPropertyName());
         }
         return prefix;
+    }
+
+    private void populateAllowDownload(OntologyResourceConfig.OntologyResourceConfigBuilder builder) {
+        if (ontology.containsKey(ALLOW_DOWNLOAD.getPropertyName())) {
+            builder.setAllowDownload((boolean) ontology.get(ALLOW_DOWNLOAD.getPropertyName()));
+        } else {
+            builder.setAllowDownload(true);
+        }
     }
 }
