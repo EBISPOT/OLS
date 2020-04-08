@@ -91,6 +91,8 @@ public class DocumentUpdater {
             originalDocument.getConfig().setBaseUris(newDocument.getBaseUris());
         }
 
+        originalDocument.getConfig().setAllowDownload(newDocument.getAllowDownload());
+
 
         // Henriette To do: Remove because this is not used.
         if (newDocument.getHiddenProperties() != null) {

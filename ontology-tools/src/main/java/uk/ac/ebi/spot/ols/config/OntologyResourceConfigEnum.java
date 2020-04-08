@@ -18,7 +18,8 @@ public enum OntologyResourceConfigEnum {
     HOMEPAGE("homepage"),
     MAILING_LIST("mailing_list"),
     CREATOR("creator"),
-    PREFERRED_ROOT_TERM("preferred_root_term");
+    PREFERRED_ROOT_TERM("preferred_root_term"),
+    ALLOW_DOWNLOAD("allow_download");
 
     private final String propertyName;
 
