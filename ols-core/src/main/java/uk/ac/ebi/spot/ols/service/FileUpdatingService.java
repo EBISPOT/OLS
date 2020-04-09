@@ -114,7 +114,10 @@ public class FileUpdatingService {
                 getLog().info("Status of " + document.getOntologyId() + " is " + document.getStatus());
 
                 document.setUpdated(new Date());
-                document.setFileHash(status.getLatestHash());
+
+                if(status != null)
+                    document.setFileHash(status.getLatestHash());
+
                 ontologyRepositoryService.update(document);
                 latch.countDown();
             }
