@@ -1132,7 +1132,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     }
 
     private boolean isEnglishLabel(OWLAnnotationValue value) {
-        return value instanceof OWLLiteral && ((OWLLiteral) value).getLang().equalsIgnoreCase("en");
+        return value instanceof OWLLiteral && ((OWLLiteral) value).getLang().equalsIgnoreCase("de");
     }
 
     protected void evaluateAllAnnotationsValues(OWLEntity owlEntity) {
@@ -1159,7 +1159,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                         addClassLabel(owlEntityIRI, evaluateLabelAnnotationValue(
                         		owlEntity, annotationAssertionAxiom.getValue()).get());
                     } else {
-                        getLogger().warn("Found multiple labels for class" + owlEntityIRI.toString());
+                        getLogger().warn("Found multiple labels for class " + owlEntityIRI.toString());
                         // if english, overide previous label
                         if (isEnglishLabel(annotationAssertionAxiom.getValue())) {
                             addClassLabel(owlEntityIRI, evaluateLabelAnnotationValue(
