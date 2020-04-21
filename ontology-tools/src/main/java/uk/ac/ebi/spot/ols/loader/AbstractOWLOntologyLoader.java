@@ -1159,7 +1159,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                         addClassLabel(owlEntityIRI, evaluateLabelAnnotationValue(
                         		owlEntity, annotationAssertionAxiom.getValue()).get());
                     } else {
-                        getLogger().warn("Found multiple labels for class" + owlEntityIRI.toString());
+                        getLogger().warn("Found multiple labels for class " + owlEntityIRI.toString());
                         // if english, overide previous label
                         if (isEnglishLabel(annotationAssertionAxiom.getValue())) {
                             addClassLabel(owlEntityIRI, evaluateLabelAnnotationValue(
