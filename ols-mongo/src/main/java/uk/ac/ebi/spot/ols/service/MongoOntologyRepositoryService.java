@@ -5,19 +5,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.aggregation.Aggregation;
-import org.springframework.data.mongodb.core.aggregation.AggregationResults;
-import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
-import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Component;
-
-import com.mongodb.MongoTimeoutException;
 
 import uk.ac.ebi.spot.ols.exception.OntologyRepositoryException;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
 import uk.ac.ebi.spot.ols.model.Status;
 import uk.ac.ebi.spot.ols.repository.mongo.MongoOntologyRepository;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 import java.util.Date;
 import java.util.List;
 
@@ -93,54 +86,20 @@ public class MongoOntologyRepositoryService implements OntologyRepositoryService
 
     @Override
     public int getNumberOfTerms() {
-        Aggregation agg =
-                Aggregation.newAggregation(
-                        group("ANYTHING").sum("numberOfTerms").as("total"),
-                        project("total")
-                );
-        //Convert the aggregation result into a List
-        AggregationResults<AggregateResult> groupResults
-                = mongoTemplate.aggregate(agg, "olsadmin", AggregateResult.class);
-        AggregateResult result = groupResults.getUniqueMappedResult();
-        return result.getTotal();
+        List<OntologyDocument> documents = repositoryService.findAll(new Sort("numberOfTerms"));
+        return documents.stream().mapToInt(OntologyDocument::getNumberOfTerms).sum();
     }
 
     @Override
     public int getNumberOfProperties() {
-        Aggregation agg =
-                Aggregation.newAggregation(
-                        group("ANYTHING").sum("numberOfProperties").as("total"),
-                        project("total")
-                );
-        //Convert the aggregation result into a List
-        AggregationResults<AggregateResult> groupResults
-                = mongoTemplate.aggregate(agg, "olsadmin", AggregateResult.class);
-        AggregateResult result = groupResults.getUniqueMappedResult();
-        return result.getTotal();
-
+        List<OntologyDocument> documents = repositoryService.findAll(new Sort("numberOfProperties"));
+        return documents.stream().mapToInt(OntologyDocument::getNumberOfProperties).sum();
     }
 
     @Override
     public int getNumberOfIndividuals() {
-        Aggregation agg =
-                Aggregation.newAggregation(
-                        group("ANYTHING").sum("numberOfIndividuals").as("total"),
-                        project("total")
-                );
-        //Convert the aggregation result into a List
-        AggregationResults<AggregateResult> groupResults
-                = mongoTemplate.aggregate(agg, "olsadmin", AggregateResult.class);
-        AggregateResult result = groupResults.getUniqueMappedResult();
-        return result.getTotal();
+        List<OntologyDocument> documents = repositoryService.findAll(new Sort("numberOfIndividuals"));
+        return documents.stream().mapToInt(OntologyDocument::getNumberOfIndividuals).sum();
     }
-
-    private class AggregateResult {
-        int total;
-
-        public int getTotal() {
-            return total;
-        }
-    }
-
 
 }
