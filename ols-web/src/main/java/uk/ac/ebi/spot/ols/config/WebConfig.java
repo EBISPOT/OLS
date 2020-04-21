@@ -53,6 +53,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         registry.addMapping("/api/**").allowedOrigins("*").allowedHeaders("*").allowedMethods("GET");
     }
 
-
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/**").addResourceLocations("file:" + System.getProperty("ols.home") + "/web-override/");
+    }
 
 }

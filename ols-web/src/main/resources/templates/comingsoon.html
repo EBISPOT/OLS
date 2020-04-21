@@ -4,216 +4,36 @@
 <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"/> <![endif]-->
 <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"/> <![endif]-->
 <!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
-<!--[if gt IE 8]><!--> <html  xmlns:th="http://www.thymeleaf.org" class="no-js" lang="en"> <!--<![endif]-->
-<head>
-    <meta charset="utf-8"/>
-
-    <!-- Use the .htaccess and remove these lines to avoid edge case issues.
-         More info: h5bp.com/b/378 -->
-    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> --> <!-- Not yet implemented -->
-
-    <title>Coming Soon &lt; Ontology Lookup Service &lt; EMBL-EBI</title>
-    <meta name="description" content="EMBL-EBI Ontology Lookup Service is a repository of bio-medical ontologies and provides a powerful REST API for searching and accessing ontology term information"/><!-- Describe what this page is about -->
-    <meta name="keywords" content="ontology, ontologies, bioinformatics, europe, institute"/><!-- A few keywords that relate to the content of THIS PAGE (not the whol project) -->
-    <meta name="author" content="Samples Phenotypes and Ontologies Team, EMBL-EBI"/><!-- Your [project-name] here -->
-
-    <!-- Mobile viewport optimized: j.mp/bplateviewport -->
-    <meta name="viewport" content="width=device-width,initial-scale=1"/>
-
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
+<!--[if gt IE 8]><!--> <html  xmlns:th="https://www.thymeleaf.org" class="no-js" lang="en"> <!--<![endif]-->
 
 
-
-    <!-- CSS: implied media=all -->
-    <!-- CSS concatenated and minified via ant build script-->
-    <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/boilerplate-style.css"/>
-    <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/ebi-global.css" type="text/css" media="screen"/>
-    <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/ebi-visual.css" type="text/css" media="screen"/>
-    <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/984-24-col-fluid.css" type="text/css" media="screen"/>
-
-    <!-- you can replace this with [projectname]-colours.css. See http://frontier.ebi.ac.uk/web/style/colour for details of how to do this -->
-    <!-- also inform ES so we can host your colour palette file -->
-    <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/embl-petrol-colours.css" type="text/css" media="screen"/>
-
-    <link rel="stylesheet" href="../static/css/ols.css" th:href="@{css/ols.css}" type="text/css" media="screen"/>
-    <link rel="stylesheet" href="../static/css/ols-colors.css" th:href="@{css/ols-colors.css}" type="text/css" media="screen"/>
-
-    <!-- for production the above can be replaced with -->
-    <!--
-    <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/mini/ebi-fluid-embl.css">
-    -->
-    <!-- Bootstrap table css -->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.css"/>
-
-    <style type="text/css">
-        /* You have the option of setting a maximum width for your page, and making sure everything is centered */
-        /* body { max-width: 1600px; margin: 0 auto; } */
-    </style>
-
-
-    <!--<link rel="stylesheet" type="text/css" href="css/spacelab.bootstrap.min.css" th:href="@{../css/spacelab.bootstrap.min.css}"/>-->
-    <!--<link rel="stylesheet" type="text/css" href="css/main.css" th:href="@{../css/main.css}"/>-->
-
-    <!-- end CSS-->
-
-
-
-    <!-- All JavaScript at the bottom, except for Modernizr / Respond.
-         Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
-         For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
-
-    <!-- Full build -->
-    <!-- <script src="//www.ebi.ac.uk/web_guidelines/js/libs/modernizr.minified.2.1.6.js"></script> -->
-
-    <!-- custom build (lacks most of the "advanced" HTML5 support -->
-    <script src="//www.ebi.ac.uk/web_guidelines/js/libs/modernizr.custom.49274.js"></script>
-
+<head th:replace="fragments/head :: head(olscss=true, datatables=true)">
+    <title>Ontology Xref Service   &lt; EMBL-EBI</title>
+    <!-- A few keywords that relate to the content of THIS PAGE (not the whole project)
+    <meta name="keywords" content="biosamples, europe, EBI" />
+    <!- - Describe what this page is about - ->
+    <meta name="description" content="EMBL-EBI" />
+    <meta name="ebi:last-review" content="2016-12-20" />
+    <!- - The last time the content was reviewed - ->
+    <meta name="ebi:expiry" content="2017-12-20" />
+    <!- - When this content is no longer relevant -->
 </head>
 
-<body class="level2">
 
-<div id="skip-to">
-    <ul>
-        <li><a href="#content">Skip to main content</a></li>
-        <li><a href="#local-nav">Skip to local navigation</a></li>
-        <li><a href="#global-nav">Skip to EBI global navigation menu</a></li>
-        <li><a href="#global-nav-expanded">Skip to expanded EBI global navigation menu (includes all sub-sections)</a></li>
-    </ul>
-</div>
+<body>
+<th:block th:include="fragments/header :: header"></th:block>
 
-<div id="wrapper" class="container_24">
-
-    <header>
-
-        <div id="global-masthead" class="masthead grid_24">
-
-            <!--This has to be one line and no newline characters-->
-            <a href="//www.ebi.ac.uk/" title="Go to the EMBL-EBI homepage"><img src="//www.ebi.ac.uk/web_guidelines/images/logos/EMBL-EBI/EMBL_EBI_Logo_white.png" alt="EMBL European Bioinformatics Institute"/></a>
-
-            <nav>
-                <ul id="global-nav">
-                    <!-- set active class as appropriate -->
-                    <li id="services" class=" first active"><a href="//www.ebi.ac.uk/services" title="Services">Services</a></li>
-                    <li id="research" class=""><a href="//www.ebi.ac.uk/research" title="Research">Research</a></li>
-                    <li id="training" class=""><a href="//www.ebi.ac.uk/training" title="Training">Training</a></li>
-                    <li id="industry" class=""><a href="//www.ebi.ac.uk/industry" title="Industry">Industry</a></li>
-                    <li id="about" class=" last"><a href="//www.ebi.ac.uk/about" title="About us">About us</a></li>
-                </ul>
-            </nav>
-
-        </div>
-
-        <div id="local-masthead" class="masthead grid_24 nomenu">
-
-            <!-- local-title -->
-            <!-- NB: for additional title style patterns, see http://frontier.ebi.ac.uk/web/style/patterns -->
-
-            <div id="local-title" class="grid_14 alpha logo-title">
-                <a href="index" title="Back to OLS homepage">
-                    <img style="width: 80px" th:src="@{img/ols-logo.jpg}" src="../static/img/ols-logo.jpg" alt="OLS logo"/></a>
-                <span><h1>Ontology Lookup Service</h1></span>
-            </div>
-
-            <!-- /local-title -->
-
-            <!-- -->
-            <div class="grid_10 omega">
-            </div>
-
-            <nav>
-                <ul class="grid_24" id="local-nav">
-                    <li class="first active"><a href="index">Home</a></li>
-                    <li><a href="docs/api">API</a></li>
-                    <li><a href="sparql">SPARQL</a></li>
-                    <li><a href="docs">Documentation</a></li>
-                    <li class="last" ><a href="about">About</a></li>
-                    <li class="functional last"><a href="contact" class="icon icon-generic" data-icon="C">Contact Us</a></li>
-                </ul>
-            </nav>
-        </div>
-
-
-    </header>
-
-    <div id="content" role="main" class="grid_24 clearfix">
-        <div class="container">
-
-            <!--@thymesVar id="summary" type="uk.ac.ebi.spot.ols.controller.ui.HomeController.SummaryInfo"-->
-            <div class="grid_24 alpha">
-
-                <section class="grid_19 alpha intro">
-                    <h2 class="strapline">Ontology Lookup Service</h2>
-                    <p class="intro">
-                        Not quite ready yet! This page is under development and will be available soon...
-                    </p>
-                </section>
-
-
-            </div>
-
-
-
-        </div>
+<section id="main-content-area" role="main">
+    <div class="row">
+        <h2 class="strapline">Ontology Lookup Service</h2>
+        <p class="intro">
+            Not quite ready yet! This page is under development and will be available soon...
+        </p>
     </div>
+</section>
 
-    <footer>
-        <!-- Optional local footer (insert citation / project-specific copyright / etc here -->
-        <div id="elixir-banner" data-color="grey" data-name="This service" data-description="I am a super cool service" data-more-information-link="//www.elixir-europe.org/about-us/who-we-are/nodes/embl-ebi" data-use-basic-styles="true"></div>
-        <script defer="defer" src="//ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/js/elixirBanner.js"></script>
-
-        <!-- End optional local footer -->
-
-        <div id="global-footer" class="grid_24 clearfix">
-
-            <nav id="global-nav-expanded">
-
-                <div class="grid_4 alpha">
-                    <h3 class="embl-ebi"><a href="//www.ebi.ac.uk/" title="EMBL-EBI">EMBL-EBI</a></h3>
-                </div>
-
-                <div class="grid_4">
-                    <h3 class="services"><a href="//www.ebi.ac.uk/services">Services</a></h3>
-                </div>
-
-                <div class="grid_4">
-                    <h3 class="research"><a href="//www.ebi.ac.uk/research">Research</a></h3>
-                </div>
-
-                <div class="grid_4">
-                    <h3 class="training"><a href="//www.ebi.ac.uk/training">Training</a></h3>
-                </div>
-
-                <div class="grid_4">
-                    <h3 class="industry"><a href="//www.ebi.ac.uk/industry">Industry</a></h3>
-                </div>
-
-                <div class="grid_4 omega">
-                    <h3 class="about"><a href="//www.ebi.ac.uk/about">About us</a></h3>
-                </div>
-
-            </nav>
-
-            <section id="ebi-footer-meta">
-                <p class="address">EMBL-EBI, Wellcome Trust Genome Campus, Hinxton, Cambridgeshire, CB10 1SD, UK &nbsp; &nbsp; +44 (0)1223 49 44 44</p>
-                <p class="legal">Copyright &copy; EMBL-EBI 2013 | EBI is an outstation of the <a href="http://www.embl.org">European Molecular Biology Laboratory</a> | <a href="/about/privacy">Privacy</a> | <a href="/about/cookies">Cookies</a> | <a href="/about/terms-of-use">Terms of use</a></p>
-            </section>
-
-        </div>
-
-    </footer>
-
-</div>
+<th:block th:include="fragments/footer :: footer"></th:block>
 
 
-<!--<script>-->
-    <!--$(document).ready(function() {-->
-        <!--$('ontology-table').bootstrapTable(-->
-                <!--{locale:'en-UK', search: true}-->
-        <!--);-->
-    <!--});-->
-<!--</script>-->
-
-<script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/cookiebanner.js"></script>
-<script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/foot.js"></script>
 </body>
 </html>

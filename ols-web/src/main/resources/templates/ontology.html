@@ -4,377 +4,200 @@
 <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"/> <![endif]-->
 <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"/> <![endif]-->
 <!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
-<!--[if gt IE 8]><!--> <html  xmlns:th="http://www.thymeleaf.org" class="no-js" lang="en"> <!--<![endif]-->
-<head>
-    <meta charset="utf-8"/>
-
-    <!-- Use the .htaccess and remove these lines to avoid edge case issues.
-         More info: h5bp.com/b/378 -->
-    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> --> <!-- Not yet implemented -->
-
-    <!--@thymesVar id="ontologyDocument" type="uk.ac.ebi.spot.ols.model.OntologyDocument"-->
-    <title th:text="${ontologyDocument.getConfig().getTitle()}"> Ontology &lt; Ontology Lookup Service &lt; EMBL-EBI</title>
-    <meta name="description" th:content="${ontologyDocument.getConfig().getDescription()}" content="EMBL-EBI"/><!-- Describe what this page is about -->
-    <meta name="keywords" content="ontology, ontologies, bioinformatics, europe, institute"/><!-- A few keywords that relate to the content of THIS PAGE (not the whol project) -->
-    <meta name="author" content="EMBL-EBI Ontology Lookup Service"/><!-- Your [project-name] here -->
-
-    <!-- Mobile viewport optimized: j.mp/bplateviewport -->
-    <meta name="viewport" content="width=device-width,initial-scale=1"/>
-
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
-
-    <link rel="stylesheet" href="../static/css/bootstrap/3.3/css/bootstrap.min.css" th:href="@{../css/bootstrap/3.3/css/bootstrap.min.css}" type="text/css" media="screen"/>
-
-    <link rel="stylesheet" href="../static/js/jstree/themes/proton/style.min.css" th:href="@{../js/jstree/themes/proton/style.min.css}" type="text/css" media="screen" />
+<!--[if gt IE 8]><!--> <html xmlns:th="https://www.thymeleaf.org" class="no-js" lang="en"> <!--<![endif]-->
 
 
-    <!-- CSS: implied media=all -->
-    <!-- CSS concatenated and minified via ant build script-->
-    <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/boilerplate-style.css"/>
-    <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/ebi-global.css" type="text/css" media="screen"/>
-    <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/ebi-visual.css" type="text/css" media="screen"/>
-    <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/984-24-col-fluid.css" type="text/css" media="screen"/>
-
-    <!-- you can replace this with [projectname]-colours.css. See http://frontier.ebi.ac.uk/web/style/colour for details of how to do this -->
-    <!-- also inform ES so we can host your colour palette file -->
-    <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/embl-petrol-colours.css" type="text/css" media="screen"/>
-
-    <link rel="stylesheet" href="../static/css/ols.css" th:href="@{../css/ols.css}" type="text/css" media="screen"/>
-    <link rel="stylesheet" href="../static/css/ols-colors.css" th:href="@{../css/ols-colors.css}" type="text/css" media="screen"/>
-
-
-    <link rel="stylesheet" href="../static/css/diachron/pikaday.css" th:href="@{../css/diachron/pikaday.css}" type="text/css" media="screen"/>
-    <link rel="stylesheet" href="../static/css/diachron/widget.css" th:href="@{../css/diachron/widget.css}" type="text/css" media="screen"/>
-    <!-- <link rel="stylesheet" href="../static/css/diachron/site.css" th:href="@{../css/diachron/site.css}" type="text/css" media="screen"/> -->
-
-
-    <!-- TABLE css  -->
-    <link rel="stylesheet" href="../static/css/diachron/tablesort-blue/style.css" th:href="@{../css/diachron/tablesort-blue/style.css}" type="text/css" media="screen"/>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.css"/>
-    <link rel="stylesheet" href="//cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css"/>
-
-    <link rel="stylesheet" href="../static/css/typeahead/typeaheadjs.css" th:href="@{../css/typeahead/typeaheadjs.css}" type="text/css" media="screen"/>
-
-
-    <!-- for production the above can be replaced with -->
-    <!--
-    <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/mini/ebi-fluid-embl.css">
-    -->
-    <!-- Latest compiled and minified CSS -->
-    <style type="text/css">
-        /* You have the option of setting a maximum width for your page, and making sure everything is centered */
-        /* body { max-width: 1600px; margin: 0 auto; } */
-    </style>
-
-
-    <!--<link rel="stylesheet" type="text/css" href="css/spacelab.bootstrap.min.css" th:href="@{../css/spacelab.bootstrap.min.css}"/>-->
-    <!--<link rel="stylesheet" type="text/css" href="css/main.css" th:href="@{../css/main.css}"/>-->
-
-    <!-- end CSS-->
-
-
-
-    <!-- All JavaScript at the bottom, except for Modernizr / Respond.
-         Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
-         For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
-
-    <!-- Full build -->
-    <!-- <script src="//www.ebi.ac.uk/web_guidelines/js/libs/modernizr.minified.2.1.6.js"></script> -->
-
-    <!-- custom build (lacks most of the "advanced" HTML5 support -->
-    <script src="//www.ebi.ac.uk/web_guidelines/js/libs/modernizr.custom.49274.js"></script>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/icheck-bootstrap@3.0.1/icheck-bootstrap.min.css" />
-
+<head th:replace="fragments/head :: head(olscss=true, diachron=true, proton=true)">
+    <title>Ontology Xref Service   &lt; EMBL-EBI</title>
+    <!-- A few keywords that relate to the content of THIS PAGE (not the whole project)
+    <meta name="keywords" content="biosamples, europe, EBI" />
+    <!- - Describe what this page is about - ->
+    <meta name="description" content="EMBL-EBI" />
+    <meta name="ebi:last-review" content="2016-12-20" />
+    <!- - The last time the content was reviewed - ->
+    <meta name="ebi:expiry" content="2017-12-20" />
+    <!- - When this content is no longer relevant -->
 </head>
 
-<body class="level2">
 
-<div id="skip-to">
-    <ul>
-        <li><a href="#content">Skip to main content</a></li>
-        <li><a href="#local-nav">Skip to local navigation</a></li>
-        <li><a href="#global-nav">Skip to EBI global navigation menu</a></li>
-        <li><a href="#global-nav-expanded">Skip to expanded EBI global navigation menu (includes all sub-sections)</a></li>
-    </ul>
-</div>
+<body>
 
-<div id="wrapper" class="container_24">
+<th:block th:include="fragments/header :: header"></th:block>
 
-    <header>
+<div id="main-content-area" role="main">
+    <div vocab="http://schema.org/" class="row">
 
-        <div id="global-masthead" class="masthead grid_24">
-
-            <!--This has to be one line and no newline characters-->
-            <a href="//www.ebi.ac.uk/" title="Go to the EMBL-EBI homepage"><img src="//www.ebi.ac.uk/web_guidelines/images/logos/EMBL-EBI/EMBL_EBI_Logo_white.png" alt="EMBL European Bioinformatics Institute"/></a>
-
-            <nav>
-                <ul id="global-nav">
-                    <!-- set active class as appropriate -->
-                    <li id="services" class=" first active"><a href="//www.ebi.ac.uk/services" title="Services">Services</a></li>
-                    <li id="research" class=""><a href="//www.ebi.ac.uk/research" title="Research">Research</a></li>
-                    <li id="training" class=""><a href="//www.ebi.ac.uk/training" title="Training">Training</a></li>
-                    <li id="industry" class=""><a href="//www.ebi.ac.uk/industry" title="Industry">Industry</a></li>
-                    <li id="about" class=" last"><a href="//www.ebi.ac.uk/about" title="About us">About us</a></li>
-                </ul>
-            </nav>
-
-        </div>
-
-        <div id="local-masthead" class="masthead grid_24 nomenu">
-
-            <!-- local-title -->
-            <!-- NB: for additional title style patterns, see http://frontier.ebi.ac.uk/web/style/patterns -->
-
-            <div id="local-title" class="alpha logo-title">
-                <a href="../index" title="Back to OLS homepage">
-                    <img style="width: 80px" th:src="@{../img/ols-logo.jpg}" src="../static/img/ols-logo.jpg" alt="OLS logo"/></a>
-                <span><h1>Ontology Lookup Service</h1></span>
+        <div id="mainpageSearchBox">
+            <h3 style="font-size: 43px;" property="name" th:text="${ontologyDocument.getConfig().getTitle()}">Ontology label</h3>
+            <div property="description">
+                <p style="font-size: 16px;" th:each="description : ${ontologyDocument.getConfig().getDescription()}" th:text="${description}">
+                </p>
             </div>
 
-            <!-- /local-title -->
-
-            <!-- fix to remove search box -->
-            <div style="visibility: hidden">
-                <form id="local-search">
-                </form>
-            </div>
-            <!-- -->
-
-            <nav>
-                <ul class="grid_24" id="local-nav">
-                    <li class="first"><a href="../index">Home</a></li>
-                    <li class="active"><a href="../ontologies">Ontologies</a></li>
-                    <li><a href="../docs">Documentation</a></li>
-                    <li class="last" ><a href="../about">About</a></li>
-                    <li class="functional last"><a href="../contact" class="icon icon-generic" data-icon="C">Contact Us</a></li>
-                </ul>
-            </nav>
-        </div>
+            <form style="padding-left: 0;" name="local-search" action="../search" method="get">
+                <div id="bloodhound" class="">
+                    <input style="margin-bottom: 0.1em; display:block; width: 393px;" class="form-control typeahead"
+                           autofocus="autofocus" type="text" name="q"
+                           data-olswidget="select" data-olsontology="" data-selectpath="../"
+                           th:attr="data-olsontology=${ontologyDocument.getOntologyId()}"
+                           th:placeholder="'Search ' + ${ontologyDocument.getConfig().getPreferredPrefix()}"
+                           aria-describedby="basic-addon1" />
+                    <button class="button secondary searchButton glyphicon glyphicon-search" type="submit">Search</button>
+                    <input type="hidden" name="ontology" th:value="${ontologyDocument.getOntologyId()}"/>
+                </div>
+            </form>
 
 
-    </header>
-
-    <!--@thymesVar id="ontologyDocument" type="uk.ac.ebi.spot.ols.model.OntologyDocument"-->
-    <div vocab="http://schema.org/" typeof="CreativeWork" id="content" role="main" class="grid_24 clearfix">
-
-
-        <div style="float:right;padding-right: 5px;">
-            <a style="float:right; border-bottom: none;" th:href="@{../api/ontologies/__${ontologyDocument.getOntologyId()}__}"  href="#">
-                <img th:src="@{../img/file_JSON.png}" src="../static/img/file_JSON.png" alt="JSON" title="Get data as JSON"/>
-            </a>
-        </div>
-
-        <nav id="breadcrumb">
             <p>
-                <a href="../index">OLS</a> &gt;
-                &nbsp;
-                <span th:attr="content=${ontologyDocument.getConfig().getTitle()}" th:text="${ontologyDocument.getConfig().getTitle()}">
-                </span>
-                <span property="alternateName" th:attr="content=${ontologyDocument.getConfig().getPreferredPrefix()}" class="ontology-source" th:text="${ontologyDocument.getConfig().getPreferredPrefix()}">parent 1</span>
-
+            <div class="btn-group">
+                <button class ="button secondary icon icon-functional" role="button" data-icon ="b" th:onclick="'javascript:goTo(\'' + @{__${ontologyDocument.getOntologyId()}__/terms} + '\')'"> Terms</button>
+                <button th:if="${ontologyDocument.getConfig.getAllowDownload() == true}" class ="button secondary icon icon-functional" role="button" data-icon ="=" th:onclick="'javascript:goTo(\'' + @{__${ontologyDocument.getOntologyId()}__/download} + '\')'"> Download</button>
+                <button th:if="${ontologyDocument.getConfig().getHomepage() != null}" class ="button secondary icon icon-generic"  th:title="${ontologyDocument.getConfig().getHomepage()}" role="button" data-icon ="H"  th:onclick="'javascript:goTo(\'' + @{${ontologyDocument.getConfig().getHomepage()}} + '\')'"> Ontology Homepage</button>
+                <button th:if="${contact != null}" class ="button secondary icon icon-generic"  role="button" data-icon ="C" th:title="${contact}" th:onclick="'javascript:goTo(\'' + @{${contact}} + '\')'"> Contact</button>
+            </div>
             </p>
-        </nav>
-
-
-        <div class="container" style="margin:9px;">
-            <!--<div class="grid_24 alpha">-->
-
-            <section>
-                <div class="grid_24 clearfix">
-
-                    <div class="jumbotron">
-                        <h1 style="font-size: 43px;" property="name" th:text="${ontologyDocument.getConfig().getTitle()}">Ontology label</h1>
-                        <div property="description">
-                            <p style="font-size: 16px;" th:each="description : ${ontologyDocument.getConfig().getDescription()}" th:text="${description}">
-
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget <nulla class=""></nulla>                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum.
-                            </p>
-                        </div>
-
-                        <form style="padding-left: 0;" name="local-search" action="../search" method="get">
-                                                    <div id="bloodhound" class="input-group">
-                                                        <input style="margin-bottom: 0.1em;" class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="select" th:attr="data-olsontology=${ontologyDocument.getOntologyId()}" data-olsontology=""  data-selectpath="../" th:placeholder="'Search ' + ${ontologyDocument.getConfig().getPreferredPrefix()}" placeholder="Search OLS" aria-describedby="basic-addon1"/>
-                                                        <input type="hidden" name="ontology" th:value="${ontologyDocument.getOntologyId()}"/>
-
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-default glyphicon glyphicon-search" type="submit">
-                                                            </button>
-                                                        </span>
-                                                    </div><!-- /input-group -->
-                                                </form>
-
-                        <p>
-                        <div class="btn-group">
-                            <button class ="btn btn-default btn-lg icon icon-functional" role="button" data-icon ="b" th:onclick="'javascript:goTo(\'' + @{__${ontologyDocument.getOntologyId()}__/terms} + '\')'">Terms</button>
-                            <button th:if="${ontologyDocument.getConfig().getAllowDownload() == true}" class ="btn btn-default btn-lg icon icon-functional" role="button" data-icon ="=" th:onclick="'javascript:goTo(\'' + @{__${ontologyDocument.getOntologyId()}__/download} + '\')'">Download</button>
-                            <button th:if="${ontologyDocument.getConfig().getHomepage() != null}" class ="btn btn-default btn-lg icon icon-generic"  th:title="${ontologyDocument.getConfig().getHomepage()}" role="button" data-icon ="H"  th:onclick="'javascript:goTo(\'' + @{${ontologyDocument.getConfig().getHomepage()}} + '\')'">Ontology Homepage</button>
-                            <button th:if="${contact != null}" class ="btn btn-default btn-lg icon icon-generic"  role="button" data-icon ="C" th:title="${contact}" th:onclick="'javascript:goTo(\'' + @{${contact}} + '\')'">Contact</button>
-                        </div>
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-            <section>
-                <div class="grid_24 clearfix">
-                    <div class="grid_14 alpha">
-                        <ul  class="nav nav-tabs">
-                            <li role="presentation" class="active"><a id="tree-link" class="icon icon-functional" data-icon="h" data-toggle="tab" href="#tree-tab">Browse Terms</a></li>
-                            <li role="presentation"><a id="property-link" data-toggle="tab" class="icon icon-functional" data-icon="h"  href="#property-tree-tab">Browse Properties</a></li>
-                            <li role="presentation"><a id="diachron-link" data-toggle="tab" class="icon icon-generic" data-icon="g" href="#diachron-tab">Ontology history</a></li>
-                            <!--<li role="presentation"><a data-toggle="tab"  href="#graph-tab">Graph view</a></li>-->
-                        </ul>
-                        <input type="hidden" name="ontology_view_siblings"
-                               th:value="${#httpServletRequest.getParameter('siblings') == 'true'} ? 'true': 'false'"/>
-                        <!-- Tab panes -->
-                        <div class="tab-content">
-
-                            <div role="tabpanel" class="tab-pane active" id="tree-tab">
-                                <div class="btn-group btn-group-vertical" style="float: right;padding-top:5px;">
-                                    <div  th:attr="style=${preferredRootTermDisplayStyle}">
-                                        <div class="radio icheck-belizehole">
-                                            <input type="radio"
-                                                   id="ontology_view_selection_id_preferred_roots"
-                                                   name="ontology_view_selection"
-                                                   value="PreferredRoots"
-                                                   th:checked="${#httpServletRequest.getParameter('viewMode') == null or #httpServletRequest.getParameter('viewMode') == 'PreferredRoots'} ? 'true': 'false'"
-                                                   onclick="olsTabbedTermTreeView.toggleOntologyView()"/>
-                                            <label for="ontology_view_selection_id_preferred_roots"
-                                                   style="margin: 0 0.1rem 0 0.2rem; color: #000000;">Preferred root terms</label>
-                                        </div>
-                                        <div class="radio icheck-belizehole">
-                                            <input type="radio"
-                                                   id="ontology_view_selection_id_all"
-                                                   name="ontology_view_selection"
-                                                   value="All"
-                                                   th:checked="${#httpServletRequest.getParameter('viewMode') == 'All' or not preferredRootTermEnabled} ? 'true': 'false'"
-                                                   onclick="olsTabbedTermTreeView.toggleOntologyView()"/>
-                                            <label for="ontology_view_selection_id_all"
-                                                   style="margin: 0 0.1rem 0 0.2rem; color: #000000;">All terms</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="term-tree" data-olswidget="tree" th:attr="data-olsontology=${ontologyDocument.getOntologyId()}" data-selectpath="../" data-ols-termtype="class" data-olsontology="" data-ols-iri=""  >
-                                </div>
-                            </div>	
-
-                            <div role="tabpanel" class="tab-pane" id="property-tree-tab">
-
-                                <div id="property-tree" data-olswidget="tree" th:attr="data-olsontology=${ontologyDocument.getOntologyId()}" data-selectpath="../" data-ols-termtype="property" data-olsontology="" data-ols-iri=""  >
-                                </div>
-
-                                <div role="tabpanel" class="tab-pane" id="diachron-tab" data-selectpath="../" th:attr="data-olsontology=${ontologyDocument.getOntologyId()}">
-                                    <div id="diachron-wrapper"></div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <div id="right_info_box" class="grid_10 beta">
-						
-                        <div id="ontology_info_box" class="panel panel-primary">
-
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Ontology info</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div>
-                                    <b>Ontology IRI: </b> <a property="url" target="blank" class="icon icon-generic" data-icon="L" th:href="@{${ontologyDocument.getConfig().getId()}}" th:text="${ontologyDocument.getConfig().getId()}">http://www.example.com/onto/id</a>
-                                </div>
-                                <div th:if="${ontologyDocument.getConfig().getVersionIri()}">
-                                    <b>Version IRI: </b> <a property="url" target="blank" class="icon icon-generic" data-icon="L" th:href="@{${ontologyDocument.getConfig().getVersionIri()}}" th:text="${ontologyDocument.getConfig().getVersionIri()}">http://www.example.com/onto/id</a>
-                                </div>
-                                <div>
-                                    <b>Ontology id: </b> <span th:text="${ontologyDocument.getOntologyId()}" >ontology id</span>
-                                </div>
-                                <div th:if="${ontologyDocument.getConfig().getVersion() != null}">
-                                    <b>Version: </b> <span th:text="${ontologyDocument.getConfig().getVersion()}">NCBI:9606</span>
-                                </div>
-                                <div>
-                                    <b>Number of terms: </b> <span th:text="${ontologyDocument.getNumberOfTerms()}">NCBI_9606</span>
-                                </div>
-                                <div>
-                                    <b>Last loaded: </b> <span property="dateModified" th:text="${ontologyDocument.getLoaded()}">NCBI_9606</span>
-                                </div>
-                                <div th:each="creator : ${ontologyDocument.getConfig().getCreators()}">
-                                    <b>Creator: </b> <span th:text="${creator}">NCBI:9606</span>
-                                </div>
-
-                                <br/>
-                                <div th:each="annotations: ${ontologyDocument.getConfig().getAnnotations()}">
-                                    <b>
-                                        <a href="#" th:href="@{../search(q=${annotations.key},exact='true', type=property, ontology=${ontologyDocument.getOntologyId()})}" th:text="${annotations.key.replaceAll('_', ' ')}">property name</a>
-                                    </b>
-                                    <p style="margin-left:9px;" th:each="annovalue : ${annotations.value}" th:text="${annovalue}">NCBI_9606</p>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </section>
 
         </div>
 
+
+        <div id="onto-tab-content" class="small-8 columns">
+            <ul class="tabs" data-tabs="true" id="onto_tabs">
+                <li class="tabs-title is-active"><a id="tree-link"
+                                                    data-x-tabs-target="tree-tab"
+                                                    href="#tree-tab"
+                                                    aria-selected="true"><i class="icon icon-functional" data-icon="h"></i> Browse Terms</a></li>
+                <li class="tabs-title"><a id="property-link"
+                                          data-x-tabs-target="property-tree-tab"
+                                          href="#property-tree-tab"><i class="icon icon-functional" data-icon="h"></i> Browse Properties</a></li>
+                <li class="tabs-title"><a id="diachron-link"
+                                          data-x-tabs-target="diachron-tab"
+                                          href="#diachron-tab"><i class="icon icon-generic" data-icon="g"></i> Ontology history</a></li>
+            </ul>
+            <input type="hidden" name="ontology_view_siblings"
+                   th:value="${#httpServletRequest.getParameter('siblings') == 'true'} ? 'true': 'false'"/>
+
+            <!-- Tab panes -->
+            <div class="tabs-content" data-tabs-content="onto_tabs">
+
+                <div role="tabpanel"
+                     class="tabs-panel is-active"
+                     id="tree-tab"
+                     data-x-aria-labelledby="tree-tab-label">
+                    <div class="btn-group btn-group-vertical" style="float: right; padding-top: 5px;">
+                        <div th:attr="style=${preferredRootTermDisplayStyle}">
+                            <div class="radio icheck-belizehole">
+                                <input type="radio"
+                                       id="ontology_view_selection_id_preferred_roots"
+                                       name="ontology_view_selection"
+                                       value="PreferredRoots"
+                                       th:checked="${#httpServletRequest.getParameter('viewMode') == null or #httpServletRequest.getParameter('viewMode') == 'PreferredRoots'} ? 'true': 'false'"
+                                       onclick="olsTabbedTermTreeView.toggleOntologyView()"/>
+                                <label for="ontology_view_selection_id_preferred_roots"
+                                       style="margin: 0 0.1rem 0 0.2rem; color: #000000;">Preferred root terms</label>
+                            </div>
+                            <div class="radio icheck-belizehole">
+                                <input type="radio"
+                                       id="ontology_view_selection_id_all"
+                                       name="ontology_view_selection"
+                                       value="All"
+                                       th:checked="${#httpServletRequest.getParameter('viewMode') == 'All' or not preferredRootTermEnabled} ? 'true': 'false'"
+                                       onclick="olsTabbedTermTreeView.toggleOntologyView()"/>
+                                <label for="ontology_view_selection_id_all"
+                                       style="margin: 0 0.1rem 0 0.2rem; color: #000000;">All terms</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="term-tree" data-olswidget="tree"
+                         th:attr="data-olsontology=${ontologyDocument.getOntologyId()}"
+                         data-selectpath="../" data-ols-termtype="class" data-olsontology="" data-ols-iri="">
+                    </div>
+                </div>
+
+                <div role="tabpanel"
+                     class="tabs-panel"
+                     id="property-tree-tab"
+                     data-x-aria-labelledby="property-tree-tab-label">
+
+                    <div id="property-tree"
+                         data-olswidget="tree"
+                         th:attr="data-olsontology=${ontologyDocument.getOntologyId()}"
+                         data-selectpath="../"
+                         data-ols-termtype="property"
+                         data-olsontology=""
+                         data-ols-iri="">
+                    </div>
+                </div>
+
+                <div role="tabpanel"
+                     class="tabs-panel"
+                     id="diachron-tab"
+                     data-x-aria-labelledby="diachron-tab-label"
+                     data-selectpath="../"
+                     th:attr="data-olsontology=${ontologyDocument.getOntologyId()}">
+                    <div id="diachron-wrapper"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="right_info_box" class="grid_10 beta">
+        </div>
+
+        <div id="right_info_box" class="small-4 columns">
+            <div id="ontology_info_box" class="panel">
+                <div class="panel-heading">
+                    <h4>Ontology information</h4>
+                </div>
+                <div class="panel-body">
+                    <div>
+                        <b>Ontology IRI: </b>
+                        <a property="url" target="blank" th:href="@{${ontologyDocument.getConfig().getId()}}">
+                            <i class="icon icon-generic" data-icon="L"></i>
+                            <span h:text="${ontologyDocument.getConfig().getId()}">http://www.example.com/onto/id</span> 
+                        </a>
+                    </div>
+                    <div th:if="${ontologyDocument.getConfig().getVersionIri()}">
+                        <b>Version IRI: </b>
+                        <a property="url" target="blank" th:href="@{${ontologyDocument.getConfig().getVersionIri()}}">
+                        <i class="icon icon-generic" data-icon="L"></i>
+                        <span h:text="${ontologyDocument.getConfig().getVersionIri()}">http://www.example.com/onto/id</span> 
+                        </a>
+                    </div>
+                    <div>
+                        <b>Ontology ID: </b> <span th:text="${ontologyDocument.getOntologyId()}" >ontology id</span>
+                    </div>
+                    <div th:if="${ontologyDocument.getConfig().getVersion() != null}">
+                        <b>Version: </b> <span th:text="${ontologyDocument.getConfig().getVersion()}">NCBI:9606</span>
+                    </div>
+                    <div>
+                        <b>Number of terms: </b> <span th:text="${ontologyDocument.getNumberOfTerms()}">NCBI_9606</span>
+                    </div>
+                    <div>
+                        <b>Last loaded: </b> <span property="dateModified" th:text="${ontologyDocument.getLoaded()}">NCBI_9606</span>
+                    </div>
+                    <div th:each="creator : ${ontologyDocument.getConfig().getCreators()}">
+                        <b>Creator: </b> <span th:text="${creator}">NCBI:9606</span>
+                    </div>
+
+                    <br/>
+                    <div th:each="annotations: ${ontologyDocument.getConfig().getAnnotations()}">
+                        <b>
+                            <a href="#" th:href="@{../search(q=${annotations.key},exact='true', type=property, ontology=${ontologyDocument.getOntologyId()})}" th:text="${annotations.key.replaceAll('_', ' ')}">property name</a>
+                        </b>
+                        <p style="margin-left:9px;" th:each="annovalue : ${annotations.value}" th:text="${annovalue}">NCBI_9606</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <footer>
-        <!-- Optional local footer (insert citation / project-specific copyright / etc here -->
-        <div id="elixir-banner" data-color="grey" data-name="The Ontology Lookup Service" data-description="OLS is an ELIXIR interoperability service" data-more-information-link="//www.elixir-europe.org/platforms/interoperability" data-use-basic-styles="true"></div>
-        <script src="//ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/js/elixirBanner.js"></script>
-
-        <!-- End optional local footer -->
-
-        <div id="global-footer" class="grid_24 clearfix">
-
-            <nav id="global-nav-expanded">
-
-                <div class="grid_4 alpha">
-                    <h3 class="embl-ebi"><a href="//www.ebi.ac.uk/" title="EMBL-EBI">EMBL-EBI</a></h3>
-                </div>
-
-                <div class="grid_4">
-                    <h3 class="services"><a href="//www.ebi.ac.uk/services">Services</a></h3>
-                </div>
-
-                <div class="grid_4">
-                    <h3 class="research"><a href="//www.ebi.ac.uk/research">Research</a></h3>
-                </div>
-
-                <div class="grid_4">
-                    <h3 class="training"><a href="//www.ebi.ac.uk/training">Training</a></h3>
-                </div>
-
-                <div class="grid_4">
-                    <h3 class="industry"><a href="//www.ebi.ac.uk/industry">Industry</a></h3>
-                </div>
-
-                <div class="grid_4 omega">
-                    <h3 class="about"><a href="//www.ebi.ac.uk/about">About us</a></h3>
-                </div>
-
-            </nav>
-
-            <section id="ebi-footer-meta">
-                <p class="address">EMBL-EBI, Wellcome Trust Genome Campus, Hinxton, Cambridgeshire, CB10 1SD, UK &nbsp; &nbsp; +44 (0)1223 49 44 44</p>
-                <p class="legal">Copyright &copy; EMBL-EBI 2013 | EBI is an outstation of the <a href="http://www.embl.org">European Molecular Biology Laboratory</a> | <a href="/about/privacy">Privacy</a> | <a href="/about/cookies">Cookies</a> | <a href="/about/terms-of-use">Terms of use</a></p>
-            </section>
-
-        </div>
-
-    </footer>
-
 </div>
 
-<script type="text/javascript" src="../static/js/jquery/1.11.1/jquery.min.js" th:src="@{../js/jquery/1.11.1/jquery.min.js}"></script>
+<th:block th:include="fragments/footer :: footer"></th:block>
+
+
+<!-- <script type="text/javascript" src="/js/oxo.js" th:src="@{/js/oxo.js}"></script> -->
+<script type="text/javascript" src="https://cdn.datatables.net/r/zf-5.5.2/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script>
 <script type="text/javascript" src="../static/js/typeahead/typeahead.bundle.js" th:src="@{../js/typeahead/typeahead.bundle.js}"></script>
 <script type="text/javascript" src="../static/js/handlebars/4.0.5/handlebars.min.js" th:src="@{../js/handlebars/4.0.5/handlebars.min.js}"></script>
-
 
 <script type="text/javascript" src="../static/js/bootstrap/bootstrap.min.js" th:src="@{../js/bootstrap/bootstrap.min.js}"></script>
 
@@ -395,18 +218,23 @@
 <script src="../static/js/diachron/pikaday.js" th:src="@{../js/diachron/pikaday.js}"></script>
 <script src="../static/js/diachron/tablesorter.min.js" th:src="@{../js/diachron/tablesorter.min.js}"></script>
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.js"></script>
+<!--script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/locale/bootstrap-table-en-US.min.js"></script>
-
-<script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+<script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script-->
 
 <!-- END OF THE DIACHRON INCLUDE TAGS-->
+<script type="text/javascript" src="../static/js/ols.js" th:src="@{../js/ols.js}"></script>
+<script type="text/javascript" src="../static/js/ols-termselect.js" th:src="@{../js/ols-termselect2.js}"></script>
+<script src="../static/js/jstree/jstree.min.js" th:src="@{../js/jstree/jstree.min.js}"></script>
+<script type="text/javascript" src="../static/js/ols-tabbed-term-treeview.min.js" th:src="@{../js/ols-tabbed-term-treeview.min.js}"></script>
 
+
+<!-- All JS that is just used on this page should go here, I suppose-->
 <script>
     $(document).ready(function() {
         $('.mansyntax').each(function ()
         {
-//            $(this).trigger('click');//for clicking element
+            // $(this).trigger('click');//for clicking element
             var href = $(this).attr("href");
 
             if ($(this).hasClass('ObjectProperty')) {
@@ -449,20 +277,5 @@
     });
 </script>
 
-
-<script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/cookiebanner.js"></script>
-<script defer="defer" src="//www.ebi.ac.uk/web_guidelines/js/foot.js"></script>
-<script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-69391170-1', 'auto');
-    ga('send', 'pageview');
-    ga('set', 'anonymizeIp', true);
-
-
-</script>
 </body>
 </html>

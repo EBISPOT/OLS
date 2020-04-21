@@ -49,13 +49,14 @@ public class HomeController {
     @Autowired
     Environment environment;
 
+    @Autowired
+    private CustomisationProperties customisationProperties;
+
     @Value("${ols.maintenance.start:#{null}}")
     String start = null;
 
-
     @Value("${ols.maintenance.end:#{null}}")
     String end = null;
-
 
     @Value("${ols.maintenance.message:#{null}}")
     String message;
@@ -77,7 +78,7 @@ public class HomeController {
     public String goHome () {
         return "redirect:index";
     }
-    //
+
     @RequestMapping({"/index"})
     public String showHome(Model model) {
 
@@ -96,9 +97,12 @@ public class HomeController {
                 model.addAttribute("message", message);
             }
         } catch (Exception e) {
-            // couldn't determine if we are in maintenance mode..
+            // couldn't determine whether we are in maintenance mode..
         }
         model.addAttribute("summary", summaryInfo);
+
+        customisationProperties.setCustomisationModelAttributes(model);
+
         return "index";
     }
 
@@ -152,7 +156,7 @@ public class HomeController {
             @RequestParam(value = "q", defaultValue = "*") String query,
             @RequestParam(value = "ontology", required = false) Collection<String> ontologies,
             @RequestParam(value = "type", required = false) Collection<String> types,
-            @RequestParam(value= "slim", required = false) Collection<String> slims,
+            @RequestParam(value = "slim", required = false) Collection<String> slims,
             @RequestParam(value = "queryFields", required = false) Collection<String> queryFields,
             @RequestParam(value = "exact", required = false) boolean exact,
             @RequestParam(value = "groupField", required = false) String groupField,
@@ -196,9 +200,9 @@ public class HomeController {
 
 
         model.addAttribute("searchOptions", searchOptions);
+        customisationProperties.setCustomisationModelAttributes(model);
         return "search";
     }
-
 
     @RequestMapping({"contact"})
     public String showContact() {
@@ -217,6 +221,7 @@ public class HomeController {
         model.addAttribute("start", start);
         model.addAttribute("end", end);
         model.addAttribute("message", message);
+        customisationProperties.setCustomisationModelAttributes(model);
         return "maintenance";
     }
 
@@ -224,6 +229,7 @@ public class HomeController {
     public String showSparql() {
         return "comingsoon";
     }
+
     @RequestMapping({"about"})
     public String showAbout() {
         return "redirect:docs/about";
@@ -233,14 +239,22 @@ public class HomeController {
     public String showDocsIndex(Model model) {
         return "redirect:docs/index";
     }
+
     // ok, this is bad, need to find a way to deal with trailing slashes and constructing relative URLs in the thymeleaf template...
     @RequestMapping({"docs/"})
     public String showDocsIndex2(Model model) {
         return "redirect:index";
     }
+
     @RequestMapping({"docs/{page}"})
     public String showDocs(@PathVariable("page") String pageName, Model model) {
+
+        if(customisationProperties.getDebrand()) {
+            return "redirect:../index";
+        }
+
         model.addAttribute("page", pageName);
+        customisationProperties.setCustomisationModelAttributes(model);
         return "docs-template";
     }
 

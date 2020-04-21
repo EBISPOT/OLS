@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+</head>
+<body>
+
+<!-- Here we could find the bootstrap integration: https://github.com/ebiwd/EBI-Style-lab/blob/master/content/pages/websites/sample-site-v1.3/integrations/bootstrap.html-->
+
+<div th:fragment="header">
+    <div id="skip-to">
+        <a href="#main-content-area">Skip to main content</a>
+    </div>
+
+    <header th:if="${debrand} == false" id="masthead-black-bar" class="clearfix masthead-black-bar">
+    </header>
+    <div id="header-content">
+        <div data-sticky-container="true">
+            <header id="masthead" class="masthead" data-sticky="true" data-sticky-on="large" data-top-anchor="main-content-area:top" data-btm-anchor=main-content-area:bottom">
+                <div class="masthead-inner row">
+                    <!-- local-title -->
+                    <div class="columns medium-12" id="local-title">
+                        <!--<h1><a href="../../" title="Back to Oxo homepage">Ontology Xref Service</a></h1>-->
+                        <a th:href="@{/}" 
+                           th:title="'Back to ' + ${shortTitle} + ' homepage'">
+                            <img th:src="@{${logo}}" style="height:100px;"/>
+                        </a>
+                    </div>
+
+                    <!-- /local-title -->
+                    <!-- local-nav -->
+                    <nav>
+                        <ul class="dropdown menu float-left"
+                            data-description="navigational">
+                            <li class=""><a th:href="@{/index}">Home</a></li>
+                            <li class=""><a th:href="@{/ontologies}">Ontologies</a></li>
+                            <li th:if="${debrand} == false" class=""><a th:href="@{/docs}">Documentation</a></li>
+                            <li th:if="${debrand} == false" class=""><a th:href="@{/about}">About</a></li>
+                        </ul>
+                    </nav>
+                    <!-- /local-nav -->
+                </div>
+            </header>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

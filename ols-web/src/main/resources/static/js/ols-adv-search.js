@@ -185,7 +185,7 @@ function processData(data) {
 
         var resultHtml = $('<section></section>');
         resultHtml = resultHtml.append(link);
-        resultHtml = resultHtml.append('&nbsp;&nbsp;');
+        // resultHtml = resultHtml.append('&nbsp;&nbsp;');
 
 
         var shortId = row.obo_id;
@@ -216,12 +216,13 @@ function processData(data) {
 
             var ontologyTitle = ontologyList[row.ontology_name];
             var ontologyLink = $('<a>',{
-                class: 'nounderline',
+                // class: 'nounderline',
+                class: 'nounderline ontology-link',
                 text: ontologyTitle,
                 href: 'ontologies/' + row.ontology_name
             });
             resultHtml = resultHtml.append(ontologyLink);
-            resultHtml = resultHtml.append('&nbsp;');
+            // resultHtml = resultHtml.append('&nbsp;');
             var ontologies = $("<div class='ontology-source' title='"+ontologyList[row.ontology_name]+"'>" + row.ontology_prefix + "</div>");
             resultHtml = resultHtml.append(ontologies);
             resultHtml = resultHtml.append('<br/>');
@@ -230,20 +231,27 @@ function processData(data) {
                 if (data.expanded[row.iri] != undefined) {
                     resultHtml = resultHtml.append('<b>Also in: </b>');
 
+                    var otherOntologies = {};
+
                     $.each (data.expanded[row.iri].docs, function (expandedIndex, expandedRow) {
                         var exLink = getTermLink(expandedRow.ontology_prefix, expandedRow.ontology_name,expandedRow.type, expandedRow.iri )
 
                         var ontoLink = $("<a title='"+ontologyList[expandedRow.ontology_name]+"' href='" + exLink.attr('href') + "' style='border-bottom-width: 0px;'></a>")
                             .append($("<span class='ontology-source'></span>").text(exLink.text()))
-                        resultHtml.append(ontoLink);
-                    })
+                        otherOntologies[exLink.text()] = ontoLink;
+                    });
 
+                    Object.keys(otherOntologies).sort().forEach(function(key) {
+                        resultHtml.append(otherOntologies[key]);
+                    });
                 }
             }
         }
 
+        /*
         resultHtml = resultHtml.append('<br/>');
         resultHtml = resultHtml.append('<br/>');
+         */
 
         searchResult.append(resultHtml);
     });
@@ -298,7 +306,15 @@ function renderTypesFacetField (facetArray, searchSummary) {
             var count = facetArray[x + 1];
 
             if (count > 0) {
-                fieldList.append('<button type=\'button\' id="'+name+'" class="type_list list-group-item">'+name+ '<span class="badge">' + count + '</span></button>');
+                fieldList.append(
+                    '<button type="button" id="' +
+                    name +
+                    '" class="type_list list-group-item"><span class="filter-type">' +
+                    name +
+                    '</span><span class="badge">' +
+                    count.toString() +
+                    '</span></button>'
+                );
                 numberOfFacets++;
             }
 
@@ -311,8 +327,8 @@ function renderTypesFacetField (facetArray, searchSummary) {
         $(".type_list").on('click', function(e){
             //$('#ontology-select-id').val('');
             $("#ontology-type-id").append($('<option/>', {
-                value: e.target.id.toLowerCase(),
-                text : e.target.id.toLowerCase(),
+                value: e.delegateTarget.id.toLowerCase(),
+                text : e.delegateTarget.id.toLowerCase(),
                 selected : 'selected'
             }));
 
@@ -350,8 +366,8 @@ function renderOntologyFacetField (facetArray, searchSummary) {
         $(".onto_list").on('click', function(e){
             //$('#ontology-select-id').val('');
             $("#ontology-id").append($('<option/>', {
-                value: e.target.id.toLowerCase(),
-                text : e.target.id.toLowerCase(),
+                value: e.delegateTarget.id.toLowerCase(),
+                text : e.delegateTarget.id.toLowerCase(),
                 selected : 'selected'
             }));
 
