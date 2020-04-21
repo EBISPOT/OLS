@@ -54,7 +54,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     }
 
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**").addResourceLocations("file:" + System.getProperty("ols.home") + "/web-override/");
+        registry.addResourceHandler("/custom/**").addResourceLocations("file:" + System.getProperty("ols.home") + "/web-custom/");
     }
 
 }
