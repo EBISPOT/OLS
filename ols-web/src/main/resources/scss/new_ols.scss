@@ -43,29 +43,6 @@ a.pagingButton {
     border-bottom: none;
 }
 
-a.pagingButton:hover /* , a.pagingButton:focus, a.pagingButton:active, a.pagingButton:visited */ {
-    /* border-bottom-color: #ddd ; */
-    /* color: white; */
-}
-
-/* browse - List of all ontologies
-#ontologiesTable_previous {
-    display: inline-block;
-    padding: 5px 14px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 15px;
-}
-
-#ontologiesTable_next {
-    display: inline-block;
-    padding: 5px 14px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 15px;
-}
-*/
-
 
 /* Overwritting padding that comes from global ebi css */
 #ontologiesTable_paginate .pagination .current{
@@ -355,26 +332,33 @@ input[type="search"].select2-search__field {
     color: #fefefe;
 }
 
+.ols-tree-buttons {
+    background-color: white;
+    float: right;
+    padding-top: 5px;
+}
+
+.ols-tree-button {
+    display: block;
+    margin: 0 0 2px 0;
+    width: 10rem;
+    font-family: inherit;
+    padding: 0.85em 1em;
+    -webkit-appearance: none;
+    border: 1px solid transparent;
+    border-radius: 0;
+    transition: background-color 0.25s ease-out, color 0.25s ease-out;
+    font-size: 0.9rem;
+    line-height: 1;
+    text-align: center;
+    cursor: pointer;
+    background-color: #777;
+    color: #fefefe;
+}
+
 .awesomplete {
     vertical-align: top;
     width: 160px;
-}
-
-#LookUpNodeTextfield {
-    width: 120px !important;
-}
-
-#TogglePhysics {
-    padding-right: 5px;
-}
-
-/* CSS for the asci doc pages*/
-#docs-content {
-}
-
-/* Footer - add some space */
-#elixir-banner {
-    // margin-top: 100px;
 }
 
 /* maintenance page css*/
@@ -397,7 +381,6 @@ input[type="search"].select2-search__field {
 }
 
 .badge {
-    display: inline-block;
     min-width: /* 10px */ 7px;
     padding: /* 3px 7px */ 5px 7px 3px 7px;
     font-size: 12px;
