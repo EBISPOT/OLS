@@ -249,9 +249,15 @@ input[type="search"].select2-search__field {
 /* Term page */
 #right_info_box .panel-heading {
     background: #00827c;
-    text-align: center;
     padding-top: 0.4rem;
+    padding-left: 0.4rem;
     padding-bottom: 0.05rem;
+}
+
+.panel-heading .toggle {
+    cursor: pointer;
+    float: right;
+    margin-right: 0.4rem;
 }
 
 #right_info_box .panel-heading h4 {
@@ -314,7 +320,7 @@ input[type="search"].select2-search__field {
 
 
 /* Additional style for the graphview - copy/paste for now from foundation button secondary css */
-.btn {
+.ols-graphview-button {
     display: inline-block;
     vertical-align: middle;
     margin: 0 0 1rem 0;
@@ -332,10 +338,25 @@ input[type="search"].select2-search__field {
     color: #fefefe;
 }
 
+#tree-tab {
+    position: relative;
+}
+
 .ols-tree-buttons {
     background-color: white;
-    float: right;
     padding-top: 5px;
+    padding-right: 5px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.ols-tree-buttons .toggle {
+    float: right;
+    padding: 4px;
+    padding-top: 0;
+    cursor: pointer;
+    font-weight: bold;
 }
 
 .ols-tree-button {
