@@ -81,8 +81,7 @@ public class FileUpdatingService {
             try {
                 status = fileUpdateService.getFile(config.getNamespace(), config.getFileLocation());
                 document.setLocalPath(status.getFile().getCanonicalPath());
-                String fileHash = document.getFileHash();
-                if (force || fileHash == null || !fileHash.equals(status.getLatestHash()) || wasFailing) {
+                if (force || !document.getFileHash().equals(status.getLatestHash()) || wasFailing) {
                     document.setStatus(Status.TOLOAD);
                     document.setMessage("");
                 }
