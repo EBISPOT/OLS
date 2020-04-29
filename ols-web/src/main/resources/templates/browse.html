@@ -71,7 +71,7 @@
                         <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="@{ontologies/__${onto.getConfig().getNamespace()}__/terms}">Terms</a><br/>
                         <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="@{ontologies/__${onto.getConfig().getNamespace()}__/properties}">Properties</a><br/>
                         <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="@{ontologies/__${onto.getConfig().getNamespace()}__/individuals}">Individuals</a><br/>
-                        <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="@{ontologies/__${onto.getConfig().getNamespace()}__/download}">Download</a><br/>
+                        <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED || !onto.getConfig().getAllowDownload()}}" th:href="@{ontologies/__${onto.getConfig().getNamespace()}__/download}">Download</a><br/>
                     </td>
                 </tr>
                 </tbody>

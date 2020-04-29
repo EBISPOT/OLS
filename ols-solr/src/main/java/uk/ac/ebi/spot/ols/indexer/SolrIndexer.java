@@ -57,6 +57,7 @@ public class SolrIndexer implements OntologyIndexer {
 
             getLog().info("Number of classes to index: " + loader.getAllClasses().size());
             getLog().info("Number of object properties to index: " + loader.getAllObjectPropertyIRIs().size());
+            getLog().info("Number of data properties to index: " + loader.getAllDataPropertyIRIs().size());
             getLog().info("Number of annotation properties to index: " + loader.getAllAnnotationPropertyIRIs().size());
             getLog().info("Number of individuals to index: " + loader.getAllIndividualIRIs().size());
 
@@ -94,6 +95,15 @@ public class SolrIndexer implements OntologyIndexer {
             }
 
             for (IRI classTerm : loader.getAllObjectPropertyIRIs()) {
+                TermDocumentBuilder builder = extractFeatures(loader, classTerm);
+                builder.setType(TermType.PROPERTY.toString().toLowerCase());
+                builder.setId(generateId(loader.getOntologyName(), "property", classTerm.toString()));
+                builder.setUri_key(generateAnnotationId(loader.getOntologyName() + classTerm.toString() + "property").hashCode());
+
+                documents.add(builder.createTermDocument());
+            }
+
+            for (IRI classTerm : loader.getAllDataPropertyIRIs()) {
                 TermDocumentBuilder builder = extractFeatures(loader, classTerm);
                 builder.setType(TermType.PROPERTY.toString().toLowerCase());
                 builder.setId(generateId(loader.getOntologyName(), "property", classTerm.toString()));

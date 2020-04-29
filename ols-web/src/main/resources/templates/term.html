@@ -196,14 +196,14 @@
             <!-- Tab panes -->
             <div class="tabs-content" data-tabs-content="terms_tabs">
                 <div class="tabs-panel is-active" id="tree-tab">
-                    <div class="btn-group btn-group-vertical" style="float: right; padding-top: 5px;">
-                        <button class="btn btn-default" data-icon ="o" th:onclick="'javascript:window.open(\'' + @{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})} + '\')'" title="Visualisation of this term">
+                    <div class="ols-tree-buttons">
+                        <button class="ols-tree-button" data-icon ="o" th:onclick="'javascript:window.open(\'' + @{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})} + '\')'" title="Visualisation of this term">
                             <i class="icon icon-conceptual" data-icon="o"></i>
                             Graph view
                         </button>
-                        <button class="btn btn-default" value="true" title="Redraw the tree to focus on this terms" onclick="location.reload(true)">Reset tree</button>
+                        <button class="ols-tree-button" value="true" title="Redraw the tree to focus on this terms" onclick="location.reload(true)">Reset tree</button>
                         <!--th:value="${#httpServletRequest.getParameter('siblings') == 'true'} ? 'true': 'false'"-->
-                        <button class="btn btn-default" name="ontology_view_siblings"
+                        <button class="ols-tree-button" name="ontology_view_siblings"
                                 th:value="${#httpServletRequest.getParameter('siblings') == 'true'} ? 'true': 'false'"
                                 title="Expand the tree to show sibling terms"
                                 onclick="termInstance.toggleSiblings()">Show all siblings</button>
