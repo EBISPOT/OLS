@@ -1,7 +1,9 @@
 package uk.ac.ebi.spot.ols.renderer;
 
+import com.google.common.collect.Multimap;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntax;
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.search.EntitySearcher;
 import org.semanticweb.owlapi.util.OntologyIRIShortFormProvider;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.vocab.OWLFacet;
@@ -14,6 +16,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Author: Nick Drummond<br>
@@ -775,14 +778,15 @@ public class OWLHTMLVisitor implements OWLObjectVisitor {
 
     private void writeAnonymousIndividual(OWLAnonymousIndividual individual) {
         write("<span class=\"anon\">");
-        final Set<OWLClassExpression> types = individual.getTypes(ontologies);
+//        final Set<OWLClassExpression> types = individual.getTypes(ontologies);
+        final Set<OWLClassExpression> types = EntitySearcher.getTypes(individual, ontologies.stream()).collect(Collectors.toSet());
         if (!types.isEmpty()){
             writeOpList(types, ", ", false);
         }
 
         // TODO tidy this up - we shouldn't really group by ontology
         for (OWLOntology ont : ontologies){
-            Map<OWLDataPropertyExpression, Set<OWLLiteral>> dataValues = individual.getDataPropertyValues(ont);
+            Multimap<OWLDataPropertyExpression, OWLLiteral> dataValues = EntitySearcher.getDataPropertyValues(individual, ont);
             if (!dataValues.isEmpty()){
                 write("<ul>");
                 for (OWLDataPropertyExpression p : dataValues.keySet()){
@@ -794,7 +798,7 @@ public class OWLHTMLVisitor implements OWLObjectVisitor {
                 }
                 write("</ul>");
             }
-            Map<OWLDataPropertyExpression, Set<OWLLiteral>> negDataValues = individual.getNegativeDataPropertyValues(ont);
+            Multimap<OWLDataPropertyExpression, OWLLiteral> negDataValues = EntitySearcher.getNegativeDataPropertyValues(individual, ont);
             if (!negDataValues.isEmpty()){
                 write("<ul>");
 
@@ -808,7 +812,10 @@ public class OWLHTMLVisitor implements OWLObjectVisitor {
                 write("</ul>");
             }
 
-            Map<OWLObjectPropertyExpression, Set<OWLIndividual>> objValues = individual.getObjectPropertyValues(ont);
+//            Map<OWLObjectPropertyExpression, Set<OWLIndividual>> objValues = individual.getObjectPropertyValues(ont);
+            Multimap<OWLObjectPropertyExpression, OWLIndividual> objValues = EntitySearcher.getObjectPropertyValues(individual, ont);
+
+
             if (!objValues.isEmpty()){
                 write("<ul>");
 
@@ -822,7 +829,9 @@ public class OWLHTMLVisitor implements OWLObjectVisitor {
                 write("</ul>");
 
             }
-            Map<OWLObjectPropertyExpression, Set<OWLIndividual>> negbjValues = individual.getNegativeObjectPropertyValues(ont);
+//            Map<OWLObjectPropertyExpression, Set<OWLIndividual>> negbjValues = individual.getNegativeObjectPropertyValues(ont);
+            Multimap<OWLObjectPropertyExpression, OWLIndividual> negbjValues = EntitySearcher.getNegativeObjectPropertyValues(individual, ont);
+
             if (!negbjValues.isEmpty()){
                 write("<ul>");
 
