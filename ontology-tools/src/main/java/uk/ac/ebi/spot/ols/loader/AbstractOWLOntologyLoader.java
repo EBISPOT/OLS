@@ -2,6 +2,8 @@ package uk.ac.ebi.spot.ols.loader;
 
 import com.google.common.collect.Multimap;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.io.OWLObjectRenderer;
+import org.semanticweb.owlapi.manchestersyntax.renderer.ManchesterOWLSyntaxOWLObjectRendererImpl;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.search.EntitySearcher;
@@ -21,8 +23,6 @@ import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
 import uk.ac.ebi.spot.ols.renderer.OWLHTMLVisitor;
 import uk.ac.ebi.spot.ols.util.*;
 import uk.ac.ebi.spot.ols.xrefs.DatabaseService;
-import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplNoCompression;
-import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxOWLObjectRendererImpl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -202,6 +202,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
     public AbstractOWLOntologyLoader(OntologyResourceConfig config) throws OntologyLoadingException {
         this(config, null, null);
+        OWLObjectRenderer o;
     }
 
     public AbstractOWLOntologyLoader(OntologyResourceConfig config, DatabaseService databaseService,
@@ -276,9 +277,9 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     
     private void initializeOWLAPIWithoutReasoner() throws OntologyLoadingException {
         this.manager = OWLManager.createOWLOntologyManager();
-//        this.manager.setSilentMissingImportsHandling(true);
-        this.manager.getOntologyLoaderConfiguration().setMissingImportHandlingStrategy(
-                MissingImportHandlingStrategy.THROW_EXCEPTION);
+        OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration();
+        config = config.setMissingImportHandlingStrategy(MissingImportHandlingStrategy.THROW_EXCEPTION);
+        this.manager.setOntologyLoaderConfiguration(config);
 
         if (getOntologyResource() != null) {
         	try {
