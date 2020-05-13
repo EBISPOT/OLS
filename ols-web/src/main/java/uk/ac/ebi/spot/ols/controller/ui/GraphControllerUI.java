@@ -1,6 +1,7 @@
 package uk.ac.ebi.spot.ols.controller.ui;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -70,6 +71,8 @@ public class GraphControllerUI {
                   return "graph";
         }*/
 
+    @Autowired
+    private CustomisationProperties customisationProperties;
 
     @RequestMapping(path = "{onto}/terms/graph", method = RequestMethod.GET)
     String getTerm(
@@ -127,6 +130,8 @@ public class GraphControllerUI {
 
         String title = repositoryService.get(ontologyId).getConfig().getTitle();
         model.addAttribute("ontologyName", title);
+
+        customisationProperties.setCustomisationModelAttributes(model);
 
         return "graph";
     }

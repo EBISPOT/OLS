@@ -1,10 +1,11 @@
-#searchBox{
+
+.ols-graphview-searchbox{
 	float:left;
 	border:1px solid black;
 	margin-bottom:10px;
 }
 
-#vis_network{
+.ols-graphview-vis-network{
 	min-height:700px;
 	width:74%;
 	border:1px solid ;
@@ -13,7 +14,7 @@
 	float:left;
 }
 
-#spinner{
+.ols-graphview-spinner{
 	min-height:700px;
 	width:74%;
 	border:1px solid ;
@@ -22,7 +23,7 @@
 	float:left;
 }
 
-#loadingIMG{
+.ols-graphview-loading-image {
 	display:block;
 	margin:auto;
 	margin-top: 300px;
@@ -31,29 +32,31 @@
 
 }
 
-
-#Legend{
+.ols-graphview-legend{
 	width:25%;
 	float:right;
 }
 
-#labelPermaLinkBox{
+.ols-graphview-label-permalink-box {
 	width: 25%;
 	float:right;
 	margin-top:30px;
 }
 
-#buttonBoxWrapper
-{float:left;width:74%;}
-
-#buttonBox{
- text-align: center;
-
- margin-top:10px;
- padding-left:10px;
+.ols-graphview-button-box-wrapper
+{
+	float:left;
+	width:74%;
 }
 
-#LookUpNodeTextfield{
+.ols-graphview-button-box
+{
+	text-align: center;
+	margin-top:10px;
+	padding-left:10px;
+}
+
+.ols-graphview-lookup-node-text-field{
  	position: relative;
     top: 0px;
     /*Round corners ... if we want to have that */
@@ -62,8 +65,7 @@
 		border-radius: 5px;
 }
 
-
-#SecondWindow{
+.ols-graphview-second-window{
 	width:74%;
 	float:left;
 	min-height:80px;
@@ -74,11 +76,11 @@
 	margin-bottom:25px;
 }
 
-#infoWindow{
+.ols-graphview-info-window{
 	float:left;
 }
 
-#infoWindowSub{
+.ols-graphview-info-window-sub {
 	width:99%;
 	min-height: 160px;
 	float:left;
@@ -86,25 +88,25 @@
 }
 
 
-#ChangeLayout{
-	width: 140px;
+.ols-graphview-change-layout {
 	text-align: center;
 }
 
-#LookUpNodeTextfield{
+.ols-graphview-lookup-node-text-field{
 	margin-left: 40px;
 	width:100px;
 }
 
-#TogglePhysics{
-	width:115px;
+.ols-graphview-toggle-physics {
 	text-align: center;
 }
 
-#Permaanwser{
+.ols-graphview-button-box > input {
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+.ols-graphview-permaanswer {
 	margin-bottom:20px;
 }
 
-.btn-default{
-	margin-right:5px
-}

@@ -1,0 +1,5 @@
+
+[program:tomcat]
+user=ols
+; command=bash -c "sleep 45 && catalina.sh start"
+command=bash -c "sleep 45 && catalina.sh run"

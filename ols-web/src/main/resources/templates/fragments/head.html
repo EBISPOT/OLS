@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head">
+
+    <!-- Your [project-name] here -->
+    <meta name="author" content="Ontology Xref Service" />
+    <meta name="HandheldFriendly" content="true" />
+    <meta name="MobileOptimized" content="width" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#70BDBD" /> <!-- Android Chrome mobile browser tab color -->
+
+    <!-- Add information on the life cycle of this page -->
+    <meta th:if="${debrand} == false" name="ebi:owner" content="Henriette Harmse" /> <!-- Who should be contacted about changes -->
+    <meta th:if="${debrand} == false" name="ebi:review-cycle" content="365" /> <!-- In days, how often should the content be reviewed -->
+
+    <!-- If you link to any other sites frequently, consider optimising performance with a DNS prefetch -->
+    <link rel="dns-prefetch" href="//embl.de" />
+
+    <!-- If you have custom icon, replace these as appropriate.
+     You can generate them at realfavicongenerator.net -->
+    <link rel="icon" type="image/x-icon" href="https://dev.ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/images/logos/EMBL-EBI/favicons/favicon.ico" />
+    <link rel="icon" type="image/png" href="https://dev.ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/images/logos/EMBL-EBI/favicons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="https://dev.ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/images/logos/EMBL-EBI/favicons/android-chrome-192x192.png" /> <!-- Android (192px) -->
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://dev.ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/images/logos/EMBL-EBI/favicons/apple-icon-114x114.png" /> <!-- For iPhone 4 Retina display (114px) -->
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://dev.ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/images/logos/EMBL-EBI/favicons/apple-icon-72x72.png" /> <!-- For iPad (72px) -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://dev.ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/images/logos/EMBL-EBI/favicons/apple-icon-144x144.png" /> <!-- For iPad retinat (144px) -->
+    <link rel="apple-touch-icon-precomposed" href="https://dev.ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/images/logos/EMBL-EBI/favicons/apple-icon-57x57.png" /> <!-- For iPhone (57px) -->
+    <link rel="mask-icon" href="https://dev.ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/images/logos/EMBL-EBI/favicons/safari-pinned-tab.svg" color="#ffffff" /> <!-- Safari icon for pinned tab -->
+    <meta name="msapplication-TileColor" content="#2b5797" /> <!-- MS Icons -->
+    <meta name="msapplication-TileImage" content="//wwwdev.ebi.ac.uk/web_guidelines/EBI-Framework/v1.3/images/logos/EMBL-EBI/favicons/mstile-144x144.png" />
+
+
+    <!-- CSS: implied media=all -->
+    <!-- CSS concatenated and minified via ant build script -->
+
+    <!-- Deactivating the old include
+    <link rel="stylesheet" href="https://ebi.emblstatic.net//web_guidelines/EBI-Framework/v1.2/libraries/foundation-6/css/foundation.min.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="https://ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.2/css/ebi-global.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="https://ebi.emblstatic.net/web_guidelines/EBI-Icon-fonts/v1.2/fonts.css" type="text/css" media="all" />
+    -->
+
+    <!--
+        <link rel="stylesheet" href="https://www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.1/libraries/foundation-6/css/foundation.min.css" type="text/css" media="all" />
+        <link rel="stylesheet" href="https://www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.1/css/ebi-global.css" type="text/css" media="all" />
+        <link rel="stylesheet" href="https://www.ebi.ac.uk/web_guidelines/EBI-Icon-fonts/v1.1/fonts.css" type="text/css" media="all" />
+    -->
+
+
+    <!-- Trying to get v1.3 working -->
+    <link rel="stylesheet" href="https://dev.ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/css/ebi-global.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="https://dev.ebi.emblstatic.net/web_guidelines/EBI-Icon-fonts/v1.2/fonts.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="https://dev.ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/css/theme-embl-petrol.css" type="text/css" />
+
+    <!--
+    <link rel="stylesheet" href="https://www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.2/libraries/foundation-6/css/foundation.css" />
+    <link rel="stylesheet" href="https://ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/css/ebi-global.css" type="text/css" media="all" />
+    -->
+
+    <!-- jstree -->
+    <link rel="stylesheet" href="/js/jstree/themes/proton/style.min.css" th:href="@{/js/jstree/themes/proton/style.min.css}" type="text/css" media="screen" />
+
+    <!-- Use this CSS file for any custom styling -->
+    <!-- Css taken from old oxo
+    <link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/develop/embl-petrol-colours.css" type="text/css" media="screen"/>
+    -->
+
+    <!-- Temporary remove  style
+    <link rel="stylesheet" href="https://www.ebi.ac.uk/ols/css/ols.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="https://www.ebi.ac.uk/ols/css/ols-colors.css"  type="text/css" media="screen"/>
+    <link rel="stylesheet" href="../static/css/oxo.css" th:href="@{/css/oxo.css}" type="text/css" media="screen"/>
+
+    <link rel="stylesheet" href="../static/css/oxo.css" th:href="@{/css/oxo.css}" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="../static/css/oxo-d3.css" th:href="@{/css/oxo-d3.css}" type="text/css" media="screen"/>
+    <link rel="stylesheet" th:href="@{/webjars/select2/4.0.0/dist/css/select2.min.css}" href="/webjars/select2/4.0.0/dist/css/select2.min.css"  type="text/css" media="screen"/>
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" type="text/css" media="screen"/>
+    -->
+
+    <!--  bootstrap though!
+    <link  rel="stylesheet" th:href="@{/webjars/bootstrap-slider/5.3.1/css/bootstrap-slider.min.css}" href="/webjars/bootstrap-slider/5.3.1/css/bootstrap-slider.min.css"  type="text/css" media="screen"/>
+    -->
+    <!--    bootstrap css needed?    -->
+    <!--
+    <link rel="stylesheet" href="https://www.ebi.ac.uk/ols/css/bootstrap/3.3/css/bootstrap.min.css" type="text/css" media="screen"/>
+    -->
+
+    <!-- If you have a custom header image or colour -->
+    <!--
+    <meta name="ebi:localmasthead-color" content="#000" /> - ->
+    <meta name="ebi:localmasthead-image" content="/img/images/background.jpg"/>
+    <meta name="ebi:masthead-image"  content="img/background.jpg"/>-->
+
+    <meta name="ebi:masthead-color" content="#000" />
+    <meta name="ebi:masthead-image"  content="https://www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.1/images/backgrounds/embl-ebi-background-4.jpg"/>
+
+    <link rel="stylesheet" th:href="@{/css/new_ols.css}" href="/css/new_ols.css" type="text/css" media="screen"/>
+
+    <!-- you can replace this with theme-[projectname].css. See http://www.ebi.ac.uk/web/style/colour for details of how to do this -->
+    <!-- also inform ES so we can host your colour palette file -->
+
+    <!--link rel="stylesheet" href="https://www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.1/css/theme-embl-petrol.css" type="text/css" media="all" /-->
+
+    <!-- for production the above can be replaced with -->
+    <!--link rel="stylesheet" href="//www.ebi.ac.uk/web_guidelines/css/compliance/mini/ebi-fluid-embl.css" /-->
+    <!-- end CSS -->
+
+    <!-- All JavaScript at the bottom, except for Modernizr - - >
+    <script src="https://www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.1/libraries/modernizr/modernizr.custom.49274.js"></script>
+    -->
+    <link th:if="${proton} == true" rel="stylesheet" th:href="@{/js/jstree/themes/proton/style.min.css}" type="text/css" media="screen" />
+    <link th:if="${diachron} == true" rel="stylesheet" th:href="@{/css/diachron/pikaday.css}" type="text/css" media="screen" />
+    <link th:if="${diachron} == true" rel="stylesheet" th:href="@{/css/diachron/widget.css}" type="text/css" media="screen" />
+    <link th:if="${olscss} == true" rel="stylesheet" th:href="@{/css/typeahead/typeaheadjs.css}" type="text/css" media="screen" />
+
+    <!-- TABLE css (originally from ontology.html, already commented out)
+    <link rel="stylesheet" href="../static/css/diachron/tablesort-blue/style.css"
+          th:href="@{../css/diachron/tablesort-blue/style.css}" type="text/css" media="screen" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.css" />
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css" /-->
+    <link th:if="${datatables} == true" rel="stylesheet" type="text/css"
+          th:href="@{//cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css}" />
+
+    <!-- originally from browse.html -->
+    <link th:if="${datatables_old} == true" rel="stylesheet" type="text/css"
+          th:href="@{//cdn.datatables.net/r/zf-5.5.2/jqc-1.11.3,dt-1.10.8/datatables.min.css}" />
+
+    <!-- originally from search.html -->
+    <link th:if="${select2} == true" rel="stylesheet" th:href="@{/css/select2/4.0.0/select2.min.css}" type="text/css" media="screen" />
+
+    <!-- originally from graph.html -->
+    <link th:if="${visualise} == true" rel="stylesheet" th:href="@{/css/ontology_vis_plugin/awesomplete.css}" type="text/css" />
+    <link th:if="${visualise} == true" rel="stylesheet" th:href="@{/css/ontology_vis_plugin/ontology_vis_plugin.css}" type="text/css" media="screen" />
+    <!-- THIS is for the VIS BUTTONS -->
+    <link th:if="${visualise} == true" rel="stylesheet" th:href="@{../../../css/ontology_vis_plugin/vis.css}" type="text/css" />
+
+    <!-- Also needed? (originally from ontology.html, already commented out)
+    <link rel="stylesheet" href="../static/css/bootstrap/3.3/css/bootstrap.min.css" th:href="@{../css/bootstrap/3.3/css/bootstrap.min.css}" type="text/css" media="screen" /-->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/icheck-bootstrap@3.0.1/icheck-bootstrap.min.css" />
+
+</head>
+<body>
+
+</body>
+</html>
