@@ -152,14 +152,14 @@
                         <b>Ontology IRI: </b>
                         <a property="url" target="blank" th:href="@{${ontologyDocument.getConfig().getId()}}">
                             <i class="icon icon-generic" data-icon="L"></i>
-                            <span h:text="${ontologyDocument.getConfig().getId()}">http://www.example.com/onto/id</span> 
+                            <span th:text="${ontologyDocument.getConfig().getId()}">http://www.example.com/onto/id</span> 
                         </a>
                     </div>
                     <div th:if="${ontologyDocument.getConfig().getVersionIri()}">
                         <b>Version IRI: </b>
                         <a property="url" target="blank" th:href="@{${ontologyDocument.getConfig().getVersionIri()}}">
                         <i class="icon icon-generic" data-icon="L"></i>
-                        <span h:text="${ontologyDocument.getConfig().getVersionIri()}">http://www.example.com/onto/id</span> 
+                        <span th:text="${ontologyDocument.getConfig().getVersionIri()}">http://www.example.com/onto/id</span> 
                         </a>
                     </div>
                     <div>
