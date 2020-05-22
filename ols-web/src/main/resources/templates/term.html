@@ -345,7 +345,7 @@
                             <b><a href="#"
                                   th:href="@{../../search(q=${annotations.key},exact='true', type=property, ontology=${ontologyTerm.ontologyName})}"
                                   th:text="${annotations.key.replaceAll('_', ' ')}">property name</a></b>
-                            <p class="annotation-value" style="margin-left:9px;" th:text="${#strings.setJoin(annotations.value, ', ')}">NCBI_9606</p>
+                            <p th:inline="text">[[${annotations.value[0]}]]</p>
                         </div>
                     </div>
                 </div>
