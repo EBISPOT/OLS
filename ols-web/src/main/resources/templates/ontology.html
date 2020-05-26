@@ -7,8 +7,9 @@
 <!--[if gt IE 8]><!--> <html xmlns:th="https://www.thymeleaf.org" class="no-js" lang="en"> <!--<![endif]-->
 
 
-<head th:replace="fragments/head :: head(olscss=true, diachron=true, proton=true)">
-    <title>Ontology Xref Service   &lt; EMBL-EBI</title>
+<head>
+    <div th:replace="fragments/head :: head(olscss=true, diachron=true, proton=true)"></div>
+    <title id="pageTitle" th:inline="text">[[${ontologyDocument.getConfig().getTitle()}]] &lt; [[${title}]] &lt; [[${org}]]</title>
     <!-- A few keywords that relate to the content of THIS PAGE (not the whole project)
     <meta name="keywords" content="biosamples, europe, EBI" />
     <!- - Describe what this page is about - ->
