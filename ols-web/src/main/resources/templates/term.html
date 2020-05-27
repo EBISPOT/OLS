@@ -294,21 +294,17 @@
 
                     <div th:if="${not #sets.isEmpty(xrefs)}">
                         <a href="#"
-                           th:href="@{../../search(q='database_cross_reference', exact='true', type='property', ontology=${ontologyTerm.ontologyName})}">database cross reference</a>
+                           th:href="@{../../search(q='database_cross_reference', exact='true', type='property', ontology=${ontologyTerm.ontologyName})}"><b>database cross reference</b></a>
                         <ul>
                             <li style="margin-left: 9px;" th:each="oboXref: ${xrefs}">
-                                <a th:if="${oboXref.getUrl() != null and oboXref.getDatabase() != null and oboXref.getId() != null}"
-                                   target="_blank"
-                                   th:href="${oboXref.getUrl()}"
-                                   th:text="${oboXref.getDatabase() + ':' + oboXref.getId()}"></a>
-                                <a th:if="${oboXref.getUrl() != null and oboXref.getDatabase() == null}"
-                                   target="_blank"
-                                   th:href="${oboXref.getUrl()}"
-                                   th:text="${oboXref.getId()}"></a>
-                                <span th:if="${oboXref.getDatabase() != null and oboXref.getUrl() == null}"
-                                      th:text="${oboXref.getDatabase()}"></span>
-                                <span th:if="${oboXref.getDescription() != null}"
-                                      th:text="'(' + ${oboXref.getDescription()} + ')'"></span>
+                                <a th:if="${oboXref.getUrl() != null}" target="_blank" th:href="${oboXref.getUrl()}">
+                                   <span th:text="${oboXref.getDatabase() + ':' + oboXref.getId()}"></span>
+                                   <span th:if="oboXref.getDescription() != null" th:inline="text">([[${oboXref.getDescription()}]])</span>
+                                </a>
+                                <span th:if="${oboXref.getUrl() == null}">
+                                   <span th:text="${oboXref.getDatabase() + ':' + oboXref.getId()}"></span>
+                                   <span th:if="${oboXref.getDescription() != null}" th:inline="text">([[${oboXref.getDescription()}]])</span>
+                                </span>
                             </li>
                         </ul>
                     </div>
