@@ -56,7 +56,7 @@ public class LoadingApplication implements CommandLineRunner {
     @Autowired
     MailService mailService;
 
-    private static String [] ontologies = {};
+    private static String [] forcedOntologies = {};
 
     private static String email;
 
@@ -83,9 +83,9 @@ public class LoadingApplication implements CommandLineRunner {
 
         List<OntologyDocument> allDocuments = new ArrayList<OntologyDocument>();
 
-        if (ontologies.length > 0) {
+        if (forcedOntologies.length > 0) {
             // get the ontologies forced to update
-          for (String ontologyName : ontologies) {
+          for (String ontologyName : forcedOntologies) {
                     OntologyDocument document = ontologyRepositoryService.get(ontologyName);
                     if (document != null) {
                     if (!offline) {
@@ -126,7 +126,7 @@ public class LoadingApplication implements CommandLineRunner {
 
         CountDownLatch latch = new CountDownLatch(allDocuments.size());
         FileUpdatingService service = new FileUpdatingService(ontologyRepositoryService, executor, latch);
-        service.checkForUpdates(allDocuments, fileUpdater, ontologies.length>0);
+        service.checkForUpdates(allDocuments, fileUpdater, forcedOntologies.length>0);
 
         // wait for ontologies to have been checked
         latch.await();
@@ -140,8 +140,8 @@ public class LoadingApplication implements CommandLineRunner {
         long start = System.currentTimeMillis();
         StringBuilder exceptions = new StringBuilder();
 
-        if (ontologies.length > 0) {
-            for (String ontologyName : ontologies) {
+        if (forcedOntologies.length > 0) {
+            for (String ontologyName : forcedOntologies) {
                 OntologyDocument document = ontologyRepositoryService.get(ontologyName);
                 if (document != null) {
                     try {
@@ -235,7 +235,7 @@ public class LoadingApplication implements CommandLineRunner {
             else {
                 // find -f option to see if we are to force load
                 if (cl.hasOption("f") ) {
-                    ontologies = cl.getOptionValues("f");
+                    forcedOntologies = cl.getOptionValues("f");
                 }
 
                 offline = cl.hasOption("off");

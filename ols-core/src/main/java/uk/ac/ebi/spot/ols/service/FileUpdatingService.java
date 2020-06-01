@@ -33,6 +33,8 @@ public class FileUpdatingService {
 
     private Logger log = LoggerFactory.getLogger(getClass());
 
+    private static int MAX_LOAD_ATTEMPTS = 3;
+
     public Logger getLog() {
         return log;
     }
@@ -60,7 +62,6 @@ public class FileUpdatingService {
             getLog().info("Checking status of " + document.getOntologyId());
             OntologyResourceConfig config = document.getConfig();
 
-
             // check if was previously failing
             boolean wasFailing = false;
             if (document.getStatus() != null) {
@@ -71,24 +72,43 @@ public class FileUpdatingService {
                 }
             }
 
+            boolean skip = document.getStatus() == Status.SKIP;
 
-            document.setStatus(Status.DOWNLOADING);
-            document.setUpdated(new Date());
-            document.setMessage("");
-            ontologyRepositoryService.update(document);
+            if(!skip) {
+                if(wasFailing) {
+                    int newLoadAttempts = document.getLoadAttempts() + 1;
+                    document.setLoadAttempts(newLoadAttempts);
+                    
+                    getLog().info(document.getOntologyId() + " has failed " + newLoadAttempts + " times out of " + MAX_LOAD_ATTEMPTS + " max");
+
+                    if(newLoadAttempts >= MAX_LOAD_ATTEMPTS) {
+                        getLog().info(document.getOntologyId() + " failed too many times; skipping now and in future");
+                        document.setStatus(Status.SKIP);
+                        skip = true;
+                    }
+                }
+            }
 
             FileUpdater.FileStatus status = null;
+
             try {
-                status = fileUpdateService.getFile(config.getNamespace(), config.getFileLocation());
-                document.setLocalPath(status.getFile().getCanonicalPath());
-                String fileHash = document.getFileHash();
-                if (force || fileHash == null || !fileHash.equals(status.getLatestHash()) || wasFailing) {
-                    document.setStatus(Status.TOLOAD);
+                if(!skip) {
+                    document.setStatus(Status.DOWNLOADING);
+                    document.setUpdated(new Date());
                     document.setMessage("");
-                }
-                else {
-                    document.setStatus(Status.LOADED);
-                    document.setMessage("");
+                    ontologyRepositoryService.update(document);
+
+                    status = fileUpdateService.getFile(config.getNamespace(), config.getFileLocation());
+                    document.setLocalPath(status.getFile().getCanonicalPath());
+                    String fileHash = document.getFileHash();
+                    if (force || fileHash == null || !fileHash.equals(status.getLatestHash()) || wasFailing) {
+                        document.setStatus(Status.TOLOAD);
+                        document.setMessage("");
+                    }
+                    else {
+                        document.setStatus(Status.LOADED);
+                        document.setMessage("");
+                    }
                 }
             } catch (FileUpdateServiceException e) {
 
