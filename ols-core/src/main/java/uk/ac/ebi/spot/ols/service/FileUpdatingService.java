@@ -69,6 +69,8 @@ public class FileUpdatingService {
                         document.getStatus().equals(Status.LOADING) || document.getStatus().equals(Status.DOWNLOADING)) {
                     wasFailing = true;
                     getLog().debug(document.getOntologyId() + " + failed previously with status = " + document.getStatus());
+                } else {
+                    document.setLoadAttempts(0);
                 }
             }
 
