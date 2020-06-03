@@ -7,7 +7,9 @@
 <!--[if gt IE 8]><!--> <html  xmlns:th="https://www.thymeleaf.org" class="no-js" lang="en"> <!--<![endif]-->
 
 
-<head th:replace="fragments/head :: head(olscss=true, datatables_old=true)">
+<head>
+    <div th:replace="fragments/head :: head(olscss=true, datatables_old=true)"></div>
+    <title id="pageTitle" th:inline="text">Home &lt; [[${title}]] &lt; [[${org}]]</title>
 <!--head th:replace="fragments/head :: head(olscss=true, datatables=true)"--
     <title>Ontology Xref Service   &lt; EMBL-EBI</title>
     <!- - A few keywords that relate to the content of THIS PAGE (not the whole project)

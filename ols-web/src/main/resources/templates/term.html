@@ -8,8 +8,9 @@
 <!--[if !IE] -->  <html xmlns:th="https://www.thymeleaf.org" class="no-js" lang="en"> <!-- <![endif]-->
 
 
-<head th:replace="fragments/head :: head(olscss=true, proton=true)">
-    <title>Ontology Xref Service   &lt; EMBL-EBI</title>
+<head>
+    <div th:replace="fragments/head :: head(olscss=true, proton=true)"></div>
+    <title id="pageTitle" th:text="${ontologyTerm.getLabel()}">Term</title>
     <!-- A few keywords that relate to the content of THIS PAGE (not the whole project)
     <meta name="keywords" content="biosamples, europe, EBI" />
     <!- - Describe what this page is about - ->
@@ -293,21 +294,17 @@
 
                     <div th:if="${not #sets.isEmpty(xrefs)}">
                         <a href="#"
-                           th:href="@{../../search(q='database_cross_reference', exact='true', type='property', ontology=${ontologyTerm.ontologyName})}">database cross reference</a>
+                           th:href="@{../../search(q='database_cross_reference', exact='true', type='property', ontology=${ontologyTerm.ontologyName})}"><b>database cross reference</b></a>
                         <ul>
                             <li style="margin-left: 9px;" th:each="oboXref: ${xrefs}">
-                                <a th:if="${oboXref.getUrl() != null and oboXref.getDatabase() != null and oboXref.getId() != null}"
-                                   target="_blank"
-                                   th:href="${oboXref.getUrl()}"
-                                   th:text="${oboXref.getDatabase() + ':' + oboXref.getId()}"></a>
-                                <a th:if="${oboXref.getUrl() != null and oboXref.getDatabase() == null}"
-                                   target="_blank"
-                                   th:href="${oboXref.getUrl()}"
-                                   th:text="${oboXref.getId()}"></a>
-                                <span th:if="${oboXref.getDatabase() != null and oboXref.getUrl() == null}"
-                                      th:text="${oboXref.getDatabase()}"></span>
-                                <span th:if="${oboXref.getDescription() != null}"
-                                      th:text="'(' + ${oboXref.getDescription()} + ')'"></span>
+                                <a th:if="${oboXref.getUrl() != null}" target="_blank" th:href="${oboXref.getUrl()}">
+                                   <span th:text="${oboXref.getDatabase() + ':' + oboXref.getId()}"></span>
+                                   <span th:if="oboXref.getDescription() != null" th:inline="text">([[${oboXref.getDescription()}]])</span>
+                                </a>
+                                <span th:if="${oboXref.getUrl() == null}">
+                                   <span th:text="${oboXref.getDatabase() + ':' + oboXref.getId()}"></span>
+                                   <span th:if="${oboXref.getDescription() != null}" th:inline="text">([[${oboXref.getDescription()}]])</span>
+                                </span>
                             </li>
                         </ul>
                     </div>
@@ -345,7 +342,7 @@
                             <b><a href="#"
                                   th:href="@{../../search(q=${annotations.key},exact='true', type=property, ontology=${ontologyTerm.ontologyName})}"
                                   th:text="${annotations.key.replaceAll('_', ' ')}">property name</a></b>
-                            <p class="annotation-value" style="margin-left:9px;" th:text="${#strings.setJoin(annotations.value, ', ')}">NCBI_9606</p>
+                            <p th:inline="text">[[${annotations.value[0]}]]</p>
                         </div>
                     </div>
                 </div>
