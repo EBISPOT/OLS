@@ -299,7 +299,7 @@
                             <li style="margin-left: 9px;" th:each="oboXref: ${xrefs}">
                                 <a th:if="${oboXref.getUrl() != null}" target="_blank" th:href="${oboXref.getUrl()}">
                                    <span th:text="${oboXref.getDatabase() + ':' + oboXref.getId()}"></span>
-                                   <span th:if="oboXref.getDescription() != null" th:inline="text">([[${oboXref.getDescription()}]])</span>
+                                   <span th:if="${oboXref.getDescription() != null}" th:inline="text">([[${oboXref.getDescription()}]])</span>
                                 </a>
                                 <span th:if="${oboXref.getUrl() == null}">
                                    <span th:text="${oboXref.getDatabase() + ':' + oboXref.getId()}"></span>
