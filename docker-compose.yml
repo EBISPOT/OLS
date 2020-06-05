@@ -1,25 +1,37 @@
-version: '3'
-
+version: '2'
 services:
-
-  mongo:
-      image: mongo:3.2
+    solr:
+        image: solr:5.5.3-alpine
+        environment:
+          - SOLR_HOME=/mnt/solr-config
+        ports:
+          - 8983:8983
+        volumes:
+          - ./data/ols/solr:/mnt/solr-data
+          - ./ols-solr/src/main/solr-5-config:/mnt/solr-config
+        command: ["solr", "-Dsolr.solr.home=/mnt/solr-config", "-Dsolr.data.dir=/mnt/solr-data", "-Dsolr.log=/mnt/solr-data/logs", "-f"]
+    mongo:
+      image: mongo:3.6.18-xenial
       ports:
           - 27017:27017
       volumes:
-          - mongo_data:/data/db
+          - ./data/mongo:/data/db
       command:
           - mongod
-  solr:
-    build: ./solr
-#    image: solr:5.3.1
-    ports:
-     - "8983:8983"
-    volumes:
-      - ./ols-solr/src/main/solr-5-config:/opt/solr/server/solr
-      -  solr_data:/opt/solr/mydata
-    command: ["bin/solr", "-f", "-a", "-Dsolr.data.dir=/opt/solr/mydata"]
-
-volumes:
-  solr_data:
-  mongo_data:
+    ols-web:
+      build:
+          context: .
+          dockerfile: ols-web/Dockerfile
+      depends_on:
+        - solr
+        - mongo
+      links:
+        - solr
+        - mongo
+      environment:
+        - spring.datasource.url=jdbc:hsqldb:file:/mnt/hsqldb
+        - spring.data.solr.host=http://solr:8983/solr
+      volumes:
+        - ./data/hsqldb:/mnt/hsqldb
+      ports:
+      - 8080:8080

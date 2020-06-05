@@ -8,7 +8,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>ols-solr-app</module>
-        <module>ols-loading-app</module>
+        <module>ols-indexer</module>
         <module>ols-config-importer</module>
         <module>ols-neo4j-app</module>
     </modules>

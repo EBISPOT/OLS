@@ -13,4 +13,4 @@ properties
 .settings
 .project
 *.log
-
+.factorypath
