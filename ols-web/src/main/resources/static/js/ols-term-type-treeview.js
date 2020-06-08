@@ -1818,11 +1818,13 @@ OLSTermTypeTreeView.prototype.draw =  function (showSiblings, viewMode) {
         }
         _onClick.call(this, event, selected, relativePath, localTermIRI, localTermType, iri, ontology, showSiblings,
             viewMode);
-    }).bind('after_close.jstree', function (e, data) {
-        var tree = $(localDivId).jstree(true).get_json();
-        tree.delete_node(data.node.children);
-        tree._model.data[data.node.id].state.loaded = false;
-    });
+    })
+    
+    // .bind('after_close.jstree', function (e, data) {
+    //     var tree = $(localDivId).jstree(true).get_json();
+    //     tree.delete_node(data.node.children);
+    //     tree._model.data[data.node.id].state.loaded = false;
+    // });
 }
 
 
