@@ -102,18 +102,21 @@ public abstract class AbstractJsTreeBuilder {
 
         List<JsTreeObject> treeObjects = new ArrayList<>();
 
+        int counter = 1;
         while (res.hasNext()) {
             Map<String, Object> row = res.next();
 
             String nodeId = row.get("startId").toString();
 
-            JsTreeObject jsTreeObject = createJsTreeObject(nodeId, ontologyName, row, parentNodeId, parentNodeId + "_" + nodeId);
+            JsTreeObject jsTreeObject = createJsTreeObject(nodeId, ontologyName, counter, row, parentNodeId, "_child_");
 
             if (jsTreeObject.isHasChildren()) {
                 jsTreeObject.setChildren(true);
                 jsTreeObject.getState().put("opened", false);
             }
             treeObjects.add(jsTreeObject);
+
+            counter++;
         }
 
         logger.debug("Return treeObjects = " + treeObjects);
@@ -242,7 +245,7 @@ public abstract class AbstractJsTreeBuilder {
                                       ViewMode viewMode) {
         try {
             Collection<JsTreeObject> objectVersions = getJsObjectTree(nodeId, ontologyName, resultsMap, jsTreeObjectMap,
-                    parentIdCollector, viewMode, new HashSet<String>(), nodeId);
+                    parentIdCollector, viewMode, new HashSet<String>());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -285,11 +288,7 @@ public abstract class AbstractJsTreeBuilder {
                                                      Map<String, List<Map<String, Object>>> resultsMap,
                                                      Map<String, Collection<JsTreeObject>> jsTreeObjectMap,
                                                      Collection<String> parentIdCollector,
-                                                     ViewMode viewMode,
-                                                     Set<String> visited,
-                                                     String nodePath
-                                                     ) throws IOException {
-
+                                                     ViewMode viewMode, Set<String> visited) throws IOException {
         logger.debug("Get tree for node " + nodeId + "; visited " + String.join(",", visited));
 
         visited.add(nodeId);
@@ -308,10 +307,12 @@ public abstract class AbstractJsTreeBuilder {
                     return Collections.singleton(new JsTreeObject("#", "#", ontologyName, "", rootName,
                             false, "#"));
                 case PREFERRED_ROOTS:
-                   return Collections.singleton(createJsTreeNode(nodeId, ontologyName, jsTreeObjectMap, parentIdCollector, 
-                            resultsMap.get(nodeId).get(0),"#", ""));
+                   return Collections.singleton(createJsTreeNode(nodeId, ontologyName, jsTreeObjectMap, parentIdCollector, 1,
+                            resultsMap.get(nodeId).get(0),"#", "_"));
             }
         }
+
+        int x = 1;
 
         for (Map<String, Object> row : resultsMap.get(nodeId) ) {
             List<Integer> parentIds = new ObjectMapper().readValue(row.get("parents").toString(), List.class);
@@ -327,19 +328,12 @@ public abstract class AbstractJsTreeBuilder {
                     continue;
                 }
 
-                String parentPath = parentId + "_" + nodePath;
+                for (JsTreeObject parentObject : getJsObjectTree(parentId, ontologyName, resultsMap, jsTreeObjectMap,
+                        parentIdCollector, viewMode, new HashSet<String>(visited))) {
 
-                Collection<JsTreeObject> parentTree = getJsObjectTree(parentId, ontologyName, resultsMap, jsTreeObjectMap,
-                parentIdCollector, viewMode, new HashSet<String>(visited), parentPath);
-
-                if(parentTree != null) {
-
-                    for (JsTreeObject parentObject : parentTree) {
-
-                        createJsTreeNode(nodeId, ontologyName, jsTreeObjectMap, parentIdCollector, row,
-                                parentObject.getId(), parentPath);
-                    }
-
+                    createJsTreeNode(nodeId, ontologyName, jsTreeObjectMap, parentIdCollector, x, row,
+                            parentObject.getId(), "_");
+                    x++;
                 }
             }
         }
@@ -349,10 +343,10 @@ public abstract class AbstractJsTreeBuilder {
 
     private JsTreeObject createJsTreeNode(String nodeId, String ontologyName,
                                           Map<String, Collection<JsTreeObject>> jsTreeObjectMap,
-                                          Collection<String> parentIdCollector, Map<String, Object> row,
-                                          String parentObjectId, String nodePath) {
+                                          Collection<String> parentIdCollector, int x, Map<String, Object> row,
+                                          String parentObjectId, String nodeLabelInsert) {
 
-        JsTreeObject jsTreeObject = createJsTreeObject(nodeId, ontologyName, row, parentObjectId, nodePath);
+        JsTreeObject jsTreeObject = createJsTreeObject(nodeId, ontologyName, x, row, parentObjectId, nodeLabelInsert);
 
         if (!jsTreeObjectMap.containsKey(nodeId)) {
             jsTreeObjectMap.put(nodeId, new HashSet<>());
@@ -362,16 +356,18 @@ public abstract class AbstractJsTreeBuilder {
         return jsTreeObject;
     }
 
-    private JsTreeObject createJsTreeObject(String nodeId, String ontologyName, 
-                                            Map<String, Object> row, String parentObjectId, String nodePath) {
+    private JsTreeObject createJsTreeObject(String nodeId, String ontologyName, int x,
+                                            Map<String, Object> row, String parentObjectId, String nodeLabelInsert) {
 
         String startIri = row.get("startIri").toString();
         String startLabel = row.get("startLabel").toString();
         String relation = row.get("relation").toString().replaceAll(" ", "_");
         boolean hasChildren = Boolean.parseBoolean(row.get("hasChildren").toString());
 
+        String startNode = nodeId + nodeLabelInsert + x;
+
         return new JsTreeObject(
-                nodePath,
+                startNode,
                 startIri,
                 ontologyName,
                 startLabel,
