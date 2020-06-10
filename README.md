@@ -75,7 +75,9 @@ Then, run the indexer:
 
     docker run --net=host -v $(pwd)/config:/config ebispot/ols-indexer
 
+Finally, start all three services:
 
+    docker-compose up
 
 ### Building the Docker images manually
 
