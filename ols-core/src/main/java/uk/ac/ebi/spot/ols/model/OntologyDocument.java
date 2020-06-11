@@ -36,6 +36,7 @@ public class OntologyDocument {
     private String version;
     private String fileHash;
 
+    private int loadAttempts;
 
     private int numberOfTerms;
     private int numberOfProperties;
@@ -44,7 +45,7 @@ public class OntologyDocument {
     private OntologyResourceConfig config;
 
     public OntologyDocument(String ontologyId, Date updated, Status status, String message, String localPath,
-                            String fileHash,
+                            String fileHash, int loadAttempts,
                             int numberOfTerms, int numberOfProperties, int numberOfIndividuals,
                             OntologyResourceConfig config) {
         this.ontologyId = ontologyId;
@@ -53,6 +54,7 @@ public class OntologyDocument {
         this.message = message;
         this.localPath = localPath;
         this.fileHash = fileHash;
+        this.loadAttempts = loadAttempts;
         this.numberOfTerms = numberOfTerms;
         this.numberOfProperties = numberOfProperties;
         this.numberOfIndividuals = numberOfIndividuals;
@@ -65,7 +67,7 @@ public class OntologyDocument {
     }
 
     public OntologyDocument(String ontologyId, OntologyResourceConfig config) {
-        this(ontologyId, new Date(), Status.NOTLOADED, "No ontology loaded", null,"", 0,
+        this(ontologyId, new Date(), Status.NOTLOADED, "No ontology loaded", null,"",0, 0,
                 0,0, config);
     }
 
@@ -163,5 +165,13 @@ public class OntologyDocument {
 
     public void setFileHash(String fileHash) {
         this.fileHash = fileHash;
+    }
+
+    public int getLoadAttempts() {
+        return loadAttempts;
+    }
+
+    public void setLoadAttempts(int n) {
+        this.loadAttempts = n;
     }
 }
