@@ -45,7 +45,7 @@ more information http://www.ebi.ac.uk/ols/docs/installation-guide
   Boot application for loading config files into the MongoDB database.
   This includes support for reading config files specified using the OBO
   Foundry YAML format.
-* [ols-apps/ols-loading-app](ols-apps/ols-loading-app) - Spring Boot
+* [ols-apps/ols-indexer](ols-apps/ols-indexer) - Spring Boot
   application for building the complete OLS indexes. This app fetches
   ontologies specified in the config files, checks whether they have
   changed from a previous download, and if they have changed, will
@@ -56,6 +56,39 @@ more information http://www.ebi.ac.uk/ols/docs/installation-guide
   (https://github.com/EBISPOT/ols-term-type-treeview) and
   [ols-tabbed-term-treeview]
   (https://github.com/EBISPOT/ols-tabbed-term-treeview).
+
+
+## Building with Docker
+
+The preferred method of deployment for OLS is using Docker.  The central
+Docker compose file contains the definitions for Solr, MongoDB, and the OLS
+web interface.  First, start solr and mongodb only:
+
+    docker-compose up solr mongo
+
+Then, adjust the configuration YAML files in the `config` directory as required,
+and load the configuration into the Mongo database using the config loader:
+
+    docker run --net=host -v $(pwd)/config:/config ebispot/ols-config-importer:latest
+
+Then, run the indexer:
+
+    docker run --net=host -v $(pwd)/config:/config ebispot/ols-indexer:latest
+
+Finally, start all three services:
+
+    docker-compose up
+
+### Building the Docker images manually
+
+Rather than using the images from Docker Hub, the Docker images can also be
+built using the Dockerfiles in this repository.
+
+    docker build -f ols-apps/ols-config-importer/Dockerfile -t ols-config-importer .
+    docker build -f ols-apps/ols-indexer/Dockerfile -t ols-indexer .
+  
+
+
 
 ## Building OLS
 To build OLS you will need to use Java 8 and Maven 3.x.
@@ -183,7 +216,7 @@ have previously loaded data in a past container using the same base
 image, this will have been stored in a managed docker volume and will be
 reloaded by your new container. Otherwise, or possibly in addition, you
 may want to load data for one or more ontologies using the ols-indexer
-under the directory `ols-loading-app`. Loading can take several minutes.
+under the directory `ols-indexer`. Loading can take several minutes.
 Do not run Tomcat at the same time as loading data.
 
 Multiple containers can be run simultaneously on the same host machine,

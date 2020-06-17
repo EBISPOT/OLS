@@ -1,0 +1,25 @@
+
+build:
+  image: docker:18-git
+  stage: build
+  only:
+    - dev
+    - test
+    - stable
+  services:
+    - docker:18-dind
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t ${OLS_IMAGE_PREFIX}/ols-config-importer:$CI_COMMIT_REF_NAME-$CI_BUILD_ID -f  ./ols-apps/ols-config-importer/Dockerfile .
+    - docker build -t ${OLS_IMAGE_PREFIX}/ols-indexer:$CI_COMMIT_REF_NAME-$CI_BUILD_ID -f  ./ols-apps/ols-indexer/Dockerfile .
+    - docker build -t ${OLS_IMAGE_PREFIX}/ols-web:$CI_COMMIT_REF_NAME-$CI_BUILD_ID -f  ./ols-web/Dockerfile .
+    - docker tag ${OLS_IMAGE_PREFIX}/ols-config-importer:$CI_COMMIT_REF_NAME-$CI_BUILD_ID ${OLS_IMAGE_PREFIX}/ols-config-importer:$CI_COMMIT_REF_NAME
+    - docker tag ${OLS_IMAGE_PREFIX}/ols-indexer:$CI_COMMIT_REF_NAME-$CI_BUILD_ID ${OLS_IMAGE_PREFIX}/ols-indexer:$CI_COMMIT_REF_NAME
+    - docker tag ${OLS_IMAGE_PREFIX}/ols-web:$CI_COMMIT_REF_NAME-$CI_BUILD_ID ${OLS_IMAGE_PREFIX}/ols-web:$CI_COMMIT_REF_NAME
+    - docker push ${OLS_IMAGE_PREFIX}/ols-config-importer:$CI_COMMIT_REF_NAME-$CI_BUILD_ID
+    - docker push ${OLS_IMAGE_PREFIX}/ols-config-importer:$CI_COMMIT_REF_NAME
+    - docker push ${OLS_IMAGE_PREFIX}/ols-indexer:$CI_COMMIT_REF_NAME-$CI_BUILD_ID
+    - docker push ${OLS_IMAGE_PREFIX}/ols-indexer:$CI_COMMIT_REF_NAME
+    - docker push ${OLS_IMAGE_PREFIX}/ols-web:$CI_COMMIT_REF_NAME-$CI_BUILD_ID
+    - docker push ${OLS_IMAGE_PREFIX}/ols-web:$CI_COMMIT_REF_NAME
+
