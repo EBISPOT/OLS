@@ -6,10 +6,16 @@ build:
     - docker:18-dind
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker build -t $CI_REGISTRY/ontotools/ols/ols-web:$CI_COMMIT_REF_NAME-$CI_BUILD_ID -f  ./ols-web/Dockerfile .
-    - docker build -t $CI_REGISTRY/ontotools/ols/ols-indexer:$CI_COMMIT_REF_NAME-$CI_BUILD_ID -f  ./ols-indexer/Dockerfile .
-    - docker build -t $CI_REGISTRY/ontotools/ols/ols-config-importer:$CI_COMMIT_REF_NAME-$CI_BUILD_ID -f  ./ols-config-importer/Dockerfile .
-    - docker push $CI_REGISTRY/ontotools/ols/ols-web:$CI_COMMIT_REF_NAME-$CI_BUILD_ID
-    - docker push $CI_REGISTRY/ontotools/ols/ols-indexer:$CI_COMMIT_REF_NAME-$CI_BUILD_ID
-    - docker push $CI_REGISTRY/ontotools/ols/ols-config-importer:$CI_COMMIT_REF_NAME-$CI_BUILD_ID
+    - docker build -t ${OXO_IMAGE_PREFIX}/ols-config-importer:$CI_COMMIT_REF_NAME-$CI_BUILD_ID -f  ./ols-apps/ols-config-importer/Dockerfile .
+    - docker build -t ${OXO_IMAGE_PREFIX}/ols-indexer:$CI_COMMIT_REF_NAME-$CI_BUILD_ID -f  ./ols-apps/ols-indexer/Dockerfile .
+    - docker build -t ${OXO_IMAGE_PREFIX}/ols-web:$CI_COMMIT_REF_NAME-$CI_BUILD_ID -f  ./ols-web/Dockerfile .
+    - docker tag ${OXO_IMAGE_PREFIX}/ols-config-importer:$CI_COMMIT_REF_NAME-$CI_BUILD_ID ${OXO_IMAGE_PREFIX}/ols-config-importer:$CI_COMMIT_REF_NAME
+    - docker tag ${OXO_IMAGE_PREFIX}/ols-indexer:$CI_COMMIT_REF_NAME-$CI_BUILD_ID ${OXO_IMAGE_PREFIX}/ols-indexer:$CI_COMMIT_REF_NAME
+    - docker tag ${OXO_IMAGE_PREFIX}/ols-web:$CI_COMMIT_REF_NAME-$CI_BUILD_ID ${OXO_IMAGE_PREFIX}/ols-web:$CI_COMMIT_REF_NAME
+    - docker push ${OXO_IMAGE_PREFIX}/ols-config-importer:$CI_COMMIT_REF_NAME-$CI_BUILD_ID
+    - docker push ${OXO_IMAGE_PREFIX}/ols-config-importer:$CI_COMMIT_REF_NAME
+    - docker push ${OXO_IMAGE_PREFIX}/ols-indexer:$CI_COMMIT_REF_NAME-$CI_BUILD_ID
+    - docker push ${OXO_IMAGE_PREFIX}/ols-indexer:$CI_COMMIT_REF_NAME
+    - docker push ${OXO_IMAGE_PREFIX}/ols-web:$CI_COMMIT_REF_NAME-$CI_BUILD_ID
+    - docker push ${OXO_IMAGE_PREFIX}/ols-web:$CI_COMMIT_REF_NAME
 
