@@ -1,29 +1,15 @@
-image: docker:latest
-services:
-  - docker:dind
 
-variables:
-  DOCKER_DRIVER: overlay
-
-stages:
-  - build
-#  - package
-
-
-maven-build:
-  image: maven:3-jdk-8
+build:
+  image: docker:18-git
   stage: build
-  script: "mvn package -B"
-  artifacts:
-    paths:
-      - ols-web/target/ols-boot.war
-      - ols-apps/ols-config-importer/target/ols-config-importer.jar
-      - ols-apps/ols-loading-app/target/ols-indexer.jar
-      - ols-solr/src/main/solr-5-config
+  services:
+    - docker:18-dind
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $CI_REGISTRY/ontotools/ols/ols-web:$CI_COMMIT_REF_NAME-$CI_BUILD_ID -f  ./ols-web/Dockerfile .
+    - docker build -t $CI_REGISTRY/ontotools/ols/ols-indexer:$CI_COMMIT_REF_NAME-$CI_BUILD_ID -f  ./ols-indexer/Dockerfile .
+    - docker build -t $CI_REGISTRY/ontotools/ols/ols-config-importer:$CI_COMMIT_REF_NAME-$CI_BUILD_ID -f  ./ols-config-importer/Dockerfile .
+    - docker push $CI_REGISTRY/ontotools/ols/ols-web:$CI_COMMIT_REF_NAME-$CI_BUILD_ID
+    - docker push $CI_REGISTRY/ontotools/ols/ols-indexer:$CI_COMMIT_REF_NAME-$CI_BUILD_ID
+    - docker push $CI_REGISTRY/ontotools/ols/ols-config-importer:$CI_COMMIT_REF_NAME-$CI_BUILD_ID
 
-#docker-build:
-#  stage: package
-#  script:
-#  - docker build -t ebispot/ols:3.3.$CI_PROJECT_BUILDS .
-#  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-#  - docker push ebispot/ols:3.3.$CI_PROJECT_BUILDS
