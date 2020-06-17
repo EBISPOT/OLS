@@ -69,11 +69,11 @@ web interface.  First, start solr and mongodb only:
 Then, adjust the configuration YAML files in the `config` directory as required,
 and load the configuration into the Mongo database using the config loader:
 
-    docker run --net=host -v $(pwd)/config:/config ebispot/ols-config-importer
+    docker run --net=host -v $(pwd)/config:/config ebispot/ols-config-importer:latest
 
 Then, run the indexer:
 
-    docker run --net=host -v $(pwd)/config:/config ebispot/ols-indexer
+    docker run --net=host -v $(pwd)/config:/config ebispot/ols-indexer:latest
 
 Finally, start all three services:
 
