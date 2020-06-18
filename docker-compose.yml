@@ -1,21 +1,21 @@
 version: '2'
 services:
     solr:
-        image: solr:5.5.3-alpine
+        build: ./solr
         environment:
           - SOLR_HOME=/mnt/solr-config
         ports:
           - 8983:8983
         volumes:
-          - ./data/ols/solr:/mnt/solr-data
+          - ols-solr-data:/var/solr
           - ./ols-solr/src/main/solr-5-config:/mnt/solr-config
-        command: ["solr", "-Dsolr.solr.home=/mnt/solr-config", "-Dsolr.data.dir=/mnt/solr-data", "-Dsolr.log=/mnt/solr-data/logs", "-f"]
+        command: ["-Dsolr.solr.home=/mnt/solr-config", "-Dsolr.data.dir=/var/solr", "-f"]
     mongo:
-      image: mongo:3.6.18-xenial
+      image: mongo:3.2.9
       ports:
           - 27017:27017
       volumes:
-          - ./data/mongo:/data/db
+          - ols-mongo-data:/data/db
       command:
           - mongod
     ols-web:
@@ -29,9 +29,18 @@ services:
         - solr
         - mongo
       environment:
-        - spring.datasource.url=jdbc:hsqldb:file:/mnt/hsqldb
         - spring.data.solr.host=http://solr:8983/solr
+        - spring.data.mongodb.host=mongo
+        - OLS_HOME=/mnt/
       volumes:
-        - ./data/hsqldb:/mnt/hsqldb
+        - ols-neo4j-data:/mnt/neo4j 
       ports:
       - 8080:8080
+volumes:
+    ols-solr-data:
+        external: true
+    ols-mongo-data:
+        external: true
+    ols-neo4j-data:
+        external: true
+

@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <property name="LOG_PATH" value="${catalina.home}/logs" />
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{ISO8601} %p %t %c{0}.%M - %m%n</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
         <file>${LOG_PATH}/ols.log</file>
         <append>false</append>
@@ -9,9 +15,11 @@
         </encoder>
     </appender>
     <root level="error">
+        <appender-ref ref="CONSOLE" />
         <appender-ref ref="FILE" />
     </root>
     <logger name="uk.ac.ebi.spot.ols" additivity="false" level="debug">
+        <appender-ref ref="CONSOLE" />
         <appender-ref ref="FILE"/>
     </logger>
 </configuration>
