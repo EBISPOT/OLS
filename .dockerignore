@@ -1,15 +1,13 @@
-ols-*
 .git
 .idea
-ontology-tools
 properties
 OLS_logo_and_family
 *.rtf
 *.iml
-*.xml
 *.md
 !ols-web/src/main/resources/application.properties
 !ols-web/target/ols-boot.war
 !ols-apps/ols-config-importer/target/ols-config-importer.jar
 !ols-apps/ols-loading-app/target/ols-indexer.jar
 !ols-solr/src/main/solr-5-config
+data
