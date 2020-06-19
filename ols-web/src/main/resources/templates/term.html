@@ -342,7 +342,11 @@
                             <b><a href="#"
                                   th:href="@{../../search(q=${annotations.key},exact='true', type=property, ontology=${ontologyTerm.ontologyName})}"
                                   th:text="${annotations.key.replaceAll('_', ' ')}">property name</a></b>
-                            <p th:inline="text">[[${annotations.value[0]}]]</p>
+                            <p th:inline="text">
+                                <div th:each="value: ${annotations.value}" th:inline="text">
+                                    [[${value}]]
+                                </div>
+                            </p>
                         </div>
                     </div>
                 </div>
