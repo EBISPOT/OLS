@@ -353,6 +353,12 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         // nothing to do
     }
 
+
+    private void logMemoryUsage() {
+        Runtime runtime = Runtime.getRuntime();
+		getLogger().debug("Memory usage: " + ((runtime.totalMemory() - runtime.freeMemory()) / 1024 / 1024) + " MB");
+    }
+
     /**
      * Extracts and loads into memory all the class labels and corresponding IRIs.  This class makes the assumption that
      * one primary label per class exists. If any classes contain multiple rdfs:labels, these classes are ignored.
@@ -367,10 +373,13 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
      */
     protected OWLOntology loadOntology() throws OWLOntologyCreationException {
         try {
-            getLogger().debug("Loading ontology...");
-            this.ontology = getManager().loadOntology(getOntologyIRI());
-            IRI actualOntologyIRI = ontology.getOntologyID().getOntologyIRI();
 
+            getLogger().debug("Loading ontology...");
+            logMemoryUsage();
+
+            this.ontology = getManager().loadOntology(getOntologyIRI());
+
+            IRI actualOntologyIRI = ontology.getOntologyID().getOntologyIRI();
 
             // set
             if (actualOntologyIRI!=null) {
@@ -399,6 +408,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                 setOntologyName(name.get());
             }
             getLogger().debug("Successfully loaded ontology " + getOntologyIRI());
+            logMemoryUsage();
 
             this.provider = new AnnotationValueShortFormProvider(
                     Collections.singletonList(factory.getOWLAnnotationProperty(getLabelIRI())),
@@ -409,6 +419,9 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
             // this call will initialise the reasoner
             getOWLReasoner(ontology);
+            getLogger().debug("Reasoner initialised");
+            logMemoryUsage();
+
 
             // cache all URIs for classes, properties and individuals
             getLogger().debug("Computing indexes...");
@@ -419,7 +432,14 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                 allEntities.addAll(ontology1.getSignature());
             }
             indexTerms(allEntities);
+
+            getLogger().debug("Indexed terms");
+            logMemoryUsage();
+
             indexOntologyAnnotations(ontology.getAnnotations());
+
+            getLogger().debug("Indexed annotations");
+            logMemoryUsage();
 
             return ontology;
         }
