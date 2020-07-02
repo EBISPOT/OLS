@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
-import uk.ac.ebi.spot.ols.neo4j.model.Individual;
-import uk.ac.ebi.spot.ols.neo4j.model.Term;
+import uk.ac.ebi.spot.ols.neo4j.model.OlsIndividual;
+import uk.ac.ebi.spot.ols.neo4j.model.OlsTerm;
 import uk.ac.ebi.spot.ols.neo4j.service.OntologyTermGraphService;
 import uk.ac.ebi.spot.ols.service.OntologyRepositoryService;
 import uk.ac.ebi.spot.ols.util.OBODefinitionCitation;
@@ -62,7 +61,7 @@ public class TermControllerUI {
             Model model) throws ResourceNotFoundException {
 
         ontologyId = ontologyId.toLowerCase();
-        Term term = null;
+        OlsTerm term = null;
 
         OntologyDocument document = repositoryService.get(ontologyId);
 
@@ -79,10 +78,10 @@ public class TermControllerUI {
         if (termIri == null & shortForm == null & oboId == null) {
 
             if (pageable.getSort() == null) {
-                pageable = new PageRequest(pageable.getPageNumber(), pageable.getPageSize());
+                pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
             }
 
-            Page<Term> termsPage = ontologyTermGraphService.findAllByOntology(ontologyId, pageable);
+            Page<OlsTerm> termsPage = ontologyTermGraphService.findAllByOntology(ontologyId, pageable);
 
             model.addAttribute("ontologyName", document.getOntologyId());
             model.addAttribute("ontologyTitle", document.getConfig().getTitle());
@@ -102,14 +101,14 @@ public class TermControllerUI {
 
         Map<String, Collection<Map<String, String>>> relatedFroms = ontologyTermGraphService.getRelatedFrom(ontologyId, term.getIri());
 
-        Collection<Individual> individuals = ontologyTermGraphService.getInstances(ontologyId, term.getIri(), new PageRequest(0, 50)).getContent();
+        Collection<OlsIndividual> individuals = ontologyTermGraphService.getInstances(ontologyId, term.getIri(), PageRequest.of(0, 50)).getContent();
         model.addAttribute("instances", individuals);
 
 
         model.addAttribute("relatedFroms", relatedFroms);
 
         model.addAttribute("ontologyTerm", term);
-        model.addAttribute("parentTerms", ontologyTermGraphService.getParents(ontologyId, term.getIri(), new PageRequest(0, 10)));
+        model.addAttribute("parentTerms", ontologyTermGraphService.getParents(ontologyId, term.getIri(), PageRequest.of(0, 10)));
 
         String title = repositoryService.get(ontologyId).getConfig().getTitle();
         model.addAttribute("ontologyName", title);
@@ -182,7 +181,7 @@ public class TermControllerUI {
             Pageable pageable
     ) {
 
-        List<Term> terms = new ArrayList<>();
+        List<OlsTerm> terms = new ArrayList<>();
 
         if (termIri != null) {
             terms = ontologyTermGraphService.findAllByIri(termIri,pageable).getContent();
@@ -211,7 +210,7 @@ public class TermControllerUI {
             }
         } else {
 
-            for (Term t : terms) {
+            for (OlsTerm t : terms) {
                 if (t.isLocal()) {
                     try {
                         return "redirect:ontologies/" + t.getOntologyPrefix() + "/terms?iri=" + URLEncoder.encode(t.getIri(), "UTF-8");

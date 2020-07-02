@@ -25,15 +25,16 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
-import org.springframework.restdocs.RestDocumentation;
+import org.springframework.restdocs.JUnitRestDocumentation;
 import org.springframework.restdocs.mockmvc.RestDocumentationResultHandler;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import uk.ac.ebi.spot.ols.OlsWebApp;
 
@@ -43,14 +44,14 @@ import uk.ac.ebi.spot.ols.OlsWebApp;
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = OlsWebApp.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = OlsWebApp.class)
 @WebAppConfiguration
 @Ignore
 public class ApiDocumentation {
 
     @Rule
-    public final RestDocumentation restDocumentation = new RestDocumentation("src/main/asciidoc/generated-snippets");
+    public final JUnitRestDocumentation restDocumentation = new JUnitRestDocumentation("src/main/asciidoc/generated-snippets");
 
     private RestDocumentationResultHandler document;
 
@@ -80,7 +81,7 @@ public class ApiDocumentation {
     @Test
     public void pageExample () throws Exception {
 
-        this.document.snippets(
+        this.document.document(
                 responseFields(
                         fieldWithPath("_links").description("<<resources-page-links,Links>> to other resources"),
                         fieldWithPath("_embedded").description("The list of resources"),
@@ -106,7 +107,7 @@ public class ApiDocumentation {
 
     @Test
     public void errorExample() throws Exception {
-        this.document.snippets(
+        this.document.document(
                 responseFields(
                         fieldWithPath("error").description("The HTTP error that occurred, e.g. `Bad Request`").optional(),
 //                fieldWithPath("exception").description("A description of the cause of the error").optional(),
@@ -128,7 +129,7 @@ public class ApiDocumentation {
     @Test
     public void apiExample () throws Exception {
 
-        this.document.snippets(
+        this.document.document(
                 responseFields(
                         fieldWithPath("_links").description("<<resources-ontologies-links,Links>> to other resources")
                 ),
@@ -156,7 +157,7 @@ public class ApiDocumentation {
     @Test
     public void ontologiesExample () throws Exception {
 
-        this.document.snippets(
+        this.document.document(
                 pathParameters(
                         parameterWithName("ontology_id").description("The ontology id in OLS")),
 
@@ -192,7 +193,7 @@ public class ApiDocumentation {
     public void rootsExample () throws Exception {
 
 
-        this.document.snippets(
+        this.document.document(
                 pathParameters(
                           parameterWithName("ontology_id").description("The ontology id in OLS"))
         );
@@ -203,7 +204,7 @@ public class ApiDocumentation {
     @Test
     public void termsListExample() throws Exception {
 
-        this.document.snippets(
+        this.document.document(
                 pathParameters(
                         parameterWithName("ontology_id").description("The ontology id in OLS"))
         );
@@ -215,7 +216,7 @@ public class ApiDocumentation {
     @Test
     public void termsListIriExample() throws Exception {
 
-        this.document.snippets(
+        this.document.document(
                 pathParameters(
                         parameterWithName("ontology_id").description("The ontology id in OLS"),
                         parameterWithName("iri").description("Filter by IRI, when using IRI the result will always be one")
@@ -230,7 +231,7 @@ public class ApiDocumentation {
     @Test
     public void termsListShortformExample() throws Exception {
 
-        this.document.snippets(
+        this.document.document(
                 pathParameters(
                         parameterWithName("ontology_id").description("The ontology id in OLS")
                         ,
@@ -245,7 +246,7 @@ public class ApiDocumentation {
     @Test
     public void termsListOboExample() throws Exception {
 
-        this.document.snippets(
+        this.document.document(
                 pathParameters(
                         parameterWithName("ontology_id").description("The ontology id in OLS")
                         ,
@@ -260,7 +261,7 @@ public class ApiDocumentation {
     @Test
     public void termsExample () throws Exception {
 
-        this.document.snippets(
+        this.document.document(
                 pathParameters(
                         parameterWithName("ontology").description("The OLS ontology id e.g. go"),
                         parameterWithName("iri").description("The IRI of the terms, this value must be double URL encoded")),
@@ -286,7 +287,7 @@ public class ApiDocumentation {
 
     @Test
     public void termParentsById () throws Exception {
-        this.document.snippets(
+        this.document.document(
                 pathParameters(
                         parameterWithName("ontology").description("The OLS ontology id e.g. go"),
                         parameterWithName("id").description("The id of the term, can be URI, short form or obo id")));
@@ -297,7 +298,7 @@ public class ApiDocumentation {
 
     @Test
     public void termChildrenById () throws Exception {
-        this.document.snippets(
+        this.document.document(
                 pathParameters(
                         parameterWithName("ontology").description("The OLS ontology id e.g. go"),
                         parameterWithName("id").description("The id of the term, can be URI, short form or obo id")));
@@ -308,7 +309,7 @@ public class ApiDocumentation {
 
     @Test
     public void termAncestorsById () throws Exception {
-        this.document.snippets(
+        this.document.document(
                 pathParameters(
                         parameterWithName("ontology").description("The OLS ontology id e.g. go"),
                         parameterWithName("id").description("The id of the term, can be URI, short form or obo id")));
@@ -319,7 +320,7 @@ public class ApiDocumentation {
 
     @Test
     public void termDescendantsById () throws Exception {
-        this.document.snippets(
+        this.document.document(
                 pathParameters(
                         parameterWithName("ontology").description("The OLS ontology id e.g. go"),
                         parameterWithName("id").description("The id of the term, can be URI, short form or obo id")));
@@ -330,7 +331,7 @@ public class ApiDocumentation {
 
     @Test
     public void termHierarchicalAncestorsById () throws Exception {
-        this.document.snippets(
+        this.document.document(
                 pathParameters(
                         parameterWithName("ontology").description("The OLS ontology id e.g. go"),
                         parameterWithName("id").description("The id of the term, can be URI, short form or obo id")));
@@ -341,7 +342,7 @@ public class ApiDocumentation {
 
     @Test
     public void termHierarchicalDescendantsById () throws Exception {
-        this.document.snippets(
+        this.document.document(
                 pathParameters(
                         parameterWithName("ontology").description("The OLS ontology id e.g. go"),
                         parameterWithName("id").description("The id of the term, can be URI, short form or obo id")));
@@ -353,7 +354,7 @@ public class ApiDocumentation {
     @Test
     public void propertiesExample () throws Exception {
 
-        this.document.snippets(
+        this.document.document(
                 pathParameters(
                         parameterWithName("ontology").description("The OLS ontology id e.g. go"),
                         parameterWithName("iri").description("The IRI of the relation, this value must be double URL encoded"))
@@ -367,7 +368,7 @@ public class ApiDocumentation {
     @Test
     public void individualsExample () throws Exception {
 
-        this.document.snippets(
+        this.document.document(
                 pathParameters(
                         parameterWithName("ontology").description("The OLS ontology id e.g. go"),
                         parameterWithName("iri").description("The IRI of the individual, this value must be double URL encoded"))
@@ -386,7 +387,7 @@ public class ApiDocumentation {
      */
     @Test
     public void termsByIriPath() throws Exception {
-    	 this.document.snippets(
+    	 this.document.document(
                  pathParameters(
                          parameterWithName("id").description("The double UTF-8 encoded IRI of a term")
                  ),
@@ -416,7 +417,7 @@ public class ApiDocumentation {
     
     @Test
     public void termsByIriParam() throws Exception {
-    	 this.document.snippets(
+    	 this.document.document(
                  pathParameters(
                          parameterWithName("iri").description("The IRI of the term to find")
                  ),
@@ -444,7 +445,7 @@ public class ApiDocumentation {
    
     @Test
     public void termsByShortFormParam() throws Exception {
-    	 this.document.snippets(
+    	 this.document.document(
                  pathParameters(
                          parameterWithName("short_form").description("This typically refers to the "
                          		+ "last part of an IRI. They are not necessarily unique, e.g. "
@@ -474,7 +475,7 @@ public class ApiDocumentation {
 
     @Test
     public void termsByOboIdParam() throws Exception {
-    	 this.document.snippets(
+    	 this.document.document(
                  pathParameters(
                          parameterWithName("obo_id").description("The OBO id of the term to find. "
                          		+ "This is the OBO style id that is not guaranteed to be unique "
@@ -504,7 +505,7 @@ public class ApiDocumentation {
 
     @Test
     public void termsByIdParam() throws Exception {
-   	 this.document.snippets(
+   	 this.document.document(
                 pathParameters(
                         parameterWithName("id").description("Id here refers to a term identified either"
                         		+ " by an IRI, a short form or an OBO style id")
@@ -533,7 +534,7 @@ public class ApiDocumentation {
     
     @Test
     public void termsByIriPathAndIsDefiningOntology() throws Exception {
-    	 this.document.snippets(
+    	 this.document.document(
                  pathParameters(
                          parameterWithName("id").description("The double UTF-8 encoded IRI of a term")
                  ),
@@ -563,7 +564,7 @@ public class ApiDocumentation {
 
     @Test
     public void termsByIriParamAndIsDefiningOntology() throws Exception {
-    	 this.document.snippets(
+    	 this.document.document(
                  pathParameters(
                          parameterWithName("iri").description("The IRI of the term to find")
                  ),
@@ -592,7 +593,7 @@ public class ApiDocumentation {
    
     @Test
     public void termsByShortFormParamAndIsDefiningOntology() throws Exception {
-    	 this.document.snippets(
+    	 this.document.document(
                  pathParameters(
                          parameterWithName("short_form").description("This typically refers to the "
                          		+ "last part of an IRI. They are not necessarily unique, e.g. "
@@ -623,7 +624,7 @@ public class ApiDocumentation {
 
     @Test
     public void termsByOboIdParamAndIsDefiningOntology() throws Exception {
-    	 this.document.snippets(
+    	 this.document.document(
                  pathParameters(
                          parameterWithName("obo_id").description("The OBO id of the term to find. "
                          		+ "This is the OBO style id that is not guaranteed to be unique "
@@ -653,7 +654,7 @@ public class ApiDocumentation {
 
     @Test
     public void termsByIdParamAndIsDefiningOntology() throws Exception {
-   	 this.document.snippets(
+   	 this.document.document(
                 pathParameters(
                         parameterWithName("id").description("Id here refers to a term identified either"
                         		+ " by an IRI, a short form or an OBO style id")
@@ -683,7 +684,7 @@ public class ApiDocumentation {
     
     @Test
     public void propertiesByIriPath() throws Exception {
-    	 this.document.snippets(
+    	 this.document.document(
                  pathParameters(
                          parameterWithName("id").description("The double UTF-8 encoded IRI of a property")
                  ),
@@ -712,7 +713,7 @@ public class ApiDocumentation {
     
     @Test
     public void propertiesByIriParam() throws Exception {
-    	 this.document.snippets(
+    	 this.document.document(
                  pathParameters(
                          parameterWithName("iri").description("The IRI of the property to find")
                  ),
@@ -768,7 +769,7 @@ public class ApiDocumentation {
    
     @Test
     public void propertiesByIriPathAndIsDefiningOntology() throws Exception {
-   	 this.document.snippets(
+   	 this.document.document(
              pathParameters(
                      parameterWithName("id").description("The double UTF-8 encoded IRI of a property")
              ),
@@ -797,7 +798,7 @@ public class ApiDocumentation {
     
     @Test
     public void propertiesByIriParamAndIsDefiningOntology() throws Exception {
-	   	 this.document.snippets(
+	   	 this.document.document(
 	             pathParameters(
 	                     parameterWithName("iri").description("The IRI of the property to find")
 	             ),
@@ -859,7 +860,7 @@ public class ApiDocumentation {
     
     @Test
     public void individualsByIriPath() throws Exception {
-    	 this.document.snippets(
+    	 this.document.document(
                  pathParameters(
                          parameterWithName("id").description("The double UTF-8 encoded IRI of an individual")
                  ),
@@ -888,7 +889,7 @@ public class ApiDocumentation {
     
     @Test
     public void individualsByIriParam() throws Exception {
-    	 this.document.snippets(
+    	 this.document.document(
                  pathParameters(
                          parameterWithName("iri").description("The IRI of the individual to find")
                  ),
@@ -944,7 +945,7 @@ public class ApiDocumentation {
    
     @Test
     public void individualsByIriPathAndIsDefiningOntology() throws Exception {
-   	 this.document.snippets(
+   	 this.document.document(
              pathParameters(
                      parameterWithName("id").description("The double UTF-8 encoded IRI of a individual")
              ),
@@ -973,7 +974,7 @@ public class ApiDocumentation {
     
     @Test
     public void individualsByIriParamAndIsDefiningOntology() throws Exception {
-	   	 this.document.snippets(
+	   	 this.document.document(
 	             pathParameters(
 	                     parameterWithName("iri").description("The IRI of the individual to find")
 	             ),

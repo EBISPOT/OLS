@@ -10,11 +10,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.RepositoryLinksResource;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.hateoas.MediaTypes;
-import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.ResourceProcessor;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
+import org.springframework.hateoas.PagedModel;
+import org.springframework.hateoas.server.ExposesResourceFor;
+import org.springframework.hateoas.server.RepresentationModelProcessor;
+import org.springframework.hateoas.server.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -28,8 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.util.UriUtils;
 
-import uk.ac.ebi.spot.ols.neo4j.model.Individual;
-import uk.ac.ebi.spot.ols.neo4j.service.JsTreeBuilder;
+import uk.ac.ebi.spot.ols.neo4j.model.OlsIndividual;
 import uk.ac.ebi.spot.ols.neo4j.service.OntologyIndividualService;
 
 /**
@@ -39,9 +38,9 @@ import uk.ac.ebi.spot.ols.neo4j.service.OntologyIndividualService;
  */
 @Controller
 @RequestMapping("/api/individuals")
-@ExposesResourceFor(Individual.class)
+@ExposesResourceFor(OlsIndividual.class)
 public class IndividualController implements
-        ResourceProcessor<RepositoryLinksResource> {
+        RepresentationModelProcessor<RepositoryLinksResource> {
     @Autowired
     private OntologyIndividualService ontologyIndividualRepository;
 
@@ -55,29 +54,24 @@ public class IndividualController implements
     }
 
     @RequestMapping(path = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE}, method = RequestMethod.GET)
-    HttpEntity<PagedResources<Individual>> getAllIndividuals(
+    HttpEntity<PagedModel<OlsIndividual>> getAllIndividuals(
             @PathVariable("id") String termId,
             Pageable pageable,
             PagedResourcesAssembler assembler) {
-        String decoded = null;
-        try {
-            decoded = UriUtils.decode(termId, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new ResourceNotFoundException("Can't decode IRI: " + termId);
-        }
+        String decoded = UriUtils.decode(termId, "UTF-8");
         return getAllIndividuals(decoded, null, null, pageable, assembler);
 
     }
 
     @RequestMapping(path = "", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE}, method = RequestMethod.GET)
-    HttpEntity<PagedResources<Individual>> getAllIndividuals(
+    HttpEntity<PagedModel<OlsIndividual>> getAllIndividuals(
             @RequestParam(value = "iri", required = false) String iri,
             @RequestParam(value = "short_form", required = false) String shortForm,
             @RequestParam(value = "obo_id", required = false) String oboId,
             Pageable pageable,
             PagedResourcesAssembler assembler) {
 
-        Page<Individual> terms = null;
+        Page<OlsIndividual> terms = null;
 
         if (iri != null) {
             terms = ontologyIndividualRepository.findAllByIri(iri, pageable);
@@ -89,20 +83,15 @@ public class IndividualController implements
             terms = ontologyIndividualRepository.findAll(pageable);
         }
 
-        return new ResponseEntity<>(assembler.toResource(terms, individualAssembler), HttpStatus.OK);
+        return new ResponseEntity<>(assembler.toModel(terms, individualAssembler), HttpStatus.OK);
     }
     
     @RequestMapping(path = "/findByIdAndIsDefiningOntology/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE}, method = RequestMethod.GET)
-    HttpEntity<PagedResources<Individual>> getAllIndividualsByIdAndIsDefiningOntology(
+    HttpEntity<PagedModel<OlsIndividual>> getAllIndividualsByIdAndIsDefiningOntology(
             @PathVariable("id") String termId,
             Pageable pageable,
             PagedResourcesAssembler assembler) {
-        String decoded = null;
-        try {
-            decoded = UriUtils.decode(termId, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new ResourceNotFoundException("Can't decode IRI: " + termId);
-        }
+        String decoded = UriUtils.decode(termId, "UTF-8");
         return getAllIndividualsByIdAndIsDefiningOntology(decoded, null, null, pageable, assembler);
 
     }    
@@ -111,14 +100,14 @@ public class IndividualController implements
     @RequestMapping(path = "/findByIdAndIsDefiningOntology", 
     		produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE}, 
     		method = RequestMethod.GET)
-    HttpEntity<PagedResources<Individual>> getAllIndividualsByIdAndIsDefiningOntology(
+    HttpEntity<PagedModel<OlsIndividual>> getAllIndividualsByIdAndIsDefiningOntology(
             @RequestParam(value = "iri", required = false) String iri,
             @RequestParam(value = "short_form", required = false) String shortForm,
             @RequestParam(value = "obo_id", required = false) String oboId,
             Pageable pageable,
             PagedResourcesAssembler assembler) {
 
-        Page<Individual> terms = null;
+        Page<OlsIndividual> terms = null;
 
         if (iri != null) {
             terms = ontologyIndividualRepository.findAllByIriAndIsDefiningOntology(iri, pageable);
@@ -130,7 +119,7 @@ public class IndividualController implements
             terms = ontologyIndividualRepository.findAllByIsDefiningOntology(pageable);
         }
 
-        return new ResponseEntity<>(assembler.toResource(terms, individualAssembler), HttpStatus.OK);
+        return new ResponseEntity<>(assembler.toModel(terms, individualAssembler), HttpStatus.OK);
     }
     
 

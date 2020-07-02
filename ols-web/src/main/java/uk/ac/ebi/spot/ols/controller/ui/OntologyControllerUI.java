@@ -47,7 +47,7 @@ public class OntologyControllerUI {
 
     @RequestMapping(path = "", method = RequestMethod.GET)
     String getAll(Model model) {
-        List list = repositoryService.getAllDocuments(new Sort(new Sort.Order(Sort.Direction.ASC, "ontologyId")));
+        List list = repositoryService.getAllDocuments(Sort.by(new Sort.Order(Sort.Direction.ASC, "ontologyId")));
         model.addAttribute("all_ontologies", list);
         customisationProperties.setCustomisationModelAttributes(model);
         return "browse";

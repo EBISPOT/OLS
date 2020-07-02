@@ -1,13 +1,11 @@
 package uk.ac.ebi.spot.ols.controller.ui;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,12 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
-import uk.ac.ebi.spot.ols.neo4j.model.Property;
-import uk.ac.ebi.spot.ols.neo4j.model.Term;
+import uk.ac.ebi.spot.ols.neo4j.model.OlsProperty;
 import uk.ac.ebi.spot.ols.neo4j.service.OntologyPropertyGraphService;
 import uk.ac.ebi.spot.ols.service.OntologyRepositoryService;
-
-import java.util.Collections;
 
 /**
  * @author Simon Jupp
@@ -53,7 +48,7 @@ public class PropertyControllerUI {
             Model model) throws ResourceNotFoundException {
 
         ontologyId = ontologyId.toLowerCase();
-        Property property = null;
+        OlsProperty property = null;
 
         if (termIri != null) {
             property = ontologyPropertyGraphService.findByOntologyAndIri(ontologyId, termIri);
@@ -68,10 +63,10 @@ public class PropertyControllerUI {
         if (termIri == null & shortForm == null & oboId == null) {
 
             if (pageable.getSort() == null) {
-                pageable = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), new Sort(new Sort.Order(Sort.Direction.ASC, "n.label")));
+                pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(new Sort.Order(Sort.Direction.ASC, "n.label")));
             }
 
-            Page<Property> termsPage = ontologyPropertyGraphService.findAllByOntology(ontologyId, pageable);
+            Page<OlsProperty> termsPage = ontologyPropertyGraphService.findAllByOntology(ontologyId, pageable);
 
             OntologyDocument document = repositoryService.get(ontologyId);
             model.addAttribute("ontologyName", document.getOntologyId());
@@ -89,7 +84,7 @@ public class PropertyControllerUI {
         }
 
         model.addAttribute("ontologyProperty", property);
-        model.addAttribute("parentProperties", ontologyPropertyGraphService.getParents(ontologyId, property.getIri(), new PageRequest(0, 10)));
+        model.addAttribute("parentProperties", ontologyPropertyGraphService.getParents(ontologyId, property.getIri(), PageRequest.of(0, 10)));
 
         String title = repositoryService.get(ontologyId).getConfig().getTitle();
         model.addAttribute("ontologyName", title);

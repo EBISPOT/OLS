@@ -1,37 +1,37 @@
 package uk.ac.ebi.spot.ols.neo4j.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.data.neo4j.annotation.*;
+import org.neo4j.ogm.annotation.*;
 
 /**
  * @author Simon Jupp
  * @date 17/06/2015
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
-@RelationshipEntity (type = "Related")
-public class Related {
+@RelationshipEntity(type = "Related")
+public class OlsRelated {
 
-    @GraphId
+    @Id
     Long id;
 
     String uri;
     String label;
 
-    @GraphProperty(propertyName="ontology_name")
+    @Property(name="ontology_name")
     @JsonProperty(value = "ontology_name")
     String ontologyName;
 
     @StartNode
-    private Term relatedFrom;
+    private OlsTerm relatedFrom;
 
     @EndNode
-    private Term relatedTo;
+    private OlsTerm relatedTo;
 
-    public Term getRelatedFrom() {
+    public OlsTerm getRelatedFrom() {
         return relatedFrom;
     }
 
-    public Term getRelatedTo() {
+    public OlsTerm getRelatedTo() {
         return relatedTo;
     }
 

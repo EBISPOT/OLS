@@ -52,7 +52,8 @@ public class MongoOntologyRepositoryService implements OntologyRepositoryService
 
     @Override
     public List<OntologyDocument> getAllDocumentsByStatus(Status status) {
-        return getAllDocumentsByStatus(status, new Sort(new Sort.Order(Sort.Direction.ASC, "ontologyId")));
+
+        return getAllDocumentsByStatus(status, Sort.by(new Sort.Order(Sort.Direction.ASC, "ontologyId")));
     }
 
     @Override
@@ -82,7 +83,7 @@ public class MongoOntologyRepositoryService implements OntologyRepositoryService
 
     @Override
     public Date getLastUpdated() {
-        OntologyDocument document = repositoryService.findAll(new Sort(new Sort.Order(Sort.Direction.DESC, "updated"))).get(0);
+        OntologyDocument document = repositoryService.findAll(Sort.by(new Sort.Order(Sort.Direction.DESC, "updated"))).get(0);
         return document.getUpdated();
     }
 

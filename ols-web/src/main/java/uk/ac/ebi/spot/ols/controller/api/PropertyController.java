@@ -10,11 +10,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.RepositoryLinksResource;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.ExposesResourceFor;
+import org.springframework.hateoas.PagedModel;
+import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.hateoas.MediaTypes;
-import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.ResourceProcessor;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
+import org.springframework.hateoas.server.RepresentationModelProcessor;
+import org.springframework.hateoas.server.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.util.UriUtils;
 
-import uk.ac.ebi.spot.ols.neo4j.model.Property;
+import uk.ac.ebi.spot.ols.neo4j.model.OlsProperty;
 import uk.ac.ebi.spot.ols.neo4j.service.OntologyPropertyGraphService;
 
 /**
@@ -38,9 +38,9 @@ import uk.ac.ebi.spot.ols.neo4j.service.OntologyPropertyGraphService;
  */
 @Controller
 @RequestMapping("/api/properties")
-@ExposesResourceFor(Property.class)
+@ExposesResourceFor(OlsProperty.class)
 public class PropertyController implements
-        ResourceProcessor<RepositoryLinksResource> {
+        RepresentationModelProcessor<RepositoryLinksResource> {
 
     @Autowired
     private OntologyPropertyGraphService ontologyPropertyGraphService;
@@ -55,30 +55,25 @@ public class PropertyController implements
     }
 
     @RequestMapping(path = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE}, method = RequestMethod.GET)
-    HttpEntity<PagedResources<Property>> getPropertiesByIri( @PathVariable("id") String termId,
-                                                             Pageable pageable,
-                                                             PagedResourcesAssembler assembler
+    HttpEntity<PagedModel<OlsProperty>> getPropertiesByIri(@PathVariable("id") String termId,
+                                                           Pageable pageable,
+                                                           PagedResourcesAssembler assembler
 
     ) throws ResourceNotFoundException {
 
-        String decoded = null;
-        try {
-            decoded = UriUtils.decode(termId, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new ResourceNotFoundException("Can't decode IRI: " + termId);
-        }
+        String decoded = UriUtils.decode(termId, "UTF-8");
         return getAllProperties(decoded, null, null, pageable, assembler);
     }
 
     @RequestMapping(path = "", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE}, method = RequestMethod.GET)
-    HttpEntity<PagedResources<Property>> getAllProperties(
+    HttpEntity<PagedModel<OlsProperty>> getAllProperties(
             @RequestParam(value = "iri", required = false) String iri,
             @RequestParam(value = "short_form", required = false) String shortForm,
             @RequestParam(value = "obo_id", required = false) String oboId,
             Pageable pageable,
             PagedResourcesAssembler assembler) {
 
-        Page<Property> terms = null;
+        Page<OlsProperty> terms = null;
 
         if (iri != null) {
             terms = ontologyPropertyGraphService.findAllByIri(iri, pageable);
@@ -93,35 +88,35 @@ public class PropertyController implements
             terms = ontologyPropertyGraphService.findAll(pageable);
         }
 
-        return new ResponseEntity<>( assembler.toResource(terms, termAssembler), HttpStatus.OK);
+        return new ResponseEntity<>( assembler.toModel(terms, termAssembler), HttpStatus.OK);
     }
 
 
     @RequestMapping(path = "/findByIdAndIsDefiningOntology/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE}, method = RequestMethod.GET)
-    HttpEntity<PagedResources<Property>> getPropertiesByIriAndIsDefiningOntology( @PathVariable("id") String termId,
+    HttpEntity<PagedModel<OlsProperty>> getPropertiesByIriAndIsDefiningOntology( @PathVariable("id") String termId,
                                                              Pageable pageable,
                                                              PagedResourcesAssembler assembler
 
     ) throws ResourceNotFoundException {
 
         String decoded = null;
-        try {
+//        try {
             decoded = UriUtils.decode(termId, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new ResourceNotFoundException("Can't decode IRI: " + termId);
-        }
+//        } catch (UnsupportedEncodingException e) {
+//            throw new ResourceNotFoundException("Can't decode IRI: " + termId);
+//        }
         return getPropertiesByIdAndIsDefiningOntology(decoded, null, null, pageable, assembler);
     }    
     
     @RequestMapping(path = "/findByIdAndIsDefiningOntology", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE}, method = RequestMethod.GET)
-    HttpEntity<PagedResources<Property>> getPropertiesByIdAndIsDefiningOntology(
+    HttpEntity<PagedModel<OlsProperty>> getPropertiesByIdAndIsDefiningOntology(
             @RequestParam(value = "iri", required = false) String iri,
             @RequestParam(value = "short_form", required = false) String shortForm,
             @RequestParam(value = "obo_id", required = false) String oboId,
             Pageable pageable,
             PagedResourcesAssembler assembler) {
 
-        Page<Property> terms = null;
+        Page<OlsProperty> terms = null;
 
         if (iri != null) {
             terms = ontologyPropertyGraphService.findAllByIriAndIsDefiningOntology(iri, pageable);
@@ -136,7 +131,7 @@ public class PropertyController implements
             terms = ontologyPropertyGraphService.findAllByIsDefiningOntology(pageable);
         }
 
-        return new ResponseEntity<>( assembler.toResource(terms, termAssembler), HttpStatus.OK);
+        return new ResponseEntity<>( assembler.toModel(terms, termAssembler), HttpStatus.OK);
     }
     
     @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Resource not found")

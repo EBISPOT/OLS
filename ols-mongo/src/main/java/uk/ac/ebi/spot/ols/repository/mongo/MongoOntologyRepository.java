@@ -3,8 +3,6 @@ package uk.ac.ebi.spot.ols.repository.mongo;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-import org.springframework.hateoas.ExposesResourceFor;
-import org.springframework.hateoas.core.Relation;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
 import uk.ac.ebi.spot.ols.model.Status;
 

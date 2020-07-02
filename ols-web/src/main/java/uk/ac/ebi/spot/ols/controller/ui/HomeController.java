@@ -68,7 +68,7 @@ public class HomeController {
     @ModelAttribute("all_ontologies")
     public List<OntologyDocument> getOntologies() {
         try {
-            return repositoryService.getAllDocuments(new Sort(new Sort.Order(Sort.Direction.ASC, "ontologyId")));
+            return repositoryService.getAllDocuments(Sort.by(new Sort.Order(Sort.Direction.ASC, "ontologyId")));
         } catch (Exception e) {
             return Collections.emptyList();
         }

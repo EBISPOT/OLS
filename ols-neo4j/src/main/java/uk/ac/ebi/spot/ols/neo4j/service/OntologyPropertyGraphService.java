@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import uk.ac.ebi.spot.ols.neo4j.model.Property;
+import uk.ac.ebi.spot.ols.neo4j.model.OlsProperty;
 import uk.ac.ebi.spot.ols.neo4j.repository.OntologyPropertyRepository;
 
 /**
@@ -24,73 +24,73 @@ public class OntologyPropertyGraphService {
     GraphDatabaseService graphDatabaseService;
 
 
-    public Page<Property> findAll(Pageable pageable) {
+    public Page<OlsProperty> findAll(Pageable pageable) {
         return ontologyPropertyRepository.findAll(pageable);
     }
 
-    public Page<Property> findAllByIri(String iri, Pageable pageable) {
+    public Page<OlsProperty> findAllByIri(String iri, Pageable pageable) {
         return ontologyPropertyRepository.findAllByIri(iri, pageable);
     }
 
-    public Page<Property> findAllByShortForm(String shortForm, Pageable pageable) {
+    public Page<OlsProperty> findAllByShortForm(String shortForm, Pageable pageable) {
         return ontologyPropertyRepository.findAllByShortForm(shortForm, pageable);
     }
 
-    public Page<Property> findAllByOboId(String oboId, Pageable pageable) {
+    public Page<OlsProperty> findAllByOboId(String oboId, Pageable pageable) {
         return ontologyPropertyRepository.findAllByOboId(oboId, pageable);
     }
 
     
-    public Page<Property> findAllByIsDefiningOntology(Pageable pageable) {
+    public Page<OlsProperty> findAllByIsDefiningOntology(Pageable pageable) {
         return ontologyPropertyRepository.findAllByIsDefiningOntology(pageable);
     }
 
-    public Page<Property> findAllByIriAndIsDefiningOntology(String iri, Pageable pageable) {
+    public Page<OlsProperty> findAllByIriAndIsDefiningOntology(String iri, Pageable pageable) {
         return ontologyPropertyRepository.findAllByIriAndIsDefiningOntology(iri, pageable);
     }
 
-    public Page<Property> findAllByShortFormAndIsDefiningOntology(String shortForm, Pageable pageable) {
+    public Page<OlsProperty> findAllByShortFormAndIsDefiningOntology(String shortForm, Pageable pageable) {
         return ontologyPropertyRepository.findAllByShortFormAndIsDefiningOntology(shortForm, pageable);
     }
 
-    public Page<Property> findAllByOboIdAndIsDefiningOntology(String oboId, Pageable pageable) {
+    public Page<OlsProperty> findAllByOboIdAndIsDefiningOntology(String oboId, Pageable pageable) {
         return ontologyPropertyRepository.findAllByOboIdAndIsDefiningOntology(oboId, pageable);
     }
     
     
     
-    public Page<Property> findAllByOntology(String ontologyId, Pageable pageable) {
+    public Page<OlsProperty> findAllByOntology(String ontologyId, Pageable pageable) {
         return ontologyPropertyRepository.findAllByOntology(ontologyId, pageable);
     }
 
-    public Property findByOntologyAndIri(String ontologyname, String iri) {
+    public OlsProperty findByOntologyAndIri(String ontologyname, String iri) {
         return ontologyPropertyRepository.findByOntologyAndIri(ontologyname, iri);
     }
 
-    public Page<Property> getParents(String ontologyName, String iri, Pageable pageable) {
+    public Page<OlsProperty> getParents(String ontologyName, String iri, Pageable pageable) {
         return ontologyPropertyRepository.getParents(ontologyName, iri, pageable);
     }
 
-    public Page<Property> getChildren(String ontologyName, String iri, Pageable pageable) {
+    public Page<OlsProperty> getChildren(String ontologyName, String iri, Pageable pageable) {
         return ontologyPropertyRepository.getChildren(ontologyName, iri, pageable);
     }
 
-    public Page<Property> getDescendants(String ontologyName, String iri, Pageable pageable) {
+    public Page<OlsProperty> getDescendants(String ontologyName, String iri, Pageable pageable) {
         return ontologyPropertyRepository.getDescendants(ontologyName, iri, pageable);
     }
 
-    public Page<Property> getAncestors(String ontologyName, String iri, Pageable pageable) {
+    public Page<OlsProperty> getAncestors(String ontologyName, String iri, Pageable pageable) {
         return ontologyPropertyRepository.getAncestors(ontologyName, iri, pageable);
     }
 
-    public Property findByOntologyAndShortForm(String ontologyId, String shortForm) {
+    public OlsProperty findByOntologyAndShortForm(String ontologyId, String shortForm) {
         return ontologyPropertyRepository.findByOntologyAndShortForm(ontologyId, shortForm);
     }
-    public Property findByOntologyAndOboId(String ontologyId, String oboId) {
+    public OlsProperty findByOntologyAndOboId(String ontologyId, String oboId) {
         return ontologyPropertyRepository.findByOntologyAndOboId(ontologyId, oboId);
     }
 
-    public Page<Property> getRoots(String ontologyId, boolean includeObsoletes, Pageable pageable) {
+    public Page<OlsProperty> getRoots(String ontologyId, boolean includeObsoletes, Pageable pageable) {
         return ontologyPropertyRepository.getRoots(ontologyId, includeObsoletes, pageable);
     }
 }

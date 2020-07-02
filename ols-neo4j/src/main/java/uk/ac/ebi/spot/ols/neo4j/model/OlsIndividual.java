@@ -2,15 +2,16 @@ package uk.ac.ebi.spot.ols.neo4j.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.neo4j.graphdb.Direction;
+import org.neo4j.ogm.annotation.Id;
+import org.neo4j.ogm.annotation.Property;
+import org.neo4j.ogm.annotation.Relationship;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Properties;
 import org.springframework.data.annotation.TypeAlias;
-import org.springframework.data.neo4j.annotation.*;
-import org.springframework.data.neo4j.fieldaccess.DynamicProperties;
-import org.springframework.data.neo4j.fieldaccess.DynamicPropertiesContainer;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 
 /**
  * @author Simon Jupp
@@ -19,61 +20,59 @@ import java.util.TreeMap;
  */
 @NodeEntity
 @TypeAlias(value = "Individual")
-public class Individual {
+public class OlsIndividual {
 
-    @GraphId
+    @Id
     @JsonIgnore
     Long id;
 
     @JsonIgnore
     private String olsId;
 
-    @GraphProperty(propertyName="iri")
+    @Property(name="iri")
     private String iri;
 
-    @GraphProperty(propertyName="label")
+    @Property(name="label")
     private String label;
 
-    @GraphProperty(propertyName="synonym")
+    @Property(name="synonym")
     private Set<String> synonym;
 
-    @GraphProperty(propertyName="description")
+    @Property(name="description")
     private Set<String> description;
 
-    @GraphProperty(propertyName="ontology_name")
+    @Property(name="ontology_name")
     @JsonProperty(value = "ontology_name")
     private String ontologyName;
 
-    @GraphProperty(propertyName="ontology_prefix")
+    @Property(name="ontology_prefix")
     @JsonProperty(value = "ontology_prefix")
     private String ontologyPrefix;
 
-    @GraphProperty(propertyName="ontology_iri")
+    @Property(name="ontology_iri")
     @JsonProperty(value = "ontology_iri")
     private String ontologyIri;
 
-    @GraphProperty(propertyName="is_obsolete")
+    @Property(name="is_obsolete")
     @JsonProperty(value = "is_obsolete")
     private boolean isObsolete;
 
-    @GraphProperty(propertyName="is_defining_ontology")
+    @Property(name="is_defining_ontology")
     @JsonProperty(value = "is_defining_ontology")
     private boolean isLocal;
 
-    @GraphProperty(propertyName="short_form")
+    @Property(name="short_form")
     @JsonProperty(value = "short_form")
     private String shortForm;
 
-    @GraphProperty(propertyName="obo_id")
+    @Property(name="obo_id")
     @JsonProperty(value = "obo_id")
     private String oboId;
 
-    private DynamicProperties annotation = new DynamicPropertiesContainer();
+    @Relationship(type="INSTANCEOF", direction = Relationship.OUTGOING)
+    Set<OlsTerm> type;
 
-    @RelatedTo(type="INSTANCEOF", direction = Direction.OUTGOING)
-    @Fetch Set<Term> type;
-
-    public Individual() {
+    public OlsIndividual() {
     }
 
     public Long getId() {
@@ -131,12 +130,8 @@ public class Individual {
         return oboId;
     }
 
-    public Set<Term> getType() {
+    public Set<OlsTerm> getType() {
         return type;
     }
 
-
-    public Map getAnnotation() {
-        return new TreeMap<String, Object>(annotation.asMap());
-    }
 }

@@ -5,7 +5,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
-import org.springframework.data.neo4j.config.EnableNeo4jRepositories;
+import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 import uk.ac.ebi.spot.ols.config.PropertyBasedLoadingService;
 import uk.ac.ebi.spot.ols.loader.BatchNeo4JIndexer;
 import uk.ac.ebi.spot.ols.loader.OntologyLoader;

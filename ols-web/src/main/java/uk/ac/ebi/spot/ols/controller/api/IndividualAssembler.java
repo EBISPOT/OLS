@@ -1,13 +1,13 @@
 package uk.ac.ebi.spot.ols.controller.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.EntityLinks;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.ResourceAssembler;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.EntityLinks;
+import org.springframework.hateoas.server.RepresentationModelAssembler;
+import org.springframework.hateoas.server.mvc.ControllerLinkBuilder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriUtils;
-import uk.ac.ebi.spot.ols.neo4j.model.Individual;
+import uk.ac.ebi.spot.ols.neo4j.model.OlsIndividual;
 
 import java.io.UnsupportedEncodingException;
 
@@ -17,30 +17,24 @@ import java.io.UnsupportedEncodingException;
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
 @Component
-public class IndividualAssembler implements ResourceAssembler<Individual, Resource<Individual>> {
+public class IndividualAssembler implements RepresentationModelAssembler<OlsIndividual, EntityModel<OlsIndividual>> {
 
     @Autowired
     EntityLinks entityLinks;
 
     @Override
-    public Resource<Individual> toResource(Individual term) {
-        Resource<Individual> resource = new Resource<Individual>(term);
-        try {
-            String id = UriUtils.encode(term.getIri(), "UTF-8");
-            final ControllerLinkBuilder lb = ControllerLinkBuilder.linkTo(
-                    ControllerLinkBuilder.methodOn(OntologyIndividualController.class).getIndividual(term.getOntologyName(), id));
+    public EntityModel<OlsIndividual> toModel(OlsIndividual term) {
+        EntityModel<OlsIndividual> resource = new EntityModel<OlsIndividual>(term);
 
-            resource.add(lb.withSelfRel());
+        String id = UriUtils.encode(term.getIri(), "UTF-8");
+        final ControllerLinkBuilder lb = ControllerLinkBuilder.linkTo(
+                ControllerLinkBuilder.methodOn(OntologyIndividualController.class).getIndividual(term.getOntologyName(), id));
 
-            resource.add(lb.slash("types").withRel("types"));
-            resource.add(lb.slash("alltypes").withRel("alltypes"));
-            resource.add(lb.slash("jstree").withRel("jstree"));
+        resource.add(lb.withSelfRel());
 
-
-            // other links
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        resource.add(lb.slash("types").withRel("types"));
+        resource.add(lb.slash("alltypes").withRel("alltypes"));
+        resource.add(lb.slash("jstree").withRel("jstree"));
 
         return resource;
     }

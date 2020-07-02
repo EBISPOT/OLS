@@ -8,13 +8,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.FileSystemUtils;
-import sun.net.www.protocol.ftp.FtpURLConnection;
 import uk.ac.ebi.spot.ols.exception.FileUpdateServiceException;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
+import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
@@ -153,6 +153,46 @@ public class FileUpdater {
         return file;
     }
 
+    private URLConnection connect(URL url) throws IOException {
+
+        URLConnection connection = url.openConnection();
+        connection.setConnectTimeout(15000);
+        connection.setReadTimeout(60000);
+        connection.setRequestProperty("User-Agent", "Mozilla/5.0...");
+
+        if(connection instanceof HttpURLConnection) {
+
+            HttpURLConnection httpConnection = (HttpURLConnection) connection;
+
+            httpConnection.setInstanceFollowRedirects(true);
+
+            boolean redirect = false;
+
+            // normally, 3xx is redirect
+            int status = httpConnection.getResponseCode();
+            if (status != HttpURLConnection.HTTP_OK) {
+                if (status == HttpURLConnection.HTTP_MOVED_TEMP
+                        || status == HttpURLConnection.HTTP_MOVED_PERM
+                        || status == HttpURLConnection.HTTP_SEE_OTHER)
+                    redirect = true;
+            }
+            
+            if (redirect) {
+                // get redirect url from "location" header field
+                String newUrl = connection.getHeaderField("Location");
+                // open the new connnection again
+                return connect(new URL(newUrl));
+            }
+
+            return httpConnection;
+
+        } else {
+
+            return connection;
+
+        }
+    }
+
     private InputStream getFileInputStream(URL url) throws IOException {
 
         File pathFile = new File(url.getPath());
@@ -175,38 +215,7 @@ public class FileUpdater {
             }
         }
 
-        // try a http connection
-
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setConnectTimeout(15000);
-        connection.setReadTimeout(60000);
-        connection.setInstanceFollowRedirects(true);
-        connection.setRequestProperty("User-Agent", "Mozilla/5.0...");
-
-        boolean redirect = false;
-
-        // normally, 3xx is redirect
-        int status = connection.getResponseCode();
-        if (status != HttpURLConnection.HTTP_OK) {
-            if (status == HttpURLConnection.HTTP_MOVED_TEMP
-                    || status == HttpURLConnection.HTTP_MOVED_PERM
-                    || status == HttpURLConnection.HTTP_SEE_OTHER)
-                redirect = true;
-        }
-        
-        if (redirect) {
-            // get redirect url from "location" header field
-            String newUrl = connection.getHeaderField("Location");
-            // open the new connnection again
-
-            try {
-                connection = (HttpURLConnection) new URL(newUrl).openConnection();
-                connection.setInstanceFollowRedirects(true);
-            } catch (Exception e) {
-                FtpURLConnection ftpURLConnection = (FtpURLConnection) new URL(newUrl).openConnection();
-                return ftpURLConnection.getInputStream();
-            }
-        }
+        URLConnection connection = connect(url);
 
         if (pathFile.getName().endsWith(".zip")) {
             ZipInputStream zis = new ZipInputStream(connection.getInputStream());

@@ -166,7 +166,7 @@ public class SolrIndexer implements OntologyIndexer {
                 end = numDocuments;
             }
 
-            ontologySuggestRepository.save(suggestDocuments.subList(count, end));
+            ontologySuggestRepository.saveAll(suggestDocuments.subList(count, end));
 
             count = end;
             getLog().debug("Indexed {} / {} entries", count, numDocuments);
@@ -185,7 +185,7 @@ public class SolrIndexer implements OntologyIndexer {
                 end = numDocuments;
             }
 
-            ontologySolrRepository.save(documents.subList(count, end));
+            ontologySolrRepository.saveAll(documents.subList(count, end));
 
             count = end;
             getLog().debug("Indexed {} / {} entries", count, numDocuments);
@@ -209,7 +209,7 @@ public class SolrIndexer implements OntologyIndexer {
         if (documents.iterator().hasNext()) {
             getLog().info("Deleting solr index for " + ontologyId);
             long startTime = System.currentTimeMillis();
-            ontologySolrRepository.delete(documents);
+            ontologySolrRepository.deleteAll(documents);
             long endTime = System.currentTimeMillis();
             long duration = (endTime - startTime) / 1000; // time in seconds
             getLog().info(ontologyId + " removed from solr in " + duration + " seconds");

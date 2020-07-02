@@ -1,13 +1,13 @@
 package uk.ac.ebi.spot.ols.controller.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.EntityLinks;
-import org.springframework.hateoas.Resource;
-import org.springframework.hateoas.ResourceAssembler;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
+import org.springframework.hateoas.server.EntityLinks;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.RepresentationModelAssembler;
+import org.springframework.hateoas.server.mvc.ControllerLinkBuilder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriUtils;
-import uk.ac.ebi.spot.ols.neo4j.model.Property;
+import uk.ac.ebi.spot.ols.neo4j.model.OlsProperty;
 
 import java.io.UnsupportedEncodingException;
 
@@ -17,15 +17,15 @@ import java.io.UnsupportedEncodingException;
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
 @Component
-public class PropertyAssembler implements ResourceAssembler<Property, Resource<Property>> {
+public class PropertyAssembler implements RepresentationModelAssembler<OlsProperty, EntityModel<OlsProperty>> {
 
     @Autowired
     EntityLinks entityLinks;
 
     @Override
-    public Resource<Property> toResource(Property term) {
-        Resource<Property> resource = new Resource<Property>(term);
-        try {
+    public EntityModel<OlsProperty> toModel(OlsProperty term) {
+        EntityModel<OlsProperty> resource = new EntityModel<OlsProperty>(term);
+
             String id = UriUtils.encode(term.getIri(), "UTF-8");
             final ControllerLinkBuilder lb = ControllerLinkBuilder.linkTo(
                     ControllerLinkBuilder.methodOn(OntologyPropertyController.class).getProperty(term.getOntologyName(), id));
@@ -43,10 +43,6 @@ public class PropertyAssembler implements ResourceAssembler<Property, Resource<P
                 resource.add(lb.slash("descendants").withRel("descendants"));
             }
 
-            // other links
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
 
         return resource;
     }

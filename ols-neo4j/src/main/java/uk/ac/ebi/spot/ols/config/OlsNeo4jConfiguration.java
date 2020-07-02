@@ -4,13 +4,15 @@ import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.neo4j.graphdb.factory.GraphDatabaseSettings;
 import org.neo4j.kernel.api.exceptions.index.ExceptionDuringFlipKernelException;
+import org.neo4j.ogm.session.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.neo4j.config.Neo4jConfiguration;
+import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
+import org.springframework.data.neo4j.transaction.Neo4jTransactionManager;
 import uk.ac.ebi.spot.ols.util.OLSEnv;
 
 import javax.naming.InitialContext;
@@ -24,15 +26,24 @@ import java.nio.file.Files;
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
 @Configuration
-public class OlsNeo4jConfiguration extends Neo4jConfiguration {
+@EnableNeo4jRepositories(basePackages = "uk.ac.ebi.spot.ols.neo4j.repository")
+//@EnableTransactionManagement
+public class OlsNeo4jConfiguration {
 
     private static Logger log = LoggerFactory.getLogger(OlsNeo4jConfiguration.class);
     public Logger getLog() {
         return log;
     }
 
-    public OlsNeo4jConfiguration() {
-        setBasePackage("uk.ac.ebi.spot.ols");
+    @Bean
+    public SessionFactory sessionFactory() {
+        // with domain entity base package(s)
+        return new SessionFactory("uk.ac.ebi.spot.ols");
+    }
+
+    @Bean
+    public Neo4jTransactionManager transactionManager() {
+        return new Neo4jTransactionManager(sessionFactory());
     }
 
     @Bean (destroyMethod = "shutdown")

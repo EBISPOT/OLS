@@ -1,19 +1,14 @@
 package uk.ac.ebi.spot.ols.neo4j.service;
 
 import org.neo4j.graphdb.GraphDatabaseService;
-import org.neo4j.graphdb.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import uk.ac.ebi.spot.ols.neo4j.model.Individual;
-import uk.ac.ebi.spot.ols.neo4j.model.Property;
-import uk.ac.ebi.spot.ols.neo4j.model.Term;
+import uk.ac.ebi.spot.ols.neo4j.model.OlsIndividual;
+import uk.ac.ebi.spot.ols.neo4j.model.OlsProperty;
+import uk.ac.ebi.spot.ols.neo4j.model.OlsTerm;
 import uk.ac.ebi.spot.ols.neo4j.repository.OntologyIndividualRepository;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author Simon Jupp
@@ -29,58 +24,58 @@ public class OntologyIndividualService {
     @Autowired(required = false)
     GraphDatabaseService graphDatabaseService;
 
-    public Page<Individual> findAll(Pageable pageable) {
+    public Page<OlsIndividual> findAll(Pageable pageable) {
         return individualRepository.findAll(pageable);
     }
 
-    public Page<Individual> findAllByIsDefiningOntology(Pageable pageable) {
+    public Page<OlsIndividual> findAllByIsDefiningOntology(Pageable pageable) {
         return individualRepository.findAllByIsDefiningOntology(pageable);
     }
     
-    public Page<Individual> findAllByIri(String iri, Pageable pageable) {
+    public Page<OlsIndividual> findAllByIri(String iri, Pageable pageable) {
         return individualRepository.findAllByIri(iri, pageable);
     }
 
-    public Page<Individual> findAllByIriAndIsDefiningOntology(String iri, Pageable pageable) {
+    public Page<OlsIndividual> findAllByIriAndIsDefiningOntology(String iri, Pageable pageable) {
         return individualRepository.findAllByIriAndIsDefiningOntology(iri, pageable);
     }
     
-    public Page<Individual> findAllByShortForm(String shortForm, Pageable pageable) {
+    public Page<OlsIndividual> findAllByShortForm(String shortForm, Pageable pageable) {
         return individualRepository.findAllByShortForm(shortForm, pageable);
     }
 
-    public Page<Individual> findAllByShortFormAndIsDefiningOntology(String shortForm, Pageable pageable) {
+    public Page<OlsIndividual> findAllByShortFormAndIsDefiningOntology(String shortForm, Pageable pageable) {
         return individualRepository.findAllByShortFormAndIsDefiningOntology(shortForm, pageable);
     }    
     
-    public Page<Individual> findAllByOboId(String oboId, Pageable pageable) {
+    public Page<OlsIndividual> findAllByOboId(String oboId, Pageable pageable) {
         return individualRepository.findAllByOboId(oboId, pageable);
     }
 
-    public Page<Individual> findAllByOboIdAndIsDefiningOntology(String oboId, Pageable pageable) {
+    public Page<OlsIndividual> findAllByOboIdAndIsDefiningOntology(String oboId, Pageable pageable) {
         return individualRepository.findAllByOboIdAndIsDefiningOntology(oboId, pageable);
     }    
     
-    public Page<Individual> findAllByOntology(String ontologyId, Pageable pageable) {
+    public Page<OlsIndividual> findAllByOntology(String ontologyId, Pageable pageable) {
         return individualRepository.findAllByOntology(ontologyId, pageable);
     }
 
-    public Individual findByOntologyAndIri(String ontologyname, String iri) {
+    public OlsIndividual findByOntologyAndIri(String ontologyname, String iri) {
         return individualRepository.findByOntologyAndIri(ontologyname, iri);
     }
 
-    public Page<Term> getDirectTypes(String ontologyName, String iri, Pageable pageable) {
+    public Page<OlsTerm> getDirectTypes(String ontologyName, String iri, Pageable pageable) {
         return individualRepository.getDirectTypes(ontologyName, iri, pageable);
     }
 
-    public Page<Term> getAllTypes(String ontologyName, String iri, Pageable pageable) {
+    public Page<OlsTerm> getAllTypes(String ontologyName, String iri, Pageable pageable) {
         return individualRepository.getAllTypes(ontologyName, iri, pageable);
     }
 
-    public Individual findByOntologyAndShortForm(String ontologyId, String shortForm) {
+    public OlsIndividual findByOntologyAndShortForm(String ontologyId, String shortForm) {
         return individualRepository.findByOntologyAndShortForm(ontologyId, shortForm);
     }
-    public Individual findByOntologyAndOboId(String ontologyId, String oboId) {
+    public OlsIndividual findByOntologyAndOboId(String ontologyId, String oboId) {
         return individualRepository.findByOntologyAndOboId(ontologyId, oboId);
     }
 
