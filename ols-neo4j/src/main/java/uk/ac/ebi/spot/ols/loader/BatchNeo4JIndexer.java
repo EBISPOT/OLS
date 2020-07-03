@@ -1,8 +1,10 @@
 package uk.ac.ebi.spot.ols.loader;
 
+import static org.neo4j.configuration.GraphDatabaseSettings.DEFAULT_DATABASE_NAME;
 import static uk.ac.ebi.spot.ols.loader.Neo4JIndexerConstants.*;
 import static uk.ac.ebi.spot.ols.config.OntologyDefaults.THING;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -11,20 +13,16 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import org.neo4j.graphdb.DynamicLabel;
+import org.neo4j.dbms.api.DatabaseManagementService;
+import org.neo4j.dbms.api.DatabaseManagementServiceBuilder;
+import org.neo4j.graphdb.Label;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Label;
 import org.neo4j.graphdb.Result;
 import org.neo4j.graphdb.Transaction;
-import org.neo4j.graphdb.factory.GraphDatabaseFactory;
-import org.neo4j.graphdb.index.IndexHits;
 import org.neo4j.graphdb.schema.IndexDefinition;
 import org.neo4j.graphdb.schema.Schema;
-import org.neo4j.helpers.collection.MapUtil;
-import org.neo4j.index.lucene.unsafe.batchinsert.LuceneBatchInserterIndexProvider;
-import org.neo4j.unsafe.batchinsert.BatchInserter;
-import org.neo4j.unsafe.batchinsert.BatchInserterIndex;
-import org.neo4j.unsafe.batchinsert.BatchInserterIndexProvider;
+import org.neo4j.batchinsert.BatchInserter;
 import org.semanticweb.owlapi.model.IRI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,12 +42,13 @@ import uk.ac.ebi.spot.ols.model.OntologyIndexer;
 public class BatchNeo4JIndexer implements OntologyIndexer {
     private Logger logger = LoggerFactory.getLogger(getClass());
     private BatchInserter inserter;
-    private BatchInserterIndex index;
-    private BatchInserterIndexProvider indexProvider;
 
     public Logger getLogger() {
         return logger;
     }
+
+    @Autowired
+    private DatabaseManagementService dbManagementService;
 
     @Autowired
     private GraphDatabaseService db;
@@ -71,12 +70,9 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
 
     }
 
-    protected BatchNeo4JIndexer(String ontologyName, BatchInserterIndex batchInserterIndex,
-    		BatchInserterIndexProvider batchInserterIndexProvider, BatchInserter batchInserter) {
+    protected BatchNeo4JIndexer(String ontologyName, BatchInserter batchInserter) {
     	
-    	nodeOntologyLabel = DynamicLabel.label(ontologyName.toUpperCase());
-    	index = batchInserterIndex;
-    	indexProvider = batchInserterIndexProvider;
+    	nodeOntologyLabel = Label.label(ontologyName.toUpperCase());
     	inserter = batchInserter;
     }
     
@@ -84,39 +80,19 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
     		OntologyLoader loader, IRI classIri, Label ... nodeLabel) {
 
         if (!mergedNodeMap.containsKey(classIri.toString())) {
+            Map<String, Object> properties = new HashMap<>();
+            properties.put("iri", classIri.toString());
+            properties.put("label", loader.getTermLabels().get(classIri));
 
-            // link to merged node
-            IndexHits<Long> hits = null;
-
-            try {
-                getLogger().debug("classIri = " + classIri);
-                hits = index.get("iri", classIri);
-            } catch (Throwable t) {
-                getLogger().error(t.getMessage(), t);
-            }
-
-            if (hits != null && hits.size() == 0) {
-                Map<String, Object> properties = new HashMap<>();
-                properties.put("iri", classIri.toString());
-                properties.put("label", loader.getTermLabels().get(classIri));
-
-                Long hit = inserter.createNode(properties, nodeLabel);
-                index.add(hit, properties);
-                mergedNodeMap.put(classIri.toString(), hit);
-            }
-            else {
-                if (hits != null && hits.size() > 1) {
-                    System.out.println("WARING: found more than one iri in merged terms for: " + classIri);
-                }
-                Long mergedNode = hits.getSingle();
-                mergedNodeMap.put(classIri.toString(), mergedNode);
-            }
+            Long node = inserter.createNode(properties, nodeLabel);
+            mergedNodeMap.put(classIri.toString(), node);
+            return node;
         }
         return mergedNodeMap.get(classIri.toString());
     }
 
     private void setOntologyLabel (String ontologyName) {
-        nodeOntologyLabel   = DynamicLabel.label(ontologyName.toUpperCase());
+        nodeOntologyLabel   = Label.label(ontologyName.toUpperCase());
     }
 
     private BatchInserter getBatchIndexer (String ontologyName) {
@@ -140,28 +116,8 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
         rdfTypeProperties.put("ontology_name", ontologyName);
         rdfTypeProperties.put("__type__", "Type");
 
-       	index = getBatchInserterIndex(getIndexProvider(inserter));
-
         return inserter;
 
-    }
-
-    private BatchInserterIndexProvider getIndexProvider (BatchInserter inserter) {
-
-        indexProvider =
-            new LuceneBatchInserterIndexProvider(inserter);
-        return indexProvider;
-    }
-
-    private BatchInserterIndex getBatchInserterIndex(BatchInserterIndexProvider indexProvider) {
-        BatchInserterIndex entities = null;
-        try {
-            entities = indexProvider.nodeIndex("Resource", MapUtil.stringMap("type", "exact"));
-            entities.setCacheCapacity("iri", 1000000);
-        } catch (Throwable t) {
-            getLogger().error(t.getMessage(), t);
-        }
-        return entities;
     }
 
     private void indexProperties(BatchInserter inserter, OntologyLoader loader, Map<String, Long> nodeMap, Map<String, Long> mergedNodeMap) {
@@ -452,49 +408,14 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
             getLogger().info("Neo4j index for " + loader.getAllDataPropertyIRIs().size() + " data properties complete");
             getLogger().info("Neo4j index for " + loader.getAllIndividualIRIs().size() + " individuals complete");
 
-            indexProvider.shutdown();
             inserter.shutdown();
-        }
-
-
-        // check indexes online
-
-//        db.shutdown();
-        db = getGraphDatabase();
-
-        Transaction tx = db.beginTx();
-
-        try {
-            for (IndexDefinition indexDefinition : db.schema().getIndexes()) {
-                Schema.IndexState state = db.schema().getIndexState(indexDefinition);
-                if (state.equals(Schema.IndexState.POPULATING)) {
-                    logger.warn("One of the indexes has failed, attempting to rebuild: " + indexDefinition.getLabel().name());
-                    try {
-                        db.schema().awaitIndexOnline(indexDefinition, 10, TimeUnit.MINUTES);
-                    } catch (IllegalStateException e) {
-                        throw new IndexingException("Building Neo4j index failed as the schema index didn't finish in time", e);
-                    }
-                }
-                else if (state.equals(Schema.IndexState.FAILED)) {
-                    throw new Exception("Index failed: " + indexDefinition.getLabel().name());
-                }
-            }
-
-            tx.success();
-        }
-        catch (Exception e) {
-        	logger.debug(e.getMessage(), e);
-            tx.failure();
-            throw new IndexingException("Building Neo4j index failed as the schema index creation failed", e);
-        }
-        finally {
-            tx.close();
-            db.shutdown();
         }
     }
 
     protected GraphDatabaseService getGraphDatabase () {
-   		return new GraphDatabaseFactory().newEmbeddedDatabase(neo4jConfiguration.getNeo4JPath());
+        DatabaseManagementService managementService = new DatabaseManagementServiceBuilder(new File(neo4jConfiguration.getNeo4JPath())).build();
+        GraphDatabaseService service = managementService.database( DEFAULT_DATABASE_NAME );
+        return service;
     }
 
     public void dropIndex(OntologyLoader loader) throws IndexingException {
@@ -504,15 +425,14 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
     @Override
     public void dropIndex(String ontologyId) throws IndexingException {
 
+
         // shutdown any autowired graph dbs for batch loading
-        db.shutdown();
+        dbManagementService.shutdown();
         db = getGraphDatabase();
 
         deleteNodes(ontologyId);
 
-        db.shutdown();
-
-
+        dbManagementService.shutdown();
     }
 
     private void deleteNodes(String ontologyName) {
@@ -529,15 +449,14 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
                         "match (n:" + ontologyName.toUpperCase() + ")-[r]->() with r limit " + 
                         		DELETE_SIZE + " delete r";
                 getLogger().info("executing delete: " + cypherDelete);
-                Result result = db.execute(cypherDelete);
+
+                Result result = tx.execute(cypherDelete);
                 getLogger().info(result.resultAsString());
 
-                tx.success();
             } catch (Exception e) {
-                tx.failure();
                 throw new IndexingException("Couldn't drop: " + ontologyName, e);
             }
-            tx.close();
+            tx.commit();
         }
 
         count = getNodeCount(
@@ -551,15 +470,13 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
                 String cypherDelete =
                         "match (n:" + ontologyName.toUpperCase() + ") with n limit " + DELETE_SIZE + " delete n";
                 getLogger().info("executing delete: " + cypherDelete);
-                Result result = db.execute(cypherDelete);
+                Result result = tx.execute(cypherDelete);
                 getLogger().info(result.resultAsString());
 
-                tx.success();
             } catch (Exception e) {
-                tx.failure();
                 throw new IndexingException("Couldn't drop: " + ontologyName, e);
             }
-            tx.close();
+            tx.commit();
         }
     }
 
@@ -570,18 +487,16 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
         Transaction tx = db.beginTx();
         try {
             getLogger().debug("executing count: " + nodeCountCypher);
-            Result result = db.execute(nodeCountCypher);
+            Result result = tx.execute(nodeCountCypher);
 
             count = (Long) result.next().get("count");
             getLogger().debug("query count " + count);
-            tx.success();
         }
         catch (Exception e) {
-            tx.failure();
             throw new IndexingException("Couldn't count: " + ontologyName, e);
         }
         finally {
-            tx.close();
+            tx.commit();
         }
         return count.intValue();
     }

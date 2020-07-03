@@ -1,7 +1,5 @@
 package uk.ac.ebi.spot.ols.loader;
 
-import org.neo4j.unsafe.batchinsert.BatchInserter;
-
 /**
  * 
  * @author Henriette Harmse
@@ -12,10 +10,10 @@ import org.neo4j.unsafe.batchinsert.BatchInserter;
  */
 class OLSBatchIndexerCreatorTestHelper extends OLSBatchIndexerCreator {
 
-	private OLSBatchIndexerCreatorTestHelper() {
-	}
-	
-	static BatchInserter createBatchInserterForTesting(String neo4jDirectory) {
-		return OLSBatchIndexerCreator.createBatchInserter(null, neo4jDirectory);
-	}
+//	private OLSBatchIndexerCreatorTestHelper() {
+//	}
+//
+//	static BatchInserter createBatchInserterForTesting(String neo4jDirectory) {
+//		return OLSBatchIndexerCreator.createBatchInserter(null, neo4jDirectory);
+//	}
 }

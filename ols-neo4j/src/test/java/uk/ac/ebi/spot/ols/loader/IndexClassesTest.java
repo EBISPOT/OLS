@@ -28,12 +28,6 @@ import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.ResourceIterable;
 import org.neo4j.graphdb.ResourceIterator;
 import org.neo4j.graphdb.Transaction;
-import org.neo4j.graphdb.factory.GraphDatabaseFactory;
-import org.neo4j.index.lucene.unsafe.batchinsert.LuceneBatchInserterIndexProvider;
-import org.neo4j.tooling.GlobalGraphOperations;
-import org.neo4j.unsafe.batchinsert.BatchInserter;
-import org.neo4j.unsafe.batchinsert.BatchInserterIndex;
-import org.neo4j.unsafe.batchinsert.BatchInserterIndexProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -72,42 +66,42 @@ public class IndexClassesTest {
 	void testIndexClasses(String ontologyIRI, String title, String namespace, String ontologyToIndex, 
 			String baseUri, String neo4JDir) {
 		
-		BatchInserter batchInserter = OLSBatchIndexerCreatorTestHelper
-				.createBatchInserter(null, INDEX_CLASSES_TEST_NEO4J_DIR);
+		// BatchInserter batchInserter = OLSBatchIndexerCreatorTestHelper
+		// 		.createBatchInserter(null, INDEX_CLASSES_TEST_NEO4J_DIR);
 		
-        OntologyResourceConfig.OntologyResourceConfigBuilder builder =
-                new OntologyResourceConfig.OntologyResourceConfigBuilder(ontologyIRI, title, 
-                		namespace, (new File(BASE_DIR_FOR_TEST_RESOURCES + ontologyToIndex).toURI()));
+        // OntologyResourceConfig.OntologyResourceConfigBuilder builder =
+        //         new OntologyResourceConfig.OntologyResourceConfigBuilder(ontologyIRI, title, 
+        //         		namespace, (new File(BASE_DIR_FOR_TEST_RESOURCES + ontologyToIndex).toURI()));
         
-        builder.setBaseUris(Collections.singleton(baseUri));
+        // builder.setBaseUris(Collections.singleton(baseUri));
 
-        OntologyResourceConfig config = builder.build();
-        OntologyLoadingConfiguration ontologyLoadingConfiguration = new 
-        		OntologyLoadingConfiguration(DEFAULT_PREFERRED_ROOT_TERM_ANNOTATION_PROPERTY);
+        // OntologyResourceConfig config = builder.build();
+        // OntologyLoadingConfiguration ontologyLoadingConfiguration = new 
+        // 		OntologyLoadingConfiguration(DEFAULT_PREFERRED_ROOT_TERM_ANNOTATION_PROPERTY);
         
-        OntologyLoader ontologyLoader = null;
-        try {
-            ontologyLoader = new HermitOWLOntologyLoader(config, null, ontologyLoadingConfiguration);
-        } catch (OntologyLoadingException e) {
-            logger.error(e.getMessage(), e);
-        }
+        // OntologyLoader ontologyLoader = null;
+        // try {
+        //     ontologyLoader = new HermitOWLOntologyLoader(config, null, ontologyLoadingConfiguration);
+        // } catch (OntologyLoadingException e) {
+        //     logger.error(e.getMessage(), e);
+        // }
         
-        BatchInserterIndexProvider batchInserterIndexProvider =
-                    new LuceneBatchInserterIndexProvider(batchInserter);
-        BatchInserterIndex batchInserterIndex = OLSBatchIndexerCreatorTestHelper
-        		.createBatchInserterIndex(batchInserterIndexProvider);
+        // BatchInserterIndexProvider batchInserterIndexProvider =
+        //             new LuceneBatchInserterIndexProvider(batchInserter);
+        // BatchInserterIndex batchInserterIndex = OLSBatchIndexerCreatorTestHelper
+        // 		.createBatchInserterIndex(batchInserterIndexProvider);
         
-        BatchNeo4JIndexer batchNeo4JIndexer = new BatchNeo4JIndexerHelper(
-        		ontologyLoader.getOntologyName(), batchInserterIndex, batchInserterIndexProvider, 
-        		batchInserter, neo4JDir);
+        // BatchNeo4JIndexer batchNeo4JIndexer = new BatchNeo4JIndexerHelper(
+        // 		ontologyLoader.getOntologyName(), batchInserterIndex, batchInserterIndexProvider, 
+        // 		batchInserter, neo4JDir);
         
-        Map<String, Long> classNodeMap = new HashMap<>();
-        Map<String, Long> mergedNodeMap = new HashMap<>();
+        // Map<String, Long> classNodeMap = new HashMap<>();
+        // Map<String, Long> mergedNodeMap = new HashMap<>();
         
-        batchNeo4JIndexer.indexClasses(batchInserter, ontologyLoader, classNodeMap, mergedNodeMap);
+        // batchNeo4JIndexer.indexClasses(batchInserter, ontologyLoader, classNodeMap, mergedNodeMap);
         
-        batchInserterIndexProvider.shutdown();
-        batchInserter.shutdown();
+        // batchInserterIndexProvider.shutdown();
+        // batchInserter.shutdown();
 	}
 
 	@Disabled
@@ -117,42 +111,42 @@ public class IndexClassesTest {
 	void testIndexClassesDeprecated(String ontologyIRI, String title, String namespace, String ontologyToIndex, 
 			String baseUri, String neo4JDir) {
 		
-		BatchInserter batchInserter = OLSBatchIndexerCreatorTestHelper
-				.createBatchInserter(null, INDEX_CLASSES_TEST_DEPRECATED_NEO4J_DIR);
+		// BatchInserter batchInserter = OLSBatchIndexerCreatorTestHelper
+		// 		.createBatchInserter(null, INDEX_CLASSES_TEST_DEPRECATED_NEO4J_DIR);
 		
-        OntologyResourceConfig.OntologyResourceConfigBuilder builder =
-                new OntologyResourceConfig.OntologyResourceConfigBuilder(ontologyIRI, title, 
-                		namespace, (new File(BASE_DIR_FOR_TEST_RESOURCES + ontologyToIndex).toURI()));
+        // OntologyResourceConfig.OntologyResourceConfigBuilder builder =
+        //         new OntologyResourceConfig.OntologyResourceConfigBuilder(ontologyIRI, title, 
+        //         		namespace, (new File(BASE_DIR_FOR_TEST_RESOURCES + ontologyToIndex).toURI()));
         
-        builder.setBaseUris(Collections.singleton(baseUri));
+        // builder.setBaseUris(Collections.singleton(baseUri));
 
-        OntologyResourceConfig config = builder.build();
+        // OntologyResourceConfig config = builder.build();
         
-        OntologyLoader ontologyLoader = null;
-        try {
-            ontologyLoader = new HermitOWLOntologyLoader(config);
-        } catch (OntologyLoadingException e) {
-            logger.error(e.getMessage(), e);
-        }
+        // OntologyLoader ontologyLoader = null;
+        // try {
+        //     ontologyLoader = new HermitOWLOntologyLoader(config);
+        // } catch (OntologyLoadingException e) {
+        //     logger.error(e.getMessage(), e);
+        // }
         
-        BatchInserterIndexProvider batchInserterIndexProvider =
-                    new LuceneBatchInserterIndexProvider(batchInserter);
-        BatchInserterIndex batchInserterIndex = OLSBatchIndexerCreatorTestHelper
-        		.createBatchInserterIndex(batchInserterIndexProvider);
+        // BatchInserterIndexProvider batchInserterIndexProvider =
+        //             new LuceneBatchInserterIndexProvider(batchInserter);
+        // BatchInserterIndex batchInserterIndex = OLSBatchIndexerCreatorTestHelper
+        // 		.createBatchInserterIndex(batchInserterIndexProvider);
         
-        BatchNeo4JIndexer batchNeo4JIndexer = new BatchNeo4JIndexerHelper(
-        		ontologyLoader.getOntologyName(), batchInserterIndex, batchInserterIndexProvider,
-        		batchInserter, neo4JDir);
+        // BatchNeo4JIndexer batchNeo4JIndexer = new BatchNeo4JIndexerHelper(
+        // 		ontologyLoader.getOntologyName(), batchInserterIndex, batchInserterIndexProvider,
+        // 		batchInserter, neo4JDir);
         
-        Map<String, Long> classNodeMap = new HashMap<>();
-        Map<String, Long> mergedNodeMap = new HashMap<>();
+        // Map<String, Long> classNodeMap = new HashMap<>();
+        // Map<String, Long> mergedNodeMap = new HashMap<>();
         
-        batchNeo4JIndexer.indexClassesDeprecated(batchInserter, ontologyLoader, classNodeMap, 
-        		mergedNodeMap);
+        // batchNeo4JIndexer.indexClassesDeprecated(batchInserter, ontologyLoader, classNodeMap, 
+        // 		mergedNodeMap);
         
         
-        batchInserterIndexProvider.shutdown();
-        batchInserter.shutdown();
+        // batchInserterIndexProvider.shutdown();
+        // batchInserter.shutdown();
 	}
 	
 	
@@ -164,39 +158,39 @@ public class IndexClassesTest {
 	@Order(3)
 	@Test
 	void compareIndexClassesToDeprecatedVersion() {
-		GraphDatabaseService indexClassesDB =
-				new GraphDatabaseFactory().newEmbeddedDatabase(INDEX_CLASSES_TEST_NEO4J_DIR);
-		GraphDatabaseService indexClassesDeprecatedDB =
-				new GraphDatabaseFactory().newEmbeddedDatabase(INDEX_CLASSES_TEST_DEPRECATED_NEO4J_DIR);
-		
-		Transaction indexClassesTransaction = indexClassesDB.beginTx();
-		Transaction indexClassesDeprecatedTransaction = indexClassesDeprecatedDB.beginTx();
-		
-		GlobalGraphOperations indexClassesGlobalGraphOperations = 
-				GlobalGraphOperations.at(indexClassesDB);		
-		GlobalGraphOperations indexClassesDeprecatedGlobalGraphOperations = 
-				GlobalGraphOperations.at(indexClassesDeprecatedDB);	
-		
-		ResourceIterable<Label> indexClassesAllLabels = 
-				indexClassesGlobalGraphOperations.getAllLabels();
-		ResourceIterable<Label> indexClassesDepracatedAllLabels = 
-				indexClassesDeprecatedGlobalGraphOperations.getAllLabels();
-		assertTrue(compare(indexClassesAllLabels.iterator(), 
-				indexClassesDepracatedAllLabels.iterator())==0);
-		
-
-		ResourceIterable<Node> indexClassesAllNodes = 
-				indexClassesGlobalGraphOperations.getAllNodes();
-		ResourceIterable<Node> indexClassesDepracatedAllNodes = 
-				indexClassesDeprecatedGlobalGraphOperations.getAllNodes();
-		assertTrue(compareResourceIteratorsByNode(indexClassesAllNodes.iterator(), 
-				indexClassesDepracatedAllNodes.iterator())==0);		
-		
-		indexClassesTransaction.success();
-		indexClassesDeprecatedTransaction.success();
-		
-		indexClassesTransaction.close();
-		indexClassesDeprecatedTransaction.close();		
+//		GraphDatabaseService indexClassesDB =
+//				new GraphDatabaseFactory().newEmbeddedDatabase(INDEX_CLASSES_TEST_NEO4J_DIR);
+//		GraphDatabaseService indexClassesDeprecatedDB =
+//				new GraphDatabaseFactory().newEmbeddedDatabase(INDEX_CLASSES_TEST_DEPRECATED_NEO4J_DIR);
+//
+//		Transaction indexClassesTransaction = indexClassesDB.beginTx();
+//		Transaction indexClassesDeprecatedTransaction = indexClassesDeprecatedDB.beginTx();
+//
+//		GlobalGraphOperations indexClassesGlobalGraphOperations =
+//				GlobalGraphOperations.at(indexClassesDB);
+//		GlobalGraphOperations indexClassesDeprecatedGlobalGraphOperations =
+//				GlobalGraphOperations.at(indexClassesDeprecatedDB);
+//
+//		ResourceIterable<Label> indexClassesAllLabels =
+//				indexClassesGlobalGraphOperations.getAllLabels();
+//		ResourceIterable<Label> indexClassesDepracatedAllLabels =
+//				indexClassesDeprecatedGlobalGraphOperations.getAllLabels();
+//		assertTrue(compare(indexClassesAllLabels.iterator(),
+//				indexClassesDepracatedAllLabels.iterator())==0);
+//
+//
+//		ResourceIterable<Node> indexClassesAllNodes =
+//				indexClassesGlobalGraphOperations.getAllNodes();
+//		ResourceIterable<Node> indexClassesDepracatedAllNodes =
+//				indexClassesDeprecatedGlobalGraphOperations.getAllNodes();
+//		assertTrue(compareResourceIteratorsByNode(indexClassesAllNodes.iterator(),
+//				indexClassesDepracatedAllNodes.iterator())==0);
+//
+//		indexClassesTransaction.success();
+//		indexClassesDeprecatedTransaction.success();
+//
+//		indexClassesTransaction.close();
+//		indexClassesDeprecatedTransaction.close();
 	}
 	
 	

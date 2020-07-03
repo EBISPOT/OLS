@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.neo4j.unsafe.batchinsert.BatchInserter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,27 +37,27 @@ public class BatchInserterCreationTest {
 	public BatchInserterCreationTest() {
 	}
 	
-	@Disabled
-	@ParameterizedTest
-	@MethodSource("provideNeo4jDirectories")
-	void testCreateBatchInserter(String neo4jDirectory) {
-		logger.debug("neo4jDirectory = " + neo4jDirectory);
-		BatchInserter batchInserter = OLSBatchIndexerCreatorTestHelper
-				.createBatchInserterForTesting(neo4jDirectory);
-		assertNotNull(batchInserter);
-	}
-	
-	
-	private static Stream<Arguments> provideNeo4jDirectories() {
-	    return Stream.of(
-//	      Arguments.of(OlsNeo4jConfiguration.getNeo4JPath()),
-	      Arguments.of(FileSystems.getDefault().getPath(NEO4J_DIR).toString())
-	    );
-	}
-	
-	@AfterAll
-	static void tearDownAll() {
-//		deleteTestDirectory(OlsNeo4jConfiguration.getNeo4JPath());
-		TestUtils.deleteTestDirectory(FileSystems.getDefault().getPath(TEST_NAME).toString());
-	}
+//	@Disabled
+//	@ParameterizedTest
+//	@MethodSource("provideNeo4jDirectories")
+//	void testCreateBatchInserter(String neo4jDirectory) {
+//		logger.debug("neo4jDirectory = " + neo4jDirectory);
+//		BatchInserter batchInserter = OLSBatchIndexerCreatorTestHelper
+//				.createBatchInserterForTesting(neo4jDirectory);
+//		assertNotNull(batchInserter);
+//	}
+//
+//
+//	private static Stream<Arguments> provideNeo4jDirectories() {
+//	    return Stream.of(
+////	      Arguments.of(OlsNeo4jConfiguration.getNeo4JPath()),
+//	      Arguments.of(FileSystems.getDefault().getPath(NEO4J_DIR).toString())
+//	    );
+//	}
+//
+//	@AfterAll
+//	static void tearDownAll() {
+////		deleteTestDirectory(OlsNeo4jConfiguration.getNeo4JPath());
+//		TestUtils.deleteTestDirectory(FileSystems.getDefault().getPath(TEST_NAME).toString());
+//	}
 }

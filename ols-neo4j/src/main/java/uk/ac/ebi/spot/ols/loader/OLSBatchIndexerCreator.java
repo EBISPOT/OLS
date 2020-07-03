@@ -6,15 +6,14 @@ import static uk.ac.ebi.spot.ols.loader.Neo4JIndexerConstants.nodeLabel;
 import static uk.ac.ebi.spot.ols.loader.Neo4JIndexerConstants.relationLabel;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.neo4j.graphdb.ConstraintViolationException;
 import org.neo4j.graphdb.Label;
-import org.neo4j.helpers.collection.MapUtil;
-import org.neo4j.kernel.DefaultFileSystemAbstraction;
-import org.neo4j.unsafe.batchinsert.BatchInserter;
-import org.neo4j.unsafe.batchinsert.BatchInserterIndex;
-import org.neo4j.unsafe.batchinsert.BatchInserterIndexProvider;
-import org.neo4j.unsafe.batchinsert.BatchInserters;
+import org.neo4j.io.fs.DefaultFileSystemAbstraction;
+import org.neo4j.io.layout.DatabaseLayout;
+import org.neo4j.batchinsert.BatchInserter;
+import org.neo4j.batchinsert.BatchInserters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,9 +38,14 @@ class OLSBatchIndexerCreator {
 //		if (inserter == null ) {
 			File file = new File(neo4jDirectory);
 		
-			inserter = BatchInserters.inserter(
-                file.getAbsolutePath(),
-                new DefaultFileSystemAbstraction());
+			try {
+				inserter = BatchInserters.inserter(
+					DatabaseLayout.ofFlat(file),
+				    new DefaultFileSystemAbstraction());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 //		}
 		
 		return inserter;
@@ -51,16 +55,16 @@ class OLSBatchIndexerCreator {
 		return createBatchInserter(null, OlsNeo4jConfiguration.getNeo4JPath());
 	}
 	
-	static BatchInserterIndex createBatchInserterIndex(BatchInserterIndexProvider indexProvider) {
-		BatchInserterIndex batchInserterIndex = null;
-		try {
-			batchInserterIndex = indexProvider.nodeIndex("Resource", MapUtil.stringMap("type", "exact"));
-			batchInserterIndex.setCacheCapacity("iri", 1000000);
-		} catch (Throwable t) {
-			logger.error(t.getMessage(), t);
-		}
-        return batchInserterIndex;
-	}
+	// static BatchInserterIndex createBatchInserterIndex(BatchInserterIndexProvider indexProvider) {
+	// 	BatchInserterIndex batchInserterIndex = null;
+	// 	try {
+	// 		batchInserterIndex = indexProvider.nodeIndex("Resource", MapUtil.stringMap("type", "exact"));
+	// 		batchInserterIndex.setCacheCapacity("iri", 1000000);
+	// 	} catch (Throwable t) {
+	// 		logger.error(t.getMessage(), t);
+	// 	}
+    //     return batchInserterIndex;
+	// }
 	
     static void createSchemaIndexes(BatchInserter inserter) {
         createSchemaIndexIfNotExists(inserter, mergedClassLabel, 

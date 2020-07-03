@@ -2,6 +2,7 @@ package uk.ac.ebi.spot.ols.neo4j.service;
 
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Result;
+import org.neo4j.graphdb.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -52,10 +53,14 @@ public class OntologyTermGraphService {
         paramt.put("0", ontologyName);
         paramt.put("1", iri);
 //        paramt.put("2",distance);
-        Result res = graphDatabaseService.execute(relatedGraphQuery, paramt);
 
-        return res.next().get("result");
+        try ( Transaction tx = graphDatabaseService.beginTx() )
+        {
+            Result res = tx.execute(relatedGraphQuery, paramt);
+            tx.commit();
 
+            return res.next().get("result");
+        }
     }
 
 
@@ -139,29 +144,40 @@ public class OntologyTermGraphService {
         Map<String, Object> paramt = new HashMap<>();
         paramt.put("0", ontologyId);
         paramt.put("1", iri);
-        Result res = graphDatabaseService.execute(relatedFromQuery, paramt);
 
-        Map<String, Collection<Map<String, String>>> relatedFromMap = new HashMap<>();
-        while (res.hasNext()) {
-            Map<String, Object> r = res.next();
-            String relationLabel = r.get("relation").toString();
-            relatedFromMap.put(relationLabel, (Collection<Map<String, String>>) r.get("terms"));
+        try ( Transaction tx = graphDatabaseService.beginTx() )
+        {
+            Result res = tx.execute(relatedGraphQuery, paramt);
+            tx.commit();
+
+            Map<String, Collection<Map<String, String>>> relatedFromMap = new HashMap<>();
+            while (res.hasNext()) {
+                Map<String, Object> r = res.next();
+                String relationLabel = r.get("relation").toString();
+                relatedFromMap.put(relationLabel, (Collection<Map<String, String>>) r.get("terms"));
+            }
+
+            return relatedFromMap;
         }
 
-        return relatedFromMap;
     }
 
     public Collection<Map<String, String>> getOntologyUsage (String iri) {
         Map<String, Object> paramt = new HashMap<>();
         paramt.put("0", iri);
-        Result res = graphDatabaseService.execute(usageQuery,paramt);
-        Collection<Map<String, String>> usageInfo = new HashSet<>();
-        while (res.hasNext()) {
-            Map<String, Object> r = res.next();
-            usageInfo.add((Map<String, String>) r.get("usage"));
-        }
 
-        return usageInfo;
+        try ( Transaction tx = graphDatabaseService.beginTx() ) {
+            Result res = tx.execute(usageQuery, paramt);
+            tx.commit();
+
+            Collection<Map<String, String>> usageInfo = new HashSet<>();
+            while (res.hasNext()) {
+                Map<String, Object> r = res.next();
+                usageInfo.add((Map<String, String>) r.get("usage"));
+            }
+
+            return usageInfo;
+        }
     }
 
     public OlsTerm findByOntologyAndShortForm(String ontologyId, String shortForm) {

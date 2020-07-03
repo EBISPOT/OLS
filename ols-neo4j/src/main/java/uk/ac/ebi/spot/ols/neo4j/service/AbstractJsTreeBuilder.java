@@ -3,6 +3,7 @@ package uk.ac.ebi.spot.ols.neo4j.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Result;
+import org.neo4j.graphdb.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,13 +52,17 @@ public abstract class AbstractJsTreeBuilder {
         paramt.put("1", iri);
 
         String query = (sibling) ? getJsTreeParentSiblingQuery() : getJsTreeParentQuery();
-        Result result = graphDatabaseService.execute(query, paramt);
 
-        setRootName(getRootName());
-        Object jsTreeObject = getJsTreeObject(ontologyName, iri, result, ViewMode.ALL);
+        try ( Transaction tx = graphDatabaseService.beginTx() ) {
+            Result result = tx.execute(query, paramt);
+            tx.commit();
 
-        logger.debug("Return jsTreeObject = " + jsTreeObject);
-        return jsTreeObject;
+            setRootName(getRootName());
+            Object jsTreeObject = getJsTreeObject(ontologyName, iri, result, ViewMode.ALL);
+
+            logger.debug("Return jsTreeObject = " + jsTreeObject);
+            return jsTreeObject;
+        }
     }
 
     public Object getJsTree(String ontologyName, String iri, boolean sibling, ViewMode viewMode) {
@@ -74,17 +79,24 @@ public abstract class AbstractJsTreeBuilder {
 
         logger.debug("query = " + query);
 
-        Result result = graphDatabaseService.execute(query, paramt);
+        try ( Transaction tx = graphDatabaseService.beginTx() )
+        {
+            Result result = tx.execute(query, paramt);
 
-        if (!result.hasNext()) {
-            result = graphDatabaseService.execute(getJsTreeRoots(viewMode), paramt);
+            if (!result.hasNext()) {
+                result = tx.execute(getJsTreeRoots(viewMode), paramt);
+            }
+            tx.commit();
+
+            cacheRoots(ontologyName, viewMode);
+            setRootName(getRootName());
+            Object jsTreeObject = getJsTreeObject(ontologyName, iri, result, viewMode);
+
+            logger.debug("Return jsTreeObject = " + jsTreeObject);
+            return jsTreeObject;
+
         }
-        cacheRoots(ontologyName, viewMode);
-        setRootName(getRootName());
-        Object jsTreeObject = getJsTreeObject(ontologyName, iri, result, viewMode);
 
-        logger.debug("Return jsTreeObject = " + jsTreeObject);
-        return jsTreeObject;
     }
 
     public Object getJsTreeChildren(String ontologyName, String iri, String parentNodeId) {
@@ -98,29 +110,32 @@ public abstract class AbstractJsTreeBuilder {
         paramt.put("1", iri);
         String query = getJsTreeChildrenQuery();
 
-        Result res = graphDatabaseService.execute(query, paramt);
+        try ( Transaction tx = graphDatabaseService.beginTx() ) {
+            Result res = tx.execute(query, paramt);
+            tx.commit();
 
-        List<JsTreeObject> treeObjects = new ArrayList<>();
+            List<JsTreeObject> treeObjects = new ArrayList<>();
 
-        int counter = 1;
-        while (res.hasNext()) {
-            Map<String, Object> row = res.next();
+            int counter = 1;
+            while (res.hasNext()) {
+                Map<String, Object> row = res.next();
 
-            String nodeId = row.get("startId").toString();
+                String nodeId = row.get("startId").toString();
 
-            JsTreeObject jsTreeObject = createJsTreeObject(nodeId, ontologyName, counter, row, parentNodeId, "_child_");
+                JsTreeObject jsTreeObject = createJsTreeObject(nodeId, ontologyName, counter, row, parentNodeId, "_child_");
 
-            if (jsTreeObject.isHasChildren()) {
-                jsTreeObject.setChildren(true);
-                jsTreeObject.getState().put("opened", false);
+                if (jsTreeObject.isHasChildren()) {
+                    jsTreeObject.setChildren(true);
+                    jsTreeObject.getState().put("opened", false);
+                }
+                treeObjects.add(jsTreeObject);
+
+                counter++;
             }
-            treeObjects.add(jsTreeObject);
 
-            counter++;
+            logger.debug("Return treeObjects = " + treeObjects);
+            return treeObjects;
         }
-
-        logger.debug("Return treeObjects = " + treeObjects);
-        return treeObjects;
     }
 
     private void cacheRoots(String ontologyName, ViewMode viewMode) {
@@ -144,14 +159,18 @@ public abstract class AbstractJsTreeBuilder {
 
             String query = getJsTreeRoots(ViewMode.PREFERRED_ROOTS);
             logger.debug("query = " + query);
-            Result result = graphDatabaseService.execute(query, parameterMap);
 
-            while (result.hasNext()) {
-                Map<String, Object> r = result.next();
-                String nodeId = r.get("startId").toString();
-                preferredRootsSet.add(nodeId);
+            try (Transaction tx = graphDatabaseService.beginTx()) {
+                Result res = tx.execute(query, parameterMap);
+                tx.commit();
+
+                while (res.hasNext()) {
+                    Map<String, Object> r = res.next();
+                    String nodeId = r.get("startId").toString();
+                    preferredRootsSet.add(nodeId);
+                }
+                ontologyPreferredRoots.put(ontologyName, preferredRootsSet);
             }
-            ontologyPreferredRoots.put(ontologyName, preferredRootsSet);
         }
     }
 

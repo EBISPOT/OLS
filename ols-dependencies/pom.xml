@@ -21,7 +21,6 @@
         <elk.version>0.4.2</elk.version>
         <commons-cli.version>1.2</commons-cli.version>
         <springboot.maven>2.3.1.RELEASE</springboot.maven>
-        <mongodb.version>3.0.4</mongodb.version>
         <junit.jupiter.version>5.4.0</junit.jupiter.version>       
     </properties>
 
@@ -30,6 +29,28 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-logging</artifactId>
         </dependency>
+        <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-neo4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-solr</artifactId>
+		</dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-ogm-embedded-driver</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j</artifactId>
+            <version>4.0.1</version>
+        </dependency>
+
     </dependencies>
 
 
@@ -119,24 +140,11 @@
     </dependencyManagement>
 
     <repositories>
-
-        <repository>
-            <id>spring-releases</id>
-            <name>Spring Releases</name>
-            <url>https://repo.spring.io/libs-release</url>
-        </repository>
-
-        <repository>
-            <id>repo.spring.io</id>
-            <name>repo.spring.io-releases</name>
-            <url>http://repo.spring.io/libs-milestone-local</url>
-        </repository>
-
-        <repository>
+        <!-- <repository>
             <id>jcenter-snapshots</id>
             <name>jcenter</name>
             <url>https://jcenter.bintray.com/</url>
-        </repository>
+        </repository> -->
     </repositories>
     
     <distributionManagement>

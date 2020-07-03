@@ -3,6 +3,7 @@ package uk.ac.ebi.spot.ols.neo4j.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Result;
+import org.neo4j.graphdb.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -106,10 +107,16 @@ public class JsTreeBuilder {
         Map<String, Object> paramt = new HashMap<>();
         paramt.put("0", ontologyName);
         paramt.put("1", iri);
-        Result res = graphDatabaseService.execute(individualParentTreeQuery, paramt);
 
-        setRootName("Thing");
-        return getJsTreeObject(ontologyName, iri, res);
+        try ( Transaction tx = graphDatabaseService.beginTx() )
+        {
+            Result res = tx.execute(individualParentTreeQuery, paramt);
+
+            tx.commit();
+
+            setRootName("Thing");
+            return getJsTreeObject(ontologyName, iri, res);
+        }
     }
 
     public Object getPropertyJsTree(String ontologyName, String iri, boolean siblings) {
@@ -117,10 +124,15 @@ public class JsTreeBuilder {
         paramt.put("0", ontologyName);
         paramt.put("1", iri);
         String query = siblings ? propertyParentSiblingTreeQuery : propertyParentTreeQuery;
-        Result res = graphDatabaseService.execute(query, paramt);
 
-        setRootName("TopObjectProperty");
-        return getJsTreeObject(ontologyName, iri, res);
+        try ( Transaction tx = graphDatabaseService.beginTx() ) {
+            Result res = tx.execute(query, paramt);
+
+            tx.commit();
+
+            setRootName("TopObjectProperty");
+            return getJsTreeObject(ontologyName, iri, res);
+        }
     }
 
 
@@ -129,10 +141,14 @@ public class JsTreeBuilder {
         paramt.put("0", ontologyName);
         paramt.put("1", iri);
         String query = siblings ? parentSiblingTreeQuery : parentTreeQuery;
-        Result res = graphDatabaseService.execute(query, paramt);
 
-        setRootName("Thing");
-        return getJsTreeObject(ontologyName, iri, res);
+        try ( Transaction tx = graphDatabaseService.beginTx() ) {
+            Result res = tx.execute(query, paramt);
+            tx.commit();
+
+            setRootName("Thing");
+            return getJsTreeObject(ontologyName, iri, res);
+        }
     }
 
     public Object getJsTreeClassChildren(String ontologyName, String iri, String parentNodeId) {
@@ -151,42 +167,46 @@ public class JsTreeBuilder {
         if (type.equals("property")) {
             query = getJsTreePropertyChildren;
         }
-        Result res = graphDatabaseService.execute(query, paramt);
 
-        List<JsTreeObject> treeObjects = new ArrayList<>();
+        try ( Transaction tx = graphDatabaseService.beginTx() ) {
+            Result res = tx.execute(query, paramt);
+            tx.commit();
 
-        int counter = 1;
-        while (res.hasNext()) {
-            Map<String, Object> row = res.next();
-            String nodeId = row.get("startId").toString();
-            String startIri = row.get("startIri").toString();
-            String startLabel = row.get("startLabel").toString();
-            String relation = row.get("relation").toString().replaceAll(" ", "_");
-            boolean hasChildren = Boolean.parseBoolean(row.get("hasChildren").toString());
+            List<JsTreeObject> treeObjects = new ArrayList<>();
 
-            String startNode = nodeId + "_child_" + counter;
+            int counter = 1;
+            while (res.hasNext()) {
+                Map<String, Object> row = res.next();
+                String nodeId = row.get("startId").toString();
+                String startIri = row.get("startIri").toString();
+                String startLabel = row.get("startLabel").toString();
+                String relation = row.get("relation").toString().replaceAll(" ", "_");
+                boolean hasChildren = Boolean.parseBoolean(row.get("hasChildren").toString());
+
+                String startNode = nodeId + "_child_" + counter;
 
 
-            JsTreeObject jsTreeObject = new JsTreeObject(
-                    startNode,
-                    startIri,
-                    ontologyName,
-                    startLabel,
-                    relation,
-                    hasChildren,
-                    parentNodeId
-            );
+                JsTreeObject jsTreeObject = new JsTreeObject(
+                        startNode,
+                        startIri,
+                        ontologyName,
+                        startLabel,
+                        relation,
+                        hasChildren,
+                        parentNodeId
+                );
 
-            if (jsTreeObject.isHasChildren()) {
-                jsTreeObject.setChildren(true);
-                jsTreeObject.getState().put("opened", false);
+                if (jsTreeObject.isHasChildren()) {
+                    jsTreeObject.setChildren(true);
+                    jsTreeObject.getState().put("opened", false);
+                }
+                treeObjects.add(jsTreeObject);
+
+                counter++;
             }
-            treeObjects.add(jsTreeObject);
 
-            counter++;
+            return treeObjects;
         }
-
-        return treeObjects;
     }
 
     private Object getJsTreeObject(String ontologyName, String iri, Result res) {

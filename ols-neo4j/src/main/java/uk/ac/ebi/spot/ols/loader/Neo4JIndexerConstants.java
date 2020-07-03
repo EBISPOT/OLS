@@ -1,7 +1,7 @@
 package uk.ac.ebi.spot.ols.loader;
 
-import org.neo4j.graphdb.DynamicLabel;
-import org.neo4j.graphdb.DynamicRelationshipType;
+import org.neo4j.graphdb.Label;
+import org.neo4j.graphdb.RelationshipType;
 import org.neo4j.graphdb.Label;
 import org.neo4j.graphdb.RelationshipType;
 
@@ -15,29 +15,29 @@ import org.neo4j.graphdb.RelationshipType;
  */
 class Neo4JIndexerConstants {
 	
-    static final Label obsoleteLabel = DynamicLabel.label("Obsolete");
+    static final Label obsoleteLabel = Label.label("Obsolete");
     
     // this represents a unique term
-    static final Label mergedClassLabel = DynamicLabel.label("Resource");
+    static final Label mergedClassLabel = Label.label("Resource");
     
     // define a node labels for ontology terms, properties and individuals
-    static final Label nodeLabel = DynamicLabel.label("Class");
-    static final Label relationLabel = DynamicLabel.label("Property");
-    static final Label instanceLabel = DynamicLabel.label("Individual");
-    static final Label rootLabel = DynamicLabel.label("Root");
-    static final Label _nodeLabel = DynamicLabel.label("_Class");
-    static final Label _relationLabel = DynamicLabel.label("_Property");
-    static final Label _instanceLabel = DynamicLabel.label("_Individual");
-    static final Label preferredRootTermLabel = DynamicLabel.label("PreferredRootTerm");
+    static final Label nodeLabel = Label.label("Class");
+    static final Label relationLabel = Label.label("Property");
+    static final Label instanceLabel = Label.label("Individual");
+    static final Label rootLabel = Label.label("Root");
+    static final Label _nodeLabel = Label.label("_Class");
+    static final Label _relationLabel = Label.label("_Property");
+    static final Label _instanceLabel = Label.label("_Individual");
+    static final Label preferredRootTermLabel = Label.label("PreferredRootTerm");
 
     // create relationship types
-    static final RelationshipType refersTo = DynamicRelationshipType.withName("REFERSTO");
-    static final RelationshipType isa = DynamicRelationshipType.withName("SUBCLASSOF");
-    static final RelationshipType subpropertyof = DynamicRelationshipType.withName("SUBPROPERTYOF");
-    static final RelationshipType typeOf = DynamicRelationshipType.withName("INSTANCEOF");
-    static final RelationshipType related = DynamicRelationshipType.withName("Related");
-    static final RelationshipType relatedIndividual = DynamicRelationshipType.withName("RelatedIndividual");
-    static final RelationshipType treeRelation = DynamicRelationshipType.withName("RelatedTree");
+    static final RelationshipType refersTo = RelationshipType.withName("REFERSTO");
+    static final RelationshipType isa = RelationshipType.withName("SUBCLASSOF");
+    static final RelationshipType subpropertyof = RelationshipType.withName("SUBPROPERTYOF");
+    static final RelationshipType typeOf = RelationshipType.withName("INSTANCEOF");
+    static final RelationshipType related = RelationshipType.withName("Related");
+    static final RelationshipType relatedIndividual = RelationshipType.withName("RelatedIndividual");
+    static final RelationshipType treeRelation = RelationshipType.withName("RelatedTree");
 
 	private Neo4JIndexerConstants() {
 	}

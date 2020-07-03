@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.neo4j.graphdb.Label;
-import org.neo4j.unsafe.batchinsert.BatchInserter;
+import org.neo4j.batchinsert.BatchInserter;
 import org.semanticweb.owlapi.model.IRI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
