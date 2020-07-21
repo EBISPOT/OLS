@@ -18,6 +18,7 @@ import uk.ac.ebi.spot.ols.model.Status;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
 import uk.ac.ebi.spot.ols.model.OntologyIndexer;
 import uk.ac.ebi.spot.ols.xrefs.DatabaseService;
+import uk.ac.ebi.spot.usage.ResourceUsage;
 
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -60,7 +61,8 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
 
       logger.trace("annotationproperty.preferredroot.term = " + 
 		ontologyLoadingConfiguration.getPreferredRootTermAnnotationProperty());
-        
+
+        ResourceUsage.logUsage(logger, "Before loading ontology");
         try {
             loader = OntologyLoaderFactory.getLoader(document.getConfig(), databaseService,
             		ontologyLoadingConfiguration);
@@ -93,7 +95,7 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             // just set document to failed and return
             return result;
         }
-
+        ResourceUsage.logUsage(logger, "After loading ontology, before indexing ontology");
         document.setStatus(Status.LOADING);
         ontologyRepositoryService.update(document);
         // if we get to here, we should have at least loaded the ontology
@@ -103,7 +105,9 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             for (OntologyIndexer indexer : indexers) {
                 // create the new index
                 indexer.dropIndex(loader.getOntologyName());
+                ResourceUsage.logUsage(logger, "After dropping index for " + indexer.toString());
                 indexer.createIndex(loader);
+                ResourceUsage.logUsage(logger, "After after creating index for " + indexer.toString());
             }
 
             // update any ontology meta data

@@ -17,9 +17,7 @@
 
     <properties>
         <owlapi.version>5.1.14</owlapi.version>
-<!--        <HermiT.version>1.3.8.4</HermiT.version>-->
         <HermiT.version>1.4.3.517</HermiT.version>
-<!--        <elk.version>0.4.2</elk.version>-->
         <elk.version>0.5.0-SNAPSHOT</elk.version>
         <commons-cli.version>1.2</commons-cli.version>
         <springboot.maven>1.2.5.RELEASE</springboot.maven>
@@ -68,7 +66,11 @@
                 <artifactId>ols-mongo</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>uk.ac.ebi.spot</groupId>
+                <artifactId>resource-usage</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <!--  additional external dependencies -->
             <dependency>
                 <groupId>net.sourceforge.owlapi</groupId>

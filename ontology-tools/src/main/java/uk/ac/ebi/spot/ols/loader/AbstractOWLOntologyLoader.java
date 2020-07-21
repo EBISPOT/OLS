@@ -11,7 +11,7 @@ import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleIRIMapper;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.util.StringUtils;
@@ -23,12 +23,13 @@ import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
 import uk.ac.ebi.spot.ols.renderer.OWLHTMLVisitor;
 import uk.ac.ebi.spot.ols.util.*;
 import uk.ac.ebi.spot.ols.xrefs.DatabaseService;
+import uk.ac.ebi.spot.usage.CpuUtils;
+import uk.ac.ebi.spot.usage.MemoryUtils;
+import uk.ac.ebi.spot.usage.ResourceUsage;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.lang.management.ManagementFactory;
-import java.lang.management.ThreadMXBean;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
@@ -358,6 +359,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         // nothing to do
     }
 
+
     /**
      * Extracts and loads into memory all the class labels and corresponding IRIs.  This class makes the assumption that
      * one primary label per class exists. If any classes contain multiple rdfs:labels, these classes are ignored.
@@ -373,6 +375,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     protected OWLOntology loadOntology() throws OWLOntologyCreationException {
         try {
             getLogger().debug("Loading ontology...");
+            ResourceUsage.logUsage(getLogger(), "Before loading ontology");
             this.ontology = getManager().loadOntology(getOntologyIRI());
 //            IRI actualOntologyIRI = ontology.getOntologyID().getOntologyIRI();
             Optional<IRI> actualOntologyIRI = ontology.getOntologyID().getOntologyIRI();
@@ -411,9 +414,11 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                     manager);
             this.manSyntaxRenderer = new ManchesterOWLSyntaxOWLObjectRendererImpl();
             manSyntaxRenderer.setShortFormProvider(provider);
+            ResourceUsage.logUsage(getLogger(), "After loading ontology, before running reasoner");
 
             // this call will initialise the reasoner
-            getOWLReasoner(ontology);
+            OWLReasoner reasoner = getOWLReasoner(ontology);
+            ResourceUsage.logUsage(getLogger(), "After running reasoner = " + reasoner.getReasonerName());
 
             // cache all URIs for classes, properties and individuals
             getLogger().debug("Computing indexes...");
@@ -423,8 +428,12 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
             for (OWLOntology ontology1 : manager.getOntologies()) {
                 allEntities.addAll(ontology1.getSignature());
             }
+            ResourceUsage.logUsage(getLogger(), "After copying of entities");
+
             indexTerms(allEntities);
+            ResourceUsage.logUsage(getLogger(), "After index terms");
             indexOntologyAnnotations(ontology.getAnnotations());
+            ResourceUsage.logUsage(getLogger(), "After index annotations");
 
             return ontology;
         }

@@ -11,6 +11,10 @@
     <artifactId>ontology-tools</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>uk.ac.ebi.spot</groupId>
+            <artifactId>resource-usage</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>
