@@ -3,11 +3,14 @@ package uk.ac.ebi.spot.usage;
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadMXBean;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class CpuUtils {
+    private static long nanoSecondToSecond(long nanoSecond) {
+        return nanoSecond/1000/1000/1000;
+    }
+
     public static void logCpuTime(Logger logger, String msg) {
-        logger.debug(msg + " - Cpu time: " + getCpuTime());
+        logger.debug(msg + " - Cpu time: " + nanoSecondToSecond(getCpuTime()) + " seconds.");
     }
 
     /** Get CPU time in nanoseconds. */
@@ -18,7 +21,7 @@ public class CpuUtils {
     }
 
     public static void logUserTime(Logger logger, String msg) {
-        logger.debug(msg + " - User time: " + getUserTime());
+        logger.debug(msg + " - User time: " + nanoSecondToSecond(getUserTime()) + " seconds.");
     }
 
     /** Get user time in nanoseconds. */
@@ -29,7 +32,7 @@ public class CpuUtils {
     }
 
     public static void logSystemTime(Logger logger, String msg) {
-        logger.debug(msg + " - User time: " + getSystemTime());
+        logger.debug(msg + " - System time: " + nanoSecondToSecond(getSystemTime()) + " seconds.");
     }
 
     /** Get system time in nanoseconds. */
