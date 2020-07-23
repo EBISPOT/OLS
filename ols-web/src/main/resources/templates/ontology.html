@@ -7,8 +7,9 @@
 <!--[if gt IE 8]><!--> <html xmlns:th="https://www.thymeleaf.org" class="no-js" lang="en"> <!--<![endif]-->
 
 
-<head th:replace="fragments/head :: head(olscss=true, diachron=true, proton=true)">
-    <title>Ontology Xref Service   &lt; EMBL-EBI</title>
+<head>
+    <div th:replace="fragments/head :: head(olscss=true, diachron=true, proton=true)"></div>
+    <title id="pageTitle" th:inline="text">[[${ontologyDocument.getConfig().getTitle()}]] &lt; [[${title}]] &lt; [[${org}]]</title>
     <!-- A few keywords that relate to the content of THIS PAGE (not the whole project)
     <meta name="keywords" content="biosamples, europe, EBI" />
     <!- - Describe what this page is about - ->
@@ -152,14 +153,14 @@
                         <b>Ontology IRI: </b>
                         <a property="url" target="blank" th:href="@{${ontologyDocument.getConfig().getId()}}">
                             <i class="icon icon-generic" data-icon="L"></i>
-                            <span h:text="${ontologyDocument.getConfig().getId()}">http://www.example.com/onto/id</span> 
+                            <span th:text="${ontologyDocument.getConfig().getId()}">http://www.example.com/onto/id</span> 
                         </a>
                     </div>
                     <div th:if="${ontologyDocument.getConfig().getVersionIri()}">
                         <b>Version IRI: </b>
                         <a property="url" target="blank" th:href="@{${ontologyDocument.getConfig().getVersionIri()}}">
                         <i class="icon icon-generic" data-icon="L"></i>
-                        <span h:text="${ontologyDocument.getConfig().getVersionIri()}">http://www.example.com/onto/id</span> 
+                        <span th:text="${ontologyDocument.getConfig().getVersionIri()}">http://www.example.com/onto/id</span> 
                         </a>
                     </div>
                     <div>

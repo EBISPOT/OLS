@@ -245,7 +245,7 @@ public abstract class AbstractJsTreeBuilder {
                                       ViewMode viewMode) {
         try {
             Collection<JsTreeObject> objectVersions = getJsObjectTree(nodeId, ontologyName, resultsMap, jsTreeObjectMap,
-                    parentIdCollector, viewMode);
+                    parentIdCollector, viewMode, new HashSet<String>());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -288,9 +288,15 @@ public abstract class AbstractJsTreeBuilder {
                                                      Map<String, List<Map<String, Object>>> resultsMap,
                                                      Map<String, Collection<JsTreeObject>> jsTreeObjectMap,
                                                      Collection<String> parentIdCollector,
-                                                     ViewMode viewMode) throws IOException {
+                                                     ViewMode viewMode, Set<String> visited) throws IOException {
+        logger.debug("Get tree for node " + nodeId + "; visited " + String.join(",", visited));
+
+        visited.add(nodeId);
 
         // return the object if we have seen it before
+            // note (JM): this is not really cycle protection: while it might prevent infinite recursion
+            // here in the case of a cycle, it would result in a cyclic tree being returned to jstree and
+            // cause infinite recursion client-side instead.
         if (jsTreeObjectMap.containsKey(nodeId)) {
             return jsTreeObjectMap.get(nodeId);
         }
@@ -315,8 +321,15 @@ public abstract class AbstractJsTreeBuilder {
 
                 String parentId = pid.toString();
 
+                logger.debug("Node " + nodeId + " has parent: " + parentId);
+
+                if(visited.contains(parentId)) {
+                    logger.debug("Detected cycle: Already visited parent " + parentId);
+                    continue;
+                }
+
                 for (JsTreeObject parentObject : getJsObjectTree(parentId, ontologyName, resultsMap, jsTreeObjectMap,
-                        parentIdCollector, viewMode)) {
+                        parentIdCollector, viewMode, new HashSet<String>(visited))) {
 
                     createJsTreeNode(nodeId, ontologyName, jsTreeObjectMap, parentIdCollector, x, row,
                             parentObject.getId(), "_");

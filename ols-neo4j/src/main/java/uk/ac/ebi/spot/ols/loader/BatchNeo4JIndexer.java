@@ -319,13 +319,17 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
             inserter.createRelationship( node, mergedNode, refersTo, null);
 
             addParentAndRelatedParentNodesWithRelationships(inserter, loader, nodeMap, classIri, node);
-            
+        }
+
+        for (IRI classIri : loader.getAllClasses()) {
+
+            Long node = nodeMap.get(classIri.toString());
 
             indexRelatedNodes(inserter, loader, nodeMap, classIri, node);
 
             indexRelatedIndividuals(node, loader.getRelatedIndividualsToClass(classIri), inserter,
             		loader,nodeMap, new LinkedList<Label>(Arrays.asList(
-            				instanceLabel, nodeOntologyLabel, _instanceLabel)));
+                            instanceLabel, nodeOntologyLabel, _instanceLabel)));
         }
     }
 
