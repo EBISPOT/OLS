@@ -1,7 +1,10 @@
-VERSION = "3.3.4" 
+VERSION = "3.3.5" 
 IM=ebispot/ols
 
-docker-build:
+mvn-ols:
+	mvn clean package
+
+docker-build: mvn-ols
 	@docker build -t $(IM):$(VERSION) . \
 	&& docker tag $(IM):$(VERSION) $(IM):latest
 
