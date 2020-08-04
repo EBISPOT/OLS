@@ -9,8 +9,9 @@ public class CpuUtils {
         return nanoSecond/1000/1000/1000;
     }
 
-    public static void logCpuTime(Logger logger, String msg) {
-        logger.debug(msg + " - Cpu time: " + nanoSecondToSecond(getCpuTime()) + " seconds.");
+    public static void logCpuTime(Logger logger, String marker, String msg, String separator) {
+        logger.debug(marker + msg + separator + "Cpu time" + separator +
+                nanoSecondToSecond(getCpuTime()) + " seconds.");
     }
 
     /** Get CPU time in nanoseconds. */
@@ -20,8 +21,9 @@ public class CpuUtils {
                 bean.getCurrentThreadCpuTime( ) : 0L;
     }
 
-    public static void logUserTime(Logger logger, String msg) {
-        logger.debug(msg + " - User time: " + nanoSecondToSecond(getUserTime()) + " seconds.");
+    public static void logUserTime(Logger logger, String marker, String msg, String separator) {
+        logger.debug(marker + msg + separator + "User time" + separator +
+                nanoSecondToSecond(getUserTime()) + " seconds.");
     }
 
     /** Get user time in nanoseconds. */
@@ -31,8 +33,9 @@ public class CpuUtils {
                 bean.getCurrentThreadUserTime( ) : 0L;
     }
 
-    public static void logSystemTime(Logger logger, String msg) {
-        logger.debug(msg + " - System time: " + nanoSecondToSecond(getSystemTime()) + " seconds.");
+    public static void logSystemTime(Logger logger, String marker, String msg, String separator) {
+        logger.debug(marker + msg + separator + "System time" + separator +
+                nanoSecondToSecond(getSystemTime()) + " seconds.");
     }
 
     /** Get system time in nanoseconds. */
@@ -42,9 +45,9 @@ public class CpuUtils {
                 (bean.getCurrentThreadCpuTime( ) - bean.getCurrentThreadUserTime( )) : 0L;
     }
 
-    public static void logAllTime(Logger logger, String msg) {
-        logCpuTime(logger, msg);
-        logUserTime(logger, msg);
-        logSystemTime(logger, msg);
+    public static void logAllTime(Logger logger, String marker, String msg, String separator) {
+        logCpuTime(logger, marker, msg, separator);
+        logUserTime(logger, marker, msg, separator);
+        logSystemTime(logger, marker, msg, separator);
     }
 }

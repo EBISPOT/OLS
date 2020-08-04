@@ -375,7 +375,8 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     protected OWLOntology loadOntology() throws OWLOntologyCreationException {
         try {
             getLogger().debug("Loading ontology...");
-            ResourceUsage.logUsage(getLogger(), "Before loading ontology");
+            ResourceUsage.logUsage(getLogger(), "#### Monitoring ",
+                    getOntologyIRI().getShortForm() + ":Before loading ontology", ":");
             this.ontology = getManager().loadOntology(getOntologyIRI());
 //            IRI actualOntologyIRI = ontology.getOntologyID().getOntologyIRI();
             Optional<IRI> actualOntologyIRI = ontology.getOntologyID().getOntologyIRI();
@@ -414,11 +415,13 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                     manager);
             this.manSyntaxRenderer = new ManchesterOWLSyntaxOWLObjectRendererImpl();
             manSyntaxRenderer.setShortFormProvider(provider);
-            ResourceUsage.logUsage(getLogger(), "After loading ontology, before running reasoner");
+            ResourceUsage.logUsage(getLogger(), "#### Monitoring ", getOntologyName() +
+                    ":After loading ontology - before running reasoner", ":");
 
             // this call will initialise the reasoner
             OWLReasoner reasoner = getOWLReasoner(ontology);
-            ResourceUsage.logUsage(getLogger(), "After running reasoner = " + reasoner.getReasonerName());
+            ResourceUsage.logUsage(getLogger(), "#### Monitoring ", getOntologyName() +
+                    ":After running reasoner:" + reasoner.getReasonerName(), ":");
 
             // cache all URIs for classes, properties and individuals
             getLogger().debug("Computing indexes...");
@@ -428,12 +431,15 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
             for (OWLOntology ontology1 : manager.getOntologies()) {
                 allEntities.addAll(ontology1.getSignature());
             }
-            ResourceUsage.logUsage(getLogger(), "After copying of entities");
+            ResourceUsage.logUsage(getLogger(), "#### Monitoring ", getOntologyName() +
+                    ":After copying of entities", ":");
 
             indexTerms(allEntities);
-            ResourceUsage.logUsage(getLogger(), "After index terms");
+            ResourceUsage.logUsage(getLogger(), "#### Monitoring ", getOntologyName() +
+                    ":After index terms", ":");
             indexOntologyAnnotations(ontology.getAnnotations());
-            ResourceUsage.logUsage(getLogger(), "After index annotations");
+            ResourceUsage.logUsage(getLogger(), "#### Monitoring ", getOntologyName() +
+                    ":After index annotations", ":");
 
             return ontology;
         }

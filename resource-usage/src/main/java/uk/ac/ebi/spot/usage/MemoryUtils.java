@@ -10,17 +10,17 @@ public class MemoryUtils {
         return bytes/1024/1024;
     }
 
-    public static void logRuntimeMemoryUsage(Logger logger, String msg) {
+    public static void logRuntimeMemoryUsage(Logger logger, String marker, String msg, String separator) {
         Runtime runtime = Runtime.getRuntime();
-        logger.debug(msg + " - Runtime memory usage: " +
+        logger.debug(marker + msg + separator + "Runtime memory usage" + separator +
                 bytesToMegaBytes(runtime.totalMemory() - runtime.freeMemory()) + " MB");
     }
 
-    public static void logHeapAndNonHeapMemoryUsage(Logger logger, String msg) {
+    public static void logHeapAndNonHeapMemoryUsage(Logger logger, String marker, String msg, String separator) {
         MemoryMXBean memoryMXBean = ManagementFactory.getMemoryMXBean();
-        logger.debug(msg + " - Heap memory usage: " +
+        logger.debug(marker + msg + separator + "Heap memory usage" + separator  +
                 bytesToMegaBytes(memoryMXBean.getHeapMemoryUsage().getUsed()) + " MB");
-        logger.debug(msg + " - Non-Heap memory usage: " +
+        logger.debug(marker + msg + separator + "Non-Heap memory usage" + separator +
                 bytesToMegaBytes(memoryMXBean.getNonHeapMemoryUsage().getUsed()) + " MB");
     }
 }
