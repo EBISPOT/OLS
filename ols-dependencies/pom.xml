@@ -81,11 +81,39 @@
                 <groupId>net.sourceforge.owlapi</groupId>
                 <artifactId>org.semanticweb.hermit</artifactId>
                 <version>${HermiT.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>net.sourceforge.owlapi</groupId>
+                        <artifactId>owlapi-apibinding</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>net.sourceforge.owlapi</groupId>
+                        <artifactId>owlapi-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>net.sourceforge.owlapi</groupId>
+                        <artifactId>owlapi-impl</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.semanticweb.elk</groupId>
                 <artifactId>elk-owlapi5</artifactId>
                 <version>${elk.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>net.sourceforge.owlapi</groupId>
+                        <artifactId>owlapi-apibinding</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>net.sourceforge.owlapi</groupId>
+                        <artifactId>owlapi-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>net.sourceforge.owlapi</groupId>
+                        <artifactId>owlapi-impl</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>commons-cli</groupId>
