@@ -13,4 +13,6 @@ properties
 .settings
 .project
 *.log
+new_ols.css
+new_ols.css.map
 .factorypath

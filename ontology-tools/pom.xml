@@ -11,6 +11,10 @@
     <artifactId>ontology-tools</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>uk.ac.ebi.spot</groupId>
+            <artifactId>resource-usage</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -21,15 +25,13 @@
             <groupId>net.sourceforge.owlapi</groupId>
             <artifactId>owlapi-distribution</artifactId>
         </dependency>
-
         <dependency>
-            <groupId>com.hermit-reasoner</groupId>
+            <groupId>net.sourceforge.owlapi</groupId>
             <artifactId>org.semanticweb.hermit</artifactId>
         </dependency>
-		
         <dependency>
             <groupId>org.semanticweb.elk</groupId>
-            <artifactId>elk-owlapi</artifactId>
+            <artifactId>elk-owlapi5</artifactId>
         </dependency>
 
         <dependency>

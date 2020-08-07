@@ -17,6 +17,7 @@ public enum Status {
     DOWNLOADING,
     FAILED,
     TOREMOVE,
-    REMOVED
+    REMOVED,
+    SKIP // after too many failed attempts
 
 }
