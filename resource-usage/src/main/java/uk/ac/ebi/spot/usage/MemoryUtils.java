@@ -12,15 +12,15 @@ public class MemoryUtils {
 
     public static void logRuntimeMemoryUsage(Logger logger, String marker, String msg, String separator) {
         Runtime runtime = Runtime.getRuntime();
-        logger.debug(marker + msg + separator + "Runtime memory usage" + separator +
+        logger.info(marker + msg + separator + "Runtime memory usage" + separator +
                 bytesToMegaBytes(runtime.totalMemory() - runtime.freeMemory()) + " MB");
     }
 
     public static void logHeapAndNonHeapMemoryUsage(Logger logger, String marker, String msg, String separator) {
         MemoryMXBean memoryMXBean = ManagementFactory.getMemoryMXBean();
-        logger.debug(marker + msg + separator + "Heap memory usage" + separator  +
+        logger.info(marker + msg + separator + "Heap memory usage" + separator  +
                 bytesToMegaBytes(memoryMXBean.getHeapMemoryUsage().getUsed()) + " MB");
-        logger.debug(marker + msg + separator + "Non-Heap memory usage" + separator +
+        logger.info(marker + msg + separator + "Non-Heap memory usage" + separator +
                 bytesToMegaBytes(memoryMXBean.getNonHeapMemoryUsage().getUsed()) + " MB");
     }
 }

@@ -10,7 +10,7 @@ public class CpuUtils {
     }
 
     public static void logCpuTime(Logger logger, String marker, String msg, String separator) {
-        logger.debug(marker + msg + separator + "Cpu time" + separator +
+        logger.info(marker + msg + separator + "Cpu time" + separator +
                 nanoSecondToSecond(getCpuTime()) + " seconds.");
     }
 
@@ -22,7 +22,7 @@ public class CpuUtils {
     }
 
     public static void logUserTime(Logger logger, String marker, String msg, String separator) {
-        logger.debug(marker + msg + separator + "User time" + separator +
+        logger.info(marker + msg + separator + "User time" + separator +
                 nanoSecondToSecond(getUserTime()) + " seconds.");
     }
 
@@ -34,7 +34,7 @@ public class CpuUtils {
     }
 
     public static void logSystemTime(Logger logger, String marker, String msg, String separator) {
-        logger.debug(marker + msg + separator + "System time" + separator +
+        logger.info(marker + msg + separator + "System time" + separator +
                 nanoSecondToSecond(getSystemTime()) + " seconds.");
     }
 
