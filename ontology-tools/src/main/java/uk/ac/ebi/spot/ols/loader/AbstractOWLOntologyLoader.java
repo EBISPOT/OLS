@@ -39,6 +39,7 @@ import java.util.concurrent.Callable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Tony Burdett
@@ -378,7 +379,6 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
             ResourceUsage.logUsage(getLogger(), "#### Monitoring ",
                     getOntologyIRI().getShortForm() + ":Before loading ontology", ":");
             this.ontology = getManager().loadOntology(getOntologyIRI());
-//            IRI actualOntologyIRI = ontology.getOntologyID().getOntologyIRI();
             Optional<IRI> actualOntologyIRI = ontology.getOntologyID().getOntologyIRI();
 
             // set
@@ -1023,9 +1023,6 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     }
 
     private void extractAssertedRelationsFromIndividualObjectPropertyAssertions(OWLNamedIndividual individual, Map<IRI, Collection<IRI>> instanceInstanceRelations) {
-        // <i1,i2>:R (ObjectPropertyAssertions
-//        Map<OWLObjectPropertyExpression,Set<OWLIndividual>> assertedRelations = individual.getObjectPropertyValues(ontology);
-
         Multimap<OWLObjectPropertyExpression, OWLIndividual> assertedRelations =
                 EntitySearcher.getObjectPropertyValues(individual, ontology);
 
@@ -1172,9 +1169,8 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         Collection<OBOXref> oboEntityXrefs = new HashSet<>();
 
         // loop through other annotations in the imports closure
-        for (OWLOntology anOntology : getManager().getOntologies()){
-
-                EntitySearcher.getAnnotationAssertionAxioms(owlEntity, ontology).forEach(annotationAssertionAxiom -> {
+        for (OWLOntology anOntology : getManager().ontologies().collect(Collectors.toSet())){
+                EntitySearcher.getAnnotationAssertionAxioms(owlEntity, anOntology).forEach(annotationAssertionAxiom -> {
                         OWLAnnotationProperty annotationProperty = annotationAssertionAxiom.getProperty();
                         IRI annotationPropertyIRI = annotationProperty.getIRI();
 
@@ -1261,19 +1257,11 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
                                 synonymCitation.setName(getOWLAnnotationValueAsString(annotationAssertionAxiom.getValue()).get());
                                 synonymCitation.setScope(annotationAssertionAxiom.getProperty().getIRI().getShortForm());
-//                                String type;
                                 Collection<OBOXref> oboXrefs = new HashSet<>();
                                 for (OWLAnnotation annotationAxiomAnnotation : annotationAssertionAxiom.getAnnotations()) {
                                     if (annotationAxiomAnnotation.getProperty().getIRI().toString().equals(OboDefaults.SYNONYM_TYPE)) {
                                         OWLAnnotationValue value = annotationAxiomAnnotation.getValue();
                                         if (value instanceof IRI) {
-
-//                                            for (OWLAnnotation valueAnnotation : factory.getOWLAnnotationProperty((IRI) value).getAnnotations(ontology)) {
-//                                                if (valueAnnotation.getProperty().getIRI().equals(OWLRDFVocabulary.RDFS_LABEL.getIRI())) {
-//                                                    type = getOWLAnnotationValueAsString(valueAnnotation.getValue()).get();
-//                                                    synonymCitation.setType(type);
-//                                                }
-//                                            }
                                             OWLAnnotationProperty owlAnnotationProperty = factory.getOWLAnnotationProperty((IRI) value);
                                             EntitySearcher.getAnnotations(owlAnnotationProperty, ontology).forEach(valueAnnotation -> {
                                                 if (valueAnnotation.getProperty().getIRI().equals(OWLRDFVocabulary.RDFS_LABEL.getIRI())) {
