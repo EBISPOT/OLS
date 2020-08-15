@@ -32,3 +32,43 @@ ontologies:
 
   - id: mondo
     ontology_purl: http://purl.obolibrary.org/obo/mondo.obo
+
+  ## bao
+
+  - id: bao
+    preferredPrefix: BAO
+    title: BioAssay Ontology
+    uri: http://www.bioassayontology.org/bao/bao_complete.owl
+    description: "The BioAssay Ontology (BAO) describes biological screening assays and their results including high-throughput screening (HTS) data for the purpose of categorizing assays and data analysis. BAO is an extensible, knowledge-based, highly expressive (currently SHOIQ(D)) description of biological assays making use of descriptive logic based features of the Web Ontology Language (OWL). BAO currently has over 700 classes and also makes use of several other ontologies. It describes several concepts related to biological screening, including Perturbagen, Format, Meta Target, Design, Detection Technology, and Endpoint. Perturbagens are perturbing agents that are screened in an assay; they are mostly small molecules. Assay Meta Target describes what is known about the biological system and / or its components interrogated in the assay (and influenced by the Perturbagen). Meta target can be directly described as a molecular entity (e.g. a purified protein or a protein complex), or indirectly by a biological process or event (e.g. phosphorylation). Format describes the biological or chemical features common to each test condition in the assay and includes biochemical, cell-based, organism-based, and variations thereof. The assay Design describes the assay methodology and implementation of how the perturbation of the biological system is translated into a detectable signal. Detection Technology relates to the physical method and technical details to detect and record a signal. Endpoints are the final HTS results as they are usually published (such as IC50, percent inhibition, etc). BAO has been designed to accommodate multiplexed assays. All main BAO components include multiple levels of sub-categories and specification classes, which are linked via object property relationships forming an expressive knowledge-based representation."
+    homepage: http://bioassayontology.org
+    mailing_list: http://bioassayontology.org/wp/contact-us/
+    definition_property:
+      - http://purl.obolibrary.org/obo/IAO_0000115
+      - http://www.ebi.ac.uk/efo/definition
+    synonym_property:
+      - http://www.geneontology.org/formats/oboInOwl#hasExactSynonym
+      - http://purl.obolibrary.org/obo/IAO_0000118
+      - http://www.ebi.ac.uk/efo/alternative_term
+    hierarchical_property:
+      - http://purl.obolibrary.org/obo/BFO_0000050
+    base_uri:
+      - http://www.bioassayontology.org/bao#
+    oboSlims: false
+    reasoner: OWL2
+    ontology_purl : http://www.bioassayontology.org/bao/
+
+  - id: msio
+    preferredPrefix: MSIO
+    title: Metabolomics Standards Initiative Ontology
+    uri: http://purl.obolibrary.org/obo/msio.owl
+    description: "an application ontology for supporting description and annotation of mass-spectrometry and nmr-spectroscopy based metabolomics experiments and fluxomics studies."
+    homepage: https://github.com/MSI-Metabolomics-Standards-Initiative/MSIO
+    mailing_list: https://github.com/MSI-Metabolomics-Standards-Initiative/MSIO/issues
+    definition_property:
+      - http://purl.obolibrary.org/obo/IAO_0000115
+    synonym_property:
+      - http://purl.obolibrary.org/obo/IAO_0000118
+    base_uri:
+      - http://purl.obolibrary.org/obo/MSIO_
+    reasoner: NONE
+    ontology_purl: https://raw.githubusercontent.com/MSI-Metabolomics-Standards-Initiative/MSIO/master/releases/latest_release/MSIO-merged-reasoned.owl
