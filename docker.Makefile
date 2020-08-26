@@ -2,7 +2,7 @@
 # Building docker image
 VERSION = "0.0.1"
 PRODUCT=ols-web
-IM=matentzn/$(PRODUCT)
+IM=ihcc/$(PRODUCT)
 
 docker-build-no-cache:
 	@docker build --no-cache -t $(IM):$(VERSION) -f ./$(PRODUCT)/Dockerfile . \
