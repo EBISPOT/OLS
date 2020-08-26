@@ -1,14 +1,14 @@
 version: '2'
 services:
     solr:
-        build: ./solr
+        image: ebispot/ols-solr:latest
         environment:
           - SOLR_HOME=/mnt/solr-config
         ports:
           - 8983:8983
         volumes:
           - ols-solr-data:/var/solr
-          - ./ols-solr/src/main/solr-5-config:/mnt/solr-config
+            #- ./ols-solr/src/main/solr-5-config:/mnt/solr-config
         command: ["-Dsolr.solr.home=/mnt/solr-config", "-Dsolr.data.dir=/var/solr", "-f"]
     mongo:
       image: mongo:3.2.9
