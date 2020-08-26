@@ -1374,8 +1374,10 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
         if (value instanceof IRI) {
             Optional<String> shortForm= extractShortForm((IRI) value);
-            if ( shortForm.isPresent()) {
+            if ( shortForm.isPresent() && !shortForm.get().isEmpty()) {
                 return Optional.of(shortForm.get());
+            } else {
+                return Optional.of( ((IRI) value).toString() );
             }
         }
         else if (value instanceof OWLLiteral) {
