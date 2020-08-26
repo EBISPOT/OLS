@@ -49,7 +49,8 @@
    		<url>https://github.com/EBISPOT/ols/issues</url>
    	</issueManagement>
 
-    <modules>    
+    <modules>
+		<module>resource-usage</module>
         <module>ols-core</module>
         <module>ols-solr</module>
         <module>ontology-tools</module>

@@ -16,9 +16,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <properties>
-        <owlapi.version>3.5.2</owlapi.version>
-        <HermiT.version>1.3.8.4</HermiT.version>
-        <elk.version>0.4.2</elk.version>
+        <owlapi.version>5.1.14</owlapi.version>
+        <HermiT.version>1.4.3.517</HermiT.version>
+        <elk.version>0.5.0-SNAPSHOT</elk.version>
         <commons-cli.version>1.2</commons-cli.version>
         <springboot.maven>1.2.5.RELEASE</springboot.maven>
         <mongodb.version>2.14.3</mongodb.version>
@@ -66,7 +66,11 @@
                 <artifactId>ols-mongo</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>uk.ac.ebi.spot</groupId>
+                <artifactId>resource-usage</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <!--  additional external dependencies -->
             <dependency>
                 <groupId>net.sourceforge.owlapi</groupId>
@@ -74,14 +78,42 @@
                 <version>${owlapi.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.hermit-reasoner</groupId>
+                <groupId>net.sourceforge.owlapi</groupId>
                 <artifactId>org.semanticweb.hermit</artifactId>
                 <version>${HermiT.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>net.sourceforge.owlapi</groupId>
+                        <artifactId>owlapi-apibinding</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>net.sourceforge.owlapi</groupId>
+                        <artifactId>owlapi-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>net.sourceforge.owlapi</groupId>
+                        <artifactId>owlapi-impl</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.semanticweb.elk</groupId>
-                <artifactId>elk-owlapi</artifactId>
+                <artifactId>elk-owlapi5</artifactId>
                 <version>${elk.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>net.sourceforge.owlapi</groupId>
+                        <artifactId>owlapi-apibinding</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>net.sourceforge.owlapi</groupId>
+                        <artifactId>owlapi-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>net.sourceforge.owlapi</groupId>
+                        <artifactId>owlapi-impl</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>commons-cli</groupId>
@@ -151,6 +183,16 @@
             <id>jcenter-snapshots</id>
             <name>jcenter</name>
             <url>https://jcenter.bintray.com/</url>
+        </repository>
+        <repository>
+            <id>sonatype-nexus-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
     </repositories>
     

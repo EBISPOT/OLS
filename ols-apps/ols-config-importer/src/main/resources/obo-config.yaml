@@ -9,26 +9,542 @@ repo_src: https://github.com/OBOFoundry/OBOFoundry.github.io/blob/master/
 author:
   name: OBO Technical WG
 ontologies:
-- activity_status: active
-  build: {checkout: 'git clone https://github.com/EBISPOT/duo.git', path: ., system: git}
-  contact: {email: mcourtot@gmail.com, github: mcourtot, label: Melanie Courtot}
-  dependencies:
-    - {id: iao}
-    - {id: bfo}
-  description: DUO is an ontology which represent data use conditions.
-  homepage: https://github.com/EBISPOT/DUO
-  id: duo
-  jobs:
-    - {id: 'https://travis-ci.org/EBISPOT/DUO', type: travis-ci}
-  layout: ontology_detail
-  license: {label: CC-BY, logo: 'http://mirrors.creativecommons.org/presskit/buttons/80x15/png/by.png',
-            url: 'http://creativecommons.org/licenses/by/3.0/'}
-  ontology_purl: http://purl.obolibrary.org/obo/duo.owl
-  products:
-    - {id: duo.owl, ontology_purl: 'http://purl.obolibrary.org/obo/duo.owl'}
-  title: The Data Use Ontology
-  tracker: https://github.com/EBISPOT/DUO/issues
-  preferred_root_term:
-    - http://purl.obolibrary.org/obo/DUO_0000001
-    - http://purl.obolibrary.org/obo/DUO_0000017
-    - http://purl.obolibrary.org/obo/OBI_0000066
+  - activity_status: active
+    build: {checkout: 'git clone https://github.com/EBISPOT/duo.git', path: ., system: git}
+    contact: {email: mcourtot@gmail.com, github: mcourtot, label: Melanie Courtot}
+    dependencies:
+      - {id: iao}
+      - {id: bfo}
+    description: DUO is an ontology which represent data use conditions.
+    homepage: https://github.com/EBISPOT/DUO
+    id: duo
+    jobs:
+      - {id: 'https://travis-ci.org/EBISPOT/DUO', type: travis-ci}
+    layout: ontology_detail
+    license: {label: CC-BY, logo: 'http://mirrors.creativecommons.org/presskit/buttons/80x15/png/by.png',
+              url: 'http://creativecommons.org/licenses/by/3.0/'}
+    ontology_purl: http://purl.obolibrary.org/obo/duo.owl
+    products:
+      - {id: duo.owl, ontology_purl: 'http://purl.obolibrary.org/obo/duo.owl'}
+    title: The Data Use Ontology
+    tracker: https://github.com/EBISPOT/DUO/issues
+    preferred_root_term:
+      - http://purl.obolibrary.org/obo/DUO_0000001
+      - http://purl.obolibrary.org/obo/DUO_0000017
+      - http://purl.obolibrary.org/obo/OBI_0000066
+  - activity_status: active
+    browsers:
+      - {label: Monarch, title: Monarch Initiative Disease Browser, url: 'https://monarchinitiative.org/disease/MONDO:0019609'}
+    canonical: mondo.owl
+    contact: {email: vasilevs@ohsu.edu, github: nicolevasilevsky, label: Nicole Vasilevsky}
+    description: An ontology that harmonizes multiple disease resources.
+    domain: disease
+    homepage: https://monarch-initiative.github.io/mondo
+    id: mondo
+    label: Mondo
+    layout: ontology_detail
+    license: {label: CC BY 3.0, logo: 'http://mirrors.creativecommons.org/presskit/buttons/80x15/png/by.png',
+              url: 'http://creativecommons.org/licenses/by/3.0/'}
+    mailing_list: https://groups.google.com/group/mondo-users
+    ontology_purl: http://purl.obolibrary.org/obo/mondo.owl
+    products:
+      - {description: 'Complete ontology, plus inter-ontology equivalence axioms. Uses
+      MONDO IDs.', format: owl-rdf/xml, id: mondo.owl, is_canonical: true, ontology_purl: 'http://purl.obolibrary.org/obo/mondo.owl',
+         title: Main OWL edition}
+      - {derived_from: mondo.owl, description: 'As OWL, but omits equivalence axioms.
+      xrefs can be used as proxy for equivalence. Uses Mondo IDs', format: obo, id: mondo.obo,
+         ontology_purl: 'http://purl.obolibrary.org/obo/mondo.obo', title: obo-format edition}
+      - {derived_from: mondo.owl, description: Equivalent to the OWL edition, format: obo,
+         id: mondo.json, ontology_purl: 'http://purl.obolibrary.org/obo/mondo.json', title: json
+                                                                                       edition}
+    taxon: {id: 'NCBITaxon:33208', label: Metazoa}
+    title: Mondo Disease Ontology
+    tracker: https://github.com/monarch-initiative/mondo-build/issues
+    usages:
+      - description: Mondo is used by the Monarch Initiative for disease annotations.
+        examples:
+          - {url: 'https://monarchinitiative.org/phenotype/HP:0001300#diseases'}
+        reference: https://academic.oup.com/nar/article/45/D1/D712/2605791
+        type: annotation
+        user: https://monarchinitiative.org/
+  - activity_status: active
+    biosharing: https://www.biosharing.org/bsg-000016
+    browsers:
+      - label: RGD
+        title: Gene Ontology AmiGO 2 Browser
+        url: http://rgd.mcw.edu/rgdweb/ontology/view.html?acc_id=UBERON:0001062
+      - label: AmiGO (SUBSET)
+        title: Gene Ontology AmiGO 2 Browser
+        url: http://amigo.geneontology.org/amigo/term/UBERON:0001062#display-lineage-tab
+      - label: Bgee (gene expression)
+        title: Bgee gene expression queries
+        url: http://bgee.org/?page=gene
+      - label: FANTOM5
+        title: FANTOM5 Data Portal
+        url: http://fantom.gsc.riken.jp/5/sstar/UBERON:0001890
+      - label: KnowledgeSpace
+        title: INCF KnowledgeSpace Portal
+        url: https://knowledge-space.org/index.php/pages/view/UBERON:0000061
+    build:
+      checkout: svn --ignore-externals co http://svn.code.sf.net/p/obo/svn/uberon/trunk
+      email_cc: cjmungall@lbl.gov
+      infallible: 1
+      method: vcs
+      system: svn
+    canonical: uberon.owl
+    contact:
+      email: cjmungall@lbl.gov
+      label: Chris Mungall
+    dependencies:
+      - id: go
+        subset: uberon/go_import.owl
+      - id: cl
+        subset: uberon/cl_import.owl
+      - id: chebi
+        subset: uberon/chebi_import.owl
+      - id: pr
+        subset: uberon/pr_import.owl
+    depicted_by: http://uberon.github.io/images/u-logo.jpg
+    description: An integrated cross-species anatomy ontology covering animals and bridging
+      multiple species-specific ontologies
+    domain: anatomy
+    exampleClass: UBERON_0002046
+    funded_by:
+      - NIH R24OD011883
+      - NIH R01HG004838
+      - NIH P41HG002273
+      - NSF DEB-0956049
+    google_plus: +UberonOrg
+    homepage: http://uberon.org
+    id: uberon
+    label: Uberon
+    layout: ontology_detail
+    license:
+      label: CC-BY
+      logo: http://mirrors.creativecommons.org/presskit/buttons/80x15/png/by.png
+      url: http://creativecommons.org/licenses/by/3.0/
+    mailing_list: https://lists.sourceforge.net/lists/listinfo/obo-anatomy
+    ontology_purl: http://purl.obolibrary.org/obo/uberon.owl
+    page: http://en.wikipedia.org/wiki/Uberon
+    products:
+      - description: core ontology
+        id: uberon.owl
+        is_canonical: true
+        ontology_purl: http://purl.obolibrary.org/obo/uberon.owl
+        title: Uberon
+        type: owl:Ontology
+      - description: Axioms defined within Uberon and to be used in imports for other
+          ontologies
+        id: uberon/uberon-base.owl
+        ontology_purl: http://purl.obolibrary.org/obo/uberon/uberon-base.owl
+        page: https://github.com/INCATools/ontology-development-kit/issues/50
+        title: Uberon base ontology
+      - description: Uberon extended
+        id: uberon/ext.owl
+        mireots_from: ncbitaxon
+        ontology_purl: http://purl.obolibrary.org/obo/uberon/ext.owl
+        title: Uberon edition that includes subsets of other ontologies and axioms connecting
+          to them
+        type: owl:Ontology
+      - description: Uberon edition that excludes external ontologies and most relations
+        format: obo
+        id: uberon/basic.obo
+        ontology_purl: http://purl.obolibrary.org/obo/uberon/basic.obo
+        title: Uberon basic
+        type: obo-basic-ontology
+      - connects:
+          - id: uberon
+          - id: zfa
+        description: Taxonomic equivalence axioms connecting zebrafish-specific classes
+          to generic uberon counterparts
+        id: uberon/bridge/uberon-bridge-to-zfa.owl
+        ontology_purl: http://purl.obolibrary.org/obo/uberon/bridge/uberon-bridge-to-zfa.owl
+        page: https://github.com/obophenotype/uberon/wiki/inter-anatomy-ontology-bridge-ontologies
+        title: Uberon bridge to ZFA
+        type: BridgeOntology
+      - connects:
+          - id: uberon
+          - id: ma
+        description: Taxonomic equivalence axioms connecting adult mouse specific classes
+          to generic uberon counterparts
+        id: uberon/bridge/uberon-bridge-to-ma.owl
+        ontology_purl: http://purl.obolibrary.org/obo/uberon/bridge/uberon-bridge-to-ma.owl
+        page: https://github.com/obophenotype/uberon/wiki/inter-anatomy-ontology-bridge-ontologies
+        title: Uberon bridge to MA
+        type: BridgeOntology
+      - description: Extended uberon plus all metazoan ontologies
+        id: uberon/composite-metazoan.owl
+        mireots_from: ehdaa2
+        ontology_purl: http://purl.obolibrary.org/obo/uberon/composite-metazoan.owl
+        page: https://github.com/obophenotype/uberon/wiki/Multi-species-composite-ontologies
+        taxon: Metazoa
+        title: Uberon composite metazoan ontology
+        type: MergedOntology
+      - id: uberon/composite-vertebrate.owl
+        mireots_from: ehdaa2
+        ontology_purl: http://purl.obolibrary.org/obo/uberon/composite-vertebrate.owl
+        page: https://github.com/obophenotype/uberon/wiki/Multi-species-composite-ontologies
+        taxon: Metazoa
+        title: Uberon composite vertebrate ontology
+        type: MergedOntology
+    publications:
+      - id: http://www.ncbi.nlm.nih.gov/pubmed/22293552
+        title: Uberon, an integrative multi-species anatomy ontology
+      - id: http://www.ncbi.nlm.nih.gov/pubmed/25009735
+        title: Unification of multi-species vertebrate anatomy ontologies for comparative
+          biology in Uberon
+    redirects:
+      - match: releases/
+        url: http://svn.code.sf.net/p/obo/svn/uberon/releases/
+      - match: ''
+        url: http://berkeleybop.org/ontologies/uberon/
+    releases: http://purl.obolibrary.org/obo/uberon/releases/
+    repository: https://github.com/obophenotype/uberon
+    taxon:
+      id: NCBITaxon:33208
+      label: Metazoa
+    title: Uberon multi-species anatomy ontology
+    tracker: https://github.com/obophenotype/uberon/issues
+    twitter: uberanat
+    type: owl:Ontology
+    usages:
+      - description: Bgee is a database to retrieve and compare gene expression patterns
+          between animal species. Bgee in using Uberon to annotate the site of expression,
+          and Bgee curators one the major contributors to the ontology.
+        examples:
+          - description: Uberon terms used to annotate expression of human hemoglobin subunit
+              beta
+            url: http://bgee.org/?page=gene&gene_id=ENSG00000244734
+        seeAlso: https://www.biosharing.org/biodbcore-000228
+        type: annotation
+        user: http://bgee.org/
+      - description: The National Human Genome Research Institute (NHGRI) launched a public
+          research consortium named ENCODE, the Encyclopedia Of DNA Elements, in September
+          2003, to carry out a project to identify all functional elements in the human
+          genome sequence. The ENCODE DCC users Uberon to annotate samples
+        reference: https://doi.org/10.1093/database/bav010
+        seeAlso: https://www.biosharing.org/biodbcore-000034
+        type: annotation
+        user: https://www.encodeproject.org/
+      - description: FANTOM5 is using Uberon and CL to annotate samples allowing for transcriptome
+          analyses with cell-type and tissue-level specificity.
+        examples:
+          - description: FANTOM5 samples annotated to telencephalon or its parts
+            url: http://fantom.gsc.riken.jp/5/sstar/UBERON:0001893
+        type: annotation
+        user: http://fantom5-collaboration.gsc.riken.jp/
+      - description: Querying expression and phenotype data
+        type: query
+        user: https://monarchinitiative.org/
+      - description: Querying for functional annotations relevant to a tissue
+        examples:
+          - description: GO annotations relevant to the uberon class for brain
+            url: http://amigo.geneontology.org/amigo/term/UBERON:0000955
+        label: GO Database
+        type: query
+        user: https://geneontology.org/
+      - description: The Phenoscape project is both a major driver of and contributor
+          to Uberon, contibuting thousands of terms. The teleost (bony fishes) component
+          of Uberon was derived from the Teleost Anatomy Ontology, developed by the Phenoscape
+          group. Most of the high level design of the skeletal system comes from the Vertebrate
+          Skeletal Anatomy Ontology (VSAO), also created by the Phenoscape group. Phenoscape
+          curators continue to extend the ontology, covering a wide variety of tetrapod
+          structures, with an emphasis on the appendicular system.
+        label: Phenoscape
+        user: http://phenoscape.org
+      - label: Neuroscience Information Framework
+        type: Database
+        url: https://neuinfo.org/
+      - label: SciCrunch
+        type: Database
+        url: https://scicrunch.org/
+      - label: SCPortalen
+        reference: https://doi.org/10.1093/nar/gkx949
+        type: Database
+        url: http://single-cell.clst.riken.jp/
+      - description: ChEMBL uses Uberon to describe organ/tissue information in assays
+        label: ChEMBL
+        reference: https://doi.org/10.1093/nar/gky1075
+        type: Database
+        url: https://www.ebi.ac.uk/chembl/
+    wikidata_template: https://en.wikipedia.org/wiki/Template:Uberon
+  - activity_status: active
+    browsers:
+      - label: AmiGO
+        title: Gene Ontology AmiGO 2 Browser
+        url: http://amigo.geneontology.org/amigo/term/GO:0008150#display-lineage-tab
+    contact:
+      email: suzia@stanford.edu
+      label: Suzi Aleksander
+    dependencies:
+      - id: uberon
+        subset: go/extensions/uberon_import.owl
+      - id: cl
+        subset: go/extensions/cl_import.owl
+      - id: ncbitaxon
+        subset: go/extensions/ncbitaxon_import.owl
+      - id: ro
+        subset: go/extensions/ro_import.owl
+      - connects:
+          - id: nifstd
+          - id: go
+        description: Bridging axioms between nifstd and go
+        id: go/extensions/go-bridge-to-nifstd.owl
+        publications:
+          - id: http://www.ncbi.nlm.nih.gov/pubmed/24093723
+            title: 'The Gene Ontology (GO) Cellular Component Ontology: integration with
+        SAO (Subcellular Anatomy Ontology) and other recent developments.'
+        title: GO bridge to NIFSTD
+        type: BridgeOntology
+    depicted_by: http://geneontology.org/assets/go-logo-icon.mini.png
+    description: An ontology for describing the function of genes and gene products
+    domain: biology
+    facebook: https://www.facebook.com/Gene-Ontology-305908656519/
+    homepage: http://geneontology.org/
+    id: go
+    in_foundry_order: 1
+    integration_server: http://build.berkeleybop.org/view/GO
+    label: GO
+    layout: ontology_detail
+    license:
+      label: CC BY 4.0
+      logo: http://mirrors.creativecommons.org/presskit/buttons/80x15/png/by.png
+      url: https://creativecommons.org/licenses/by/4.0/
+    ontology_purl: http://purl.obolibrary.org/obo/go.owl
+    products:
+      - description: The main ontology in OWL. This is self contained and does not have
+          connections to other OBO ontologies
+        id: go.owl
+        ontology_purl: http://purl.obolibrary.org/obo/go.owl
+        page: http://geneontology.org/page/download-ontology
+        title: GO (OWL edition)
+      - description: Equivalent to go.owl, in obo format
+        id: go.obo
+        ontology_purl: http://purl.obolibrary.org/obo/go.obo
+        page: http://geneontology.org/page/download-ontology
+        title: GO (OBO Format edition)
+      - description: Equivalent to go.owl, in obograph json format
+        id: go.json
+        ontology_purl: http://purl.obolibrary.org/obo/go.json
+        page: https://github.com/geneontology/obographs/
+        title: GO (JSON edition)
+      - description: The main ontology plus axioms connecting to select external ontologies,
+          with subsets of those ontologies
+        id: go/extensions/go-plus.owl
+        ontology_purl: http://purl.obolibrary.org/obo/go/extensions/go-plus.owl
+        page: http://geneontology.org/page/download-ontology
+        title: GO-Plus
+      - description: The main ontology plus axioms connecting to select external ontologies,
+          excluding the external ontologies themselves
+        id: go/go-base.owl
+        ontology_purl: http://purl.obolibrary.org/obo/go/go-base.owl
+        page: http://geneontology.org/page/download-ontology
+        title: GO Base Module
+      - description: As go-plus.owl, in obographs json format
+        id: go/extensions/go-plus.json
+        ontology_purl: http://purl.obolibrary.org/obo/go/extensions/go-plus.json
+        page: https://github.com/geneontology/obographs/
+        title: GO-Plus
+      - description: The main ontology plus axioms connecting to select external ontologies
+        id: go/go-basic.obo
+        ontology_purl: http://purl.obolibrary.org/obo/go/go-basic.obo
+        page: http://geneontology.org/page/download-ontology
+        title: GO-Basic, Filtered, for use with legacy tools
+      - description: As go-basic.obo, in json format
+        id: go/go-basic.json
+        ontology_purl: http://purl.obolibrary.org/obo/go/go-basic.json
+        page: http://geneontology.org/page/download-ontology
+        title: GO-Basic, Filtered, for use with legacy tools (JSON)
+      - description: Classes added to ncbitaxon for groupings such as prokaryotes
+        id: go/extensions/go-taxon-groupings.owl
+        ontology_purl: http://purl.obolibrary.org/obo/go/extensions/go-taxon-groupings.owl
+        page: http://geneontology.org/page/download-ontology
+        title: GO Taxon Groupings
+      - description: Equivalent to go.owl, but released daily. Note the snapshot release
+          is not archived.
+        id: go/snapshot/go.owl
+        ontology_purl: http://purl.obolibrary.org/obo/go/snapshot/go.owl
+        page: http://geneontology.org/page/download-ontology
+        title: GO (OWL edition), daily snapshot release
+      - description: Equivalent to go.owl, but released daily. Note the snapshot release
+          is not archived.
+        id: go/snapshot/go.obo
+        ontology_purl: http://purl.obolibrary.org/obo/go/snapshot/go.obo
+        page: http://geneontology.org/page/download-ontology
+        title: GO (OBO Format edition), daily snapshot release
+    review:
+      date: 2010
+    taxon:
+      id: NCBITaxon:1
+      label: All life
+    title: Gene Ontology
+    tracker: https://github.com/geneontology/go-ontology/issues/
+    twitter: news4go
+    usages:
+      - description: The GO ontology is used by the GO consortium for functional annotation
+          of genes
+        examples:
+          - description: annotations to transmembrane transport
+            url: http://amigo.geneontology.org/amigo/term/GO:0055085
+        type: annotation
+        user: http://geneontology.org
+  - activity_status: active
+    alternatePrefix: ChEBI
+    browsers:
+      - label: CHEBI
+        title: EBI CHEBI Browser
+        url: http://www.ebi.ac.uk/chebi/chebiOntology.do?treeView=true&chebiId=CHEBI:24431#graphView
+    build:
+      infallible: 1
+      method: obo2owl
+      source_url: ftp://ftp.ebi.ac.uk/pub/databases/chebi/ontology/chebi.obo
+    contact:
+      email: amalik@ebi.ac.uk
+      github: amalik01
+      label: Adnan Malik
+    depicted_by: https://www.ebi.ac.uk/chebi/images/ChEBI_logo.png
+    description: A structured classification of molecular entities of biological interest
+      focusing on 'small' chemical compounds.
+    domain: biochemistry
+    homepage: http://www.ebi.ac.uk/chebi
+    id: chebi
+    in_foundry_order: 1
+    layout: ontology_detail
+    license:
+      label: CC-BY 4.0
+      logo: http://mirrors.creativecommons.org/presskit/buttons/80x15/png/by.png
+      url: https://creativecommons.org/licenses/by/4.0/
+    ontology_purl: http://purl.obolibrary.org/obo/chebi.owl
+    page: http://www.ebi.ac.uk/chebi/init.do?toolBarForward=userManual
+    products:
+      - id: chebi.owl
+        ontology_purl: http://purl.obolibrary.org/obo/chebi.owl
+      - id: chebi.obo
+        ontology_purl: http://purl.obolibrary.org/obo/chebi.obo
+      - id: chebi.owl.gz
+        ontology_purl: http://purl.obolibrary.org/obo/chebi.owl.gz
+        title: chebi, compressed owl
+      - id: chebi/chebi_lite.obo
+        ontology_purl: http://purl.obolibrary.org/obo/chebi/chebi_lite.obo
+        title: chebi_lite, no syns or xrefs
+      - id: chebi/chebi_core.obo
+        ontology_purl: http://purl.obolibrary.org/obo/chebi/chebi_core.obo
+        title: chebi_core, no xrefs
+    publications:
+      - id: http://europepmc.org/article/MED/26467479
+        title: 'ChEBI in 2016: Improved services and an expanding collection of metabolites.'
+    review:
+      date: 2010
+    title: Chemical Entities of Biological Interest
+    tracker: https://github.com/ebi-chebi/ChEBI/issues
+    twitter: chebit
+    usages:
+      - description: Rhea uses CHEBI to annotate reaction participants
+        examples:
+          - description: Query for all usages of CHEBI:29748 (chorismate)
+            url: https://www.rhea-db.org/searchresults?q=CHEBI:29748
+        user: https://www.rhea-db.org/
+      - description: ZFIN uses CHEBI to annotate experiments
+        examples:
+          - description: A curated zebrafish experiment involving exposure to (5Z,8Z,14Z)-11,12-dihydroxyicosatrienoic
+              acid (CHEBI:63969)
+            url: http://zfin.org/action/expression/experiment?id=ZDB-EXP-190627-10
+        user: http://zfin.org
+  - DO wiki: http://diseaseontology.sourceforge.net/
+    activity_status: active
+    browsers:
+      - label: DO
+        title: DO Browser
+        url: http://www.disease-ontology.org/
+    build:
+      infallible: 1
+      method: obo2owl
+      source_url: https://raw.githubusercontent.com/DiseaseOntology/HumanDiseaseOntology/master/src/ontology/doid.obo
+    contact:
+      email: lynn.schriml@gmail.com
+      github: lschriml
+      label: Lynn Schriml
+    description: An ontology for describing the classification of human diseases organized
+      by etiology.
+    domain: disease
+    facebook: https://www.facebook.com/diseaseontology
+    homepage: http://www.disease-ontology.org
+    id: doid
+    in_foundry_order: 1
+    layout: ontology_detail
+    license:
+      label: CC0 1.0 Universal
+      logo: http://mirrors.creativecommons.org/presskit/buttons/80x15/png/cc-zero.png
+      url: https://creativecommons.org/publicdomain/zero/1.0/
+    ontology_purl: http://purl.obolibrary.org/obo/doid.owl
+    products:
+      - id: doid.owl
+        ontology_purl: http://purl.obolibrary.org/obo/doid.owl
+        title: Disease Ontology, OWL format. This file contains DO's is_a asserted hierarchy
+          plus equivalent axioms to other OBO Foundry ontologies.
+      - id: doid.obo
+        ontology_purl: http://purl.obolibrary.org/obo/doid.obo
+        title: Disease Ontology, OBO format. This file omits the equivalent axioms.
+    publications:
+      - id: http://www.ncbi.nlm.nih.gov/pubmed/?term=25348409
+        title: 'Disease Ontology 2015 update: an expanded and updated database of human
+      diseases for linking biomedical knowledge through disease data'
+    review:
+      date: 2015
+      document:
+        label: PDF
+        link: https://drive.google.com/open?id=0B8vqEgF1N0NIZ082U2JETHlSTGs
+    taxon:
+      id: NCBITaxon:9606
+      label: Homo sapiens
+    title: Human Disease Ontology
+    tracker: https://github.com/DiseaseOntology/HumanDiseaseOntology/issues
+    twitter: diseaseontology
+    usages:
+      - description: MGI disease model annotations use DO
+        examples:
+          - description: Human genes and mouse homology associated with nail diseases
+            url: http://www.informatics.jax.org/disease/DOID:4123
+        user: http://www.informatics.jax.org/disease
+  - activity_status: active
+    contact:
+      contact: mellybelly
+      email: haendel@ohsu.edu
+      label: Melissa Haendel
+    description: NCI Thesaurus (NCIt)is a reference terminology that includes broad
+      coverage of the cancer domain, including cancer related diseases, findings and
+      abnormalities. The NCIt OBO Edition aims to increase integration of the NCIt with
+      OBO Library ontologies. NCIt OBO Edition releases should be considered experimental.
+    homepage: https://github.com/NCI-Thesaurus/thesaurus-obo-edition
+    id: ncit
+    layout: ontology_detail
+    license:
+      label: CC-BY 4.0
+      logo: http://mirrors.creativecommons.org/presskit/buttons/80x15/png/by.png
+      url: https://creativecommons.org/licenses/by/4.0/
+    ontology_purl: http://purl.obolibrary.org/obo/ncit.owl
+    products:
+      - description: A direct transformation of the standard NCIt content using OBO-style
+          term and ontology IRIs and annotation properties.
+        id: ncit.owl
+        ontology_purl: http://purl.obolibrary.org/obo/ncit.owl
+        title: NCIt OBO Edition OWL format
+      - id: ncit.obo
+        ontology_purl: http://purl.obolibrary.org/obo/ncit.obo
+        title: NCIt OBO Edition OBO format
+      - description: This version replaces NCIt terms with direct references to terms
+          from other domain-specific OBO Library ontologies (e.g. cell types, cellular
+          components, anatomy), supporting cross-ontology reasoning. The current release
+          incorporates CL (cell types) and Uberon (anatomy).
+        id: ncit/ncit-plus.owl
+        mireots_from: uberon
+        ontology_purl: http://purl.obolibrary.org/obo/ncit/ncit-plus.owl
+        title: NCIt Plus
+      - description: This is a subset extracted from NCIt Plus, based on the [NCIt Neoplasm
+          Core value set](https://evs.nci.nih.gov/ftp1/NCI_Thesaurus/Neoplasm/About_Core.html)
+          as a starting point.
+        id: ncit/neoplasm-core.owl
+        ontology_purl: http://purl.obolibrary.org/obo/ncit/neoplasm-core.owl
+        title: NCIt Plus Neoplasm Core
+    title: NCI Thesaurus OBO Edition
+    tracker: https://github.com/NCI-Thesaurus/thesaurus-obo-edition/issues
