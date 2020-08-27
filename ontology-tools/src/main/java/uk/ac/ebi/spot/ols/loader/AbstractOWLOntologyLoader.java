@@ -626,14 +626,14 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                 public void visit(OWLNamedIndividual individual) {
 
                     individuals.add(individual.getIRI());
-                 try {
-                    // add types as parents
-                    indexIndividualTypes(individual);
-                    indexPropertyRelations(individual);
+                     try {
+                        // add types as parents
+                        indexIndividualTypes(individual);
+                        indexPropertyRelations(individual);
 
-                } catch(OWLOntologyCreationException e) {
-                    getLogger().error("unable to index individuals, unable to create reasoner", e);
-                }
+                    } catch(OWLOntologyCreationException e) {
+                        getLogger().error("unable to index individuals, unable to create reasoner", e);
+                    }
 
                 }
 
@@ -646,6 +646,11 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                 public void visit(OWLAnnotationProperty property) {
                     annotationProperties.add(property.getIRI());
                     indexSubAnnotationPropertyRelations(property);
+                }
+
+                @Override
+                public void doDefault(Object object) {
+
                 }
             });
         }
@@ -739,25 +744,29 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
     private Set<IRI> findAllDirectAndIndirectSuperProperties(OWLObjectProperty objectProperty,
     		Set<IRI> indirectSuperProperties, Set<OWLOntology> ontologyImportClosure) {
-        EntitySearcher.getSuperProperties(objectProperty, ontologyImportClosure.stream()).forEach(superObjectPropertyExpression -> {
-            if (!superObjectPropertyExpression.isAnonymous()) {
-                IRI superObjectPropertyIRI = superObjectPropertyExpression.asOWLObjectProperty().getIRI();
-
-                if (!indirectSuperProperties.contains(superObjectPropertyIRI)) {
-
-                    indirectSuperProperties.add(superObjectPropertyIRI);
-                    findAllDirectAndIndirectSuperProperties(superObjectPropertyExpression.asOWLObjectProperty(),
-                            indirectSuperProperties, ontologyImportClosure);
-                }
-            }
-        });
+        try {
+            EntitySearcher.getSuperProperties(objectProperty, ontologyImportClosure.stream()).forEach(
+                superObjectPropertyExpression -> {
+                    if (!superObjectPropertyExpression.isAnonymous()) {
+                        IRI superObjectPropertyIRI = superObjectPropertyExpression.asOWLObjectProperty().getIRI();
+                        if (!indirectSuperProperties.contains(superObjectPropertyIRI)) {
+                            indirectSuperProperties.add(superObjectPropertyIRI);
+                            findAllDirectAndIndirectSuperProperties(superObjectPropertyExpression.asOWLObjectProperty(),
+                                    indirectSuperProperties, ontologyImportClosure);
+                        }
+                    }
+                });
+        } catch (Throwable t) {
+           getLogger().error("Problematic object property = " + objectProperty.getIRI(), t);
+        }
     	return indirectSuperProperties;
     }
 
     private Set<IRI> findAllDirectAndIndirectSubProperties(OWLObjectProperty objectProperty,
     		Set<IRI> indirectSubProperties, Set<OWLOntology> ontologyImportClosure) {
 
-        EntitySearcher.getSuperProperties(objectProperty, ontologyImportClosure.stream()).forEach(
+        try {
+            EntitySearcher.getSuperProperties(objectProperty, ontologyImportClosure.stream()).forEach(
                 subObjectPropertyExpression -> {
                     IRI subObjectPropertyIRI = subObjectPropertyExpression.asOWLObjectProperty().getIRI();
                     if (!subObjectPropertyExpression.isAnonymous() &&
@@ -768,6 +777,9 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                                 indirectSubProperties, ontologyImportClosure);
                     }
                 });
+        } catch (Throwable t) {
+            getLogger().error("Problematic object property = " + objectProperty.getIRI(), t);
+        }
     	return indirectSubProperties;
     }
 
@@ -779,11 +791,15 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         Set<IRI> indirectSubProperties = new HashSet<>();
 
         Set<OWLOntology> ontologyImportClosure = ontology.getImportsClosure();
-
-        EntitySearcher.getSuperProperties(property, ontologyImportClosure.stream()).filter(
-                owlObjectProperty -> !owlObjectProperty.isAnonymous()).forEach(
-                        owlProperty -> {directSuperProperties.add(owlProperty.asOWLObjectProperty().getIRI());
-        });
+        try {
+            EntitySearcher.getSuperProperties(property, ontologyImportClosure.stream()).filter(
+                owlObjectProperty -> (!owlObjectProperty.isAnonymous() && owlObjectProperty.getInverseProperty() != null)).forEach(
+                owlProperty -> {
+                    directSuperProperties.add(owlProperty.asOWLObjectProperty().getIRI());
+                });
+        } catch (Throwable t) {
+            getLogger().error("Problematic object property = " + property.getIRI(), t);
+        }
 
         addDirectParents(property.getIRI(), directSuperProperties);
         addAllParents(property.getIRI(), findAllDirectAndIndirectSuperProperties(property,
@@ -792,10 +808,15 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         getLogger().debug("indexSubPropertyRelations: " + property + " indirectSuperProperties = " + indirectSuperProperties);
 
         Set<IRI> directSubProperties = new HashSet<>();
-        EntitySearcher.getSubProperties(property, ontologyImportClosure.stream()).filter(
+        try {
+            EntitySearcher.getSubProperties(property, ontologyImportClosure.stream()).filter(
                 owlObjectProperty -> !owlObjectProperty.isAnonymous()).forEach(
-                owlProperty -> {directSubProperties.add(owlProperty.asOWLObjectProperty().getIRI());
+                owlProperty -> {
+                    directSubProperties.add(owlProperty.asOWLObjectProperty().getIRI());
                 });
+        } catch (Throwable t) {
+            getLogger().error("Problematic object property = " + property.getIRI());
+        }
 
         addDirectChildren(property.getIRI(), directSubProperties);
         addAllParents(property.getIRI(), findAllDirectAndIndirectSubProperties(property,
