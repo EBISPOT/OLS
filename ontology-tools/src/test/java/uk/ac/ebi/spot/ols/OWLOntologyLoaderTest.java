@@ -4,6 +4,7 @@ import org.semanticweb.owlapi.model.IRI;
 import uk.ac.ebi.spot.ols.loader.*;
 import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
 import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
+import uk.ac.ebi.spot.ols.reasoner.PseudoReasoner;
 
 import java.net.URI;
 import java.util.Collection;
@@ -36,7 +37,7 @@ public class OWLOntologyLoaderTest {
 
         OntologyLoader loader = null;
         try {
-            loader = new StructuralOWLOntologyLoader(config);
+            loader = new NoReasonerOWLOntologyLoader(config);
         } catch (OntologyLoadingException e) {
             e.printStackTrace();
             System.exit(0);
