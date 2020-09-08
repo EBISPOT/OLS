@@ -3,6 +3,7 @@ package uk.ac.ebi.spot.ols.loader;
 import uk.ac.ebi.spot.ols.config.OntologyLoadingConfiguration;
 import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
 import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
+import uk.ac.ebi.spot.ols.reasoner.PseudoReasoner;
 import uk.ac.ebi.spot.ols.util.ReasonerType;
 import uk.ac.ebi.spot.ols.xrefs.Database;
 import uk.ac.ebi.spot.ols.xrefs.DatabaseService;
@@ -29,7 +30,7 @@ public class OntologyLoaderFactory {
             return new SKOSLoader(config);
         }
         else {
-            return new StructuralOWLOntologyLoader(config);
+            return new ELKOWLOntologyLoader(config);
         }
     }
 
@@ -47,7 +48,7 @@ public class OntologyLoaderFactory {
             return new SKOSLoader(config, databaseService, ontologyLoadingConfiguration);
         }
         else {
-            return new StructuralOWLOntologyLoader(config, databaseService, ontologyLoadingConfiguration);
+            return new ELKOWLOntologyLoader(config, databaseService, ontologyLoadingConfiguration);
         }
     }
 }
