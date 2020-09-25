@@ -344,7 +344,7 @@
                                   th:text="${annotations.key.replaceAll('_', ' ')}">property name</a></b>
                             <p th:inline="text">
                                 <div th:each="value: ${annotations.value}" th:inline="text">
-                                    [[${value}]]
+                                    <p class="annotation-value">[[${value}]]</p>
                                 </div>
                             </p>
                         </div>
