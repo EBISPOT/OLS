@@ -28,6 +28,6 @@ public class NoReasonerOWLOntologyLoader extends AbstractOWLOntologyLoader {
 
     @Override
     protected void discardReasoner(OWLOntology ontology) throws OWLOntologyCreationException {
-
+        reasoner = null;
     }
 }

@@ -827,7 +827,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
 
     protected  void indexSubclassRelations(OWLClass owlClass) throws OWLOntologyCreationException {
-
+        getLogger().debug("indexSubclassRelations {}", owlClass);
         OWLReasoner reasoner = getOWLReasoner(ontology);
 
         Set<OWLClass> directSubClasses = reasoner.getSubClasses(owlClass, true).getFlattened();
@@ -837,6 +837,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
         // use reasoner to check if root
         if (directSuperClasses.contains(getFactory().getOWLThing())) {
+            getLogger().debug("indexSubclassRelations add root for {}", owlClass);
             addRootsTerms(owlClass.getIRI());
         }
 
@@ -851,6 +852,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                         .map(OWLNamedObject::getIRI)
                         .collect(Collectors.toSet()),
                 owlVocabulary);
+        getLogger().debug("indexSubclassRelations directChildTerms for {} count  {}", owlClass, directChildTerms.size());
         if (directChildTerms.size() > 0)
           addDirectChildren(owlClass.getIRI(), directChildTerms) ;
 

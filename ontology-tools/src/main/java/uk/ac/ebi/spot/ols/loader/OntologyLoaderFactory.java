@@ -3,7 +3,6 @@ package uk.ac.ebi.spot.ols.loader;
 import uk.ac.ebi.spot.ols.config.OntologyLoadingConfiguration;
 import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
 import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
-import uk.ac.ebi.spot.ols.reasoner.PseudoReasoner;
 import uk.ac.ebi.spot.ols.util.ReasonerType;
 import uk.ac.ebi.spot.ols.xrefs.Database;
 import uk.ac.ebi.spot.ols.xrefs.DatabaseService;
@@ -18,8 +17,6 @@ import javax.xml.crypto.Data;
 public class OntologyLoaderFactory {
 
     public static OntologyLoader getLoader(OntologyResourceConfig config) throws OntologyLoadingException {
-
-
         if (config.getReasonerType().equals(ReasonerType.OWL2)) {
             return new HermitOWLOntologyLoader(config);
         }
@@ -37,7 +34,6 @@ public class OntologyLoaderFactory {
     public static OntologyLoader getLoader(OntologyResourceConfig config, 
     		DatabaseService databaseService, 
     		OntologyLoadingConfiguration ontologyLoadingConfiguration) throws OntologyLoadingException {
-
         if (config.getReasonerType().equals(ReasonerType.OWL2)) {
             return new HermitOWLOntologyLoader(config, databaseService, ontologyLoadingConfiguration);
         }
