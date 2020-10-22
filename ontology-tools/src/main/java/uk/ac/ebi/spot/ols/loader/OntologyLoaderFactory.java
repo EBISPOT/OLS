@@ -27,7 +27,7 @@ public class OntologyLoaderFactory {
             return new SKOSLoader(config);
         }
         else {
-            return new ELKOWLOntologyLoader(config);
+            return new StructuralOWLOntologyLoader(config);
         }
     }
 
@@ -44,7 +44,7 @@ public class OntologyLoaderFactory {
             return new SKOSLoader(config, databaseService, ontologyLoadingConfiguration);
         }
         else {
-            return new ELKOWLOntologyLoader(config, databaseService, ontologyLoadingConfiguration);
+            return new StructuralOWLOntologyLoader(config, databaseService, ontologyLoadingConfiguration);
         }
     }
 }
