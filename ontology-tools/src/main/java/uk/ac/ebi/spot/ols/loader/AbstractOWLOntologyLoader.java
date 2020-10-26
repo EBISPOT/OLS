@@ -804,8 +804,8 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         addDirectParents(property.getIRI(), directSuperProperties);
         addAllParents(property.getIRI(), findAllDirectAndIndirectSuperProperties(property,
         		indirectSuperProperties, ontologyImportClosure));
-        getLogger().debug("indexSubPropertyRelations: " + property + " directSuperProperties = " + directSuperProperties);
-        getLogger().debug("indexSubPropertyRelations: " + property + " indirectSuperProperties = " + indirectSuperProperties);
+//        getLogger().debug("indexSubPropertyRelations: " + property + " directSuperProperties = " + directSuperProperties);
+//        getLogger().debug("indexSubPropertyRelations: " + property + " indirectSuperProperties = " + indirectSuperProperties);
 
         Set<IRI> directSubProperties = new HashSet<>();
         try {
@@ -852,7 +852,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                         .map(OWLNamedObject::getIRI)
                         .collect(Collectors.toSet()),
                 owlVocabulary);
-        getLogger().debug("indexSubclassRelations directChildTerms for {} count  {}", owlClass, directChildTerms.size());
+//        getLogger().debug("indexSubclassRelations directChildTerms for {} count  {}", owlClass, directChildTerms.size());
         if (directChildTerms.size() > 0)
           addDirectChildren(owlClass.getIRI(), directChildTerms) ;
 
