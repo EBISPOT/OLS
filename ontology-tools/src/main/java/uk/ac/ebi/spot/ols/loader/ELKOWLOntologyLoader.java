@@ -53,18 +53,22 @@ public class ELKOWLOntologyLoader extends AbstractOWLOntologyLoader {
 
             getLogger().debug("Checking ontology consistency...");
             if (!reasoner.isConsistent()) {
-                getLogger().warn("Inconsistent ontology " + getOntologyIRI() + ", reverting to structural reasoner");
-//                reasoner.dispose();
-//                OWLReasonerFactory structuralReasonerFactory = new StructuralReasonerFactory();
-//                return structuralReasonerFactory.createReasoner(ontology);
+                getLogger().warn("Inconsistent ontology " + getOntologyIRI() + ", reverting to pseudo reasoner");
+                reasoner.dispose();
+                OWLReasonerFactory structuralReasonerFactory = new StructuralReasonerFactory();
+                reasoner = structuralReasonerFactory.createReasoner(ontology);
+                return reasoner;
             }
 
             getLogger().debug("Checking for unsatisfiable classes...");
             if (reasoner.getUnsatisfiableClasses().getEntitiesMinusBottom().size() > 0) {
                 getLogger().warn(
-                        "Once classified, unsatisfiable classes were detected in '" + getOntologyIRI() + ", reverting to structural reasoner'");
-//                OWLReasonerFactory structuralReasonerFactory = new StructuralReasonerFactory();
-//                reasoner = structuralReasonerFactory.createReasoner(ontology);
+                        "Once classified, unsatisfiable classes were detected in '" + getOntologyIRI() +
+                                ", reverting to pseudo reasoner'");
+                reasoner.dispose();
+                OWLReasonerFactory structuralReasonerFactory = new StructuralReasonerFactory();
+                reasoner = structuralReasonerFactory.createReasoner(ontology);
+                return reasoner;
             }
             else {
                 getLogger().debug("Reasoning complete! ");

@@ -84,10 +84,8 @@ class OLSBatchIndexerCreator {
             inserter.createDeferredSchemaIndex( label ).on(propertyName).create();
             return true;
         } catch (ConstraintViolationException e) {
-        	logger.error("Couldn't create index for label '" + label.name() + "' with property '" +
-        			propertyName + "' as it already exists, continuing...");
 			logger.debug("Couldn't create index for label '" + label.name() + "' with property '" +
-					propertyName + "' as it already exists, continuing...", e);
+					propertyName + "' as it already exists, continuing...");
         }
         return false;
     }    

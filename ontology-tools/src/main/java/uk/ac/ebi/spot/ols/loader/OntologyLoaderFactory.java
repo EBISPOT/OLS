@@ -17,8 +17,6 @@ import javax.xml.crypto.Data;
 public class OntologyLoaderFactory {
 
     public static OntologyLoader getLoader(OntologyResourceConfig config) throws OntologyLoadingException {
-
-
         if (config.getReasonerType().equals(ReasonerType.OWL2)) {
             return new HermitOWLOntologyLoader(config);
         }
@@ -36,7 +34,6 @@ public class OntologyLoaderFactory {
     public static OntologyLoader getLoader(OntologyResourceConfig config, 
     		DatabaseService databaseService, 
     		OntologyLoadingConfiguration ontologyLoadingConfiguration) throws OntologyLoadingException {
-
         if (config.getReasonerType().equals(ReasonerType.OWL2)) {
             return new HermitOWLOntologyLoader(config, databaseService, ontologyLoadingConfiguration);
         }
