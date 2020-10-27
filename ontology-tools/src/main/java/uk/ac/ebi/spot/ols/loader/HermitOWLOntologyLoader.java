@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import uk.ac.ebi.spot.ols.config.OntologyLoadingConfiguration;
 import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
 import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
-import uk.ac.ebi.spot.ols.reasoner.PseudoReasoner;
 import uk.ac.ebi.spot.ols.xrefs.DatabaseService;
 
 /**
@@ -46,7 +45,8 @@ public class HermitOWLOntologyLoader extends AbstractOWLOntologyLoader {
             if (!reasoner.isConsistent()) {
                 getLogger().warn("Inconsistent ontology " + getOntologyIRI() + ", reverting to pseudo reasoner");
                 reasoner.dispose();
-                reasoner = new PseudoReasoner(ontology);
+                OWLReasonerFactory structuralReasonerFactory = new StructuralReasonerFactory();
+                reasoner = structuralReasonerFactory.createReasoner(ontology);
                 return reasoner;
             }
 
@@ -55,7 +55,8 @@ public class HermitOWLOntologyLoader extends AbstractOWLOntologyLoader {
                 getLogger().warn(
                         "Once classified, unsatisfiable classes were detected in '" + getOntologyIRI() + "'");
                 reasoner.dispose();
-                reasoner = new PseudoReasoner(ontology);
+                OWLReasonerFactory structuralReasonerFactory = new StructuralReasonerFactory();
+                reasoner = structuralReasonerFactory.createReasoner(ontology);;
                 return reasoner;
             }
             else {

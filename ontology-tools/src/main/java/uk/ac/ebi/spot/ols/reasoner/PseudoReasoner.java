@@ -1,6 +1,5 @@
 package uk.ac.ebi.spot.ols.reasoner;
 
-import com.google.common.collect.Multimap;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.*;
 import org.semanticweb.owlapi.reasoner.impl.OWLClassNode;
@@ -9,16 +8,31 @@ import org.semanticweb.owlapi.reasoner.impl.OWLNamedIndividualNode;
 import org.semanticweb.owlapi.reasoner.impl.OWLNamedIndividualNodeSet;
 import org.semanticweb.owlapi.search.EntitySearcher;
 import org.semanticweb.owlapi.util.Version;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class PseudoReasoner implements OWLReasoner {
 
     private OWLOntology owlOntology;
+    private final Logger logger = LoggerFactory.getLogger(PseudoReasoner.class);
+
+    private Map<OWLClass, Set<Node<OWLClass>>> allSuperClasses = new HashMap<>();
+    private Map<OWLClass, Set<Node<OWLClass>>> allSubClasses = new HashMap<>();
+
+    private final Marker ALL_SUB_CLASSES = MarkerFactory.getMarker("AllSubClasses");
+    private final Marker ALL_SUPER_CLASSES = MarkerFactory.getMarker("AllSuperClasses");
+    private final Marker EQUIVALENT_CLASSES = MarkerFactory.getMarker("EquivalentClasses");
+    private final Marker SUB_CLASSES = MarkerFactory.getMarker("SubClasses");
+    private final Marker SUPER_CLASSES = MarkerFactory.getMarker("SuperClasses");
+
+    protected Logger getLogger() {
+        return logger;
+    }
 
     public PseudoReasoner(OWLOntology owlOntology) {
         this.owlOntology = owlOntology;
@@ -124,72 +138,108 @@ public class PseudoReasoner implements OWLReasoner {
         return null;
     }
 
-    private Set<Node<OWLClass>> getSubClasses(Set<Node<OWLClass>> owlClassNodeSet, OWLClass owlClass) {
-        if (owlClassNodeSet.contains(owlClass)) {
-            return owlClassNodeSet;
+    private Set<Node<OWLClass>> getAllSubClasses(Set<Node<OWLClass>> setOfSubClasses, OWLClass owlClass) {
+        getLogger().debug(ALL_SUB_CLASSES, "Input = {}", owlClass.toString());
+        if (allSubClasses.containsKey(owlClass))
+            return allSubClasses.get(owlClass);
+
+        if (setOfSubClasses.contains(owlClass)) {
+            getLogger().debug(ALL_SUB_CLASSES, "Output = {}", setOfSubClasses.toString());
+            allSubClasses.put(owlClass, setOfSubClasses);
+            return setOfSubClasses;
         } else {
-            owlClassNodeSet.add(new OWLClassNode(owlClass));
+            setOfSubClasses.add(new OWLClassNode(owlClass));
             Set<Node<OWLClass>> owlClassNodeSetToAdd = EntitySearcher
                     .getSubClasses(owlClass, owlOntology.importsClosure())
+                    .filter(classExpression -> classExpression.isOWLClass())
                     .map(classExpression -> new OWLClassNode(classExpression.asOWLClass()))
                     .collect(Collectors.toSet());
-            owlClassNodeSetToAdd.forEach(owlClassNode -> owlClassNodeSet.addAll(
-                    getSubClasses(owlClassNodeSet, owlClassNode.getRepresentativeElement())));
-            return owlClassNodeSet;
+            owlClassNodeSetToAdd.forEach(owlClassNode -> setOfSubClasses.addAll(
+                    getAllSubClasses(setOfSubClasses, owlClassNode.getRepresentativeElement())));
+            allSubClasses.put(owlClass, setOfSubClasses);
+            getLogger().debug(ALL_SUB_CLASSES, "Output = {}", setOfSubClasses.toString());
+            return setOfSubClasses;
         }
     }
 
     @Override
     public NodeSet<OWLClass> getSubClasses(OWLClassExpression owlClassExpression, boolean direct) {
+        getLogger().debug(SUB_CLASSES, "Input = {}", owlClassExpression.toString());
         if (direct) {
             Set<Node<OWLClass>> owlClassNodeSet = EntitySearcher
                     .getSubClasses(owlClassExpression.asOWLClass(), owlOntology.importsClosure())
+                    .filter(ce -> ce.isOWLClass())
                     .map(ce -> new OWLClassNode(ce.asOWLClass()))
                     .collect(Collectors.toSet());
-            return new OWLClassNodeSet(owlClassNodeSet);
+            getLogger().debug(SUB_CLASSES, "Output = {}", owlClassNodeSet.toString());
+            OWLClassNodeSet owlClassNodeSetInstance = new OWLClassNodeSet(owlClassNodeSet);
+            return owlClassNodeSetInstance;
         } else {
+            if (allSubClasses.containsKey(owlClassExpression.asOWLClass()))
+                return new OWLClassNodeSet(allSubClasses.get(owlClassExpression.asOWLClass()));
             Set<Node<OWLClass>> owlClassNodeSet = new HashSet<>();
-            owlClassNodeSet = getSubClasses(owlClassNodeSet, owlClassExpression.asOWLClass());
+            owlClassNodeSet = getAllSubClasses(owlClassNodeSet, owlClassExpression.asOWLClass());
+            getLogger().debug(SUB_CLASSES, "Output = {}", owlClassNodeSet.toString());
             return new OWLClassNodeSet(owlClassNodeSet);
         }
     }
 
-    private Set<Node<OWLClass>> getSuperClasses(Set<Node<OWLClass>> owlClassNodeSet, OWLClass owlClass) {
-        if (owlClassNodeSet.contains(owlClass)) {
-            return owlClassNodeSet;
+    private Set<Node<OWLClass>> getAllSuperClasses(Set<Node<OWLClass>> setOfSuperClasses, OWLClass owlClass) {
+        getLogger().debug(ALL_SUPER_CLASSES, "Input = ", owlClass.toString());
+        if (allSuperClasses.containsKey(owlClass))
+            return allSuperClasses.get(owlClass);
+
+        if (setOfSuperClasses.contains(owlClass)) {
+            getLogger().debug(ALL_SUPER_CLASSES, "Output = {}", setOfSuperClasses.toString());
+            allSuperClasses.put(owlClass, setOfSuperClasses);
+            return setOfSuperClasses;
         } else {
-            owlClassNodeSet.add(new OWLClassNode(owlClass));
+            setOfSuperClasses.add(new OWLClassNode(owlClass));
             Set<Node<OWLClass>> owlClassNodeSetToAdd = EntitySearcher
                     .getSuperClasses(owlClass, owlOntology.importsClosure())
+                    .filter(classExpression -> classExpression.isOWLClass())
                     .map(classExpression -> new OWLClassNode(classExpression.asOWLClass()))
                     .collect(Collectors.toSet());
-            owlClassNodeSetToAdd.forEach(owlClassNode -> owlClassNodeSet.addAll(
-                    getSuperClasses(owlClassNodeSet, owlClassNode.getRepresentativeElement())));
-            return owlClassNodeSet;
+            owlClassNodeSetToAdd.forEach(owlClassNode -> setOfSuperClasses.addAll(
+                    getAllSuperClasses(setOfSuperClasses, owlClassNode.getRepresentativeElement())));
+            allSuperClasses.put(owlClass, setOfSuperClasses);
+            getLogger().debug(ALL_SUPER_CLASSES, "Output = {}", setOfSuperClasses.toString());
+            return setOfSuperClasses;
         }
     }
 
     @Override
     public NodeSet<OWLClass> getSuperClasses(OWLClassExpression owlClassExpression, boolean direct) {
+        getLogger().debug(SUPER_CLASSES, "Input = {}", owlClassExpression.toString());
         if (direct) {
             Set<Node<OWLClass>> owlClassNodeSet = EntitySearcher
                     .getSuperClasses(owlClassExpression.asOWLClass(), owlOntology.importsClosure())
+                    .filter(ce -> ce.isOWLClass())
                     .map(ce -> new OWLClassNode(ce.asOWLClass()))
                     .collect(Collectors.toSet());
-            return new OWLClassNodeSet(owlClassNodeSet);
+            OWLClassNodeSet owlClassNodeSetInstance = new OWLClassNodeSet(owlClassNodeSet);
+            getLogger().debug(SUPER_CLASSES, "Output = {}", owlClassNodeSet.toString());
+            return owlClassNodeSetInstance;
         } else {
+            if (allSuperClasses.containsKey(owlClassExpression.asOWLClass()))
+                return new OWLClassNodeSet(allSuperClasses.get(owlClassExpression.asOWLClass()));
             Set<Node<OWLClass>> owlClassNodeSet = new HashSet<>();
-            owlClassNodeSet = getSuperClasses(owlClassNodeSet, owlClassExpression.asOWLClass());
+            owlClassNodeSet = getAllSuperClasses(owlClassNodeSet, owlClassExpression.asOWLClass());
+            allSuperClasses.put(owlClassExpression.asOWLClass(), owlClassNodeSet);
+            getLogger().debug(SUPER_CLASSES, "Output = {}", owlClassNodeSet.toString());
             return new OWLClassNodeSet(owlClassNodeSet);
         }
     }
 
     @Override
     public Node<OWLClass> getEquivalentClasses(OWLClassExpression owlClassExpression) {
+        getLogger().debug(EQUIVALENT_CLASSES, "Input = {}", owlClassExpression.toString());
         Set<OWLClass> owlClassSet = EntitySearcher
                 .getEquivalentClasses(owlClassExpression.asOWLClass(), owlOntology.importsClosure())
+                .filter(ce -> ce.isOWLClass())
                 .map(ce -> ce.asOWLClass())
                 .collect(Collectors.toSet());
+        getLogger().debug(EQUIVALENT_CLASSES, "Output = {}", owlClassSet.toString());
         return new OWLClassNode(owlClassSet);
     }
 
@@ -280,10 +330,13 @@ public class PseudoReasoner implements OWLReasoner {
 
     @Override
     public NodeSet<OWLClass> getTypes(OWLNamedIndividual ind, boolean direct) {
+        getLogger().debug("Input = {}", ind.toString());
         Set<Node<OWLClass>> owlClassNodeSet = EntitySearcher
                 .getTypes(ind, owlOntology.importsClosure())
+                .filter(classExpression -> classExpression.isOWLClass())
                 .map(classExpression -> new OWLClassNode(classExpression.asOWLClass()))
                 .collect(Collectors.toSet());
+        getLogger().debug("Output = {}", owlClassNodeSet.toString());
         return new OWLClassNodeSet(owlClassNodeSet);
     }
 
@@ -295,14 +348,16 @@ public class PseudoReasoner implements OWLReasoner {
     @Override
     public NodeSet<OWLNamedIndividual> getObjectPropertyValues(OWLNamedIndividual owlNamedIndividual,
                                                                OWLObjectPropertyExpression owlObjectPropertyExpression) {
+        getLogger().debug("Input = {}" , owlNamedIndividual.toString());
         Collection<OWLIndividual> owlIndividuals = EntitySearcher
                 .getObjectPropertyValues(owlNamedIndividual, owlOntology.importsClosure())
                 .values();
         Set<Node<OWLNamedIndividual>> owlNamedIndividualNodeSet = new HashSet();
         for (OWLIndividual owlIndividual: owlIndividuals) {
-            owlNamedIndividualNodeSet.add(new OWLNamedIndividualNode(owlIndividual.asOWLNamedIndividual()));
+            if (owlIndividual.isOWLNamedIndividual())
+                owlNamedIndividualNodeSet.add(new OWLNamedIndividualNode(owlIndividual.asOWLNamedIndividual()));
         }
-
+        getLogger().debug("Output = {}"  + owlNamedIndividualNodeSet.toString());
         return new OWLNamedIndividualNodeSet(owlNamedIndividualNodeSet);
     }
 
