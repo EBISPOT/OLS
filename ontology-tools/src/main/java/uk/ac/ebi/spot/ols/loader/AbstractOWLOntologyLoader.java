@@ -1105,6 +1105,11 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     protected Optional<String> extractShortForm(IRI entityIRI) {
         getLogger().trace("Attempting to extract fragment name of IRI '" + entityIRI + "'");
 
+        // special case for URN schemes: https://www.w3.org/Addressing/URL/URI_URN.html
+        if(entityIRI.toString().startsWith("urn:")) {
+            return Optional.of(entityIRI.toString().substring(4));
+        }
+
         // oput in try block to catch any URL exceptins
         try {
             if (!StringUtils.isEmpty(entityIRI.toURI().getFragment())) {
