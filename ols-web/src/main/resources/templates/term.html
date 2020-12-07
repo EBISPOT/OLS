@@ -473,9 +473,10 @@
                 $(this).text("");
                 var link = $('<a/>');
                 link.attr('href', value);
-                link.attr('text', value);
+                link.text(value)
                 link.attr('class', "icon icon-generic");
                 link.attr('data-ico', "x");
+                $(this).append(link);
             }
         });
 
