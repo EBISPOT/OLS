@@ -147,13 +147,14 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
             ReasonerType type = ReasonerType.valueOf(reasonerType.toUpperCase());
             if (type == null) {
                 log.warn("Unknown reasoner type, defaulting to structural reasoner " + reasonerType);
+                builder.setReasonerType(ReasonerType.NONE);
             }
             else  {
                 builder.setReasonerType(type);
             }
         }
         else if (isObo) {
-            builder.setReasonerType(ReasonerType.EL);
+            builder.setReasonerType(ReasonerType.NONE);
         }
     }
 
