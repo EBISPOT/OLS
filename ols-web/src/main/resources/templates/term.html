@@ -152,9 +152,9 @@
                         [
                         <span th:each="oboXref : ${definitionCitation.getOboXrefs()}">
                             <a th:if="${oboXref.getUrl() != null}" target="_blank" th:href="${oboXref.getUrl()}" th:text="${oboXref.getUrl()}"></a>
-                            <!--span th:if="${oboXref.getDatabase() != null and oboXref.getUrl() == null}" th:text="${oboXref.getDatabase()}"></span-->
-                            <!--span th:if="${oboXref.getId() != null and oboXref.getDatabase() != null and oboXref.getUrl() == null}">:</span-->
-                            <!--span th:if="${oboXref.getId() != null and oboXref.getUrl() == null}" th:text="${oboXref.getId()}"></span-->
+                            <span th:if="${oboXref.getDatabase() != null and oboXref.getUrl() == null}" th:text="${oboXref.getDatabase()}"></span><!--
+                            --><span th:if="${oboXref.getId() != null and oboXref.getDatabase() != null and oboXref.getUrl() == null}">:</span><!--
+                            --><span th:if="${oboXref.getId() != null and oboXref.getUrl() == null}" th:text="${oboXref.getId()}"></span>
                             <span th:if="${oboXref.getDescription() != null}" th:text="'(' + ${oboXref.getDescription()} + ')'"></span>
                         </span>
                         ]
@@ -473,9 +473,10 @@
                 $(this).text("");
                 var link = $('<a/>');
                 link.attr('href', value);
-                link.attr('text', value);
+                link.text(value)
                 link.attr('class', "icon icon-generic");
                 link.attr('data-ico', "x");
+                $(this).append(link);
             }
         });
 
