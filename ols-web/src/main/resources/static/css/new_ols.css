@@ -657,4 +657,7 @@ a + a > .ontology-source-valign {
 .toggle-hide {
   display: none; }
 
+#docs-content h1 {
+  color: black !important; }
+
 /*# sourceMappingURL=new_ols.css.map */

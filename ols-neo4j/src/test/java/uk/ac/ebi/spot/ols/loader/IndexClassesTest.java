@@ -44,6 +44,7 @@ import org.neo4j.graphdb.Node;
 import uk.ac.ebi.spot.ols.config.OntologyLoadingConfiguration;
 import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
 import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
+import uk.ac.ebi.spot.ols.util.LocalizedStrings;
 
 @Tag("integrationTest")
 @TestMethodOrder(OrderAnnotation.class)

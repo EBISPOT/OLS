@@ -53,40 +53,40 @@ public class OWLOntologyLoaderEFOTest {
             System.out.println(iri + " -> accession: " + loader.getShortForm(iri));
             System.out.println(iri + " -> oboid: " + loader.getOboId(iri));
 
-            if (loader.getTermSynonyms().containsKey(iri)) {
-                for (String syns : loader.getTermSynonyms().get(iri)) {
-                    System.out.println(iri + " -> synonyms: " + syns);
-                }
-            }
-            if (loader.getTermDefinitions().containsKey(iri)) {
-                for (String syns : loader.getTermDefinitions().get(iri)) {
-                    System.out.println(iri + " -> definition: " + syns);
-                }
-            }
+            // if (loader.getTermSynonyms().containsKey(iri)) {
+            //     for (String syns : loader.getTermSynonyms().get(iri)) {
+            //         System.out.println(iri + " -> synonyms: " + syns);
+            //     }
+            // }
+            // if (loader.getTermDefinitions().containsKey(iri)) {
+            //     for (String syns : loader.getTermDefinitions().get(iri)) {
+            //         System.out.println(iri + " -> definition: " + syns);
+            //     }
+            // }
 
-            if (!loader.getAnnotations(iri).isEmpty())    {
-                for (IRI propertyIri : loader.getAnnotations(iri).keySet()  ) {
-                    for (String relatedTerm : loader.getAnnotations(iri).get(propertyIri)) {
-                        System.out.println(iri + " -> " + loader.getTermLabels().get(propertyIri) + " : " + relatedTerm);
-                    }
+            // if (!loader.getAnnotations(iri).isEmpty())    {
+            //     for (IRI propertyIri : loader.getAnnotations(iri).keySet()  ) {
+            //         for (String relatedTerm : loader.getAnnotations(iri).get(propertyIri)) {
+            //             System.out.println(iri + " -> " + loader.getTermLabels().get(propertyIri) + " : " + relatedTerm);
+            //         }
 
-                }
-            }
+            //     }
+            // }
 
-            if (!loader.getRelatedTerms(iri).isEmpty())    {
-                for (IRI propertyIri : loader.getRelatedTerms(iri).keySet()  ) {
-                    for (IRI relatedTerm : loader.getRelatedTerms(iri).get(propertyIri)) {
-                        System.out.println(iri + " -> " + loader.getTermLabels().get(propertyIri) + " : " + loader.getTermLabels().get(relatedTerm));
-                    }
+            // if (!loader.getRelatedTerms(iri).isEmpty())    {
+            //     for (IRI propertyIri : loader.getRelatedTerms(iri).keySet()  ) {
+            //         for (IRI relatedTerm : loader.getRelatedTerms(iri).get(propertyIri)) {
+            //             System.out.println(iri + " -> " + loader.getTermLabels().get(propertyIri) + " : " + loader.getTermLabels().get(relatedTerm));
+            //         }
 
-                }
-            }
+            //     }
+            // }
 
-            if (loader.getLogicalSuperClassDescriptions().containsKey(iri)) {
-                for (String desc : loader.getLogicalSuperClassDescriptions().get(iri)) {
-                    System.out.println(iri + " -> " + desc);
-                }
-            }
+            // if (loader.getLogicalSuperClassDescriptions().containsKey(iri)) {
+            //     for (String desc : loader.getLogicalSuperClassDescriptions().get(iri)) {
+            //         System.out.println(iri + " -> " + desc);
+            //     }
+            // }
 
 
         }

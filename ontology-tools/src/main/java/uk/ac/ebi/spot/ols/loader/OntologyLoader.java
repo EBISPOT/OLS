@@ -8,6 +8,8 @@ package uk.ac.ebi.spot.ols.loader;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.springframework.core.io.Resource;
+
+import uk.ac.ebi.spot.ols.util.LocalizedStrings;
 import uk.ac.ebi.spot.ols.util.OBODefinitionCitation;
 import uk.ac.ebi.spot.ols.util.OBOSynonym;
 import uk.ac.ebi.spot.ols.util.OBOXref;
@@ -90,16 +92,16 @@ public interface OntologyLoader {
      * Returns a mapping between the IRIs that identify classes in the loaded ontology and the 
      * corresponding class rdfs:label.
      *
-     * @return the class labels in this ontology, indexed by class IRI
+     * @return the class labels in this ontology, indexed by class IRI and then language
      */
-    Map<IRI, String> getTermLabels();
+    Map<IRI, LocalizedStrings> getTermLabels();
 
     /**
      * Get all synonyms for a given IRI
      *
-     * @return the class labels in this ontology, indexed by class IRI
+     * @return the class labels in this ontology, indexed by class IRI and then language
      */
-    Map<IRI, Collection<String>> getTermSynonyms();
+    Map<IRI, LocalizedStrings> getTermSynonyms();
 
     /**
      * Returns the class "accession" - or a user friendly 'short name' or identifier.  This will normally be the IRI
@@ -122,7 +124,7 @@ public interface OntologyLoader {
 
     String getTermReplacedBy(IRI entityIRI);
 
-    Map<IRI, Collection<String>> getAnnotations(IRI entityIRI);
+    Map<IRI, LocalizedStrings> getAnnotations(IRI entityIRI);
 
     Collection<OBODefinitionCitation> getOBODefinitionCitations(IRI entityIRI);
 
@@ -135,7 +137,7 @@ public interface OntologyLoader {
      * Get a map of IRI definitions
      * @return definitionProperty A collection of definition IRIs used in the ontology
      */
-    Map<IRI, Collection<String>> getTermDefinitions();
+    Map<IRI, LocalizedStrings> getTermDefinitions();
 
     Map<IRI, Collection<IRI>> getDirectParentTerms();
     Collection<IRI> getDirectParentTerms(IRI iri);
@@ -149,23 +151,16 @@ public interface OntologyLoader {
 
     Collection<String> getInternalMetadataProperties ();
 
-    /**
-     * Get a map of ontology annotations
-     * @return annotation a map of ontology annotations
-     */
     String getTitle();
+    Map<String,String> getLocalizedTitles();
+    String getDescription();
+    Map<String,String> getLocalizedDescriptions();
 
     /**
      * Get a map of the ontology annotation. The key is the label or short form of the annotation predicate.
      * @return
      */
     Map<String, Collection<String>> getOntologyAnnotations();
-
-    /**
-     * Get the long description of this ontology
-     * @return
-     */
-    String getOntologyDescription();
 
     /**
      * Get the ontology homepage

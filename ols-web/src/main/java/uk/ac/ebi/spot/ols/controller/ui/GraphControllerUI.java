@@ -21,6 +21,7 @@ import uk.ac.ebi.spot.ols.service.OntologyRepositoryService;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -94,7 +95,7 @@ public class GraphControllerUI {
 
                 term.setShortForm("TestShortForm");
                 term.setOntologyName("Test");
-                term.setLabel("TestLabel");
+                term.setLabels("en-US", new HashSet<String>(Arrays.asList("TestLabel")));
                 term.setIri("Testroot");
                 //term.setOntologyPrefix("Testprefix"); //doesn't exist, set method has to be written
 

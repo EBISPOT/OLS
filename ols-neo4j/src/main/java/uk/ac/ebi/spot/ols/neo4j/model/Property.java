@@ -32,17 +32,9 @@ public class Property {
     @JsonProperty(value = "iri")
     private String iri;
 
-    @GraphProperty(propertyName="label")
-    @JsonProperty(value = "label")
-    private String label;
-
-    @GraphProperty(propertyName="synonym")
-    @JsonProperty(value = "synonym")
-    private Set<String> synonym;
-
-    @GraphProperty(propertyName="description")
-    @JsonProperty(value = "description")
-    private Set<String> description;
+    private DynamicProperties labels = new DynamicPropertiesContainer();
+    private DynamicProperties synonyms = new DynamicPropertiesContainer();
+    private DynamicProperties descriptions = new DynamicPropertiesContainer();
 
     @GraphProperty(propertyName="ontology_name")
     @JsonProperty(value = "ontology_name")
@@ -90,16 +82,16 @@ public class Property {
         return iri;
     }
 
-    public String getLabel() {
-        return label;
+    public Map<String, Object> getLabels() {
+        return labels.asMap();
     }
 
-    public Set<String> getSynonyms() {
-        return synonym;
+    public Map<String, Object> getSynonyms() {
+        return synonyms.asMap();
     }
 
-    public Set<String> getDescription() {
-        return description;
+    public Map<String, Object> getDescriptions() {
+        return descriptions.asMap();
     }
 
     @JsonProperty(value = "ontology_name")

@@ -3,17 +3,19 @@ package uk.ac.ebi.spot.ols.model;
 import java.io.*;
 import java.util.*;
 
+import uk.ac.ebi.spot.ols.util.LocalizedStrings;
+
 public class TermDocumentBuilder {
     private String id;
     private String uri;
     private int uri_key;
-    private String label;
-    private List<String> synonyms = new ArrayList<>();
-    private List<String> description = new ArrayList<>();
+    private Map<String,String> labels;
+    private LocalizedStrings synonyms;
+    private LocalizedStrings descriptions;
     private String shortForm;
     private String oboId;
     private String ontologyName;
-    private String ontologyTitle;
+    private Map<String, String> ontologyTitles;
     private String ontologyPrefix;
     private String ontologyUri;
     private String type;
@@ -50,18 +52,18 @@ public class TermDocumentBuilder {
         return this;
     }
 
-    public TermDocumentBuilder setLabel(String label) {
-        this.label = label;
+    public TermDocumentBuilder setLabels(Map<String,String> labels) {
+        this.labels = labels;
         return this;
     }
 
-    public TermDocumentBuilder setSynonyms(Collection<String> synonyms) {
-        this.synonyms = new ArrayList<>(synonyms);
+    public TermDocumentBuilder setSynonyms(LocalizedStrings synonyms) {
+        this.synonyms = synonyms;
         return this;
     }
 
-    public TermDocumentBuilder setDescription(Collection<String> description) {
-        this.description = new ArrayList<>(description);
+    public TermDocumentBuilder setDescriptions(LocalizedStrings descriptions) {
+        this.descriptions = descriptions;
         return this;
     }
 
@@ -80,8 +82,8 @@ public class TermDocumentBuilder {
         return this;
     }
 
-    public TermDocumentBuilder setOntologyTitle(String ontologyTitle) {
-        this.ontologyTitle = ontologyTitle;
+    public TermDocumentBuilder setOntologyTitles(Map<String,String> ontologyTitles) {
+        this.ontologyTitles = ontologyTitles;
         return this;
     }
 
@@ -186,37 +188,55 @@ public class TermDocumentBuilder {
 		return this;
 	}
 
-	public TermDocument createTermDocument() {
-        return new TermDocument(
-                id,
-                uri,
-                uri_key,
-                label,
-                synonyms,
-                description,
-                shortForm,
-                oboId,
-                ontologyName,
-                ontologyTitle,
-                ontologyPrefix,
-                ontologyUri,
-                type,
-                isDefiningOntology,
-                subsets,
-                isObsolete,
-                hasChildren,
-                isRoot,
-                equivalentUris,
-                logicalDescription,
-                annotation,
-                parents,
-                ancestors,
-                children,
-                descendants,
-                hierarchical_parents,
-                hierarchical_ancestors,
-                relatedTerms,
-                isPreferredRoot
-                );
+	public Collection<TermDocument> createTermDocuments() {
+
+        Set<String> languages = new HashSet<>();
+
+        languages.addAll(labels.keySet());
+        languages.addAll(ontologyTitles.keySet());
+        languages.addAll(synonyms.getLanguages());
+        languages.addAll(descriptions.getLanguages());
+
+        List<TermDocument> docs = new ArrayList<>();
+
+        for(String lang : languages) {
+
+            docs.add(
+                new TermDocument(
+                    id,
+                    uri,
+                    lang,
+                    uri_key,
+                    labels.get(lang),
+                    synonyms.getStrings(lang),
+                    descriptions.getStrings(lang),
+                    shortForm,
+                    oboId,
+                    ontologyName,
+                    ontologyTitles.get(lang),
+                    ontologyPrefix,
+                    ontologyUri,
+                    type,
+                    isDefiningOntology,
+                    subsets,
+                    isObsolete,
+                    hasChildren,
+                    isRoot,
+                    equivalentUris,
+                    logicalDescription,
+                    annotation,
+                    parents,
+                    ancestors,
+                    children,
+                    descendants,
+                    hierarchical_parents,
+                    hierarchical_ancestors,
+                    relatedTerms,
+                    isPreferredRoot
+                    )
+            );
+        }
+
+        return docs;
     }
 }

@@ -22,6 +22,9 @@ public class TermDocument {
     @Field("iri")
     private String uri;
 
+    @Field("language")
+    private String language;
+
     @JsonIgnore
     @Field("iri_key")
     private int uri_key;
@@ -118,6 +121,7 @@ public class TermDocument {
     public TermDocument(
             String id,
             String uri,
+            String language,
             int uri_key,
             String label,
             List<String> synonym,
@@ -148,6 +152,7 @@ public class TermDocument {
            ) {
         this.id = id;
         this.uri = uri;
+        this.language = language;
         this.uri_key = uri_key;
         this.label = label;
         this.synonym = synonym;

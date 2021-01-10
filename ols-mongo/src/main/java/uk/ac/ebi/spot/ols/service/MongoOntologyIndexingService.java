@@ -120,8 +120,14 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             if (loader.getTitle() != null) {
                 config.setTitle(loader.getTitle());
             }
-            if (loader.getOntologyDescription() != null) {
-                config.setDescription(loader.getOntologyDescription());
+            if (loader.getLocalizedTitles() != null) {
+                config.setLocalizedTitles(loader.getLocalizedTitles());
+            }
+            if (loader.getDescription() != null) {
+                config.setDescription(loader.getDescription());
+            }
+            if (loader.getLocalizedDescriptions() != null) {
+                config.setLocalizedDescriptions(loader.getLocalizedDescriptions());
             }
             if (loader.getHomePage() != null) {
                 config.setHomepage(loader.getHomePage());

@@ -78,6 +78,8 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
             populateCreator(builder);
             populatePreferredRootTerms(builder);
             populateAllowDownload(builder);
+            populateLocalizedTitles(builder);
+            populateLocalizedDescriptions(builder);
 
             return builder.build();
         }
@@ -263,6 +265,18 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
             builder.setAllowDownload((boolean) ontology.get(ALLOW_DOWNLOAD.getPropertyName()));
         } else {
             builder.setAllowDownload(true);
+        }
+    }
+
+    private void populateLocalizedTitles(OntologyResourceConfig.OntologyResourceConfigBuilder builder) {
+        if (ontology.containsKey(OntologyResourceConfigEnum.LOCALIZED_TITLES.getPropertyName()))  {
+            builder.setLocalizedTitles((Map<String,String>)ontology.get(LOCALIZED_TITLES.getPropertyName()));
+        }
+    }
+
+    private void populateLocalizedDescriptions(OntologyResourceConfig.OntologyResourceConfigBuilder builder) {
+        if (ontology.containsKey(OntologyResourceConfigEnum.LOCALIZED_DESCRIPTIONS.getPropertyName()))  {
+            builder.setLocalizedDescriptions((Map<String,String>)ontology.get(LOCALIZED_DESCRIPTIONS.getPropertyName()));
         }
     }
 }

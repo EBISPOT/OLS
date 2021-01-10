@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import uk.ac.ebi.spot.ols.util.LocalizedStrings;
 import uk.ac.ebi.spot.ols.util.OBODefinitionCitation;
 import uk.ac.ebi.spot.ols.util.OBOSynonym;
 import uk.ac.ebi.spot.ols.util.OBOXref;
@@ -178,12 +179,15 @@ class NodeCreator {
 
 	protected static void addAnnotationPropertiesConditionally(OntologyLoader loader, IRI classIri,
 			Map<String, Object> nodeProperties) {
-		Map<IRI, Collection<String>> annotations = loader.getAnnotations(classIri);
+		Map<IRI, LocalizedStrings> annotations = loader.getAnnotations(classIri);
 		if (!annotations.isEmpty()) {
 		    for (IRI keys : annotations.keySet()) {
-		        String annotationLabel = loader.getTermLabels().get(keys);
-		        String [] value = annotations.get(keys).toArray(new String [annotations.get(keys).size()]);
-		        nodeProperties.put(ANNOTATION_DESIGNATION + annotationLabel, value);
+		        LocalizedStrings annotationLabels = loader.getTermLabels().get(keys);
+                for(String language : annotationLabels.getLanguages()) {
+                    Collection<String> labels = annotationLabels.getStrings(language);
+                    String [] value = labels.toArray(new String [labels.size()]);
+                    nodeProperties.put(ANNOTATION_DESIGNATION + language + "-" + labels, value);
+                }
 		    }
 		}
 	}
@@ -211,9 +215,13 @@ class NodeCreator {
 	protected static void addDescriptionPropertyConditionally(OntologyLoader loader, IRI classIri,
 			Map<String, Object> nodeProperties) {
 		if (loader.getTermDefinitions().containsKey(classIri)) {
-		    String [] definition = loader.getTermDefinitions().get(classIri)
-		    		.toArray(new String [loader.getTermDefinitions().get(classIri).size()]);
-		    nodeProperties.put(DESCRIPTION, definition);
+            LocalizedStrings definitions = loader.getTermDefinitions().get(classIri);
+            for(String language : definitions.getLanguages()) {
+                Collection<String> values = definitions.getStrings(language);
+                for(String value : values) {
+                    nodeProperties.put(DESCRIPTION + "-" + language, value);
+                }
+            }
 		}
 	}
 
@@ -229,9 +237,13 @@ class NodeCreator {
 	protected static void addSynonymsPropertyConditionally(OntologyLoader loader, IRI classIri,
 			Map<String, Object> nodeProperties) {
 		if (loader.getTermSynonyms().containsKey(classIri)) {
-		    String [] synonyms = loader.getTermSynonyms().get(classIri).
-		    		toArray(new String [loader.getTermSynonyms().get(classIri).size()]);
-		    nodeProperties.put(SYNONYM, synonyms);
+            LocalizedStrings synonyms = loader.getTermSynonyms().get(classIri);
+            for(String language : synonyms.getLanguages()) {
+                String [] values = synonyms.getStrings(language).toArray(new String[synonyms.getStrings(language).size()]);
+                for(String synonym : values) {
+                    nodeProperties.put(SYNONYM + "-" + language, synonym);
+                }
+            }
 		}
 	}
 

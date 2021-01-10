@@ -57,14 +57,9 @@ public class Term {
     @GraphProperty(propertyName=IRI)
     private String iri;
 
-    @GraphProperty(propertyName=LABEL)
-    private String label;
-
-    @GraphProperty(propertyName=SYNONYM)
-    private Set<String> synonym;
-
-    @GraphProperty(propertyName=DESCRIPTION)
-    private Set<String> description;
+    private DynamicProperties labels = new DynamicPropertiesContainer();
+    private DynamicProperties synonyms = new DynamicPropertiesContainer();
+    private DynamicProperties descriptions = new DynamicPropertiesContainer();
 
     @GraphProperty(propertyName=ONTOLOGY_NAME)
     @JsonProperty(value = ONTOLOGY_NAME)
@@ -164,8 +159,8 @@ public class Term {
         return id;
     }
 
-    public void setLabel(String label) {
-        this.label = label;
+    public void setLabels(String lang, Set<String> labels) {
+        this.labels.setProperty(lang, labels);
     }
 
     public void setIri(String iri) {
@@ -176,20 +171,20 @@ public class Term {
         return iri;
     }
 
-    public String getLabel() {
-        return label;
-    }
-
     public String getOlsId() {
         return olsId;
     }
 
-    public Set<String> getSynonyms() {
-        return synonym;
+    public Map<String, Object> getLabels() {
+        return labels.asMap();
     }
 
-    public Set<String> getDescription() {
-        return description;
+    public Map<String, Object> getSynonyms() {
+        return synonyms.asMap();
+    }
+
+    public Map<String, Object> getDescriptions() {
+        return descriptions.asMap();
     }
 
     public String getOntologyName() {
@@ -204,13 +199,13 @@ public class Term {
         return ontologyIri;
     }
 
-    public void setDescription(Set<String> description) {
-        this.description = description;
-    }
+    // public void setDescription(Set<String> description) {
+    //     this.description = description;
+    // }
 
-    public void setSynonyms(Set<String> synonyms) {
-        this.synonym = synonyms;
-    }
+    // public void setSynonyms(Set<String> synonyms) {
+    //     this.synonym = synonyms;
+    // }
 
     public void setOntologyName(String ontologyName) {
         this.ontologyName = ontologyName;
