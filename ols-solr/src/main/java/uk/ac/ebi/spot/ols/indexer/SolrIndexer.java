@@ -1,5 +1,6 @@
 package uk.ac.ebi.spot.ols.indexer;
 
+import org.mockito.internal.debugging.Localized;
 import org.semanticweb.owlapi.model.IRI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ import uk.ac.ebi.spot.ols.loader.OntologyLoader;
 import uk.ac.ebi.spot.ols.model.SuggestDocument;
 import uk.ac.ebi.spot.ols.model.TermDocument;
 import uk.ac.ebi.spot.ols.model.TermDocumentBuilder;
+import uk.ac.ebi.spot.ols.util.LocalizedStrings;
 import uk.ac.ebi.spot.ols.util.TermType;
 import uk.ac.ebi.spot.ols.model.OntologyIndexer;
 
@@ -67,12 +69,12 @@ public class SolrIndexer implements OntologyIndexer {
             for (IRI classTerm : loader.getAllClasses()) {
                 getLog().trace("solr indexing " + classTerm.toString());
 
-                TermDocumentBuilder builder = extractFeatures(loader, classTerm);
+                TermDocumentBuilder builder = extractTermFeatures(loader, classTerm);
                 builder.setType(TermType.CLASS.toString().toLowerCase());
                 builder.setId(generateId(loader.getOntologyName(), "class", classTerm.toString()));
                 builder.setUri_key(generateAnnotationId(loader.getOntologyName() + classTerm.toString() + "class").hashCode());
 
-                documents.add(builder.createTermDocument());
+                documents.addAll(builder.createTermDocuments());
 
                 if (documents.size() == 10000) {
                     getLog().debug("Max reached - indexing terms");
@@ -81,51 +83,68 @@ public class SolrIndexer implements OntologyIndexer {
                 }
 
                 // get labels and synonyms for suggest index
-                suggestDocuments.add(new SuggestDocument(loader.getTermLabels().get(classTerm), loader.getOntologyName()));
-                if (loader.getTermSynonyms().containsKey(classTerm)) {
-                    for (String syn : loader.getTermSynonyms().get(classTerm)) {
-                        suggestDocuments.add(new SuggestDocument(syn, loader.getOntologyName()));
+                LocalizedStrings labels = loader.getTermLabels().get(classTerm);
+                if(labels != null) {
+                    for (String language : labels.getLanguages()) {
+                        Collection<String> labelStrings = labels.getStrings(language);
+                        for (String label : labelStrings) {
+                            suggestDocuments.add(new SuggestDocument(label, loader.getOntologyName(), language));
+                            if (suggestDocuments.size() > 10000) {
+                                indexSuggest(suggestDocuments);
+                                suggestDocuments = new ArrayList<>();
+                            }
+                        }
                     }
                 }
-                if (suggestDocuments.size() > 10000) {
-                    indexSuggest(suggestDocuments);
-                    suggestDocuments = new ArrayList<>();
+
+                LocalizedStrings synonyms = loader.getTermSynonyms().get(classTerm);
+                if(synonyms != null) {
+                    for (String language : synonyms.getLanguages()) {
+                        Collection<String> synonymStrings = synonyms.getStrings(language);
+                        for (String synonym : synonymStrings) {
+                            suggestDocuments.add(new SuggestDocument(synonym, loader.getOntologyName(), language));
+                            if (suggestDocuments.size() > 10000) {
+                                indexSuggest(suggestDocuments);
+                                suggestDocuments = new ArrayList<>();
+                            }
+                        }
+                    }
                 }
 
             }
 
             for (IRI classTerm : loader.getAllObjectPropertyIRIs()) {
-                TermDocumentBuilder builder = extractFeatures(loader, classTerm);
+                TermDocumentBuilder builder = extractTermFeatures(loader, classTerm);
                 builder.setType(TermType.PROPERTY.toString().toLowerCase());
                 builder.setId(generateId(loader.getOntologyName(), "property", classTerm.toString()));
                 builder.setUri_key(generateAnnotationId(loader.getOntologyName() + classTerm.toString() + "property").hashCode());
 
-                documents.add(builder.createTermDocument());
+                documents.addAll(builder.createTermDocuments());
             }
 
             for (IRI classTerm : loader.getAllDataPropertyIRIs()) {
-                TermDocumentBuilder builder = extractFeatures(loader, classTerm);
+                TermDocumentBuilder builder = extractTermFeatures(loader, classTerm);
                 builder.setType(TermType.PROPERTY.toString().toLowerCase());
                 builder.setId(generateId(loader.getOntologyName(), "property", classTerm.toString()));
                 builder.setUri_key(generateAnnotationId(loader.getOntologyName() + classTerm.toString() + "property").hashCode());
 
-                documents.add(builder.createTermDocument());
+                documents.addAll(builder.createTermDocuments());
             }
 
             for (IRI classTerm : loader.getAllAnnotationPropertyIRIs()) {
-                TermDocumentBuilder builder = extractFeatures(loader, classTerm);
+                TermDocumentBuilder builder = extractTermFeatures(loader, classTerm);
                 builder.setType(TermType.PROPERTY.toString().toLowerCase());
                 builder.setId(generateId(loader.getOntologyName(), "property", classTerm.toString()));
                 builder.setUri_key(generateAnnotationId(loader.getOntologyName() + classTerm.toString() + "property").hashCode());
-                documents.add(builder.createTermDocument());
+                documents.addAll(builder.createTermDocuments());
             }
 
             for (IRI classTerm : loader.getAllIndividualIRIs()) {
-                TermDocumentBuilder builder = extractFeatures(loader, classTerm);
+                TermDocumentBuilder builder = extractTermFeatures(loader, classTerm);
                 builder.setType(TermType.INDIVIDUAL.toString().toLowerCase());
                 builder.setId(generateId(loader.getOntologyName(), "individual", classTerm.toString()));
                 builder.setUri_key(generateAnnotationId(loader.getOntologyName() + classTerm.toString() + "individual").hashCode());
-                documents.add(builder.createTermDocument());
+                documents.addAll(builder.createTermDocuments());
 
 
                 if (documents.size() == 10000) {
@@ -136,8 +155,8 @@ public class SolrIndexer implements OntologyIndexer {
             }
 
             // index ontology meta data
-            TermDocumentBuilder builder = extractOntologyFeature(loader);
-            documents.add(builder.createTermDocument());
+            TermDocumentBuilder builder = extractOntologyFeatures(loader);
+            documents.addAll(builder.createTermDocuments());
 
 
             long endTime = System.currentTimeMillis();
@@ -216,18 +235,18 @@ public class SolrIndexer implements OntologyIndexer {
         }
     }
 
-    private TermDocumentBuilder extractOntologyFeature (OntologyLoader loader) {
+    private TermDocumentBuilder extractOntologyFeatures(OntologyLoader loader) {
 
         TermDocumentBuilder builder = new TermDocumentBuilder();
         builder.setOntologyName(loader.getOntologyName())
-                .setOntologyTitle(loader.getTitle())
                 .setOntologyPrefix(loader.getPreferredPrefix())
                 .setOntologyUri(loader.getOntologyIRI().toString())
+                .setDescriptions(new LocalizedStrings(loader.getLocalizedDescriptions()))
+                .setOntologyTitles(loader.getLocalizedTitles())
+                .setLabels(new LocalizedStrings(loader.getLocalizedTitles()))
                 .setId(generateOntologyId(loader.getOntologyName(), ""))
                 .setUri(loader.getOntologyIRI().toString())
                 .setUri_key(generateAnnotationId(loader.getOntologyName()).hashCode())
-                .setLabel(loader.getTitle())
-                .setDescription(Collections.singleton(loader.getOntologyDescription()))
                 .setShortForm(loader.getOntologyName())
                 .setType("ontology");
 
@@ -235,14 +254,14 @@ public class SolrIndexer implements OntologyIndexer {
 
     }
 
-    private TermDocumentBuilder extractFeatures(OntologyLoader loader, IRI termIRI) {
+    private TermDocumentBuilder extractTermFeatures(OntologyLoader loader, IRI termIRI) {
 
         TermDocumentBuilder builder = new TermDocumentBuilder();
 
         builder.setOntologyName(loader.getOntologyName())
-                .setOntologyTitle(loader.getTitle())
                 .setOntologyPrefix(loader.getPreferredPrefix())
                 .setOntologyUri(loader.getOntologyIRI().toString())
+                .setOntologyTitles(loader.getLocalizedTitles())
                 .setUri(termIRI.toString())
                 .setIsDefiningOntology(loader.isLocalTerm(termIRI))
                 .setIsObsolete(loader.isObsoleteTerm(termIRI))
@@ -252,35 +271,68 @@ public class SolrIndexer implements OntologyIndexer {
                 .setSubsets(new ArrayList<>(loader.getSubsets(termIRI)));
 
         if (!loader.getTermLabels().containsKey(termIRI)) {
-            builder.setLabel(loader.getShortForm(termIRI));
+            LocalizedStrings languageToLabels = new LocalizedStrings();
+            languageToLabels.addString("en", loader.getShortForm(termIRI));
+            builder.setLabels(languageToLabels);
         }
         else  {
-            builder.setLabel(loader.getTermLabels().get(termIRI));
+            builder.setLabels(loader.getTermLabels().get(termIRI));
         }
 
 
         // index all annotations
         if (!loader.getAnnotations(termIRI).isEmpty()) {
-            Map<String, Collection<String>> relatedTerms = new HashMap<>();
 
-            for (IRI relation : loader.getAnnotations(termIRI).keySet()) {
-                String labelName = loader.getTermLabels().get(relation) + "_annotation";
-                if (!relatedTerms.containsKey(labelName)) {
-                    relatedTerms.put(labelName, new HashSet<>());
+            // Map<language, Map<key, value>>
+            Map<String, Map<String, List<String>>> relatedTerms = new HashMap<>();
+            
+            Map<IRI, LocalizedStrings> annotations = loader.getAnnotations(termIRI);
+
+            for (IRI relation : annotations.keySet()) {
+
+                LocalizedStrings annos = annotations.get(relation);
+
+                for(String lang : annos.getLanguages()) {
+
+                    Map<String,List<String>> related = relatedTerms.get(lang);
+
+                    if (related == null) {
+                        related = new HashMap<>();
+                        relatedTerms.put(lang, related);
+                    }
+
+                    LocalizedStrings labels = loader.getTermLabels().get(relation);
+
+                    String label = labels.getFirstString(lang);
+
+                    if(label == null)
+                        label = labels.getFirstString("en");
+
+                    String labelName = label + "_annotation";
+
+                    List<String> values = related.get(labelName);
+
+                    if(values == null) {
+                        values = new ArrayList<String>();
+                        related.put(labelName, values);
+                    }
+
+                    values.addAll(loader.getAnnotations(termIRI).get(relation).getStrings(lang));
                 }
-                relatedTerms.get(labelName).addAll(
-                        loader.getAnnotations(termIRI).get(relation));
 
             }
-            builder.setAnnotation(relatedTerms);
+
+            builder.setAnnotations(relatedTerms);
         }
 
         if (loader.getTermSynonyms().containsKey(termIRI)) {
-            builder.setSynonyms(loader.getTermSynonyms().get(termIRI));
+            LocalizedStrings languageToSynonyms = loader.getTermSynonyms().get(termIRI);
+
+            //builder.setSynonyms(loader.getTermSynonyms().get(termIRI));
         }
 
         if (loader.getTermDefinitions().containsKey(termIRI)) {
-            builder.setDescription(loader.getTermDefinitions().get(termIRI));
+            builder.setDescriptions(loader.getTermDefinitions().get(termIRI));
         }
 
         Collection<String> directParentTerms = new HashSet<>();

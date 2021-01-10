@@ -144,15 +144,15 @@ public class LoadingApplication implements CommandLineRunner {
             for (String ontologyName : forcedOntologies) {
                 OntologyDocument document = ontologyRepositoryService.get(ontologyName);
                 if (document != null) {
-                    try {
+//                    try {
                         ontologyIndexingService.indexOntologyDocument(document);
                         updatedOntologies.add(document.getOntologyId());
-                    } catch (Throwable t) {
-                        logger.error("Application failed creating indexes for " + 
-                        		document.getOntologyId() + ": " + t.getMessage(), t);
-                        haserror = true;
-                        failingOntologies.put(document.getOntologyId(), t.getMessage());
-                    }
+//                    } catch (Throwable t) {
+//                        logger.error("Application failed creating indexes for " +
+//                        		document.getOntologyId() + ": " + t.getMessage(), t);
+//                        haserror = true;
+//                        failingOntologies.put(document.getOntologyId(), t.getMessage());
+//                    }
                 }
             }
         }
@@ -176,7 +176,7 @@ public class LoadingApplication implements CommandLineRunner {
         else {
             // otherwise load everything set TOLOAD
             for (OntologyDocument document : ontologyRepositoryService.getAllDocumentsByStatus(Status.TOLOAD)) {
-                try {
+                // try {
                     boolean loadResult = ontologyIndexingService.indexOntologyDocument(document);
                     if (loadResult)
                         updatedOntologies.add(document.getOntologyId());
@@ -184,14 +184,14 @@ public class LoadingApplication implements CommandLineRunner {
                         haserror = true;
                         failingOntologies.put(document.getOntologyId(), "An error occurred. Check logs.");
                     }
-                } catch (Throwable t) {
-                	logger.error("Application failed creating indexes for " + document.getOntologyId() + ": " +
-                            t.getMessage(), t);
-                    exceptions.append(t.getMessage());
-                    exceptions.append("\n");
-                    haserror = true;
-                    failingOntologies.put(document.getOntologyId(),t.getMessage());
-                }
+                // } catch (Throwable t) {
+                // 	logger.error("Application failed creating indexes for " + document.getOntologyId() + ": " +
+                //             t.getMessage(), t);
+                //     exceptions.append(t.getMessage());
+                //     exceptions.append("\n");
+                //     haserror = true;
+                //     failingOntologies.put(document.getOntologyId(),t.getMessage());
+                // }
             }
         }
 

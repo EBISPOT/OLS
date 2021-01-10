@@ -118,6 +118,8 @@
 
     -->
 
+    <field name="language" type="string" indexed="true" stored="true" required="true" multiValued="false" />
+
     <field name="iri" type="string" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="iri_key" type="int" indexed="true" stored="false" multiValued="false" />
     <field name="obo_id" type="string" indexed="true" stored="true" required="false" multiValued="false" />
@@ -126,7 +128,7 @@
     <field name="synonym" type="text_general" indexed="true" stored="true" multiValued="true" />
     <field name="description" type="text_general" indexed="true" stored="true" multiValued="true" />
     <field name="ontology_name" type="string" indexed="true" stored="true" required="true" multiValued="false" />
-    <field name="ontology_title" type="string" indexed="true" stored="true" required="true" multiValued="false" />
+    <field name="ontology_title" type="string" indexed="true" stored="true" required="false" multiValued="false" />
     <field name="ontology_prefix" type="string" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="ontology_iri" type="string" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="type" type="string" indexed="true" stored="true" multiValued="false" />

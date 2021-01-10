@@ -43,7 +43,7 @@ public class YamlBasedLoadingServiceTest {
         ontology.remove("title");
         yamlBasedLoadingService = new YamlBasedLoadingService(ontology, "http://foobar.com/", false);
         try {
-            assertEquals("foo", yamlBasedLoadingService.getConfiguration().getTitle());
+            assertEquals("foo", yamlBasedLoadingService.getConfiguration().getLocalizedTitles().get("en"));
         } catch (ConfigParsingException e) {
             fail();
         }
@@ -54,7 +54,7 @@ public class YamlBasedLoadingServiceTest {
 
         yamlBasedLoadingService = new YamlBasedLoadingService(ontology, "http://foobar.com/", false);
         try {
-            assertEquals("foo ontology", yamlBasedLoadingService.getConfiguration().getTitle());
+            assertEquals("foo ontology", yamlBasedLoadingService.getConfiguration().getLocalizedTitles().get("en"));
         } catch (ConfigParsingException e) {
             fail();
         }

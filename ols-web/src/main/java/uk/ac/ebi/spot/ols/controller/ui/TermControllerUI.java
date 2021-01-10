@@ -57,6 +57,7 @@ public class TermControllerUI {
             @PathVariable("onto") String ontologyId,
             @RequestParam(value = "iri", required = false) String termIri,
             @RequestParam(value = "short_form", required = false) String shortForm,
+            @RequestParam(value = "lang", required = false, defaultValue = "en") String lang,
             @RequestParam(value = "obo_id", required = false) String oboId,
             Pageable pageable,
             Model model) throws ResourceNotFoundException {
@@ -64,7 +65,11 @@ public class TermControllerUI {
         ontologyId = ontologyId.toLowerCase();
         Term term = null;
 
+	model.addAttribute("lang", lang);
+
         OntologyDocument document = repositoryService.get(ontologyId);
+
+	model.addAttribute("ontologyLanguages", document.getConfig().getLanguages());
 
         if (termIri != null) {
             term = ontologyTermGraphService.findByOntologyAndIri(ontologyId, termIri);
@@ -85,7 +90,7 @@ public class TermControllerUI {
             Page<Term> termsPage = ontologyTermGraphService.findAllByOntology(ontologyId, pageable);
 
             model.addAttribute("ontologyName", document.getOntologyId());
-            model.addAttribute("ontologyTitle", document.getConfig().getTitle());
+            model.addAttribute("ontologyTitle", document.getConfig().getLocalizedTitle(lang));
             model.addAttribute("ontologyPrefix", document.getConfig().getPreferredPrefix());
             model.addAttribute("pageable", pageable);
             model.addAttribute("allterms", termsPage);
@@ -111,7 +116,7 @@ public class TermControllerUI {
         model.addAttribute("ontologyTerm", term);
         model.addAttribute("parentTerms", ontologyTermGraphService.getParents(ontologyId, term.getIri(), new PageRequest(0, 10)));
 
-        String title = repositoryService.get(ontologyId).getConfig().getTitle();
+        String title = repositoryService.get(ontologyId).getConfig().getLocalizedTitle(lang);
         model.addAttribute("ontologyName", title);
 
         if (term.getOboDefinitionCitations() != null) {

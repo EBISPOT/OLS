@@ -74,7 +74,8 @@ public class FileUpdatingService {
                 }
             }
 
-            boolean skip = document.getStatus() == Status.SKIP;
+        //     boolean skip = document.getStatus() == Status.SKIP;
+	    boolean skip = false;
 
             if(!skip) {
                 if(wasFailing) {
@@ -121,7 +122,7 @@ public class FileUpdatingService {
                     document.setStatus(Status.FAILED);
                 }
                 document.setMessage(e.getMessage());
-                log.error("Error checking: " + config.getTitle() + e.getMessage(), e);
+                log.error("Error checking: " + config.getId() + e.getMessage(), e);
             } catch (IOException e) {
                 if (document.getLoaded() == null) {
                     document.setStatus(Status.NOTLOADED);

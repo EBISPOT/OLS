@@ -98,9 +98,11 @@ public class OntologyConfigController {
             this.setId(config.getId());
             this.setVersionIri(config.getVersionIri());
             this.setTitle(config.getTitle());
+            this.setLocalizedTitles(config.getLocalizedTitles());
             this.setNamespace(config.getNamespace());
             this.setPreferredPrefix(config.getPreferredPrefix());
             this.setDescription(config.getDescription());
+            this.setLocalizedDescriptions(config.getLocalizedDescriptions());
             this.setHomepage(config.getHomepage());
             this.setMailingList(config.getMailingList());
             this.setFileLocation(config.getFileLocation());

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class PropertyJsTreeBuilder extends AbstractJsTreeBuilder {
     @Override
-    String getJsTreeParentQuery() {
+    String getJsTreeParentQuery(String lang) {
         StringBuilder query = new StringBuilder();
 
         query.append("MATCH path = (n:Property)-[r:SUBPROPERTYOF*]->(parent)\n");
@@ -21,12 +21,12 @@ public class PropertyJsTreeBuilder extends AbstractJsTreeBuilder {
     }
 
     @Override
-    String getJsTreeParentQuery(ViewMode viewMode) {
-        return getJsTreeParentQuery();
+    String getJsTreeParentQuery(String lang, ViewMode viewMode) {
+        return getJsTreeParentQuery(lang);
     }
 
     @Override
-    String getJsTreeParentSiblingQuery() {
+    String getJsTreeParentSiblingQuery(String lang) {
         StringBuilder query = new StringBuilder();
 
         query.append("MATCH path = (n:Property)-[r:SUBPROPERTYOF*]->(parent)<-[r2:SUBPROPERTYOF]-(n1:Property)\n");
@@ -43,12 +43,12 @@ public class PropertyJsTreeBuilder extends AbstractJsTreeBuilder {
     }
 
     @Override
-    String getJsTreeParentSiblingQuery(ViewMode viewMode) {
-        return getJsTreeParentSiblingQuery();
+    String getJsTreeParentSiblingQuery(String lang ,ViewMode viewMode) {
+        return getJsTreeParentSiblingQuery(lang);
     }
 
     @Override
-    String getJsTreeChildrenQuery() {
+    String getJsTreeChildrenQuery(String lang) {
         StringBuilder query = new StringBuilder();
 
         query.append("MATCH path = (child)-[r:SUBPROPERTYOF]->(n:Property)\n");
@@ -67,7 +67,7 @@ public class PropertyJsTreeBuilder extends AbstractJsTreeBuilder {
     }
 
     @Override
-    String getJsTreeRoots(ViewMode viewMode) {
+    String getJsTreeRoots(String lang, ViewMode viewMode) {
         throw new UnsupportedOperationException("Implementation not necessary.");
     }
 }

@@ -57,6 +57,7 @@ public class OntologyIndividualController {
             @RequestParam(value = "iri", required = false) String iri,
             @RequestParam(value = "short_form", required = false) String shortForm,
             @RequestParam(value = "obo_id", required = false) String oboId,
+            @RequestParam(value = "lang", defaultValue = "en", required = false) String lang,
             Pageable pageable,
             PagedResourcesAssembler assembler) {
 
@@ -128,13 +129,15 @@ public class OntologyIndividualController {
     }
 
     @RequestMapping(path = "/{onto}/individuals/{id}/jstree", produces = {MediaType.APPLICATION_JSON_VALUE}, method = RequestMethod.GET)
-    HttpEntity<String> getJsTree(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId) {
+    HttpEntity<String> getJsTree(@PathVariable("onto") String ontologyId,
+            @RequestParam(value = "lang", defaultValue = "en", required = false) String lang,
+    @PathVariable("id") String termId) {
         ontologyId = ontologyId.toLowerCase();
 
         try {
             String decoded = UriUtils.decode(termId, "UTF-8");
 
-            Object object = jsTreeBuilder.getJsTree(ontologyId, decoded, false);
+            Object object = jsTreeBuilder.getJsTree(lang, ontologyId, decoded, false);
             ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
             return new HttpEntity<String>(ow.writeValueAsString(object));
         } catch (JsonProcessingException e) {

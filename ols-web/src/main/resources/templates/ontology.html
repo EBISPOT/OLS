@@ -9,7 +9,7 @@
 
 <head>
     <div th:replace="fragments/head :: head(olscss=true, diachron=true, proton=true)"></div>
-    <title id="pageTitle" th:inline="text">[[${ontologyDocument.getConfig().getTitle()}]] &lt; [[${title}]] &lt; [[${org}]]</title>
+    <title id="pageTitle" th:inline="text">[[${ontologyDocument.getConfig().getLocalizedTitle(lang)}]] &lt; [[${title}]] &lt; [[${org}]]</title>
     <!-- A few keywords that relate to the content of THIS PAGE (not the whole project)
     <meta name="keywords" content="biosamples, europe, EBI" />
     <!- - Describe what this page is about - ->
@@ -18,6 +18,11 @@
     <!- - The last time the content was reviewed - ->
     <meta name="ebi:expiry" content="2017-12-20" />
     <!- - When this content is no longer relevant -->
+    <script type="text/javascript" th:inline="javascript">
+    ontologyLanguages = [[${ontologyLanguages}]]
+    lang = [[${lang}]]
+    </script>
+
 </head>
 
 
@@ -29,9 +34,9 @@
     <div vocab="http://schema.org/" class="row">
 
         <div id="mainpageSearchBox">
-            <h3 style="font-size: 43px;" property="name" th:text="${ontologyDocument.getConfig().getTitle()}">Ontology label</h3>
+            <h3 style="font-size: 43px;" property="name" th:text="${ontologyDocument.getConfig().getLocalizedTitle(lang)}">Ontology label</h3>
             <div property="description">
-                <p style="font-size: 16px;" th:each="description : ${ontologyDocument.getConfig().getDescription()}" th:text="${description}">
+                <p style="font-size: 16px;" th:each="description : ${ontologyDocument.getConfig().getLocalizedDescription(lang)}" th:text="${description}">
                 </p>
             </div>
 
@@ -180,7 +185,7 @@
                     </div>
 
                     <br/>
-                    <div th:each="annotations: ${ontologyDocument.getConfig().getAnnotations()}">
+                    <div th:each="annotations: ${ontologyDocument.getConfig().getLocalizedAnnotations(lang)}">
                         <b>
                             <a href="#" th:href="@{../search(q=${annotations.key},exact='true', type=property, ontology=${ontologyDocument.getOntologyId()})}" th:text="${annotations.key.replaceAll('_', ' ')}">property name</a>
                         </b>

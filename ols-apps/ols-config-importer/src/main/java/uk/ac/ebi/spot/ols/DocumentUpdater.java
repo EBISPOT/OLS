@@ -42,31 +42,21 @@ public class DocumentUpdater {
         // ignore any changes to these fields
         Collection<String> dontUpdate = originalDocument.getConfig().getInternalMetadataProperties();
 
-        // check if title changed
-        if (!newDocument.getTitle().equals(originalDocument.getConfig().getNamespace())
-                && !newDocument.getTitle().equals(originalDocument.getConfig().getTitle())
-                && !dontUpdate.contains(OntologyDefaults.TITLE)) {
+        if (!dontUpdate.contains(OntologyDefaults.TITLE)) {
             originalDocument.getConfig().setTitle(newDocument.getTitle());
+            originalDocument.getConfig().setLocalizedTitles(newDocument.getLocalizedTitles());
         }
 
-        // check description
-        if (newDocument.getDescription() != null &&
-                !newDocument.getDescription().equals(originalDocument.getConfig().getDescription()) &&
-                !dontUpdate.contains(OntologyDefaults.DEFINITION)) {
+        if (!dontUpdate.contains(OntologyDefaults.DEFINITION)) {
             originalDocument.getConfig().setDescription(newDocument.getDescription());
+            originalDocument.getConfig().setLocalizedDescriptions(newDocument.getLocalizedDescriptions());
         }
 
-        // check homepage
-        if (newDocument.getHomepage() != null &&
-                !newDocument.getHomepage().equals(originalDocument.getConfig().getHomepage()) &&
-                !dontUpdate.contains(OntologyDefaults.HOMEPAGE)) {
+        if (!dontUpdate.contains(OntologyDefaults.HOMEPAGE)) {
             originalDocument.getConfig().setHomepage(newDocument.getHomepage());
         }
 
-        // check mailing list
-        if (newDocument.getMailingList() != null &&
-                !newDocument.getMailingList().equals(originalDocument.getConfig().getMailingList()) &&
-                !dontUpdate.contains(OntologyDefaults.MAILINGLIST)) {
+        if (!dontUpdate.contains(OntologyDefaults.MAILINGLIST)) {
             originalDocument.getConfig().setMailingList(newDocument.getMailingList());
         }
 

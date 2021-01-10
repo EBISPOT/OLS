@@ -1,6 +1,8 @@
 package uk.ac.ebi.spot.ols.loader;
 
 import com.google.common.collect.Multimap;
+
+import org.mockito.internal.debugging.Localized;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.manchestersyntax.renderer.ManchesterOWLSyntaxOWLObjectRendererImpl;
@@ -61,13 +63,18 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     private IRI ontologyIRI;
     private IRI ontologyVersionIRI;
     private String ontologyName;
-    private String ontologyTitle;
-    private String ontologyDescription;
+
+    private Map<String,String> ontologyTitles;
+    private Map<String,String> ontologyDescriptions;
+
+    private Set<String> ontologyLanguages = new HashSet<>();
+
     private String ontologyHomePage;
     private String ontologyMailingList;
     private String version;
+
     private Collection<String> ontologyCreators;
-    private Map<String, Collection<String>> ontologyAnnotations;
+    private Map<String, Map<String, List<String>>> ontologyAnnotations;
     private Resource ontologyResource;
     private Map<IRI, IRI> ontologyImportMappings;
 
@@ -100,10 +107,10 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
     private Map<IRI, String> ontologyAccessions = new HashMap<>();
     private Map<IRI, String> oboIds = new HashMap<>();
-    private Map<IRI, String> ontologyLabels = new HashMap<>();
-    private Map<IRI, Collection<String>> ontologySynonyms = new HashMap<>();
-    private Map<IRI, Collection<String>> ontologyDefinitions = new HashMap<>();
-    private Map<IRI, Map<IRI,Collection<String>>> termAnnotations = new HashMap<>();
+    private Map<IRI, LocalizedStrings> ontologyLabels = new HashMap<>();
+    private Map<IRI, LocalizedStrings> ontologySynonyms = new HashMap<>();
+    private Map<IRI, LocalizedStrings> ontologyDefinitions = new HashMap<>();
+    private Map<IRI, Map<IRI,LocalizedStrings>> termAnnotations = new HashMap<>();
     private Collection<IRI> obsoleteTerms = new HashSet<>();
     private Map<IRI, Collection<String>> slims = new HashMap<>();
     private Map<IRI, String> termReplacedBy = new HashMap<>();
@@ -230,9 +237,10 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     private void readConfiguration(OntologyResourceConfig config) throws OntologyLoadingException {
         setOntologyIRI(IRI.create(config.getId()));
         setOntologyName(config.getNamespace());
-        setOntologyTitle(config.getTitle());
 
-        setOntologyDescription(config.getDescription());
+        setOntologyTitles(config.getLocalizedTitles());
+        setOntologyDescriptions(config.getLocalizedDescriptions());
+
         setOntologyHomePage(config.getHomepage());
         setOntologyMailingList(config.getMailingList());
         setOntologyCreators(config.getCreators());
@@ -476,7 +484,8 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     	getLogger().debug("Calling indexOntologyAnnotations");
 
         Set<String> creators = new HashSet<>();
-        Map<String, Collection<String>> annotations = new HashMap<>();
+        Map<String, Map<String, List<String>>> annotations = new HashMap<>();
+
         Collection<IRI> preferredRootTermAnnotations = new HashSet<>();
          for (OWLAnnotation annotation : owlAnnotations) {
 
@@ -489,13 +498,17 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
             getLogger().debug("annotationPropertyIri 1 = " + annotationPropertyIri);
             if (annotationPropertyIri.toString().equals(OntologyDefaults.DEFINITION)) {
                 if (theValue.isPresent()) {
-                    setOntologyDescription(theValue.get());
+                    Map<String,String> descriptions = new HashMap<>();
+                    descriptions.put("en", theValue.get());
+                    setOntologyDescriptions(descriptions);
                     internalMetadataProperties.add(OntologyDefaults.DEFINITION);
                 }
             }
             else if (annotationPropertyIri.toString().equals(OntologyDefaults.TITLE)) {
                 if (theValue.isPresent()) {
-                    setOntologyTitle(theValue.get());
+                    Map<String,String> titles = new HashMap<>();
+                    titles.put("en", theValue.get());
+                    setOntologyTitles(titles);
                     internalMetadataProperties.add(OntologyDefaults.TITLE);
                 }
             }
@@ -540,11 +553,31 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
             	}
             }
             else  {
-                String propertyLabel = ontologyLabels.get(annotationPropertyIri);
-                if (!annotations.containsKey(propertyLabel)) {
-                    annotations.put(propertyLabel, new HashSet<>());
+
+		/// TODO: what about localized values?
+
+                LocalizedStrings languageToLabels = ontologyLabels.get(annotationPropertyIri);
+
+		// For each language the label of the annotation has been localised into
+                for(String language : languageToLabels.getLanguages()) {
+
+		    // For each label the property has in this language
+                    List<String> propertyLabels = languageToLabels.getStrings(language);
+                    for(String label : propertyLabels) {
+
+                        if (!annotations.containsKey(language)) {
+                            annotations.put(language, new HashMap<>());
+                        }
+
+			Map<String, List<String>> annos = annotations.get(language);
+
+			if(!annos.containsKey(label)) {
+			    annos.put(label, new ArrayList<>());
+			}
+
+                        annos.get(label).add(theValue.get());
+                    }
                 }
-                annotations.get(propertyLabel).add(theValue.get());
             }
         }
         overrideConfiguredPreferredRootTerms(preferredRootTermAnnotations);
@@ -574,16 +607,26 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
             // add the class accession for this entity
             Optional<String> shortForm = extractShortForm(entity.getIRI());
             if (shortForm.isPresent()) {
-                addClassAccession(entity.getIRI(), shortForm.get());
-                // if no label, create one form shortform
-                if (ontologyLabels.get(entity.getIRI()) == null) {
-                    addClassLabel(entity.getIRI(), shortForm.get() );
+                setClassAccession(entity.getIRI(), shortForm.get());
+
+                // if no label, create one from shortform
+		LocalizedStrings labels = ontologyLabels.get(entity.getIRI());
+
+		if(labels == null) {
+			labels = new LocalizedStrings();
+			labels.addDefaultString(shortForm.get());
+		} else {
+			if(labels.getDefaultStrings().size() == 0) {
+				labels.addDefaultString(shortForm.get());
+			}
                 }
+
+		setClassLabels(entity.getIRI(), labels);
 
                 Optional<String> oboForm = getOBOid(shortForm.get());
 
                 if (oboForm.isPresent()) {
-                    addOboId(entity.getIRI(), oboForm.get());
+                    setOboId(entity.getIRI(), oboForm.get());
                 }
 
             }
@@ -678,13 +721,13 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
 
         if (!instanceTypes.isEmpty()) {
-            addDirectTypes(individual.getIRI(), instanceTypes);
+            setDirectTypes(individual.getIRI(), instanceTypes);
         }
         if (!instanceClassRelations.isEmpty()) {
-            addRelatedClassesToIndividual(individual.getIRI(), instanceClassRelations);
+            setRelatedClassesToIndividual(individual.getIRI(), instanceClassRelations);
         }
         if (!instanceRelations.isEmpty()) {
-            addRelatedIndividuals(individual.getIRI(), instanceRelations);
+            setRelatedIndividuals(individual.getIRI(), instanceRelations);
         }
     }
 
@@ -733,13 +776,13 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
             superProperties.add(owlProperty.asOWLAnnotationProperty().getIRI());
         });
 
-        addDirectParents(property.getIRI(), superProperties);
+        setDirectParents(property.getIRI(), superProperties);
 
         Set<IRI> subProperties = new HashSet<>();
         EntitySearcher.getSubProperties(property, ontology).forEach(owlProperty -> {
             subProperties.add(owlProperty.asOWLAnnotationProperty().getIRI());
         });
-        addDirectChildren(property.getIRI(), subProperties);
+        setDirectChildren(property.getIRI(), subProperties);
     }
 
     private Set<IRI> findAllDirectAndIndirectSuperProperties(OWLObjectProperty objectProperty,
@@ -801,8 +844,8 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
             getLogger().error("Problematic object property = " + property.getIRI(), t);
         }
 
-        addDirectParents(property.getIRI(), directSuperProperties);
-        addAllParents(property.getIRI(), findAllDirectAndIndirectSuperProperties(property,
+        setDirectParents(property.getIRI(), directSuperProperties);
+        setAllParents(property.getIRI(), findAllDirectAndIndirectSuperProperties(property,
         		indirectSuperProperties, ontologyImportClosure));
 //        getLogger().debug("indexSubPropertyRelations: " + property + " directSuperProperties = " + directSuperProperties);
 //        getLogger().debug("indexSubPropertyRelations: " + property + " indirectSuperProperties = " + indirectSuperProperties);
@@ -818,8 +861,8 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
             getLogger().error("Problematic object property = " + property.getIRI());
         }
 
-        addDirectChildren(property.getIRI(), directSubProperties);
-        addAllParents(property.getIRI(), findAllDirectAndIndirectSubProperties(property,
+        setDirectChildren(property.getIRI(), directSubProperties);
+        setAllParents(property.getIRI(), findAllDirectAndIndirectSubProperties(property,
         		indirectSubProperties, ontologyImportClosure));
         getLogger().debug("indexSubPropertyRelations: " + property + " directSubProperties = " + directSubProperties);
         getLogger().debug("indexSubPropertyRelations: " + property + " indirectSubProperties = " + indirectSubProperties);
@@ -854,7 +897,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                 owlVocabulary);
 //        getLogger().debug("indexSubclassRelations directChildTerms for {} count  {}", owlClass, directChildTerms.size());
         if (directChildTerms.size() > 0)
-          addDirectChildren(owlClass.getIRI(), directChildTerms) ;
+          setDirectChildren(owlClass.getIRI(), directChildTerms) ;
 
         // get all children
         Set<IRI> allDescendantTerms = removeExcludedIRI(
@@ -863,7 +906,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                         .collect(Collectors.toSet()),
                 owlVocabulary);
         if (allDescendantTerms.size() >0)
-          addAllChildren(owlClass.getIRI(), allDescendantTerms);
+          setAllChildren(owlClass.getIRI(), allDescendantTerms);
 
         // get parents
         Set<IRI> directParentTerms =
@@ -874,7 +917,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                         owlVocabulary);
 
         if (directParentTerms.size()>0)
-          addDirectParents(owlClass.getIRI(), directParentTerms);
+          setDirectParents(owlClass.getIRI(), directParentTerms);
 
         // get all parents
         Set<IRI> allAncestorTerms =
@@ -885,7 +928,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                         owlVocabulary);
 
         if (allAncestorTerms.size()>0)
-          addAllParents(owlClass.getIRI(), allAncestorTerms);
+          setAllParents(owlClass.getIRI(), allAncestorTerms);
 
         // map of related parent terms for hierarchy views
         Map<IRI, Collection<IRI>> relatedParentTerms = new HashMap<>();
@@ -947,18 +990,18 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         });
 
         if (!relatedTerms.isEmpty()) {
-            addRelatedTerms(owlClass.getIRI(), relatedTerms );
+            setRelatedTerms(owlClass.getIRI(), relatedTerms );
         }
 
         if (!relatedIndividualsToClasses.isEmpty()) {
-            addRelatedIndividualsToClasses(owlClass.getIRI(), relatedIndividualsToClasses);
+            setRelatedIndividualsToClasses(owlClass.getIRI(), relatedIndividualsToClasses);
         }
 
-        addRelatedParentTerms(owlClass.getIRI(), relatedParentTerms);
+        setRelatedParentTerms(owlClass.getIRI(), relatedParentTerms);
 
         if (!relatedDescriptions.isEmpty()) {
 
-            addSuperClassDescriptions(owlClass.getIRI(), relatedDescriptions);
+            setSuperClassDescriptions(owlClass.getIRI(), relatedDescriptions);
 
         }
         // todo find transitive closure of related terms
@@ -1012,7 +1055,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         OWLReasoner reasoner = getOWLReasoner(ontology);
 
         // get direct children
-        addEquivalentTerms(owlClass.getIRI(),
+        setEquivalentTerms(owlClass.getIRI(),
                 reasoner.getEquivalentClasses(owlClass).getEntities().stream()
                         .map(OWLNamedObject::getIRI)
                         .collect(Collectors.toSet()));
@@ -1027,7 +1070,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                 });
 
         if (!relatedDescriptions.isEmpty()) {
-            addEquivalentClassDescriptions(owlClass.getIRI(), relatedDescriptions);
+            setEquivalentClassDescriptions(owlClass.getIRI(), relatedDescriptions);
         }
 
     }
@@ -1040,7 +1083,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         //extractInferredRelationsFromIndividualObjectPropertyAssertions(individual, instanceInstanceRelations);
         extractAssertedRelationsFromIndividualObjectPropertyAssertions(individual, instanceInstanceRelations);
         if (!instanceInstanceRelations.isEmpty()) {
-            addRelatedIndividuals(individual.getIRI(), instanceInstanceRelations);
+            setRelatedIndividuals(individual.getIRI(), instanceInstanceRelations);
         }
 
     }
@@ -1183,9 +1226,15 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     protected void evaluateAllAnnotationsValues(OWLEntity owlEntity) {
 
         IRI owlEntityIRI = owlEntity.getIRI();
-        Set<String> synonyms = new HashSet<>();
-        Set<String> definitions = new HashSet<>();
         Set<String> slims = new HashSet<>();
+
+        LocalizedStrings definitions = new LocalizedStrings();
+        LocalizedStrings synonyms = new LocalizedStrings();
+
+        LocalizedStrings existingClassLabels = ontologyLabels.get(owlEntityIRI);
+
+        LocalizedStrings classLabels = existingClassLabels != null ?
+		existingClassLabels : new LocalizedStrings();
 
         Collection<OBODefinitionCitation> definitionCitations = new HashSet<>();
         Collection<OBOSynonym> oboSynonyms = new HashSet<>();
@@ -1196,59 +1245,65 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                 EntitySearcher.getAnnotationAssertionAxioms(owlEntity, anOntology).forEach(annotationAssertionAxiom -> {
                         OWLAnnotationProperty annotationProperty = annotationAssertionAxiom.getProperty();
                         IRI annotationPropertyIRI = annotationProperty.getIRI();
+                        OWLAnnotationValue value = annotationAssertionAxiom.getValue();
 
-                        if (getLabelIRI().equals(annotationPropertyIRI)) {
-                            if (!ontologyLabels.containsKey(owlEntityIRI)) {
-                                addClassLabel(owlEntityIRI, evaluateLabelAnnotationValue(
-                                        owlEntity, annotationAssertionAxiom.getValue()).get());
-                            } else {
-                                getLogger().warn("Found multiple labels for class" + owlEntityIRI.toString());
-                                // if english, overide previous label
-                                if (isEnglishLabel(annotationAssertionAxiom.getValue())) {
-                                    addClassLabel(owlEntityIRI, evaluateLabelAnnotationValue(
-                                            owlEntity, annotationAssertionAxiom.getValue()).get());
-                                }
+			// blank string = default lang
+                        String lang = "";
+
+			// but take lang from the value if it is present
+                        if(value.isLiteral()) {
+                            if(((OWLLiteral) value).hasLang()) {
+                                lang = ((OWLLiteral) value).getLang();
+				ontologyLanguages.add(lang);
                             }
                         }
+
+
+                        if (getLabelIRI().equals(annotationPropertyIRI)) {
+                            classLabels.addString(lang, evaluateLabelAnnotationValue(
+                                    owlEntity, value).get());
+                        }
                         else if (getSynonymIRIs().contains(annotationPropertyIRI)) {
-                            synonyms.add(getOWLAnnotationValueAsString(annotationAssertionAxiom.getValue()).get());
+                            synonyms.addString(lang, getOWLAnnotationValueAsString(value).get());
                         }
                         else if (getDefinitionIRIs().contains(annotationPropertyIRI)) {
-                            definitions.add(getOWLAnnotationValueAsString(annotationAssertionAxiom.getValue()).get());
+                            definitions.addString(lang, getOWLAnnotationValueAsString(value).get());
                         }
-                        else if (annotationPropertyIRI.equals(Namespaces.OBOINOWL.createIRI("inSubset")) && annotationAssertionAxiom.getValue() instanceof IRI) {
-                            if (extractShortForm( (IRI) annotationAssertionAxiom.getValue()).isPresent()) {
-                                slims.add(extractShortForm( (IRI) annotationAssertionAxiom.getValue()).get());
+                        else if (annotationPropertyIRI.equals(Namespaces.OBOINOWL.createIRI("inSubset")) && value instanceof IRI) {
+                            if (extractShortForm( (IRI) value).isPresent()) {
+                                slims.add(extractShortForm( (IRI) value).get());
                             }
                         }
                         else if (annotationPropertyIRI.equals(Namespaces.OWL.createIRI("deprecated"))) {
                             addObsoleteTerms(owlEntityIRI);
                         }
                         else {
-                            if (getOWLAnnotationValueAsString(annotationAssertionAxiom.getValue()).isPresent()) {
+                            if (getOWLAnnotationValueAsString(value).isPresent()) {
                                 // initialise maps if first time
                                 if (!termAnnotations.containsKey(owlEntityIRI)) {
-                                    HashMap<IRI, Collection<String>> newMap = new HashMap<>();
-                                    newMap.put(annotationPropertyIRI, new HashSet<>());
+                                    HashMap<IRI, LocalizedStrings> newMap = new HashMap<>();
+                                    newMap.put(annotationPropertyIRI, new LocalizedStrings());
                                     termAnnotations.put(owlEntityIRI, newMap);
                                 }
 
                                 if (!termAnnotations.get(owlEntityIRI).containsKey(annotationPropertyIRI)) {
-                                    termAnnotations.get(owlEntityIRI).put(annotationPropertyIRI, new HashSet<>());
+                                    termAnnotations.get(owlEntityIRI).put(annotationPropertyIRI, new LocalizedStrings());
                                 }
 
-                                if (annotationAssertionAxiom.getValue() instanceof IRI) {
-                                    termAnnotations.get(owlEntityIRI).get(annotationPropertyIRI).add(annotationAssertionAxiom.getValue().toString());
+                                if (value instanceof IRI) {
+                                    termAnnotations.get(owlEntityIRI).get(annotationPropertyIRI).addString(
+                                        lang, annotationAssertionAxiom.getValue().toString());
                                 }
                                 else {
-                                    termAnnotations.get(owlEntityIRI).get(annotationPropertyIRI).add(getOWLAnnotationValueAsString(annotationAssertionAxiom.getValue()).get());
+                                    termAnnotations.get(owlEntityIRI).get(annotationPropertyIRI).addString(
+                                        lang, getOWLAnnotationValueAsString(value).get());
                                 }
                             }
                         }
 
                         // pull out term replaced by
                         if (annotationPropertyIRI.equals(Namespaces.OBO.createIRI("IAO_0100001"))) {
-                            addTermReplacedBy(owlEntityIRI, getOWLAnnotationValueAsString(annotationAssertionAxiom.getValue()).get());
+                            addTermReplacedBy(owlEntityIRI, getOWLAnnotationValueAsString(value).get());
                         }
 
                         // collect any obo definition xrefs
@@ -1260,7 +1315,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                                 for (OWLAnnotation defAnnotation : annotationAssertionAxiom.getAnnotations()) {
                                     oboXrefs.add(extractOBOXrefs(defAnnotation));
                                 }
-                                definitionCitation.setDefinition(getOWLAnnotationValueAsString(annotationAssertionAxiom.getValue()).get());
+                                definitionCitation.setDefinition(getOWLAnnotationValueAsString(value).get());
                                 definitionCitation.setOboXrefs(oboXrefs);
                                 definitionCitations.add(definitionCitation);
                             }
@@ -1283,9 +1338,9 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                                 Collection<OBOXref> oboXrefs = new HashSet<>();
                                 for (OWLAnnotation annotationAxiomAnnotation : annotationAssertionAxiom.getAnnotations()) {
                                     if (annotationAxiomAnnotation.getProperty().getIRI().toString().equals(OboDefaults.SYNONYM_TYPE)) {
-                                        OWLAnnotationValue value = annotationAxiomAnnotation.getValue();
+                                        OWLAnnotationValue annoValue = annotationAxiomAnnotation.getValue();
                                         if (value instanceof IRI) {
-                                            OWLAnnotationProperty owlAnnotationProperty = factory.getOWLAnnotationProperty((IRI) value);
+                                            OWLAnnotationProperty owlAnnotationProperty = factory.getOWLAnnotationProperty((IRI) annoValue);
                                             EntitySearcher.getAnnotations(owlAnnotationProperty, ontology).forEach(valueAnnotation -> {
                                                 if (valueAnnotation.getProperty().getIRI().equals(OWLRDFVocabulary.RDFS_LABEL.getIRI())) {
                                                     String type = getOWLAnnotationValueAsString(valueAnnotation.getValue()).get();
@@ -1317,26 +1372,28 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                 });
         }
 
+	setClassLabels(owlEntityIRI, classLabels);
+
         if (definitionCitations.size() > 0) {
-            addOboDefinitionCitation(owlEntityIRI, definitionCitations);
+            setOboDefinitionCitation(owlEntityIRI, definitionCitations);
         }
 
         if (oboSynonyms.size() >0 ) {
-            addOboSynonym(owlEntityIRI, oboSynonyms);
+            setOboSynonym(owlEntityIRI, oboSynonyms);
         }
 
         if (oboEntityXrefs.size() >0 ) {
-            addOboXref(owlEntityIRI, oboEntityXrefs);
+            setOboXref(owlEntityIRI, oboEntityXrefs);
         }
 
         if (synonyms.size() > 0) {
-            addSynonyms(owlEntityIRI, synonyms);
+            setSynonyms(owlEntityIRI, synonyms);
         }
         if (definitions.size() >0) {
-            addDefinitions(owlEntityIRI, definitions);
+            setDefinitions(owlEntityIRI, definitions);
         }
         if (slims.size() >0) {
-            addSlims(owlEntityIRI, slims);
+            setSlims(owlEntityIRI, slims);
         }
     }
 
@@ -1415,22 +1472,22 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
     // bunch of getters and setters
 
-    protected void addDirectParents(IRI termIRI, Set<IRI> parents) {
+    protected void setDirectParents(IRI termIRI, Set<IRI> parents) {
         this.directParentTerms.put(termIRI, parents);
     }
-    protected void addDirectTypes(IRI termIRI, Set<IRI> parents) {
+    protected void setDirectTypes(IRI termIRI, Set<IRI> parents) {
         this.directTypes.put(termIRI, parents);
     }
-    protected void addAllParents(IRI termIRI, Set<IRI> allParents) {
+    protected void setAllParents(IRI termIRI, Set<IRI> allParents) {
         this.allParentTerms.put(termIRI, allParents);
     }
-    protected void addDirectChildren(IRI termIRI, Set<IRI> children) {
+    protected void setDirectChildren(IRI termIRI, Set<IRI> children) {
         this.directChildTerms.put(termIRI, children);
     }
-    protected void addAllChildren(IRI termIRI, Set<IRI> allChildren) {
+    protected void setAllChildren(IRI termIRI, Set<IRI> allChildren) {
         this.allChildTerms.put(termIRI, allChildren);
     }
-    protected void addEquivalentTerms(IRI termIRI, Set<IRI> equivalent) {
+    protected void setEquivalentTerms(IRI termIRI, Set<IRI> equivalent) {
         this.equivalentTerms.put(termIRI, equivalent);
     }
     protected void addLocalTerms(IRI termIRI) {
@@ -1443,40 +1500,40 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     protected void addObsoleteTerms(IRI termIRI) {
         this.obsoleteTerms.add(termIRI);
     }
-    protected void addRelatedTerms(IRI termIRI, Map<IRI, Collection<IRI>> relatedTerms) {
+    protected void setRelatedTerms(IRI termIRI, Map<IRI, Collection<IRI>> relatedTerms) {
         this.relatedTerms.put(termIRI, relatedTerms);
     }
-    protected void addRelatedParentTerms(IRI termIRI, Map<IRI, Collection<IRI>> relatedTerms) {
+    protected void setRelatedParentTerms(IRI termIRI, Map<IRI, Collection<IRI>> relatedTerms) {
         this.relatedParentTerms.put(termIRI, relatedTerms);
     }
-    protected void addAllRelatedTerms(IRI termIRI, Map<IRI, Collection<IRI>> relatedTerms) {
+    protected void setAllRelatedTerms(IRI termIRI, Map<IRI, Collection<IRI>> relatedTerms) {
         this.allRelatedTerms.put(termIRI, relatedTerms);
     }
-    protected void addRelatedIndividuals(IRI termIRI, Map<IRI, Collection<IRI>> relatedTerms) {
+    protected void setRelatedIndividuals(IRI termIRI, Map<IRI, Collection<IRI>> relatedTerms) {
         this.allRelatedIndividuals.put(termIRI, relatedTerms);
     }
-    protected void addRelatedIndividualsToClasses(IRI termIRI, Map<IRI, Collection<IRI>> relatedTerms) {
+    protected void setRelatedIndividualsToClasses(IRI termIRI, Map<IRI, Collection<IRI>> relatedTerms) {
         this.allRelatedIndividualsToClasses.put(termIRI, relatedTerms);
     }
-    protected void addRelatedClassesToIndividual(IRI termIRI, Map<IRI, Collection<IRI>> relatedTerms) {
+    protected void setRelatedClassesToIndividual(IRI termIRI, Map<IRI, Collection<IRI>> relatedTerms) {
         this.allRelatedClassesToIndividuals.put(termIRI, relatedTerms);
     }
 
 
-    protected void addOboDefinitionCitation (IRI termIri, Collection<OBODefinitionCitation> definitionCitations) {
+    protected void setOboDefinitionCitation (IRI termIri, Collection<OBODefinitionCitation> definitionCitations) {
         this.oboDefinitionCitations.put(termIri, definitionCitations);
     }
-    protected void addOboXref (IRI termIri, Collection<OBOXref> xrefs) {
+    protected void setOboXref (IRI termIri, Collection<OBOXref> xrefs) {
         this.oboXrefs.put(termIri, xrefs);
     }
-    protected void addOboSynonym (IRI termIri, Collection<OBOSynonym> synonyms) {
+    protected void setOboSynonym (IRI termIri, Collection<OBOSynonym> synonyms) {
         this.oboSynonyms.put(termIri, synonyms);
     }
 
-    protected void addSuperClassDescriptions(IRI termIRI, Set<String> relatedSuperDescriptions) {
+    protected void setSuperClassDescriptions(IRI termIRI, Set<String> relatedSuperDescriptions) {
         this.superclassExpressionsAsString.put(termIRI, relatedSuperDescriptions);
     }
-    protected void addEquivalentClassDescriptions(IRI termIRI, Set<String> relatedEquivalentDescriptions) {
+    protected void setEquivalentClassDescriptions(IRI termIRI, Set<String> relatedEquivalentDescriptions) {
         this.equivalentClassExpressionsAsString.put(termIRI, relatedEquivalentDescriptions);
     }
     public Collection<String> getBaseIRI() {
@@ -1737,9 +1794,13 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     }
 
 
-    public void setOntologyDescription(String ontologyName) {
-        this.ontologyDescription = ontologyName;
+    public void setOntologyDescriptions(Map<String,String> descriptions) {
+        this.ontologyDescriptions = descriptions;
     }
+    public void setOntologyTitles(Map<String,String> titles) {
+        this.ontologyTitles = titles;
+    }
+
     /**
      * Returns the short name of the ontology
      *
@@ -1860,15 +1921,15 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         return lazyGet(() -> oboIds);
     }
 
-    @Override public Map<IRI, String> getTermLabels() {
+    @Override public Map<IRI, LocalizedStrings> getTermLabels() {
         return lazyGet(() -> ontologyLabels);
     }
 
-    @Override public Map<IRI, Collection<String>> getTermSynonyms() {
+    @Override public Map<IRI, LocalizedStrings> getTermSynonyms() {
         return lazyGet(() -> ontologySynonyms);
     }
 
-    @Override public Map<IRI, Collection<String>> getTermDefinitions() {
+    @Override public Map<IRI, LocalizedStrings> getTermDefinitions() {
         return lazyGet(() -> ontologyDefinitions);
     }
 
@@ -1881,7 +1942,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     }
 
     @Override
-    public Map<IRI, Collection<String>> getAnnotations(IRI entityIRI) {
+    public Map<IRI, LocalizedStrings> getAnnotations(IRI entityIRI) {
         if (termAnnotations.containsKey(entityIRI)) {
             return termAnnotations.get(entityIRI);
         }
@@ -1916,27 +1977,27 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         this.ontologyIRI = ontologyIRI;
     }
 
-    private void addClassAccession(IRI clsIri, String accession) {
+    private void setClassAccession(IRI clsIri, String accession) {
         this.ontologyAccessions.put(clsIri, accession);
     }
 
-    protected void addOboId(IRI clsIri, String oboId) {
+    protected void setOboId(IRI clsIri, String oboId) {
         this.oboIds.put(clsIri, oboId);
     }
 
-    protected void addClassLabel(IRI clsIri, String label) {
-        this.ontologyLabels.put(clsIri, label);
+    protected void setClassLabels(IRI clsIri, LocalizedStrings labels) {
+        this.ontologyLabels.put(clsIri, labels);
     }
 
-    protected void addSynonyms(IRI clsIri, Set<String> synonyms) {
+    protected void setSynonyms(IRI clsIri, LocalizedStrings synonyms) {
         this.ontologySynonyms.put(clsIri, synonyms);
     }
 
-    protected void addDefinitions(IRI clsIri, Set<String> definitions) {
+    protected void setDefinitions(IRI clsIri, LocalizedStrings definitions) {
         this.ontologyDefinitions.put(clsIri, definitions);
     }
 
-    protected void addSlims(IRI clsIri, Set<String> slims) {
+    protected void setSlims(IRI clsIri, Set<String> slims) {
         this.slims.put(clsIri, slims);
     }
 
@@ -1974,7 +2035,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         return preferredPrefix;
     }
 
-    public void setOntologyAnnotations(Map<String, Collection<String>> annotations) {
+    public void setOntologyAnnotations(Map<String,Map<String,List<String>>> annotations) {
         this.ontologyAnnotations = annotations;
     }
 
@@ -1994,22 +2055,20 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         this.ontologyCreators = ontologyCreators;
     }
 
-    public void setOntologyTitle(String ontologyTitle) {
-        this.ontologyTitle = ontologyTitle;
-    }
-
     @Override
     public String getVersionNumber() {
         return this.version;
     }
 
-    public String getTitle() {
-        return ontologyTitle;
+
+    @Override
+    public Map<String,String> getLocalizedTitles() {
+        return ontologyTitles;
     }
 
     @Override
-    public String getOntologyDescription() {
-        return ontologyDescription;
+    public Map<String,String> getLocalizedDescriptions() {
+        return ontologyDescriptions;
     }
 
     public String getHomePage() {
@@ -2025,7 +2084,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     }
 
     @Override
-    public Map<String, Collection<String>> getOntologyAnnotations() {
+    public Map<String, Map<String, List<String>>> getOntologyAnnotations() {
         return ontologyAnnotations;
     }
 
@@ -2049,4 +2108,8 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     public void setPreferredRootTerms(Collection<IRI> preferredRootTerms) {
         this.preferredRootTerms = preferredRootTerms;
     }
+
+	public Set<String> getOntologyLanguages() {
+		return ontologyLanguages;
+	}
 }

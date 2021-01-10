@@ -118,6 +118,8 @@
 
     -->
 
+    <field name="language" type="string" indexed="true" stored="true" required="false" multiValued="false" />
+
     <field name="iri" type="string" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="iri_key" type="int" indexed="true" stored="false" multiValued="false" />
     <field name="obo_id" type="string" indexed="true" stored="true" required="false" multiValued="false" />

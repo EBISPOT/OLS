@@ -22,10 +22,14 @@ public class SuggestDocument {
     @Field("ontology_name")
     private String ontology;
 
-    public SuggestDocument(String autosuggest, String ontology) {
+    @Field("language")
+    private String language;
+
+    public SuggestDocument(String autosuggest, String ontology, String language) {
         this.id = autosuggest + ontology;
         this.autosuggest = autosuggest;
         this.ontology = ontology;
+        this.language = language;
     }
 
     public SuggestDocument() {

@@ -12,7 +12,7 @@ import java.util.Date;
  * @date 11/02/2015
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  *
- * An OntologyDocument contains meta data for an individual ontology in OLS.
+ * An OntologyDocument contains meta data for an individual ontology in OLS, stored in MongoDB.
  * This includes basic stats on an ontology that is loaded into the Ontology repository.
  *
  */

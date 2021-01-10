@@ -3,17 +3,21 @@ package uk.ac.ebi.spot.ols.model;
 import java.io.*;
 import java.util.*;
 
+import org.mockito.internal.debugging.Localized;
+
+import uk.ac.ebi.spot.ols.util.LocalizedStrings;
+
 public class TermDocumentBuilder {
     private String id;
     private String uri;
     private int uri_key;
-    private String label;
-    private List<String> synonyms = new ArrayList<>();
-    private List<String> description = new ArrayList<>();
+    private LocalizedStrings labels = new LocalizedStrings();
+    private LocalizedStrings synonyms = new LocalizedStrings();
+    private LocalizedStrings descriptions = new LocalizedStrings();
     private String shortForm;
     private String oboId;
     private String ontologyName;
-    private String ontologyTitle;
+    private Map<String, String> ontologyTitles;
     private String ontologyPrefix;
     private String ontologyUri;
     private String type;
@@ -23,7 +27,10 @@ public class TermDocumentBuilder {
     private boolean hasChildren = false;
     private boolean isRoot = false;
     private List<String> equivalentUris = new ArrayList<>();
-    private Map<String, List<String>> annotation = new HashMap<>();
+
+    // Map<language, Map<key, List<value>>>
+    private Map<String, Map<String, List<String>>> annotations = new HashMap<>();
+
     private List<String> logicalDescription = new ArrayList<>();
     private List<String> parents = new ArrayList<>();
     private List<String> ancestors = new ArrayList<>();
@@ -50,18 +57,18 @@ public class TermDocumentBuilder {
         return this;
     }
 
-    public TermDocumentBuilder setLabel(String label) {
-        this.label = label;
+    public TermDocumentBuilder setLabels(LocalizedStrings labels) {
+        this.labels = labels;
         return this;
     }
 
-    public TermDocumentBuilder setSynonyms(Collection<String> synonyms) {
-        this.synonyms = new ArrayList<>(synonyms);
+    public TermDocumentBuilder setSynonyms(LocalizedStrings synonyms) {
+        this.synonyms = synonyms;
         return this;
     }
 
-    public TermDocumentBuilder setDescription(Collection<String> description) {
-        this.description = new ArrayList<>(description);
+    public TermDocumentBuilder setDescriptions(LocalizedStrings descriptions) {
+        this.descriptions = descriptions;
         return this;
     }
 
@@ -80,8 +87,8 @@ public class TermDocumentBuilder {
         return this;
     }
 
-    public TermDocumentBuilder setOntologyTitle(String ontologyTitle) {
-        this.ontologyTitle = ontologyTitle;
+    public TermDocumentBuilder setOntologyTitles(Map<String,String> ontologyTitles) {
+        this.ontologyTitles = ontologyTitles;
         return this;
     }
 
@@ -165,10 +172,8 @@ public class TermDocumentBuilder {
         return this;
     }
 
-    public TermDocumentBuilder setAnnotation(Map<String, Collection<String>> annotations) {
-        for (String key : annotations.keySet()) {
-            this.annotation.put(key, new ArrayList<>(annotations.get(key)));
-        }
+    public TermDocumentBuilder setAnnotations(Map<String, Map<String, List<String>>> annotations) {
+        this.annotations = annotations;
         return this;
     }
 
@@ -186,37 +191,56 @@ public class TermDocumentBuilder {
 		return this;
 	}
 
-	public TermDocument createTermDocument() {
-        return new TermDocument(
-                id,
-                uri,
-                uri_key,
-                label,
-                synonyms,
-                description,
-                shortForm,
-                oboId,
-                ontologyName,
-                ontologyTitle,
-                ontologyPrefix,
-                ontologyUri,
-                type,
-                isDefiningOntology,
-                subsets,
-                isObsolete,
-                hasChildren,
-                isRoot,
-                equivalentUris,
-                logicalDescription,
-                annotation,
-                parents,
-                ancestors,
-                children,
-                descendants,
-                hierarchical_parents,
-                hierarchical_ancestors,
-                relatedTerms,
-                isPreferredRoot
-                );
+	public Collection<TermDocument> createTermDocuments() {
+
+        Set<String> languages = new HashSet<>();
+
+        languages.addAll(labels.getLanguages());
+        languages.addAll(ontologyTitles.keySet());
+        languages.addAll(synonyms.getLanguages());
+        languages.addAll(descriptions.getLanguages());
+        languages.addAll(annotations.keySet());
+
+        List<TermDocument> docs = new ArrayList<>();
+
+        for(String lang : languages) {
+
+            docs.add(
+                new TermDocument(
+                    id,
+                    uri,
+                    lang,
+                    uri_key,
+                    labels.getFirstString(lang),
+                    synonyms.getStrings(lang),
+                    descriptions.getStrings(lang),
+                    shortForm,
+                    oboId,
+                    ontologyName,
+                    ontologyTitles.get(lang),
+                    ontologyPrefix,
+                    ontologyUri,
+                    type,
+                    isDefiningOntology,
+                    subsets,
+                    isObsolete,
+                    hasChildren,
+                    isRoot,
+                    equivalentUris,
+                    logicalDescription,
+                    annotations.get(lang),
+                    parents,
+                    ancestors,
+                    children,
+                    descendants,
+                    hierarchical_parents,
+                    hierarchical_ancestors,
+                    relatedTerms,
+                    isPreferredRoot
+                    )
+            );
+        }
+
+        return docs;
     }
 }

@@ -44,7 +44,7 @@ public class OWLOntologyLoaderDUOTest {
         OntologyResourceConfig.OntologyResourceConfigBuilder builder =
                 new OntologyResourceConfig.OntologyResourceConfigBuilder(
                         "http://purl.obolibrary.org/obo/duo",
-                        "Data Use Ontology",
+                        // "Data Use Ontology",
                         "DUO",
                         (new File("./src/test/resources/duo-preferred-roots.owl").toURI())
 

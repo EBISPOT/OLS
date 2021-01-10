@@ -24,7 +24,7 @@ public class NoReasonerLoaderTest {
                 new OntologyResourceConfig.OntologyResourceConfigBuilder(
                         "http://www.ebi.ac.uk/test2",
                         "test2",
-                        "test2",
+                        // "test2",
                         (new File("ontology-tools/src/test/resources/test2.owl").toURI())
 
                 );
@@ -59,7 +59,7 @@ public class NoReasonerLoaderTest {
         OntologyResourceConfig.OntologyResourceConfigBuilder builder =
                 new OntologyResourceConfig.OntologyResourceConfigBuilder(
                         "http://purl.obolibrary.org/obo/duo",
-                        "Data Use Ontology",
+                        // "Data Use Ontology",
                         "DUO",
                         (new File("ontology-tools/src/test/resources/duo-preferred-roots.owl").toURI())
 
@@ -85,7 +85,7 @@ public class NoReasonerLoaderTest {
         OntologyResourceConfig.OntologyResourceConfigBuilder builder =
                 new OntologyResourceConfig.OntologyResourceConfigBuilder(
                         "http://purl.obolibrary.org/obo/mondo",
-                        "Mondo",
+                        // "Mondo",
                         "mondo",
                         (new File("ontology-tools/src/test/resources/mondo.owl").toURI())
 
@@ -111,7 +111,7 @@ public class NoReasonerLoaderTest {
         OntologyResourceConfig.OntologyResourceConfigBuilder builder =
                 new OntologyResourceConfig.OntologyResourceConfigBuilder(
                         "http://purl.obolibrary.org/obo/mondo",
-                        "Mondo",
+                        // "Mondo",
                         "mondo",
                         (new File("ontology-tools/src/test/resources/mondo.obo").toURI())
 

@@ -8,12 +8,16 @@ package uk.ac.ebi.spot.ols.loader;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.springframework.core.io.Resource;
+
+import uk.ac.ebi.spot.ols.util.LocalizedStrings;
 import uk.ac.ebi.spot.ols.util.OBODefinitionCitation;
 import uk.ac.ebi.spot.ols.util.OBOSynonym;
 import uk.ac.ebi.spot.ols.util.OBOXref;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * An ontology loader that provides some abstraction around core concepts in ontologies.  We essentially
@@ -90,16 +94,16 @@ public interface OntologyLoader {
      * Returns a mapping between the IRIs that identify classes in the loaded ontology and the 
      * corresponding class rdfs:label.
      *
-     * @return the class labels in this ontology, indexed by class IRI
+     * @return the class labels in this ontology, indexed by class IRI and then language
      */
-    Map<IRI, String> getTermLabels();
+    Map<IRI, LocalizedStrings> getTermLabels();
 
     /**
      * Get all synonyms for a given IRI
      *
-     * @return the class labels in this ontology, indexed by class IRI
+     * @return the class labels in this ontology, indexed by class IRI and then language
      */
-    Map<IRI, Collection<String>> getTermSynonyms();
+    Map<IRI, LocalizedStrings> getTermSynonyms();
 
     /**
      * Returns the class "accession" - or a user friendly 'short name' or identifier.  This will normally be the IRI
@@ -122,7 +126,7 @@ public interface OntologyLoader {
 
     String getTermReplacedBy(IRI entityIRI);
 
-    Map<IRI, Collection<String>> getAnnotations(IRI entityIRI);
+    Map<IRI, LocalizedStrings> getAnnotations(IRI entityIRI);
 
     Collection<OBODefinitionCitation> getOBODefinitionCitations(IRI entityIRI);
 
@@ -135,7 +139,7 @@ public interface OntologyLoader {
      * Get a map of IRI definitions
      * @return definitionProperty A collection of definition IRIs used in the ontology
      */
-    Map<IRI, Collection<String>> getTermDefinitions();
+    Map<IRI, LocalizedStrings> getTermDefinitions();
 
     Map<IRI, Collection<IRI>> getDirectParentTerms();
     Collection<IRI> getDirectParentTerms(IRI iri);
@@ -149,23 +153,14 @@ public interface OntologyLoader {
 
     Collection<String> getInternalMetadataProperties ();
 
-    /**
-     * Get a map of ontology annotations
-     * @return annotation a map of ontology annotations
-     */
-    String getTitle();
+    Map<String,String> getLocalizedTitles();
+    Map<String,String> getLocalizedDescriptions();
 
     /**
-     * Get a map of the ontology annotation. The key is the label or short form of the annotation predicate.
+     * Get a map of the ontology annotation in the form Map<language, Map<key, List<value>>>
      * @return
      */
-    Map<String, Collection<String>> getOntologyAnnotations();
-
-    /**
-     * Get the long description of this ontology
-     * @return
-     */
-    String getOntologyDescription();
+    Map<String, Map<String, List<String>>> getOntologyAnnotations();
 
     /**
      * Get the ontology homepage
@@ -262,4 +257,7 @@ public interface OntologyLoader {
      * @return a list of terms that are considered to be the preferred roots of the ontology.
      */
     Collection<IRI> getPreferredRootTerms();
+
+
+    Set<String> getOntologyLanguages();
 }

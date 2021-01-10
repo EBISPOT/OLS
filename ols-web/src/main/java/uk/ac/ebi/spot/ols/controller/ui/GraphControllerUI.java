@@ -21,6 +21,7 @@ import uk.ac.ebi.spot.ols.service.OntologyRepositoryService;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -77,6 +78,7 @@ public class GraphControllerUI {
     @RequestMapping(path = "{onto}/terms/graph", method = RequestMethod.GET)
     String getTerm(
             @PathVariable("onto") String ontologyId,
+            @RequestParam(value = "lang", required = false, defaultValue = "en") String lang,
             @RequestParam(value = "iri", required = false) String termIri,
             @RequestParam(value = "short_form", required = false) String shortForm,
             @RequestParam(value = "obo_id", required = false) String oboId,
@@ -94,7 +96,7 @@ public class GraphControllerUI {
 
                 term.setShortForm("TestShortForm");
                 term.setOntologyName("Test");
-                term.setLabel("TestLabel");
+                //term.setLabels("en-US", new HashSet<String>(Arrays.asList("TestLabel")));
                 term.setIri("Testroot");
                 //term.setOntologyPrefix("Testprefix"); //doesn't exist, set method has to be written
 
@@ -128,7 +130,7 @@ public class GraphControllerUI {
         model.addAttribute("ontologyTerm", term);
         model.addAttribute("parentTerms", ontologyTermGraphService.getParents(ontologyId, term.getIri(), new PageRequest(0, 10)));
 
-        String title = repositoryService.get(ontologyId).getConfig().getTitle();
+        String title = repositoryService.get(ontologyId).getConfig().getLocalizedTitle(lang);
         model.addAttribute("ontologyName", title);
 
         customisationProperties.setCustomisationModelAttributes(model);

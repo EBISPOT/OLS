@@ -22,7 +22,7 @@ public class OWLOntologyLoaderTest {
                 new OntologyResourceConfig.OntologyResourceConfigBuilder(
                         "http://www.bio.ntnu.no/ontology/ReXO/rexo.owl",
                         "rexo",
-                        "REXO",
+                        // "REXO",
                         URI.create("http://www.bio.ntnu.no/ontology/ReXO/rexo.owl")
 
                 );
@@ -55,16 +55,16 @@ public class OWLOntologyLoaderTest {
             }
 
 
-            if (loader.getTermSynonyms().containsKey(iri)) {
-                for (String syns : loader.getTermSynonyms().get(iri)) {
-                                System.out.println(iri + " -> synonyms: " + syns);
-                            }
-            }
-            if (loader.getTermDefinitions().containsKey(iri)) {
-                for (String syns : loader.getTermDefinitions().get(iri)) {
-                                System.out.println(iri + " -> definition: " + syns);
-                            }
-            }
+            // if (loader.getTermSynonyms().containsKey(iri)) {
+            //     for (String syns : loader.getTermSynonyms().get(iri)) {
+            //                     System.out.println(iri + " -> synonyms: " + syns);
+            //                 }
+            // }
+            // if (loader.getTermDefinitions().containsKey(iri)) {
+            //     for (String syns : loader.getTermDefinitions().get(iri)) {
+            //                     System.out.println(iri + " -> definition: " + syns);
+            //                 }
+            // }
 
             if (!loader.getRelatedTerms(iri).isEmpty())    {
                 for (IRI propertyIri : loader.getRelatedTerms(iri).keySet()  ) {
