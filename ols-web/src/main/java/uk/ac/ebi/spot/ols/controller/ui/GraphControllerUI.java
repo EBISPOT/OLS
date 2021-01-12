@@ -78,6 +78,7 @@ public class GraphControllerUI {
     @RequestMapping(path = "{onto}/terms/graph", method = RequestMethod.GET)
     String getTerm(
             @PathVariable("onto") String ontologyId,
+            @RequestParam(value = "lang", required = false) String lang,
             @RequestParam(value = "iri", required = false) String termIri,
             @RequestParam(value = "short_form", required = false) String shortForm,
             @RequestParam(value = "obo_id", required = false) String oboId,
@@ -129,7 +130,7 @@ public class GraphControllerUI {
         model.addAttribute("ontologyTerm", term);
         model.addAttribute("parentTerms", ontologyTermGraphService.getParents(ontologyId, term.getIri(), new PageRequest(0, 10)));
 
-        String title = repositoryService.get(ontologyId).getConfig().getTitle();
+        String title = repositoryService.get(ontologyId).getConfig().getTitle(lang);
         model.addAttribute("ontologyName", title);
 
         customisationProperties.setCustomisationModelAttributes(model);

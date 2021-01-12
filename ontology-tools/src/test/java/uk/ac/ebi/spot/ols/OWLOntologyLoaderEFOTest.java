@@ -23,7 +23,7 @@ public class OWLOntologyLoaderEFOTest {
         OntologyResourceConfig.OntologyResourceConfigBuilder builder =
                 new OntologyResourceConfig.OntologyResourceConfigBuilder(
                         "http://www.ebi.ac.uk/efo",
-                        "Experimental Factor Ontology",
+                        // "Experimental Factor Ontology",
                         "EFO",
                         URI.create("http://www.ebi.ac.uk/efo/efo.owl")
 

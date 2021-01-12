@@ -9,7 +9,7 @@
 
 <head>
     <div th:replace="fragments/head :: head(olscss=true, diachron=true, proton=true)"></div>
-    <title id="pageTitle" th:inline="text">[[${ontologyDocument.getConfig().getTitle()}]] &lt; [[${title}]] &lt; [[${org}]]</title>
+    <title id="pageTitle" th:inline="text">[[${ontologyDocument.getConfig().getTitle(lang)}]] &lt; [[${title}]] &lt; [[${org}]]</title>
     <!-- A few keywords that relate to the content of THIS PAGE (not the whole project)
     <meta name="keywords" content="biosamples, europe, EBI" />
     <!- - Describe what this page is about - ->
@@ -29,9 +29,9 @@
     <div vocab="http://schema.org/" class="row">
 
         <div id="mainpageSearchBox">
-            <h3 style="font-size: 43px;" property="name" th:text="${ontologyDocument.getConfig().getTitle()}">Ontology label</h3>
+            <h3 style="font-size: 43px;" property="name" th:text="${ontologyDocument.getConfig().getTitle(lang)}">Ontology label</h3>
             <div property="description">
-                <p style="font-size: 16px;" th:each="description : ${ontologyDocument.getConfig().getDescription()}" th:text="${description}">
+                <p style="font-size: 16px;" th:each="description : ${ontologyDocument.getConfig().getDescription(lang)}" th:text="${description}">
                 </p>
             </div>
 

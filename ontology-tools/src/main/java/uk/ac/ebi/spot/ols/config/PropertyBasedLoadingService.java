@@ -9,7 +9,9 @@ import uk.ac.ebi.spot.ols.util.ReasonerType;
 import java.net.URI;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 /**
  * @author Simon Jupp
@@ -49,7 +51,7 @@ public class PropertyBasedLoadingService extends AbstractLoadingService {
         }
 
         OntologyResourceConfig.OntologyResourceConfigBuilder builder =
-                new OntologyResourceConfig.OntologyResourceConfigBuilder(id, title, namespace, URI.create(location));
+                new OntologyResourceConfig.OntologyResourceConfigBuilder(id, namespace, URI.create(location));
 
         builder.setPreferredPrefix(preferredPrefix);
 
@@ -109,17 +111,22 @@ public class PropertyBasedLoadingService extends AbstractLoadingService {
             builder.setOboSlims(Boolean.parseBoolean(environment.getProperty("oboSlims")));
         }
 
-        if (environment.containsProperty("description")) {
-            builder.setDescription(environment.getProperty("description"));
-        }
+        // TODO: how to handle localized titles in this loader?
+        Map<String,String> titles = new HashMap<>();
+        titles.put("en", title);
+        builder.setTitles(titles);
 
-        if (environment.containsProperty("homepage")) {
-            builder.setDescription(environment.getProperty("homepage"));
-        }
+        // if (environment.containsProperty("description")) {
+        //     builder.setDescription(environment.getProperty("description"));
+        // }
 
-        if (environment.containsProperty("mailing_list")) {
-            builder.setDescription(environment.getProperty("mailing_list"));
-        }
+        // if (environment.containsProperty("homepage")) {
+        //     builder.setDescription(environment.getProperty("homepage"));
+        // }
+
+        // if (environment.containsProperty("mailing_list")) {
+        //     builder.setDescription(environment.getProperty("mailing_list"));
+        // }
 
         this.config = builder.build();
         return config;

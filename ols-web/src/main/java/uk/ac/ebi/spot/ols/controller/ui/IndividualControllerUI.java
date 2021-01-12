@@ -48,6 +48,7 @@ public class IndividualControllerUI {
             @PathVariable("onto") String ontologyId,
             @RequestParam(value = "iri", required = false) String termIri,
             @RequestParam(value = "short_form", required = false) String shortForm,
+            @RequestParam(value = "lang", required = false) String lang,
             @RequestParam(value = "obo_id", required = false) String oboId,
             Pageable pageable,
             Model model) throws ResourceNotFoundException {
@@ -76,7 +77,7 @@ public class IndividualControllerUI {
 
             OntologyDocument document = repositoryService.get(ontologyId);
             model.addAttribute("ontologyName", document.getOntologyId());
-            model.addAttribute("ontologyTitle", document.getConfig().getTitle());
+            model.addAttribute("ontologyTitle", document.getConfig().getTitle(lang));
             model.addAttribute("ontologyPrefix", document.getConfig().getPreferredPrefix());
             model.addAttribute("pageable", pageable);
             model.addAttribute("allindividuals", termsPage);
@@ -93,7 +94,7 @@ public class IndividualControllerUI {
         model.addAttribute("ontologyIndividual", term);
         model.addAttribute("indvidualTypes", ontologyIndividualService.getDirectTypes(ontologyId, term.getIri(), new PageRequest(0, 10)));
 
-        String title = repositoryService.get(ontologyId).getConfig().getTitle();
+        String title = repositoryService.get(ontologyId).getConfig().getTitle(lang);
         model.addAttribute("ontologyName", title);
 
         return "individual";

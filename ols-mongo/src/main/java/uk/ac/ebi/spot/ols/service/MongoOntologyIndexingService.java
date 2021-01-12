@@ -117,18 +117,9 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             // update any ontology meta data
             OntologyResourceConfig config = document.getConfig();
 
-            if (loader.getTitle() != null) {
-                config.setTitle(loader.getTitle());
-            }
-            if (loader.getLocalizedTitles() != null) {
-                config.setLocalizedTitles(loader.getLocalizedTitles());
-            }
-            if (loader.getDescription() != null) {
-                config.setDescription(loader.getDescription());
-            }
-            if (loader.getLocalizedDescriptions() != null) {
-                config.setLocalizedDescriptions(loader.getLocalizedDescriptions());
-            }
+            config.setTitles(loader.getTitles());
+            config.setDescriptions(loader.getDescriptions());
+
             if (loader.getHomePage() != null) {
                 config.setHomepage(loader.getHomePage());
             }

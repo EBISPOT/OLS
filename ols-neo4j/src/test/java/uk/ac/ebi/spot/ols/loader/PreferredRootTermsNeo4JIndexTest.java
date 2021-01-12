@@ -13,6 +13,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.AfterAll;
@@ -127,13 +128,13 @@ public class PreferredRootTermsNeo4JIndexTest {
 	}
 	
 	
-	private static OntologyLoader createOntologyLoader(String id, String title, String namespace, 
+	private static OntologyLoader createOntologyLoader(String id, String namespace, 
 			String fileLocation, String baseURI) {
 
 		OntologyResourceConfig.OntologyResourceConfigBuilder builder =
-                new OntologyResourceConfig.OntologyResourceConfigBuilder(id, title, namespace,
+                new OntologyResourceConfig.OntologyResourceConfigBuilder(id, namespace,
                 		new File(fileLocation).toURI());
-        
+
         builder.setBaseUris(Collections.singleton(baseURI));		
         OntologyResourceConfig config = builder.build();
 
@@ -157,7 +158,7 @@ public class PreferredRootTermsNeo4JIndexTest {
                         "http://purl.obolibrary.org/obo/OBI_0000066"));		
                         
 	    return Stream.of(
-	      Arguments.of(createOntologyLoader("http://purl.obolibrary.org/obo/duo", "Data Use Ontology",
+	      Arguments.of(createOntologyLoader("http://purl.obolibrary.org/obo/duo",
 	    		  "DUO", "./src/test/resources/duo-preferred-roots.owl", 
 	    		  "http://purl.obolibrary.org/obo/DUO_"), PREFERRED_ROOT_TERMS_TEST_NEO4J_DIR, 
 	    		  expectedPreferredRootTermIRIs));

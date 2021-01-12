@@ -43,11 +43,11 @@ public class DocumentUpdater {
         Collection<String> dontUpdate = originalDocument.getConfig().getInternalMetadataProperties();
 
         if (!dontUpdate.contains(OntologyDefaults.TITLE)) {
-            originalDocument.getConfig().setTitle(newDocument.getTitle());
+            originalDocument.getConfig().setTitles(newDocument.getTitles());
         }
 
         if (!dontUpdate.contains(OntologyDefaults.DEFINITION)) {
-            originalDocument.getConfig().setDescription(newDocument.getDescription());
+            originalDocument.getConfig().setDescriptions(newDocument.getDescriptions());
         }
 
         if (!dontUpdate.contains(OntologyDefaults.HOMEPAGE)) {
@@ -74,9 +74,6 @@ public class DocumentUpdater {
         originalDocument.getConfig().setSynonymProperties(newDocument.getSynonymProperties());
         originalDocument.getConfig().setHierarchicalProperties(newDocument.getHierarchicalProperties());
         originalDocument.getConfig().setPreferredRootTerms(newDocument.getPreferredRootTerms());
-
-        originalDocument.getConfig().setLocalizedTitles(newDocument.getLocalizedTitles());
-        originalDocument.getConfig().setLocalizedDescriptions(newDocument.getLocalizedDescriptions());
 
         if (!newDocument.getBaseUris().isEmpty()) {
             originalDocument.getConfig().setBaseUris(newDocument.getBaseUris());

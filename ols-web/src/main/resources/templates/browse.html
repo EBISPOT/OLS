@@ -62,11 +62,11 @@
 
                     <td  data-width="30%" style="width: 50%;" >
 
-                        <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="@{/ontologies/__${onto.getConfig().getNamespace()}__}" th:text="${{onto.getConfig().getTitle()}}">Ontology name</a>
-                        <span th:if="${{onto.getStatus() ==  T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:text="${{onto.getConfig().getTitle()}}">Ontology name</span>
+                        <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="@{/ontologies/__${onto.getConfig().getNamespace()}__}" th:text="${{onto.getConfig().getTitle(lang)}}">Ontology name</a>
+                        <span th:if="${{onto.getStatus() ==  T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:text="${{onto.getConfig().getTitle(lang)}}">Ontology name</span>
                     </td>
                     <td><span class="ontology-source" th:text="${{onto.getConfig().getPreferredPrefix()}}"></span></td>
-                    <td th:text="${{onto.getConfig().getDescription()}}">0</td>
+                    <td th:text="${{onto.getConfig().getDescription(lang)}}">0</td>
                     <td th:text="${{onto.getLoaded()}}">0</td>
                     <td>
                         <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="'search?ontology=' + ${onto.getConfig().getNamespace()}" href="search">Search</a><br/>

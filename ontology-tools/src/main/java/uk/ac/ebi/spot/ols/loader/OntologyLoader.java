@@ -151,16 +151,14 @@ public interface OntologyLoader {
 
     Collection<String> getInternalMetadataProperties ();
 
-    String getTitle();
-    Map<String,String> getLocalizedTitles();
-    String getDescription();
-    Map<String,String> getLocalizedDescriptions();
+    Map<String,String> getTitles();
+    Map<String,String> getDescriptions();
 
     /**
      * Get a map of the ontology annotation. The key is the label or short form of the annotation predicate.
      * @return
      */
-    Map<String, Collection<String>> getOntologyAnnotations();
+    Map<String, LocalizedStrings> getOntologyAnnotations();
 
     /**
      * Get the ontology homepage

@@ -49,6 +49,7 @@ public class PropertyControllerUI {
             @RequestParam(value = "iri", required = false) String termIri,
             @RequestParam(value = "short_form", required = false) String shortForm,
             @RequestParam(value = "obo_id", required = false) String oboId,
+            @RequestParam(value = "lang", required = false) String lang,
             Pageable pageable,
             Model model) throws ResourceNotFoundException {
 
@@ -75,7 +76,7 @@ public class PropertyControllerUI {
 
             OntologyDocument document = repositoryService.get(ontologyId);
             model.addAttribute("ontologyName", document.getOntologyId());
-            model.addAttribute("ontologyTitle", document.getConfig().getTitle());
+            model.addAttribute("ontologyTitle", document.getConfig().getTitle(lang));
             model.addAttribute("ontologyPrefix", document.getConfig().getPreferredPrefix());
             model.addAttribute("pageable", pageable);
             model.addAttribute("allproperties", termsPage);
@@ -91,7 +92,7 @@ public class PropertyControllerUI {
         model.addAttribute("ontologyProperty", property);
         model.addAttribute("parentProperties", ontologyPropertyGraphService.getParents(ontologyId, property.getIri(), new PageRequest(0, 10)));
 
-        String title = repositoryService.get(ontologyId).getConfig().getTitle();
+        String title = repositoryService.get(ontologyId).getConfig().getTitle(lang);
         model.addAttribute("ontologyName", title);
         customisationProperties.setCustomisationModelAttributes(model);
 

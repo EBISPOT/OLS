@@ -24,17 +24,16 @@ public class OntologyResourceConfig  {
     private  String namespace;
     private  String preferredPrefix;
 
-    private String title;
-    private String description;
-
-    private Map<String, String> localizedDescriptions;
-    private Map<String, String> localizedTitles;
+    // lang -> value
+    private Map<String, String> titles;
+    private Map<String, String> descriptions;
 
     private String homepage;
     private String version;
     private String mailingList;
     private Collection<String> creators;
-    private Map<String, Collection<String>> annotations;
+
+    private Map<String, LocalizedStrings> annotations;
 
     private  URI fileLocation;
 
@@ -60,10 +59,8 @@ public class OntologyResourceConfig  {
     private OntologyResourceConfig(OntologyResourceConfigBuilder builder) {
         this.id = builder.id;
         this.versionIri = builder.versionIri;
-        this.title = builder.title;
-        this.localizedTitles = builder.localizedTitles;
-        this.description = builder.description;
-        this.localizedDescriptions = builder.localizedDescriptions;
+        this.titles = builder.titles;
+        this.descriptions = builder.descriptions;
         this.namespace = builder.namespace;
         this.preferredPrefix = builder.preferredPrefix;
         this.fileLocation = builder.fileLocation;
@@ -95,15 +92,22 @@ public class OntologyResourceConfig  {
     }
 
     public String getVersionIri() {
-            return versionIri;
-        }
-
-    public String getTitle() {
-        return title;
+        return versionIri;
     }
 
-    public Map<String,String> getLocalizedTitles() {
-        return localizedTitles;
+    public Map<String,String> getTitles() {
+        return titles;
+    }
+
+    public String getTitle(String lang) {
+        return titles.get(lang) != null ? titles.get(lang) : titles.get("en");
+    }
+
+    public Map<String,String> getDescriptions() {
+        return descriptions;
+    }
+    public String getDescription(String lang) {
+        return titles.get(lang) != null ? descriptions.get(lang) : descriptions.get("en");
     }
 
     public String getVersion() {
@@ -166,14 +170,6 @@ public class OntologyResourceConfig  {
         this.isSkos = isSkos;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public Map<String,String> getLocalizedDescriptions() {
-        return localizedDescriptions;
-    }
-
     public String getHomepage() {
         return homepage;
     }
@@ -186,7 +182,7 @@ public class OntologyResourceConfig  {
         return creators;
     }
 
-    public Map<String, Collection<String>> getAnnotations() {
+    public Map<String, LocalizedStrings> getAnnotations() {
         return annotations;
     }
 
@@ -202,23 +198,15 @@ public class OntologyResourceConfig  {
         this.homepage = homepage;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitles(Map<String,String> titles) {
+        this.titles = titles;
     }
 
-    public void setLocalizedTitles(Map<String,String> localizedTitles) {
-        this.localizedTitles = localizedTitles;
+    public void setDescriptions(Map<String,String> descriptions) {
+        this.descriptions = descriptions;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setLocalizedDescriptions(Map<String,String> localizedDescriptions) {
-        this.localizedDescriptions = localizedDescriptions;
-    }
-
-    public void setAnnotations(Map<String, Collection<String>> annotations) {
+    public void setAnnotations(Map<String, LocalizedStrings> annotations) {
         this.annotations = annotations;
     }
 
@@ -301,13 +289,8 @@ public class OntologyResourceConfig  {
     public static class OntologyResourceConfigBuilder {
         private  String id;
         private  String versionIri;
-
-        private String title;
-        private Map<String, String> localizedTitles;
-
-        private String description;
-        private Map<String, String> localizedDescriptions;
-
+        private Map<String, String> titles;
+        private Map<String, String> descriptions;
         private  String namespace;
         private String preferredPrefix;
         private  URI fileLocation;
@@ -324,14 +307,13 @@ public class OntologyResourceConfig  {
         private String version;
         private String mailingList;
         private Collection<String> creators = Collections.emptySet();
-        private Map<String, Collection<String>> annotations = Collections.emptyMap();
+        private Map<String, LocalizedStrings> annotations = Collections.emptyMap();
         private Collection<String> internalMetadatProperties = Collections.emptySet();
         private Collection<URI> preferredRootTerms = Collections.emptySet();
         private boolean allowDownload = true;
 
-        public OntologyResourceConfigBuilder(String id, String title, String namespace, URI fileLocation) {
+        public OntologyResourceConfigBuilder(String id, String namespace, URI fileLocation) {
             this.id = id;
-            this.title = title;
             this.namespace = namespace.toLowerCase();
             this.fileLocation = fileLocation;
             this.preferredPrefix = namespace;
@@ -347,12 +329,8 @@ public class OntologyResourceConfig  {
             return this;
         }
 
-        public OntologyResourceConfigBuilder setTitle(String title) {
-            this.title = title;
-            return this;
-        }
-        public OntologyResourceConfigBuilder setLocalizedTitles(Map<String,String> titles) {
-            this.localizedTitles = titles;
+        public OntologyResourceConfigBuilder setTitles(Map<String,String> titles) {
+            this.titles = titles;
             return this;
         }
 
@@ -421,13 +399,8 @@ public class OntologyResourceConfig  {
             return this;
         }
 
-        public OntologyResourceConfigBuilder setDescription(String description) {
-            this.description = description;
-            return this;
-        }
-
-        public OntologyResourceConfigBuilder setLocalizedDescriptions(Map<String,String> descriptions) {
-            this.localizedDescriptions = descriptions;
+        public OntologyResourceConfigBuilder setDescriptions(Map<String,String> descriptions) {
+            this.descriptions = descriptions;
             return this;
         }
 
@@ -446,7 +419,7 @@ public class OntologyResourceConfig  {
             return this;
         }
 
-        public OntologyResourceConfigBuilder setAnnotations(Map<String, Collection<String>> annotations) {
+        public OntologyResourceConfigBuilder setAnnotations(Map<String, LocalizedStrings> annotations) {
             this.annotations = annotations;
             return this;
         }

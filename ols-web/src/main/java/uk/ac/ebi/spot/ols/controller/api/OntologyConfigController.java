@@ -97,10 +97,10 @@ public class OntologyConfigController {
         private OntologyResourceConfigFormatter(OntologyResourceConfig config) {
             this.setId(config.getId());
             this.setVersionIri(config.getVersionIri());
-            this.setTitle(config.getTitle());
+            this.setTitles(config.getTitles());
             this.setNamespace(config.getNamespace());
             this.setPreferredPrefix(config.getPreferredPrefix());
-            this.setDescription(config.getDescription());
+            this.setDescriptions(config.getDescriptions());
             this.setHomepage(config.getHomepage());
             this.setMailingList(config.getMailingList());
             this.setFileLocation(config.getFileLocation());

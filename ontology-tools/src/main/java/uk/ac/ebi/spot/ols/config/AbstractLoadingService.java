@@ -27,7 +27,8 @@ public abstract class AbstractLoadingService implements DocumentLoadingService {
 
         try {
             OntologyResourceConfig config = getConfiguration();
-            getLog().info("Starting up loader with " + config.getId() + " - " + config.getTitle());
+            // getLog().info("Starting up loader with " + config.getId() + " - " + config.getTitle());
+            getLog().info("Starting up loader with " + config.getId());
 
             return  OntologyLoaderFactory.getLoader(config);
         } catch (ConfigParsingException e) {

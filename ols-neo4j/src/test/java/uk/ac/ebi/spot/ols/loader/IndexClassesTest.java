@@ -71,14 +71,14 @@ public class IndexClassesTest {
 	@Order(1)
 	@ParameterizedTest
 	@MethodSource("provideOntologies")
-	void testIndexClasses(String ontologyIRI, String title, String namespace, String ontologyToIndex, 
+	void testIndexClasses(String ontologyIRI, String namespace, String ontologyToIndex, 
 			String baseUri, String neo4JDir) {
 		
 		BatchInserter batchInserter = OLSBatchIndexerCreatorTestHelper
 				.createBatchInserter(null, INDEX_CLASSES_TEST_NEO4J_DIR);
 		
         OntologyResourceConfig.OntologyResourceConfigBuilder builder =
-                new OntologyResourceConfig.OntologyResourceConfigBuilder(ontologyIRI, title, 
+                new OntologyResourceConfig.OntologyResourceConfigBuilder(ontologyIRI, 
                 		namespace, (new File(BASE_DIR_FOR_TEST_RESOURCES + ontologyToIndex).toURI()));
         
         builder.setBaseUris(Collections.singleton(baseUri));
@@ -116,14 +116,14 @@ public class IndexClassesTest {
 	@Order(2)
 	@ParameterizedTest
 	@MethodSource("provideOntologies")
-	void testIndexClassesDeprecated(String ontologyIRI, String title, String namespace, String ontologyToIndex, 
+	void testIndexClassesDeprecated(String ontologyIRI, String namespace, String ontologyToIndex, 
 			String baseUri, String neo4JDir) {
 		
 		BatchInserter batchInserter = OLSBatchIndexerCreatorTestHelper
 				.createBatchInserter(null, INDEX_CLASSES_TEST_DEPRECATED_NEO4J_DIR);
 		
         OntologyResourceConfig.OntologyResourceConfigBuilder builder =
-                new OntologyResourceConfig.OntologyResourceConfigBuilder(ontologyIRI, title, 
+                new OntologyResourceConfig.OntologyResourceConfigBuilder(ontologyIRI, 
                 		namespace, (new File(BASE_DIR_FOR_TEST_RESOURCES + ontologyToIndex).toURI()));
         
         builder.setBaseUris(Collections.singleton(baseUri));
@@ -234,7 +234,7 @@ public class IndexClassesTest {
 	
 	private static Stream<Arguments> provideOntologies() {
 	    return Stream.of(
-	      Arguments.of("http://purl.obolibrary.org/obo/duo", "Data Use Ontology", "DUO", 
+	      Arguments.of("http://purl.obolibrary.org/obo/duo", "DUO", 
 	    		  "duo-preferred-roots.owl", "http://purl.obolibrary.org/obo/DUO_", 
 	    		  INDEX_CLASSES_TEST_NEO4J_DIR)	
 	    );

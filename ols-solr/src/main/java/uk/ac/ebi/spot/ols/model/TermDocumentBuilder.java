@@ -3,13 +3,15 @@ package uk.ac.ebi.spot.ols.model;
 import java.io.*;
 import java.util.*;
 
+import org.mockito.internal.debugging.Localized;
+
 import uk.ac.ebi.spot.ols.util.LocalizedStrings;
 
 public class TermDocumentBuilder {
     private String id;
     private String uri;
     private int uri_key;
-    private Map<String,String> labels;
+    private LocalizedStrings labels;
     private LocalizedStrings synonyms;
     private LocalizedStrings descriptions;
     private String shortForm;
@@ -25,7 +27,10 @@ public class TermDocumentBuilder {
     private boolean hasChildren = false;
     private boolean isRoot = false;
     private List<String> equivalentUris = new ArrayList<>();
-    private Map<String, List<String>> annotation = new HashMap<>();
+
+    // Map<language, Map<key, List<value>>>
+    private Map<String, Map<String, List<String>>> annotations = new HashMap<>();
+
     private List<String> logicalDescription = new ArrayList<>();
     private List<String> parents = new ArrayList<>();
     private List<String> ancestors = new ArrayList<>();
@@ -52,7 +57,7 @@ public class TermDocumentBuilder {
         return this;
     }
 
-    public TermDocumentBuilder setLabels(Map<String,String> labels) {
+    public TermDocumentBuilder setLabels(LocalizedStrings labels) {
         this.labels = labels;
         return this;
     }
@@ -167,10 +172,8 @@ public class TermDocumentBuilder {
         return this;
     }
 
-    public TermDocumentBuilder setAnnotation(Map<String, Collection<String>> annotations) {
-        for (String key : annotations.keySet()) {
-            this.annotation.put(key, new ArrayList<>(annotations.get(key)));
-        }
+    public TermDocumentBuilder setAnnotations(Map<String, Map<String, List<String>>> annotations) {
+        this.annotations = annotations;
         return this;
     }
 
@@ -192,10 +195,11 @@ public class TermDocumentBuilder {
 
         Set<String> languages = new HashSet<>();
 
-        languages.addAll(labels.keySet());
+        languages.addAll(labels.getLanguages());
         languages.addAll(ontologyTitles.keySet());
         languages.addAll(synonyms.getLanguages());
         languages.addAll(descriptions.getLanguages());
+        languages.addAll(annotations.keySet());
 
         List<TermDocument> docs = new ArrayList<>();
 
@@ -207,7 +211,7 @@ public class TermDocumentBuilder {
                     uri,
                     lang,
                     uri_key,
-                    labels.get(lang),
+                    labels.getFirstString(lang),
                     synonyms.getStrings(lang),
                     descriptions.getStrings(lang),
                     shortForm,
@@ -224,7 +228,7 @@ public class TermDocumentBuilder {
                     isRoot,
                     equivalentUris,
                     logicalDescription,
-                    annotation,
+                    annotations.get(lang),
                     parents,
                     ancestors,
                     children,

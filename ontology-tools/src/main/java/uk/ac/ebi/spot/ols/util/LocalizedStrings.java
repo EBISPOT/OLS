@@ -13,6 +13,12 @@ public class LocalizedStrings {
     public LocalizedStrings() {
     }
 
+    public LocalizedStrings(Map<String,String> strings) {
+        for(String lang : strings.keySet()) {
+            addString(lang, strings.get(lang));
+        }
+    }
+
     public Set<String> getLanguages() {
         return localizations.keySet();
     }
@@ -23,6 +29,10 @@ public class LocalizedStrings {
 
     public Map<String, List<String>> getStrings() {
         return localizations;
+    }
+
+    public String getFirstString(String language) {
+        return getStrings(language).get(0);
     }
 
     public List<String> getEnglishStrings() {
@@ -61,5 +71,14 @@ public class LocalizedStrings {
         return n;
     }
 
+    public void addAll(LocalizedStrings other) {
+
+        for(String lang : other.getLanguages()) {
+            for(String string : other.getStrings(lang)) {
+                addString(lang, string);
+            }
+        }
+
+    }
     
 }
