@@ -11,9 +11,9 @@ public class TermDocumentBuilder {
     private String id;
     private String uri;
     private int uri_key;
-    private LocalizedStrings labels;
-    private LocalizedStrings synonyms;
-    private LocalizedStrings descriptions;
+    private LocalizedStrings labels = new LocalizedStrings();
+    private LocalizedStrings synonyms = new LocalizedStrings();
+    private LocalizedStrings descriptions = new LocalizedStrings();
     private String shortForm;
     private String oboId;
     private String ontologyName;

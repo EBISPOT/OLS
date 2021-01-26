@@ -101,7 +101,7 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
         document.setStatus(Status.LOADING);
         ontologyRepositoryService.update(document);
         // if we get to here, we should have at least loaded the ontology
-        try {
+//        try {
 
             // get all the available indexers
             for (OntologyIndexer indexer : indexers) {
@@ -153,19 +153,19 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             status = Status.LOADED;
             document.setLoaded(new Date());
             result = true;
-        } catch (Throwable t) {
-        	logger.error("Error indexing " + document.getOntologyId(), t);
-            status = Status.FAILED;
-            message = t.getMessage();
-        }
-        finally {
+//        } catch (Throwable t) {
+//        	logger.error("Error indexing " + document.getOntologyId(), t);
+//            status = Status.FAILED;
+//            message = t.getMessage();
+//        }
+//        finally {
 
             document.setStatus(status);
             document.setUpdated(new Date());
             document.setMessage(message);
             ontologyRepositoryService.update(document);
             return result;
-        }
+//        }
     }
 
     @Override

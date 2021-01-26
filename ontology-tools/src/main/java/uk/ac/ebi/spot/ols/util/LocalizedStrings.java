@@ -32,19 +32,11 @@ public class LocalizedStrings {
     }
 
     public String getFirstString(String language) {
-        return getStrings(language).get(0);
-    }
 
-    public List<String> getEnglishStrings() {
-        return getStrings("en");
-    }
+        List<String> strings = getStrings(language);
 
-    public String getFirstEnglishString() {
-        List<String> strings = getEnglishStrings();
-
-        if(strings.size() == 0) {
-            return "";
-        }
+        if(strings == null)
+            return null;
 
         return strings.get(0);
     }

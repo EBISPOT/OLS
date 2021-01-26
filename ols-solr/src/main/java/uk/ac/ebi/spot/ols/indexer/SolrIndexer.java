@@ -84,25 +84,29 @@ public class SolrIndexer implements OntologyIndexer {
 
                 // get labels and synonyms for suggest index
                 LocalizedStrings labels = loader.getTermLabels().get(classTerm);
-                for(String language : labels.getLanguages()) {
-                    Collection<String> labelStrings = labels.getStrings(language);
-                    for(String label : labelStrings) {
-                        suggestDocuments.add(new SuggestDocument(label, loader.getOntologyName(), language));
-                        if (suggestDocuments.size() > 10000) {
-                            indexSuggest(suggestDocuments);
-                            suggestDocuments = new ArrayList<>();
+                if(labels != null) {
+                    for (String language : labels.getLanguages()) {
+                        Collection<String> labelStrings = labels.getStrings(language);
+                        for (String label : labelStrings) {
+                            suggestDocuments.add(new SuggestDocument(label, loader.getOntologyName(), language));
+                            if (suggestDocuments.size() > 10000) {
+                                indexSuggest(suggestDocuments);
+                                suggestDocuments = new ArrayList<>();
+                            }
                         }
                     }
                 }
 
                 LocalizedStrings synonyms = loader.getTermSynonyms().get(classTerm);
-                for(String language : synonyms.getLanguages()) {
-                    Collection<String> synonymStrings = synonyms.getStrings(language);
-                    for(String synonym : synonymStrings) {
-                        suggestDocuments.add(new SuggestDocument(synonym, loader.getOntologyName(), language));
-                        if (suggestDocuments.size() > 10000) {
-                            indexSuggest(suggestDocuments);
-                            suggestDocuments = new ArrayList<>();
+                if(synonyms != null) {
+                    for (String language : synonyms.getLanguages()) {
+                        Collection<String> synonymStrings = synonyms.getStrings(language);
+                        for (String synonym : synonymStrings) {
+                            suggestDocuments.add(new SuggestDocument(synonym, loader.getOntologyName(), language));
+                            if (suggestDocuments.size() > 10000) {
+                                indexSuggest(suggestDocuments);
+                                suggestDocuments = new ArrayList<>();
+                            }
                         }
                     }
                 }
@@ -297,9 +301,21 @@ public class SolrIndexer implements OntologyIndexer {
                         relatedTerms.put(lang, related);
                     }
 
-                    String labelName = loader.getTermLabels().get(relation).getFirstString(lang) + "_annotation";
+                    LocalizedStrings labels = loader.getTermLabels().get(relation);
+
+                    String label = labels.getFirstString(lang);
+
+                    if(label == null)
+                        label = labels.getFirstString("en");
+
+                    String labelName = label + "_annotation";
 
                     List<String> values = related.get(labelName);
+
+                    if(values == null) {
+                        values = new ArrayList<String>();
+                        related.put(labelName, values);
+                    }
 
                     values.addAll(loader.getAnnotations(termIRI).get(relation).getStrings(lang));
                 }

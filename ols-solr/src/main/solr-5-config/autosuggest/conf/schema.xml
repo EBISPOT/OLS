@@ -118,6 +118,9 @@
 
     -->
 
+
+    <field name="language" type="string" indexed="true" stored="true" required="true" multiValued="false" />
+
     <field name="autosuggest" type="string" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="ontology_name" type="string" indexed="true" stored="true" required="true" multiValued="false" />
 

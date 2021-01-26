@@ -304,13 +304,23 @@ class NodeCreator {
      */
 	protected static void addAppropriateLabelProperty(OntologyLoader loader, IRI classIri,
 			Map<String, Object> nodeProperties) {
-		if (!loader.getTermLabels().containsKey(classIri)) {
-		    nodeProperties.put(Neo4JNodePropertyNameConstants.LABEL, 
-		    		loader.getShortForm(classIri));
-		} else  {
-		    nodeProperties.put(Neo4JNodePropertyNameConstants.LABEL, 
-		    		loader.getTermLabels().get(classIri));
+
+		LocalizedStrings labels = loader.getTermLabels().get(classIri);
+
+		if(labels != null) {
+			for(String lang : labels.getLanguages()) {
+				nodeProperties.put(Neo4JNodePropertyNameConstants.LABEL + "_" + lang, labels.getFirstString(lang));
+			}
 		}
+
+		if(labels.getFirstString("en") != null) {
+			nodeProperties.put(Neo4JNodePropertyNameConstants.LABEL,
+					labels.getFirstString("en"));
+		} else {
+			nodeProperties.put(Neo4JNodePropertyNameConstants.LABEL,
+					loader.getShortForm(classIri));
+		}
+
 	}
 
 	protected static String generateOlsId(String ontologyName, IRI classIri) {

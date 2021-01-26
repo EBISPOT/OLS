@@ -144,15 +144,15 @@ public class LoadingApplication implements CommandLineRunner {
             for (String ontologyName : forcedOntologies) {
                 OntologyDocument document = ontologyRepositoryService.get(ontologyName);
                 if (document != null) {
-                    try {
+//                    try {
                         ontologyIndexingService.indexOntologyDocument(document);
                         updatedOntologies.add(document.getOntologyId());
-                    } catch (Throwable t) {
-                        logger.error("Application failed creating indexes for " + 
-                        		document.getOntologyId() + ": " + t.getMessage(), t);
-                        haserror = true;
-                        failingOntologies.put(document.getOntologyId(), t.getMessage());
-                    }
+//                    } catch (Throwable t) {
+//                        logger.error("Application failed creating indexes for " +
+//                        		document.getOntologyId() + ": " + t.getMessage(), t);
+//                        haserror = true;
+//                        failingOntologies.put(document.getOntologyId(), t.getMessage());
+//                    }
                 }
             }
         }

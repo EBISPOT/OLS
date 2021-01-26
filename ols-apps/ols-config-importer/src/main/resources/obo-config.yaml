@@ -11,3 +11,27 @@ author:
 ## --Anything above this line can be edited in _config_header.yml --
 ## --Everything below this line automatically generated in _config.yml --
 ontologies:
+  - activity_status: active
+    contact:
+      email: siiraa@umich.edu
+      label: Sirarat Sarntivijai
+    dependencies:
+      - id: uberon
+      - id: cl
+      - id: doid
+      - id: ncbitaxon
+    description: An ontology to standardize and integrate cell line information and
+      to support computer-assisted reasoning.
+    homepage: http://www.clo-ontology.org
+    id: clo
+    layout: ontology_detail
+    license:
+      label: CC-BY
+      logo: http://mirrors.creativecommons.org/presskit/buttons/80x15/png/by.png
+      url: http://creativecommons.org/licenses/by/3.0/
+    ontology_purl: http://purl.obolibrary.org/obo/clo.owl
+    products:
+      - id: clo.owl
+        ontology_purl: http://purl.obolibrary.org/obo/clo.owl
+    title: Cell Line Ontology
+    tracker: https://github.com/CLO-Ontology/CLO/issues
