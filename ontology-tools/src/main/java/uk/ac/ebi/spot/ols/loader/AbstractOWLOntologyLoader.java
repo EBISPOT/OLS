@@ -804,8 +804,8 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         addDirectParents(property.getIRI(), directSuperProperties);
         addAllParents(property.getIRI(), findAllDirectAndIndirectSuperProperties(property,
         		indirectSuperProperties, ontologyImportClosure));
-        getLogger().debug("indexSubPropertyRelations: " + property + " directSuperProperties = " + directSuperProperties);
-        getLogger().debug("indexSubPropertyRelations: " + property + " indirectSuperProperties = " + indirectSuperProperties);
+//        getLogger().debug("indexSubPropertyRelations: " + property + " directSuperProperties = " + directSuperProperties);
+//        getLogger().debug("indexSubPropertyRelations: " + property + " indirectSuperProperties = " + indirectSuperProperties);
 
         Set<IRI> directSubProperties = new HashSet<>();
         try {
@@ -827,7 +827,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
 
     protected  void indexSubclassRelations(OWLClass owlClass) throws OWLOntologyCreationException {
-
+        getLogger().debug("indexSubclassRelations {}", owlClass);
         OWLReasoner reasoner = getOWLReasoner(ontology);
 
         Set<OWLClass> directSubClasses = reasoner.getSubClasses(owlClass, true).getFlattened();
@@ -837,6 +837,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
         // use reasoner to check if root
         if (directSuperClasses.contains(getFactory().getOWLThing())) {
+            getLogger().debug("indexSubclassRelations add root for {}", owlClass);
             addRootsTerms(owlClass.getIRI());
         }
 
@@ -851,6 +852,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                         .map(OWLNamedObject::getIRI)
                         .collect(Collectors.toSet()),
                 owlVocabulary);
+//        getLogger().debug("indexSubclassRelations directChildTerms for {} count  {}", owlClass, directChildTerms.size());
         if (directChildTerms.size() > 0)
           addDirectChildren(owlClass.getIRI(), directChildTerms) ;
 
@@ -1102,6 +1104,11 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
      */
     protected Optional<String> extractShortForm(IRI entityIRI) {
         getLogger().trace("Attempting to extract fragment name of IRI '" + entityIRI + "'");
+
+        // special case for URN schemes: https://www.w3.org/Addressing/URL/URI_URN.html
+        if(entityIRI.toString().startsWith("urn:")) {
+            return Optional.of(entityIRI.toString().substring(4));
+        }
 
         // oput in try block to catch any URL exceptins
         try {
