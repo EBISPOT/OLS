@@ -158,39 +158,176 @@
                         </div>
                     </div>
 
-                    <div id="right_info_box" class="small-4 columns">
-                        <div id="term_info_box" class="panel">
-                            <div class="panel-heading">
-                                <h4 style="padding: 0;" class="panel-title">Property information</h4>
-                            </div>
-                            <div class="panel-body">
-                                <div th:each="annotations: ${ontologyProperty.getAnnotation()}">
-                                    <b><a href="#"
-                                          th:href="@{../../search(q=${annotations.key},exact='true', type=property, ontology=${ontologyProperty.ontologyName})}"
-                                          th:text="${annotations.key.replaceAll('_', ' ')}">property name</a></b>
-                                    <p style="margin-left: 9px;"
-                                       th:text="${#strings.setJoin(annotations.value, ',')}">NCBI_9606</p>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div id="term_relation_box" class="panel">
-                            <div class="panel-heading">
-                                <h4 style="padding: 0;" class="panel-title">Property relations</h4>
-                            </div>
-                            <div class="panel-body">
-                                <div th:if="${parentProperties != null}">
-                                    <b>Parents</b>
-                                    <br/>
-                                    <div th:each="parentProperty : ${parentProperties}">
-                                        <a href="#"
-                                           th:href="@{properties (iri=${parentProperty.getIri()})}"
-                                           th:text="${parentProperty.getLabel()}">parent 1</a>
-                                    </div>
+
+        <div id="right_info_box" class="small-4 columns">
+            <div id="property_info_box" class="panel">
+                <!--div id="property_info_box" class="callout white-background"-->
+                <div class="panel-heading">
+                    <h4>Property information</h4>
+                </div>
+                <div class="panel-body">
+
+            <div th:if="${ontologyProperty.isObsolete()}">
+                <div class="obsolete">This property is obsolete</div>
+                <br/>
+                <br/>
+
+                <div th:if="${ontologyProperty.getAnnotation().containsKey('reason_for_obsolescence')}" >
+                    <b>Reason for obsolescence</b>
+                    <p style="margin-left: 9px;"
+                       th:text="${#strings.setJoin(ontologyProperty.getAnnotation().get('reason_for_obsolescence'), ',')}">NCBI_9606</p>
+                </div>
+
+                <div th:if="${ontologyProperty.getAnnotation().containsKey('replacedBy')}" >
+                    <b>Replaced by</b>
+                    <p style="margin-left: 9px;"
+                       th:text="${#strings.setJoin(ontologyProperty.getAnnotation().get('replacedBy'), ',')}">NCBI_9606</p>
+                </div>
+
+                <div th:if="${ontologyProperty.getAnnotation().containsKey('property replaced by')}" >
+                    <b>Replaced by</b>
+                    <p style="margin-left: 9px;"
+                       th:text="${#strings.setJoin(ontologyProperty.getAnnotation().get('property replaced by'), ',')}">NCBI_9606</p>
+                </div>
+
+                <div th:if="${ontologyProperty.getAnnotation().containsKey('consider')}" >
+                    <b>Consider</b>
+                    <p style="margin-left: 9px;"
+                       th:text="${#strings.setJoin(ontologyProperty.getAnnotation().get('consider'), ',')}">NCBI_9606</p>
+                </div>
+            </div>
+
+            <div property="description">
+
+                <div th:each="definitionCitation : ${definitionCitations}">
+                    <p>
+                        <span th:text="${definitionCitation.getDefinition()}"></span>
+                        [
+                        <span th:each="oboXref : ${definitionCitation.getOboXrefs()}">
+                            <a th:if="${oboXref.getUrl() != null}" target="_blank" th:href="${oboXref.getUrl()}" th:text="${oboXref.getUrl()}"></a>
+                            <span th:if="${oboXref.getDatabase() != null and oboXref.getUrl() == null}" th:text="${oboXref.getDatabase()}"></span><!--
+                            --><span th:if="${oboXref.getId() != null and oboXref.getDatabase() != null and oboXref.getUrl() == null}">:</span><!--
+                            --><span th:if="${oboXref.getId() != null and oboXref.getUrl() == null}" th:text="${oboXref.getId()}"></span>
+                            <span th:if="${oboXref.getDescription() != null}" th:text="'(' + ${oboXref.getDescription()} + ')'"></span>
+                        </span>
+                        ]
+                    </p>
+                </div>
+
+                <p th:unless="${definitionCitations}" th:each="description : ${ontologyProperty.getDescription()}" th:text="${description}">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget <nulla class=""></nulla>                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum.
+                </p>
+            </div>
+
+            <div th:if="${ontologyProperty.getSynonyms() !=null}">
+                <p><b>Synonyms:</b>
+                    <span property="alternateName" class="label synonym" th:each="synonym : ${ontologyProperty.getSynonyms()}" th:text="${synonym}">NCBI_9606</span>
+                </p>
+            </div>
+                    <!--div>
+                        <span>Short id: </span>
+                        <p th:text="${ontologyProperty.getShortForm()}">NCBI_9606</p>
+                    </div-->
+
+                    <!--div th:if="${ontologyProperty.getOboId() != null}">
+                        <span>OBO id: </span>
+                        <p th:text="${ontologyProperty.getOboId()}">NCBI:9606</p>
+                    </div-->
+
+                    <div th:if="${not #sets.isEmpty(xrefs)}">
+                        <a href="#"
+                           th:href="@{../../search(q='database_cross_reference', exact='true', type='property', ontology=${ontologyProperty.ontologyName})}"><b>database cross reference</b></a>
+                        <ul>
+                            <li style="margin-left: 9px;" th:each="oboXref: ${xrefs}">
+                                <a th:if="${oboXref.getUrl() != null}" target="_blank" th:href="${oboXref.getUrl()}">
+                                   <span th:text="${oboXref.getDatabase() + ':' + oboXref.getId()}"></span>
+                                   <span th:if="${oboXref.getDescription() != null}" th:inline="text">([[${oboXref.getDescription()}]])</span>
+                                </a>
+                                <span th:if="${oboXref.getUrl() == null}">
+                                   <span th:text="${oboXref.getDatabase() + ':' + oboXref.getId()}"></span>
+                                   <span th:if="${oboXref.getDescription() != null}" th:inline="text">([[${oboXref.getDescription()}]])</span>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div th:if="${not #sets.isEmpty(synonyms)}">
+                        <div th:each="synonym: ${synonyms}">
+                            <div th:if="${synonym.getType()}">
+                                <a href="#" th:href="@{../../search(q=${synonym.getType()}, type=property, ontology=${ontologyProperty.ontologyName})}" th:text="${synonym.getType().replaceAll('_', ' ')}">property name</a>
+                                <div style="margin-left:9px;">
+                                    <span th:text="${synonym.getName()}"></span>
+                                    <span th:if="${not #sets.isEmpty(synonym.getXrefs())}">[</span>
+                                    <span th:each="oboXref: ${synonym.getXrefs()}">
+                                        <a th:if="${oboXref.getUrl() != null}" target="_blank" th:href="${oboXref.getUrl()}" th:text="${oboXref.getUrl()}"></a>
+                                        <span th:if="${oboXref.getDatabase() != null and oboXref.getUrl() == null}" th:text="${oboXref.getDatabase()}"></span><!--
+                                     --><span th:if="${oboXref.getId() != null and oboXref.getDatabase() != null and oboXref.getUrl() == null}">:</span><!--
+                                     --><span th:if="${oboXref.getId() != null and oboXref.getUrl() == null}" th:text="${oboXref.getId()}"></span>
+                                        <span th:if="${oboXref.getDescription() != null}" th:text="'(' + ${oboXref.getDescription()} + ')'"></span>
+                                    </span>
+                                    <span th:if="${not #sets.isEmpty(synonym.getXrefs())}">]</span>
                                 </div>
+                                <br/>
                             </div>
                         </div>
                     </div>
+
+                    <div th:each="annotations: ${ontologyProperty.getAnnotation()}">
+                        <div th:unless="${annotations.key} eq 'database_cross_reference'">
+                            <b><a href="#"
+                                  th:href="@{../../search(q=${annotations.key},exact='true', type=property, ontology=${ontologyProperty.ontologyName})}"
+                                  th:text="${annotations.key.replaceAll('_', ' ')}">property name</a></b>
+                            <p th:inline="text">
+                                <div th:each="value: ${annotations.value}" th:inline="text">
+                                    <p class="annotation-value">[[${value}]]</p>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="property_relation_box" class="panel">
+                <div class="panel-heading">
+                    <h4>Property relations</h4>
+                </div>
+
+                <div class="panel-body">
+
+                    <div th:if="${not #maps.isEmpty(relatedFroms)}">
+                        <b>Related from:</b>
+                        <br/>
+                        <div th:each="relation : ${relatedFroms}">
+                            <a class="ObjectProperty"
+                               th:href="@{../../search(q=${relation.key},exact='true', type=property, ontology=${ontologyProperty.ontologyName})}"
+                               th:text="${relation.key}"></a>
+                            <ul>
+                                <li th:each="property,iterStat: ${relation.value}"><a href="#"
+                                                                                  th:title="${property.iri}"
+                                                                                  th:href="@{properties (iri=${property.iri})}"
+                                                                                  th:text="${property.label}">parent 1</a></li>
+                            </ul>
+                            <!--span th:each="property,iterStat: ${relation.value}">
+                                <a href="#" th:href="@{properties (iri=${property.iri})}" th:text="${property.label}">parent 1</a>
+                                <span th:if="${iterStat.count &lt; iterStat.size}">, </span>
+                            </span-->
+                        </div>
+                    </div>
+
+                    <div th:if="${not #sets.isEmpty(instances)}">
+                        <b>Instances:</b>
+                        <ul>
+                            <li th:each="instance : ${instances}"><a href="#"
+                                                                     th:title="${instance.iri}"
+                                                                     th:href="@{individuals (iri=${instance.iri})}"
+                                                                     th:text="${instance.label}">parent 1</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
                 </div>
             </div>
         </div>
