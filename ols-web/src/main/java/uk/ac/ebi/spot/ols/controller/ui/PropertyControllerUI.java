@@ -49,7 +49,7 @@ public class PropertyControllerUI {
             @RequestParam(value = "iri", required = false) String termIri,
             @RequestParam(value = "short_form", required = false) String shortForm,
             @RequestParam(value = "obo_id", required = false) String oboId,
-            @RequestParam(value = "lang", required = false) String lang,
+            @RequestParam(value = "lang", required = false, defaultValue = "en") String lang,
             Pageable pageable,
             Model model) throws ResourceNotFoundException {
 

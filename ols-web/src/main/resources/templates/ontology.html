@@ -184,7 +184,7 @@
                         <b>
                             <a href="#" th:href="@{../search(q=${annotations.key},exact='true', type=property, ontology=${ontologyDocument.getOntologyId()})}" th:text="${annotations.key.replaceAll('_', ' ')}">property name</a>
                         </b>
-                        <p style="margin-left:9px;" th:each="annovalue : ${annotations.value}" th:text="${annovalue}">NCBI_9606</p>
+                        <p style="margin-left:9px;" th:each="annovalue : ${annotations.value.getStrings(lang)}" th:text="${annovalue}">NCBI_9606</p>
                     </div>
                 </div>
             </div>

@@ -123,8 +123,9 @@ public class OntologyTermController {
         MediaTypes.HAL_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<PagedResources<Term>> getRoots(
             @PathVariable("onto") String ontologyId,
-            @RequestParam(value = "includeObsoletes", defaultValue = "false", required = false) 
-              boolean includeObsoletes,
+            @RequestParam(value = "lang", defaultValue = "en", required = false) String lang,
+            @RequestParam(value = "includeObsoletes", defaultValue = "false", required = false)
+                    boolean includeObsoletes,
             Pageable pageable,
             PagedResourcesAssembler assembler
     ) throws ResourceNotFoundException {

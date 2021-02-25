@@ -1,25 +1,5 @@
 package uk.ac.ebi.spot.ols.neo4j.model;
 
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.DESCRIPTION;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.HAS_CHILDREN;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.IN_SUBSET;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.IRI;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.IS_DEFINING_ONTOLOGY;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.IS_OBSOLETE;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.IS_ROOT;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.LABEL;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.OBO_DEFINITION_CITATION;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.OBO_ID;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.OBO_SYNONYM;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.OBO_XREF;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.ONTOLOGY_IRI;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.ONTOLOGY_NAME;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.ONTOLOGY_PREFIX;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.SHORT_FORM;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.SYNONYM;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.TERM_REPLACED_BY;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.IS_PREFERRED_ROOT;
-
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -37,6 +17,8 @@ import org.springframework.data.neo4j.fieldaccess.DynamicPropertiesContainer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRawValue;
+
+import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.*;
 
 /**
  * @author Simon Jupp
@@ -57,9 +39,21 @@ public class Term {
     @GraphProperty(propertyName=IRI)
     private String iri;
 
-    private DynamicProperties labels = new DynamicPropertiesContainer();
-    private DynamicProperties synonyms = new DynamicPropertiesContainer();
-    private DynamicProperties descriptions = new DynamicPropertiesContainer();
+    @GraphProperty(propertyName=LABEL)
+    @JsonProperty(value = LABEL)
+    private String label;
+
+    @GraphProperty(propertyName=LOCALIZED_LABELS)
+    @JsonProperty(value = LOCALIZED_LABELS)
+    private DynamicProperties localizedLabels = new DynamicPropertiesContainer();
+
+    @GraphProperty(propertyName=LOCALIZED_SYNONYMS)
+    @JsonProperty(value = LOCALIZED_SYNONYMS)
+    private DynamicProperties localizedSynonyms = new DynamicPropertiesContainer();
+
+    @GraphProperty(propertyName=LOCALIZED_DESCRIPTIONS)
+    @JsonProperty(value = LOCALIZED_DESCRIPTIONS)
+    private DynamicProperties localizedDescriptions = new DynamicPropertiesContainer();
 
     @GraphProperty(propertyName=ONTOLOGY_NAME)
     @JsonProperty(value = ONTOLOGY_NAME)
@@ -112,6 +106,7 @@ public class Term {
     private Set<String> inSubsets;
 
     private DynamicProperties annotation = new DynamicPropertiesContainer();
+    private DynamicProperties localizedAnnotation = new DynamicPropertiesContainer();
 
     @GraphProperty(propertyName=OBO_DEFINITION_CITATION)
     @JsonProperty(value = OBO_DEFINITION_CITATION)
@@ -159,9 +154,9 @@ public class Term {
         return id;
     }
 
-    public void setLabels(String lang, Set<String> labels) {
-        this.labels.setProperty(lang, labels);
-    }
+//    public void setLocalizedLabels(String lang, Set<String> labels) {
+//        this.labels.setProperty(lang, labels);
+//    }
 
     public void setIri(String iri) {
         this.iri = iri;
@@ -175,17 +170,17 @@ public class Term {
         return olsId;
     }
 
-    public Map<String, Object> getLabels() {
-        return labels.asMap();
-    }
-
-    public Map<String, Object> getSynonyms() {
-        return synonyms.asMap();
-    }
-
-    public Map<String, Object> getDescriptions() {
-        return descriptions.asMap();
-    }
+//    public Map<String, Object> getLocalizedLabels() {
+//        return localizedLabels.asMap();
+//    }
+//
+//    public Map<String, Object> getLocalizedSynonyms() {
+//        return localizedSynonyms.asMap();
+//    }
+//
+//    public Map<String, Object> getLocalizedDescriptions() {
+//        return localizedDescriptions.asMap();
+//    }
 
     public String getOntologyName() {
         return ontologyName;

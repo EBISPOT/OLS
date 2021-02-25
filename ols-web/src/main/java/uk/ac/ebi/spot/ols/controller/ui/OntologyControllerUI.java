@@ -46,8 +46,12 @@ public class OntologyControllerUI {
     private String downloadsFolder;
 
     @RequestMapping(path = "", method = RequestMethod.GET)
-    String getAll(Model model) {
+    String getAll(
+            @RequestParam(value = "lang", required = false, defaultValue = "en") String lang,
+            Model model) {
+
         List list = repositoryService.getAllDocuments(new Sort(new Sort.Order(Sort.Direction.ASC, "ontologyId")));
+        model.addAttribute("lang", lang);
         model.addAttribute("all_ontologies", list);
         customisationProperties.setCustomisationModelAttributes(model);
         return "browse";
@@ -56,6 +60,7 @@ public class OntologyControllerUI {
     @RequestMapping(path = "/{onto}", method = RequestMethod.GET)
     String getTerm(
             @PathVariable("onto") String ontologyId,
+            @RequestParam(value = "lang", required = false, defaultValue = "en") String lang,
             Model model) throws ResourceNotFoundException {
 
         ontologyId = ontologyId.toLowerCase();
@@ -72,6 +77,7 @@ public class OntologyControllerUI {
             } catch (Exception e) {
               // only thrown if not valid e-mail, so contact must be URL of some sort
             }
+            model.addAttribute("lang", lang);
             model.addAttribute("contact", contact);
 
             model.addAttribute("ontologyDocument", document);

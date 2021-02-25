@@ -553,7 +553,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
             else  {
                 LocalizedStrings languageToLabels = ontologyLabels.get(annotationPropertyIri);
                 for(String language : languageToLabels.getLanguages()) {
-                    Collection<String> propertyLabels = languageToLabels.getStrings(language);
+                    List<String> propertyLabels = languageToLabels.getStrings(language);
                     for(String label : propertyLabels) {
                         if (!annotations.containsKey(label)) {
                             annotations.put(label, new LocalizedStrings());

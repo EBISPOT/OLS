@@ -78,7 +78,7 @@ public class GraphControllerUI {
     @RequestMapping(path = "{onto}/terms/graph", method = RequestMethod.GET)
     String getTerm(
             @PathVariable("onto") String ontologyId,
-            @RequestParam(value = "lang", required = false) String lang,
+            @RequestParam(value = "lang", required = false, defaultValue = "en") String lang,
             @RequestParam(value = "iri", required = false) String termIri,
             @RequestParam(value = "short_form", required = false) String shortForm,
             @RequestParam(value = "obo_id", required = false) String oboId,
@@ -96,7 +96,7 @@ public class GraphControllerUI {
 
                 term.setShortForm("TestShortForm");
                 term.setOntologyName("Test");
-                term.setLabels("en-US", new HashSet<String>(Arrays.asList("TestLabel")));
+                //term.setLabels("en-US", new HashSet<String>(Arrays.asList("TestLabel")));
                 term.setIri("Testroot");
                 //term.setOntologyPrefix("Testprefix"); //doesn't exist, set method has to be written
 

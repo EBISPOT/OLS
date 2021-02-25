@@ -57,7 +57,7 @@ public class TermControllerUI {
             @PathVariable("onto") String ontologyId,
             @RequestParam(value = "iri", required = false) String termIri,
             @RequestParam(value = "short_form", required = false) String shortForm,
-            @RequestParam(value = "lang", required = false) String lang,
+            @RequestParam(value = "lang", required = false, defaultValue = "en") String lang,
             @RequestParam(value = "obo_id", required = false) String oboId,
             Pageable pageable,
             Model model) throws ResourceNotFoundException {

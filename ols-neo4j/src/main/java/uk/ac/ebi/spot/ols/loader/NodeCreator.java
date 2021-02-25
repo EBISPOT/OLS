@@ -181,12 +181,22 @@ class NodeCreator {
 			Map<String, Object> nodeProperties) {
 		Map<IRI, LocalizedStrings> annotations = loader.getAnnotations(classIri);
 		if (!annotations.isEmpty()) {
-		    for (IRI keys : annotations.keySet()) {
-		        LocalizedStrings annotationLabels = loader.getTermLabels().get(keys);
-                for(String language : annotationLabels.getLanguages()) {
-                    Collection<String> labels = annotationLabels.getStrings(language);
-                    String [] value = labels.toArray(new String [labels.size()]);
-                    nodeProperties.put(ANNOTATION_DESIGNATION + language + "-" + labels, value);
+		    for (IRI property : annotations.keySet()) {
+		        LocalizedStrings annotationLabels = loader.getTermLabels().get(property);
+		        LocalizedStrings annotationValues = annotations.get(property);
+				List<String> enValues = annotationValues.getStrings("en");
+				if(enValues != null) {
+					String label = annotationLabels.getFirstString("en");
+					String[] values = enValues.toArray(new String[0]);
+					nodeProperties.put(ANNOTATION_DESIGNATION + "-" + label, values);
+				}
+				for(String language : annotationLabels.getLanguages()) {
+                	List<String> localizedValues = annotationValues.getStrings(language);
+                	if(localizedValues != null) {
+						String label = annotationLabels.getFirstString(language);
+						String[] values = localizedValues.toArray(new String[0]);
+						nodeProperties.put(LOCALIZED_ANNOTATION_DESIGNATION + language + "-" + label, values);
+					}
                 }
 		    }
 		}
@@ -216,10 +226,13 @@ class NodeCreator {
 			Map<String, Object> nodeProperties) {
 		if (loader.getTermDefinitions().containsKey(classIri)) {
             LocalizedStrings definitions = loader.getTermDefinitions().get(classIri);
+
+			nodeProperties.put(DESCRIPTION, definitions.getStrings("en").toArray(new String[0]));
+
             for(String language : definitions.getLanguages()) {
                 Collection<String> values = definitions.getStrings(language);
                 for(String value : values) {
-                    nodeProperties.put(DESCRIPTION + "-" + language, value);
+                    nodeProperties.put(LOCALIZED_DESCRIPTIONS + "-" + language, value);
                 }
             }
 		}
@@ -238,10 +251,13 @@ class NodeCreator {
 			Map<String, Object> nodeProperties) {
 		if (loader.getTermSynonyms().containsKey(classIri)) {
             LocalizedStrings synonyms = loader.getTermSynonyms().get(classIri);
-            for(String language : synonyms.getLanguages()) {
-                String [] values = synonyms.getStrings(language).toArray(new String[synonyms.getStrings(language).size()]);
+
+			nodeProperties.put(SYNONYM, synonyms.getStrings("en").toArray(new String[0]));
+
+			for(String language : synonyms.getLanguages()) {
+                String [] values = synonyms.getStrings(language).toArray(new String[0]);
                 for(String synonym : values) {
-                    nodeProperties.put(SYNONYM + "-" + language, synonym);
+                    nodeProperties.put(LOCALIZED_SYNONYMS + "-" + language, synonym);
                 }
             }
 		}

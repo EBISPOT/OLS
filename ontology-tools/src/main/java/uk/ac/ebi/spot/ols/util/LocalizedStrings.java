@@ -24,7 +24,10 @@ public class LocalizedStrings {
     }
 
     public List<String> getStrings(String language) {
-        return localizations.get(language);
+        List<String> strings = localizations.get(language);
+        if(strings == null)
+            return new ArrayList<String>();
+        return strings;
     }
 
     public Map<String, List<String>> getStrings() {
