@@ -55,6 +55,7 @@
                 <button th:if="${ontologyDocument.getConfig().getAllowDownload() == true}" class ="button secondary icon icon-functional" role="button" data-icon ="=" th:onclick="'javascript:goTo(\'' + @{__${ontologyDocument.getOntologyId()}__/download} + '\')'"> Download</button>
                 <button th:if="${ontologyDocument.getConfig().getHomepage() != null}" class ="button secondary icon icon-generic"  th:title="${ontologyDocument.getConfig().getHomepage()}" role="button" data-icon ="H"  th:onclick="'javascript:goTo(\'' + @{${ontologyDocument.getConfig().getHomepage()}} + '\')'"> Ontology Homepage</button>
                 <button th:if="${contact != null}" class ="button secondary icon icon-generic"  role="button" data-icon ="C" th:title="${contact}" th:onclick="'javascript:goTo(\'' + @{${contact}} + '\')'"> Contact</button>
+                <button th:if="${ontologyDocument.getConfig().getTracker() != null}" class ="button secondary icon icon-generic"  th:title="${ontologyDocument.getConfig().getTracker()}" role="button" data-icon ="\"  th:onclick="'javascript:goTo(\'' + @{${ontologyDocument.getConfig().getTracker()}} + '\')'"> Request a Term</button>
             </div>
             </p>
 
