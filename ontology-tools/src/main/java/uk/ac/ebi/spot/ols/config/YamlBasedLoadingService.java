@@ -118,7 +118,7 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
 
     private void populateTracker(OntologyResourceConfig.OntologyResourceConfigBuilder builder) {
         if (ontology.containsKey(TRACKER.getPropertyName())) {
-            builder.setMailingList((String) ontology.get(TRACKER.getPropertyName()));
+            builder.setTracker((String) ontology.get(TRACKER.getPropertyName()));
         }
     }
 
