@@ -135,5 +135,12 @@ It is possible to customise several branding options in `ols-web/src/main/resour
 * `ols.customisation.debrand` — If set to true, removes the EBI header and footer, documentation, and about page
 * `ols.customisation.title` — A custom title for your instance, e.g. "My OLS Instance"
 * `ols.customisation.short-title` — A shorter version of the custom title, e.g. "MYOLS"
+* `ols.customisation.description` — A description of the instance
 * `ols.customisation.org` — The organisation hosting your instance
+* `ols.customisation.hideGraphView` — Set to true to hide the graph view 
+* `ols.customisation.errorMessage` — Message to show on error pages
+
+
+
+
 

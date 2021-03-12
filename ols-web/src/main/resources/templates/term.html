@@ -198,7 +198,7 @@
             <div class="tabs-content" data-tabs-content="terms_tabs">
                 <div class="tabs-panel is-active" id="tree-tab">
                     <div class="ols-tree-buttons">
-                        <button class="ols-tree-button" data-icon ="o" th:onclick="'javascript:window.open(\'' + @{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})} + '\')'" title="Visualisation of this term">
+                        <button th:unless="${hideGraphView}" class="ols-tree-button" data-icon ="o" th:onclick="'javascript:window.open(\'' + @{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})} + '\')'" title="Visualisation of this term">
                             <i class="icon icon-conceptual" data-icon="o"></i>
                             Graph view
                         </button>

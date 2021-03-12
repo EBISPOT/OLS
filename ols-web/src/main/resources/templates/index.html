@@ -98,6 +98,12 @@
                     </p>
                 </div>
             </div>
+
+            <div th:if="${debrand} == true" th:inline="text">
+                <p class="about">
+                [[${description}]]
+                </p>
+            </div>
         </div>
 
         <div id="dataContentDiv" class="small-3 columns">
