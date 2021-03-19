@@ -12,6 +12,7 @@ public class OntologyDefaults {
     public static final  String DEFINITION = "http://purl.org/dc/elements/1.1/description";
     public static final  String CREATOR = "http://purl.org/dc/terms/1.1/creator";
     public static final  String MAILINGLIST = "http://usefulinc.com/ns/doap#mailing-list";
+    public static final  String TRACKER = "http://usefulinc.com/ns/doap#bug-database";
     public static final  String VERSION = "http://www.w3.org/2002/07/owl#versionInfo";
     public static final  String HOMEPAGE = "http://xmlns.com/foaf/0.1/homepage";
     

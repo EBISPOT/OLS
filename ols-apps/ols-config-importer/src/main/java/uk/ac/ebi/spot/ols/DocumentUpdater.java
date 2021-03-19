@@ -70,6 +70,13 @@ public class DocumentUpdater {
             originalDocument.getConfig().setMailingList(newDocument.getMailingList());
         }
 
+        // check tracker
+        if (newDocument.getTracker() != null &&
+                !newDocument.getTracker().equals(originalDocument.getConfig().getTracker()) &&
+                !dontUpdate.contains(OntologyDefaults.TRACKER)) {
+            originalDocument.getConfig().setTracker(newDocument.getTracker());
+        }
+
         // always update these fields
 
         if (newDocument.getPreferredPrefix() != null) {

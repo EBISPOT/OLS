@@ -28,6 +28,7 @@ public class OntologyResourceConfig  {
     private String homepage;
     private String version;
     private String mailingList;
+    private String tracker;
     private Collection<String> creators;
     private Map<String, Collection<String>> annotations;
 
@@ -50,7 +51,7 @@ public class OntologyResourceConfig  {
     private Collection<String> internalMetadataProperties;
 
     public OntologyResourceConfig(String id, String versionIri, String title, String namespace, String preferredPrefix,
-                                  String description, String homepage, String mailingList, Collection<String> creators,
+                                  String description, String homepage, String mailingList, String tracker, Collection<String> creators,
                                   Map<String, Collection<String>> annotations, URI fileLocation, ReasonerType reasonerType,
                                   boolean oboSlims, URI labelProperty, Collection<URI> definitionProperties,
                                   Collection<URI> synonymProperties, Collection<URI> hierarchicalProperties,
@@ -65,6 +66,7 @@ public class OntologyResourceConfig  {
         this.description = description;
         this.homepage = homepage;
         this.mailingList = mailingList;
+        this.tracker = tracker;
         this.creators = creators;
         this.annotations = annotations;
         this.fileLocation = fileLocation;
@@ -105,6 +107,7 @@ public class OntologyResourceConfig  {
         this.description = builder.description;
         this.homepage = builder.homepage;
         this.mailingList = builder.mailingList;
+        this.tracker = builder.tracker;
         this.creators = builder.creators;
         this.annotations = builder.annotations;
         this.internalMetadataProperties = builder.internalMetadatProperties;
@@ -200,6 +203,10 @@ public class OntologyResourceConfig  {
         return mailingList;
     }
 
+    public String getTracker() {
+        return tracker;
+    }
+
     public Collection<String> getCreators() {
         return creators;
     }
@@ -214,6 +221,10 @@ public class OntologyResourceConfig  {
 
     public void setMailingList(String mailingList) {
         this.mailingList = mailingList;
+    }
+
+    public void setTracker(String tracker) {
+        this.tracker = tracker;
     }
 
     public void setHomepage(String homepage) {
@@ -328,6 +339,7 @@ public class OntologyResourceConfig  {
         private String homepage;
         private String version;
         private String mailingList;
+        private String tracker;
         private Collection<String> creators = Collections.emptySet();
         private Map<String, Collection<String>> annotations = Collections.emptyMap();
         private Collection<String> internalMetadatProperties = Collections.emptySet();
@@ -434,6 +446,11 @@ public class OntologyResourceConfig  {
 
         public OntologyResourceConfigBuilder setMailingList(String mailingList) {
             this.mailingList = mailingList;
+            return this;
+        }
+
+        public OntologyResourceConfigBuilder setTracker(String tracker) {
+            this.tracker = tracker;
             return this;
         }
 
