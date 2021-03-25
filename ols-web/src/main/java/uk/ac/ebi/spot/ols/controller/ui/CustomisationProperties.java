@@ -34,6 +34,12 @@ public class CustomisationProperties {
     @Value("${ols.customisation.errorMessage:Something went wrong! Please contact ols-support@ebi.ac.uk to report any bugs or give feedback.}")
     private String errorMessage;
 
+    @Value("${ols.customisation.ontologyAlias:Ontology}")
+    private String ontologyAlias;
+
+    @Value("${ols.customisation.ontologyAliasPlural:Ontologies}")
+    private String ontologyAliasPlural;
+
     public void setCustomisationModelAttributes(Model model) {
         model.addAttribute("debrand", debrand);
         model.addAttribute("logo", logo);
@@ -43,6 +49,8 @@ public class CustomisationProperties {
         model.addAttribute("org", org);
         model.addAttribute("hideGraphView", hideGraphView);
         model.addAttribute("errorMessage", errorMessage);
+        model.addAttribute("ontologyAlias", ontologyAlias);
+        model.addAttribute("ontologyAliasPlural", ontologyAliasPlural);
     }
 
     public boolean getDebrand() {

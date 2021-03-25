@@ -49,7 +49,7 @@
                     </div>
                         <span class="examples">Examples: <a class="nounderline ontology-link" href="search?q=diabetes">diabetes</a>,
                              <a class="nounderline ontology-link" href="search?q=GO:0098743">GO:0098743</a></span>
-                        <span style="float: right;" class="examples"><a class="nounderline ontology-link" href="ontologies">Looking for a particular ontology?</a>
+                        <span style="float: right;" class="examples"><a class="nounderline ontology-link" href="ontologies" th:inline="text">Looking for a particular [[${ontologyAlias.toLowerCase()}]]?</a>
                          </span>
                 </form>
             </div>
@@ -112,7 +112,7 @@
             </h4>
             <h5>Updated <span th:text="${#calendars.format(summary.getLastUpdated(), 'dd MMM yyyy HH:mm')}">Today at 07:00</span></h5>
             <ul>
-                <li><span th:text="${summary.getNumberOfOntologies()}">102</span> ontologies</li>
+                <li th:inline="text"><span th:text="${summary.getNumberOfOntologies()}">102</span> [[${ontologyAliasPlural.toLowerCase()}]]</li>
                 <li th:if="${summary.getNumberOfTerms() &gt; 0}"><span th:text="${#numbers.formatInteger(summary.getNumberOfTerms(),3,'COMMA')}">102</span> terms</li>
                 <li th:if="${summary.getNumberOfProperties() &gt; 0}"><span th:text="${#numbers.formatInteger(summary.getNumberOfProperties(),3,'COMMA')}">102</span> properties</li>
                 <li th:if="${summary.getNumberOfIndividuals() &gt; 0}"><span th:text="${#numbers.formatInteger(summary.getNumberOfIndividuals(),3,'COMMA')}">102</span> individuals</li>

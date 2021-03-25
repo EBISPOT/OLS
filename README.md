@@ -139,6 +139,8 @@ It is possible to customise several branding options in `ols-web/src/main/resour
 * `ols.customisation.org` — The organisation hosting your instance
 * `ols.customisation.hideGraphView` — Set to true to hide the graph view 
 * `ols.customisation.errorMessage` — Message to show on error pages
+* `ols.customisation.ontologyAlias` — A custom word or phrase to use instead of "Ontology", e.g. "Data Dictionary"
+* `ols.customisation.ontologyAliasPlural` — As `ontologyAlias` but plural, e.g. "Data Dictionaries"
 
 
 
