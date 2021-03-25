@@ -30,6 +30,11 @@
 
         <div id="mainpageSearchBox">
             <h3 style="font-size: 43px;" property="name" th:text="${ontologyDocument.getConfig().getTitle()}">Ontology label</h3>
+
+            <div th:if="${ontologyDocument.getConfig().getLogo() != null}">
+                <img th:src="${ontologyDocument.getConfig().getLogo()}" width="200" />
+            </div>
+
             <div property="description">
                 <p style="font-size: 16px;" th:each="description : ${ontologyDocument.getConfig().getDescription()}" th:text="${description}">
                 </p>
@@ -47,7 +52,6 @@
                     <input type="hidden" name="ontology" th:value="${ontologyDocument.getOntologyId()}"/>
                 </div>
             </form>
-
 
             <p>
             <div class="btn-group">

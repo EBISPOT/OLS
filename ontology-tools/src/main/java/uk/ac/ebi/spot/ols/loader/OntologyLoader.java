@@ -186,6 +186,12 @@ public interface OntologyLoader {
     String getTracker();
 
     /**
+     * Get a logo associated with this ontology
+     * @return
+     */
+    String getLogo();
+
+    /**
      * Get a version number for the ontology
      * @return
      */

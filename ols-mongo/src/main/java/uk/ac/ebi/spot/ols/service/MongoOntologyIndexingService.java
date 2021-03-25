@@ -132,6 +132,9 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             if (loader.getTracker() != null) {
                 config.setTracker(loader.getTracker());
             }
+            if (loader.getLogo() != null) {
+                config.setLogo(loader.getLogo());
+            }
             if (!loader.getCreators().isEmpty()) {
                 config.setCreators(loader.getCreators());
             }

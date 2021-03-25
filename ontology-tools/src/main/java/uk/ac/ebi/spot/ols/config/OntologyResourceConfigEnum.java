@@ -18,6 +18,7 @@ public enum OntologyResourceConfigEnum {
     HOMEPAGE("homepage"),
     MAILING_LIST("mailing_list"),
     TRACKER("tracker"),
+    LOGO("logo"),
     CREATOR("creator"),
     PREFERRED_ROOT_TERM("preferred_root_term"),
     ALLOW_DOWNLOAD("allow_download");
