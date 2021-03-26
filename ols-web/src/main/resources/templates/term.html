@@ -202,7 +202,10 @@
                             <i class="icon icon-conceptual" data-icon="o"></i>
                             Graph view
                         </button>
-                        <button class="ols-tree-button" value="true" title="Redraw the tree to focus on this terms" onclick="location.reload(true)">Reset tree</button>
+                                                  <a th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__}">
+                        <button class="ols-tree-button" value="true" title="Redraw the tree to focus on this terms" 
+                        >Reset tree</button>
+                        </a>
                         <!--th:value="${#httpServletRequest.getParameter('siblings') == 'true'} ? 'true': 'false'"-->
                         <button class="ols-tree-button" name="ontology_view_siblings"
                                 th:value="${#httpServletRequest.getParameter('siblings') == 'true'} ? 'true': 'false'"
