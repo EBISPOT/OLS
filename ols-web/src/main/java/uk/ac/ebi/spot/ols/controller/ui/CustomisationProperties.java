@@ -40,6 +40,9 @@ public class CustomisationProperties {
     @Value("${ols.customisation.ontologyAliasPlural:Ontologies}")
     private String ontologyAliasPlural;
 
+    @Value("${ols.customisation.oxoUrl:https://www.ebi.ac.uk/spot/oxo/}")
+    private String oxoUrl;
+
     public void setCustomisationModelAttributes(Model model) {
         model.addAttribute("debrand", debrand);
         model.addAttribute("logo", logo);
@@ -51,6 +54,7 @@ public class CustomisationProperties {
         model.addAttribute("errorMessage", errorMessage);
         model.addAttribute("ontologyAlias", ontologyAlias);
         model.addAttribute("ontologyAliasPlural", ontologyAliasPlural);
+        model.addAttribute("oxoUrl", oxoUrl);
     }
 
     public boolean getDebrand() {
