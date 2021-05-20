@@ -198,11 +198,14 @@
             <div class="tabs-content" data-tabs-content="terms_tabs">
                 <div class="tabs-panel is-active" id="tree-tab">
                     <div class="ols-tree-buttons">
-                        <button class="ols-tree-button" data-icon ="o" th:onclick="'javascript:window.open(\'' + @{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})} + '\')'" title="Visualisation of this term">
+                        <button th:unless="${hideGraphView}" class="ols-tree-button" data-icon ="o" th:onclick="'javascript:window.open(\'' + @{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})} + '\')'" title="Visualisation of this term">
                             <i class="icon icon-conceptual" data-icon="o"></i>
                             Graph view
                         </button>
-                        <button class="ols-tree-button" value="true" title="Redraw the tree to focus on this terms" onclick="location.reload(true)">Reset tree</button>
+                                                  <a th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__}">
+                        <button class="ols-tree-button" value="true" title="Redraw the tree to focus on this terms" 
+                        >Reset tree</button>
+                        </a>
                         <!--th:value="${#httpServletRequest.getParameter('siblings') == 'true'} ? 'true': 'false'"-->
                         <button class="ols-tree-button" name="ontology_view_siblings"
                                 th:value="${#httpServletRequest.getParameter('siblings') == 'true'} ? 'true': 'false'"
@@ -445,7 +448,7 @@
 
 <script type="text/javascript" src="../static/js/clipboard.min.js" th:src="@{../../js/clipboard.min.js}"></script>
 
-<script>
+<script th:inline="javascript">
     $(document).ready(function () {
         $('.mansyntax').each(function () {
             // $(this).trigger('click');  // for clicking element
@@ -498,9 +501,9 @@
         var shortForm = $('#shortForm').text();
 
         // shortForm="EFO:0000400";
-        var baseURL = "https://www.ebi.ac.uk/spot/oxo/api/mappings?fromId=";
+        var baseURL = [[${oxoUrl}]] + "api/mappings?fromId=";
         var URL = baseURL + shortForm;
-        var buttonLink = "https://www.ebi.ac.uk/spot/oxo/terms/" + shortForm;
+        var buttonLink = [[${oxoUrl}]] + "terms/" + shortForm;
         // console.log(URL);
 
         $("#oxo-tab").empty();
@@ -532,7 +535,7 @@
             } else {
                 $('#oxo-tab').append(
                     '<p>Could not find any direct mappings for this term. Use our \
-                     <a href="https://www.ebi.ac.uk/spot/oxo/">Ontology Xreference service</a> \
+                     <a th:href="${oxoUrl}">Ontology Xreference service</a> \
                      to explore mappings in more detail!</p>'
                 );
             }

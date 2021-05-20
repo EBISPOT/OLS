@@ -30,6 +30,11 @@
 
         <div id="mainpageSearchBox">
             <h3 style="font-size: 43px;" property="name" th:text="${ontologyDocument.getConfig().getTitle()}">Ontology label</h3>
+
+            <div th:if="${ontologyDocument.getConfig().getLogo() != null}">
+                <img th:src="${ontologyDocument.getConfig().getLogo()}" width="200" />
+            </div>
+
             <div property="description">
                 <p style="font-size: 16px;" th:each="description : ${ontologyDocument.getConfig().getDescription()}" th:text="${description}">
                 </p>
@@ -48,13 +53,13 @@
                 </div>
             </form>
 
-
             <p>
             <div class="btn-group">
                 <button class ="button secondary icon icon-functional" role="button" data-icon ="b" th:onclick="'javascript:goTo(\'' + @{__${ontologyDocument.getOntologyId()}__/terms} + '\')'"> Terms</button>
                 <button th:if="${ontologyDocument.getConfig().getAllowDownload() == true}" class ="button secondary icon icon-functional" role="button" data-icon ="=" th:onclick="'javascript:goTo(\'' + @{__${ontologyDocument.getOntologyId()}__/download} + '\')'"> Download</button>
-                <button th:if="${ontologyDocument.getConfig().getHomepage() != null}" class ="button secondary icon icon-generic"  th:title="${ontologyDocument.getConfig().getHomepage()}" role="button" data-icon ="H"  th:onclick="'javascript:goTo(\'' + @{${ontologyDocument.getConfig().getHomepage()}} + '\')'"> Ontology Homepage</button>
+                <button th:if="${ontologyDocument.getConfig().getHomepage() != null}" class ="button secondary icon icon-generic"  th:title="${ontologyDocument.getConfig().getHomepage()}" role="button" data-icon ="H"  th:onclick="'javascript:goTo(\'' + @{${ontologyDocument.getConfig().getHomepage()}} + '\')'" th:inline="text"> [[${ontologyAlias}]] Homepage</button>
                 <button th:if="${contact != null}" class ="button secondary icon icon-generic"  role="button" data-icon ="C" th:title="${contact}" th:onclick="'javascript:goTo(\'' + @{${contact}} + '\')'"> Contact</button>
+                <button th:if="${ontologyDocument.getConfig().getTracker() != null}" class ="button secondary icon icon-generic"  th:title="${ontologyDocument.getConfig().getTracker()}" role="button" data-icon ="\"  th:onclick="'javascript:goTo(\'' + @{${ontologyDocument.getConfig().getTracker()}} + '\')'"> Request a Term</button>
             </div>
             </p>
 
@@ -146,11 +151,11 @@
         <div id="right_info_box" class="small-4 columns">
             <div id="ontology_info_box" class="panel">
                 <div class="panel-heading">
-                    <h4>Ontology information</h4>
+                    <h4 th:inline="text">[[${ontologyAlias}]] information</h4>
                 </div>
                 <div class="panel-body">
                     <div>
-                        <b>Ontology IRI: </b>
+                        <b th:inline="text">[[${ontologyAlias}]] IRI: </b>
                         <a property="url" target="blank" th:href="@{${ontologyDocument.getConfig().getId()}}">
                             <i class="icon icon-generic" data-icon="L"></i>
                             <span th:text="${ontologyDocument.getConfig().getId()}">http://www.example.com/onto/id</span> 
@@ -164,7 +169,7 @@
                         </a>
                     </div>
                     <div>
-                        <b>Ontology ID: </b> <span th:text="${ontologyDocument.getOntologyId()}" >ontology id</span>
+                        <b th:inline="text">[[${ontologyAlias}]] ID: </b> <span th:text="${ontologyDocument.getOntologyId()}" >ontology id</span>
                     </div>
                     <div th:if="${ontologyDocument.getConfig().getVersion() != null}">
                         <b>Version: </b> <span th:text="${ontologyDocument.getConfig().getVersion()}">NCBI:9606</span>

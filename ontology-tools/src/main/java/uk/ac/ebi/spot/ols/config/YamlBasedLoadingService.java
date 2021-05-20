@@ -75,6 +75,8 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
             populateDescription(builder);
             populateHomepage(builder);
             populateMailingList(builder);
+            populateTracker(builder);
+            populateLogo(builder);
             populateCreator(builder);
             populatePreferredRootTerms(builder);
             populateAllowDownload(builder);
@@ -112,6 +114,17 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
     private void populateMailingList(OntologyResourceConfig.OntologyResourceConfigBuilder builder) {
         if (ontology.containsKey(MAILING_LIST.getPropertyName())) {
             builder.setMailingList((String) ontology.get(MAILING_LIST.getPropertyName()));
+        }
+    }
+
+    private void populateTracker(OntologyResourceConfig.OntologyResourceConfigBuilder builder) {
+        if (ontology.containsKey(TRACKER.getPropertyName())) {
+            builder.setTracker((String) ontology.get(TRACKER.getPropertyName()));
+        }
+    }
+    private void populateLogo(OntologyResourceConfig.OntologyResourceConfigBuilder builder) {
+        if (ontology.containsKey(LOGO.getPropertyName())) {
+            builder.setLogo((String) ontology.get(LOGO.getPropertyName()));
         }
     }
 

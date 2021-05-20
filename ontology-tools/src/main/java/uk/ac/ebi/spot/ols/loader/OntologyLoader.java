@@ -180,6 +180,18 @@ public interface OntologyLoader {
     String getMailingList();
 
     /**
+     * Get an issue tracker associated with this ontology
+     * @return
+     */
+    String getTracker();
+
+    /**
+     * Get a logo associated with this ontology
+     * @return
+     */
+    String getLogo();
+
+    /**
      * Get a version number for the ontology
      * @return
      */

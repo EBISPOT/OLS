@@ -27,8 +27,8 @@
 <section id="main-content-area" role="main">
 <div class="row">
     <h2 class="strapline" th:text="${title}">Ontology Lookup Service</h2>
-    <p class="alert-info bootstrap-alert error">
-        Something went wrong! Please contact ols-support@ebi.ac.uk to report any bugs or give feedback.
+    <p class="alert-info bootstrap-alert error" th:inline="text">
+        [[${errorMessage}]]
     </p>
     <p th:if="${timestamp}" id='created'>
         <b>Occurred:</b> <span th:text="${timestamp}">Timestamp</span>

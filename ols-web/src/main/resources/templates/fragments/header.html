@@ -33,7 +33,7 @@
                         <ul class="dropdown menu float-left"
                             data-description="navigational">
                             <li class=""><a th:href="@{/index}">Home</a></li>
-                            <li class=""><a th:href="@{/ontologies}">Ontologies</a></li>
+                            <li class=""><a th:href="@{/ontologies}" th:text="${ontologyAliasPlural}">Ontologies</a></li>
                             <li th:if="${debrand} == false" class=""><a th:href="@{/docs}">Documentation</a></li>
                             <li th:if="${debrand} == false" class=""><a th:href="@{/about}">About</a></li>
                         </ul>
