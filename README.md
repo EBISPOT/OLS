@@ -7,7 +7,7 @@ Ontology Lookup Service from SPOT at EBI.
 * Instructions on how to build a local OLS installation are here
   http://www.ebi.ac.uk/ols/docs/installation-guide
 * Run OLS with docker here
-  https://github.com/MaastrichtUniversity/ols-docker
+  https://github.com/EBISPOT/ontotools-docker-config
 * Further OLS documentation can be found here
   http://www.ebi.ac.uk/ols/docs
 
