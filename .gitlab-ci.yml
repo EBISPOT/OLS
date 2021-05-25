@@ -12,7 +12,7 @@ build:
     - docker build -t ${OLS_IMAGE_PREFIX}/ols-config-importer:$CI_COMMIT_REF_NAME-$CI_BUILD_ID -f  ./ols-apps/ols-config-importer/Dockerfile .
     - docker build -t ${OLS_IMAGE_PREFIX}/ols-indexer:$CI_COMMIT_REF_NAME-$CI_BUILD_ID -f  ./ols-apps/ols-indexer/Dockerfile .
     - docker build -t ${OLS_IMAGE_PREFIX}/ols-web:$CI_COMMIT_REF_NAME-$CI_BUILD_ID -f  ./ols-web/Dockerfile .
-    - docker build -t ${OLS_IMAGE_PREFIX}/ols-solr:$CI_COMMIT_REF_NAME-$CI_BUILD_ID -f  ./solr/Dockerfile .
+    - docker build -t ${OLS_IMAGE_PREFIX}/ols-solr:$CI_COMMIT_REF_NAME-$CI_BUILD_ID -f  ./solr/Dockerfile ./solr
     - docker tag ${OLS_IMAGE_PREFIX}/ols-config-importer:$CI_COMMIT_REF_NAME-$CI_BUILD_ID ${OLS_IMAGE_PREFIX}/ols-config-importer:$CI_COMMIT_REF_NAME
     - docker tag ${OLS_IMAGE_PREFIX}/ols-indexer:$CI_COMMIT_REF_NAME-$CI_BUILD_ID ${OLS_IMAGE_PREFIX}/ols-indexer:$CI_COMMIT_REF_NAME
     - docker tag ${OLS_IMAGE_PREFIX}/ols-web:$CI_COMMIT_REF_NAME-$CI_BUILD_ID ${OLS_IMAGE_PREFIX}/ols-web:$CI_COMMIT_REF_NAME
