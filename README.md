@@ -7,7 +7,7 @@ Ontology Lookup Service from SPOT at EBI.
 * Instructions on how to build a local OLS installation are here
   http://www.ebi.ac.uk/ols/docs/installation-guide
 * Run OLS with docker here
-  https://github.com/MaastrichtUniversity/ols-docker
+  https://github.com/EBISPOT/ontotools-docker-config
 * Further OLS documentation can be found here
   http://www.ebi.ac.uk/ols/docs
 
@@ -60,8 +60,9 @@ more information http://www.ebi.ac.uk/ols/docs/installation-guide
 
 ## Deploying with Docker
 
-The preferred method of deployment for OLS is using Docker.  First, create the
-necessary volumes:
+The preferred method of deployment for OLS is using Docker. If you would like to deploy **the entire OntoTools stack** (OLS, OxO, and ZOOMA), check out the [OntoTools Docker Config](https://github.com/EBISPOT/ontotools-docker-config) repository. If you would like to deploy **OLS only**, read on.
+
+First, create the necessary volumes:
 
     docker volume create --name=ols-neo4j-data
     docker volume create --name=ols-mongo-data
