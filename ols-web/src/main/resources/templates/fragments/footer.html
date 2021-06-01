@@ -16,7 +16,7 @@
     -->
     <!-- End optional local footer -->
     <div class="row">
-        <div th:if="${ebiInfo} == true" id="elixir-banner" data-color="none" data-name="The Ontology Lookup Service" data-description="OLS is an Elixir interoperability service" data-more-information-link="//www.elixir-europe.org/platforms/interoperability" data-use-basic-styles="true"></div>
+        <div th:if="${ebiInfo == true and debrand == false}" id="elixir-banner" data-color="none" data-name="The Ontology Lookup Service" data-description="OLS is an Elixir interoperability service" data-more-information-link="//www.elixir-europe.org/platforms/interoperability" data-use-basic-styles="true"></div>
         <script src="//ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/js/elixirBanner.js"></script>
     </div>
 
@@ -24,7 +24,7 @@
         <!-- https://www.ebi.ac.uk/style-lab/websites/patterns/banner-elixir.html
         <div id="elixir-banner" data-color="none" data-name="This service" data-description="I am a super cool service" data-more-information-link="https://www.elixir-europe.org/about-us/who-we-are/nodes/embl-ebi" data-use-basic-styles="true"></div>
         -->
-        <div th:if="${ebiInfo} == true" id="global-footer" class="global-footer">
+        <div th:if="${ebiInfo == true and debrand == false}" id="global-footer" class="global-footer">
             <nav id="global-nav-expanded" class="global-nav-expanded row">
                 Footer will be automatically inserted by footer.js
             </nav>
@@ -32,13 +32,20 @@
                 Footer meta will be automatically inserted by footer.js
             </section>
         </div>
+		
+		<br />
+         <div th:if="${ebiInfo} == false" style="text-align: center;">
+           <a th:href="@{/imprint}">Imprint</a> &nbsp; <a th:href="@{/dataprotection}">Data Protection</a>
+        </div>
+		
         <div th:if="${ebiInfo} == false" style="text-align: center;">
             Powered by <a th:href="@{${web}}" th:text="@{${org}}"></a> based on <a href="https://www.ebi.ac.uk/ols">OLS</a> 
         </div>
+		<br />
     </footer>
 
 
-    <script th:if="${debrand} == false" defer="defer" src="https://ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/js/elixirBanner.js"></script>
+    <script th:if="${ebiInfo == true and debrand == false}" defer="defer" src="https://ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/js/elixirBanner.js"></script>
 
 
 

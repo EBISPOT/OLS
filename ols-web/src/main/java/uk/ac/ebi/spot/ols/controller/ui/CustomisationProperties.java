@@ -66,6 +66,7 @@ public class CustomisationProperties {
 
     public void setCustomisationModelAttributes(Model model) {
         model.addAttribute("debrand", debrand);
+		model.addAttribute("ebiInfo", ebiInfo);
         model.addAttribute("logo", logo);
         model.addAttribute("title", title);
         model.addAttribute("shortTitle", shortTitle);
