@@ -40,7 +40,7 @@ public class CustomisationProperties {
     @Value("${ols.customisation.backgroundImage:/img/background_trial.jpg}")
     private String backgroundImage;
     
-    @Value("${ols.customisation.backgroundColor:0080FF}")
+    @Value("${ols.customisation.backgroundColor:#0080FF}")
     private String backgroundColor;
     
     @Value("${ols.customisation.issuesPage: https://github.com/EBISPOT/OLS/issues}")
@@ -66,7 +66,7 @@ public class CustomisationProperties {
 
     public void setCustomisationModelAttributes(Model model) {
         model.addAttribute("debrand", debrand);
-		model.addAttribute("ebiInfo", ebiInfo);
+        model.addAttribute("ebiInfo", ebiInfo);
         model.addAttribute("logo", logo);
         model.addAttribute("title", title);
         model.addAttribute("shortTitle", shortTitle);
