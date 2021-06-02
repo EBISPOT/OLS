@@ -52,7 +52,7 @@ public class CustomisationProperties {
     @Value("${ols.customisation.hideGraphView:false}")
     private boolean hideGraphView;
 
-    @Value("${ols.customisation.errorMessage:Something went wrong! Please contact ols-support@ebi.ac.uk to report any bugs or give feedback.}")
+    @Value("${ols.customisation.errorMessage:Something went wrong! Use the issue tracker or the support mail below to report any bugs or give feedback.}")
     private String errorMessage;
 
     @Value("${ols.customisation.ontologyAlias:Ontology}")

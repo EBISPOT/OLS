@@ -120,7 +120,7 @@
             </ul>
 
             <div th:if="${debrand} == false">
-                <a class="twitter-timeline" data-height="600" th:href="@{${twitter}}" th:text="@{Tweets by ${twitter}}"></a> <script async="async" src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                <a class="twitter-timeline" data-height="600" th:href="@{${twitter}}" th:text="@{'Tweets by ' + ${twitter}}"></a> <script async="async" src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
             </div>
         </div>
     </div>
