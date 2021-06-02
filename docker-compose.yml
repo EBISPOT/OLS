@@ -43,7 +43,8 @@ services:
         - ols.customisation.supportMail=${SUPPORT_MAIL}
         - OLS_HOME=/mnt/
       volumes:
-        - ols-neo4j-data:/mnt/neo4j 
+        - ols-neo4j-data:/mnt/neo4j
+        - ols-downloads:/mnt/downloads        
       ports:
       - 8080:8080
 volumes:
@@ -52,5 +53,7 @@ volumes:
     ols-mongo-data:
         external: true
     ols-neo4j-data:
+        external: true
+    ols-downloads:
         external: true
 
