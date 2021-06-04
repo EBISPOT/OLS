@@ -219,6 +219,19 @@ public class OntologyPropertyController {
         throw new ResourceNotFoundException();
     }
 
+    @RequestMapping(path = "/{onto}/properties/obsolete", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE}, method = RequestMethod.GET)
+    HttpEntity<PagedResources<Property>> getObsolete(
+            @PathVariable("onto") String ontologyId,
+            Pageable pageable,
+            PagedResourcesAssembler assembler
+    ) throws ResourceNotFoundException {
+        ontologyId = ontologyId.toLowerCase();
+
+        Page<Property> obsolete = ontologyPropertyGraphService.getObsolete(ontologyId, pageable);
+        if (obsolete == null) throw  new ResourceNotFoundException();
+        return new ResponseEntity<>( assembler.toResource(obsolete, termAssembler), HttpStatus.OK);
+    }
+
     @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Resource not found")
     @ExceptionHandler(ResourceNotFoundException.class)
     public void handleError(HttpServletRequest req, Exception exception) {

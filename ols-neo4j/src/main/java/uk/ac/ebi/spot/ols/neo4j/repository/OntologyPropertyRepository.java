@@ -51,6 +51,10 @@ public interface OntologyPropertyRepository extends GraphRepository<Property> {
             value = "MATCH (n:Property)-[SUBPROPERTYOF]->(r:Root) WHERE r.ontology_name = {0} AND n.is_obsolete = {1}  RETURN n")
     Page<Property> getRoots(String ontologyId, boolean obsolete, Pageable pageable);
 
+    @Query (countQuery =  "MATCH (n:Property) WHERE r.ontology_name = {0} AND n.is_obsolete = true  RETURN count(n)",
+            value = "MATCH (n:Property) WHERE r.ontology_name = {0} AND n.is_obsolete = true  RETURN n")
+    Page<Property> getObsolete(String ontologyId, Pageable pageable);
+
     @Query (countQuery = "MATCH (n:Property) RETURN count(n)",
             value = "MATCH (n:Property) RETURN n")
     Page<Property> findAll(Pageable pageable);

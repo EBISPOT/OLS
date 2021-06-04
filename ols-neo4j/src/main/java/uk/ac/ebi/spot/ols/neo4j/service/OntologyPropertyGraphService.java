@@ -93,4 +93,7 @@ public class OntologyPropertyGraphService {
     public Page<Property> getRoots(String ontologyId, boolean includeObsoletes, Pageable pageable) {
         return ontologyPropertyRepository.getRoots(ontologyId, includeObsoletes, pageable);
     }
+    public Page<Property> getObsolete(String ontologyId, Pageable pageable) {
+        return ontologyPropertyRepository.getObsolete(ontologyId, pageable);
+    }
 }

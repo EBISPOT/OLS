@@ -176,6 +176,10 @@ public class OntologyTermGraphService {
         return termRepository.getRoots(ontologyId, includeObsoletes, pageable);
     }
 
+    public Page<Term> getObsolete(String ontologyId, Pageable pageable) {
+        return termRepository.getObsolete(ontologyId, pageable);
+    }
+
     public Page<Term> getPreferredRootTerms(String ontologyId, boolean includeObsoletes, Pageable pageable) {
         return termRepository.getPreferredRootTerms(ontologyId, includeObsoletes, pageable);
     }

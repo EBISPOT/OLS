@@ -585,6 +585,21 @@ public class OntologyTermController {
         return new ResponseEntity<>( assembler.toResource(terms, termAssembler), HttpStatus.OK);
     }
 
+    @RequestMapping(path = "/{onto}/terms/obsolete", produces = {MediaType.APPLICATION_JSON_VALUE, 
+        MediaTypes.HAL_JSON_VALUE}, method = RequestMethod.GET)
+    HttpEntity<PagedResources<Term>> getRoots(
+            @PathVariable("onto") String ontologyId,
+            Pageable pageable,
+            PagedResourcesAssembler assembler
+    ) throws ResourceNotFoundException {
+        ontologyId = ontologyId.toLowerCase();
+
+        Page<Term> obsolete = ontologyTermGraphService.getObsolete(ontologyId, pageable);
+        if (obsolete == null) 
+          throw new ResourceNotFoundException("No obsolete terms could be found for " + ontologyId );
+        return new ResponseEntity<>( assembler.toResource(obsolete, termAssembler), HttpStatus.OK);
+    }
+
     @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Resource not found")
     @ExceptionHandler(ResourceNotFoundException.class)
     public void handleError(HttpServletRequest req, Exception exception) {
