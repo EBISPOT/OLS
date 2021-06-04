@@ -31,9 +31,20 @@ services:
       environment:
         - spring.data.solr.host=http://solr:8983/solr
         - spring.data.mongodb.host=mongo
+        - ols.customisation.logo=${LOGO}
+        - ols.customisation.title=${TITLE}
+        - ols.customisation.short-title=${SHORT_TITLE}
+        - ols.customisation.web=${WEB}
+        - ols.customisation.twitter=${TWITTER}
+        - ols.customisation.org=${ORG}
+        - ols.customisation.backgroundImage=${BACKGROUND_IMAGE}
+        - ols.customisation.backgroundColor=${BACKGROUND_COLOR}
+        - ols.customisation.issuesPage=${ISSUES_PAGE}
+        - ols.customisation.supportMail=${SUPPORT_MAIL}
         - OLS_HOME=/mnt/
       volumes:
-        - ols-neo4j-data:/mnt/neo4j 
+        - ols-neo4j-data:/mnt/neo4j
+        - ols-downloads:/mnt/downloads        
       ports:
       - 8080:8080
 volumes:
@@ -42,5 +53,7 @@ volumes:
     ols-mongo-data:
         external: true
     ols-neo4j-data:
+        external: true
+    ols-downloads:
         external: true
 
