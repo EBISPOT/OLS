@@ -39,9 +39,14 @@
         </div>
 		
         <div th:if="${ebiInfo} == false" style="text-align: center;">
-            Powered by <a th:href="@{${web}}" th:text="@{${org}}"></a> based on <a href="https://www.ebi.ac.uk/ols">OLS</a> 
+            Powered by <a href="https://www.ebi.ac.uk/ols">OLS</a> from <a href="http://www.ebi.ac.uk">EMBL-EBI</a> 
         </div>
-		<br />
+		<div class="columns medium-12" id="local-title" style="text-align: center;">
+		<a th:href="@{${web}}" 
+            th:title="'Go to ' + ${org} + ' homepage'">
+            <img th:src="@{${logo}}" style="height:40px;"/>
+		</a>
+		</div>
     </footer>
 
 
@@ -69,7 +74,22 @@
     </script>
 
     <!-- Using other URL for v1.3 does not change anything -->
-    <script defer="defer" src="//www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.3/js/script.js"></script>
+    <script th:if="${ebiInfo == true and debrand == false}" defer="defer" src="//www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.3/js/script.js"></script>
+	<script th:if="${ebiInfo} == false"> 
+     var masthead = document.getElementById('masthead');
+     // check for both ebi: and ebi- formatted meta tags
+     var mastheadColor = document.querySelector("meta[name='ebi:masthead-color']") || document.querySelector("meta[name='ebi-masthead-color']");
+     var mastheadImage = document.querySelector("meta[name='ebi:masthead-image']") || document.querySelector("meta[name='ebi-masthead-image']");
+
+     if (mastheadColor != null) {
+       masthead.style.backgroundColor = mastheadColor.getAttribute("content");
+       masthead.className += ' meta-background-color';
+     }
+     if (mastheadImage != null) {
+       masthead.style.backgroundImage = 'url(' + mastheadImage.getAttribute("content") + ')';
+       masthead.className += ' meta-background-image';
+     }
+     </script>
     <script src="//www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.3/libraries/foundation-6/js/foundation.js"></script>
     <script src="//www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.3/js/foundationExtendEBI.js"></script>
     <script type="text/JavaScript">$(document).foundation();</script>
