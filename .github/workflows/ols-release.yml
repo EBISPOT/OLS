@@ -1,0 +1,49 @@
+
+name: Create OLS jar release
+
+
+on:
+  push:
+    branches:
+      - 'jar-release'
+
+jobs:
+  release:
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: '8'
+      - name: Copy build fix
+        run: mkdir -p ~/.m2/repository && cp -rf build-fix/. ~/.m2/repository/
+      - name: Build OLS
+        run: mvn clean package -DskipTests 
+      - name: Create archive
+        run: |
+          mkdir ols
+          cp ./ols-web/target/ols-boot.war ols/
+          tar -czf ols.tgz ols
+     - name: Create Release
+       id: create_release
+       uses: actions/create-release@v1
+       env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+       with:
+         tag_name: ${{ github.ref }}
+         release_name: Release ${{ github.ref }}
+         body: |
+           Automatic OLS jar release
+         draft: false
+         prerelease: false
+     - name: Upload Release Asset
+       id: upload-release-asset 
+       uses: actions/upload-release-asset@v1
+       env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+       with:
+         upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+         asset_path: ./ols.tgz
+         asset_name: ols.tgz
+         asset_content_type: application/gzip
+
