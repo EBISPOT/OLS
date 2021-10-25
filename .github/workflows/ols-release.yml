@@ -42,10 +42,13 @@ jobs:
           name: ols_jars.tgz
       - name: Extract jars archive
         run: tar -xzf ols_jars.tgz && find .
-      - name: Replace preprod WAR
+      - name: Replace preprod WAR on preprod server
         run: |
           cp -f ./ols_jars/ols-boot.war /srv/data/ols/interfaces/
-      - name: Copy JARs to codon cluster
+      - name: Replace config importer JAR on preprod server
+        run: |
+          cp -f ./ols_jars/ols-config-importer.jar /srv/data/ols/applications/yaml-loader/
+      - name: Copy indexer JAR to codon cluster
         run: |
           scp ./ols_jars/ols-config-importer.jar codon-login:/nfs/production/parkinso/spot/ols/applications/yaml-loader/
           scp ./ols_jars/ols-indexer.jar codon-login:/nfs/production/parkinso/spot/ols/applications/indexer/
