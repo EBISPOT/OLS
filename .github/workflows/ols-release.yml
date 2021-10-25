@@ -1,0 +1,77 @@
+
+name: Create OLS jar release
+
+
+on:
+  push:
+    branches:
+      - 'prod'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: '8'
+      - name: Copy build fix
+        run: mkdir -p ~/.m2/repository && cp -rf build-fix/. ~/.m2/repository/
+      - name: Build OLS
+        run: mvn clean package -DskipTests 
+      - name: Create archive
+        run: |
+          mkdir ols_jars
+          cp ./ols-web/target/ols-boot.war ols_jars/
+          cp ./ols-apps/ols-config-importer/target/ols-config-importer.jar ols_jars/
+          cp ./ols-apps/ols-indexer/target/ols-indexer.jar ols_jars/
+          tar -czf ols_jars.tgz ols_jars/*
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ols_jars.tgz
+          path: ols_jars.tgz
+  deploy:
+    runs-on: self-hosted
+    needs: release
+    steps:
+      - name: Download JARs to preprod server
+        uses: actions/download-artifact@v2
+        with:
+          name: ols_jars.tgz
+      - name: Extract jars archive
+        run: tar -xzf ols_jars.tgz && find .
+      - name: Replace preprod WAR
+        run: |
+          cp -f ./ols_jars/ols-boot.war /srv/data/ols/interfaces/
+      - name: Copy JARs to codon cluster
+        run: |
+          scp ./ols_jars/ols-config-importer.jar codon-login:/nfs/production/parkinso/spot/ols/applications/yaml-loader/
+          scp ./ols_jars/ols-indexer.jar codon-login:/nfs/production/parkinso/spot/ols/applications/indexer/
+        
+          
+          
+#       - name: Create Release
+#         id: create_release
+#         uses: actions/create-release@v1
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+#         with:
+#           tag_name: ${{ github.ref }}
+#           release_name: Release ${{ github.ref }}
+#           body: |
+#             Automatic OLS jar release
+#           draft: false
+#           prerelease: false
+#       - name: Upload Release Asset
+#         id: upload-release-asset 
+#         uses: actions/upload-release-asset@v1
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         with:
+#           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+#           asset_path: ./ols.tgz
+#           asset_name: ols.tgz
+#           asset_content_type: application/gzip
+
