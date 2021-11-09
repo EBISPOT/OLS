@@ -15,6 +15,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
+import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
@@ -177,34 +178,39 @@ public class FileUpdater {
 
         // try a http connection
 
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        URLConnection connection = url.openConnection();
         connection.setConnectTimeout(15000);
         connection.setReadTimeout(60000);
-        connection.setInstanceFollowRedirects(true);
+
+        if(connection instanceof HttpURLConnection)
+            ((HttpURLConnection) connection).setInstanceFollowRedirects(true);
+
         connection.setRequestProperty("User-Agent", "Mozilla/5.0...");
 
         boolean redirect = false;
 
         // normally, 3xx is redirect
-        int status = connection.getResponseCode();
-        if (status != HttpURLConnection.HTTP_OK) {
-            if (status == HttpURLConnection.HTTP_MOVED_TEMP
-                    || status == HttpURLConnection.HTTP_MOVED_PERM
-                    || status == HttpURLConnection.HTTP_SEE_OTHER)
-                redirect = true;
-        }
-        
-        if (redirect) {
-            // get redirect url from "location" header field
-            String newUrl = connection.getHeaderField("Location");
-            // open the new connnection again
+        if(connection instanceof HttpURLConnection) {
+            int status = ((HttpURLConnection) connection).getResponseCode();
+            if (status != HttpURLConnection.HTTP_OK) {
+                if (status == HttpURLConnection.HTTP_MOVED_TEMP
+                        || status == HttpURLConnection.HTTP_MOVED_PERM
+                        || status == HttpURLConnection.HTTP_SEE_OTHER)
+                    redirect = true;
+            }
 
-            try {
-                connection = (HttpURLConnection) new URL(newUrl).openConnection();
-                connection.setInstanceFollowRedirects(true);
-            } catch (Exception e) {
-                FtpURLConnection ftpURLConnection = (FtpURLConnection) new URL(newUrl).openConnection();
-                return ftpURLConnection.getInputStream();
+            if (redirect) {
+                // get redirect url from "location" header field
+                String newUrl = connection.getHeaderField("Location");
+                // open the new connnection again
+
+                try {
+                    connection = new URL(newUrl).openConnection();
+                    ((HttpURLConnection) connection).setInstanceFollowRedirects(true);
+                } catch (Exception e) {
+                    FtpURLConnection ftpURLConnection = (FtpURLConnection) new URL(newUrl).openConnection();
+                    return ftpURLConnection.getInputStream();
+                }
             }
         }
 
