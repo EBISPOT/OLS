@@ -37,6 +37,11 @@
         <b>Response Status:</b> <span th:text="${status}">status-code</span> <span
             th:if="${error}" th:text="'('+${error}+')'">error ...</span>
     </p>
+    
+    <ul>
+        <li><a th:href="@{${issuesPage}}">Issue Tracker</a></li>
+        <li><a th:href="@{'mailto:' + ${supportMail}}" th:text="@{${supportMail}}"></a></li>
+    </ul>
 
     <div th:if="${ex} or ${exception} or (${message} and ${message.length() != 0})">
         <p>

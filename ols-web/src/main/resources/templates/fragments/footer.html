@@ -16,7 +16,7 @@
     -->
     <!-- End optional local footer -->
     <div class="row">
-        <div th:if="${debrand} == false" id="elixir-banner" data-color="none" data-name="The Ontology Lookup Service" data-description="OLS is an Elixir interoperability service" data-more-information-link="//www.elixir-europe.org/platforms/interoperability" data-use-basic-styles="true"></div>
+        <div th:if="${ebiInfo == true and debrand == false}" id="elixir-banner" data-color="none" data-name="The Ontology Lookup Service" data-description="OLS is an Elixir interoperability service" data-more-information-link="//www.elixir-europe.org/platforms/interoperability" data-use-basic-styles="true"></div>
         <script src="//ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/js/elixirBanner.js"></script>
     </div>
 
@@ -24,21 +24,33 @@
         <!-- https://www.ebi.ac.uk/style-lab/websites/patterns/banner-elixir.html
         <div id="elixir-banner" data-color="none" data-name="This service" data-description="I am a super cool service" data-more-information-link="https://www.elixir-europe.org/about-us/who-we-are/nodes/embl-ebi" data-use-basic-styles="true"></div>
         -->
-        <div th:if="${debrand} == false" id="global-footer" class="global-footer">
+        <div th:if="${ebiInfo == true and debrand == false}" id="global-footer" class="global-footer">
             <nav id="global-nav-expanded" class="global-nav-expanded row">
-                <!-- Footer will be automatically inserted by footer.js -->
+                Footer will be automatically inserted by footer.js
             </nav>
             <section id="ebi-footer-meta" class="ebi-footer-meta row">
-                <!-- Footer meta will be automatically inserted by footer.js -->
+                Footer meta will be automatically inserted by footer.js
             </section>
         </div>
-        <div th:if="${debrand} == true" style="text-align: center;">
-            Powered by <a href="https://www.ebi.ac.uk/ols">OLS</a> from <a href="http://www.ebi.ac.uk">EMBL-EBI</a>
+		
+		<br />
+         <div th:if="${ebiInfo} == false" style="text-align: center;">
+           <a th:href="@{/imprint}">Imprint</a> &nbsp; <a th:href="@{/dataprotection}">Data Protection</a>
         </div>
+		
+        <div th:if="${ebiInfo} == false" style="text-align: center;">
+            Powered by <a href="https://www.ebi.ac.uk/ols">OLS</a> from <a href="http://www.ebi.ac.uk">EMBL-EBI</a> 
+        </div>
+		<div class="columns medium-12" id="local-title" style="text-align: center;">
+		<a th:href="@{${web}}" 
+            th:title="'Go to ' + ${org} + ' homepage'">
+            <img th:src="@{${logo}}" style="height:40px;"/>
+		</a>
+		</div>
     </footer>
 
 
-    <script th:if="${debrand} == false" defer="defer" src="https://ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/js/elixirBanner.js"></script>
+    <script th:if="${ebiInfo == true and debrand == false}" defer="defer" src="https://ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/js/elixirBanner.js"></script>
 
 
 
@@ -62,7 +74,22 @@
     </script>
 
     <!-- Using other URL for v1.3 does not change anything -->
-    <script defer="defer" src="//www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.3/js/script.js"></script>
+    <script th:if="${ebiInfo == true and debrand == false}" defer="defer" src="//www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.3/js/script.js"></script>
+	<script th:if="${ebiInfo} == false"> 
+     var masthead = document.getElementById('masthead');
+     // check for both ebi: and ebi- formatted meta tags
+     var mastheadColor = document.querySelector("meta[name='ebi:masthead-color']") || document.querySelector("meta[name='ebi-masthead-color']");
+     var mastheadImage = document.querySelector("meta[name='ebi:masthead-image']") || document.querySelector("meta[name='ebi-masthead-image']");
+
+     if (mastheadColor != null) {
+       masthead.style.backgroundColor = mastheadColor.getAttribute("content");
+       masthead.className += ' meta-background-color';
+     }
+     if (mastheadImage != null) {
+       masthead.style.backgroundImage = 'url(' + mastheadImage.getAttribute("content") + ')';
+       masthead.className += ' meta-background-image';
+     }
+     </script>
     <script src="//www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.3/libraries/foundation-6/js/foundation.js"></script>
     <script src="//www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.3/js/foundationExtendEBI.js"></script>
     <script type="text/JavaScript">$(document).foundation();</script>
