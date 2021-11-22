@@ -8,7 +8,7 @@
 
 
 <head>
-    <div th:replace="fragments/head :: head(olscss=true, datatables_old=true)"></div>
+    <div th:replace="fragments/head :: head(olscss=true, datatables=true)"></div>
     <title id="pageTitle" th:inline="text">Home &lt; [[${title}]] &lt; [[${org}]]</title>
 <!--head th:replace="fragments/head :: head(olscss=true, datatables=true)"--
     <title>Ontology Xref Service   &lt; EMBL-EBI</title>
@@ -30,7 +30,7 @@
 
     <!--@thymesVar id="summary" type="uk.ac.ebi.spot.ols.controller.ui.HomeController.SummaryInfo" -->
     <div class="row">
-        <h3 class="strapline marginTop" th:inline="text">List of all [[${ontologyAliasPlural.toLowerCase()}]] in [[${shortTitle}]]</h3>
+        <h3 class="strapline marginTop" th:inline="text">List of all [[${ontologyAliasPlural.toLowerCase()}]] in [[${org}]] [[${title}]]</h3>
 
         <!-- Deactivate Ontology search box for now, since the new data tables have a build in search functionality
         <div class="small-12 columns">
@@ -50,24 +50,32 @@
             <table id="ontologiesTable" class="tdisplay dataTable no-footer" role="grid">
                 <thead>
                 <tr>
-                    <th data-width="30%" style="width: 50%;" data-sortable="true" th:inline="text">[[${ontologyAlias}]] Name</th>
-                    <th data-sortable="true">Short name</th>
-                    <th data-sortable="true">Description</th>
-                    <th data-sortable="true">Loaded</th>
+                    <th data-width="20%" style="width: 20%;" data-sortable="true" th:inline="text">[[${ontologyAlias}]] Name</th>
+                    <th data-sortable="true" style="width: 11%;">Short name</th>
+                    <th data-sortable="true">Description and Classifications</th>
+                    <th data-sortable="true"  style="width: 8%;">Loaded</th>
                     <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="onto : ${all_ontologies}">
 
-                    <td  data-width="30%" style="width: 50%;" >
+                    <td  data-width="20%" style="width: 20%;" >
 
                         <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="@{/ontologies/__${onto.getConfig().getNamespace()}__}" th:text="${{onto.getConfig().getTitle()}}">Ontology name</a>
                         <span th:if="${{onto.getStatus() ==  T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:text="${{onto.getConfig().getTitle()}}">Ontology name</span>
                     </td>
-                    <td><span class="ontology-source" th:text="${{onto.getConfig().getPreferredPrefix()}}"></span></td>
-                    <td th:text="${{onto.getConfig().getDescription()}}">0</td>
-                    <td th:text="${{onto.getLoaded()}}">0</td>
+                    <td style="width: 11%;"><span class="ontology-source" th:text="${{onto.getConfig().getPreferredPrefix()}}"></span></td>
+                    <td style="font-size: smaller;">
+                    <span th:text="${{onto.getConfig().getDescription()}}"></span>            
+                    <div th:each="classification: ${onto.getConfig().getClassifications()}">
+                       <div th:each="schema: ${classification.keySet().toArray()}">
+                           <b th:text="${schema} + ': '"></b>
+                           <span th:each="schemavalue : ${classification.get(schema)}" th:text="${schemavalue} + ' - '">NCBI_9606</span>
+                       </div>
+                    </div>          
+                    </td>
+                    <td  style="width: 8%;font-size: smaller;" th:text="${{onto.getLoaded()}}">0</td>
                     <td>
                         <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="'search?ontology=' + ${onto.getConfig().getNamespace()}" href="search">Search</a><br/>
                         <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="@{ontologies/__${onto.getConfig().getNamespace()}__/terms}">Terms</a><br/>

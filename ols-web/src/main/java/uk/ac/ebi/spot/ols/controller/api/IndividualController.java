@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.util.UriUtils;
 
+import io.swagger.annotations.ApiOperation;
 import uk.ac.ebi.spot.ols.neo4j.model.Individual;
 import uk.ac.ebi.spot.ols.neo4j.service.JsTreeBuilder;
 import uk.ac.ebi.spot.ols.neo4j.service.OntologyIndividualService;
@@ -53,7 +54,7 @@ public class IndividualController implements
         resource.add(ControllerLinkBuilder.linkTo(IndividualController.class).withRel("individuals"));
         return resource;
     }
-
+    @ApiOperation(value = "Retrieve a particular individual.")
     @RequestMapping(path = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<PagedResources<Individual>> getAllIndividuals(
             @PathVariable("id") String termId,
@@ -68,7 +69,7 @@ public class IndividualController implements
         return getAllIndividuals(decoded, null, null, pageable, assembler);
 
     }
-
+    @ApiOperation(value = "List all individuals")
     @RequestMapping(path = "", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<PagedResources<Individual>> getAllIndividuals(
             @RequestParam(value = "iri", required = false) String iri,
@@ -91,7 +92,7 @@ public class IndividualController implements
 
         return new ResponseEntity<>(assembler.toResource(terms, individualAssembler), HttpStatus.OK);
     }
-    
+    @ApiOperation(value = "Find individual based on defining ontology")
     @RequestMapping(path = "/findByIdAndIsDefiningOntology/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<PagedResources<Individual>> getAllIndividualsByIdAndIsDefiningOntology(
             @PathVariable("id") String termId,
@@ -107,7 +108,7 @@ public class IndividualController implements
 
     }    
     
-    
+    @ApiOperation(value = "List individuals based on defining ontology")
     @RequestMapping(path = "/findByIdAndIsDefiningOntology", 
     		produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE}, 
     		method = RequestMethod.GET)

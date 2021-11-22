@@ -2,11 +2,16 @@ package uk.ac.ebi.spot.ols.controller.ui;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.propertyeditors.CustomCollectionEditor;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.data.domain.Sort;
@@ -26,6 +32,8 @@ import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -73,6 +81,55 @@ public class HomeController {
             return Collections.emptyList();
         }
     }
+    
+    @InitBinder()
+    public void initBinder(WebDataBinder binder) throws Exception
+    {
+       binder.registerCustomEditor(Collection.class, new CustomCollectionEditor(List.class));
+    }
+    
+    public Set<String> getClassificationsForSchemas(Collection<String> keys){
+    	
+        try {
+        	Set<String> classifications = new HashSet<String>();
+        	for (OntologyDocument document : repositoryService.getAllDocuments(new Sort(new Sort.Order(Sort.Direction.ASC, "ontologyId")))) {
+				document.getConfig().getClassifications().forEach(x -> x.forEach((k, v) -> {if (keys.contains(k)) classifications.addAll(x.get(k));} ));
+			}
+            return classifications;
+        } catch (Exception e) {
+        	return Collections.emptySet();
+        }
+    }
+    
+    @ModelAttribute("availableSchemaKeys")
+    public Set<String> getAvailableKeys(){
+        try {
+        	Set<String> schemaKeys = new HashSet<String>();
+        	for (OntologyDocument document : repositoryService.getAllDocuments(new Sort(new Sort.Order(Sort.Direction.ASC, "ontologyId")))) {
+				document.getConfig().getClassifications().forEach(x -> schemaKeys.addAll(x.keySet()));
+			}
+            return schemaKeys;
+        } catch (Exception e) {
+        	return Collections.emptySet();
+        }
+    }
+    
+    public Set<OntologyDocument> filterOntologiesByClassification(Collection<String> schemas, Collection<String> classifications){ 	
+    	Set<OntologyDocument> filteredOntologies = new HashSet<OntologyDocument>();
+    	 for (OntologyDocument ontologyDocument : repositoryService.getAllDocuments(new Sort(new Sort.Order(Sort.Direction.ASC, "ontologyId")))) {
+    		 for(Map<String, Collection<String>> classificationSchema : ontologyDocument.getConfig().getClassifications()) {
+    			for (Map.Entry<String, Collection<String>> entry : classificationSchema.entrySet()) {
+					if (schemas.contains(entry.getKey()))
+						for (String classification : entry.getValue()) {
+							if (classifications.contains(classification)) {
+								filteredOntologies.add(ontologyDocument);
+							}		
+						}		
+				}
+            }
+    	 }   	 
+    	 return filteredOntologies;
+    }    	 
 
     @RequestMapping({"", "/"})
     public String goHome () {
@@ -155,6 +212,8 @@ public class HomeController {
     public String doSearch(
             @RequestParam(value = "q", defaultValue = "*") String query,
             @RequestParam(value = "ontology", required = false) Collection<String> ontologies,
+            @RequestParam(value = "schema", required = false) Collection<String> schemas,
+            @RequestParam(value = "classification", required = false) Collection<String> classifications,
             @RequestParam(value = "type", required = false) Collection<String> types,
             @RequestParam(value = "slim", required = false) Collection<String> slims,
             @RequestParam(value = "queryFields", required = false) Collection<String> queryFields,
@@ -177,9 +236,23 @@ public class HomeController {
                 rows,
                 start
         );
-
-        if (ontologies != null) {
+        
+        if ( schemas != null && classifications != null) {
+        	Set<String> filteredOntologies = new HashSet<String>();	
+        	filterOntologiesByClassification(schemas, classifications).forEach(x -> filteredOntologies.add(x.getOntologyId()));
+        	String filterMessage = "Displaying results for schemas: "+String.join(",", schemas)+" and respective classifications: "+String.join(",",classifications);
+        	model.addAttribute("filterMessage",filterMessage);
+        	ontologies = new HashSet<String>();
+    		ontologies.addAll(filteredOntologies);
+    		schemas = new HashSet<>();	
+        } 
+        
+        if(ontologies != null) {
             searchOptions.setOntologies(ontologies);
+        }
+        
+        if (schemas != null) {
+            searchOptions.setSchemas(schemas);
         }
 
         if (queryFields != null) {
@@ -197,9 +270,9 @@ public class HomeController {
         if (groupField != null) {
             searchOptions.setGroupField(groupField);
         }
-
-
+        
         model.addAttribute("searchOptions", searchOptions);
+        model.addAttribute("availableSchemaValues",getClassificationsForSchemas(searchOptions.getSchemas()));
         customisationProperties.setCustomisationModelAttributes(model);
         return "search";
     }
@@ -231,10 +304,11 @@ public class HomeController {
     }
 
     @RequestMapping({"about"})
-    public String showAbout() {
-        return "redirect:docs/about";
+    public String showAbout(Model model) {
+    	customisationProperties.setCustomisationModelAttributes(model);
+        return "about";
     }
-
+    
     @RequestMapping({"docs"})
     public String showDocsIndex(Model model) {
         return "redirect:docs/index";

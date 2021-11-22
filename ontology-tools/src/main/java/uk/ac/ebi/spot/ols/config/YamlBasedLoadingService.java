@@ -80,6 +80,7 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
             populateCreator(builder);
             populatePreferredRootTerms(builder);
             populateAllowDownload(builder);
+            populateClassification(builder);
 
             return builder.build();
         }
@@ -278,5 +279,16 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
         } else {
             builder.setAllowDownload(true);
         }
-    }
+    }  
+    
+    private void populateClassification(OntologyResourceConfig.OntologyResourceConfigBuilder builder) {
+        if (ontology.containsKey(CLASSIFICATION.getPropertyName()))  {
+        	Collection<Map<String, Collection<String>>> classifications = new ArrayList<>();
+            for (Object classification :  (ArrayList) ontology.get(CLASSIFICATION.getPropertyName())) {
+                classifications.add((Map<String, Collection<String>>) classification);
+            }            
+            
+            builder.setClassifications(classifications);
+        }
+    }  
 }

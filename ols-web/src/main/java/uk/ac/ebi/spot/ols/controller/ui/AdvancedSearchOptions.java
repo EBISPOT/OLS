@@ -14,6 +14,8 @@ public class AdvancedSearchOptions {
     private String query;
     private Collection<String> queryField = new HashSet<>();
     private Collection<String> ontologies = new HashSet<>();
+    private Collection<String> schemas = new HashSet<>();
+    private Collection<String> classifications = new HashSet<>();
     private Collection<String> types = new HashSet<>();
     private Collection<String> slims = new HashSet<>();
     private boolean queryObsoletes = false;
@@ -55,6 +57,22 @@ public class AdvancedSearchOptions {
 
     public void setOntologies(Collection<String> ontologies) {
         this.ontologies = ontologies;
+    }
+    
+    public Collection<String> getSchemas() {
+        return schemas;
+    }
+
+    public void setSchemas(Collection<String> ontologies) {
+        this.schemas = ontologies;
+    }
+    
+    public Collection<String> getClassifications() {
+        return classifications;
+    }
+
+    public void setClassifications(Collection<String> classifications) {
+//        this.classifications = classifications;
     }
 
     public Collection<String> getTypes() {

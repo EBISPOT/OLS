@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriUtils;
 
+import io.swagger.annotations.ApiOperation;
 import uk.ac.ebi.spot.ols.neo4j.model.Term;
 import uk.ac.ebi.spot.ols.neo4j.service.OntologyTermGraphService;
 
@@ -48,7 +49,7 @@ public class TermController implements
     private OntologyTermGraphService ontologyTermGraphService;
 
     @Autowired TermAssembler termAssembler;
-
+    @ApiOperation(value = "Retrieve a particular term.")
     @RequestMapping(path = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE}, method = RequestMethod.GET)
     private HttpEntity<PagedResources<Term>> getTermsByIri( @PathVariable("id") String termId,
                                                     Pageable pageable,
@@ -64,7 +65,7 @@ public class TermController implements
         }
         return getTerms(decoded, null, null,null, pageable, assembler);
     }
-
+    @ApiOperation(value = "List all terms")
     @RequestMapping(path = "", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE}, method = RequestMethod.GET)
     private HttpEntity<PagedResources<Term>> getTerms(
             @RequestParam(value = "iri", required = false) String iri,
@@ -101,7 +102,7 @@ public class TermController implements
 
         return new ResponseEntity<>( assembler.toResource(terms, termAssembler), HttpStatus.OK);
     }
-    
+    @ApiOperation(value = "Find term based on defining ontology")
     @RequestMapping(path = "/findByIdAndIsDefiningOntology/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE}, method = RequestMethod.GET)
     private HttpEntity<PagedResources<Term>> getTermsByIdAndIsDefiningOntology( @PathVariable("id") String termId,
                                                     Pageable pageable,
@@ -116,7 +117,7 @@ public class TermController implements
         }
         return getTermsByIdAndIsDefiningOntology(decoded, null, null,null, pageable, assembler);
     }    
-
+    @ApiOperation(value = "List terms based on defining ontology")
     @RequestMapping(path = "/findByIdAndIsDefiningOntology", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE}, method = RequestMethod.GET)
     private HttpEntity<PagedResources<Term>> getTermsByIdAndIsDefiningOntology(
             @RequestParam(value = "iri", required = false) String iri,

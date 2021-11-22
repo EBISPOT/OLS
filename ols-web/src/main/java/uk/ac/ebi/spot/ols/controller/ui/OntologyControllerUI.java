@@ -83,7 +83,7 @@ public class OntologyControllerUI {
             return homeController.doSearch(
                     "*",
                     null,
-                    null,null, null, false, null, false, false, null, 10,0,model);
+                    null,null,null, null, null, false, null, false, false, null, 10,0,model);
         }
         return "ontology";
     }

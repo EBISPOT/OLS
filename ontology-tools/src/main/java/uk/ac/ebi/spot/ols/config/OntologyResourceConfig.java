@@ -4,8 +4,10 @@ package uk.ac.ebi.spot.ols.config;
 import uk.ac.ebi.spot.ols.util.ReasonerType;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
@@ -47,6 +49,7 @@ public class OntologyResourceConfig  {
     private boolean isSkos;
 
     private boolean allowDownload;
+    private Collection<Map<String, Collection<String>>> classifications;
 
     // these are any metadata properties for the ontology, such as title or definition that are included in the ontology as OWL ontology annotation
     private Collection<String> internalMetadataProperties;
@@ -58,7 +61,7 @@ public class OntologyResourceConfig  {
                                   Collection<URI> synonymProperties, Collection<URI> hierarchicalProperties,
                                   Collection<String> baseUris, Collection<URI> hiddenProperties, boolean isSkos,
                                   Collection<String> internalMetadataProperties, Collection<URI> preferredRootTerms,
-                                  boolean allowDownload) {
+                                  boolean allowDownload, Collection<Map<String, Collection<String>>> classifications) {
         this.id = id;
         this.versionIri = versionIri;
         this.title = title;
@@ -84,6 +87,7 @@ public class OntologyResourceConfig  {
         this.internalMetadataProperties = internalMetadataProperties;
         this.preferredRootTerms = preferredRootTerms;
         this.allowDownload = allowDownload;
+        this.classifications = classifications;
     }
 
     public OntologyResourceConfig() {
@@ -116,6 +120,7 @@ public class OntologyResourceConfig  {
         this.internalMetadataProperties = builder.internalMetadatProperties;
         this.preferredRootTerms = builder.preferredRootTerms;
         this.allowDownload = builder.allowDownload;
+        this.classifications = builder.classifications;
     }
 
     public void setId(String id) {
@@ -328,6 +333,14 @@ public class OntologyResourceConfig  {
     public void setAllowDownload(boolean allowDownload) {
         this.allowDownload = allowDownload;
     }
+    
+    public Collection<Map<String, Collection<String>>> getClassifications() {
+		return classifications;
+	}
+
+	public void setClassifications(Collection<Map<String, Collection<String>>> classifications) {
+		this.classifications = classifications;
+	}
 
     public static class OntologyResourceConfigBuilder {
         private  String id;
@@ -356,6 +369,7 @@ public class OntologyResourceConfig  {
         private Collection<String> internalMetadatProperties = Collections.emptySet();
         private Collection<URI> preferredRootTerms = Collections.emptySet();
         private boolean allowDownload = true;
+        private Collection<Map<String, Collection<String>>> classifications = new ArrayList<>();
 
         public OntologyResourceConfigBuilder(String id, String title, String namespace, URI fileLocation) {
             this.id = id;
@@ -491,6 +505,11 @@ public class OntologyResourceConfig  {
 
         public void setAllowDownload(boolean allowDownload) {
             this.allowDownload = allowDownload;
+        }
+        
+        public OntologyResourceConfigBuilder setClassifications(Collection<Map<String, Collection<String>>> classifications) {
+            this.classifications = classifications;
+            return this;
         }
 
         public OntologyResourceConfig build() {

@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.util.UriUtils;
 
+import io.swagger.annotations.ApiOperation;
 import uk.ac.ebi.spot.ols.neo4j.model.Property;
 import uk.ac.ebi.spot.ols.neo4j.service.OntologyPropertyGraphService;
 
@@ -53,7 +54,7 @@ public class PropertyController implements
         resource.add(ControllerLinkBuilder.linkTo(PropertyController.class).withRel("properties"));
         return resource;
     }
-
+    @ApiOperation(value = "Retrieve a particular property.")
     @RequestMapping(path = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<PagedResources<Property>> getPropertiesByIri( @PathVariable("id") String termId,
                                                              Pageable pageable,
@@ -69,7 +70,7 @@ public class PropertyController implements
         }
         return getAllProperties(decoded, null, null, pageable, assembler);
     }
-
+    @ApiOperation(value = "List all properties")
     @RequestMapping(path = "", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<PagedResources<Property>> getAllProperties(
             @RequestParam(value = "iri", required = false) String iri,
@@ -96,7 +97,7 @@ public class PropertyController implements
         return new ResponseEntity<>( assembler.toResource(terms, termAssembler), HttpStatus.OK);
     }
 
-
+    @ApiOperation(value = "Find property based on defining ontology")
     @RequestMapping(path = "/findByIdAndIsDefiningOntology/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<PagedResources<Property>> getPropertiesByIriAndIsDefiningOntology( @PathVariable("id") String termId,
                                                              Pageable pageable,
@@ -112,7 +113,7 @@ public class PropertyController implements
         }
         return getPropertiesByIdAndIsDefiningOntology(decoded, null, null, pageable, assembler);
     }    
-    
+    @ApiOperation(value = "List properties based on defining ontology")
     @RequestMapping(path = "/findByIdAndIsDefiningOntology", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE}, method = RequestMethod.GET)
     HttpEntity<PagedResources<Property>> getPropertiesByIdAndIsDefiningOntology(
             @RequestParam(value = "iri", required = false) String iri,

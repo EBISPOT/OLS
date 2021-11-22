@@ -108,6 +108,7 @@ public class DocumentUpdater {
 
         originalDocument.getConfig().setAllowDownload(newDocument.getAllowDownload());
 
+        originalDocument.getConfig().setClassifications(newDocument.getClassifications());
 
         // Henriette To do: Remove because this is not used.
         if (newDocument.getHiddenProperties() != null) {

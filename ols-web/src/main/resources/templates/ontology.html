@@ -75,9 +75,9 @@
                 <li class="tabs-title"><a id="property-link"
                                           data-x-tabs-target="property-tree-tab"
                                           href="#property-tree-tab"><i class="icon icon-functional" data-icon="h"></i> Browse Properties</a></li>
-                <li class="tabs-title"><a id="diachron-link"
-                                          data-x-tabs-target="diachron-tab"
-                                          href="#diachron-tab"><i class="icon icon-generic" data-icon="g"></i> Ontology history</a></li>
+                 <li class="tabs-title"><a id="diachron-link"
+                                           data-x-tabs-target="diachron-tab"
+                                           href="#diachron-tab"><i class="icon icon-generic" data-icon="g"></i> Ontology history</a></li>
             </ul>
             <input type="hidden" name="ontology_view_siblings"
                    th:value="${#httpServletRequest.getParameter('siblings') == 'true'} ? 'true': 'false'"/>
@@ -183,8 +183,16 @@
                     <div th:each="creator : ${ontologyDocument.getConfig().getCreators()}">
                         <b>Creator: </b> <span th:text="${creator}">NCBI:9606</span>
                     </div>
+                    
+                    <b th:unless="${ontologyDocument.getConfig().getClassifications().isEmpty()}">Classifications: </b>
+                    <div th:each="classification: ${ontologyDocument.getConfig().getClassifications()}">
+                       <b style="margin-left:9px;" th:text="'Class ' + ${classification.keySet().toString()} + ' : '"></b>
+                       <div th:each="schema: ${classification.keySet().toArray()}">
+                           <b style="margin-left:18px;" th:text="${schema} + ': '"></b>
+                           <p style="margin-left:27px;margin-bottom: 0rem;" th:each="schemavalue : ${classification.get(schema)}" th:text="${schemavalue}">NCBI_9606</p>
+                       </div>
+                    </div>
 
-                    <br/>
                     <div th:each="annotations: ${ontologyDocument.getConfig().getAnnotations()}">
                         <b>
                             <a href="#" th:href="@{../search(q=${annotations.key},exact='true', type=property, ontology=${ontologyDocument.getOntologyId()})}" th:text="${annotations.key.replaceAll('_', ' ')}">property name</a>
