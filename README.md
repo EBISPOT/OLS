@@ -133,7 +133,8 @@ compilation.
 
 It is possible to customise several branding options in `ols-web/src/main/resources/application.properties`:
 
-* `ols.customisation.debrand` — If set to true, removes the EBI header and footer, documentation, and about page
+* `ols.customisation.debrand` — If set to true, removes header and footer, documentation, and about page
+* `ols.customisation.ebiInfo` — If set to true, EBI specific banners are enabled
 * `ols.customisation.title` — A custom title for your instance, e.g. "My OLS Instance"
 * `ols.customisation.short-title` — A shorter version of the custom title, e.g. "MYOLS"
 * `ols.customisation.description` — A description of the instance

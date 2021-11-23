@@ -95,7 +95,7 @@ public class IndividualControllerUI {
 
         String title = repositoryService.get(ontologyId).getConfig().getTitle();
         model.addAttribute("ontologyName", title);
-
+        customisationProperties.setCustomisationModelAttributes(model);
         return "individual";
     }
 }
