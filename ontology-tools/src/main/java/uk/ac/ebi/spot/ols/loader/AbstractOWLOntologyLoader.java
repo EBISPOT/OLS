@@ -11,7 +11,6 @@ import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleIRIMapper;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-import org.slf4j.Logger;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.util.StringUtils;
@@ -23,8 +22,6 @@ import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
 import uk.ac.ebi.spot.ols.renderer.OWLHTMLVisitor;
 import uk.ac.ebi.spot.ols.util.*;
 import uk.ac.ebi.spot.ols.xrefs.DatabaseService;
-import uk.ac.ebi.spot.usage.CpuUtils;
-import uk.ac.ebi.spot.usage.MemoryUtils;
 import uk.ac.ebi.spot.usage.ResourceUsage;
 
 import java.io.IOException;
@@ -39,7 +36,6 @@ import java.util.concurrent.Callable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author Tony Burdett
@@ -397,10 +393,8 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
                 getLogger().debug("Version IRI = " + ontologyVersionIRI);
                 String oboVersion = parseOboVersion(ontologyVersionIRI);
-                if (oboVersion != null) {
-                    getLogger().debug("Set obo version");
-                    setOntologyVersion(oboVersion);
-                }
+                getLogger().debug("Set obo version = " + oboVersion);
+                setOntologyVersion(oboVersion);
 
             }
             if (getOntologyName() == null) {
