@@ -5,7 +5,7 @@ name: Create OLS jar release
 on:
   push:
     branches:
-      - 'prod'
+      - 'stable'
 
 jobs:
   release:
