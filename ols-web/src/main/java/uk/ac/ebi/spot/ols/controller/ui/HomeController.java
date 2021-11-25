@@ -88,12 +88,12 @@ public class HomeController {
        binder.registerCustomEditor(Collection.class, new CustomCollectionEditor(List.class));
     }
     
-    public Set<String> getClassificationsForSchemas(Collection<String> keys){
+    public Set<String> getClassificationsForSchema(String key){
     	
         try {
         	Set<String> classifications = new HashSet<String>();
         	for (OntologyDocument document : repositoryService.getAllDocuments(new Sort(new Sort.Order(Sort.Direction.ASC, "ontologyId")))) {
-				document.getConfig().getClassifications().forEach(x -> x.forEach((k, v) -> {if (keys.contains(k)) classifications.addAll(x.get(k));} ));
+				document.getConfig().getClassifications().forEach(x -> x.forEach((k, v) -> {if (key.equals(k)) classifications.addAll(x.get(k));} ));
 			}
             return classifications;
         } catch (Exception e) {
@@ -101,14 +101,21 @@ public class HomeController {
         }
     }
     
-    @ModelAttribute("availableSchemaKeys")
-    public Set<String> getAvailableKeys(){
+    @ModelAttribute("availableSchemas")
+    public Set<Schema> getAvailableSchemas(){
         try {
         	Set<String> schemaKeys = new HashSet<String>();
+        	Set<Schema> schemas = new HashSet<Schema>();
         	for (OntologyDocument document : repositoryService.getAllDocuments(new Sort(new Sort.Order(Sort.Direction.ASC, "ontologyId")))) {
 				document.getConfig().getClassifications().forEach(x -> schemaKeys.addAll(x.keySet()));
 			}
-            return schemaKeys;
+        	
+        	for (String key : schemaKeys) {
+        		Schema schema = new Schema(key,getClassificationsForSchema(key));
+        		schemas.add(schema);
+        	}
+        	
+            return schemas;
         } catch (Exception e) {
         	return Collections.emptySet();
         }
@@ -272,7 +279,6 @@ public class HomeController {
         }
         
         model.addAttribute("searchOptions", searchOptions);
-        model.addAttribute("availableSchemaValues",getClassificationsForSchemas(searchOptions.getSchemas()));
         customisationProperties.setCustomisationModelAttributes(model);
         return "search";
     }

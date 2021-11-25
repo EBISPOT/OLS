@@ -110,40 +110,20 @@
                     
                     <p th:if="${filterMessage != null}" th:text="${filterMessage}" style="color: #00827c;"></p>
                                                     
-                    <h4 class="filterbox-header">Schemas</h4>
-                    <div class="filterBoxes">
-                        <select id="schema-select-id" name="schema" class="schema-select" style="width:100%">
-                            <option disabled selected value="0">-- select a schema --</option>
-                            <option
-                                    th:value="${schema}"
-                                    th:each="schema : ${availableSchemaKeys}"
-                                    th:text="${schema}"
-                                    th:attr="data-schema-title=${schema}"
-                                    th:with="schemas=${searchOptions.getSchemas()}"
-                                    th:selected="${#sets.contains(schemas , schema)}"
-                            >
-                            </option>
-                        </select>
-                        <div id="schema-summary">
-                        </div>
-                    </div>
-                                                              
-                    <h4 class="filterbox-header" th:if="${not #lists.isEmpty(availableSchemaValues)}">Classifications</h4>
-                    <div class="filterBoxes" th:if="${not #lists.isEmpty(availableSchemaValues)}">
-                        <select id="classification-select-id" name="classification" class="classification-select" style="width:100%">
+                    <div th:each="schema : ${availableSchemas}">
+                    
+                    <h4 class="filterbox-header" th:text="${schema.getKey()}"></h4>
+                    <select th:onchange="'window.location.href =  this.value '" style="width:100%">
                             <option disabled selected value="0">-- select a classification --</option>
                             <option
-                                    th:value="${classification}"
-                                    th:each="classification : ${availableSchemaValues}"
+                                    th:value="${urlBuilder.replaceQueryParam('schema', '__(${schema.getKey()})__').replaceQueryParam('classification', '__(${classification})__').replaceQueryParam('ontology', '').toUriString()}"
+                                    th:each="classification : ${schema.getValues()}"
                                     th:text="${classification}"
-                                    th:attr="data-classification-title=${classification}"
-                                    th:with="classifications=${searchOptions.getClassifications()}"
-                                    th:selected="${#sets.contains(classifications , classification)}"
+                                    th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}"
                             >
                             </option>
-                        </select>
-                        <div id="classification-summary">
-                        </div>
+                     </select>
+                    
                     </div>
                     
                     <h4 class="filterbox-header">Term type</h4>
