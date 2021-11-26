@@ -39,46 +39,6 @@ $(document).ready(function() {
             $("#filter_form").submit();
         });
 
-    $('.schema-select').select2({placeholder: "Filter by schema "})
-        .on('select2:select', function (e) {
-            $("#schema-id").append($('<option/>', {
-                value: e.params.data.id,
-                text : e.params.data.id,
-                selected : 'selected'
-            }));
-
-            //always restart start when faceting
-            $('#start').val(0);
-            $("#filter_form").submit();
-        })
-        .on('select2:unselect', function (e) {
-
-            $("#schema-id").find("[value=\"" + e.params.data.id + "\"]").remove();
-            //always restart start when faceting
-            $('#start').val(0);
-            $("#filter_form").submit();
-        });
-
-    $('.classification-select').select2({placeholder: "Filter by classification"})
-        .on('select2:select', function (e) {
-            $("#classification-id").append($('<option/>', {
-                value: e.params.data.id,
-                text : e.params.data.id,
-                selected : 'selected'
-            }));
-
-            //always restart start when faceting
-            $('#start').val(0);
-            $("#filter_form").submit();
-        })
-        .on('select2:unselect', function (e) {
-
-            $("#classification-id").find("[value=\"" + e.params.data.id + "\"]").remove();
-            //always restart start when faceting
-            $('#start').val(0);
-            $("#filter_form").submit();
-        });
-
     $('.typeahead').typeahead('val', $('#query-id').val(), false).typeahead('close');
 
     ontologyList = new Object();

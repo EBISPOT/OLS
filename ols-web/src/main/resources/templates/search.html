@@ -116,10 +116,9 @@
                     <select th:onchange="'window.location.href =  this.value '" style="width:100%">
                             <option disabled selected value="0">-- select a classification --</option>
                             <option
-                                    th:value="${urlBuilder.replaceQueryParam('schema', '__(${schema.getKey()})__').replaceQueryParam('classification', '__(${classification})__').replaceQueryParam('ontology', '').toUriString()}"
+                                    th:value="${schema.generateURIString('__(${classification})__')}"
                                     th:each="classification : ${schema.getValues()}"
                                     th:text="${classification}"
-                                    th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}"
                             >
                             </option>
                      </select>
