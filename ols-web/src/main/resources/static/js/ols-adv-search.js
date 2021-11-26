@@ -376,10 +376,6 @@ function renderOntologyFacetField (facetArray, searchSummary) {
             //always restart start when faceting
 
             $('#start').val(0);
-            var emptyList = [];
-            emptyList[0] = e.target.id.toLowerCase();
-            $('#ontology-id').val(emptyList);
-
             $("#filter_form").submit();
         });
     }
