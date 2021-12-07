@@ -315,6 +315,10 @@ input[type="search"].select2-search__field {
   padding-top: 12px;
   padding-left: 12px; }
 
+.term-section#content,
+.property-section#content {
+  padding: 0; }
+
 /* Search Box stuff(?) */
 .checkbox-inline {
   margin-top: -20px; }
