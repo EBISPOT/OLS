@@ -38,7 +38,7 @@ public class LocalizedStrings {
 
         List<String> strings = getStrings(language);
 
-        if(strings == null)
+        if(strings == null || strings.size() == 0)
             return null;
 
         return strings.get(0);
