@@ -2,6 +2,7 @@ package uk.ac.ebi.spot.ols.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -21,6 +22,16 @@ public class LocalizedStrings {
 
     public Set<String> getLanguages() {
         return localizations.keySet();
+    }
+
+    public Set<String> getNonEnLanguages() {
+	Set<String> langs = new HashSet<>();
+	for(String lang : localizations.keySet()) {
+		if(lang.compareTo("en") != 0) {
+			langs.add(lang);
+		}
+	}
+	return langs;
     }
 
     public List<String> getStrings(String language) {

@@ -102,13 +102,15 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
 
                 LocalizedStrings labels = loader.getTermLabels().get(classIri);
 
-                for (String lang : labels.getLanguages()) {
+                for (String lang : labels.getNonEnLanguages()) {
                     String[] labelValues = labels.getStrings(lang).toArray(new String[0]);
 
                     if (labelValues.length > 0) {
                         properties.put("label_" + lang, labelValues);
                     }
                 }
+
+		properties.put("label", labels.getFirstString("en"));
 
                 Long hit = inserter.createNode(properties, nodeLabel);
                 index.add(hit, properties);
