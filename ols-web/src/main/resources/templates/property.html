@@ -29,7 +29,7 @@
 <section id="main-content-area" role="main">
     <div vocab="http://schema.org/" typeof="MedicalCode" id="content" role="main" class="property-section">
         <div class="row breadcrumbDiv">
-            <div style="float: right; padding-right: 5px;">
+            <div style="float: right; padding-right: 15px;">
                 <a style="float: right; border-bottom: none;"
                    th:href="@{../../api/ontologies/__${ontologyProperty.getOntologyName()}__/properties (iri=${ontologyProperty.getIri()})}"
                    href="#">
@@ -45,29 +45,23 @@
                     <li><a th:inline="text" href="../../index">[[${shortTitle}]]</a></li>
                     <li><a th:href="@{../../ontologies/__${ontologyProperty.getOntologyName()}__}"
                            th:text="${ontologyName}">ontology</a>
-                        <div class="decoy"></div
-                        >
+                        <div class="decoy"></div>
                         <a property="codingSystem"
                            th:attr="content=${ontologyProperty.getOntologyName()}"
+                           th:href="@{../../ontologies/__${ontologyProperty.getOntologyName()}__}"
                            data-x-style="border-bottom-width: 0px;"
                            href="#"><span class="ontology-source-valign"
                                           th:text="${ontologyProperty.getOntologyPrefix()}">parent 1</span></a></li>
-                    <li><span id="shortForm"
-                              th:if="${ontologyProperty.getOboId()} != null"
+                    <li>
+                        <span id="PROPERTY_ID"
                               class="term-source-valign"
                               property="codeValue"
-                              th:text="${ontologyProperty.getOboId()}">id</span
-                    ><span id="shortForm"
-                           th:unless="${ontologyProperty.getOboId()} != null"
-                           class="term-source-valign"
-                           property="codeValue"
-                           th:text="${ontologyProperty.getShortForm()}">id</span
-                    >
+                              th:text="${ontologyProperty.getOboId()}? ${ontologyProperty.getOboId()} : ${ontologyProperty.getShortForm()}">id</span>
                         <button id='copyShortForm'
                                 data-x-class="button tiny third copyButton"
                                 class="secondary-color tiny copyButton"
                                 data-clipboard-action="copy"
-                                data-clipboard-target="#shortForm"
+                                data-clipboard-target="#PROPERTY_ID"
                                 type="button"><i class="icon icon-functional"
                                                  data-icon="0"></i> Copy
                         </button>

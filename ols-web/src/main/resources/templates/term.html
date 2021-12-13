@@ -31,7 +31,7 @@
 <section id="main-content-area" role="main">
     <div vocab="http://schema.org/" typeof="MedicalCode" id="content" role="main" class="term-section">
         <div class="row breadcrumbDiv">
-            <div style="float: right; padding-right: 5px;">
+            <div style="float: right; padding-right: 15px;">
                 <a style="float: right; border-bottom: none;" href="#"
                    th:href="@{../../api/ontologies/__${ontologyTerm.getOntologyName()}__/terms (iri=${ontologyTerm.getIri()})}">
                     <img th:src="@{../../img/file_JSON.png}" src="../static/img/file_JSON.png" alt="JSON"
@@ -44,28 +44,21 @@
                     <li><a class="nounderline"
                            th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__}"
                            th:text="${ontologyName}">ontology</a>
-                        <div class="decoy"></div
-                        >
+                        <div class="decoy"></div>
                         <a property="codingSystem"
                            th:attr="content=${ontologyTerm.getOntologyName()}"
                            th:href="@{../../ontologies/__${ontologyTerm.getOntologyName()}__}"
                            href="#"><span class="ontology-source-valign"
                                           th:text="${ontologyTerm.getOntologyPrefix()}">parent 1</span></a></li>
-                    <li><span id='shortForm'
-                              th:if="${ontologyTerm.getOboId()} != null"
+                    <li>
+                        <span id="TERM_ID"
                               class="term-source-valign"
                               property="codeValue"
-                              th:text="${ontologyTerm.getOboId()}">id</span
-                    ><span id='shortForm'
-                           th:unless="${ontologyTerm.getOboId()} != null"
-                           class="term-source-valign"
-                           property="codeValue"
-                           th:text="${ontologyTerm.getShortForm()}">id</span
-                    >
+                              th:text="${ontologyTerm.getOboId()}? ${ontologyTerm.getOboId()} : ${ontologyTerm.getShortForm()}">id</span>
                         <button title="Copy id to clipboard"
                                 id='copyShortForm'
                                 data-clipboard-action="copy"
-                                data-clipboard-target="#shortForm"
+                                data-clipboard-target="#TERM_ID"
                                 class="secondary-color tiny copyButton"
                                 type="button"><i class="icon icon-functional"
                                                  data-icon="0"></i> Copy
@@ -218,10 +211,10 @@
                                               data-tabs-target="oxo-tab"
                                               href="#oxo-tab"><i class="icon icon-functional" data-icon="0"></i> Term
                         mappings</a></li>
-                    <li class="tabs-title"><a id="diachron-link"
+                    <!--<li class="tabs-title"><a id="diachron-link"
                                               data-tabs-target="diachron-tab"
                                               href="#diachron-tab"><i class="icon icon-generic" data-icon="g"></i> Term
-                        history</a></li>
+                        history</a></li>-->
 
                     <!--li role="presentation"><a data-toggle="tab"
                                                   href="#graph-tab"th:onclick="'window.open(\'@{../../ontologies/__${ontologyTerm.getOntologyName()}__/terms/graph (iri=${ontologyTerm.getIri()})\'})'"
@@ -286,9 +279,9 @@
                         </div>
                     </div>
 
-                    <div class="tabs-panel" id="diachron-tab">
+                    <!--div class="tabs-panel" id="diachron-tab">
                         <div id="diachron-wrapper"></div>
-                    </div>
+                    </div>-->
 
                     <div class="tabs-panel" id="oxo-tab">
                         This is just here as a test because I lose it
@@ -557,7 +550,7 @@
 
         /*Working on mappings*/
         console.log('Short Form');
-        var shortForm = $('#shortForm').text();
+        var shortForm = $('#TERM_ID').text();
 
         // shortForm="EFO:0000400";
         var baseURL = [[${oxoUrl}]] + "api/mappings?fromId=";

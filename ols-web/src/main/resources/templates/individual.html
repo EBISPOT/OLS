@@ -28,8 +28,46 @@
 
 <section id="main-content-area" role="main">
 
-    <div class="row">
-        <div class="columns"/>
+    <div class="row breadcrumbDiv">
+        <div style="float: right; padding-right: 15px;">
+            <a style="float: right; border-bottom: none;"
+               th:href="@{../../api/ontologies/__${ontologyIndividual.getOntologyName()}__/individuals (iri=${ontologyIndividual.getIri()})}"
+               href="#">
+                <img th:src="@{../../img/file_JSON.png}"
+                     src="../static/img/file_JSON.png"
+                     alt="JSON"
+                     title="Get data as JSON"/>
+            </a>
+        </div>
+
+        <nav aria-label="Here you are" role="navigation">
+            <ul class="breadcrumbs">
+                <li><a th:inline="text" href="../../index">[[${shortTitle}]]</a></li>
+                <li><a th:href="@{../../ontologies/__${ontologyIndividual.getOntologyName()}__}"
+                       th:text="${ontologyName}">ontology</a>
+                    <div class="decoy"></div>
+                    <a property="codingSystem"
+                       th:attr="content=${ontologyIndividual.getOntologyName()}"
+                       th:href="@{../../ontologies/__${ontologyIndividual.getOntologyName()}__}"
+                       data-x-style="border-bottom-width: 0px;"
+                       href="#"><span class="ontology-source-valign"
+                                      th:text="${ontologyIndividual.getOntologyPrefix()}">parent 1</span></a></li>
+                <li>
+                    <span id="INDIVIDUAL_ID"
+                          class="term-source-valign"
+                          property="codeValue"
+                          th:text="${ontologyIndividual.getOboId()}? ${ontologyIndividual.getOboId()} : ${ontologyIndividual.getShortForm()}">id</span>
+                    <button id='copyIndividualShortForm'
+                            data-x-class="button tiny third copyButton"
+                            class="secondary-color tiny copyButton"
+                            data-clipboard-action="copy"
+                            data-clipboard-target="#INDIVIDUAL_ID"
+                            type="button"><i class="icon icon-functional"
+                                             data-icon="0"></i> Copy
+                    </button>
+                </li>
+            </ul>
+        </nav>
     </div>
 
     <div class="row">
@@ -43,7 +81,7 @@
                       th:text="${ontologyIndividual.getIri()}">http://www.example.com/onto/id</span>
             </a>
             <p style="display: inline;">
-                <button title="Copy id to clipboard" id="copyIndividual" data-clipboard-action="copy"
+                <button title="Copy id to clipboard" id="copyIndividualIri" data-clipboard-action="copy"
                         data-clipboard-target="#INDIVIDUAL_IRI" class="secondary-color small copyButton"
                         type="button">
                     <i class="icon icon-functional" data-icon="0"></i>
@@ -255,7 +293,8 @@
     console.log("viewMode = ", viewMode);
     instance.draw(showSiblings, viewMode);
 
-    new Clipboard('#copyIndividual');
+    new Clipboard('#copyIndividualIri');
+    new Clipboard('#copyIndividualShortForm');
 </script>
 
 <script th:if="${ebiInfo == true and debrand == false}" defer="defer"

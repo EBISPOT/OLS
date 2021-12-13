@@ -191,6 +191,16 @@ a.nounderline.ontology-link {
 input[type="search"].select2-search__field {
   margin-bottom: 0; }
 
+#individual-tree-tab tbody {
+  border: none; }
+  #individual-tree-tab tbody tr {
+    background-color: transparent; }
+    #individual-tree-tab tbody tr td {
+      padding: 0 0 0 0.2rem; }
+      #individual-tree-tab tbody tr td i {
+        font-size: xx-small;
+        color: #3c3c3c; }
+
 /* Term page */
 #right_info_box .panel-heading {
   background: #00827c;
@@ -423,14 +433,25 @@ button.list-group-item:hover, button.list-group-item:focus {
   font-weight: normal;
   color: #0a0a0a; }
 
-.part_of:before {
+.jstree-anchor.part_of:before {
+  background: url("../img/part_of.png") no-repeat;
+  background-size: 16px;
   content: "";
   display: block;
-  background: url("../img/part_of.gif") no-repeat;
-  width: 15px;
-  height: 15px;
+  width: 16px;
+  height: 16px;
   float: left;
-  margin: 4px 6px 0 2px; }
+  margin: 3px 4px 0 1px; }
+
+.jstree-anchor.type:before {
+  background: url("../img/instance_of.png") no-repeat;
+  background-size: 16px;
+  content: "";
+  display: block;
+  width: 16px;
+  height: 16px;
+  float: left;
+  margin: 3px 4px 0 1px; }
 
 /* Modify classes from ebi-global.css */
 .breadcrumbs {
