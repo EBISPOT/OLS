@@ -19,6 +19,10 @@
     <!- - The last time the content was reviewed - ->
     <meta name="ebi:expiry" content="2017-12-20" />
     <!- - When this content is no longer relevant -->
+    <script type="text/javascript" th:inline="javascript">
+    ontologyLanguages = [[${ontologyLanguages}]]
+    lang = [[${lang}]]
+    </script>
 </head>
 
 
@@ -34,11 +38,6 @@
                     <img th:src="@{../../img/file_JSON.png}" src="../static/img/file_JSON.png" alt="JSON" title="Get data as JSON" />
                 </a>
 		<label for="lang">Language</label>
-		<select id="lang" style="float:right;">
-                <option th:each="l : ${ontologyLanguages}" th:value="${l}" th:text="${l}" th:selected="${lang}==${l}">
-		Language
-		</option>
-		</select>
             </div>
             <nav aria-label="You are here:" role="navigation">
                 <ul class="breadcrumbs">
@@ -571,16 +570,6 @@
 <script src="../../static/js/diachron/changes.js" th:src="@{../../js/diachron/changes.js}"></script>
 <script src="../../static/js/diachron/moment.js" th:src="@{../../js/diachron/moment.js}"></script>
 <script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
-
-<script type="text/javascript">
-
-document.getElementById('lang').onchange = function(e) {
-    var searchParams = new URLSearchParams(window.location.search);
-    searchParams.set("lang", e.target.value)
-    window.location.search = searchParams.toString();
-}
-
-</script>
 
 
 </body>

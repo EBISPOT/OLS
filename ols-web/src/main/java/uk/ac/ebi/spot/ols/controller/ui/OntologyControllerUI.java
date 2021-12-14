@@ -78,6 +78,7 @@ public class OntologyControllerUI {
               // only thrown if not valid e-mail, so contact must be URL of some sort
             }
             model.addAttribute("lang", lang);
+	    model.addAttribute("ontologyLanguages", document.getConfig().getLanguages());
             model.addAttribute("contact", contact);
 
             model.addAttribute("ontologyDocument", document);

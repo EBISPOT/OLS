@@ -1727,7 +1727,6 @@ function _dataCB(node, cb, relativePath, url, ontology, termIRI, termType, showS
     var rootUrl = _determineRootURL(relativePath, viewMode, termType, ontology);
 
     url += '&viewMode=' + viewMode;
-    url += '&lang=' + getLang();
 
     if (showSiblings) {
         url += '&siblings=true';
@@ -1848,7 +1847,7 @@ function _determineRootURL(relativePath, viewMode, termType, ontology) {
             '/preferredRoots?size=500&lang=' + getLang();
     else
         throw new TypeError("Unknown viewMode = " + viewMode + ".");
-    return rootUrl + '?lang=' + getLang();
+    return rootUrl;
 }
 
 OLSTermTypeTreeView.prototype.toggleOntologyView=function(){
@@ -2004,7 +2003,7 @@ function _onClick(node, event, relativePath, currentTermIri, termType, selectedI
 
     var newpath=relativePath + "ontologies/" + ontology_name + "/" + type + '?iri=' + encodeURIComponent(selectedIri) +
     	'&lang=' + getLang() + 
-        '&viewMode=' + viewMode + '&siblings=' + showSiblings + '&lang=' + getLang();
+        '&viewMode=' + viewMode + '&siblings=' + showSiblings
 
     console.log("_onClick newpath=", newpath);
     _goTo(newpath)

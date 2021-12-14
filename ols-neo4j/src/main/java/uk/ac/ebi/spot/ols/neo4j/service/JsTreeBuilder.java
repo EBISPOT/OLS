@@ -40,7 +40,6 @@ public class JsTreeBuilder {
         Map<String, Object> paramt = new HashMap<>();
         paramt.put("0", ontologyName);
         paramt.put("1", iri);
-        paramt.put("2", lang);
         Result res = graphDatabaseService.execute(JsTreeQueries.individualParentTreeQuery(lang), paramt);
 
         setRootName("Thing");
@@ -51,7 +50,6 @@ public class JsTreeBuilder {
         Map<String, Object> paramt = new HashMap<>();
         paramt.put("0", ontologyName);
         paramt.put("1", iri);
-        paramt.put("2", lang);
         String query = siblings ? JsTreeQueries.propertyParentSiblingTreeQuery(lang) : JsTreeQueries.propertyParentTreeQuery(lang);
         Result res = graphDatabaseService.execute(query, paramt);
 
@@ -64,7 +62,6 @@ public class JsTreeBuilder {
         Map<String, Object> paramt = new HashMap<>();
         paramt.put("0", ontologyName);
         paramt.put("1", iri);
-        paramt.put("2", lang);
         String query = siblings ? JsTreeQueries.parentSiblingTreeQuery(lang) : JsTreeQueries.parentTreeQuery(lang);
         Result res = graphDatabaseService.execute(query, paramt);
 
@@ -84,7 +81,6 @@ public class JsTreeBuilder {
         Map<String, Object> paramt = new HashMap<>();
         paramt.put("0", ontologyName);
         paramt.put("1", iri);
-        paramt.put("2", lang);
         String query = JsTreeQueries.getJsTreeClassChildren(lang);
         if (type.equals("property")) {
             query = JsTreeQueries.getJsTreePropertyChildren(lang);

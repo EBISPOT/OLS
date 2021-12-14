@@ -50,7 +50,6 @@ public abstract class AbstractJsTreeBuilder {
         Map<String, Object> paramt = new HashMap<>();
         paramt.put("0", ontologyName);
         paramt.put("1", iri);
-        paramt.put("2", lang);
 
         String query = (sibling) ? getJsTreeParentSiblingQuery(lang) : getJsTreeParentQuery(lang);
         Result result = graphDatabaseService.execute(query, paramt);
@@ -71,7 +70,6 @@ public abstract class AbstractJsTreeBuilder {
         Map<String, Object> paramt = new HashMap<>();
         paramt.put("0", ontologyName);
         paramt.put("1", iri);
-        paramt.put("2", lang);
 
         String query = (sibling) ? getJsTreeParentSiblingQuery(lang, viewMode) : getJsTreeParentQuery(lang, viewMode);
 
@@ -101,7 +99,6 @@ public abstract class AbstractJsTreeBuilder {
         Map<String, Object> paramt = new HashMap<>();
         paramt.put("0", ontologyName);
         paramt.put("1", iri);
-        paramt.put("2", lang);
         String query = getJsTreeChildrenQuery(lang);
 
         Result res = graphDatabaseService.execute(query, paramt);
