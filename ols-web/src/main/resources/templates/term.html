@@ -10,7 +10,7 @@
 
 <head>
     <div th:replace="fragments/head :: head(olscss=true, proton=true)"></div>
-    <title id="pageTitle" th:text="${ontologyTerm.getLabel()}">Term</title>
+    <title id="pageTitle" th:text="${ontologyTerm.getLabelByLang(lang)}">Term</title>
     <!-- A few keywords that relate to the content of THIS PAGE (not the whole project)
     <meta name="keywords" content="biosamples, europe, EBI" />
     <!- - Describe what this page is about - ->
@@ -33,6 +33,12 @@
                    th:href="@{../../api/ontologies/__${ontologyTerm.getOntologyName()}__/terms (iri=${ontologyTerm.getIri()})}">
                     <img th:src="@{../../img/file_JSON.png}" src="../static/img/file_JSON.png" alt="JSON" title="Get data as JSON" />
                 </a>
+		<label for="lang">Language</label>
+		<select id="lang" style="float:right;">
+                <option th:each="l : ${ontologyLanguages}" th:value="${l}" th:text="${l}" th:selected="${lang}==${l}">
+		Language
+		</option>
+		</select>
             </div>
             <nav aria-label="You are here:" role="navigation">
                 <ul class="breadcrumbs">
@@ -68,7 +74,7 @@
 
         <div>
             <div class="small-8 column">
-                <h2 property="name" style="margin-bottom: 0;" th:text="${ontologyTerm.getLabel()}">Term Label</h2>
+                <h2 property="name" style="margin-bottom: 0;" th:text="${ontologyTerm.getLabelByLang(lang)}">Term Label</h2>
                 <a style="padding-left: 3px; border-bottom: none;" th:href="@{${ontologyTerm.getIri()}}" class="nounderline secondary-color" title="Go to external page" target="blank">
                     <span class="show-for-sr">Go to external page</span>
                     <i class="icon icon-generic" data-icon="x"></i>
@@ -161,14 +167,14 @@
                     </p>
                 </div>
 
-                <p th:unless="${definitionCitations}" th:each="description : ${ontologyTerm.getDescription(lang)}" th:text="${description}">
+                <p th:unless="${definitionCitations}" th:each="description : ${ontologyTerm.getDescriptionsByLang(lang)}" th:text="${description}">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget <nulla class=""></nulla>                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum.
                 </p>
             </div>
 
-            <div th:if="${ontologyTerm.getSynonyms() !=null}">
+            <div th:if="${ontologyTerm.getSynonymsByLang(lang) !=null}">
                 <p><b>Synonyms:</b>
-                    <span property="alternateName" class="label synonym" th:each="synonym : ${ontologyTerm.getSynonyms()}" th:text="${synonym}">NCBI_9606</span>
+                    <span property="alternateName" class="label synonym" th:each="synonym : ${ontologyTerm.getSynonymsByLang(lang)}" th:text="${synonym}">NCBI_9606</span>
                 </p>
             </div>
         </div>
@@ -337,7 +343,7 @@
                         </div>
                     </div>
 
-                    <div th:each="annotations: ${ontologyTerm.getAnnotation()}">
+                    <div th:each="annotations: ${ontologyTerm.getAnnotationByLang(lang)}">
                         <div th:unless="${annotations.key} eq 'database_cross_reference'">
                             <b><a href="#"
                                   th:href="@{../../search(q=${annotations.key},exact='true', type=property, ontology=${ontologyTerm.ontologyName})}"
@@ -381,7 +387,7 @@
                             <li th:each="parentTerm : ${parentTerms}">
                                 <a href="#" th:title="${parentTerm.getIri()}"
                                    th:href="@{terms (iri=${parentTerm.getIri()})}"
-                                   th:text="${parentTerm.getLabel()}">parent 1</a></li>
+                                   th:text="${parentTerm.getLabelByLang(lang)}">parent 1</a></li>
                             <li th:each="superclassDesc : ${ontologyTerm.getSuperClassDescription()}"
                                 th:utext="${superclassDesc}">NCBI_9606</li>
                         </ul>
@@ -565,6 +571,16 @@
 <script src="../../static/js/diachron/changes.js" th:src="@{../../js/diachron/changes.js}"></script>
 <script src="../../static/js/diachron/moment.js" th:src="@{../../js/diachron/moment.js}"></script>
 <script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript">
+
+document.getElementById('lang').onchange = function(e) {
+    var searchParams = new URLSearchParams(window.location.search);
+    searchParams.set("lang", e.target.value)
+    window.location.search = searchParams.toString();
+}
+
+</script>
 
 
 </body>

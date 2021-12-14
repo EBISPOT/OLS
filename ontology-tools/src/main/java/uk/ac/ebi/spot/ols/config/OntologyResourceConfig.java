@@ -48,6 +48,8 @@ public class OntologyResourceConfig  {
     private  Collection<URI> preferredRootTerms = new HashSet<>();
     private boolean isSkos;
 
+    private  Collection<String> languages;
+
     private boolean allowDownload;
 
     // these are any metadata properties for the ontology, such as title or definition that are included in the ontology as OWL ontology annotation
@@ -286,6 +288,14 @@ public class OntologyResourceConfig  {
         this.allowDownload = allowDownload;
     }
 
+    public void setLanguages(Collection<String> languages) {
+        this.languages = languages;
+    }
+
+    public Collection<String> getLanguages() {
+        return this.languages;
+    }
+
     public static class OntologyResourceConfigBuilder {
         private  String id;
         private  String versionIri;
@@ -303,6 +313,7 @@ public class OntologyResourceConfig  {
         private  Collection<URI> hierarchicalProperties = Collections.emptySet();
         private  Collection<String> baseUris = Collections.emptySet();
         private  Collection<URI> hiddenProperties = Collections.emptySet();
+        private  Collection<String> languages = Collections.emptySet();
         private String homepage;
         private String version;
         private String mailingList;
@@ -439,6 +450,11 @@ public class OntologyResourceConfig  {
 
         public OntologyResourceConfig build() {
             return new OntologyResourceConfig(this);
+        }
+
+        public OntologyResourceConfigBuilder setLanguages(Collection<String> languages) {
+		this.languages = languages;
+		return this;
         }
     }
 }

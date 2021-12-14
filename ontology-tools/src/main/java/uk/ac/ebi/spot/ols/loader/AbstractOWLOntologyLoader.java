@@ -67,6 +67,8 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     private Map<String,String> ontologyTitles;
     private Map<String,String> ontologyDescriptions;
 
+    private Set<String> ontologyLanguages = new HashSet<>();
+
     private String ontologyHomePage;
     private String ontologyMailingList;
     private String version;
@@ -551,13 +553,23 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
             	}
             }
             else  {
+
+
+		/// TODO: what about localized values?
+
                 LocalizedStrings languageToLabels = ontologyLabels.get(annotationPropertyIri);
+
+		// For each language the label of the annotation has been localised into
                 for(String language : languageToLabels.getLanguages()) {
+
+		    // For each label the property has in this language
                     List<String> propertyLabels = languageToLabels.getStrings(language);
                     for(String label : propertyLabels) {
                         if (!annotations.containsKey(label)) {
                             annotations.put(label, new LocalizedStrings());
                         }
+
+		        // Add an entry { label: theValue }
                         annotations.get(label).addString(language, theValue.get());
                     }
                 }
@@ -591,12 +603,20 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
             Optional<String> shortForm = extractShortForm(entity.getIRI());
             if (shortForm.isPresent()) {
                 setClassAccession(entity.getIRI(), shortForm.get());
-                // if no label, create one form shortform
-                if (ontologyLabels.get(entity.getIRI()) == null) {
-                   LocalizedStrings newLabels = new LocalizedStrings();
-                   newLabels.addString("en", shortForm.get());
-                   setClassLabels(entity.getIRI(), newLabels);
+
+                // if no label, create one from shortform
+		LocalizedStrings labels = ontologyLabels.get(entity.getIRI());
+
+		if(labels == null) {
+			labels = new LocalizedStrings();
+			labels.addDefaultString(shortForm.get());
+		} else {
+			if(labels.getDefaultStrings().size() == 0) {
+				labels.addDefaultString(shortForm.get());
+			}
                 }
+
+		setClassLabels(entity.getIRI(), labels);
 
                 Optional<String> oboForm = getOBOid(shortForm.get());
 
@@ -1204,8 +1224,12 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         Set<String> slims = new HashSet<>();
 
         LocalizedStrings definitions = new LocalizedStrings();
-        LocalizedStrings classLabels = new LocalizedStrings();
         LocalizedStrings synonyms = new LocalizedStrings();
+
+        LocalizedStrings existingClassLabels = ontologyLabels.get(owlEntityIRI);
+
+        LocalizedStrings classLabels = existingClassLabels != null ?
+		existingClassLabels : new LocalizedStrings();
 
         Collection<OBODefinitionCitation> definitionCitations = new HashSet<>();
         Collection<OBOSynonym> oboSynonyms = new HashSet<>();
@@ -1218,13 +1242,17 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                         IRI annotationPropertyIRI = annotationProperty.getIRI();
                         OWLAnnotationValue value = annotationAssertionAxiom.getValue();
 
-                        String lang = "en";
+			// blank string = default lang
+                        String lang = "";
 
+			// but take lang from the value if it is present
                         if(value.isLiteral()) {
                             if(((OWLLiteral) value).hasLang()) {
                                 lang = ((OWLLiteral) value).getLang();
+				ontologyLanguages.add(lang);
                             }
                         }
+
 
                         if (getLabelIRI().equals(annotationPropertyIRI)) {
                             classLabels.addString(lang, evaluateLabelAnnotationValue(
@@ -1338,6 +1366,8 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                         }
                 });
         }
+
+	setClassLabels(owlEntityIRI, classLabels);
 
         if (definitionCitations.size() > 0) {
             setOboDefinitionCitation(owlEntityIRI, definitionCitations);
@@ -2073,4 +2103,8 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     public void setPreferredRootTerms(Collection<IRI> preferredRootTerms) {
         this.preferredRootTerms = preferredRootTerms;
     }
+
+	public Set<String> getOntologyLanguages() {
+		return ontologyLanguages;
+	}
 }

@@ -65,7 +65,11 @@ public class TermControllerUI {
         ontologyId = ontologyId.toLowerCase();
         Term term = null;
 
+	model.addAttribute("lang", lang);
+
         OntologyDocument document = repositoryService.get(ontologyId);
+
+	model.addAttribute("ontologyLanguages", document.getConfig().getLanguages());
 
         if (termIri != null) {
             term = ontologyTermGraphService.findByOntologyAndIri(ontologyId, termIri);

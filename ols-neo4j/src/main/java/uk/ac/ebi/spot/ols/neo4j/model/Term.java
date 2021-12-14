@@ -43,6 +43,13 @@ public class Term {
     @JsonProperty(value = LABEL)
     private String label;
 
+    @GraphProperty(propertyName=DESCRIPTION)
+    private Set<String> description;
+
+    @GraphProperty(propertyName=SYNONYM)
+    private Set<String> synonym;
+
+
     @GraphProperty(propertyName=LOCALIZED_LABELS)
     @JsonProperty(value = LOCALIZED_LABELS)
     private DynamicProperties localizedLabels = new DynamicPropertiesContainer();
@@ -154,6 +161,59 @@ public class Term {
         return id;
     }
 
+    public String[] getDescriptionsByLang(String lang) {
+
+	    String[] localizedDescriptions = (String[])
+	    	this.localizedDescriptions.getProperty(lang);
+
+	    if(localizedDescriptions != null && localizedDescriptions.length > 0) {
+		    return (String[]) localizedDescriptions;
+	    }
+
+	    if(description != null) {
+		return description.toArray(new String[0]);
+	    }
+
+	    return new String[0];
+    }
+
+    public String getLabelByLang(String lang) {
+	    return getLabelsByLang(lang)[0];
+    }
+
+    public String[] getLabelsByLang(String lang) {
+
+	    String[] localizedLabels = (String[])
+	    	this.localizedLabels.getProperty(lang);
+
+	    if(localizedLabels != null && localizedLabels.length > 0) {
+		    return localizedLabels;
+	    }
+
+	    if(label != null) {
+		return new String[] { label };
+	    }
+
+	    return new String[0];
+    }
+
+    public String[] getSynonymsByLang(String lang) {
+
+	    String[] localizedSynonyms = (String[])
+	    	this.localizedSynonyms.getProperty(lang);
+
+	    if(localizedSynonyms != null) {
+		    return localizedSynonyms;
+	    }
+
+	    if(synonym != null) {
+		return synonym.toArray(new String[0]);
+	    }
+
+	    return new String[0];
+    }
+
+
 //    public void setLocalizedLabels(String lang, Set<String> labels) {
 //        this.labels.setProperty(lang, labels);
 //    }
@@ -223,8 +283,23 @@ public class Term {
         return isObsolete;
     }
 
-    public Map getAnnotation() {
-        return new TreeMap<String, Object>(annotation.asMap());
+    public Map getAnnotationByLang(String lang) {
+
+	Map<String, Object> localizedAnnotations = localizedAnnotation.asMap();
+
+	Map<String, Object> res = new TreeMap<>();
+
+	if(lang.equals("en") && annotation != null) {
+		res.putAll(annotation.asMap());
+	}
+
+	for(String k : localizedAnnotations.keySet()) {
+		if(k.indexOf(lang + "-") == 0) {
+			res.put(k.substring(lang.length() + 1), localizedAnnotations.get(k));
+		}
+	}
+
+	return res;
     }
 
     @JsonProperty(value = IS_DEFINING_ONTOLOGY)

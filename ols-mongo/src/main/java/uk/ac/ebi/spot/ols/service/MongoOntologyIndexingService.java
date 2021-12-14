@@ -119,6 +119,7 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
 
             config.setTitles(loader.getTitles());
             config.setDescriptions(loader.getDescriptions());
+	    config.setLanguages(loader.getOntologyLanguages());
 
             if (loader.getHomePage() != null) {
                 config.setHomepage(loader.getHomePage());
@@ -146,6 +147,7 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             if (loader.getVersionNumber() != null) {
                 config.setVersion(loader.getVersionNumber());
             }
+
             document.setConfig(config);
             document.setNumberOfTerms(classes.size());
             document.setNumberOfProperties(properties.size());

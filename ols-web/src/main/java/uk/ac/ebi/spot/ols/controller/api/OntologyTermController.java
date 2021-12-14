@@ -347,6 +347,7 @@ public class OntologyTermController {
     HttpEntity<String> graphJsTree(
             @PathVariable("onto") String ontologyId,
             @PathVariable("id") String termId,
+            @RequestParam(value = "lang", defaultValue = "en", required = false) String lang,
             @RequestParam(value = "siblings", defaultValue = "false", required = false) boolean siblings,
             @RequestParam(value = "viewMode", defaultValue = "PreferredRoots", required = false) String viewMode){
       
@@ -355,7 +356,7 @@ public class OntologyTermController {
         try {
             String decodedTermId = UriUtils.decode(termId, "UTF-8");
 
-            Object object= jsTreeBuilder.getJsTree(ontologyId, decodedTermId, siblings, ViewMode.getFromShortName(viewMode));
+            Object object= jsTreeBuilder.getJsTree(lang, ontologyId, decodedTermId, siblings, ViewMode.getFromShortName(viewMode));
             ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
             return new HttpEntity<String>(ow.writeValueAsString(object));
         } catch (JsonProcessingException e) {
@@ -370,14 +371,15 @@ public class OntologyTermController {
     HttpEntity<String> graphJsTreeChildren(
             @PathVariable("onto") String ontologyId,
             @PathVariable("id") String termId,
-            @PathVariable("nodeid") String nodeId
+            @PathVariable("nodeid") String nodeId,
+            @RequestParam(value = "lang", defaultValue = "en", required = false) String lang
     ) {
         ontologyId = ontologyId.toLowerCase();
 
         try {
             String decoded = UriUtils.decode(termId, "UTF-8");
 
-            Object object= jsTreeBuilder.getJsTreeChildren(ontologyId, decoded, nodeId);
+            Object object= jsTreeBuilder.getJsTreeChildren(lang, ontologyId, decoded, nodeId);
             ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
             return new HttpEntity<String>(ow.writeValueAsString(object));
         } catch (JsonProcessingException e) {

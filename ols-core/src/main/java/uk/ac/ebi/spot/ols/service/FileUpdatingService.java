@@ -74,7 +74,8 @@ public class FileUpdatingService {
                 }
             }
 
-            boolean skip = document.getStatus() == Status.SKIP;
+        //     boolean skip = document.getStatus() == Status.SKIP;
+	    boolean skip = false;
 
             if(!skip) {
                 if(wasFailing) {

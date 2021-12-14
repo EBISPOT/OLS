@@ -192,6 +192,9 @@ class NodeCreator {
 				}
 				for (String language : annotationLabels.getNonEnLanguages()) {
 					List<String> localizedValues = annotationValues.getStrings(language);
+					if(localizedValues == null || localizedValues.size() == 0) {
+						localizedValues = annotationValues.getStrings("en");
+					}
 					if (localizedValues != null) {
 						String label = annotationLabels.getFirstString(language);
 						String[] values = localizedValues.toArray(new String[0]);
@@ -321,8 +324,8 @@ class NodeCreator {
 		LocalizedStrings labels = loader.getTermLabels().get(classIri);
 
 		for (String lang : labels.getNonEnLanguages()) {
-			nodeProperties.put(Neo4JNodePropertyNameConstants.LABEL + "_" + lang,
-					labels.getFirstString(lang));
+			nodeProperties.put(Neo4JNodePropertyNameConstants.LOCALIZED_LABELS + "-" + lang,
+					labels.getStrings(lang).toArray(new String[0]));
 		}
 
 		if(labels.getFirstString("en") != null) {

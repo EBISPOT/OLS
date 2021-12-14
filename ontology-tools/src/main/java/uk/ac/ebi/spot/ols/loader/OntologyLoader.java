@@ -16,6 +16,7 @@ import uk.ac.ebi.spot.ols.util.OBOXref;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * An ontology loader that provides some abstraction around core concepts in ontologies.  We essentially
@@ -255,4 +256,7 @@ public interface OntologyLoader {
      * @return a list of terms that are considered to be the preferred roots of the ontology.
      */
     Collection<IRI> getPreferredRootTerms();
+
+
+    Set<String> getOntologyLanguages();
 }

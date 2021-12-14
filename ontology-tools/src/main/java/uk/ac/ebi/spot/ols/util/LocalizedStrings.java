@@ -27,7 +27,7 @@ public class LocalizedStrings {
     public Set<String> getNonEnLanguages() {
 	Set<String> langs = new HashSet<>();
 	for(String lang : localizations.keySet()) {
-		if(lang.compareTo("en") != 0) {
+		if(lang.compareTo("en") != 0 && lang.compareTo("") != 0) {
 			langs.add(lang);
 		}
 	}
@@ -35,10 +35,24 @@ public class LocalizedStrings {
     }
 
     public List<String> getStrings(String language) {
+
         List<String> strings = localizations.get(language);
-        if(strings == null)
-            return new ArrayList<String>();
-        return strings;
+
+        if(strings != null) {
+            return strings;
+	}
+
+	List<String> defaults = localizations.get("");
+
+	if(defaults != null) {
+		return defaults;
+	}
+
+	return new ArrayList<String>();
+    }
+
+    public List<String> getDefaultStrings() {
+	    return getStrings("");
     }
 
     public Map<String, List<String>> getStrings() {
@@ -47,12 +61,19 @@ public class LocalizedStrings {
 
     public String getFirstString(String language) {
 
-        List<String> strings = getStrings(language);
+        List<String> strings = localizations.get(language);
 
-        if(strings == null || strings.size() == 0)
-            return null;
+        if(strings != null && strings.size() > 0) {
+            return strings.get(0);
+	}
 
-        return strings.get(0);
+	List<String> defaults = localizations.get("");
+
+	if(defaults != null && defaults.size() > 0) {
+		return defaults.get(0);
+	}
+
+        return null;
     }
 
     public void addString(String language, String value) {
@@ -67,6 +88,12 @@ public class LocalizedStrings {
         if(!strings.contains(value)) {
             strings.add(value);
         }
+    }
+
+    public void addDefaultString(String value) {
+
+	addString("", value);
+
     }
 
     public int size() {
