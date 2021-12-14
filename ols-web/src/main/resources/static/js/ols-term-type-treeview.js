@@ -1938,7 +1938,7 @@ function _renderRoots(url, cb, termType) {
 function _renderChildren (node, cb, url) {
     var requestIri = node.original.iri ? node.original.iri : node.original.a_attr.iri;
 
-    var childrenUrl = url + encodeURIComponent(encodeURIComponent(requestIri)) + '/jstree/children/'+ node.id;
+    var childrenUrl = url + encodeURIComponent(encodeURIComponent(requestIri)) + '/jstree/children/'+ node.id + '?lang=' + getLang();
 
     $.getJSON(childrenUrl, function (data) {
         cb(data)
