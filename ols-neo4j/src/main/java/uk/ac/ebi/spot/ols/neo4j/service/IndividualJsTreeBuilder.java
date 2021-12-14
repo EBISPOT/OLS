@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class IndividualJsTreeBuilder extends AbstractJsTreeBuilder {
     @Override
-    String getJsTreeParentQuery() {
+    String getJsTreeParentQuery(String lang) {
         StringBuilder query = new StringBuilder();
 
         query.append("MATCH path = (n:Individual)-[r:INSTANCEOF|SUBCLASSOF*]->(parent)\n");
@@ -23,22 +23,22 @@ public class IndividualJsTreeBuilder extends AbstractJsTreeBuilder {
     }
 
     @Override
-    String getJsTreeParentQuery(ViewMode viewMode) {
+    String getJsTreeParentQuery(String lang, ViewMode viewMode) {
         throw new UnsupportedOperationException("Implementation not necessary.");
     }
 
     @Override
-    String getJsTreeParentSiblingQuery() {
+    String getJsTreeParentSiblingQuery(String lang) {
         throw new UnsupportedOperationException("Implementation not necessary.");
     }
 
     @Override
-    String getJsTreeParentSiblingQuery(ViewMode viewMode) {
+    String getJsTreeParentSiblingQuery(String lang, ViewMode viewMode) {
         throw new UnsupportedOperationException("Implementation not necessary.");
     }
 
     @Override
-    String getJsTreeChildrenQuery() {
+    String getJsTreeChildrenQuery(String lang) {
         throw new UnsupportedOperationException("Implementation not necessary.");
     }
 
@@ -48,7 +48,7 @@ public class IndividualJsTreeBuilder extends AbstractJsTreeBuilder {
     }
 
     @Override
-    String getJsTreeRoots(ViewMode viewMode) {
+    String getJsTreeRoots(String lang, ViewMode viewMode) {
         throw new UnsupportedOperationException("Implementation not necessary.");
     }
 }

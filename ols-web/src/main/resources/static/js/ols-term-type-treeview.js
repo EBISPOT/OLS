@@ -1728,6 +1728,8 @@ function _dataCB(node, cb, relativePath, url, ontology, termIRI, termType, showS
 
     url += '?viewMode=' + viewMode;
 
+    url += '&lang=' + getLang();
+
     if (showSiblings) {
         url += '&siblings=true';
     } else {
@@ -2015,7 +2017,7 @@ function _onClick(node, event, relativePath, currentTermIri, termType, selectedI
     }
 
     var newpath=relativePath + "ontologies/" + ontology_name + "/" + type + '?iri=' + encodeURIComponent(selectedIri) +
-        '&viewMode=' + viewMode + '&siblings=' + showSiblings;
+        '&lang=' + getLang() + '&viewMode=' + viewMode + '&siblings=' + showSiblings;
 
     console.log("_onClick newpath=", newpath);
     _goTo(newpath)
@@ -2023,6 +2025,11 @@ function _onClick(node, event, relativePath, currentTermIri, termType, selectedI
 
 function _goTo (url) {
     window.location.href =  url;
+}
+
+function getLang() {
+	var urlParams = new URLSearchParams(window.location.search);
+	return urlParams.get('lang') || 'en';
 }
 
 module.exports = OLSTermTypeTreeView;

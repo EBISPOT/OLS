@@ -10,7 +10,7 @@ public class ClassJsTreeBuilder extends AbstractJsTreeBuilder {
     private static Logger logger = LoggerFactory.getLogger(ClassJsTreeBuilder.class);
 
     @Override
-    String getJsTreeParentQuery() {
+    String getJsTreeParentQuery(String lang) {
 
         StringBuilder query = new StringBuilder();
 
@@ -19,7 +19,7 @@ public class ClassJsTreeBuilder extends AbstractJsTreeBuilder {
         query.append("WHERE n.ontology_name = {0} AND n.iri = {1}\n");
         query.append("UNWIND rels(path) as r1\n");
         query.append("RETURN distinct id(startNode(r1)) as startId, startNode(r1).iri as startIri,");
-        query.append("startNode(r1).label as startLabel, startNode(r1).`localizedLabels-{2}`[0] as startLabelLocalized, startNode(r1).has_children as hasChildren, ");
+        query.append("startNode(r1).label as startLabel, startNode(r1).`localizedLabels-" + lang + "`[0] as startLabelLocalized, startNode(r1).has_children as hasChildren, ");
         query.append("r1.label as relation, collect( distinct id(endNode(r1)) ) as parents");
 
         return query.toString();
@@ -68,11 +68,11 @@ public class ClassJsTreeBuilder extends AbstractJsTreeBuilder {
 //    }
 
     @Override
-    String getJsTreeParentQuery(ViewMode viewMode) {
+    String getJsTreeParentQuery(String lang, ViewMode viewMode) {
 
         switch (viewMode) {
             case ALL:
-                return getJsTreeParentQuery();
+                return getJsTreeParentQuery(lang);
             default: {
                 StringBuilder query = new StringBuilder();
 
@@ -83,7 +83,7 @@ public class ClassJsTreeBuilder extends AbstractJsTreeBuilder {
                 query.append("WHERE n.ontology_name = {0} AND n.iri = {1}\n");
                 query.append("UNWIND rels(path) as r1\n");
                 query.append("WITH r1, startNode(r1) as startNode\n");
-                query.append("RETURN distinct id(startNode) as startId, startNode(r1).`localizedLabels-{2}`[0] as startLabelLocalized,  startNode(r1).iri as startIri,\n");
+                query.append("RETURN distinct id(startNode) as startId, startNode(r1).`localizedLabels-" + lang + "`[0] as startLabelLocalized,  startNode(r1).iri as startIri,\n");
                 query.append("startNode(r1).label as startLabel, startNode(r1).has_children as hasChildren,\n");
                 query.append("r1.label as relation, CASE WHEN \n");
                 query.append(getNodeQueryString("startNode", viewMode));
@@ -94,7 +94,7 @@ public class ClassJsTreeBuilder extends AbstractJsTreeBuilder {
     }
 
     @Override
-    String getJsTreeParentSiblingQuery() {
+    String getJsTreeParentSiblingQuery(String lang) {
         StringBuilder query = new StringBuilder();
 
         query.append("MATCH path = (n:Class)-[r:SUBCLASSOF|RelatedTree*]");
@@ -104,7 +104,7 @@ public class ClassJsTreeBuilder extends AbstractJsTreeBuilder {
         query.append("UNWIND rels(path) as r1\n");
         query.append("WITH r1\n");
         query.append("WHERE startNode(r1).is_obsolete=false\n");
-        query.append("RETURN distinct id(startNode(r1)) as startId, startNode(r1).`localizedLabels-{2}`[0] as startLabelLocalized,  startNode(r1).iri as startIri, ");
+        query.append("RETURN distinct id(startNode(r1)) as startId, startNode(r1).`localizedLabels-" + lang + "`[0] as startLabelLocalized,  startNode(r1).iri as startIri, ");
         query.append("startNode(r1).label as startLabel, startNode(r1).has_children as hasChildren, ");
         query.append("r1.label as relation, collect( distinct id(endNode(r1)) ) as parents");
 
@@ -113,10 +113,10 @@ public class ClassJsTreeBuilder extends AbstractJsTreeBuilder {
 
 
     @Override
-    String getJsTreeParentSiblingQuery(ViewMode viewMode) {
+    String getJsTreeParentSiblingQuery(String lang, ViewMode viewMode) {
         switch (viewMode) {
             case ALL:
-                return getJsTreeParentSiblingQuery();
+                return getJsTreeParentSiblingQuery(lang);
             default: {
                 StringBuilder query = new StringBuilder();
 
@@ -132,14 +132,14 @@ public class ClassJsTreeBuilder extends AbstractJsTreeBuilder {
                 query.append(")<-[:SUBCLASSOF|RelatedTree]-(sibling)");
                 query.append("UNWIND rels(path2) as r1\n");
                 query.append("RETURN distinct id(startNode(r1)) as startId, startNode(r1).iri as startIri, ");
-                query.append("startNode(r1).label as startLabel,  startNode(r1).`localizedLabels-{2}`[0] as startLabelLocalized, startNode(r1).has_children as hasChildren, ");
+                query.append("startNode(r1).label as startLabel,  startNode(r1).`localizedLabels-" + lang + "`[0] as startLabelLocalized, startNode(r1).has_children as hasChildren, ");
                 query.append("r1.label as relation, collect( distinct id(endNode(r1)) ) as parents \n");
                 query.append("UNION\n");
                 query.append("MATCH (");
                 query.append(getNodeQueryString("n1", viewMode));
                 query.append(")");
                 query.append("WHERE n1.ontology_name = {0}");
-                query.append("RETURN id(n1) as startId, n1.iri as startIri,n1.label as startLabel, n1.`localizedLabels-{2}`[0] as startLabelLocalized,  ");
+                query.append("RETURN id(n1) as startId, n1.iri as startIri,n1.label as startLabel, n1.`localizedLabels-" + lang + "`[0] as startLabelLocalized,  ");
                 query.append("n1.has_children as hasChildren, 'is-a' as relation, [] as parents");
 
                 return query.toString();
@@ -147,7 +147,7 @@ public class ClassJsTreeBuilder extends AbstractJsTreeBuilder {
         }
     }
     @Override
-    String getJsTreeChildrenQuery() {
+    String getJsTreeChildrenQuery(String lang) {
         StringBuilder query = new StringBuilder();
 
         query.append("MATCH path = (child)-[r:SUBCLASSOF|RelatedTree]->(n:Class)\n");
@@ -155,7 +155,7 @@ public class ClassJsTreeBuilder extends AbstractJsTreeBuilder {
         query.append("WHERE n.ontology_name = {0} AND n.iri = {1}\n");
         query.append("UNWIND rels(path) as r1\n");
         query.append("RETURN distinct id(startNode(r1)) as startId, startNode(r1).iri as startIri, ");
-        query.append("startNode(r1).label as startLabel, startNode(r1).`localizedLabels-{2}`[0] as startLabelLocalized, startNode(r1).has_children as hasChildren, r1.label as relation");
+        query.append("startNode(r1).label as startLabel, startNode(r1).`localizedLabels-" + lang + "`[0] as startLabelLocalized, startNode(r1).has_children as hasChildren, r1.label as relation");
 
         return query.toString();
     }
@@ -166,7 +166,7 @@ public class ClassJsTreeBuilder extends AbstractJsTreeBuilder {
     }
 
     @Override
-    String getJsTreeRoots(ViewMode viewMode) {
+    String getJsTreeRoots(String lang, ViewMode viewMode) {
         StringBuilder query = new StringBuilder();
 
         query.append("MATCH (");
@@ -174,7 +174,7 @@ public class ClassJsTreeBuilder extends AbstractJsTreeBuilder {
         query.append(")\n");
 //        query.append("WHERE n1.ontology_name = {0} AND n1.iri = {1}\n");
         query.append("WHERE n1.ontology_name = {0}\n");
-        query.append("RETURN id(n1) as startId, n1.iri as startIri,n1.label as startLabel, n1.`localizedLabels-{2}`[0] as startLabelLocalized, n1.has_children as hasChildren, ");
+        query.append("RETURN id(n1) as startId, n1.iri as startIri,n1.label as startLabel, n1.`localizedLabels-" + lang + "`[0] as startLabelLocalized, n1.has_children as hasChildren, ");
         query.append("'is-a' as relation, [] as parents");
 
         return query.toString();

@@ -32,13 +32,13 @@ public abstract class AbstractJsTreeBuilder {
     }
 
 
-    abstract String getJsTreeParentQuery();
-    abstract String getJsTreeParentQuery(ViewMode viewMode);
-    abstract String getJsTreeParentSiblingQuery();
-    abstract String getJsTreeParentSiblingQuery(ViewMode viewMode);
-    abstract String getJsTreeChildrenQuery();
+    abstract String getJsTreeParentQuery(String lang);
+    abstract String getJsTreeParentQuery(String lang, ViewMode viewMode);
+    abstract String getJsTreeParentSiblingQuery(String lang);
+    abstract String getJsTreeParentSiblingQuery(String lang, ViewMode viewMode);
+    abstract String getJsTreeChildrenQuery(String lang);
     abstract String getRootName();
-    abstract String getJsTreeRoots(ViewMode viewMode);
+    abstract String getJsTreeRoots(String lang, ViewMode viewMode);
 
 
     public Object getJsTree(String lang, String ontologyName, String iri, boolean sibling) {
@@ -52,7 +52,7 @@ public abstract class AbstractJsTreeBuilder {
         paramt.put("1", iri);
         paramt.put("2", lang);
 
-        String query = (sibling) ? getJsTreeParentSiblingQuery() : getJsTreeParentQuery();
+        String query = (sibling) ? getJsTreeParentSiblingQuery(lang) : getJsTreeParentQuery(lang);
         Result result = graphDatabaseService.execute(query, paramt);
 
         setRootName(getRootName());
@@ -73,7 +73,7 @@ public abstract class AbstractJsTreeBuilder {
         paramt.put("1", iri);
         paramt.put("2", lang);
 
-        String query = (sibling) ? getJsTreeParentSiblingQuery(viewMode) : getJsTreeParentQuery(viewMode);
+        String query = (sibling) ? getJsTreeParentSiblingQuery(lang, viewMode) : getJsTreeParentQuery(lang, viewMode);
 
 
         logger.debug("query = " + query);
@@ -81,9 +81,9 @@ public abstract class AbstractJsTreeBuilder {
         Result result = graphDatabaseService.execute(query, paramt);
 
         if (!result.hasNext()) {
-            result = graphDatabaseService.execute(getJsTreeRoots(viewMode), paramt);
+            result = graphDatabaseService.execute(getJsTreeRoots(lang, viewMode), paramt);
         }
-        cacheRoots(ontologyName, viewMode);
+        cacheRoots(lang, ontologyName, viewMode);
         setRootName(getRootName());
         Object jsTreeObject = getJsTreeObject(lang, ontologyName, iri, result, viewMode);
 
@@ -102,7 +102,7 @@ public abstract class AbstractJsTreeBuilder {
         paramt.put("0", ontologyName);
         paramt.put("1", iri);
         paramt.put("2", lang);
-        String query = getJsTreeChildrenQuery();
+        String query = getJsTreeChildrenQuery(lang);
 
         Result res = graphDatabaseService.execute(query, paramt);
 
@@ -129,26 +129,26 @@ public abstract class AbstractJsTreeBuilder {
         return treeObjects;
     }
 
-    private void cacheRoots(String ontologyName, ViewMode viewMode) {
+    private void cacheRoots(String lang, String ontologyName, ViewMode viewMode) {
         switch (viewMode){
             case ALL:
                 break;
             case PREFERRED_ROOTS:
-                cachePreferredRoots(ontologyName);
+                cachePreferredRoots(lang, ontologyName);
                 break;
             default:
                 logger.error("Unknown viewMode = " + viewMode);
         }
     }
 
-    private void cachePreferredRoots(String ontologyName) {
+    private void cachePreferredRoots(String lang, String ontologyName) {
         if (!ontologyPreferredRoots.containsKey(ontologyName)) {
             Set<String> preferredRootsSet = new HashSet<>();
 
             Map<String, Object> parameterMap = new HashMap<>();
             parameterMap.put("0", ontologyName);
 
-            String query = getJsTreeRoots(ViewMode.PREFERRED_ROOTS);
+            String query = getJsTreeRoots(lang, ViewMode.PREFERRED_ROOTS);
             logger.debug("query = " + query);
             Result result = graphDatabaseService.execute(query, parameterMap);
 
