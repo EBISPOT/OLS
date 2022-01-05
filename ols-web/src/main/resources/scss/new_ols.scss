@@ -747,3 +747,49 @@ a + a > .ontology-source-valign {
 #docs-content h1 {
   color: black !important;
 }
+
+/* footer */
+footer {
+  .footer-link-list {
+    .link-list {
+      padding: 0;
+      list-style: none;
+      text-align: center;
+      font-size: 18px;
+      line-height: 1.6;
+      margin-bottom: 0;
+
+      .link-list-item {
+        padding: 0 10px;
+        display: inline-block;
+
+        a {
+          border: none;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  .ols-logo {
+    text-align: center;
+    margin-bottom: 0.5rem;
+
+    a {
+      border: none;
+
+      img {
+        height: 50px;
+        padding: 0.3rem;
+        border-radius: 0.2rem;
+        background-color: #004443;
+      }
+    }
+
+    .ols-version {
+      color: #777;
+      font-size: small;
+      font-family: monospace;
+    }
+  }
+}
