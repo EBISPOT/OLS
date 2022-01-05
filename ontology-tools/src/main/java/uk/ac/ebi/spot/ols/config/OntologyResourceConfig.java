@@ -8,6 +8,7 @@ import java.net.URI;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -33,7 +34,8 @@ public class OntologyResourceConfig  {
     private String mailingList;
     private Collection<String> creators;
 
-    private Map<String, LocalizedStrings> annotations;
+    // Map<language, Map<key, List<value>>>
+    private Map<String, Map<String, List<String>>> annotations;
 
     private  URI fileLocation;
 
@@ -184,8 +186,8 @@ public class OntologyResourceConfig  {
         return creators;
     }
 
-    public Map<String, LocalizedStrings> getAnnotations() {
-        return annotations;
+    public Map<String, List<String>> getAnnotations(String lang) {
+        return annotations.get(lang);
     }
 
     public void setFileLocation(URI fileLocation) {
@@ -208,7 +210,7 @@ public class OntologyResourceConfig  {
         this.descriptions = descriptions;
     }
 
-    public void setAnnotations(Map<String, LocalizedStrings> annotations) {
+    public void setAnnotations(Map<String, Map<String, List<String>>> annotations) {
         this.annotations = annotations;
     }
 
@@ -318,7 +320,7 @@ public class OntologyResourceConfig  {
         private String version;
         private String mailingList;
         private Collection<String> creators = Collections.emptySet();
-        private Map<String, LocalizedStrings> annotations = Collections.emptyMap();
+        private Map<String, Map<String,List<String>>> annotations = Collections.emptyMap();
         private Collection<String> internalMetadatProperties = Collections.emptySet();
         private Collection<URI> preferredRootTerms = Collections.emptySet();
         private boolean allowDownload = true;
@@ -430,10 +432,10 @@ public class OntologyResourceConfig  {
             return this;
         }
 
-        public OntologyResourceConfigBuilder setAnnotations(Map<String, LocalizedStrings> annotations) {
-            this.annotations = annotations;
-            return this;
-        }
+	public OntologyResourceConfigBuilder setAnnotations(Map<String, Map<String, List<String>>> annotations) {
+		this.annotations = annotations;
+		return this;
+	}
 
         public OntologyResourceConfigBuilder setInternalMetadatProperties(Collection<String> internalMetadatProperties) {
             this.internalMetadatProperties = internalMetadatProperties;

@@ -74,7 +74,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     private String version;
 
     private Collection<String> ontologyCreators;
-    private Map<String, LocalizedStrings> ontologyAnnotations;
+    private Map<String, Map<String, List<String>>> ontologyAnnotations;
     private Resource ontologyResource;
     private Map<IRI, IRI> ontologyImportMappings;
 
@@ -484,7 +484,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     	getLogger().debug("Calling indexOntologyAnnotations");
 
         Set<String> creators = new HashSet<>();
-        Map<String, LocalizedStrings> annotations = new HashMap<>();
+        Map<String, Map<String, List<String>>> annotations = new HashMap<>();
 
         Collection<IRI> preferredRootTermAnnotations = new HashSet<>();
          for (OWLAnnotation annotation : owlAnnotations) {
@@ -554,7 +554,6 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
             }
             else  {
 
-
 		/// TODO: what about localized values?
 
                 LocalizedStrings languageToLabels = ontologyLabels.get(annotationPropertyIri);
@@ -565,12 +564,18 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 		    // For each label the property has in this language
                     List<String> propertyLabels = languageToLabels.getStrings(language);
                     for(String label : propertyLabels) {
-                        if (!annotations.containsKey(label)) {
-                            annotations.put(label, new LocalizedStrings());
+
+                        if (!annotations.containsKey(language)) {
+                            annotations.put(language, new HashMap<>());
                         }
 
-		        // Add an entry { label: theValue }
-                        annotations.get(label).addString(language, theValue.get());
+			Map<String, List<String>> annos = annotations.get(language);
+
+			if(!annos.containsKey(label)) {
+			    annos.put(label, new ArrayList<>());
+			}
+
+                        annos.get(label).add(theValue.get());
                     }
                 }
             }
@@ -2030,7 +2035,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         return preferredPrefix;
     }
 
-    public void setOntologyAnnotations(Map<String,LocalizedStrings> annotations) {
+    public void setOntologyAnnotations(Map<String,Map<String,List<String>>> annotations) {
         this.ontologyAnnotations = annotations;
     }
 
@@ -2079,7 +2084,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     }
 
     @Override
-    public Map<String, LocalizedStrings> getOntologyAnnotations() {
+    public Map<String, Map<String, List<String>>> getOntologyAnnotations() {
         return ontologyAnnotations;
     }
 

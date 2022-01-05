@@ -15,6 +15,7 @@ import uk.ac.ebi.spot.ols.util.OBOSynonym;
 import uk.ac.ebi.spot.ols.util.OBOXref;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -156,10 +157,10 @@ public interface OntologyLoader {
     Map<String,String> getDescriptions();
 
     /**
-     * Get a map of the ontology annotation. The key is the label or short form of the annotation predicate.
+     * Get a map of the ontology annotation in the form Map<language, Map<key, List<value>>>
      * @return
      */
-    Map<String, LocalizedStrings> getOntologyAnnotations();
+    Map<String, Map<String, List<String>>> getOntologyAnnotations();
 
     /**
      * Get the ontology homepage
