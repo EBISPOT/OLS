@@ -21,7 +21,8 @@ public enum OntologyResourceConfigEnum {
     LOGO("logo"),
     CREATOR("creator"),
     PREFERRED_ROOT_TERM("preferred_root_term"),
-    ALLOW_DOWNLOAD("allow_download");
+    ALLOW_DOWNLOAD("allow_download"),
+    LICENSE("license");
 
     private final String propertyName;
 

@@ -3,6 +3,7 @@ package uk.ac.ebi.spot.ols.config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.ac.ebi.spot.ols.exception.ConfigParsingException;
+import uk.ac.ebi.spot.ols.util.License;
 import uk.ac.ebi.spot.ols.util.ReasonerType;
 
 import java.net.URI;
@@ -80,6 +81,7 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
             populateCreator(builder);
             populatePreferredRootTerms(builder);
             populateAllowDownload(builder);
+            populateLicense(builder);
 
             return builder.build();
         }
@@ -279,4 +281,16 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
             builder.setAllowDownload(true);
         }
     }
+    
+    private void populateLicense(OntologyResourceConfig.OntologyResourceConfigBuilder builder) {
+        if (ontology.containsKey(LICENSE.getPropertyName())) {
+        	License license = new License();
+        	license.setLabel((String) ((Map<String, Object>) ontology.get(LICENSE.getPropertyName())).get("label"));
+        	license.setLogo((String) ((Map<String, Object>) ontology.get(LICENSE.getPropertyName())).get("logo"));
+        	license.setUrl((String) ((Map<String, Object>) ontology.get(LICENSE.getPropertyName())).get("url"));
+            builder.setLicense(license);
+        } else {
+            builder.setLicense(new License());
+        }
+    } 
 }

@@ -241,17 +241,35 @@
                         <div th:each="creator : ${ontologyDocument.getConfig().getCreators()}">
                             <b>Creator: </b> <span th:text="${creator}">NCBI:9606</span>
                         </div>
-
-                        <br/>
+                    
+	                    <div th:unless="${ontologyDocument.getConfig().getReasonerType() == T(uk.ac.ebi.spot.ols.util.ReasonerType).NONE}">
+	                        <b>Reasoner: </b> <span th:text="${ontologyDocument.getConfig().getReasonerType()}">NCBI_9606</span>
+	                    </div>
+	                    
+	                    <div th:unless="${ontologyDocument.getConfig().getLicense().getLabel() == null}">
+	                        <b>License Label: </b> <span th:text="${ontologyDocument.getConfig().getLicense().getLabel()}">NCBI_9606</span>
+	                    </div>
+	                    
+	                    <div th:unless="${ontologyDocument.getConfig().getLicense().getLogo() == null}">
+	                        <b>License Logo: </b>
+	                        <a th:href="${ontologyDocument.getConfig().getLicense().getLogo()}" th:text="${ontologyDocument.getConfig().getLicense().getLogo()}">License Logo</a>
+	                    </div>
+	                                                     
+	                    <div th:unless="${ontologyDocument.getConfig().getLicense().getUrl() == null}">
+	                        <b>License URL: </b>
+	                        <a th:href="${ontologyDocument.getConfig().getLicense().getUrl()}" th:text="${ontologyDocument.getConfig().getLicense().getUrl()}">License URL</a>
+	                    </div>
                         <div th:each="annotations: ${ontologyDocument.getConfig().getAnnotations()}">
                             <b>
                                 <a href="#"
                                    th:href="@{../search(q=${annotations.key},exact='true', type=property, ontology=${ontologyDocument.getOntologyId()})}"
                                    th:text="${annotations.key.replaceAll('_', ' ')}">property name</a>
                             </b>
-                            <p style="margin-left:9px;" th:each="annovalue : ${annotations.value}"
-                               th:text="${annovalue}">
-                                NCBI_9606</p>
+                        <p th:unless="${annotations.key.equals('license')}" style="margin-left:9px;" th:each="annovalue : ${annotations.value}" th:text="${annovalue}">NCBI_9606</p>
+	                        <div th:if="${annotations.key.equals('license')}" th:each="annovalue : ${annotations.value}">
+	                            <a th:unless="${annovalue.startsWith('http://') or annovalue.startsWith('https://')}" style="margin-left:9px;" th:href="'https://' + ${annovalue}" th:text="${annovalue}">NCBI_9606</a>
+	                            <a th:if="${annovalue.startsWith('http://') or annovalue.startsWith('https://')}" style="margin-left:9px;" th:href="${annovalue}" th:text="${annovalue}">NCBI_9606</a>
+	                        </div>
                         </div>
                     </div>
                 </div>
