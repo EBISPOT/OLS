@@ -204,7 +204,7 @@
             <div id="right_info_box" class="small-4 columns">
                 <div id="ontology_info_box" class="panel">
                     <div class="panel-heading">
-                        <h4 th:inline="text">[[${ontologyAlias}]] information</h4>
+                        <h4 th:inline="text">[[${shortTitle}]] [[${ontologyAlias}]] information</h4>
                     </div>
                     <div class="panel-body">
                         <div>
@@ -259,16 +259,29 @@
 	                        <b>License URL: </b>
 	                        <a th:href="${ontologyDocument.getConfig().getLicense().getUrl()}" th:text="${ontologyDocument.getConfig().getLicense().getUrl()}">License URL</a>
 	                    </div>
+	                </div>
+	                	                
+	            <div id="ontology_info_box2" class="panel">
+	                <div class="panel-heading">
+	                    <h4 th:inline="text">Original [[${ontologyAlias}]] information</h4>
+	                </div>
+	                <div class="panel-body">    
                         <div th:each="annotations: ${ontologyDocument.getConfig().getAnnotations()}">
                             <b>
                                 <a href="#"
                                    th:href="@{../search(q=${annotations.key},exact='true', type=property, ontology=${ontologyDocument.getOntologyId()})}"
                                    th:text="${annotations.key.replaceAll('_', ' ')}">property name</a>
                             </b>
-                        <p th:unless="${annotations.key.equals('license')}" style="margin-left:9px;" th:each="annovalue : ${annotations.value}" th:text="${annovalue}">NCBI_9606</p>
-	                        <div th:if="${annotations.key.equals('license')}" th:each="annovalue : ${annotations.value}">
-	                            <a th:unless="${annovalue.startsWith('http://') or annovalue.startsWith('https://')}" style="margin-left:9px;" th:href="'https://' + ${annovalue}" th:text="${annovalue}">NCBI_9606</a>
-	                            <a th:if="${annovalue.startsWith('http://') or annovalue.startsWith('https://')}" style="margin-left:9px;" th:href="${annovalue}" th:text="${annovalue}">NCBI_9606</a>
+	                        <p th:unless="${annotations.key.equals('license') or annotations.key.equals('rights')}" style="margin-left:9px;" th:each="annovalue : ${annotations.value}" th:text="${annovalue}">NCBI_9606</p>
+	                        <div th:if="${annotations.key.equals('license') or annotations.key.equals('rights')}" th:each="annovalue : ${annotations.value}">
+	                            <div th:unless="${annovalue.split(' ').length > 1}">
+		                            <div th:unless="${annovalue.startsWith('http://') or annovalue.startsWith('https://')}">
+		                                <a th:if="${annovalue.startsWith('www')}" style="margin-left:9px;" th:href="'https://' + ${annovalue}" th:text="${annovalue}">NCBI_9606</a>
+		                                <p th:unless="${annovalue.startsWith('www')}" style="margin-left:9px;" th:text="${annovalue}" th:text="${annovalue}">NCBI_9606</p>  
+		                            </div>
+		                            <a th:if="${annovalue.startsWith('http://') or annovalue.startsWith('https://')}" style="margin-left:9px;" th:href="${annovalue}" th:text="${annovalue}">NCBI_9606</a>         
+	                            </div>
+	                            <p th:if="${annovalue.split(' ').length > 1}" style="margin-left:9px;" th:text="${annovalue}" th:text="${annovalue}">NCBI_9606</p>
 	                        </div>
                         </div>
                     </div>
