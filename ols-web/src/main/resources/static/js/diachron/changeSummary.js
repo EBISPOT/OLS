@@ -75,6 +75,10 @@ $("#diachron-link").on('click', function(){
           $("#LegendDiv").fadeIn();
           });
 
+          $("#ontology_info_box2").fadeOut(200, function(){
+          $("#LegendDiv").fadeIn();
+          });
+
     })
   })
 })
@@ -85,6 +89,7 @@ function hideLegend() {
     $("#LegendDiv").fadeOut(200, function() {
         // alert('non-diachron tab clicked');
         $("#ontology_info_box").fadeIn();
+        $("#ontology_info_box2").fadeIn();
     });
 }
 

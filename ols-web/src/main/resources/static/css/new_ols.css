@@ -181,6 +181,16 @@ a.nounderline.ontology-link {
 #ontology_info_box .panel-body {
   padding: 10px 10px 10px 10px; }
 
+#ontology_info_box2 .panel-heading {
+  background: #00827c;
+  text-align: center; }
+
+#ontology_info_box2 .panel-heading h4 {
+  color: white; }
+
+#ontology_info_box2 .panel-body {
+  padding: 10px 10px 10px 10px; }
+
 #onto-tab-content .tabs-content {
   min-height: 500px;
   margin-bottom: 40px; }
