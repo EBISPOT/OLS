@@ -272,12 +272,11 @@
                                    th:href="@{../search(q=${annotations.key},exact='true', type=property, ontology=${ontologyDocument.getOntologyId()})}"
                                    th:text="${annotations.key.replaceAll('_', ' ')}">property name</a>
                             </b>
-	                        <p th:unless="${annotations.key.equals('license') or annotations.key.equals('rights')}" style="margin-left:9px;" th:each="annovalue : ${annotations.value}" th:text="${annovalue}">NCBI_9606</p>
-	                        <div th:if="${annotations.key.equals('license') or annotations.key.equals('rights')}" th:each="annovalue : ${annotations.value}">
+	                        <div th:each="annovalue : ${annotations.value}">
 	                            <div th:unless="${annovalue.split(' ').length > 1}">
 		                            <div th:unless="${annovalue.startsWith('http://') or annovalue.startsWith('https://')}">
-		                                <a th:if="${annovalue.startsWith('www')}" style="margin-left:9px;" th:href="'https://' + ${annovalue}" th:text="${annovalue}">NCBI_9606</a>
-		                                <p th:unless="${annovalue.startsWith('www')}" style="margin-left:9px;" th:text="${annovalue}" th:text="${annovalue}">NCBI_9606</p>  
+		                                <a th:if="${annovalue.startsWith('www.')}" style="margin-left:9px;" th:href="'https://' + ${annovalue}" th:text="${annovalue}">NCBI_9606</a>
+		                                <p th:unless="${annovalue.startsWith('www.')}" style="margin-left:9px;" th:text="${annovalue}" th:text="${annovalue}">NCBI_9606</p>  
 		                            </div>
 		                            <a th:if="${annovalue.startsWith('http://') or annovalue.startsWith('https://')}" style="margin-left:9px;" th:href="${annovalue}" th:text="${annovalue}">NCBI_9606</a>         
 	                            </div>
