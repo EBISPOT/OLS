@@ -261,7 +261,7 @@
 	                    </div>
 	                </div>
 	                	                
-	            <div id="ontology_info_box2" class="panel">
+	            <div th:unless="${ontologyDocument.getConfig().getAnnotations().isEmpty()}" id="ontology_info_box2" class="panel">
 	                <div class="panel-heading">
 	                    <h4 th:inline="text">Original [[${ontologyAlias}]] information</h4>
 	                </div>
