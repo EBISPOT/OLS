@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
-<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"/> <![endif]-->
-<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"/> <![endif]-->
-<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"/> <![endif]-->
+<!--[if lt IE 7]>
+<html class="no-js ie6 oldie" lang="en"/> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js ie7 oldie" lang="en"/> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js ie8 oldie" lang="en"/> <![endif]-->
 <!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
-<!--[if gt IE 8]><!--> <html xmlns:th="https://www.thymeleaf.org" class="no-js" lang="en"> <!--<![endif]-->
-
+<!--[if gt IE 8]><!-->
+<html xmlns:th="https://www.thymeleaf.org" class="no-js" lang="en"> <!--<![endif]-->
 
 <head>
     <div th:replace="fragments/head :: head(olscss=true, proton=true)"></div>
@@ -20,21 +23,20 @@
     <!- - When this content is no longer relevant -->
 </head>
 
-
 <body>
 <th:block th:include="fragments/header :: header"></th:block>
 
 <section id="main-content-area" role="main">
-    <div vocab="http://schema.org/" typeof="MedicalCode" id="content" role="main" class="row">
-         <div class="breadcrumbDiv">
-            <div style="float: right; padding-right: 5px;">
+    <div vocab="http://schema.org/" typeof="MedicalCode" id="content" role="main" class="property-section">
+        <div class="row breadcrumbDiv">
+            <div style="float: right; padding-right: 15px;">
                 <a style="float: right; border-bottom: none;"
                    th:href="@{../../api/ontologies/__${ontologyProperty.getOntologyName()}__/properties (iri=${ontologyProperty.getIri()})}"
                    href="#">
                     <img th:src="@{../../img/file_JSON.png}"
                          src="../static/img/file_JSON.png"
                          alt="JSON"
-                         title="Get data as JSON" />
+                         title="Get data as JSON"/>
                 </a>
             </div>
 
@@ -42,58 +44,59 @@
                 <ul class="breadcrumbs">
                     <li><a th:inline="text" href="../../index">[[${shortTitle}]]</a></li>
                     <li><a th:href="@{../../ontologies/__${ontologyProperty.getOntologyName()}__}"
-                           th:text="${ontologyName}">ontology</a><div class="decoy"></div
-                       ><a property="codingSystem"
+                           th:text="${ontologyName}">ontology</a>
+                        <div class="decoy"></div>
+                        <a property="codingSystem"
                            th:attr="content=${ontologyProperty.getOntologyName()}"
+                           th:href="@{../../ontologies/__${ontologyProperty.getOntologyName()}__}"
                            data-x-style="border-bottom-width: 0px;"
                            href="#"><span class="ontology-source-valign"
                                           th:text="${ontologyProperty.getOntologyPrefix()}">parent 1</span></a></li>
-                    <li><span id="shortForm"
-                              th:if="${ontologyProperty.getOboId()} != null"
+                    <li>
+                        <span id="PROPERTY_ID"
                               class="term-source-valign"
                               property="codeValue"
-                              th:text="${ontologyProperty.getOboId()}">id</span
-                       ><span id="shortForm"
-                              th:unless="${ontologyProperty.getOboId()} != null"
-                              class="term-source-valign"
-                              property="codeValue"
-                              th:text="${ontologyProperty.getShortForm()}">id</span
-                       ><button id='copyShortForm'
+                              th:text="${ontologyProperty.getOboId()}? ${ontologyProperty.getOboId()} : ${ontologyProperty.getShortForm()}">id</span>
+                        <button id='copyShortForm'
                                 data-x-class="button tiny third copyButton"
-				class="secondary-color tiny copyButton"
+                                class="secondary-color tiny copyButton"
                                 data-clipboard-action="copy"
-                                data-clipboard-target="#shortForm"
+                                data-clipboard-target="#PROPERTY_ID"
                                 type="button"><i class="icon icon-functional"
-                                                    data-icon="0"></i> Copy</button></li>
+                                                 data-icon="0"></i> Copy
+                        </button>
+                    </li>
                 </ul>
             </nav>
         </div>
 
-        <!--<div class="grid_24 alpha">-->
-        <div class="">
+        <div class="row">
             <div class="small-8 column">
-                <h2 property="name" style="margin-bottom: 0;" th:text="${ontologyProperty.getLabel()}">Property label</h2>
+                <h2 property="name" style="margin-bottom: 0;" th:text="${ontologyProperty.getLabel()}">Property
+                    label</h2>
                 <a data-x-style="padding: 9px; border-bottom: none;"
-		   style="padding-left: 3px; border-bottom:none;"
+                   style="padding-left: 3px; border-bottom:none;"
                    th:href="@{${ontologyProperty.getIri()}}"
                    class="nounderline secondary-color"
-		   title="Go to external page"
+                   title="Go to external page"
                    target="blank">
-                   <span class="show-for-sr">Go to external page</span>
-                   <i class="icon icon-generic" data-icon="x"></i>
-				 <span id="OLS_ID"
-                                        property="url"
-                                        style="font-size: small; /* color: grey; */"
-                                        th:text="${ontologyProperty.getIri()}">http://www.example.com/onto/id</span></a>
-                <p style="display: inline;"><button id='copyThis'
-                                                    data-x-class="button tiny third copyButton"
-						    class="secondary-color small copyButton"
-                                                    data-clipboard-action="copy"
-                                                    data-clipboard-target="#OLS_ID"
-                                                    type="button"><i class="icon icon-functional"
-									data-icon="0"></i> Copy</button></p>
+                    <span class="show-for-sr">Go to external page</span>
+                    <i class="icon icon-generic" data-icon="x"></i>
+                    <span id="OLS_ID"
+                          property="url"
+                          style="font-size: small; /* color: grey; */"
+                          th:text="${ontologyProperty.getIri()}">http://www.example.com/onto/id</span></a>
+                <p style="display: inline;">
+                    <button id='copyThis'
+                            data-x-class="button tiny third copyButton"
+                            class="secondary-color small copyButton"
+                            data-clipboard-action="copy"
+                            data-clipboard-target="#OLS_ID"
+                            type="button"><i class="icon icon-functional"
+                                             data-icon="0"></i> Copy
+                    </button>
+                </p>
             </div>
-
             <div class="small-4 columns">
                 <form id="filter_form" name="local-search" action="../../search" method="get">
                     <div id="bloodhound" class="input-group">
@@ -110,7 +113,8 @@
                                th:attr="placeholder='Search ' + ${shortTitle}"
                                aria-describedby="basic-addon1"/>
                         <button class="button secondary searchButton glyphicon glyphicon-search"
-                                type="submit">Search</button>
+                                type="submit">Search
+                        </button>
                         <!--span class="input-group-btn">
                             <button class="button secondary searchButton glyphicon glyphicon-search"
                                     style=""
@@ -122,212 +126,246 @@
             </div>
         </div>
 
-	    <div class="small-12 columns">
-	        <hr />
-            <div class="grid_24 clearfix">
-                <div class="grid_14 alpha clearfix">
-                    <div id="terms-tab-content" class="small-8 columns">
-                        <ul class="tabs nav nav-tabs" data-tabs="true" id="property_tabs">
-                            <li class="tabs-title is-active"><a aria-selected="true"
-                                                                href="#tree-tab"><i class="icon icon-functional" data-icon="h"></i> Tree view</a></li>
-                            <!--li role="presentation"><a data-toggle="tab" href="#graph-tab">Graph view</a></li-->
-                        </ul>
-
-
-                        <div class="tabs-content" data-tabs-content="property_tabs">
-                            <div role="tabpanel" class="tabs-panel is-active" id="tree-tab">
-
-                                <div class="ols-tree-buttons">
-                                    <button class="ols-tree-button"
-                                            id="ontology_view_siblings_id"
-                                            name="ontology_view_siblings"
-                                            th:value="${#httpServletRequest.getParameter('siblings') == 'true'} ? 'true': 'false'"
-                                            title="Expand the tree to show sibling terms"
-                                            onclick="instance.toggleSiblings()">Show all siblings</button>
-                                </div>
-
-                                <div id="term-tree"
-                                     data-olswidget="tree"
-                                     th:attr="data-olsontology=${ontologyProperty.getOntologyName()},data-ols-iri=${ontologyProperty.getIri()}"
-                                     data-selectpath="../../"
-                                     data-ols-termtype="property"
-                                     data-olsontology=""
-                                     data-ols-iri="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-        <div id="right_info_box" class="small-4 columns">
-            <div id="property_info_box" class="panel">
-                <!--div id="property_info_box" class="callout white-background"-->
-                <div class="panel-heading">
-                    <h4>Property information</h4>
-                </div>
-                <div class="panel-body">
-
-            <div th:if="${ontologyProperty.isObsolete()}">
-                <div class="obsolete">This property is obsolete</div>
-                <br/>
-                <br/>
-
-                <div th:if="${ontologyProperty.getAnnotation().containsKey('reason_for_obsolescence')}" >
-                    <b>Reason for obsolescence</b>
-                    <p style="margin-left: 9px;"
-                       th:text="${#strings.setJoin(ontologyProperty.getAnnotation().get('reason_for_obsolescence'), ',')}">NCBI_9606</p>
-                </div>
-
-                <div th:if="${ontologyProperty.getAnnotation().containsKey('replacedBy')}" >
-                    <b>Replaced by</b>
-                    <p style="margin-left: 9px;"
-                       th:text="${#strings.setJoin(ontologyProperty.getAnnotation().get('replacedBy'), ',')}">NCBI_9606</p>
-                </div>
-
-                <div th:if="${ontologyProperty.getAnnotation().containsKey('property replaced by')}" >
-                    <b>Replaced by</b>
-                    <p style="margin-left: 9px;"
-                       th:text="${#strings.setJoin(ontologyProperty.getAnnotation().get('property replaced by'), ',')}">NCBI_9606</p>
-                </div>
-
-                <div th:if="${ontologyProperty.getAnnotation().containsKey('consider')}" >
-                    <b>Consider</b>
-                    <p style="margin-left: 9px;"
-                       th:text="${#strings.setJoin(ontologyProperty.getAnnotation().get('consider'), ',')}">NCBI_9606</p>
-                </div>
-            </div>
-
-            <div property="description">
-
-                <div th:each="definitionCitation : ${definitionCitations}">
-                    <p>
-                        <span th:text="${definitionCitation.getDefinition()}"></span>
-                        [
-                        <span th:each="oboXref : ${definitionCitation.getOboXrefs()}">
-                            <a th:if="${oboXref.getUrl() != null}" target="_blank" th:href="${oboXref.getUrl()}" th:text="${oboXref.getUrl()}"></a>
-                            <span th:if="${oboXref.getDatabase() != null and oboXref.getUrl() == null}" th:text="${oboXref.getDatabase()}"></span><!--
-                            --><span th:if="${oboXref.getId() != null and oboXref.getDatabase() != null and oboXref.getUrl() == null}">:</span><!--
-                            --><span th:if="${oboXref.getId() != null and oboXref.getUrl() == null}" th:text="${oboXref.getId()}"></span>
-                            <span th:if="${oboXref.getDescription() != null}" th:text="'(' + ${oboXref.getDescription()} + ')'"></span>
-                        </span>
-                        ]
-                    </p>
-                </div>
-
-                <p th:unless="${definitionCitations}" th:each="description : ${ontologyProperty.getDescription()}" th:text="${description}">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget <nulla class=""></nulla>                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum.
-                </p>
-            </div>
-
-            <div th:if="${ontologyProperty.getSynonyms() !=null}">
-                <p><b>Synonyms:</b>
-                    <span property="alternateName" class="label synonym" th:each="synonym : ${ontologyProperty.getSynonyms()}" th:text="${synonym}">NCBI_9606</span>
-                </p>
-            </div>
-                    <!--div>
-                        <span>Short id: </span>
-                        <p th:text="${ontologyProperty.getShortForm()}">NCBI_9606</p>
-                    </div-->
-
-                    <!--div th:if="${ontologyProperty.getOboId() != null}">
-                        <span>OBO id: </span>
-                        <p th:text="${ontologyProperty.getOboId()}">NCBI:9606</p>
-                    </div-->
-
-                    <div th:if="${not #sets.isEmpty(xrefs)}">
-                        <a href="#"
-                           th:href="@{../../search(q='database_cross_reference', exact='true', type='property', ontology=${ontologyProperty.ontologyName})}"><b>database cross reference</b></a>
-                        <ul>
-                            <li style="margin-left: 9px;" th:each="oboXref: ${xrefs}">
-                                <a th:if="${oboXref.getUrl() != null}" target="_blank" th:href="${oboXref.getUrl()}">
-                                   <span th:text="${oboXref.getDatabase() + ':' + oboXref.getId()}"></span>
-                                   <span th:if="${oboXref.getDescription() != null}" th:inline="text">([[${oboXref.getDescription()}]])</span>
-                                </a>
-                                <span th:if="${oboXref.getUrl() == null}">
-                                   <span th:text="${oboXref.getDatabase() + ':' + oboXref.getId()}"></span>
-                                   <span th:if="${oboXref.getDescription() != null}" th:inline="text">([[${oboXref.getDescription()}]])</span>
-                                </span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div th:if="${not #sets.isEmpty(synonyms)}">
-                        <div th:each="synonym: ${synonyms}">
-                            <div th:if="${synonym.getType()}">
-                                <a href="#" th:href="@{../../search(q=${synonym.getType()}, type=property, ontology=${ontologyProperty.ontologyName})}" th:text="${synonym.getType().replaceAll('_', ' ')}">property name</a>
-                                <div style="margin-left:9px;">
-                                    <span th:text="${synonym.getName()}"></span>
-                                    <span th:if="${not #sets.isEmpty(synonym.getXrefs())}">[</span>
-                                    <span th:each="oboXref: ${synonym.getXrefs()}">
-                                        <a th:if="${oboXref.getUrl() != null}" target="_blank" th:href="${oboXref.getUrl()}" th:text="${oboXref.getUrl()}"></a>
-                                        <span th:if="${oboXref.getDatabase() != null and oboXref.getUrl() == null}" th:text="${oboXref.getDatabase()}"></span><!--
-                                     --><span th:if="${oboXref.getId() != null and oboXref.getDatabase() != null and oboXref.getUrl() == null}">:</span><!--
-                                     --><span th:if="${oboXref.getId() != null and oboXref.getUrl() == null}" th:text="${oboXref.getId()}"></span>
-                                        <span th:if="${oboXref.getDescription() != null}" th:text="'(' + ${oboXref.getDescription()} + ')'"></span>
-                                    </span>
-                                    <span th:if="${not #sets.isEmpty(synonym.getXrefs())}">]</span>
-                                </div>
-                                <br/>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div th:each="annotations: ${ontologyProperty.getAnnotation()}">
-                        <div th:unless="${annotations.key} eq 'database_cross_reference'">
-                            <b><a href="#"
-                                  th:href="@{../../search(q=${annotations.key},exact='true', type=property, ontology=${ontologyProperty.ontologyName})}"
-                                  th:text="${annotations.key.replaceAll('_', ' ')}">property name</a></b>
-                            <p th:inline="text">
-                                <div th:each="value: ${annotations.value}" th:inline="text">
-                                    <p class="annotation-value">[[${value}]]</p>
-                                </div>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="property_relation_box" class="panel">
-                <div class="panel-heading">
-                    <h4>Property relations</h4>
-                </div>
-
-                <div class="panel-body">
-
-                    <div th:if="${not #maps.isEmpty(relatedFroms)}">
-                        <b>Related from:</b>
-                        <br/>
-                        <div th:each="relation : ${relatedFroms}">
-                            <a class="ObjectProperty"
-                               th:href="@{../../search(q=${relation.key},exact='true', type=property, ontology=${ontologyProperty.ontologyName})}"
-                               th:text="${relation.key}"></a>
-                            <ul>
-                                <li th:each="property,iterStat: ${relation.value}"><a href="#"
-                                                                                  th:title="${property.iri}"
-                                                                                  th:href="@{properties (iri=${property.iri})}"
-                                                                                  th:text="${property.label}">parent 1</a></li>
-                            </ul>
-                            <!--span th:each="property,iterStat: ${relation.value}">
-                                <a href="#" th:href="@{properties (iri=${property.iri})}" th:text="${property.label}">parent 1</a>
-                                <span th:if="${iterStat.count &lt; iterStat.size}">, </span>
-                            </span-->
-                        </div>
-                    </div>
-
-                    <div th:if="${not #sets.isEmpty(instances)}">
-                        <b>Instances:</b>
-                        <ul>
-                            <li th:each="instance : ${instances}"><a href="#"
-                                                                     th:title="${instance.iri}"
-                                                                     th:href="@{individuals (iri=${instance.iri})}"
-                                                                     th:text="${instance.label}">parent 1</a></li>
-                        </ul>
-                    </div>
-                </div>
+        <div class="row">
+            <div class="columns">
+                <hr/>
             </div>
         </div>
 
+        <div class="row">
+            <div id="terms-tab-content" class="small-8 columns">
+                <ul class="tabs nav nav-tabs" data-tabs="true" id="property_tabs">
+                    <li class="tabs-title is-active"><a aria-selected="true"
+                                                        href="#tree-tab"><i class="icon icon-functional"
+                                                                            data-icon="h"></i> Tree view</a>
+                    </li>
+                    <!--li role="presentation"><a data-toggle="tab" href="#graph-tab">Graph view</a></li-->
+                </ul>
+
+
+                <div class="tabs-content" data-tabs-content="property_tabs">
+                    <div role="tabpanel" class="tabs-panel is-active" id="tree-tab">
+
+                        <div class="ols-tree-buttons">
+                            <button class="ols-tree-button"
+                                    id="ontology_view_siblings_id"
+                                    name="ontology_view_siblings"
+                                    th:value="${#httpServletRequest.getParameter('siblings') == 'true'} ? 'true': 'false'"
+                                    title="Expand the tree to show sibling terms"
+                                    onclick="instance.toggleSiblings()">Show all siblings
+                            </button>
+                        </div>
+
+                        <div id="term-tree"
+                             data-olswidget="tree"
+                             th:attr="data-olsontology=${ontologyProperty.getOntologyName()},data-ols-iri=${ontologyProperty.getIri()}"
+                             data-selectpath="../../"
+                             data-ols-termtype="property"
+                             data-olsontology=""
+                             data-ols-iri="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="right_info_box" class="small-4 columns">
+                <div id="property_info_box" class="panel">
+                    <!--div id="property_info_box" class="callout white-background"-->
+                    <div class="panel-heading">
+                        <h4>Property information</h4>
+                    </div>
+                    <div class="panel-body">
+
+                        <div th:if="${ontologyProperty.isObsolete()}">
+                            <div class="obsolete">This property is obsolete</div>
+                            <br/>
+                            <br/>
+
+                            <div th:if="${ontologyProperty.getAnnotation().containsKey('reason_for_obsolescence')}">
+                                <b>Reason for obsolescence</b>
+                                <p style="margin-left: 9px;"
+                                   th:text="${#strings.setJoin(ontologyProperty.getAnnotation().get('reason_for_obsolescence'), ',')}">
+                                    NCBI_9606</p>
+                            </div>
+
+                            <div th:if="${ontologyProperty.getAnnotation().containsKey('replacedBy')}">
+                                <b>Replaced by</b>
+                                <p style="margin-left: 9px;"
+                                   th:text="${#strings.setJoin(ontologyProperty.getAnnotation().get('replacedBy'), ',')}">
+                                    NCBI_9606</p>
+                            </div>
+
+                            <div th:if="${ontologyProperty.getAnnotation().containsKey('property replaced by')}">
+                                <b>Replaced by</b>
+                                <p style="margin-left: 9px;"
+                                   th:text="${#strings.setJoin(ontologyProperty.getAnnotation().get('property replaced by'), ',')}">
+                                    NCBI_9606</p>
+                            </div>
+
+                            <div th:if="${ontologyProperty.getAnnotation().containsKey('consider')}">
+                                <b>Consider</b>
+                                <p style="margin-left: 9px;"
+                                   th:text="${#strings.setJoin(ontologyProperty.getAnnotation().get('consider'), ',')}">
+                                    NCBI_9606</p>
+                            </div>
+                        </div>
+
+                        <div property="description">
+
+                            <div th:each="definitionCitation : ${definitionCitations}">
+                                <p>
+                                    <span th:text="${definitionCitation.getDefinition()}"></span>
+                                    [
+                                    <span th:each="oboXref : ${definitionCitation.getOboXrefs()}">
+                            <a th:if="${oboXref.getUrl() != null}" target="_blank" th:href="${oboXref.getUrl()}"
+                               th:text="${oboXref.getUrl()}"></a>
+                            <span th:if="${oboXref.getDatabase() != null and oboXref.getUrl() == null}"
+                                  th:text="${oboXref.getDatabase()}"></span><!--
+                            --><span th:if="${oboXref.getId() != null and oboXref.getDatabase() != null and oboXref.getUrl() == null}">:</span><!--
+                            --><span th:if="${oboXref.getId() != null and oboXref.getUrl() == null}"
+                                     th:text="${oboXref.getId()}"></span>
+                            <span th:if="${oboXref.getDescription() != null}"
+                                  th:text="'(' + ${oboXref.getDescription()} + ')'"></span>
+                        </span>
+                                    ]
+                                </p>
+                            </div>
+
+                            <p th:unless="${definitionCitations}"
+                               th:each="description : ${ontologyProperty.getDescription()}"
+                               th:text="${description}">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.
+                                Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at
+                                nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec
+                                tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget
+                                <nulla class=""></nulla>
+                                Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
+                                inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim
+                                lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In
+                                scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem.
+                                Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel,
+                                suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia
+                                aliquet. Mauris ipsum.
+                            </p>
+                        </div>
+
+                        <div th:if="${ontologyProperty.getSynonyms() !=null}">
+                            <p><b>Synonyms:</b>
+                                <span property="alternateName" class="label synonym"
+                                      th:each="synonym : ${ontologyProperty.getSynonyms()}"
+                                      th:text="${synonym}">NCBI_9606</span>
+                            </p>
+                        </div>
+                        <!--div>
+                            <span>Short id: </span>
+                            <p th:text="${ontologyProperty.getShortForm()}">NCBI_9606</p>
+                        </div-->
+
+                        <!--div th:if="${ontologyProperty.getOboId() != null}">
+                            <span>OBO id: </span>
+                            <p th:text="${ontologyProperty.getOboId()}">NCBI:9606</p>
+                        </div-->
+
+                        <div th:if="${not #sets.isEmpty(xrefs)}">
+                            <a href="#"
+                               th:href="@{../../search(q='database_cross_reference', exact='true', type='property', ontology=${ontologyProperty.ontologyName})}"><b>database
+                                cross reference</b></a>
+                            <ul>
+                                <li style="margin-left: 9px;" th:each="oboXref: ${xrefs}">
+                                    <a th:if="${oboXref.getUrl() != null}" target="_blank"
+                                       th:href="${oboXref.getUrl()}">
+                                        <span th:text="${oboXref.getDatabase() + ':' + oboXref.getId()}"></span>
+                                        <span th:if="${oboXref.getDescription() != null}" th:inline="text">([[${oboXref.getDescription()}]])</span>
+                                    </a>
+                                    <span th:if="${oboXref.getUrl() == null}">
+                                   <span th:text="${oboXref.getDatabase() + ':' + oboXref.getId()}"></span>
+                                   <span th:if="${oboXref.getDescription() != null}" th:inline="text">([[${oboXref.getDescription()}]])</span>
+                                </span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div th:if="${not #sets.isEmpty(synonyms)}">
+                            <div th:each="synonym: ${synonyms}">
+                                <div th:if="${synonym.getType()}">
+                                    <a href="#"
+                                       th:href="@{../../search(q=${synonym.getType()}, type=property, ontology=${ontologyProperty.ontologyName})}"
+                                       th:text="${synonym.getType().replaceAll('_', ' ')}">property name</a>
+                                    <div style="margin-left:9px;">
+                                        <span th:text="${synonym.getName()}"></span>
+                                        <span th:if="${not #sets.isEmpty(synonym.getXrefs())}">[</span>
+                                        <span th:each="oboXref: ${synonym.getXrefs()}">
+                                        <a th:if="${oboXref.getUrl() != null}" target="_blank"
+                                           th:href="${oboXref.getUrl()}" th:text="${oboXref.getUrl()}"></a>
+                                        <span th:if="${oboXref.getDatabase() != null and oboXref.getUrl() == null}"
+                                              th:text="${oboXref.getDatabase()}"></span><!--
+                                     --><span th:if="${oboXref.getId() != null and oboXref.getDatabase() != null and oboXref.getUrl() == null}">:</span><!--
+                                     --><span th:if="${oboXref.getId() != null and oboXref.getUrl() == null}"
+                                              th:text="${oboXref.getId()}"></span>
+                                        <span th:if="${oboXref.getDescription() != null}"
+                                              th:text="'(' + ${oboXref.getDescription()} + ')'"></span>
+                                    </span>
+                                        <span th:if="${not #sets.isEmpty(synonym.getXrefs())}">]</span>
+                                    </div>
+                                    <br/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div th:each="annotations: ${ontologyProperty.getAnnotation()}">
+                            <div th:unless="${annotations.key} eq 'database_cross_reference'">
+                                <b><a href="#"
+                                      th:href="@{../../search(q=${annotations.key},exact='true', type=property, ontology=${ontologyProperty.ontologyName})}"
+                                      th:text="${annotations.key.replaceAll('_', ' ')}">property
+                                    name</a></b>
+                                <p th:inline="text">
+                                <div th:each="value: ${annotations.value}" th:inline="text">
+                                    <p class="annotation-value">[[${value}]]</p>
+                                </div>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="property_relation_box" class="panel">
+                    <div class="panel-heading">
+                        <h4>Property relations</h4>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div th:if="${not #maps.isEmpty(relatedFroms)}">
+                            <b>Related from:</b>
+                            <br/>
+                            <div th:each="relation : ${relatedFroms}">
+                                <a class="ObjectProperty"
+                                   th:href="@{../../search(q=${relation.key},exact='true', type=property, ontology=${ontologyProperty.ontologyName})}"
+                                   th:text="${relation.key}"></a>
+                                <ul>
+                                    <li th:each="property,iterStat: ${relation.value}"><a href="#"
+                                                                                          th:title="${property.iri}"
+                                                                                          th:href="@{properties (iri=${property.iri})}"
+                                                                                          th:text="${property.label}">parent
+                                        1</a></li>
+                                </ul>
+                                <!--span th:each="property,iterStat: ${relation.value}">
+                                    <a href="#" th:href="@{properties (iri=${property.iri})}" th:text="${property.label}">parent 1</a>
+                                    <span th:if="${iterStat.count &lt; iterStat.size}">, </span>
+                                </span-->
+                            </div>
+                        </div>
+
+                        <div th:if="${not #sets.isEmpty(instances)}">
+                            <b>Instances:</b>
+                            <ul>
+                                <li th:each="instance : ${instances}"><a href="#"
+                                                                         th:title="${instance.iri}"
+                                                                         th:href="@{individuals (iri=${instance.iri})}"
+                                                                         th:text="${instance.label}">parent
+                                    1</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -359,18 +397,16 @@
 <script type="text/javascript" src="../static/js/clipboard.min.js" th:src="@{../../js/clipboard.min.js}"></script>
 
 <script>
-    $(document).ready(function() {
-        $('.mansyntax').each(function() {
+    $(document).ready(function () {
+        $('.mansyntax').each(function () {
             // $(this).trigger('click');  // for clicking element
             var href = $(this).attr("href");
 
             if ($(this).hasClass('ObjectProperty')) {
                 $(this).attr("href", getUrlType('property') + '?iri=' + encodeURIComponent(href));
-            }
-            else if ($(this).hasClass('Class')) {
+            } else if ($(this).hasClass('Class')) {
                 $(this).attr("href", getUrlType('class') + '?iri=' + encodeURIComponent(href));
-            }
-            else if ($(this).hasClass('Individual')) {
+            } else if ($(this).hasClass('Individual')) {
                 $(this).attr("href", getUrlType('individual') + '?iri=' + encodeURIComponent(href));
             }
         });

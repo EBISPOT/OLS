@@ -1,13 +1,11 @@
 package uk.ac.ebi.spot.ols.controller.ui;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,11 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
 import uk.ac.ebi.spot.ols.neo4j.model.Individual;
-import uk.ac.ebi.spot.ols.neo4j.model.Property;
 import uk.ac.ebi.spot.ols.neo4j.service.OntologyIndividualService;
 import uk.ac.ebi.spot.ols.service.OntologyRepositoryService;
-
-import java.util.Collections;
 
 /**
  * @author Simon Jupp
@@ -58,11 +53,9 @@ public class IndividualControllerUI {
 
         if (termIri != null) {
             term = ontologyIndividualService.findByOntologyAndIri(ontologyId, termIri);
-        }
-        else if (shortForm != null) {
+        } else if (shortForm != null) {
             term = ontologyIndividualService.findByOntologyAndShortForm(ontologyId, shortForm);
-        }
-        else if (oboId != null) {
+        } else if (oboId != null) {
             term = ontologyIndividualService.findByOntologyAndOboId(ontologyId, oboId);
         }
 
