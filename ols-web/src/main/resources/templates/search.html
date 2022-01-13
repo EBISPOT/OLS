@@ -97,13 +97,15 @@
                             <option value="individual"
                                     th:selected="${#sets.contains(types , 'individual')}">Individual</option>
                             <option value="Ontology"
-                                    th:selected="${#sets.contains(types , 'ontology')}">Ontology</option>
+                                    th:selected="${#sets.contains(types , 'ontology')}"
+                                    th:inline="text"
+                                    >[[${ontologyAlias}]]</option>
                         </select>
                         <div id="type-summary">
                         </div>
                     </div>
 
-                    <h4 class="filterbox-header">Ontologies</h4>
+                    <h4 class="filterbox-header" th:inline="text">[[${ontologyAlias}]]</h4>
                     <div class="filterBoxes">
                         <select id="ontology-select-id" name="ontology" class="ontology-select" multiple="multiple" style="width:100%">
                             <option

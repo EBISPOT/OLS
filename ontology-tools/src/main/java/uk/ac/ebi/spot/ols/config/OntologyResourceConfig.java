@@ -36,6 +36,8 @@ public class OntologyResourceConfig  {
     private String homepage;
     private String version;
     private String mailingList;
+    private String tracker;
+    private String logo;
     private Collection<String> creators;
 
     // Map<language, Map<key, List<value>>>
@@ -87,6 +89,8 @@ public class OntologyResourceConfig  {
         this.isSkos = builder.isSkos;
         this.homepage = builder.homepage;
         this.mailingList = builder.mailingList;
+        this.tracker = builder.tracker;
+        this.logo = builder.logo;
         this.creators = builder.creators;
         this.annotations = builder.annotations;
         this.localizedAnnotations = builder.localizedAnnotations;
@@ -213,6 +217,14 @@ public class OntologyResourceConfig  {
         return mailingList;
     }
 
+    public String getTracker() {
+        return tracker;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
     public Collection<String> getCreators() {
         return creators;
     }
@@ -234,6 +246,13 @@ public class OntologyResourceConfig  {
 
     public void setMailingList(String mailingList) {
         this.mailingList = mailingList;
+    }
+
+    public void setTracker(String tracker) {
+        this.tracker = tracker;
+    }
+    public void setLogo(String logo) {
+        this.logo = logo;
     }
 
     public void setHomepage(String homepage) {
@@ -371,6 +390,8 @@ public class OntologyResourceConfig  {
         private String homepage;
         private String version;
         private String mailingList;
+        private String tracker;
+        private String logo;
         private Collection<String> creators = Collections.emptySet();
         private Map<String,List<String>> annotations = Collections.emptyMap();
         private Map<String, Map<String,List<String>>> localizedAnnotations = Collections.emptyMap();
@@ -487,6 +508,16 @@ public class OntologyResourceConfig  {
 
         public OntologyResourceConfigBuilder setMailingList(String mailingList) {
             this.mailingList = mailingList;
+            return this;
+        }
+
+        public OntologyResourceConfigBuilder setTracker(String tracker) {
+            this.tracker = tracker;
+            return this;
+        }
+
+        public OntologyResourceConfigBuilder setLogo(String logo) {
+            this.logo = logo;
             return this;
         }
 

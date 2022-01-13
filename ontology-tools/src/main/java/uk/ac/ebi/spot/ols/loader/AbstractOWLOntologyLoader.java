@@ -71,6 +71,8 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
     private String ontologyHomePage;
     private String ontologyMailingList;
+    private String ontologyTracker;
+    private String ontologyLogo;
     private String version;
 
     private Collection<String> ontologyCreators;
@@ -243,6 +245,8 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
         setOntologyHomePage(config.getHomepage());
         setOntologyMailingList(config.getMailingList());
+        setOntologyTracker(config.getTracker());
+        setOntologyLogo(config.getLogo());
         setOntologyCreators(config.getCreators());
 
 
@@ -525,6 +529,24 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                 } else if (theValue.isPresent()) {
                     setOntologyMailingList(theValue.get());
                     internalMetadataProperties.add(OntologyDefaults.MAILINGLIST);
+                }
+            }
+            else if (annotationPropertyIri.toString().equals(OntologyDefaults.TRACKER)) {
+                if (annotationValue != null && annotationValue instanceof  IRI) {
+                    setOntologyTracker( ((IRI) annotationValue).toString());
+                    internalMetadataProperties.add(OntologyDefaults.TRACKER);
+                } else if (theValue.isPresent()) {
+                    setOntologyTracker(theValue.get());
+                    internalMetadataProperties.add(OntologyDefaults.TRACKER);
+                }
+            }
+            else if (annotationPropertyIri.toString().equals(OntologyDefaults.LOGO)) {
+                if (annotationValue != null && annotationValue instanceof  IRI) {
+                    setOntologyLogo( ((IRI) annotationValue).toString());
+                    internalMetadataProperties.add(OntologyDefaults.LOGO);
+                } else if (theValue.isPresent()) {
+                    setOntologyLogo(theValue.get());
+                    internalMetadataProperties.add(OntologyDefaults.LOGO);
                 }
             }
             else if (annotationPropertyIri.toString().equals(OntologyDefaults.HOMEPAGE)) {
@@ -1147,6 +1169,11 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
      */
     protected Optional<String> extractShortForm(IRI entityIRI) {
         getLogger().trace("Attempting to extract fragment name of IRI '" + entityIRI + "'");
+
+        // special case for URN schemes: https://www.w3.org/Addressing/URL/URI_URN.html
+        if(entityIRI.toString().startsWith("urn:")) {
+            return Optional.of(entityIRI.toString().substring(4));
+        }
 
         // oput in try block to catch any URL exceptins
         try {
@@ -2047,6 +2074,15 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         this.ontologyMailingList = ontologyMailingList;
     }
 
+    public void setOntologyTracker(String ontologyTracker) {
+        this.ontologyTracker = ontologyTracker;
+    }
+
+    public void setOntologyLogo(String ontologyLogo) {
+        this.ontologyLogo = ontologyLogo;
+    }
+
+
     public void setOntologyVersion(String version) {
         this.version = version;
     }
@@ -2077,6 +2113,14 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
     public String getMailingList() {
         return ontologyMailingList;
+    }
+
+    public String getTracker() {
+        return ontologyTracker;
+    }
+
+    public String getLogo() {
+        return ontologyLogo;
     }
 
     public Collection<String> getCreators() {

@@ -7,7 +7,7 @@ Ontology Lookup Service from SPOT at EBI.
 * Instructions on how to build a local OLS installation are here
   http://www.ebi.ac.uk/ols/docs/installation-guide
 * Run OLS with docker here
-  https://github.com/MaastrichtUniversity/ols-docker
+  https://github.com/EBISPOT/ontotools-docker-config
 * Further OLS documentation can be found here
   http://www.ebi.ac.uk/ols/docs
 
@@ -60,8 +60,9 @@ more information http://www.ebi.ac.uk/ols/docs/installation-guide
 
 ## Deploying with Docker
 
-The preferred method of deployment for OLS is using Docker.  First, create the
-necessary volumes:
+The preferred method of deployment for OLS is using Docker. If you would like to deploy **the entire OntoTools stack** (OLS, OxO, and ZOOMA), check out the [OntoTools Docker Config](https://github.com/EBISPOT/ontotools-docker-config) repository. If you would like to deploy **OLS only**, read on.
+
+First, create the necessary volumes:
 
     docker volume create --name=ols-neo4j-data
     docker volume create --name=ols-mongo-data
@@ -108,7 +109,7 @@ To build OLS, in the root directory of OLS, run:
 `[ERROR] Failed to execute goal on project ols-neo4j: Could not resolve dependencies for project uk.ac.ebi.spot:ols-neo4j:jar:3.2.1-SNAPSHOT: Failed to collect dependencies at org.springframework.data:spring-data-neo4j:jar:3.4.5.RELEASE -> org.neo4j:neo4j-cypher-dsl:jar:2.0.1: Failed to read artifact descriptor for org.neo4j:neo4j-cypher-dsl:jar:2.0.1: Could not transfer artifact org.neo4j:neo4j-cypher-dsl:pom:2.0.1 from/to maven-neo4j (https://m2.neo4j.org/content/repositories/releases/): Failed to transfer file https://m2.neo4j.org/content/repositories/releases/org/neo4j/neo4j-cypher-dsl/2.0.1/neo4j-cypher-dsl-2.0.1.pom with status code 502 -> [Help 1]`
 
 To correct this, copy the contents of the `build-fix` directory into your Maven 
-repository under `~/m2/repository`.
+repository under `~/.m2/repository`.
 
 Run `mvn clean package` again. OLS should now build successfully. 
 
@@ -135,5 +136,17 @@ It is possible to customise several branding options in `ols-web/src/main/resour
 * `ols.customisation.debrand` — If set to true, removes the EBI header and footer, documentation, and about page
 * `ols.customisation.title` — A custom title for your instance, e.g. "My OLS Instance"
 * `ols.customisation.short-title` — A shorter version of the custom title, e.g. "MYOLS"
+* `ols.customisation.description` — A description of the instance
 * `ols.customisation.org` — The organisation hosting your instance
+* `ols.customisation.hideGraphView` — Set to true to hide the graph view 
+* `ols.customisation.errorMessage` — Message to show on error pages
+* `ols.customisation.ontologyAlias` — A custom word or phrase to use instead of "Ontology", e.g. "Data Dictionary"
+* `ols.customisation.ontologyAliasPlural` — As `ontologyAlias` but plural, e.g. "Data Dictionaries"
+* `ols.customisation.oxoUrl` — The URL of an OxO instance to link to with a trailing slash e.g. `https://www.ebi.ac.uk/spot/oxo/`
+
+
+
+
+
+
 
