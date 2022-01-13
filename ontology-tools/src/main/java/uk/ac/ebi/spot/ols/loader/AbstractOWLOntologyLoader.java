@@ -405,10 +405,8 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
                 getLogger().debug("Version IRI = " + ontologyVersionIRI);
                 String oboVersion = parseOboVersion(ontologyVersionIRI);
-                if (oboVersion != null) {
-                    getLogger().debug("Set obo version");
-                    setOntologyVersion(oboVersion);
-                }
+                getLogger().debug("Set obo version = " + oboVersion);
+                setOntologyVersion(oboVersion);
 
             }
             if (getOntologyName() == null) {

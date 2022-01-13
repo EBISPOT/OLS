@@ -8,19 +8,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Import;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.data.neo4j.config.EnableNeo4jRepositories;
-import org.springframework.data.neo4j.core.GraphDatabase;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-
-import uk.ac.ebi.spot.ols.service.OntologyRepositoryService;
-import uk.ac.ebi.spot.ols.config.OntologyLoadingConfiguration;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
+import uk.ac.ebi.spot.ols.model.Status;
 import uk.ac.ebi.spot.ols.service.FileUpdatingService;
 import uk.ac.ebi.spot.ols.service.OntologyIndexingService;
-import uk.ac.ebi.spot.ols.model.Status;
-import uk.ac.ebi.spot.ols.model.OntologyIndexer;
+import uk.ac.ebi.spot.ols.service.OntologyRepositoryService;
 import uk.ac.ebi.spot.ols.util.FileUpdater;
 
 import javax.mail.internet.AddressException;
@@ -62,8 +57,10 @@ public class LoadingApplication implements CommandLineRunner {
 
     private static String [] deleteOntologies = {};
 
-
     private static boolean offline = false;
+
+    @Value("#{new Boolean('${fileUpdating.skip.enabled}')}")
+    private Boolean isSkipEnabled;
 
     @Override
     public void run(String... args) throws Exception {
@@ -125,7 +122,7 @@ public class LoadingApplication implements CommandLineRunner {
         }
 
         CountDownLatch latch = new CountDownLatch(allDocuments.size());
-        FileUpdatingService service = new FileUpdatingService(ontologyRepositoryService, executor, latch);
+        FileUpdatingService service = new FileUpdatingService(ontologyRepositoryService, executor, latch, isSkipEnabled);
         service.checkForUpdates(allDocuments, fileUpdater, forcedOntologies.length>0);
 
         // wait for ontologies to have been checked

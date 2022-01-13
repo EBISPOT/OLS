@@ -2,16 +2,16 @@ package uk.ac.ebi.spot.ols.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.core.task.TaskExecutor;
 import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
-import uk.ac.ebi.spot.ols.model.Status;
 import uk.ac.ebi.spot.ols.exception.FileUpdateServiceException;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
+import uk.ac.ebi.spot.ols.model.Status;
 import uk.ac.ebi.spot.ols.util.FileUpdater;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -31,18 +31,21 @@ public class FileUpdatingService {
 
     private TaskExecutor taskExecutor;
 
-    private Logger log = LoggerFactory.getLogger(getClass());
+    private Boolean isSkipEnabled;
 
     private static int MAX_LOAD_ATTEMPTS = 3;
+
+    private Logger log = LoggerFactory.getLogger(getClass());
 
     public Logger getLog() {
         return log;
     }
 
-    public FileUpdatingService(OntologyRepositoryService ontologyRepositoryService, TaskExecutor taskExecutor, CountDownLatch latch) {
+    public FileUpdatingService(OntologyRepositoryService ontologyRepositoryService, TaskExecutor taskExecutor, CountDownLatch latch, Boolean isSkipEnabled) {
         this.ontologyRepositoryService = ontologyRepositoryService;
         this.taskExecutor = taskExecutor;
         this.latch = latch;
+        this.isSkipEnabled = isSkipEnabled;
     }
 
     private class FileUpdatingTask implements Runnable {
@@ -74,8 +77,7 @@ public class FileUpdatingService {
                 }
             }
 
-        //     boolean skip = document.getStatus() == Status.SKIP;
-	    boolean skip = false;
+            boolean skip = isSkipEnabled && document.getStatus() == Status.SKIP;
 
             if(!skip) {
                 if(wasFailing) {
@@ -134,7 +136,7 @@ public class FileUpdatingService {
                 log.error("Can't get canonical path for: " + status.getFile().getPath(), e);
             }
             finally {
-                getLog().info("Status of " + document.getOntologyId() + " is " + document.getStatus());
+                getLog().info("Status of " + document.getOntologyId() + " is " + document.getStatus() + "; Skip enabled: " + isSkipEnabled);
 
                 document.setUpdated(new Date());
 

@@ -4,25 +4,20 @@ import org.semanticweb.owlapi.model.IRI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Import;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Component;
-
 import uk.ac.ebi.spot.ols.config.OntologyLoadingConfiguration;
 import uk.ac.ebi.spot.ols.config.OntologyResourceConfig;
 import uk.ac.ebi.spot.ols.exception.IndexingException;
-import uk.ac.ebi.spot.ols.exception.OntologyLoadingException;
 import uk.ac.ebi.spot.ols.loader.OntologyLoader;
 import uk.ac.ebi.spot.ols.loader.OntologyLoaderFactory;
-import uk.ac.ebi.spot.ols.model.Status;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
 import uk.ac.ebi.spot.ols.model.OntologyIndexer;
+import uk.ac.ebi.spot.ols.model.Status;
 import uk.ac.ebi.spot.ols.xrefs.DatabaseService;
 import uk.ac.ebi.spot.usage.ResourceUsage;
 
-import java.text.SimpleDateFormat;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -148,6 +143,8 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             if (!loader.getOntologyIRI().toString().equals(config.getId())) {
                 config.setId(loader.getOntologyIRI().toString());
             }
+            // if null, removes version number from document
+            config.setVersion(loader.getVersionNumber());
 
             // check for a version number or set to today date
             if (loader.getVersionNumber() != null) {

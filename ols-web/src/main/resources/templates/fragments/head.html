@@ -50,6 +50,7 @@
     <!-- Trying to get v1.3 working -->
     <link rel="stylesheet" href="https://dev.ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/css/ebi-global.css" type="text/css" media="all" />
     <link rel="stylesheet" href="https://dev.ebi.emblstatic.net/web_guidelines/EBI-Icon-fonts/v1.2/fonts.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="https://dev.ebi.emblstatic.net/web_guidelines/EBI-Icon-fonts/v1.3/fonts.css" type="text/css" media="all" />
     <link rel="stylesheet" href="https://dev.ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/css/theme-embl-petrol.css" type="text/css" />
 
     <!--
@@ -90,8 +91,9 @@
     <meta name="ebi:localmasthead-image" content="/img/images/background.jpg"/>
     <meta name="ebi:masthead-image"  content="img/background.jpg"/>-->
 
-    <meta name="ebi:masthead-color" content="#000" />
-    <meta name="ebi:masthead-image"  content="https://www.ebi.ac.uk/web_guidelines/EBI-Framework/v1.1/images/backgrounds/embl-ebi-background-4.jpg"/>
+    <meta name="ebi:masthead-color" th:content="@{${backgroundColor}}" />
+    <meta name="ebi:masthead-image"  th:content="@{${backgroundImage}}"/>
+
 
     <link rel="stylesheet" th:href="@{/css/new_ols.css}" href="/css/new_ols.css" type="text/css" media="screen"/>
 
