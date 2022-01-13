@@ -77,7 +77,7 @@ public class IndividualControllerUI {
 
             OntologyDocument document = repositoryService.get(ontologyId);
             model.addAttribute("ontologyName", document.getOntologyId());
-            model.addAttribute("ontologyTitle", document.getConfig().getTitle(lang));
+            model.addAttribute("ontologyTitle", document.getConfig().getLocalizedTitle(lang));
             model.addAttribute("ontologyPrefix", document.getConfig().getPreferredPrefix());
             model.addAttribute("pageable", pageable);
             model.addAttribute("allindividuals", termsPage);
@@ -94,7 +94,7 @@ public class IndividualControllerUI {
         model.addAttribute("ontologyIndividual", term);
         model.addAttribute("indvidualTypes", ontologyIndividualService.getDirectTypes(ontologyId, term.getIri(), new PageRequest(0, 10)));
 
-        String title = repositoryService.get(ontologyId).getConfig().getTitle(lang);
+        String title = repositoryService.get(ontologyId).getConfig().getLocalizedTitle(lang);
         model.addAttribute("ontologyName", title);
 
         return "individual";

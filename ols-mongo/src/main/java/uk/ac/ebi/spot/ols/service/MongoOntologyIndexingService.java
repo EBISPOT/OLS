@@ -117,8 +117,8 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             // update any ontology meta data
             OntologyResourceConfig config = document.getConfig();
 
-            config.setTitles(loader.getTitles());
-            config.setDescriptions(loader.getDescriptions());
+            config.setLocalizedTitles(loader.getLocalizedTitles());
+            config.setLocalizedDescriptions(loader.getLocalizedDescriptions());
 	    config.setLanguages(loader.getOntologyLanguages());
 
             if (loader.getHomePage() != null) {
@@ -131,7 +131,7 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
                 config.setCreators(loader.getCreators());
             }
             if (!loader.getOntologyAnnotations().keySet().isEmpty()) {
-                config.setAnnotations(loader.getOntologyAnnotations());
+                config.setLocalizedAnnotations(loader.getOntologyAnnotations());
             }
             if (loader.getOntologyVersionIRI() != null) {
                 config.setVersionIri(loader.getOntologyVersionIRI().toString());

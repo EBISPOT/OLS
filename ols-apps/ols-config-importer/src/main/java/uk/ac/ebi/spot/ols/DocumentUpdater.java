@@ -43,11 +43,13 @@ public class DocumentUpdater {
         Collection<String> dontUpdate = originalDocument.getConfig().getInternalMetadataProperties();
 
         if (!dontUpdate.contains(OntologyDefaults.TITLE)) {
-            originalDocument.getConfig().setTitles(newDocument.getTitles());
+            originalDocument.getConfig().setTitle(newDocument.getTitle());
+            originalDocument.getConfig().setLocalizedTitles(newDocument.getLocalizedTitles());
         }
 
         if (!dontUpdate.contains(OntologyDefaults.DEFINITION)) {
-            originalDocument.getConfig().setDescriptions(newDocument.getDescriptions());
+            originalDocument.getConfig().setDescription(newDocument.getDescription());
+            originalDocument.getConfig().setLocalizedDescriptions(newDocument.getLocalizedDescriptions());
         }
 
         if (!dontUpdate.contains(OntologyDefaults.HOMEPAGE)) {

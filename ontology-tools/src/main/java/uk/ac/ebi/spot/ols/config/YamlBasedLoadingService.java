@@ -266,7 +266,7 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
             }
         }
 
-        builder.setTitles(titles);
+        builder.setLocalizedTitles(titles);
     }
 
     private void populateDescriptions(OntologyResourceConfig.OntologyResourceConfigBuilder builder) {
@@ -284,6 +284,6 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
             }
         }
 
-        builder.setDescriptions(descriptions);
+        builder.setLocalizedDescriptions(descriptions);
     }
 }

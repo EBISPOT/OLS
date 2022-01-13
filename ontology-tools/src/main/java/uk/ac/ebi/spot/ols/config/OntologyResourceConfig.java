@@ -7,6 +7,7 @@ import uk.ac.ebi.spot.ols.util.ReasonerType;
 import java.net.URI;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -25,9 +26,12 @@ public class OntologyResourceConfig  {
     private  String namespace;
     private  String preferredPrefix;
 
-    // lang -> value
-    private Map<String, String> titles;
-    private Map<String, String> descriptions;
+    private String title;
+    private Map<String, String> localizedTitles; // lang -> value
+
+
+    private String description;
+    private Map<String, String> localizedDescriptions;
 
     private String homepage;
     private String version;
@@ -35,7 +39,8 @@ public class OntologyResourceConfig  {
     private Collection<String> creators;
 
     // Map<language, Map<key, List<value>>>
-    private Map<String, Map<String, List<String>>> annotations;
+    private Map<String, List<String>> annotations;
+    private Map<String, Map<String, List<String>>> localizedAnnotations;
 
     private  URI fileLocation;
 
@@ -63,8 +68,10 @@ public class OntologyResourceConfig  {
     private OntologyResourceConfig(OntologyResourceConfigBuilder builder) {
         this.id = builder.id;
         this.versionIri = builder.versionIri;
-        this.titles = builder.titles;
-        this.descriptions = builder.descriptions;
+        this.title = builder.title;
+        this.localizedTitles = builder.localizedTitles;
+        this.description = builder.description;
+        this.localizedDescriptions = builder.localizedDescriptions;
         this.namespace = builder.namespace;
         this.preferredPrefix = builder.preferredPrefix;
         this.fileLocation = builder.fileLocation;
@@ -82,6 +89,7 @@ public class OntologyResourceConfig  {
         this.mailingList = builder.mailingList;
         this.creators = builder.creators;
         this.annotations = builder.annotations;
+        this.localizedAnnotations = builder.localizedAnnotations;
         this.internalMetadataProperties = builder.internalMetadatProperties;
         this.preferredRootTerms = builder.preferredRootTerms;
         this.allowDownload = builder.allowDownload;
@@ -99,19 +107,38 @@ public class OntologyResourceConfig  {
         return versionIri;
     }
 
-    public Map<String,String> getTitles() {
-        return titles;
+    public String getTitle() {
+	    return title;
     }
 
-    public String getTitle(String lang) {
-        return titles.get(lang) != null ? titles.get(lang) : titles.get("en");
+    public Map<String,String> getLocalizedTitles() {
+        return localizedTitles;
+    }
+    public String getLocalizedTitle(String lang) {
+
+	String loc = localizedTitles.get(lang);
+
+	if(loc != null)
+		return loc;
+
+	return title;
     }
 
-    public Map<String,String> getDescriptions() {
-        return descriptions;
+    public String getDescription() {
+	    return description;
     }
-    public String getDescription(String lang) {
-        return titles.get(lang) != null ? descriptions.get(lang) : descriptions.get("en");
+
+    public Map<String,String> getLocalizedDescriptions() {
+        return localizedDescriptions;
+    }
+    public String getLocalizedDescription(String lang) {
+
+	String loc = localizedDescriptions.get(lang);
+
+	if(loc != null)
+		return loc;
+
+	return description;
     }
 
     public String getVersion() {
@@ -186,8 +213,15 @@ public class OntologyResourceConfig  {
         return creators;
     }
 
-    public Map<String, List<String>> getAnnotations(String lang) {
-        return annotations.get(lang);
+    public Map<String, List<String>> getLocalizedAnnotations(String lang) {
+	if (localizedAnnotations != null) {
+		Map<String, List<String>> annos = localizedAnnotations.get(lang);
+
+		if(annos != null)
+			return annos;
+	}
+
+	return new HashMap<>();
     }
 
     public void setFileLocation(URI fileLocation) {
@@ -202,16 +236,28 @@ public class OntologyResourceConfig  {
         this.homepage = homepage;
     }
 
-    public void setTitles(Map<String,String> titles) {
-        this.titles = titles;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setDescriptions(Map<String,String> descriptions) {
-        this.descriptions = descriptions;
+    public void setLocalizedTitles(Map<String,String> titles) {
+        this.localizedTitles = titles;
     }
 
-    public void setAnnotations(Map<String, Map<String, List<String>>> annotations) {
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setLocalizedDescriptions(Map<String,String> descriptions) {
+        this.localizedDescriptions = descriptions;
+    }
+
+    public void setAnnotations(Map<String, List<String>> annotations) {
         this.annotations = annotations;
+    }
+
+    public void setLocalizedAnnotations(Map<String, Map<String, List<String>>> annotations) {
+        this.localizedAnnotations = annotations;
     }
 
     public void setReasonerType(ReasonerType reasonerType) {
@@ -301,8 +347,10 @@ public class OntologyResourceConfig  {
     public static class OntologyResourceConfigBuilder {
         private  String id;
         private  String versionIri;
-        private Map<String, String> titles;
-        private Map<String, String> descriptions;
+        private  String title;
+        private Map<String, String> localizedTitles;
+        private  String description;
+        private Map<String, String> localizedDescriptions;
         private  String namespace;
         private String preferredPrefix;
         private  URI fileLocation;
@@ -320,7 +368,8 @@ public class OntologyResourceConfig  {
         private String version;
         private String mailingList;
         private Collection<String> creators = Collections.emptySet();
-        private Map<String, Map<String,List<String>>> annotations = Collections.emptyMap();
+        private Map<String,List<String>> annotations = Collections.emptyMap();
+        private Map<String, Map<String,List<String>>> localizedAnnotations = Collections.emptyMap();
         private Collection<String> internalMetadatProperties = Collections.emptySet();
         private Collection<URI> preferredRootTerms = Collections.emptySet();
         private boolean allowDownload = true;
@@ -342,8 +391,13 @@ public class OntologyResourceConfig  {
             return this;
         }
 
-        public OntologyResourceConfigBuilder setTitles(Map<String,String> titles) {
-            this.titles = titles;
+        public OntologyResourceConfigBuilder setTitle(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public OntologyResourceConfigBuilder setLocalizedTitles(Map<String,String> titles) {
+            this.localizedTitles = titles;
             return this;
         }
 
@@ -412,8 +466,13 @@ public class OntologyResourceConfig  {
             return this;
         }
 
-        public OntologyResourceConfigBuilder setDescriptions(Map<String,String> descriptions) {
-            this.descriptions = descriptions;
+        public OntologyResourceConfigBuilder setDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public OntologyResourceConfigBuilder setLocalizedDescriptions(Map<String,String> descriptions) {
+            this.localizedDescriptions = descriptions;
             return this;
         }
 
@@ -432,8 +491,13 @@ public class OntologyResourceConfig  {
             return this;
         }
 
-	public OntologyResourceConfigBuilder setAnnotations(Map<String, Map<String, List<String>>> annotations) {
+	public OntologyResourceConfigBuilder setAnnotations(Map<String, List<String>> annotations) {
 		this.annotations = annotations;
+		return this;
+	}
+
+	public OntologyResourceConfigBuilder setLocalizedAnnotations(Map<String, Map<String, List<String>>> annotations) {
+		this.localizedAnnotations = annotations;
 		return this;
 	}
 

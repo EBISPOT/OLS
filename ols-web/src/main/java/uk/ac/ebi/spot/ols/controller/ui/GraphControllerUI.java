@@ -130,7 +130,7 @@ public class GraphControllerUI {
         model.addAttribute("ontologyTerm", term);
         model.addAttribute("parentTerms", ontologyTermGraphService.getParents(ontologyId, term.getIri(), new PageRequest(0, 10)));
 
-        String title = repositoryService.get(ontologyId).getConfig().getTitle(lang);
+        String title = repositoryService.get(ontologyId).getConfig().getLocalizedTitle(lang);
         model.addAttribute("ontologyName", title);
 
         customisationProperties.setCustomisationModelAttributes(model);

@@ -114,7 +114,7 @@ public class PropertyBasedLoadingService extends AbstractLoadingService {
         // TODO: how to handle localized titles in this loader?
         Map<String,String> titles = new HashMap<>();
         titles.put("en", title);
-        builder.setTitles(titles);
+        builder.setLocalizedTitles(titles);
 
         // if (environment.containsProperty("description")) {
         //     builder.setDescription(environment.getProperty("description"));

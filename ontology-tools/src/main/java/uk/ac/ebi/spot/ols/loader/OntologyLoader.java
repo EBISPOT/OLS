@@ -153,8 +153,8 @@ public interface OntologyLoader {
 
     Collection<String> getInternalMetadataProperties ();
 
-    Map<String,String> getTitles();
-    Map<String,String> getDescriptions();
+    Map<String,String> getLocalizedTitles();
+    Map<String,String> getLocalizedDescriptions();
 
     /**
      * Get a map of the ontology annotation in the form Map<language, Map<key, List<value>>>

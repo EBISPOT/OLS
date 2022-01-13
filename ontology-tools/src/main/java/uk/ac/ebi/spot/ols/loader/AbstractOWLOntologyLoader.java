@@ -238,8 +238,8 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         setOntologyIRI(IRI.create(config.getId()));
         setOntologyName(config.getNamespace());
 
-        setOntologyTitles(config.getTitles());
-        setOntologyDescriptions(config.getDescriptions());
+        setOntologyTitles(config.getLocalizedTitles());
+        setOntologyDescriptions(config.getLocalizedDescriptions());
 
         setOntologyHomePage(config.getHomepage());
         setOntologyMailingList(config.getMailingList());
@@ -2062,12 +2062,12 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
 
 
     @Override
-    public Map<String,String> getTitles() {
+    public Map<String,String> getLocalizedTitles() {
         return ontologyTitles;
     }
 
     @Override
-    public Map<String,String> getDescriptions() {
+    public Map<String,String> getLocalizedDescriptions() {
         return ontologyDescriptions;
     }
 
