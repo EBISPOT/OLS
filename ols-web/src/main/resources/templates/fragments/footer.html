@@ -15,13 +15,12 @@
     </footer>
     -->
     <!-- End optional local footer -->
-    <div class="row">
-        <div th:if="${ebiInfo == true and debrand == false}" id="elixir-banner" data-color="none"
-             data-name="The Ontology Lookup Service" data-description="OLS is an Elixir interoperability service"
-             data-more-information-link="//www.elixir-europe.org/platforms/interoperability"
-             data-use-basic-styles="true"></div>
-        <script src="//ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/js/elixirBanner.js"></script>
+    <div th:if="${ebiInfo == true and debrand == false}" id="elixir-banner" data-color="none"
+         data-name="The Ontology Lookup Service" data-description="OLS is an Elixir interoperability service"
+         data-more-information-link="//www.elixir-europe.org/platforms/interoperability"
+         data-use-basic-styles="true">
     </div>
+    <script src="//ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/js/elixirBanner.js"></script>
 
     <footer>
         <!-- https://www.ebi.ac.uk/style-lab/websites/patterns/banner-elixir.html
