@@ -52,7 +52,7 @@
                    th:title="'Go to ' + ${org} + ' homepage'">
                     <img th:src="@{${logo}}" style=""/>
                 </a>
-                <div th:if="${summary.getSoftwareVersion() != null}" class="ols-version">
+                <div th:if="${summary != null && summary.getSoftwareVersion() != null}" class="ols-version">
                     v<span th:text="${summary.getSoftwareVersion()}">0.0.0</span>
                 </div>
             </div>
