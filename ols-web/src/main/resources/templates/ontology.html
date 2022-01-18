@@ -108,7 +108,8 @@
                                               href="#property-tree-tab"><i class="icon icon-functional"
                                                                            data-icon="h"></i> Browse Properties</a>
                     </li>
-                    <li class="tabs-title"><a id="individual-link"
+                    <li th:if="${ontologyIndividuals.getTotalElements() > 0}"
+                        class="tabs-title"><a id="individual-link"
                                               data-x-tabs-target="individual-tree-tab"
                                               href="#individual-tree-tab"><i class="icon icon-common icon-list"></i>
                         Browse Individuals</a>
