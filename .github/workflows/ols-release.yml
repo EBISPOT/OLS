@@ -50,8 +50,7 @@ jobs:
           cp -f ./ols_jars/ols-config-importer.jar /srv/data/ols/applications/yaml-loader/
       - name: Copy indexer JAR to codon cluster
         run: |
-          scp ./ols_jars/ols-config-importer.jar codon-login:/nfs/production/parkinso/spot/ols/applications/yaml-loader/
-          scp ./ols_jars/ols-indexer.jar codon-login:/nfs/production/parkinso/spot/ols/applications/indexer/
+          scp ./ols_jars/ols-indexer.jar codon-login:/nfs/production/parkinso/spot/ols/prod/applications/indexer/
         
           
           
