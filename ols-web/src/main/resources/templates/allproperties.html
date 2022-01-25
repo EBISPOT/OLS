@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
-<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"/> <![endif]-->
-<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"/> <![endif]-->
-<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"/> <![endif]-->
+<!--[if lt IE 7]>
+<html class="no-js ie6 oldie" lang="en"/> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js ie7 oldie" lang="en"/> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js ie8 oldie" lang="en"/> <![endif]-->
 <!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
-<!--[if gt IE 8]><!--> <html  xmlns:th="https://www.thymeleaf.org" class="no-js" lang="en"> <!--<![endif]-->
+<!--[if gt IE 8]><!-->
+<html xmlns:th="https://www.thymeleaf.org" class="no-js" lang="en"> <!--<![endif]-->
 
 
 <head>
@@ -29,58 +33,63 @@
 <th:block th:include="fragments/header :: header"></th:block>
 
 <section id="main-content-area" role="main">
-     <div class="row" th:unless="${#lists.isEmpty(allproperties)}">
-
-
-            <h2 th:text="'All properties in ' + ${ontologyPrefix}" class="strapline">List of all properties in X</h2>
-
-            <div>
-                <div class="small-6 columns">
+    <div th:if="${allproperties.getTotalElements() > 0}">
+        <div class="row">
+            <h2 th:text="'All properties in ' + ${ontologyPrefix}"
+                class="columns strapline">List of all properties in X</h2>
+        </div>
+        <div class="row">
+            <div class="small-6 columns">
                 <nav class="bottom-nav">
                     <!--@thymesVar id="pageable" type="org.springframework.data.domain.Pageable"-->
-
                     <ul style="text-align: left;" class="menu">
-
-                        <li th:if="${pageable.hasPrevious()}" id="prev-button" >
-                            <a class="pagingButton" rel="prev" href="#" th:href="@{properties (page=${pageable.getPageNumber()} - 1)}" >Previous</a>
+                        <li th:if="${pageable.hasPrevious()}" id="prev-button">
+                            <a class="pagingButton" rel="prev" href="#"
+                               th:href="@{properties (page=${pageable.getPageNumber()} - 1)}">Previous</a>
                         </li>
-                        <li th:unless="${pageable.hasPrevious()}" id="prev-button" >
-                            <a class="pagingButton" href="#" >Previous</a>
+                        <li th:unless="${pageable.hasPrevious()}" id="prev-button">
+                            <a class="pagingButton" href="#">Previous</a>
                         </li>
-                                    <span class="search-results-count">Showing
+                        <span class="search-results-count">Showing
                                         <span th:unless="${pageable.hasPrevious()}" id="start-display">1</span>
-                                        <span th:if="${pageable.hasPrevious()}" id="start-display" th:text="${pageable.getOffset()}">1</span>
-                                        to  <span id="end-display" th:text="${pageable.getOffset()} + ${pageable.getPageSize()}">10</span> of <span id="total-display" th:text="${allpropertiessize}">0</span> results</span>
-
-                        <li th:if=" (${pageable.getOffset()} + ${pageable.getPageSize()}) gt ${allpropertiessize}" id="next-button" >
-                            <a class="pagingButton" href="#" >Next</a>
+                                        <span th:if="${pageable.hasPrevious()}" id="start-display"
+                                              th:text="${pageable.getOffset()}">1</span>
+                                        to  <span id="end-display"
+                                                  th:text="${pageable.getOffset()} + ${pageable.getPageSize()}">10</span> of <span
+                                    id="total-display" th:text="${allpropertiessize}">0</span> results</span>
+                        <li th:if=" (${pageable.getOffset()} + ${pageable.getPageSize()}) gt ${allpropertiessize}"
+                            id="next-button">
+                            <a class="pagingButton" href="#">Next</a>
                         </li>
-                        <li th:if=" (${pageable.getOffset()} + ${pageable.getPageSize()}) lt ${allpropertiessize}" id="next-button" >
-                            <a class="pagingButton" rel="next" href="#" th:href="@{properties (page=${pageable.next().getPageNumber()})}" >Next</a>
+                        <li th:if=" (${pageable.getOffset()} + ${pageable.getPageSize()}) lt ${allpropertiessize}"
+                            id="next-button">
+                            <a class="pagingButton" rel="next" href="#"
+                               th:href="@{properties (page=${pageable.next().getPageNumber()})}">Next</a>
                         </li>
                     </ul>
-
                 </nav>
-                </div>
-                <div class="small-6 columns">
-                    <form id="filter_form" name="local-search" action="../../search" method="get">
-                        <div id="bloodhound" class="input-group">
-                            <input style="margin-bottom: 0.1em;" class="form-control typeahead" autofocus="autofocus" type="text" name="q" data-olswidget="select" th:placeholder="'Search ' + ${ontologyPrefix}" th:attr="data-olsontology=${ontologyName}" data-olsontology=""  data-selectpath="../../"
-                                    th:placeholder="'Search ' + ${shortTitle}" aria-describedby="basic-addon1"/>
-                            <input type="hidden" name="ontology" th:value="${ontologyName}"/>
-                                        <span class="input-group-btn">
-                                          <button class="button secondary searchButton glyphicon glyphicon-search" type="submit">Search</button>
-                                        </span>
-                        </div><!-- /input-group -->
-                    </form>
-                </div>
-
-
             </div>
-
-            <div style="padding: 9px;">
-
-                <table data-toggle="table" data-search="false" data-locale="en-US" class="table table-striped table-hover ">
+            <div class="small-6 columns">
+                <form id="filter_form" name="local-search" action="../../search" method="get">
+                    <div id="bloodhound" class="input-group">
+                        <input style="margin-bottom: 0.1em;" class="form-control typeahead" autofocus="autofocus"
+                               type="text" name="q" data-olswidget="select"
+                               th:placeholder="'Search ' + ${ontologyPrefix}" th:attr="data-olsontology=${ontologyName}"
+                               data-olsontology="" data-selectpath="../../"
+                               th:placeholder="'Search ' + ${shortTitle}" aria-describedby="basic-addon1"/>
+                        <input type="hidden" name="ontology" th:value="${ontologyName}"/>
+                        <span class="input-group-btn">
+                                          <button class="button secondary searchButton glyphicon glyphicon-search"
+                                                  type="submit">Search</button>
+                                        </span>
+                    </div><!-- /input-group -->
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="columns">
+                <table data-toggle="table" data-search="false" data-locale="en-US"
+                       class="table table-striped table-hover ">
                     <thead>
                     <tr>
                         <th data-width="40%" style="width: 50%;" data-sortable="true">Label</th>
@@ -104,10 +113,9 @@
                     </tr>
                     </tbody>
                 </table>
-
             </div>
         </div>
-
+    </div>
 </section>
 
 <th:block th:include="fragments/footer :: footer"></th:block>
