@@ -21,8 +21,8 @@ jobs:
       - name: Update OLS version
         if: github.ref_type == 'tag'
         run: | 
-        mvn -B release:update-versions -DreleaseVersion=${{ github.ref_name.replace('v', '') }} -DdevelopmentVersion=${{ github.ref_name.replace('v', '') }}-SNAPSHOT
-        mvn versions:set -DremoveSnapshot -DgenerateBackupPoms=false -DprocessAllModules=true
+          mvn -B release:update-versions -DreleaseVersion=${{ github.ref_name.replace('v', '') }} -DdevelopmentVersion=${{ github.ref_name.replace('v', '') }}-SNAPSHOT
+          mvn versions:set -DremoveSnapshot -DgenerateBackupPoms=false -DprocessAllModules=true
       - name: Build OLS
         run: mvn clean package -DskipTests 
       - name: Create archive
