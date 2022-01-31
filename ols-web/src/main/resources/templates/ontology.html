@@ -184,7 +184,7 @@
                             <tr th:each="individual : ${ontologyIndividuals}">
                                 <td>
                                     <i class="icon icon-common icon-circle"></i>&nbsp;
-                                    <a th:text="${individual.getLabel()}"
+                                    <a th:text="${individual.getLabelByLang(lang)}"
                                        th:href="@{__${ontologyDocument.getOntologyId()}__/individuals(iri=${individual.getIri()})}"></a>
                                 </td>
                             </tr>

@@ -179,7 +179,7 @@
                         </p>
                     </div>
 
-                    <p th:unless="${definitionCitations}" th:each="description : ${ontologyTerm.getDescription()}"
+                    <p th:unless="${definitionCitations}" th:each="description : ${ontologyTerm.getDescriptionsByLang(lang)}"
                        th:text="${description}">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed
                         cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis
@@ -446,7 +446,7 @@
                                 <li th:each="parentTerm : ${parentTerms}">
                                     <a href="#" th:title="${parentTerm.getIri()}"
                                        th:href="@{terms (iri=${parentTerm.getIri()})}"
-                                       th:text="${parentTerm.getLabel()}">parent 1</a></li>
+                                       th:text="${parentTerm.getLabelByLang(lang)}">parent 1</a></li>
                                 <li th:each="superclassDesc : ${ontologyTerm.getSuperClassDescription()}"
                                     th:utext="${superclassDesc}">NCBI_9606
                                 </li>

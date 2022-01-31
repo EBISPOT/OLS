@@ -57,6 +57,11 @@ public class IndividualControllerUI {
 
         Individual term = null;
 
+	model.addAttribute("lang", lang);
+
+        OntologyDocument document = repositoryService.get(ontologyId);
+	model.addAttribute("ontologyLanguages", document.getConfig().getLanguages());
+
         if (termIri != null) {
             term = ontologyIndividualService.findByOntologyAndIri(ontologyId, termIri);
         }
@@ -75,7 +80,6 @@ public class IndividualControllerUI {
 
             Page<Individual> termsPage = ontologyIndividualService.findAllByOntology(ontologyId, pageable);
 
-            OntologyDocument document = repositoryService.get(ontologyId);
             model.addAttribute("ontologyName", document.getOntologyId());
             model.addAttribute("ontologyTitle", document.getConfig().getLocalizedTitle(lang));
             model.addAttribute("ontologyPrefix", document.getConfig().getPreferredPrefix());

@@ -68,7 +68,6 @@ public class TermControllerUI {
 	model.addAttribute("lang", lang);
 
         OntologyDocument document = repositoryService.get(ontologyId);
-
 	model.addAttribute("ontologyLanguages", document.getConfig().getLanguages());
 
         if (termIri != null) {
