@@ -19,18 +19,25 @@ jobs:
           java-version: '8'
       - name: Copy build fix
         run: mkdir -p ~/.m2/repository && cp -rf build-fix/. ~/.m2/repository/
-      # - name: Run find-and-replace to remove v in tag
-      #   if: github.ref_type == 'tag' || github.ref_name == 'issue-533'
+      - name: Run find-and-replace to remove v in tag
+      #   if: github.ref_type == 'tag'
       #   uses: mad9000/actions-find-and-replace-string@1
       #   id: versionnumber
       #   with:
       #     source: ${{ github.ref_name }}
       #     find: 'v'
       #     replace: ''
+        if: github.ref_name == 'issue-533'
+        uses: mad9000/actions-find-and-replace-string@1
+        id: versionnumber
+        with:
+          source: ${{ github.ref_name }}
+          find: 'issue-'
+          replace: ''
       - name: Update OLS version
         if: github.ref_type == 'tag' || github.ref_name == 'issue-533'
         run: | 
-          mvn -B release:update-versions -DreleaseVersion=${{ github.ref_name.replace('issue-', '') }} -DdevelopmentVersion=${{ github.ref_name.replace('issue-', '') }}-SNAPSHOT
+          mvn -B release:update-versions -DreleaseVersion=${{ steps.versionnumber.outputs.value }} -DdevelopmentVersion=${{ steps.versionnumber.outputs.value }}-SNAPSHOT
           mvn versions:set -DremoveSnapshot -DgenerateBackupPoms=false -DprocessAllModules=true
       - name: Build OLS
         run: mvn clean package -DskipTests 
