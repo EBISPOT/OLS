@@ -114,6 +114,17 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
 
             config.setLocalizedTitles(loader.getLocalizedTitles());
             config.setLocalizedDescriptions(loader.getLocalizedDescriptions());
+
+	    String enTitle = loader.getLocalizedTitles().get("en");
+	    if(enTitle != null) {
+		    config.setTitle(enTitle);
+	    }
+
+	    String enDesc = loader.getLocalizedDescriptions().get("en");
+	    if(enDesc != null) {
+		    config.setDescription(enDesc);
+	    }
+
 	    config.setLanguages(loader.getOntologyLanguages());
 
             if (loader.getHomePage() != null) {

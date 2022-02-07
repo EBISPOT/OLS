@@ -217,6 +217,10 @@ public class TermDocument {
         return oboId;
     }
 
+    public String getLanguage() {
+	return language;
+    }
+
     public void setOboId(String oboId) {
         this.oboId = oboId;
     }

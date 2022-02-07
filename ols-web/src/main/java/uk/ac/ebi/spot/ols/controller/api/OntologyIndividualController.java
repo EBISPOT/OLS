@@ -30,6 +30,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
+import uk.ac.ebi.spot.ols.controller.api.localization.LocalizedIndividual;
+import uk.ac.ebi.spot.ols.controller.api.localization.LocalizedTerm;
+
 /**
  * @author Simon Jupp
  * @date 02/11/15
@@ -52,7 +55,7 @@ public class OntologyIndividualController {
     IndividualJsTreeBuilder jsTreeBuilder;
 
     @RequestMapping(path = "/{onto}/individuals", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE}, method = RequestMethod.GET)
-    HttpEntity<PagedResources<Individual>> getAllIndividualsByOntology(
+    HttpEntity<PagedResources<LocalizedIndividual>> getAllIndividualsByOntology(
             @PathVariable("onto") String ontologyId,
             @RequestParam(value = "iri", required = false) String iri,
             @RequestParam(value = "short_form", required = false) String shortForm,
@@ -61,53 +64,61 @@ public class OntologyIndividualController {
             Pageable pageable,
             PagedResourcesAssembler assembler) {
 
-        Page<Individual> terms = null;
+        Page<LocalizedIndividual> terms = null;
 
         ontologyId = ontologyId.toLowerCase();
         if (iri != null) {
             Individual term = ontologyIndividualRepository.findByOntologyAndIri(ontologyId, iri);
             if (term != null) {
-                terms = new PageImpl<Individual>(Arrays.asList(term));
+                terms = new PageImpl<LocalizedIndividual>(Arrays.asList(LocalizedIndividual.fromIndividual(lang, term)));
             }
         } else if (shortForm != null) {
             Individual term = ontologyIndividualRepository.findByOntologyAndShortForm(ontologyId, shortForm);
             if (term != null) {
-                terms = new PageImpl<Individual>(Arrays.asList(term));
+                terms = new PageImpl<LocalizedIndividual>(Arrays.asList(LocalizedIndividual.fromIndividual(lang, term)));
             }
         } else if (oboId != null) {
             Individual term = ontologyIndividualRepository.findByOntologyAndOboId(ontologyId, oboId);
             if (term != null) {
-                terms = new PageImpl<Individual>(Arrays.asList(term));
+                terms = new PageImpl<LocalizedIndividual>(Arrays.asList(LocalizedIndividual.fromIndividual(lang, term)));
             }
         } else {
-            terms = ontologyIndividualRepository.findAllByOntology(ontologyId, pageable);
+	    Page<Individual> res = null;
+            res = ontologyIndividualRepository.findAllByOntology(ontologyId, pageable);
+            if (res == null) throw new ResourceNotFoundException("Ontology not found");
+	    terms = res.map(term -> LocalizedIndividual.fromIndividual(lang, term));
         }
 
         return new ResponseEntity<>(assembler.toResource(terms, individualAssembler), HttpStatus.OK);
     }
 
     @RequestMapping(path = "/{onto}/individuals/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE}, method = RequestMethod.GET)
-    HttpEntity<Resource<Individual>> getIndividual(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId) throws ResourceNotFoundException {
+    HttpEntity<Resource<LocalizedIndividual>> getIndividual(@PathVariable("onto") String ontologyId, 
+            @RequestParam(value = "lang", defaultValue = "en", required = false) String lang,
+    @PathVariable("id") String termId) throws ResourceNotFoundException {
         ontologyId = ontologyId.toLowerCase();
 
         try {
             String decoded = UriUtils.decode(termId, "UTF-8");
             Individual term = ontologyIndividualRepository.findByOntologyAndIri(ontologyId, decoded);
-            return new ResponseEntity<>(individualAssembler.toResource(term), HttpStatus.OK);
+            return new ResponseEntity<>(individualAssembler.toResource(LocalizedIndividual.fromIndividual(lang, term)), HttpStatus.OK);
         } catch (UnsupportedEncodingException e) {
             throw new ResourceNotFoundException();
         }
     }
 
     @RequestMapping(path = "/{onto}/individuals/{id}/types", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE}, method = RequestMethod.GET)
-    HttpEntity<PagedResources<Term>> getDirectTypes(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId, Pageable pageable,
+    HttpEntity<PagedResources<LocalizedTerm>> getDirectTypes(@PathVariable("onto") String ontologyId,
+            @RequestParam(value = "lang", defaultValue = "en", required = false) String lang,
+     @PathVariable("id") String termId, Pageable pageable,
                                                     PagedResourcesAssembler assembler) {
         ontologyId = ontologyId.toLowerCase();
 
         try {
             String decoded = UriUtils.decode(termId, "UTF-8");
             Page<Term> parents = ontologyIndividualRepository.getDirectTypes(ontologyId, decoded, pageable);
-            return new ResponseEntity<>(assembler.toResource(parents, termAssembler), HttpStatus.OK);
+	    Page<LocalizedTerm> localized = parents.map(term -> LocalizedTerm.fromTerm(lang, term));
+            return new ResponseEntity<>(assembler.toResource(localized, termAssembler), HttpStatus.OK);
         } catch (UnsupportedEncodingException e) {
             throw new ResourceNotFoundException();
         }
@@ -115,14 +126,17 @@ public class OntologyIndividualController {
 
 
     @RequestMapping(path = "/{onto}/individuals/{id}/alltypes", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE}, method = RequestMethod.GET)
-    HttpEntity<PagedResources<Property>> ancestors(@PathVariable("onto") String ontologyId, @PathVariable("id") String termId, Pageable pageable,
+    HttpEntity<PagedResources<LocalizedTerm>> ancestors(@PathVariable("onto") String ontologyId,
+            @RequestParam(value = "lang", defaultValue = "en", required = false) String lang,
+     @PathVariable("id") String termId, Pageable pageable,
                                                    PagedResourcesAssembler assembler) {
         ontologyId = ontologyId.toLowerCase();
 
         try {
             String decoded = UriUtils.decode(termId, "UTF-8");
             Page<Term> ancestors = ontologyIndividualRepository.getAllTypes(ontologyId, decoded, pageable);
-            return new ResponseEntity<>(assembler.toResource(ancestors, termAssembler), HttpStatus.OK);
+	    Page<LocalizedTerm> localized = ancestors.map(term -> LocalizedTerm.fromTerm(lang, term));
+            return new ResponseEntity<>(assembler.toResource(localized, termAssembler), HttpStatus.OK);
         } catch (UnsupportedEncodingException e) {
             throw new ResourceNotFoundException();
         }

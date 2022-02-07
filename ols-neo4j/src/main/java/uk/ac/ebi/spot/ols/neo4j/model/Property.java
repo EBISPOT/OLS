@@ -196,7 +196,7 @@ public String[] getSynonymsByLang(String lang) {
         return oboId;
     }
 
-    public Map getAnnotationByLang(String lang) {
+    public Map<String, Object> getAnnotationByLang(String lang) {
 
 	Map<String, Object> localizedAnnotations = localizedAnnotation.asMap();
 

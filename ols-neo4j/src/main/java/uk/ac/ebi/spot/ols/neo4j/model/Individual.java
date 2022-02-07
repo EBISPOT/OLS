@@ -119,6 +119,22 @@ public class Individual {
 	    return new String[0];
     }
 
+    public String[] getSynonymsByLang(String lang) {
+
+	    String[] localizedSynonyms = (String[])
+	    	this.localizedSynonyms.getProperty(lang);
+
+	    if(localizedSynonyms != null) {
+		    return localizedSynonyms;
+	    }
+
+	    if(synonym != null) {
+		return synonym.toArray(new String[0]);
+	    }
+
+	    return new String[0];
+    }
+
 	public String getLabelByLang(String lang) {
 		return getLabelsByLang(lang)[0];
 	}
@@ -181,7 +197,7 @@ public class Individual {
         return type;
     }
 
-    public Map getAnnotationByLang(String lang) {
+    public Map<String, Object> getAnnotationByLang(String lang) {
 
 	Map<String, Object> localizedAnnotations = localizedAnnotation.asMap();
 

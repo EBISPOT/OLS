@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriUtils;
 import uk.ac.ebi.spot.ols.neo4j.model.Individual;
 
+import uk.ac.ebi.spot.ols.controller.api.localization.LocalizedIndividual;
+
 import java.io.UnsupportedEncodingException;
 
 /**
@@ -17,18 +19,18 @@ import java.io.UnsupportedEncodingException;
  * Samples, Phenotypes and Ontologies Team, EMBL-EBI
  */
 @Component
-public class IndividualAssembler implements ResourceAssembler<Individual, Resource<Individual>> {
+public class IndividualAssembler implements ResourceAssembler<LocalizedIndividual, Resource<LocalizedIndividual>> {
 
     @Autowired
     EntityLinks entityLinks;
 
     @Override
-    public Resource<Individual> toResource(Individual term) {
-        Resource<Individual> resource = new Resource<Individual>(term);
+    public Resource<LocalizedIndividual> toResource(LocalizedIndividual term) {
+        Resource<LocalizedIndividual> resource = new Resource<LocalizedIndividual>(term);
         try {
-            String id = UriUtils.encode(term.getIri(), "UTF-8");
+            String id = UriUtils.encode(term.iri, "UTF-8");
             final ControllerLinkBuilder lb = ControllerLinkBuilder.linkTo(
-                    ControllerLinkBuilder.methodOn(OntologyIndividualController.class).getIndividual(term.getOntologyName(), id));
+                    ControllerLinkBuilder.methodOn(OntologyIndividualController.class).getIndividual(term.ontologyName, term.lang, id));
 
             resource.add(lb.withSelfRel());
 

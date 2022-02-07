@@ -283,7 +283,7 @@ public class Term {
         return isObsolete;
     }
 
-    public Map getAnnotationByLang(String lang) {
+    public Map<String, Object> getAnnotationByLang(String lang) {
 
 	Map<String, Object> localizedAnnotations = localizedAnnotation.asMap();
 
