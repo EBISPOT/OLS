@@ -40,6 +40,7 @@ public class LocalizedTerm {
 	    lt.oboSynonyms = term.getOboSynonyms();
 	    lt.isPreferredRoot = term.isPreferredRoot();
 	    lt.annotation = term.getAnnotationByLang(lang);
+	    lt.related = term.getRelated();
 	    return lt;
     }
 
@@ -104,5 +105,5 @@ public class LocalizedTerm {
     public boolean isPreferredRoot;
 
     @JsonIgnore
-    public List<Related> related;
+    public Set<Related> related;
 }
