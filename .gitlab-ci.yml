@@ -4,7 +4,7 @@ build:
   stage: build
   only:
     - stable
-    - /^v[0-9]+.[0-9]+.[0-9]+.*$/
+    - /^v[0-9]+\.[0-9]+\.[0-9]+.*$/
   services:
     - docker:18-dind
   script:
