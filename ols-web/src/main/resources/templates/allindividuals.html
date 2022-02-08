@@ -24,7 +24,6 @@
     <!- - When this content is no longer relevant -->
 </head>
 
-
 <body>
 <th:block th:include="fragments/header :: header"></th:block>
 
@@ -32,13 +31,13 @@
     <div th:if="${allindividuals.getTotalElements() <= 0}">
         <div class="row">
             <h2 th:text="'No individuals found in ' + ${ontologyPrefix}"
-                class="columns strapline">No individuals found in X</h2>
+                class="columns strapline marginTop">No individuals found in X</h2>
         </div>
     </div>
     <div th:if="${allindividuals.getTotalElements() > 0}">
         <div class="row">
             <h2 th:text="'All individuals in ' + ${ontologyPrefix}"
-                class="columns strapline">List of all individuals in X</h2>
+                class="columns strapline marginTop">List of all individuals in X</h2>
         </div>
         <div class="row">
             <div class="small-6 columns">

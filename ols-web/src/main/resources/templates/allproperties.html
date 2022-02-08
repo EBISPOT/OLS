@@ -23,11 +23,10 @@
     <meta name="ebi:expiry" content="2017-12-20" />
     <!- - When this content is no longer relevant -->
     <script type="text/javascript" th:inline="javascript">
-    ontologyLanguages = [[${ontologyLanguages}]]
-    lang = [[${lang}]]
+        ontologyLanguages = [[${ontologyLanguages}]]
+        lang = [[${lang}]]
     </script>
 </head>
-
 
 <body>
 <th:block th:include="fragments/header :: header"></th:block>
@@ -36,7 +35,7 @@
     <div th:if="${allproperties.getTotalElements() > 0}">
         <div class="row">
             <h2 th:text="'All properties in ' + ${ontologyPrefix}"
-                class="columns strapline">List of all properties in X</h2>
+                class="columns strapline marginTop">List of all properties in X</h2>
         </div>
         <div class="row">
             <div class="small-6 columns">
@@ -102,14 +101,16 @@
                     <tr th:each="property : ${allproperties}">
 
                         <td>
-                            <a th:text="${property.getLabelByLang(lang)}" th:href="@{properties (iri=${property.getIri()})}"></a>
+                            <a th:text="${property.getLabelByLang(lang)}"
+                               th:href="@{properties (iri=${property.getIri()})}"></a>
                         </td>
 
                         <td th:text="${property.getShortForm()}">0</td>
 
-			<td>
-				<div th:each="description : ${property.getDescriptionsByLang(lang)}" th:text="${description}"></div>
-			</td>
+                        <td>
+                            <div th:each="description : ${property.getDescriptionsByLang(lang)}"
+                                 th:text="${description}"></div>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
