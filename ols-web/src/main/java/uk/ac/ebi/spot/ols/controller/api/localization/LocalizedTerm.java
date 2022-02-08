@@ -26,7 +26,7 @@ public class LocalizedTerm {
 	    lt.lang = lang;
 	    lt.label = term.getLabelByLang(lang);
 	    lt.description = term.getDescriptionsByLang(lang);
-	    lt.synonym = term.getSynonymsByLang(lang);
+	    lt.synonyms = term.getSynonymsByLang(lang);
 	    lt.ontologyName = term.getOntologyName();
 	    lt.ontologyPrefix = term.getOntologyPrefix();
 	    lt.ontologyIri = term.getOntologyIri();
@@ -55,7 +55,8 @@ public class LocalizedTerm {
     public String label;
 
     public String[] description;
-    public String[] synonym;
+
+    public String[] synonyms;
 
     @JsonProperty(value = ONTOLOGY_NAME)
     public String ontologyName;

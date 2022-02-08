@@ -24,7 +24,7 @@ public class LocalizedIndividual {
 	    lt.lang = lang;
 	    lt.label = individual.getLabelByLang(lang);
 	    lt.description = individual.getDescriptionsByLang(lang);
-	    lt.synonym = individual.getSynonymsByLang(lang);
+	    lt.synonyms = individual.getSynonymsByLang(lang);
 	    lt.ontologyName = individual.getOntologyName();
 	    lt.ontologyPrefix = individual.getOntologyPrefix();
 	    lt.ontologyIri = individual.getOntologyIri();
@@ -44,7 +44,7 @@ public class LocalizedIndividual {
     public String label;
 
     public String[] description;
-    public String[] synonym;
+    public String[] synonyms;
 
     @JsonProperty(value = ONTOLOGY_NAME)
     public String ontologyName;

@@ -24,7 +24,7 @@ public class LocalizedProperty {
 	    lt.lang = lang;
 	    lt.label = property.getLabelByLang(lang);
 	    lt.description = property.getDescriptionsByLang(lang);
-	    lt.synonym = property.getSynonymsByLang(lang);
+	    lt.synonyms = property.getSynonymsByLang(lang);
 	    lt.ontologyName = property.getOntologyName();
 	    lt.ontologyPrefix = property.getOntologyPrefix();
 	    lt.ontologyIri = property.getOntologyIri();
@@ -46,7 +46,7 @@ public class LocalizedProperty {
     public String label;
 
     public String[] description;
-    public String[] synonym;
+    public String[] synonyms;
 
     @JsonProperty(value = ONTOLOGY_NAME)
     public String ontologyName;
