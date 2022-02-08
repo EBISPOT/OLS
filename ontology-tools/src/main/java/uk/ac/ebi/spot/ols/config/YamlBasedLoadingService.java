@@ -280,6 +280,11 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
             }
         }
 
+        if(!titles.containsKey("en")) {
+            String id = ((String)ontology.get(ID.getPropertyName())); // e.g. Uberon
+            titles.put("en", id);
+        }
+
         builder.setLocalizedTitles(titles);
     }
 
