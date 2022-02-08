@@ -10,8 +10,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRawValue;
 
+import org.springframework.hateoas.core.Relation;
+
 import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.*;
 
+
+@Relation(collectionRelation = "properties")
 public class LocalizedProperty {
 
     public static LocalizedProperty fromProperty(String lang, Property property) {

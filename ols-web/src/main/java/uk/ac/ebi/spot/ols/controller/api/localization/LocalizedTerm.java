@@ -11,10 +11,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRawValue;
 
+import org.springframework.hateoas.core.Relation;
+
 import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.*;
 
 import uk.ac.ebi.spot.ols.neo4j.model.Related;
 
+@Relation(collectionRelation = "terms")
 public class LocalizedTerm {
 
     public static LocalizedTerm fromTerm(String lang, Term term) {

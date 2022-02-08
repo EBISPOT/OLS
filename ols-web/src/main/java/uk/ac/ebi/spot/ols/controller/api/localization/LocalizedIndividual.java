@@ -11,8 +11,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRawValue;
 
+import org.springframework.hateoas.core.Relation;
+
 import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.*;
 
+@Relation(collectionRelation = "individuals")
 public class LocalizedIndividual {
 
     public static LocalizedIndividual fromIndividual(String lang, Individual individual) {
