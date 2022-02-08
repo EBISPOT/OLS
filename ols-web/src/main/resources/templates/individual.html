@@ -22,8 +22,8 @@
     <meta name="ebi:expiry" content="2017-12-20" />
     <!- - When this content is no longer relevant -->
     <script type="text/javascript" th:inline="javascript">
-    ontologyLanguages = [[${ontologyLanguages}]]
-    lang = [[${lang}]]
+        ontologyLanguages = [[${ontologyLanguages}]]
+        lang = [[${lang}]]
     </script>
 </head>
 
@@ -75,7 +75,7 @@
     </div>
 
     <div class="row">
-        <div class="small-8 column">
+        <div class="small-8 columns">
             <h2 property="name" style="margin: 0;" th:text="${ontologyIndividual.getLabelByLang(lang)}">Term label</h2>
             <a style="padding-left: 3px; border-bottom: none;" th:href="@{${ontologyIndividual.getIri()}}"
                class="nounderline secondary-color" title="Go to external page" target="blank">
@@ -227,7 +227,8 @@
                         <b>Types</b>
                         <br/>
                         <div th:each="type : ${indvidualTypes}">
-                            <a href="#" th:href="@{terms (iri=${type.getIri()})}" th:text="${type.getLabelByLang(lang)}">parent
+                            <a href="#" th:href="@{terms (iri=${type.getIri()})}"
+                               th:text="${type.getLabelByLang(lang)}">parent
                                 1</a>
                         </div>
                     </div>

@@ -5,11 +5,18 @@
 
 #main-content-area {
   min-height: 75vh;
+
+  .row {
+    max-width: 80rem;
+  }
+
+  h2 {
+    color: var(--ols_green)
+  }
 }
 
 #mainpageSearchBox {
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin: 30px 15px 30px 15px;
   background: #F0F0F0;
   padding: 35px 35px 35px 35px;
   border-radius: 5px;
@@ -70,8 +77,12 @@ a.pagingButton {
   background: transparent;
 }
 
-#ontologiesTable td {
-  vertical-align: top !important;
+#ontologiesTable {
+  width: 100%;
+
+  td {
+    vertical-align: top !important;
+  }
 }
 
 
@@ -618,11 +629,6 @@ button.list-group-item:hover, button.list-group-item:focus {
   transition: none;
 }
 
-div.row {
-  padding-top: 13px;
-  padding-left: 13px;
-}
-
 [type="text"]:focus {
   border: 1px solid rgb(0, 130, 124);
   box-shadow: 0 0 7px rgba(0, 130, 124, 0.7);
@@ -752,8 +758,17 @@ a + a > .ontology-source-valign {
   color: black !important;
 }
 
+/* header */
+#masthead {
+  .row {
+    max-width: 80rem;
+  }
+}
+
 /* footer */
 footer {
+  padding: 1rem 0 1rem;
+
   .footer-link-list {
     .link-list {
       padding: 0;
@@ -777,7 +792,6 @@ footer {
 
   .ols-logo {
     text-align: center;
-    margin-bottom: 0.5rem;
 
     a {
       border: none;

@@ -22,8 +22,8 @@
     <meta name="ebi:expiry" content="2017-12-20" />
     <!- - When this content is no longer relevant -->
     <script type="text/javascript" th:inline="javascript">
-    ontologyLanguages = [[${ontologyLanguages}]]
-    lang = [[${lang}]]
+        ontologyLanguages = [[${ontologyLanguages}]]
+        lang = [[${lang}]]
     </script>
 </head>
 
@@ -75,8 +75,9 @@
         </div>
 
         <div class="row">
-            <div class="small-8 column">
-                <h2 property="name" style="margin-bottom: 0;" th:text="${ontologyProperty.getLabelByLang(lang)}">Property
+            <div class="small-8 columns">
+                <h2 property="name" style="margin-bottom: 0;" th:text="${ontologyProperty.getLabelByLang(lang)}">
+                    Property
                     label</h2>
                 <a data-x-style="padding: 9px; border-bottom: none;"
                    style="padding-left: 3px; border-bottom:none;"

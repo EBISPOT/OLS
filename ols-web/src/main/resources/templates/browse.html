@@ -1,41 +1,44 @@
 <!DOCTYPE html>
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
-<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"/> <![endif]-->
-<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"/> <![endif]-->
-<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"/> <![endif]-->
+<!--[if lt IE 7]>
+<html class="no-js ie6 oldie" lang="en"/> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js ie7 oldie" lang="en"/> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js ie8 oldie" lang="en"/> <![endif]-->
 <!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
-<!--[if gt IE 8]><!--> <html  xmlns:th="https://www.thymeleaf.org" class="no-js" lang="en"> <!--<![endif]-->
-
+<!--[if gt IE 8]><!-->
+<html xmlns:th="https://www.thymeleaf.org" class="no-js" lang="en"> <!--<![endif]-->
 
 <head>
     <div th:replace="fragments/head :: head(olscss=true, datatables_old=true)"></div>
     <title id="pageTitle" th:inline="text">Home &lt; [[${title}]] &lt; [[${org}]]</title>
-<!--head th:replace="fragments/head :: head(olscss=true, datatables=true)"--
-    <title>Ontology Xref Service   &lt; EMBL-EBI</title>
-    <!- - A few keywords that relate to the content of THIS PAGE (not the whole project)
-    <meta name="keywords" content="biosamples, europe, EBI" />
-    <!- - Describe what this page is about - ->
-    <meta name="description" content="EMBL-EBI" />
-    <meta name="ebi:last-review" content="2016-12-20" />
-    <!- - The last time the content was reviewed - ->
-    <meta name="ebi:expiry" content="2017-12-20" />
-    <!- - When this content is no longer relevant -->
+    <!--head th:replace="fragments/head :: head(olscss=true, datatables=true)"--
+        <title>Ontology Xref Service   &lt; EMBL-EBI</title>
+        <!- - A few keywords that relate to the content of THIS PAGE (not the whole project)
+        <meta name="keywords" content="biosamples, europe, EBI" />
+        <!- - Describe what this page is about - ->
+        <meta name="description" content="EMBL-EBI" />
+        <meta name="ebi:last-review" content="2016-12-20" />
+        <!- - The last time the content was reviewed - ->
+        <meta name="ebi:expiry" content="2017-12-20" />
+        <!- - When this content is no longer relevant -->
     <script type="text/javascript" th:inline="javascript">
-    ontologyLanguages = [[${ontologyLanguages}]]
-    lang = [[${lang}]]
+        ontologyLanguages = [[${ontologyLanguages}]]
+        lang = [[${lang}]]
     </script>
 </head>
-
 
 <body>
 <th:block th:include="fragments/header :: header"></th:block>
 
 <div id="main-content-area" role="main">
-
     <!--@thymesVar id="summary" type="uk.ac.ebi.spot.ols.controller.ui.HomeController.SummaryInfo" -->
     <div class="row">
-        <h3 class="strapline marginTop" th:inline="text">List of all [[${ontologyAliasPlural.toLowerCase()}]] in [[${shortTitle}]]</h3>
-
+        <h2 class="columns strapline marginTop" th:inline="text">List of all [[${ontologyAliasPlural.toLowerCase()}]] in
+            [[${shortTitle}]]</h2>
+    </div>
+    <div class="row">
         <!-- Deactivate Ontology search box for now, since the new data tables have a build in search functionality
         <div class="small-12 columns">
            <div class="small-8 columns">
@@ -48,68 +51,79 @@
             </form>
            </div>
         </div> -->
-
         <div class="small-12 columns">
             <div class="dataTables_wrapper dt-foundation no-footer">
-            <table id="ontologiesTable" class="tdisplay dataTable no-footer" role="grid">
-                <thead>
-                <tr>
-                    <th data-width="30%" style="width: 50%;" data-sortable="true" th:inline="text">[[${ontologyAlias}]] Name</th>
-                    <th data-sortable="true">Short name</th>
-                    <th data-sortable="true">Description</th>
-                    <th data-sortable="true">Loaded</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="onto : ${all_ontologies}">
+                <table id="ontologiesTable" class="display dataTable no-footer" role="grid">
+                    <thead>
+                    <tr>
+                        <th data-width="30%" data-sortable="true" th:inline="text">
+                            [[${ontologyAlias}]] Name
+                        </th>
+                        <th data-sortable="true">Short name</th>
+                        <th data-sortable="true">Description</th>
+                        <th data-sortable="true">Loaded</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="onto : ${all_ontologies}">
 
-                    <td  data-width="30%" style="width: 50%;" >
+                        <td data-width="30%">
 
-                        <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="@{/ontologies/__${onto.getConfig().getNamespace()}__}" th:text="${{onto.getConfig().getLocalizedTitle(lang)}}">Ontology name</a>
-                        <span th:if="${{onto.getStatus() ==  T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:text="${{onto.getConfig().getLocalizedTitle(lang)}}">Ontology name</span>
-                    </td>
-                    <td><span class="ontology-source" th:text="${{onto.getConfig().getPreferredPrefix()}}"></span></td>
-                    <td th:text="${{onto.getConfig().getLocalizedDescription(lang)}}">0</td>
-                    <td th:text="${{onto.getLoaded()}}">0</td>
-                    <td>
-                        <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="'search?ontology=' + ${onto.getConfig().getNamespace()}" href="search">Search</a><br/>
-                        <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="@{ontologies/__${onto.getConfig().getNamespace()}__/terms}">Terms</a><br/>
-                        <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="@{ontologies/__${onto.getConfig().getNamespace()}__/properties}">Properties</a><br/>
-                        <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}" th:href="@{ontologies/__${onto.getConfig().getNamespace()}__/individuals}">Individuals</a><br/>
-                        <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED || !onto.getConfig().getAllowDownload()}}" th:href="@{ontologies/__${onto.getConfig().getNamespace()}__/download}">Download</a><br/>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                            <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}"
+                               th:href="@{/ontologies/__${onto.getConfig().getNamespace()}__}"
+                               th:text="${{onto.getConfig().getLocalizedTitle(lang)}}">Ontology name</a>
+                            <span th:if="${{onto.getStatus() ==  T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}"
+                                  th:text="${{onto.getConfig().getLocalizedTitle(lang)}}">Ontology name</span>
+                        </td>
+                        <td><span class="ontology-source" th:text="${{onto.getConfig().getPreferredPrefix()}}"></span>
+                        </td>
+                        <td th:text="${{onto.getConfig().getLocalizedDescription(lang)}}">0</td>
+                        <td th:text="${{onto.getLoaded()}}">0</td>
+                        <td>
+                            <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}"
+                               th:href="'search?ontology=' + ${onto.getConfig().getNamespace()}"
+                               href="search">Search</a><br/>
+                            <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}"
+                               th:href="@{ontologies/__${onto.getConfig().getNamespace()}__/terms}">Terms</a><br/>
+                            <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}"
+                               th:href="@{ontologies/__${onto.getConfig().getNamespace()}__/properties}">Properties</a><br/>
+                            <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED}}"
+                               th:href="@{ontologies/__${onto.getConfig().getNamespace()}__/individuals}">Individuals</a><br/>
+                            <a th:unless="${{onto.getStatus() == T(uk.ac.ebi.spot.ols.model.Status).NOTLOADED || !onto.getConfig().getAllowDownload()}}"
+                               th:href="@{ontologies/__${onto.getConfig().getNamespace()}__/download}">Download</a><br/>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
 
-
 <th:block th:include="fragments/footer :: footer"></th:block>
 
 <!-- <script type="text/javascript" src="/js/oxo.js" th:src="@{/js/oxo.js}"></script> -->
 
-
 <!--<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/locale/bootstrap-table-en-US.min.js"></script> -->
 
+<script type="text/javascript"
+        src="https://cdn.datatables.net/r/zf-5.5.2/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script>
 
-<script type="text/javascript" src="https://cdn.datatables.net/r/zf-5.5.2/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script>
-
-<script type="text/javascript" src="../static/js/typeahead/typeahead.bundle.js" th:src="@{js/typeahead/typeahead.bundle.js}"></script>
-<script type="text/javascript" src="../static/js/handlebars/4.0.5/handlebars.min.js" th:src="@{js/handlebars/4.0.5/handlebars.min.js}"></script>
+<script type="text/javascript" src="../static/js/typeahead/typeahead.bundle.js"
+        th:src="@{js/typeahead/typeahead.bundle.js}"></script>
+<script type="text/javascript" src="../static/js/handlebars/4.0.5/handlebars.min.js"
+        th:src="@{js/handlebars/4.0.5/handlebars.min.js}"></script>
 <script type="text/javascript" src="../static/js/ols.js" th:src="@{js/ols.js}"></script>
 <!-- <script type="text/javascript" src="../static/js/ols-termselect2.js" th:src="@{js/ols-termselect2.js}"></script> -->
 
 <!-- All JS that is just used on this page should go here, I suppose-->
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#ontologiesTable').dataTable({
             "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]
-        } );
+        });
     });
 </script>
 
