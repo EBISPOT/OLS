@@ -1,0 +1,94 @@
+name: Create OLS jar release
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: '8'
+      - name: Copy build fix
+        run: mkdir -p ~/.m2/repository && cp -rf build-fix/. ~/.m2/repository/
+      - name: Run find-and-replace to remove v in tag
+        uses: mad9000/actions-find-and-replace-string@1
+        id: versionNumber
+        with:
+          source: ${{ github.ref_name }}
+          find: 'v'
+          replace: ''
+      - name: Update OLS version
+        run: |
+          mvn -B release:update-versions -DreleaseVersion=${{ steps.versionNumber.outputs.value }} -DdevelopmentVersion=${{ steps.versionNumber.outputs.value }}-SNAPSHOT
+          mvn versions:set -DremoveSnapshot -DgenerateBackupPoms=false -DprocessAllModules=true
+      - name: Build OLS
+        run: mvn clean package -DskipTests
+      - name: Create archive
+        run: |
+          mkdir ols_jars_${{ github.ref_name }}
+          cp ./ols-web/target/ols-boot.war ols_jars_${{ github.ref_name }}/
+          cp ./ols-apps/ols-config-importer/target/ols-config-importer.jar ols_jars_${{ github.ref_name }}/
+          cp ./ols-apps/ols-indexer/target/ols-indexer.jar ols_jars_${{ github.ref_name }}/
+          tar -czf ols_jars_${{ github.ref_name }}.tgz ols_jars_${{ github.ref_name }}/*
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ols_jars_${{ github.ref_name }}.tgz
+          path: ols_jars_${{ github.ref_name }}.tgz
+      - name: Create release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: ols_jars_${{ github.ref_name }}.tgz
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ github.ref_name }}
+
+  deploy:
+    runs-on: self-hosted
+    needs: build
+    steps:
+      - name: Download JARs to preprod server
+        uses: actions/download-artifact@v2
+        with:
+          name: ols_jars_${{ github.ref_name }}.tgz
+      - name: Extract jars archive
+        run: tar -xzf ols_jars_${{ github.ref_name }}.tgz && find .
+      - name: Replace preprod WAR on preprod server
+        run: |
+          cp -f ./ols_jars_${{ github.ref_name }}/ols-boot.war /srv/data/ols/interfaces/
+      - name: Replace config importer JAR on preprod server
+        run: |
+          cp -f ./ols_jars_${{ github.ref_name }}/ols-config-importer.jar /srv/data/ols/applications/yaml-loader/
+      - name: Copy indexer JAR to codon cluster
+        run: |
+          scp ./ols_jars_${{ github.ref_name }}/ols-indexer.jar codon-login:/nfs/production/parkinso/spot/ols/prod/applications/indexer/
+
+#      - name: Create Release
+#        id: create_release
+#        uses: actions/create-release@v1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+#        with:
+#          tag_name: ${{ github.ref }}
+#          release_name: Release ${{ github.ref }}
+#          body: |
+#            Automatic OLS jar release
+#          draft: false
+#          prerelease: false
+#      - name: Upload Release Asset
+#        id: upload-release-asset
+#        uses: actions/upload-release-asset@v1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+#          asset_path: ./ols.tgz
+#          asset_name: ols.tgz
+#          asset_content_type: application/gzip

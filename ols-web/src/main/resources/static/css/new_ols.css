@@ -685,4 +685,34 @@ a + a > .ontology-source-valign {
 #docs-content h1 {
   color: black !important; }
 
+/* footer */
+footer .footer-link-list .link-list {
+  padding: 0;
+  list-style: none;
+  text-align: center;
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 0; }
+  footer .footer-link-list .link-list .link-list-item {
+    padding: 0 10px;
+    display: inline-block; }
+    footer .footer-link-list .link-list .link-list-item a {
+      border: none;
+      text-decoration: none; }
+
+footer .ols-logo {
+  text-align: center;
+  margin-bottom: 0.5rem; }
+  footer .ols-logo a {
+    border: none; }
+    footer .ols-logo a img {
+      height: 50px;
+      padding: 0.3rem;
+      border-radius: 0.2rem;
+      background-color: #004443; }
+  footer .ols-logo .ols-version {
+    color: #777;
+    font-size: small;
+    font-family: monospace; }
+
 /*# sourceMappingURL=new_ols.css.map */

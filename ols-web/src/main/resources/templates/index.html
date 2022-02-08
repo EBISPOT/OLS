@@ -116,7 +116,6 @@
                 <li th:if="${summary.getNumberOfTerms() &gt; 0}"><span th:text="${#numbers.formatInteger(summary.getNumberOfTerms(),3,'COMMA')}">102</span> terms</li>
                 <li th:if="${summary.getNumberOfProperties() &gt; 0}"><span th:text="${#numbers.formatInteger(summary.getNumberOfProperties(),3,'COMMA')}">102</span> properties</li>
                 <li th:if="${summary.getNumberOfIndividuals() &gt; 0}"><span th:text="${#numbers.formatInteger(summary.getNumberOfIndividuals(),3,'COMMA')}">102</span> individuals</li>
-                <li th:if="${summary.getSoftwareVersion() != null}">Version <span th:text="${summary.getSoftwareVersion()}">102</span></li>
             </ul>
 
             <div th:if="${debrand} == false">
