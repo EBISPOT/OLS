@@ -28,7 +28,7 @@ public class SearchResultAssembler implements ResourceAssembler<TermDocument, Re
         try {
             String id = UriUtils.encode(term.getUri(), "UTF-8");
             final ControllerLinkBuilder lb = ControllerLinkBuilder.linkTo(
-                    ControllerLinkBuilder.methodOn(OntologyTermController.class).getTerm(term.getOntologyName(), id));
+                    ControllerLinkBuilder.methodOn(OntologyTermController.class).getTerm(term.getOntologyName(), term.getLanguage(), id));
 
             resource.add(lb.withSelfRel());
 

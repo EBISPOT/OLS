@@ -32,3 +32,43 @@ ontologies:
     - http://purl.obolibrary.org/obo/DUO_0000001
     - http://purl.obolibrary.org/obo/DUO_0000017
     - http://purl.obolibrary.org/obo/OBI_0000066
+- activity_status: active
+  contact:
+    email: damion_dooley@sfu.ca
+    github: Public-Health-Bioinformatics
+    label: Damion Dooley
+  dependencies:
+  - id: uberon
+  - id: ro
+  - id: eo
+  - id: chebi
+  - id: ncbitaxon
+  - id: bfo
+  - id: envo
+  - id: obi
+  description: "A broadly scoped ontology representing entities which bear a \u201C\
+    food role\u201D.  It encompasses materials in natural ecosystems and food webs\
+    \ as well as human-centric categorization and handling of food."
+  domain: food
+  homepage: https://foodon.org/
+  id: foodon
+  layout: ontology_detail
+  license:
+    label: CC-BY
+    logo: http://mirrors.creativecommons.org/presskit/buttons/80x15/png/by.png
+    url: http://creativecommons.org/licenses/by/3.0/
+  ontology_purl: http://purl.obolibrary.org/obo/foodon.owl
+  preferredPrefix: FOODON
+  products:
+  - format: owl-rdf/xml
+    id: foodon.owl
+    ontology_purl: http://purl.obolibrary.org/obo/foodon.owl
+    title: FoodOn full ontology including 9000 SIREN indexed food products
+  - format: owl-rdf/xml
+    id: foodon_core.owl
+    ontology_purl: http://purl.obolibrary.org/obo/foodon_core.owl
+    title: FoodOn core ontology (without SIREN)
+  repository: https://github.com/FoodOntology/foodon
+  title: FOODON
+  tracker: https://github.com/FoodOntology/foodon/issues/
+

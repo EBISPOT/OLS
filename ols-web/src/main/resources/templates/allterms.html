@@ -18,6 +18,10 @@
     <!- - The last time the content was reviewed - ->
     <meta name="ebi:expiry" content="2017-12-20" />
     <!- - When this content is no longer relevant -->
+    <script type="text/javascript" th:inline="javascript">
+    ontologyLanguages = [[${ontologyLanguages}]]
+    lang = [[${lang}]]
+    </script>
 </head>
 
 
@@ -86,11 +90,14 @@
                     <tr th:each="term : ${allterms}">
 
                         <td>
-                            <a th:text="${term.getLabel()}" th:href="@{terms (iri=${term.getIri()})}"></a>
+                            <a th:text="${term.getLabelByLang(lang)}" th:href="@{terms (iri=${term.getIri()})}"></a>
                         </td>
 
                         <td th:text="${term.getShortForm()}">0</td>
-                        <td th:text="${term.getDescription()}">0</td>
+
+			<td>
+				<div th:each="description : ${term.getDescriptionsByLang(lang)}" th:text="${description}"></div>
+			</td>
                     </tr>
                     </tbody>
                 </table>
@@ -101,6 +108,7 @@
 
 <th:block th:include="fragments/footer :: footer"></th:block>
 
+<script type="text/javascript" src="../static/js/ols.js" th:src="@{../../js/ols.js}"></script>
 <script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
 
 </body>

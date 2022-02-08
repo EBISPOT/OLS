@@ -48,6 +48,7 @@ public class IndividualControllerUI {
             @PathVariable("onto") String ontologyId,
             @RequestParam(value = "iri", required = false) String termIri,
             @RequestParam(value = "short_form", required = false) String shortForm,
+            @RequestParam(value = "lang", required = false, defaultValue = "en") String lang,
             @RequestParam(value = "obo_id", required = false) String oboId,
             Pageable pageable,
             Model model) throws ResourceNotFoundException {
@@ -55,6 +56,11 @@ public class IndividualControllerUI {
         ontologyId = ontologyId.toLowerCase();
 
         Individual term = null;
+
+	model.addAttribute("lang", lang);
+
+        OntologyDocument document = repositoryService.get(ontologyId);
+	model.addAttribute("ontologyLanguages", document.getConfig().getLanguages());
 
         if (termIri != null) {
             term = ontologyIndividualService.findByOntologyAndIri(ontologyId, termIri);
@@ -74,9 +80,8 @@ public class IndividualControllerUI {
 
             Page<Individual> termsPage = ontologyIndividualService.findAllByOntology(ontologyId, pageable);
 
-            OntologyDocument document = repositoryService.get(ontologyId);
             model.addAttribute("ontologyName", document.getOntologyId());
-            model.addAttribute("ontologyTitle", document.getConfig().getTitle());
+            model.addAttribute("ontologyTitle", document.getConfig().getLocalizedTitle(lang));
             model.addAttribute("ontologyPrefix", document.getConfig().getPreferredPrefix());
             model.addAttribute("pageable", pageable);
             model.addAttribute("allindividuals", termsPage);
@@ -93,7 +98,7 @@ public class IndividualControllerUI {
         model.addAttribute("ontologyIndividual", term);
         model.addAttribute("indvidualTypes", ontologyIndividualService.getDirectTypes(ontologyId, term.getIri(), new PageRequest(0, 10)));
 
-        String title = repositoryService.get(ontologyId).getConfig().getTitle();
+        String title = repositoryService.get(ontologyId).getConfig().getLocalizedTitle(lang);
         model.addAttribute("ontologyName", title);
         customisationProperties.setCustomisationModelAttributes(model);
         return "individual";

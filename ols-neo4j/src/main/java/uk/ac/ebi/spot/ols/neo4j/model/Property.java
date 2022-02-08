@@ -8,6 +8,8 @@ import org.springframework.data.neo4j.annotation.*;
 import org.springframework.data.neo4j.fieldaccess.DynamicProperties;
 import org.springframework.data.neo4j.fieldaccess.DynamicPropertiesContainer;
 
+import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.*;
+
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -33,16 +35,25 @@ public class Property {
     private String iri;
 
     @GraphProperty(propertyName="label")
-    @JsonProperty(value = "label")
     private String label;
 
     @GraphProperty(propertyName="synonym")
-    @JsonProperty(value = "synonym")
     private Set<String> synonym;
 
     @GraphProperty(propertyName="description")
-    @JsonProperty(value = "description")
     private Set<String> description;
+
+    @GraphProperty(propertyName=LOCALIZED_LABELS)
+    @JsonProperty(value = LOCALIZED_LABELS)
+    private DynamicProperties localizedLabels = new DynamicPropertiesContainer();
+
+    @GraphProperty(propertyName=LOCALIZED_SYNONYMS)
+    @JsonProperty(value = LOCALIZED_SYNONYMS)
+    private DynamicProperties localizedSynonyms = new DynamicPropertiesContainer();
+
+    @GraphProperty(propertyName=LOCALIZED_DESCRIPTIONS)
+    @JsonProperty(value = LOCALIZED_DESCRIPTIONS)
+    private DynamicProperties localizedDescriptions = new DynamicPropertiesContainer();
 
     @GraphProperty(propertyName="ontology_name")
     @JsonProperty(value = "ontology_name")
@@ -81,6 +92,7 @@ public class Property {
     private String oboId;
 
     private DynamicProperties annotation = new DynamicPropertiesContainer();
+    private DynamicProperties localizedAnnotation = new DynamicPropertiesContainer();
 
     @RelatedTo(type="SUBPROPERTYOF", direction = Direction.OUTGOING)
     @Fetch Set<Property> parent;
@@ -90,17 +102,58 @@ public class Property {
         return iri;
     }
 
-    public String getLabel() {
-        return label;
-    }
 
-    public Set<String> getSynonyms() {
-        return synonym;
-    }
+    public String[] getDescriptionsByLang(String lang) {
 
-    public Set<String> getDescription() {
-        return description;
-    }
+	String[] localizedDescriptions = (String[])
+		this.localizedDescriptions.getProperty(lang);
+
+	if(localizedDescriptions != null && localizedDescriptions.length > 0) {
+		return (String[]) localizedDescriptions;
+	}
+
+	if(description != null) {
+	    return description.toArray(new String[0]);
+	}
+
+	return new String[0];
+}
+
+public String getLabelByLang(String lang) {
+	return getLabelsByLang(lang)[0];
+}
+
+public String[] getLabelsByLang(String lang) {
+
+	String[] localizedLabels = (String[])
+		this.localizedLabels.getProperty(lang);
+
+	if(localizedLabels != null && localizedLabels.length > 0) {
+		return localizedLabels;
+	}
+
+	if(label != null) {
+	    return new String[] { label };
+	}
+
+	return new String[0];
+}
+
+public String[] getSynonymsByLang(String lang) {
+
+	String[] localizedSynonyms = (String[])
+		this.localizedSynonyms.getProperty(lang);
+
+	if(localizedSynonyms != null) {
+		return localizedSynonyms;
+	}
+
+	if(synonym != null) {
+	    return synonym.toArray(new String[0]);
+	}
+
+	return new String[0];
+}
 
     @JsonProperty(value = "ontology_name")
     public String getOntologyName() {
@@ -143,9 +196,23 @@ public class Property {
         return oboId;
     }
 
-    public Map getAnnotation() {
-        return new TreeMap<String, Object>(annotation.asMap());
-    }
+    public Map<String, Object> getAnnotationByLang(String lang) {
 
+	Map<String, Object> localizedAnnotations = localizedAnnotation.asMap();
+
+	Map<String, Object> res = new TreeMap<>();
+
+	if(lang.equals("en") && annotation != null) {
+		res.putAll(annotation.asMap());
+	}
+
+	for(String k : localizedAnnotations.keySet()) {
+		if(k.indexOf(lang + "-") == 0) {
+			res.put(k.substring(lang.length() + 1), localizedAnnotations.get(k));
+		}
+	}
+
+	return res;
+    }
 
 }

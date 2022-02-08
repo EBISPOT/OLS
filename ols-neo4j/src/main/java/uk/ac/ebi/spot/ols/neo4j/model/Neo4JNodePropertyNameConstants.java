@@ -5,8 +5,11 @@ public class Neo4JNodePropertyNameConstants {
 	public final static String OLS_ID = "olsID";
 	public final static String IRI = "iri";
 	public final static String LABEL = "label";
+	public final static String LOCALIZED_LABELS = "localizedLabels";
 	public final static String SYNONYM = "synonym";
+	public final static String LOCALIZED_SYNONYMS = "localizedSynonyms";
 	public final static String DESCRIPTION = "description";
+	public final static String LOCALIZED_DESCRIPTIONS = "localizedDescriptions";
 	public final static String ONTOLOGY_NAME = "ontology_name";
 	public final static String ONTOLOGY_PREFIX = "ontology_prefix";
 	public final static String ONTOLOGY_IRI = "ontology_iri";
@@ -26,4 +29,5 @@ public class Neo4JNodePropertyNameConstants {
 	public final static String SUPER_CLASS_DESCRIPTION = "superClassDescription";
 	public final static String EQUIVALENT_CLASS_DESCRIPTION = "equivalentClassDescription";
 	public final static String ANNOTATION_DESIGNATION = "annotation-";
+	public final static String LOCALIZED_ANNOTATION_DESIGNATION = "localizedAnnotation-";
 }

@@ -49,11 +49,17 @@ public class PropertyControllerUI {
             @RequestParam(value = "iri", required = false) String termIri,
             @RequestParam(value = "short_form", required = false) String shortForm,
             @RequestParam(value = "obo_id", required = false) String oboId,
+            @RequestParam(value = "lang", required = false, defaultValue = "en") String lang,
             Pageable pageable,
             Model model) throws ResourceNotFoundException {
 
         ontologyId = ontologyId.toLowerCase();
         Property property = null;
+
+	model.addAttribute("lang", lang);
+
+        OntologyDocument document = repositoryService.get(ontologyId);
+	model.addAttribute("ontologyLanguages", document.getConfig().getLanguages());
 
         if (termIri != null) {
             property = ontologyPropertyGraphService.findByOntologyAndIri(ontologyId, termIri);
@@ -73,9 +79,8 @@ public class PropertyControllerUI {
 
             Page<Property> termsPage = ontologyPropertyGraphService.findAllByOntology(ontologyId, pageable);
 
-            OntologyDocument document = repositoryService.get(ontologyId);
             model.addAttribute("ontologyName", document.getOntologyId());
-            model.addAttribute("ontologyTitle", document.getConfig().getTitle());
+            model.addAttribute("ontologyTitle", document.getConfig().getLocalizedTitle(lang));
             model.addAttribute("ontologyPrefix", document.getConfig().getPreferredPrefix());
             model.addAttribute("pageable", pageable);
             model.addAttribute("allproperties", termsPage);
@@ -91,7 +96,7 @@ public class PropertyControllerUI {
         model.addAttribute("ontologyProperty", property);
         model.addAttribute("parentProperties", ontologyPropertyGraphService.getParents(ontologyId, property.getIri(), new PageRequest(0, 10)));
 
-        String title = repositoryService.get(ontologyId).getConfig().getTitle();
+        String title = repositoryService.get(ontologyId).getConfig().getLocalizedTitle(lang);
         model.addAttribute("ontologyName", title);
         customisationProperties.setCustomisationModelAttributes(model);
 

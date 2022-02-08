@@ -96,7 +96,7 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
         document.setStatus(Status.LOADING);
         ontologyRepositoryService.update(document);
         // if we get to here, we should have at least loaded the ontology
-        try {
+//        try {
 
             // get all the available indexers
             for (OntologyIndexer indexer : indexers) {
@@ -112,12 +112,21 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             // update any ontology meta data
             OntologyResourceConfig config = document.getConfig();
 
-            if (loader.getTitle() != null) {
-                config.setTitle(loader.getTitle());
-            }
-            if (loader.getOntologyDescription() != null) {
-                config.setDescription(loader.getOntologyDescription());
-            }
+            config.setLocalizedTitles(loader.getLocalizedTitles());
+            config.setLocalizedDescriptions(loader.getLocalizedDescriptions());
+
+	    String enTitle = loader.getLocalizedTitles().get("en");
+	    if(enTitle != null) {
+		    config.setTitle(enTitle);
+	    }
+
+	    String enDesc = loader.getLocalizedDescriptions().get("en");
+	    if(enDesc != null) {
+		    config.setDescription(enDesc);
+	    }
+
+	    config.setLanguages(loader.getOntologyLanguages());
+
             if (loader.getHomePage() != null) {
                 config.setHomepage(loader.getHomePage());
             }
@@ -134,7 +143,7 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
                 config.setCreators(loader.getCreators());
             }
             if (!loader.getOntologyAnnotations().keySet().isEmpty()) {
-                config.setAnnotations(loader.getOntologyAnnotations());
+                config.setLocalizedAnnotations(loader.getOntologyAnnotations());
             }
             if (loader.getOntologyVersionIRI() != null) {
                 config.setVersionIri(loader.getOntologyVersionIRI().toString());
@@ -148,6 +157,11 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             // if null, removes version number from document
             config.setVersion(loader.getVersionNumber());
 
+            // check for a version number or set to today date
+            if (loader.getVersionNumber() != null) {
+                config.setVersion(loader.getVersionNumber());
+            }
+
             document.setConfig(config);
             document.setNumberOfTerms(classes.size());
             document.setNumberOfProperties(properties.size());
@@ -155,19 +169,19 @@ public class MongoOntologyIndexingService implements OntologyIndexingService{
             status = Status.LOADED;
             document.setLoaded(new Date());
             result = true;
-        } catch (Throwable t) {
-        	logger.error("Error indexing " + document.getOntologyId(), t);
-            status = Status.FAILED;
-            message = t.getMessage();
-        }
-        finally {
+//        } catch (Throwable t) {
+//        	logger.error("Error indexing " + document.getOntologyId(), t);
+//            status = Status.FAILED;
+//            message = t.getMessage();
+//        }
+//        finally {
 
             document.setStatus(status);
             document.setUpdated(new Date());
             document.setMessage(message);
             ontologyRepositoryService.update(document);
             return result;
-        }
+//        }
     }
 
     @Override

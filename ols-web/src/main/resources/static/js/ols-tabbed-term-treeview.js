@@ -1726,7 +1726,7 @@ function _dataCB(node, cb, relativePath, url, ontology, termIRI, termType, showS
 
     var rootUrl = _determineRootURL(relativePath, viewMode, termType, ontology);
 
-    url += '?viewMode=' + viewMode;
+    url += '&viewMode=' + viewMode;
 
     if (showSiblings) {
         url += '&siblings=true';
@@ -1758,9 +1758,14 @@ OLSTermTypeTreeView.prototype.toString =  function () {
         ", viewModeElm = " + this.viewModeElm + ", divId = " + this.divId + ")";
 }
 
+function getLang() {
+	var urlParams = new URLSearchParams(window.location.search);
+	return urlParams.get('lang') || 'en';
+}
+
 function _determineUrl(relativePath, ontology, termType, termIRI) {
     var baseUrl = 'api/ontologies/' + ontology + '/' + termType + '/';
-    var url = baseUrl + encodeURIComponent(encodeURIComponent(termIRI)) + '/jstree';
+    var url = baseUrl + encodeURIComponent(encodeURIComponent(termIRI)) + '/jstree?lang=' + getLang();
     url = url.replace('//', '/');
     url = relativePath + url;
     return url;
@@ -1836,10 +1841,10 @@ function _determineRootURL(relativePath, viewMode, termType, ontology) {
 
     if (viewMode === "All" ||  termType != "terms")
         rootUrl = relativePath + 'api/ontologies/' + ontology + '/' + termType +
-            '/roots?size=500';
+            '/roots?size=500&lang=' + getLang();
     else if (viewMode === "PreferredRoots") // PREFERRED_ROOTS.viewMode is assumed
         rootUrl = relativePath + 'api/ontologies/' + ontology + '/' + termType +
-            '/preferredRoots?size=500';
+            '/preferredRoots?size=500&lang=' + getLang();
     else
         throw new TypeError("Unknown viewMode = " + viewMode + ".");
     return rootUrl;
@@ -1918,7 +1923,7 @@ function _renderRoots(url, cb, termType) {
 function _renderChildren (node, cb, url) {
     var requestIri = node.original.iri ? node.original.iri : node.original.a_attr.iri;
 
-    var childrenUrl = url + encodeURIComponent(encodeURIComponent(requestIri)) + '/jstree/children/'+ node.id;
+    var childrenUrl = url + encodeURIComponent(encodeURIComponent(requestIri)) + '/jstree/children/'+ node.id + '?lang=' + getLang();
 
     $.getJSON(childrenUrl, function (data) {
         cb(data)
@@ -1997,7 +2002,8 @@ function _onClick(node, event, relativePath, currentTermIri, termType, selectedI
     }
 
     var newpath=relativePath + "ontologies/" + ontology_name + "/" + type + '?iri=' + encodeURIComponent(selectedIri) +
-        '&viewMode=' + viewMode + '&siblings=' + showSiblings;
+    	'&lang=' + getLang() + 
+        '&viewMode=' + viewMode + '&siblings=' + showSiblings
 
     console.log("_onClick newpath=", newpath);
     _goTo(newpath)

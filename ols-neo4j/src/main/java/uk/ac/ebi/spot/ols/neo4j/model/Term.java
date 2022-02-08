@@ -1,25 +1,5 @@
 package uk.ac.ebi.spot.ols.neo4j.model;
 
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.DESCRIPTION;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.HAS_CHILDREN;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.IN_SUBSET;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.IRI;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.IS_DEFINING_ONTOLOGY;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.IS_OBSOLETE;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.IS_ROOT;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.LABEL;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.OBO_DEFINITION_CITATION;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.OBO_ID;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.OBO_SYNONYM;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.OBO_XREF;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.ONTOLOGY_IRI;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.ONTOLOGY_NAME;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.ONTOLOGY_PREFIX;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.SHORT_FORM;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.SYNONYM;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.TERM_REPLACED_BY;
-import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.IS_PREFERRED_ROOT;
-
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -37,6 +17,8 @@ import org.springframework.data.neo4j.fieldaccess.DynamicPropertiesContainer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRawValue;
+
+import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.*;
 
 /**
  * @author Simon Jupp
@@ -58,13 +40,27 @@ public class Term {
     private String iri;
 
     @GraphProperty(propertyName=LABEL)
+    @JsonProperty(value = LABEL)
     private String label;
+
+    @GraphProperty(propertyName=DESCRIPTION)
+    private Set<String> description;
 
     @GraphProperty(propertyName=SYNONYM)
     private Set<String> synonym;
 
-    @GraphProperty(propertyName=DESCRIPTION)
-    private Set<String> description;
+
+    @GraphProperty(propertyName=LOCALIZED_LABELS)
+    @JsonProperty(value = LOCALIZED_LABELS)
+    private DynamicProperties localizedLabels = new DynamicPropertiesContainer();
+
+    @GraphProperty(propertyName=LOCALIZED_SYNONYMS)
+    @JsonProperty(value = LOCALIZED_SYNONYMS)
+    private DynamicProperties localizedSynonyms = new DynamicPropertiesContainer();
+
+    @GraphProperty(propertyName=LOCALIZED_DESCRIPTIONS)
+    @JsonProperty(value = LOCALIZED_DESCRIPTIONS)
+    private DynamicProperties localizedDescriptions = new DynamicPropertiesContainer();
 
     @GraphProperty(propertyName=ONTOLOGY_NAME)
     @JsonProperty(value = ONTOLOGY_NAME)
@@ -117,6 +113,7 @@ public class Term {
     private Set<String> inSubsets;
 
     private DynamicProperties annotation = new DynamicPropertiesContainer();
+    private DynamicProperties localizedAnnotation = new DynamicPropertiesContainer();
 
     @GraphProperty(propertyName=OBO_DEFINITION_CITATION)
     @JsonProperty(value = OBO_DEFINITION_CITATION)
@@ -164,9 +161,62 @@ public class Term {
         return id;
     }
 
-    public void setLabel(String label) {
-        this.label = label;
+    public String[] getDescriptionsByLang(String lang) {
+
+	    String[] localizedDescriptions = (String[])
+	    	this.localizedDescriptions.getProperty(lang);
+
+	    if(localizedDescriptions != null && localizedDescriptions.length > 0) {
+		    return (String[]) localizedDescriptions;
+	    }
+
+	    if(description != null) {
+		return description.toArray(new String[0]);
+	    }
+
+	    return new String[0];
     }
+
+    public String getLabelByLang(String lang) {
+	    return getLabelsByLang(lang)[0];
+    }
+
+    public String[] getLabelsByLang(String lang) {
+
+	    String[] localizedLabels = (String[])
+	    	this.localizedLabels.getProperty(lang);
+
+	    if(localizedLabels != null && localizedLabels.length > 0) {
+		    return localizedLabels;
+	    }
+
+	    if(label != null) {
+		return new String[] { label };
+	    }
+
+	    return new String[0];
+    }
+
+    public String[] getSynonymsByLang(String lang) {
+
+	    String[] localizedSynonyms = (String[])
+	    	this.localizedSynonyms.getProperty(lang);
+
+	    if(localizedSynonyms != null) {
+		    return localizedSynonyms;
+	    }
+
+	    if(synonym != null) {
+		return synonym.toArray(new String[0]);
+	    }
+
+	    return new String[0];
+    }
+
+
+//    public void setLocalizedLabels(String lang, Set<String> labels) {
+//        this.labels.setProperty(lang, labels);
+//    }
 
     public void setIri(String iri) {
         this.iri = iri;
@@ -176,21 +226,21 @@ public class Term {
         return iri;
     }
 
-    public String getLabel() {
-        return label;
-    }
-
     public String getOlsId() {
         return olsId;
     }
 
-    public Set<String> getSynonyms() {
-        return synonym;
-    }
-
-    public Set<String> getDescription() {
-        return description;
-    }
+//    public Map<String, Object> getLocalizedLabels() {
+//        return localizedLabels.asMap();
+//    }
+//
+//    public Map<String, Object> getLocalizedSynonyms() {
+//        return localizedSynonyms.asMap();
+//    }
+//
+//    public Map<String, Object> getLocalizedDescriptions() {
+//        return localizedDescriptions.asMap();
+//    }
 
     public String getOntologyName() {
         return ontologyName;
@@ -204,13 +254,13 @@ public class Term {
         return ontologyIri;
     }
 
-    public void setDescription(Set<String> description) {
-        this.description = description;
-    }
+    // public void setDescription(Set<String> description) {
+    //     this.description = description;
+    // }
 
-    public void setSynonyms(Set<String> synonyms) {
-        this.synonym = synonyms;
-    }
+    // public void setSynonyms(Set<String> synonyms) {
+    //     this.synonym = synonyms;
+    // }
 
     public void setOntologyName(String ontologyName) {
         this.ontologyName = ontologyName;
@@ -233,8 +283,23 @@ public class Term {
         return isObsolete;
     }
 
-    public Map getAnnotation() {
-        return new TreeMap<String, Object>(annotation.asMap());
+    public Map<String, Object> getAnnotationByLang(String lang) {
+
+	Map<String, Object> localizedAnnotations = localizedAnnotation.asMap();
+
+	Map<String, Object> res = new TreeMap<>();
+
+	if(lang.equals("en") && annotation != null) {
+		res.putAll(annotation.asMap());
+	}
+
+	for(String k : localizedAnnotations.keySet()) {
+		if(k.indexOf(lang + "-") == 0) {
+			res.put(k.substring(lang.length() + 1), localizedAnnotations.get(k));
+		}
+	}
+
+	return res;
     }
 
     @JsonProperty(value = IS_DEFINING_ONTOLOGY)

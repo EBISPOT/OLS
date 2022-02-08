@@ -44,14 +44,12 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
 
         try {
             String prefix = getPrefix(id);
-            String ontologyTitle = getTitle(id);
             URI ontologyPURL = getOntologyPURL();
             String uri = getOntologyURI(id, ontologyPURL);
 
-
             //Build the OntologyResourceConfig and add it to the Collection.
             OntologyResourceConfig.OntologyResourceConfigBuilder builder =
-                    new OntologyResourceConfig.OntologyResourceConfigBuilder(uri, ontologyTitle, id, ontologyPURL);
+                    new OntologyResourceConfig.OntologyResourceConfigBuilder(uri, id, ontologyPURL);
 
             builder.setPreferredPrefix(prefix);
 
@@ -72,7 +70,6 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
             populateBaseURI(id, builder);
             populateReasoner(builder);
             populateOBOSlims(builder);
-            populateDescription(builder);
             populateHomepage(builder);
             populateMailingList(builder);
             populateTracker(builder);
@@ -80,6 +77,8 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
             populateCreator(builder);
             populatePreferredRootTerms(builder);
             populateAllowDownload(builder);
+            populateTitles(builder);
+            populateDescriptions(builder);
 
             return builder.build();
         }
@@ -136,12 +135,6 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
             } else {
                 builder.setHomepage((String) ontology.get(HOMEPAGE.getPropertyName()));
             }
-        }
-    }
-
-    private void populateDescription(OntologyResourceConfig.OntologyResourceConfigBuilder builder) {
-        if (ontology.containsKey(DESCRIPTION.getPropertyName())) {
-            builder.setDescription((String) ontology.get(DESCRIPTION.getPropertyName()));
         }
     }
 
@@ -255,15 +248,6 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
         return location;
     }
 
-    private String getTitle(String id) {
-        String ontologyTitle = (String)ontology.get(TITLE.getPropertyName());
-
-        if (ontologyTitle == null) {
-            ontologyTitle = id;
-        }
-        return ontologyTitle;
-    }
-
     private String getPrefix(String id) {
         String prefix = id.toUpperCase();
         if (ontology.containsKey(PREFERRED_PREFIX.getPropertyName()))  {
@@ -278,5 +262,42 @@ public class YamlBasedLoadingService extends AbstractLoadingService {
         } else {
             builder.setAllowDownload(true);
         }
+    }
+
+    private void populateTitles(OntologyResourceConfig.OntologyResourceConfigBuilder builder) {
+
+        Map<String,String> titles = new HashMap<>();
+
+        if (ontology.containsKey(OntologyResourceConfigEnum.LOCALIZED_TITLES.getPropertyName()))  {
+            titles.putAll((Map<String,String>)ontology.get(LOCALIZED_TITLES.getPropertyName()));
+        }
+
+        if (ontology.containsKey(OntologyResourceConfigEnum.TITLE.getPropertyName()))  {
+            String ontologyTitle = (String)ontology.get(TITLE.getPropertyName());
+
+            if(ontologyTitle != null && !titles.containsKey("en")) {
+                titles.put("en", ontologyTitle);
+            }
+        }
+
+        builder.setLocalizedTitles(titles);
+    }
+
+    private void populateDescriptions(OntologyResourceConfig.OntologyResourceConfigBuilder builder) {
+        Map<String,String> descriptions = new HashMap<>();
+
+        if (ontology.containsKey(OntologyResourceConfigEnum.LOCALIZED_DESCRIPTIONS.getPropertyName()))  {
+            descriptions.putAll((Map<String,String>)ontology.get(LOCALIZED_DESCRIPTIONS.getPropertyName()));
+        }
+
+        if (ontology.containsKey(OntologyResourceConfigEnum.DESCRIPTION.getPropertyName()))  {
+            String ontologyDescription = (String)ontology.get(DESCRIPTION.getPropertyName());
+
+            if(ontologyDescription != null && !descriptions.containsKey("en")) {
+                descriptions.put("en", ontologyDescription);
+            }
+        }
+
+        builder.setLocalizedDescriptions(descriptions);
     }
 }

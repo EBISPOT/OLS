@@ -12,6 +12,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.*;
+
 /**
  * @author Simon Jupp
  * @date 17/08/2015
@@ -39,6 +41,18 @@ public class Individual {
 
     @GraphProperty(propertyName="description")
     private Set<String> description;
+
+    @GraphProperty(propertyName=LOCALIZED_LABELS)
+    @JsonProperty(value = LOCALIZED_LABELS)
+    private DynamicProperties localizedLabels = new DynamicPropertiesContainer();
+
+    @GraphProperty(propertyName=LOCALIZED_SYNONYMS)
+    @JsonProperty(value = LOCALIZED_SYNONYMS)
+    private DynamicProperties localizedSynonyms = new DynamicPropertiesContainer();
+
+    @GraphProperty(propertyName=LOCALIZED_DESCRIPTIONS)
+    @JsonProperty(value = LOCALIZED_DESCRIPTIONS)
+    private DynamicProperties localizedDescriptions = new DynamicPropertiesContainer();
 
     @GraphProperty(propertyName="ontology_name")
     @JsonProperty(value = "ontology_name")
@@ -69,6 +83,7 @@ public class Individual {
     private String oboId;
 
     private DynamicProperties annotation = new DynamicPropertiesContainer();
+    private DynamicProperties localizedAnnotation = new DynamicPropertiesContainer();
 
     @RelatedTo(type="INSTANCEOF", direction = Direction.OUTGOING)
     @Fetch Set<Term> type;
@@ -88,9 +103,56 @@ public class Individual {
         return iri;
     }
 
-    public String getLabel() {
-        return label;
+    public String[] getDescriptionsByLang(String lang) {
+
+	    String[] localizedDescriptions = (String[])
+	    	this.localizedDescriptions.getProperty(lang);
+
+	    if(localizedDescriptions != null && localizedDescriptions.length > 0) {
+		    return (String[]) localizedDescriptions;
+	    }
+
+	    if(description != null) {
+		return description.toArray(new String[0]);
+	    }
+
+	    return new String[0];
     }
+
+    public String[] getSynonymsByLang(String lang) {
+
+	    String[] localizedSynonyms = (String[])
+	    	this.localizedSynonyms.getProperty(lang);
+
+	    if(localizedSynonyms != null) {
+		    return localizedSynonyms;
+	    }
+
+	    if(synonym != null) {
+		return synonym.toArray(new String[0]);
+	    }
+
+	    return new String[0];
+    }
+
+	public String getLabelByLang(String lang) {
+		return getLabelsByLang(lang)[0];
+	}
+
+	public String[] getLabelsByLang(String lang) {
+
+		String[] localizedLabels = (String[]) this.localizedLabels.getProperty(lang);
+
+		if (localizedLabels != null && localizedLabels.length > 0) {
+			return localizedLabels;
+		}
+
+		if (label != null) {
+			return new String[] { label };
+		}
+
+		return new String[0];
+	}
 
     public Set<String> getSynonyms() {
         return synonym;
@@ -135,8 +197,22 @@ public class Individual {
         return type;
     }
 
+    public Map<String, Object> getAnnotationByLang(String lang) {
 
-    public Map getAnnotation() {
-        return new TreeMap<String, Object>(annotation.asMap());
+	Map<String, Object> localizedAnnotations = localizedAnnotation.asMap();
+
+	Map<String, Object> res = new TreeMap<>();
+
+	if(lang.equals("en") && annotation != null) {
+		res.putAll(annotation.asMap());
+	}
+
+	for(String k : localizedAnnotations.keySet()) {
+		if(k.indexOf(lang + "-") == 0) {
+			res.put(k.substring(lang.length() + 1), localizedAnnotations.get(k));
+		}
+	}
+
+	return res;
     }
 }
