@@ -29,10 +29,13 @@ public class LocalizedIndividual {
 	    lt.ontologyPrefix = individual.getOntologyPrefix();
 	    lt.ontologyIri = individual.getOntologyIri();
 	    lt.isObsolete = individual.isObsolete();
-	    lt.isLocal = individual.isLocal();
 	    lt.shortForm = individual.getShortForm();
 	    lt.oboId = individual.getOboId();
 	    lt.annotation = individual.getAnnotationByLang(lang);
+
+	    lt.type = individual.getType().stream().map(
+		    term -> LocalizedTerm.fromTerm(lang, term)).toArray(LocalizedTerm[]::new);
+
 	    return lt;
     }
 
@@ -77,6 +80,8 @@ public class LocalizedIndividual {
     public Set<String> inSubsets;
 
     public Map<String,Object> annotation;
+
+    public LocalizedTerm[] type;
 }
 
 
