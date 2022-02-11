@@ -235,7 +235,7 @@
                             </div>
 
                             <p th:unless="${definitionCitations}"
-                               th:each="description : ${ontologyProperty.getDescription()}"
+                               th:each="description : ${ontologyProperty.getDescriptionsByLang(lang)}"
                                th:text="${description}">
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.
                                 Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at
@@ -252,13 +252,14 @@
                             </p>
                         </div>
 
-                        <div th:if="${ontologyProperty.getSynonyms() !=null}">
+                        <div th:if="${ontologyProperty.getSynonymsByLang(lang) !=null}">
                             <p><b>Synonyms:</b>
                                 <span property="alternateName" class="label synonym"
-                                      th:each="synonym : ${ontologyProperty.getSynonyms()}"
+                                      th:each="synonym : ${ontologyProperty.getSynonymsByLang(lang)}"
                                       th:text="${synonym}">NCBI_9606</span>
                             </p>
                         </div>
+
                         <!--div>
                             <span>Short id: </span>
                             <p th:text="${ontologyProperty.getShortForm()}">NCBI_9606</p>
