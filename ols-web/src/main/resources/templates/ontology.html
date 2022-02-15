@@ -12,7 +12,8 @@
 
 <head>
     <div th:replace="fragments/head :: head(olscss=true, diachron=true, proton=true)"></div>
-    <title id="pageTitle" th:inline="text">[[${ontologyDocument.getConfig().getLocalizedTitle(lang)}]] &lt; [[${title}]] &lt; [[${org}]]</title>
+    <title id="pageTitle" th:inline="text">[[${ontologyDocument.getConfig().getLocalizedTitle(lang)}]] &lt; [[${title}]]
+        &lt; [[${org}]]</title>
     <!-- A few keywords that relate to the content of THIS PAGE (not the whole project)
     <meta name="keywords" content="biosamples, europe, EBI" />
     <!- - Describe what this page is about - ->
@@ -22,8 +23,8 @@
     <meta name="ebi:expiry" content="2017-12-20" />
     <!- - When this content is no longer relevant -->
     <script type="text/javascript" th:inline="javascript">
-    ontologyLanguages = [[${ontologyLanguages}]]
-    lang = [[${lang}]]
+        ontologyLanguages = [[${ontologyLanguages}]]
+        lang = [[${lang}]]
     </script>
 
 </head>
@@ -35,66 +36,68 @@
 <div id="main-content-area" role="main">
     <div vocab="http://schema.org/">
 
-        <div id="mainpageSearchBox">
-            <h3 style="font-size: 43px;" property="name" th:text="${ontologyDocument.getConfig().getLocalizedTitle(lang)}">Ontology label</h3>
+        <div class="row">
+            <div id="mainpageSearchBox">
+                <h3 style="font-size: 43px;" property="name"
+                    th:text="${ontologyDocument.getConfig().getLocalizedTitle(lang)}">Ontology label</h3>
 
-            <div th:if="${ontologyDocument.getConfig().getLogo() != null}">
-                <img th:src="${ontologyDocument.getConfig().getLogo()}" width="200"/>
-            </div>
-
-            <div property="description">
-                <p style="font-size: 16px;" th:each="description : ${ontologyDocument.getConfig().getLocalizedDescription(lang)}" th:text="${description}">
-                </p>
-            </div>
-
-            <form style="padding-left: 0;" name="local-search" action="../search" method="get">
-                <div id="bloodhound" class="">
-                    <input style="margin-bottom: 0.1em; display:block; width: 393px;" class="form-control typeahead"
-                           autofocus="autofocus" type="text" name="q"
-                           data-olswidget="select" data-olsontology="" data-selectpath="../"
-                           th:attr="data-olsontology=${ontologyDocument.getOntologyId()}"
-                           th:placeholder="'Search ' + ${ontologyDocument.getConfig().getPreferredPrefix()}"
-                           aria-describedby="basic-addon1"/>
-                    <button class="button secondary searchButton glyphicon glyphicon-search" type="submit">Search
-                    </button>
-                    <input type="hidden" name="ontology" th:value="${ontologyDocument.getOntologyId()}"/>
+                <div th:if="${ontologyDocument.getConfig().getLogo() != null}">
+                    <img th:src="${ontologyDocument.getConfig().getLogo()}" width="200"/>
                 </div>
-            </form>
 
-            <p>
-            <div class="btn-group">
-                <button class="button secondary icon icon-functional" role="button" data-icon="b"
-                        th:onclick="'javascript:goTo(\'' + @{__${ontologyDocument.getOntologyId()}__/terms} + '\')'">
-                    Terms
-                </button>
-                <button th:if="${ontologyDocument.getConfig().getAllowDownload() == true}"
-                        class="button secondary icon icon-functional" role="button" data-icon="="
-                        th:onclick="'javascript:goTo(\'' + @{__${ontologyDocument.getOntologyId()}__/download} + '\')'">
-                    Download
-                </button>
-                <button th:if="${ontologyDocument.getConfig().getHomepage() != null}"
-                        class="button secondary icon icon-generic"
-                        th:title="${ontologyDocument.getConfig().getHomepage()}" role="button" data-icon="H"
-                        th:onclick="'javascript:goTo(\'' + @{${ontologyDocument.getConfig().getHomepage()}} + '\')'"
-                        th:inline="text"> [[${ontologyAlias}]] Homepage
-                </button>
-                <button th:if="${contact != null}" class="button secondary icon icon-generic" role="button"
-                        data-icon="C" th:title="${contact}" th:onclick="'javascript:goTo(\'' + @{${contact}} + '\')'">
-                    Contact
-                </button>
-                <button th:if="${ontologyDocument.getConfig().getTracker() != null}"
-                        class="button secondary icon icon-generic"
-                        th:title="${ontologyDocument.getConfig().getTracker()}" role="button" data-icon="\"
-                        th:onclick="'javascript:goTo(\'' + @{${ontologyDocument.getConfig().getTracker()}} + '\')'">
-                    Request a Term
-                </button>
+                <div property="description">
+                    <p style="font-size: 16px;"
+                       th:each="description : ${ontologyDocument.getConfig().getLocalizedDescription(lang)}"
+                       th:text="${description}">
+                    </p>
+                </div>
+
+                <form style="padding-left: 0;" name="local-search" action="../search" method="get">
+                    <div id="bloodhound" class="">
+                        <input style="margin-bottom: 0.1em; display:block; width: 393px;" class="form-control typeahead"
+                               autofocus="autofocus" type="text" name="q"
+                               data-olswidget="select" data-olsontology="" data-selectpath="../"
+                               th:attr="data-olsontology=${ontologyDocument.getOntologyId()}"
+                               th:placeholder="'Search ' + ${ontologyDocument.getConfig().getPreferredPrefix()}"
+                               aria-describedby="basic-addon1"/>
+                        <button class="button secondary searchButton glyphicon glyphicon-search" type="submit">Search
+                        </button>
+                        <input type="hidden" name="ontology" th:value="${ontologyDocument.getOntologyId()}"/>
+                    </div>
+                </form>
+                <p/>
+                <div class="btn-group">
+                    <button class="button secondary icon icon-functional" role="button" data-icon="b"
+                            th:onclick="'javascript:goTo(\'' + @{__${ontologyDocument.getOntologyId()}__/terms} + '\')'">
+                        Terms
+                    </button>
+                    <button th:if="${ontologyDocument.getConfig().getAllowDownload() == true}"
+                            class="button secondary icon icon-functional" role="button" data-icon="="
+                            th:onclick="'javascript:goTo(\'' + @{__${ontologyDocument.getOntologyId()}__/download} + '\')'">
+                        Download
+                    </button>
+                    <button th:if="${ontologyDocument.getConfig().getHomepage() != null}"
+                            class="button secondary icon icon-generic"
+                            th:title="${ontologyDocument.getConfig().getHomepage()}" role="button" data-icon="H"
+                            th:onclick="'javascript:goTo(\'' + @{${ontologyDocument.getConfig().getHomepage()}} + '\')'"
+                            th:inline="text"> [[${ontologyAlias}]] Homepage
+                    </button>
+                    <button th:if="${contact != null}" class="button secondary icon icon-generic" role="button"
+                            data-icon="C" th:title="${contact}"
+                            th:onclick="'javascript:goTo(\'' + @{${contact}} + '\')'">
+                        Contact
+                    </button>
+                    <button th:if="${ontologyDocument.getConfig().getTracker() != null}"
+                            class="button secondary icon icon-generic"
+                            th:title="${ontologyDocument.getConfig().getTracker()}" role="button" data-icon="\"
+                            th:onclick="'javascript:goTo(\'' + @{${ontologyDocument.getConfig().getTracker()}} + '\')'">
+                        Request a Term
+                    </button>
+                </div>
             </div>
-            </p>
-
         </div>
 
         <div class="row">
-
             <div id="onto-tab-content" class="small-8 columns">
                 <ul class="tabs" data-tabs="true" id="onto_tabs">
                     <li class="tabs-title is-active"><a id="tree-link"
@@ -108,7 +111,8 @@
                                               href="#property-tree-tab"><i class="icon icon-functional"
                                                                            data-icon="h"></i> Browse Properties</a>
                     </li>
-                    <li class="tabs-title"><a id="individual-link"
+                    <li th:if="${ontologyIndividuals.getTotalElements() > 0}"
+                        class="tabs-title"><a id="individual-link"
                                               data-x-tabs-target="individual-tree-tab"
                                               href="#individual-tree-tab"><i class="icon icon-common icon-list"></i>
                         Browse Individuals</a>
@@ -244,105 +248,107 @@
                             <b>Creator: </b> <span th:text="${creator}">NCBI:9606</span>
                         </div>
 
-                    <br/>
-                    <div th:each="annotations: ${ontologyDocument.getConfig().getLocalizedAnnotations(lang)}">
-                        <b>
-                            <a href="#" th:href="@{../search(q=${annotations.key},exact='true', type=property, ontology=${ontologyDocument.getOntologyId()})}" th:text="${annotations.key.replaceAll('_', ' ')}">property name</a>
-                        </b>
-                        <p style="margin-left:9px;" th:each="annovalue : ${annotations.value}" th:text="${annovalue}">NCBI_9606</p>
+                        <br/>
+                        <div th:each="annotations: ${ontologyDocument.getConfig().getLocalizedAnnotations(lang)}">
+                            <b>
+                                <a href="#"
+                                   th:href="@{../search(q=${annotations.key},exact='true', type=property, ontology=${ontologyDocument.getOntologyId()})}"
+                                   th:text="${annotations.key.replaceAll('_', ' ')}">property name</a>
+                            </b>
+                            <p style="margin-left:9px;" th:each="annovalue : ${annotations.value}"
+                               th:text="${annovalue}">NCBI_9606</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<th:block th:include="fragments/footer :: footer"></th:block>
+    <th:block th:include="fragments/footer :: footer"></th:block>
+
+    <!-- <script type="text/javascript" src="/js/oxo.js" th:src="@{/js/oxo.js}"></script> -->
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/r/zf-5.5.2/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script>
+    <script type="text/javascript" src="../static/js/typeahead/typeahead.bundle.js"
+            th:src="@{../js/typeahead/typeahead.bundle.js}"></script>
+    <script type="text/javascript" src="../static/js/handlebars/4.0.5/handlebars.min.js"
+            th:src="@{../js/handlebars/4.0.5/handlebars.min.js}"></script>
+
+    <script type="text/javascript" src="../static/js/bootstrap/bootstrap.min.js"
+            th:src="@{../js/bootstrap/bootstrap.min.js}"></script>
+
+    <script type="text/javascript" src="../static/js/ols.js" th:src="@{../js/ols.js}"></script>
+    <script src="../static/js/jstree/jstree.min.js" th:src="@{../js/jstree/jstree.min.js}"></script>
+    <script type="text/javascript" src="../static/js/ols-termselect.js" th:src="@{../js/ols-termselect2.js}"></script>
+    <!--<script type="text/javascript" src="../static/js/ols-treeview.min.js" th:src="@{../js/ols-treeview.min.js}"></script>-->
+    <script type="text/javascript" src="../static/js/ols-tabbed-term-treeview.js"
+            th:src="@{../js/ols-tabbed-term-treeview.js}"></script>
+
+    <!-- Include tags for the new CHARTS we have for the DIACHRON part of the ontology view-->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/no-data-to-display.js"></script>
+    <script src="../static/js/diachron/underscore-min.js" th:src="@{../js/diachron/underscore-min.js}"></script>
+    <script src="../static/js/diachron/changeSummary.js" th:src="@{../js/diachron/changeSummary.js}"></script>
+    <script src="../static/js/diachron/moment.js" th:src="@{../js/diachron/moment.js}"></script>
+    <script src="../static/js/diachron/pikaday.js" th:src="@{../js/diachron/pikaday.js}"></script>
+    <script src="../static/js/diachron/tablesorter.min.js" th:src="@{../js/diachron/tablesorter.min.js}"></script>
+
+    <!--script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/locale/bootstrap-table-en-US.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script-->
+
+    <!-- END OF THE DIACHRON INCLUDE TAGS-->
+    <!-- <script type="text/javascript" src="../static/js/ols.js" th:src="@{../js/ols.js}"></script>
+    <script type="text/javascript" src="../static/js/ols-termselect.js" th:src="@{../js/ols-termselect2.js}"></script>
+    <script src="../static/js/jstree/jstree.min.js" th:src="@{../js/jstree/jstree.min.js}"></script>
+    <script type="text/javascript" src="../static/js/ols-tabbed-term-treeview.min.js" th:src="@{../js/ols-tabbed-term-treeview.min.js}"></script> -->
+
+    <!-- All JS that is just used on this page should go here, I suppose-->
+    <script>
+        $(document).ready(function () {
+            $('.mansyntax').each(function () {
+                // $(this).trigger('click');//for clicking element
+                var href = $(this).attr("href");
+
+                if ($(this).hasClass('ObjectProperty')) {
+                    $(this).attr("href", getUrlType('property') + '?iri=' + encodeURIComponent(href));
+                } else if ($(this).hasClass('Class')) {
+                    $(this).attr("href", getUrlType('class') + '?iri=' + encodeURIComponent(href));
+                } else if ($(this).hasClass('Individual')) {
+                    $(this).attr("href", getUrlType('individual') + '?iri=' + encodeURIComponent(href));
+                }
+            });
 
 
-<!-- <script type="text/javascript" src="/js/oxo.js" th:src="@{/js/oxo.js}"></script> -->
-<script type="text/javascript"
-        src="https://cdn.datatables.net/r/zf-5.5.2/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script>
-<script type="text/javascript" src="../static/js/typeahead/typeahead.bundle.js"
-        th:src="@{../js/typeahead/typeahead.bundle.js}"></script>
-<script type="text/javascript" src="../static/js/handlebars/4.0.5/handlebars.min.js"
-        th:src="@{../js/handlebars/4.0.5/handlebars.min.js}"></script>
-
-<script type="text/javascript" src="../static/js/bootstrap/bootstrap.min.js"
-        th:src="@{../js/bootstrap/bootstrap.min.js}"></script>
-
-<script type="text/javascript" src="../static/js/ols.js" th:src="@{../js/ols.js}"></script>
-<script src="../static/js/jstree/jstree.min.js" th:src="@{../js/jstree/jstree.min.js}"></script>
-<script type="text/javascript" src="../static/js/ols-termselect.js" th:src="@{../js/ols-termselect2.js}"></script>
-<!--<script type="text/javascript" src="../static/js/ols-treeview.min.js" th:src="@{../js/ols-treeview.min.js}"></script>-->
-<script type="text/javascript" src="../static/js/ols-tabbed-term-treeview.js"
-        th:src="@{../js/ols-tabbed-term-treeview.js}"></script>
-
-<!-- Include tags for the new CHARTS we have for the DIACHRON part of the ontology view-->
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/highcharts-more.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/no-data-to-display.js"></script>
-<script src="../static/js/diachron/underscore-min.js" th:src="@{../js/diachron/underscore-min.js}"></script>
-<script src="../static/js/diachron/changeSummary.js" th:src="@{../js/diachron/changeSummary.js}"></script>
-<script src="../static/js/diachron/moment.js" th:src="@{../js/diachron/moment.js}"></script>
-<script src="../static/js/diachron/pikaday.js" th:src="@{../js/diachron/pikaday.js}"></script>
-<script src="../static/js/diachron/tablesorter.min.js" th:src="@{../js/diachron/tablesorter.min.js}"></script>
-
-<!--script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/locale/bootstrap-table-en-US.min.js"></script>
-<script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script-->
-
-<!-- END OF THE DIACHRON INCLUDE TAGS-->
-<!-- <script type="text/javascript" src="../static/js/ols.js" th:src="@{../js/ols.js}"></script>
-<script type="text/javascript" src="../static/js/ols-termselect.js" th:src="@{../js/ols-termselect2.js}"></script>
-<script src="../static/js/jstree/jstree.min.js" th:src="@{../js/jstree/jstree.min.js}"></script>
-<script type="text/javascript" src="../static/js/ols-tabbed-term-treeview.min.js" th:src="@{../js/ols-tabbed-term-treeview.min.js}"></script> -->
-
-
-<!-- All JS that is just used on this page should go here, I suppose-->
-<script>
-    $(document).ready(function () {
-        $('.mansyntax').each(function () {
-            // $(this).trigger('click');//for clicking element
-            var href = $(this).attr("href");
-
-            if ($(this).hasClass('ObjectProperty')) {
-                $(this).attr("href", getUrlType('property') + '?iri=' + encodeURIComponent(href));
-            } else if ($(this).hasClass('Class')) {
-                $(this).attr("href", getUrlType('class') + '?iri=' + encodeURIComponent(href));
-            } else if ($(this).hasClass('Individual')) {
-                $(this).attr("href", getUrlType('individual') + '?iri=' + encodeURIComponent(href));
-            }
         });
+    </script>
+
+    <script>
+
+        var termOntologyName = $("#term-tree").data("olsontology");
+        var termIri = $("#term-tree").data("ols-iri");
+        var termRelativePath = $("#term-tree").data("selectpath") ?
+            $("#term-tree").data("selectpath") : '';
 
 
-    });
-</script>
+        var olsTabbedTermTreeView;
+        $(document).ready(function () {
 
-<script>
+            console.log("Initialize tabbed tree component.");
+            var OLSTabbedTermTreeView = require("ols-tabbed-term-treeview");
 
-    var termOntologyName = $("#term-tree").data("olsontology");
-    var termIri = $("#term-tree").data("ols-iri");
-    var termRelativePath = $("#term-tree").data("selectpath") ?
-        $("#term-tree").data("selectpath") : '';
+            olsTabbedTermTreeView = new OLSTabbedTermTreeView(termRelativePath, termOntologyName, "#term-tree",
+                "#property-tree", "", "ontology_view_siblings", "ontology_view_selection", true);
 
+            var showSiblings = $("button[name='ontology_view_siblings']").val() == 'true';
+            var viewMode = $("input[name='ontology_view_selection']:checked").val();
 
-    var olsTabbedTermTreeView;
-    $(document).ready(function () {
+            olsTabbedTermTreeView.draw(showSiblings, viewMode);
+        });
+    </script>
 
-        console.log("Initialize tabbed tree component.");
-        var OLSTabbedTermTreeView = require("ols-tabbed-term-treeview");
-
-        olsTabbedTermTreeView = new OLSTabbedTermTreeView(termRelativePath, termOntologyName, "#term-tree",
-            "#property-tree", "", "ontology_view_siblings", "ontology_view_selection", true);
-
-        var showSiblings = $("button[name='ontology_view_siblings']").val() == 'true';
-        var viewMode = $("input[name='ontology_view_selection']:checked").val();
-
-        olsTabbedTermTreeView.draw(showSiblings, viewMode);
-    });
-</script>
-
+</div>
 </body>
 </html>

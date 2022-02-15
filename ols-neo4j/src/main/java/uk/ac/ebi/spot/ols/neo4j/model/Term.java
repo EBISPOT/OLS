@@ -1,22 +1,17 @@
 package uk.ac.ebi.spot.ols.neo4j.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRawValue;
+import org.springframework.data.annotation.TypeAlias;
+import org.springframework.data.neo4j.annotation.*;
+import org.springframework.data.neo4j.fieldaccess.DynamicProperties;
+import org.springframework.data.neo4j.fieldaccess.DynamicPropertiesContainer;
+
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-
-import org.springframework.data.annotation.TypeAlias;
-import org.springframework.data.neo4j.annotation.Fetch;
-import org.springframework.data.neo4j.annotation.GraphId;
-import org.springframework.data.neo4j.annotation.GraphProperty;
-import org.springframework.data.neo4j.annotation.NodeEntity;
-import org.springframework.data.neo4j.annotation.RelatedToVia;
-import org.springframework.data.neo4j.fieldaccess.DynamicProperties;
-import org.springframework.data.neo4j.fieldaccess.DynamicPropertiesContainer;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRawValue;
 
 import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.*;
 
@@ -36,41 +31,41 @@ public class Term {
     @JsonIgnore
     private String olsId;
 
-    @GraphProperty(propertyName=IRI)
+    @GraphProperty(propertyName = IRI)
     private String iri;
 
-    @GraphProperty(propertyName=LABEL)
+    @GraphProperty(propertyName = LABEL)
     @JsonProperty(value = LABEL)
     private String label;
 
-    @GraphProperty(propertyName=DESCRIPTION)
+    @GraphProperty(propertyName = DESCRIPTION)
     private Set<String> description;
 
-    @GraphProperty(propertyName=SYNONYM)
+    @GraphProperty(propertyName = SYNONYM)
     private Set<String> synonym;
 
 
-    @GraphProperty(propertyName=LOCALIZED_LABELS)
+    @GraphProperty(propertyName = LOCALIZED_LABELS)
     @JsonProperty(value = LOCALIZED_LABELS)
     private DynamicProperties localizedLabels = new DynamicPropertiesContainer();
 
-    @GraphProperty(propertyName=LOCALIZED_SYNONYMS)
+    @GraphProperty(propertyName = LOCALIZED_SYNONYMS)
     @JsonProperty(value = LOCALIZED_SYNONYMS)
     private DynamicProperties localizedSynonyms = new DynamicPropertiesContainer();
 
-    @GraphProperty(propertyName=LOCALIZED_DESCRIPTIONS)
+    @GraphProperty(propertyName = LOCALIZED_DESCRIPTIONS)
     @JsonProperty(value = LOCALIZED_DESCRIPTIONS)
     private DynamicProperties localizedDescriptions = new DynamicPropertiesContainer();
 
-    @GraphProperty(propertyName=ONTOLOGY_NAME)
+    @GraphProperty(propertyName = ONTOLOGY_NAME)
     @JsonProperty(value = ONTOLOGY_NAME)
     private String ontologyName;
 
-    @GraphProperty(propertyName=ONTOLOGY_PREFIX)
+    @GraphProperty(propertyName = ONTOLOGY_PREFIX)
     @JsonProperty(value = ONTOLOGY_PREFIX)
     private String ontologyPrefix;
 
-    @GraphProperty(propertyName=ONTOLOGY_IRI)
+    @GraphProperty(propertyName = ONTOLOGY_IRI)
     @JsonProperty(value = ONTOLOGY_IRI)
     private String ontologyIri;
 
@@ -80,76 +75,78 @@ public class Term {
     @JsonIgnore
     private Set<String> equivalentClassDescription;
 
-    @GraphProperty(propertyName=IS_OBSOLETE)
+    @GraphProperty(propertyName = IS_OBSOLETE)
     @JsonProperty(value = IS_OBSOLETE)
     private boolean isObsolete;
 
-    @GraphProperty(propertyName=TERM_REPLACED_BY)
+    @GraphProperty(propertyName = TERM_REPLACED_BY)
     @JsonProperty(value = TERM_REPLACED_BY)
     private String termReplacedBy;
 
-    @GraphProperty(propertyName=IS_DEFINING_ONTOLOGY)
+    @GraphProperty(propertyName = IS_DEFINING_ONTOLOGY)
     @JsonProperty(value = IS_DEFINING_ONTOLOGY)
     private boolean isLocal;
 
-    @GraphProperty(propertyName=HAS_CHILDREN)
+    @GraphProperty(propertyName = HAS_CHILDREN)
     @JsonProperty(value = HAS_CHILDREN)
     private boolean hasChildren;
 
-    @GraphProperty(propertyName=IS_ROOT)
+    @GraphProperty(propertyName = IS_ROOT)
     @JsonProperty(value = IS_ROOT)
     private boolean isRoot;
 
-    @GraphProperty(propertyName=SHORT_FORM)
+    @GraphProperty(propertyName = SHORT_FORM)
     @JsonProperty(value = SHORT_FORM)
     private String shortForm;
 
-    @GraphProperty(propertyName=OBO_ID)
+    @GraphProperty(propertyName = OBO_ID)
     @JsonProperty(value = OBO_ID)
     private String oboId;
 
-    @GraphProperty(propertyName=IN_SUBSET)
+    @GraphProperty(propertyName = IN_SUBSET)
     @JsonProperty(value = IN_SUBSET)
     private Set<String> inSubsets;
 
     private DynamicProperties annotation = new DynamicPropertiesContainer();
     private DynamicProperties localizedAnnotation = new DynamicPropertiesContainer();
 
-    @GraphProperty(propertyName=OBO_DEFINITION_CITATION)
+    @GraphProperty(propertyName = OBO_DEFINITION_CITATION)
     @JsonProperty(value = OBO_DEFINITION_CITATION)
     @JsonRawValue
     private Set<String> oboDefinitionCitations;
 
-    @GraphProperty(propertyName=OBO_XREF)
+    @GraphProperty(propertyName = OBO_XREF)
     @JsonProperty(value = OBO_XREF)
     @JsonRawValue
     private Set<String> oboXrefs;
 
-    @GraphProperty(propertyName=OBO_SYNONYM)
+    @GraphProperty(propertyName = OBO_SYNONYM)
     @JsonProperty(value = OBO_SYNONYM)
     @JsonRawValue
     private Set<String> oboSynonyms;
 
     @JsonIgnore
     @RelatedToVia
-    @Fetch Set<Related> related;
+    @Fetch
+    Set<Related> related;
 
-    @GraphProperty(propertyName=IS_PREFERRED_ROOT)
+    @GraphProperty(propertyName = IS_PREFERRED_ROOT)
     @JsonProperty(value = IS_PREFERRED_ROOT)
     private boolean isPreferredRoot;
-    
+
     public Term() {
     }
 
     /**
      * This method gets the distinct set of relations by relation label
+     *
      * @return
      */
     public Set<Related> getRelated() {
         Set<Related> unique = new HashSet<>();
         Set<String> seen = new HashSet<>();
         for (Related related1 : related) {
-            if (!seen.contains(related1.getLabel())){
+            if (!seen.contains(related1.getLabel())) {
                 unique.add(related1);
             }
             seen.add(related1.getLabel());
@@ -163,54 +160,54 @@ public class Term {
 
     public String[] getDescriptionsByLang(String lang) {
 
-	    String[] localizedDescriptions = (String[])
-	    	this.localizedDescriptions.getProperty(lang);
+        String[] localizedDescriptions = (String[])
+                this.localizedDescriptions.getProperty(lang);
 
-	    if(localizedDescriptions != null && localizedDescriptions.length > 0) {
-		    return (String[]) localizedDescriptions;
-	    }
+        if (localizedDescriptions != null && localizedDescriptions.length > 0) {
+            return (String[]) localizedDescriptions;
+        }
 
-	    if(description != null) {
-		return description.toArray(new String[0]);
-	    }
+        if (description != null) {
+            return description.toArray(new String[0]);
+        }
 
-	    return new String[0];
+        return new String[0];
     }
 
     public String getLabelByLang(String lang) {
-	    return getLabelsByLang(lang)[0];
+        return getLabelsByLang(lang)[0];
     }
 
     public String[] getLabelsByLang(String lang) {
 
-	    String[] localizedLabels = (String[])
-	    	this.localizedLabels.getProperty(lang);
+        String[] localizedLabels = (String[])
+                this.localizedLabels.getProperty(lang);
 
-	    if(localizedLabels != null && localizedLabels.length > 0) {
-		    return localizedLabels;
-	    }
+        if (localizedLabels != null && localizedLabels.length > 0) {
+            return localizedLabels;
+        }
 
-	    if(label != null) {
-		return new String[] { label };
-	    }
+        if (label != null) {
+            return new String[]{label};
+        }
 
-	    return new String[0];
+        return new String[0];
     }
 
     public String[] getSynonymsByLang(String lang) {
 
-	    String[] localizedSynonyms = (String[])
-	    	this.localizedSynonyms.getProperty(lang);
+        String[] localizedSynonyms = (String[])
+                this.localizedSynonyms.getProperty(lang);
 
-	    if(localizedSynonyms != null) {
-		    return localizedSynonyms;
-	    }
+        if (localizedSynonyms != null) {
+            return localizedSynonyms;
+        }
 
-	    if(synonym != null) {
-		return synonym.toArray(new String[0]);
-	    }
+        if (synonym != null) {
+            return synonym.toArray(new String[0]);
+        }
 
-	    return new String[0];
+        return new String[0];
     }
 
 
@@ -285,21 +282,21 @@ public class Term {
 
     public Map<String, Object> getAnnotationByLang(String lang) {
 
-	Map<String, Object> localizedAnnotations = localizedAnnotation.asMap();
+        Map<String, Object> localizedAnnotations = localizedAnnotation.asMap();
 
-	Map<String, Object> res = new TreeMap<>();
+        Map<String, Object> res = new TreeMap<>();
 
-	if(lang.equals("en") && annotation != null) {
-		res.putAll(annotation.asMap());
-	}
+        if (lang.equals("en") && annotation != null) {
+            res.putAll(annotation.asMap());
+        }
 
-	for(String k : localizedAnnotations.keySet()) {
-		if(k.indexOf(lang + "-") == 0) {
-			res.put(k.substring(lang.length() + 1), localizedAnnotations.get(k));
-		}
-	}
+        for (String k : localizedAnnotations.keySet()) {
+            if (k.indexOf(lang + "-") == 0) {
+                res.put(k.substring(lang.length() + 1), localizedAnnotations.get(k));
+            }
+        }
 
-	return res;
+        return res;
     }
 
     @JsonProperty(value = IS_DEFINING_ONTOLOGY)
@@ -368,9 +365,9 @@ public class Term {
     public void setEquivalentClassDescription(Set<String> equivalentClassDescription) {
         this.equivalentClassDescription = equivalentClassDescription;
     }
-    
+
     @JsonProperty(value = IS_PREFERRED_ROOT)
     public boolean isPreferredRoot() {
         return isPreferredRoot;
-    }    
+    }
 }
