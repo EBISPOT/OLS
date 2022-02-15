@@ -253,7 +253,7 @@
                             </p>
                         </div>
 
-                        <div th:if="${ontologyProperty.getSynonymsByLang(lang) !=null}">
+                        <div th:if="${ontologyProperty.getSynonymsByLang(lang) != null && ontologyProperty.getSynonymsByLang(lang).length > 0}">
                             <p><b>Synonyms:</b>
                                 <span property="alternateName" class="label synonym"
                                       th:each="synonym : ${ontologyProperty.getSynonymsByLang(lang)}"

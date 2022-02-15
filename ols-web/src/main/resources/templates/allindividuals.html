@@ -101,7 +101,7 @@
                     <!--@thymesVar id="individual" type="uk.ac.ebi.spot.ols.neo4j.model.Individual"-->
                     <tr th:each="individual : ${allindividuals}">
                         <td>
-                            <a th:text="${individual.getLabel()}"
+                            <a th:text="${individual.getLabelByLang(lang)}"
                                th:href="@{individuals (iri=${individual.getIri()})}"></a>
                         </td>
                         <td th:text="${individual.getShortForm()}">0</td>
