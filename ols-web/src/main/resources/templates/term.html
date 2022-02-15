@@ -461,7 +461,7 @@
                                     <li th:each="term,iterStat: ${relation.value}"><a href="#"
                                                                                       th:title="${term.iri}"
                                                                                       th:href="@{terms (iri=${term.iri})}"
-                                                                                      th:text="${term.label}">parent
+                                                                                      th:text="${term.getLabelByLang(lang)}">parent
                                         1</a></li>
                                 </ul>
                                 <!--span th:each="term,iterStat: ${relation.value}">
@@ -477,7 +477,7 @@
                                 <li th:each="instance : ${instances}"><a href="#"
                                                                          th:title="${instance.iri}"
                                                                          th:href="@{individuals (iri=${instance.iri})}"
-                                                                         th:text="${instance.label}">parent 1</a></li>
+                                                                         th:text="${instance.getLabelByLang(lang)}">parent 1</a></li>
                             </ul>
                         </div>
                     </div>
