@@ -24,15 +24,18 @@ public class LocalizedIndividual {
 	    lt.lang = lang;
 	    lt.label = individual.getLabelByLang(lang);
 	    lt.description = individual.getDescriptionsByLang(lang);
-	    lt.synonym = individual.getSynonymsByLang(lang);
+	    lt.synonyms = individual.getSynonymsByLang(lang);
 	    lt.ontologyName = individual.getOntologyName();
 	    lt.ontologyPrefix = individual.getOntologyPrefix();
 	    lt.ontologyIri = individual.getOntologyIri();
 	    lt.isObsolete = individual.isObsolete();
-	    lt.isLocal = individual.isLocal();
 	    lt.shortForm = individual.getShortForm();
 	    lt.oboId = individual.getOboId();
 	    lt.annotation = individual.getAnnotationByLang(lang);
+
+	    lt.type = individual.getType().stream().map(
+		    term -> LocalizedTerm.fromTerm(lang, term)).toArray(LocalizedTerm[]::new);
+
 	    return lt;
     }
 
@@ -44,7 +47,7 @@ public class LocalizedIndividual {
     public String label;
 
     public String[] description;
-    public String[] synonym;
+    public String[] synonyms;
 
     @JsonProperty(value = ONTOLOGY_NAME)
     public String ontologyName;
@@ -77,6 +80,8 @@ public class LocalizedIndividual {
     public Set<String> inSubsets;
 
     public Map<String,Object> annotation;
+
+    public LocalizedTerm[] type;
 }
 
 
