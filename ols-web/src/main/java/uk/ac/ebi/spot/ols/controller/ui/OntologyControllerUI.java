@@ -6,13 +6,17 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
 import uk.ac.ebi.spot.ols.neo4j.model.Individual;
 import uk.ac.ebi.spot.ols.neo4j.service.OntologyIndividualService;
@@ -85,7 +89,7 @@ public class OntologyControllerUI {
                 InternetAddress address = new InternetAddress(contact, true);
                 contact = "mailto:" + contact;
             } catch (Exception e) {
-              // only thrown if not valid e-mail, so contact must be URL of some sort
+                // only thrown if not valid e-mail, so contact must be URL of some sort
             }
             model.addAttribute("lang", lang);
 	    model.addAttribute("ontologyLanguages", document.getConfig().getLanguages());
@@ -102,24 +106,25 @@ public class OntologyControllerUI {
 
             customisationProperties.setCustomisationModelAttributes(model);
             DisplayUtils.setPreferredRootTermsModelAttributes(ontologyId, document, ontologyTermGraphService, model);
-        }
-        else {
+        } else {
             return homeController.doSearch(
                     "*",
                     null,
-                    null,null, null, false, null, false, false, null, 10,0,model);
+                    null, null, null, false, null, false, false, null, 10, 0, model);
         }
         return "ontology";
     }
 
     @RequestMapping(path = "/{onto}", produces = "application/rdf+xml", method = RequestMethod.GET)
-    public @ResponseBody FileSystemResource getOntologyDirectDownload(@PathVariable("onto") String ontologyId, HttpServletResponse response) throws ResourceNotFoundException {
+    public @ResponseBody
+    FileSystemResource getOntologyDirectDownload(@PathVariable("onto") String ontologyId, HttpServletResponse response) throws ResourceNotFoundException {
         return getDownloadOntology(ontologyId, response);
     }
 
 
     @RequestMapping(path = "/{onto}/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE, method = RequestMethod.GET)
-    public @ResponseBody  FileSystemResource getDownloadOntology(@PathVariable("onto") String ontologyId, HttpServletResponse response) throws ResourceNotFoundException {
+    public @ResponseBody
+    FileSystemResource getDownloadOntology(@PathVariable("onto") String ontologyId, HttpServletResponse response) throws ResourceNotFoundException {
 
         ontologyId = ontologyId.toLowerCase();
 
@@ -129,12 +134,12 @@ public class OntologyControllerUI {
             throw new ResourceNotFoundException("Ontology called " + ontologyId + " not found");
         }
 
-        if(document.getConfig().getAllowDownload() == false) {
+        if (document.getConfig().getAllowDownload() == false) {
             throw new ResourceNotFoundException("This ontology is not available for download");
         }
 
         try {
-            response.setHeader( "Content-Disposition", "filename=" + ontologyId + ".owl" );
+            response.setHeader("Content-Disposition", "filename=" + ontologyId + ".owl");
             return new FileSystemResource(getDownloadFile(ontologyId));
         } catch (FileNotFoundException e) {
             throw new ResourceNotFoundException("This ontology is not available for download");
@@ -142,8 +147,8 @@ public class OntologyControllerUI {
     }
 
 
-    private File getDownloadFile (String ontologyId) throws FileNotFoundException {
-        File file = new File (getDownloadsFolder(), ontologyId.toLowerCase());
+    private File getDownloadFile(String ontologyId) throws FileNotFoundException {
+        File file = new File(getDownloadsFolder(), ontologyId.toLowerCase());
         if (!file.exists()) {
             throw new FileNotFoundException();
         }
@@ -151,7 +156,7 @@ public class OntologyControllerUI {
     }
 
 
-    private String getDownloadsFolder ( ) {
+    private String getDownloadsFolder() {
         if (downloadsFolder.equals("")) {
             return OLSEnv.getOLSHome() + File.separator + "downloads";
         }

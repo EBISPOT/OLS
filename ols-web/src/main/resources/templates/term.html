@@ -160,6 +160,7 @@
                 </div>
 
                 <div property="description">
+
                     <div th:each="definitionCitation : ${definitionCitations}">
                         <p>
                             <span th:text="${definitionCitation.getDefinition()}"></span>
@@ -195,7 +196,6 @@
                         luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum.
                     </p>
                 </div>
-            </div>
 
             <div th:if="${ontologyTerm.getSynonymsByLang(lang) != null &&  ontologyTerm.getSynonymsByLang(lang).length > 0}">
                 <p><b>Synonyms:</b>
