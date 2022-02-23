@@ -27,6 +27,10 @@ public class App
         ontId.setRequired(true);
         options.addOption(ontId);
 
+        Option sampleSize = new Option(null, "sampleSize", true, "Number of terms to request");
+        sampleSize.setRequired(false);
+        options.addOption(sampleSize);
+
         CommandLineParser parser = new DefaultParser();
         HelpFormatter formatter = new HelpFormatter();
         CommandLine cmd = null;
@@ -43,9 +47,10 @@ public class App
         String url1 = cmd.getOptionValue("instance1");
         String url2 = cmd.getOptionValue("instance2");
 	String ontology = cmd.getOptionValue("ontologyId");
+	String size = cmd.getOptionValue("sampleSize");
 
 	System.exit(
-		(new OlsApiTester(url1, url2, ontology)).test() ? 0 : 1
+		(new OlsApiTester(url1, url2, ontology, size != null ? Integer.parseInt(size) : 5)).test() ? 0 : 1
 	);
     }
 }

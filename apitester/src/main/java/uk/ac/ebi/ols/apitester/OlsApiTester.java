@@ -12,7 +12,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.TreeSet;
@@ -34,10 +33,9 @@ public class OlsApiTester {
 
 	Gson gson;
 	String url1, url2, ontologyId;
+	int sampleSize;
 
-	static final int SAMPLE_SIZE = 3;
-
-	public OlsApiTester(String url1, String url2, String ontologyId) {
+	public OlsApiTester(String url1, String url2, String ontologyId, int sampleSize) {
 
 		gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
@@ -52,73 +50,166 @@ public class OlsApiTester {
 		this.url1 = url1;
 		this.url2 = url2;
 		this.ontologyId = ontologyId;
+		this.sampleSize = sampleSize;
 	}
 
 	public boolean test() {
 
 		System.out.println("url1: " + url1);
 		System.out.println("url2: " + url2);
+		System.out.println("ontology id: " + this.ontologyId);
+		System.out.println("sample size: " + this.sampleSize);
 
 		try {
 
 			check(this.ontologyId, "/api/ontologies/" + this.ontologyId);
 
 			Pair<JsonElement, JsonElement> termsResult =
-				check(this.ontologyId + "_terms", "/api/ontologies/" + this.ontologyId + "/terms?size=" + SAMPLE_SIZE);
+				check(this.ontologyId + "_terms", "/api/ontologies/" + this.ontologyId + "/terms?size=" + this.sampleSize);
 
-			check(this.ontologyId + "_roots", "/api/ontologies/" + this.ontologyId + "/terms/roots?size=" + SAMPLE_SIZE);
-			check(this.ontologyId + "_properties", "/api/ontologies/" + this.ontologyId + "/properties?size=" + SAMPLE_SIZE);
-			check(this.ontologyId + "_propertyroots", "/api/ontologies/" + this.ontologyId + "/properties/roots?size=" + SAMPLE_SIZE);
+			Pair<JsonElement, JsonElement> propertiesResult = 
+				check(this.ontologyId + "_properties", "/api/ontologies/" + this.ontologyId + "/properties?size=" + this.sampleSize);
+
+			Pair<JsonElement, JsonElement> individualsResult = 
+				check(this.ontologyId + "_individuals", "/api/ontologies/" + this.ontologyId + "/individuals?size=" + this.sampleSize);
+
+			check(this.ontologyId + "_roots", "/api/ontologies/" + this.ontologyId + "/terms/roots?size=" + this.sampleSize);
+			check(this.ontologyId + "_propertyroots", "/api/ontologies/" + this.ontologyId + "/properties/roots?size=" + this.sampleSize);
 
 			// Use instance1's list to iterate through the terms
 			// The two instances should not differ anyway. If they do we will have already reported it.
 			//
-			JsonElement instance1Result = termsResult.getLeft();
+			JsonElement instance1TermsResult = termsResult.getLeft();
 
-			JsonArray terms = instance1Result.getAsJsonObject()
-				.get("_embedded").getAsJsonObject()
-				.get("terms").getAsJsonArray();
-			
-			for(int i = 0; i < terms.size(); ++ i) {
+			int numTerms = instance1TermsResult.getAsJsonObject()
+				.get("page").getAsJsonObject()
+				.get("totalElements").getAsInt();
 
-				JsonObject term = terms.get(i).getAsJsonObject();
-				String iri = term.get("iri").getAsString();
-				String shortform = term.get("short_form").getAsString();
+			if(numTerms > 0) {
+				JsonArray terms = instance1TermsResult.getAsJsonObject()
+					.get("_embedded").getAsJsonObject()
+					.get("terms").getAsJsonArray();
+				
+				for(int i = 0; i < terms.size(); ++ i) {
 
-				check(this.ontologyId + "_" + shortform,
-					"/api/ontologies/" + this.ontologyId + "/terms/" + doubleEncode(iri));
+					JsonObject term = terms.get(i).getAsJsonObject();
+					String iri = term.get("iri").getAsString();
+					String shortform = term.get("short_form").getAsString();
 
-				check(this.ontologyId + "_" + shortform + "_parents",
-					"/api/ontologies/" + this.ontologyId + "/terms/" + doubleEncode(iri) + "/parents");
+					check(this.ontologyId + "_terms_" + shortform,
+						"/api/ontologies/" + this.ontologyId + "/terms/" + doubleEncode(iri));
 
-				check(this.ontologyId + "_" + shortform + "_ancestors",
-					"/api/ontologies/" + this.ontologyId + "/terms/" + doubleEncode(iri) + "/ancestors");
+					check(this.ontologyId + "_terms_" + shortform + "_parents",
+						"/api/ontologies/" + this.ontologyId + "/terms/" + doubleEncode(iri) + "/parents");
 
-				check(this.ontologyId + "_" + shortform + "_hierarchicalParents",
-					"/api/ontologies/" + this.ontologyId + "/terms/" + doubleEncode(iri) + "/hierarchicalParents");
+					check(this.ontologyId + "_terms_" + shortform + "_ancestors",
+						"/api/ontologies/" + this.ontologyId + "/terms/" + doubleEncode(iri) + "/ancestors");
 
-				check(this.ontologyId + "_" + shortform + "_hierarchicalAncestors",
-					"/api/ontologies/" + this.ontologyId + "/terms/" + doubleEncode(iri) + "/hierarchicalAncestors");
+					check(this.ontologyId + "_terms_" + shortform + "_hierarchicalParents",
+						"/api/ontologies/" + this.ontologyId + "/terms/" + doubleEncode(iri) + "/hierarchicalParents");
 
-				check(this.ontologyId + "_" + shortform + "_jstree",
-					"/api/ontologies/" + this.ontologyId + "/terms/" + doubleEncode(iri) + "/jstree");
+					check(this.ontologyId + "_terms_" + shortform + "_hierarchicalAncestors",
+						"/api/ontologies/" + this.ontologyId + "/terms/" + doubleEncode(iri) + "/hierarchicalAncestors");
 
-				check(this.ontologyId + "_" + shortform + "_children",
-					"/api/ontologies/" + this.ontologyId + "/terms/" + doubleEncode(iri) + "/children");
+					check(this.ontologyId + "_terms_" + shortform + "_jstree",
+						"/api/ontologies/" + this.ontologyId + "/terms/" + doubleEncode(iri) + "/jstree");
 
-				check(this.ontologyId + "_" + shortform + "_descendants",
-					"/api/ontologies/" + this.ontologyId + "/terms/" + doubleEncode(iri) + "/descendants");
+					check(this.ontologyId + "_terms_" + shortform + "_children",
+						"/api/ontologies/" + this.ontologyId + "/terms/" + doubleEncode(iri) + "/children");
 
-				check(this.ontologyId + "_" + shortform + "_hierarchicalChildren",
-					"/api/ontologies/" + this.ontologyId + "/terms/" + doubleEncode(iri) + "/hierarchicalChildren");
+					check(this.ontologyId + "_terms_" + shortform + "_descendants",
+						"/api/ontologies/" + this.ontologyId + "/terms/" + doubleEncode(iri) + "/descendants");
 
-				check(this.ontologyId + "_" + shortform + "_hierarchicalDescendants",
-					"/api/ontologies/" + this.ontologyId + "/terms/" + doubleEncode(iri) + "/hierarchicalDescendants");
+					check(this.ontologyId + "_terms_" + shortform + "_hierarchicalChildren",
+						"/api/ontologies/" + this.ontologyId + "/terms/" + doubleEncode(iri) + "/hierarchicalChildren");
 
-				check(this.ontologyId + "_" + shortform + "_graph",
-					"/api/ontologies/" + this.ontologyId + "/terms/" + doubleEncode(iri) + "/graph");
+					check(this.ontologyId + "_terms_" + shortform + "_hierarchicalDescendants",
+						"/api/ontologies/" + this.ontologyId + "/terms/" + doubleEncode(iri) + "/hierarchicalDescendants");
+
+					check(this.ontologyId + "_terms_" + shortform + "_graph",
+						"/api/ontologies/" + this.ontologyId + "/terms/" + doubleEncode(iri) + "/graph");
+
+					check(this.ontologyId + "_terms_" + shortform + "_findByIdAndIsDefiningOntology",
+						"/api/terms/findByIdAndIsDefiningOntology?short_form=" + shortform);
+				}
 			}
 
+			JsonElement instance1PropsResult = propertiesResult.getLeft();
+
+			int numProperties = instance1PropsResult.getAsJsonObject()
+				.get("page").getAsJsonObject()
+				.get("totalElements").getAsInt();
+
+			if(numProperties > 0) {
+
+				JsonArray properties = instance1PropsResult.getAsJsonObject()
+					.get("_embedded").getAsJsonObject()
+					.get("properties").getAsJsonArray();
+				
+				for(int i = 0; i < properties.size(); ++ i) {
+
+					JsonObject property = properties.get(i).getAsJsonObject();
+					String iri = property.get("iri").getAsString();
+					String shortform = property.get("short_form").getAsString();
+
+					check(this.ontologyId + "_properties_" + shortform,
+						"/api/ontologies/" + this.ontologyId + "/properties/" + doubleEncode(iri));
+
+					check(this.ontologyId + "_properties_" + shortform + "_findByIdAndIsDefiningOntology",
+						"/api/properties/findByIdAndIsDefiningOntology?short_form=" + shortform);
+
+					check(this.ontologyId + "_properties_" + shortform + "_ancestors",
+						"/api/ontologies/" + this.ontologyId + "/properties/" + doubleEncode(iri) + "/ancestors");
+
+					check(this.ontologyId + "_properties_" + shortform + "_children",
+						"/api/ontologies/" + this.ontologyId + "/properties/" + doubleEncode(iri) + "/children");
+
+					check(this.ontologyId + "_properties_" + shortform + "_descendants",
+						"/api/ontologies/" + this.ontologyId + "/properties/" + doubleEncode(iri) + "/descendants");
+
+					// check(this.ontologyId + "_properties_" + shortform + "_jstree",
+					// 	"/api/ontologies/" + this.ontologyId + "/properties/" + doubleEncode(iri) + "/jstree");
+
+					check(this.ontologyId + "_properties_" + shortform + "_parents",
+						"/api/ontologies/" + this.ontologyId + "/properties/" + doubleEncode(iri) + "/parents");
+				}
+			}
+
+			JsonElement instance1IndividualsResult = individualsResult.getLeft();
+
+			int numIndividuals = instance1IndividualsResult.getAsJsonObject()
+				.get("page").getAsJsonObject()
+				.get("totalElements").getAsInt();
+
+			if(numIndividuals > 0) {
+			
+				JsonArray individuals = instance1IndividualsResult.getAsJsonObject()
+					.get("_embedded").getAsJsonObject()
+					.get("individuals").getAsJsonArray();
+
+				for(int i = 0; i < individuals.size(); ++ i) {
+
+					JsonObject property = individuals.get(i).getAsJsonObject();
+					String iri = property.get("iri").getAsString();
+					String shortform = property.get("short_form").getAsString();
+
+					check(this.ontologyId + "_individuals_" + shortform,
+						"/api/ontologies/" + this.ontologyId + "/individuals/" + doubleEncode(iri));
+
+					check(this.ontologyId + "_individuals_" + shortform + "_findByIdAndIsDefiningOntology",
+						"/api/individuals/findByIdAndIsDefiningOntology?short_form=" + shortform);
+
+					check(this.ontologyId + "_individuals_" + shortform + "_alltypes",
+						"/api/ontologies/" + this.ontologyId + "/individuals/" + doubleEncode(iri) + "/alltypes");
+
+					check(this.ontologyId + "_individuals_" + shortform + "_jstree",
+						"/api/ontologies/" + this.ontologyId + "/individuals/" + doubleEncode(iri) + "/jstree");
+
+					check(this.ontologyId + "_individuals_" + shortform + "_types",
+						"/api/ontologies/" + this.ontologyId + "/individuals/" + doubleEncode(iri) + "/types");
+
+				}
+			}
 
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
