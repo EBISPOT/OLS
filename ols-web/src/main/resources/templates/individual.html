@@ -203,7 +203,6 @@
                     <h4>Instance information</h4>
                 </div>
                 <div class="panel-body">
-
                     <div th:each="annotations: ${ontologyIndividual.getAnnotationByLang(lang)}">
                         <b>
                             <a href="#"
@@ -223,14 +222,18 @@
                 </div>
 
                 <div class="panel-body">
-                    <div th:if="${indvidualTypes != null}">
+                    <div th:if="${individualTypes != null || individualAnonymousTypes != null}">
                         <b>Types</b>
-                        <br/>
-                        <div th:each="type : ${indvidualTypes}">
-                            <a href="#" th:href="@{terms (iri=${type.getIri()})}"
-                               th:text="${type.getLabelByLang(lang)}">parent
-                                1</a>
-                        </div>
+                        <ul>
+                            <li th:each="type : ${individualTypes}">
+                                <a href="#" th:href="@{terms (iri=${type.getIri()})}"
+                                   th:text="${type.getLabelByLang(lang)}">parent
+                                    1</a>
+                            </li>
+                            <li th:each="anonymousType : ${individualAnonymousTypes}"
+                                th:utext="${anonymousType}">NCBI_9606
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>

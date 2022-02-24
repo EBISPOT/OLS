@@ -52,10 +52,10 @@ public class IndividualControllerUI {
 
         Individual term = null;
 
-	model.addAttribute("lang", lang);
+        model.addAttribute("lang", lang);
 
         OntologyDocument document = repositoryService.get(ontologyId);
-	model.addAttribute("ontologyLanguages", document.getConfig().getLanguages());
+        model.addAttribute("ontologyLanguages", document.getConfig().getLanguages());
 
         if (termIri != null) {
             term = ontologyIndividualService.findByOntologyAndIri(ontologyId, termIri);
@@ -89,7 +89,8 @@ public class IndividualControllerUI {
         }
 
         model.addAttribute("ontologyIndividual", term);
-        model.addAttribute("indvidualTypes", ontologyIndividualService.getDirectTypes(ontologyId, term.getIri(), new PageRequest(0, 10)));
+        model.addAttribute("individualTypes", ontologyIndividualService.getDirectTypes(ontologyId, term.getIri(), new PageRequest(0, 10)));
+        model.addAttribute("individualAnonymousTypes", term.getAnonymousTypeDescription());
 
         String title = repositoryService.get(ontologyId).getConfig().getLocalizedTitle(lang);
         model.addAttribute("ontologyName", title);
