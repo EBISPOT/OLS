@@ -158,7 +158,10 @@ public class TermController implements
         	terms = ontologyTermGraphService.findAllByIsDefiningOntology(pageable);
         	if (terms == null) throw new ResourceNotFoundException("Ontology not found");
         }
-        return new ResponseEntity<>( assembler.toResource(terms, termAssembler), HttpStatus.OK);
+
+	Page<LocalizedTerm> localized = terms.map(term -> LocalizedTerm.fromTerm(lang, term));
+
+        return new ResponseEntity<>( assembler.toResource(localized, termAssembler), HttpStatus.OK);
     }
     
     
