@@ -245,13 +245,18 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
             }
 
             // add relations
-            indexRelations(node, loader.getRelatedIndividuals(individualIri),
-                    inserter, loader, nodeMap,
-                    new LinkedList<Label>(Arrays.asList(instanceLabel, nodeOntologyLabel, _instanceLabel)));
-
             indexRelations(node, loader.getRelatedClassesToIndividual(individualIri),
                     inserter, loader, classNodeMap,
                     new LinkedList<Label>(Arrays.asList(nodeLabel, nodeOntologyLabel, _nodeLabel)));
+        }
+
+        // add related individuals only after indexing all individuals to avoid duplication
+        for (IRI individualIri : loader.getAllIndividualIRIs()) {
+            if (loader.getRelatedIndividuals(individualIri).size() > 0) {
+                indexRelations(nodeMap.get(individualIri.toString()), loader.getRelatedIndividuals(individualIri),
+                        inserter, loader, nodeMap,
+                        new LinkedList<Label>(Arrays.asList(instanceLabel, nodeOntologyLabel, _instanceLabel)));
+            }
         }
     }
 
