@@ -1739,7 +1739,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
     }
 
     @Override
-    public Map<IRI, Collection<String>> getAnonymousTypeDescriptions() {
+    public Map<IRI, Collection<String>> getAnonymousTypes() {
         return this.anonymousTypeExpressionsAsString;
     }
 

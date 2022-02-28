@@ -221,7 +221,7 @@ public interface OntologyLoader {
 
     Map<IRI, Collection<String>> getLogicalEquivalentClassDescriptions();
 
-    Map<IRI, Collection<String>> getAnonymousTypeDescriptions();
+    Map<IRI, Collection<String>> getAnonymousTypes();
 
     Map<IRI, Collection<IRI>> getEquivalentTerms();
 

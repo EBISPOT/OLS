@@ -42,8 +42,8 @@ public class Individual {
     @GraphProperty(propertyName = DESCRIPTION)
     private Set<String> description;
 
-    @GraphProperty(propertyName = ANONYMOUS_TYPE_DESCRIPTION)
-    private Set<String> anonymousTypeDescription;
+    @GraphProperty(propertyName = ANONYMOUS_TYPE)
+    private Set<String> anonymousType;
 
     @GraphProperty(propertyName = LOCALIZED_LABELS)
     @JsonProperty(value = LOCALIZED_LABELS)
@@ -166,8 +166,8 @@ public class Individual {
         return description;
     }
 
-    public Set<String> getAnonymousTypeDescription() {
-        return anonymousTypeDescription;
+    public Set<String> getAnonymousType() {
+        return anonymousType;
     }
 
     @JsonProperty(value = "ontology_name")

@@ -221,10 +221,10 @@ class NodeCreator {
 
     protected static void addAnonymousTypeDescriptionPropertyConditionally(OntologyLoader loader, IRI classIri,
                                                                            Map<String, Object> nodeProperties) {
-        if (loader.getAnonymousTypeDescriptions().containsKey(classIri)) {
-            String[] descriptions = loader.getAnonymousTypeDescriptions().get(classIri)
-                    .toArray(new String[loader.getAnonymousTypeDescriptions().get(classIri).size()]);
-            nodeProperties.put(ANONYMOUS_TYPE_DESCRIPTION, descriptions);
+        if (loader.getAnonymousTypes().containsKey(classIri)) {
+            String[] descriptions = loader.getAnonymousTypes().get(classIri)
+                    .toArray(new String[loader.getAnonymousTypes().get(classIri).size()]);
+            nodeProperties.put(ANONYMOUS_TYPE, descriptions);
         }
     }
 
