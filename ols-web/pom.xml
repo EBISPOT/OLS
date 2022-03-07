@@ -93,9 +93,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.warmuuh</groupId>
-            <artifactId>libsass-maven-plugin</artifactId>
-            <version>0.2.10-libsass_3.5.3</version>
+		    <groupId>nl.geodienstencentrum.maven</groupId>
+		    <artifactId>sass-maven-plugin</artifactId>
+		    <version>3.7.2</version>
         </dependency>
 
     </dependencies>
@@ -156,26 +156,28 @@
                     </attributes>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>com.github.warmuuh</groupId>
-                <artifactId>libsass-maven-plugin</artifactId>
-                <version>0.2.10-libsass_3.5.3</version>
-                <executions>
-                    <execution>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <inputPath>${project.basedir}/src/main/resources/scss/</inputPath>
-                    <!--outputPath>${project.basedir}/target/</outputPath-->
-                    <outputPath>${project.basedir}/src/main/resources/static/css/</outputPath>
-                    <!--includePath>${project.basedir}/src/main/sass/plugins/</includePath-->
-                    <sourceMapOutputPath>${project.basedir}/src/main/resources/static/css/</sourceMapOutputPath>
-                </configuration>
-            </plugin>
+		<plugin>
+		    <groupId>nl.geodienstencentrum.maven</groupId>
+		    <artifactId>sass-maven-plugin</artifactId>
+		    <version>3.7.2</version>
+		    <executions>
+			<execution>
+			    <id>generate-css</id>
+			    <phase>generate-resources</phase>
+			    <goals>
+				<goal>update-stylesheets</goal>
+			    </goals>
+			    <configuration>
+				<sassOptions>
+				    <always_update>true</always_update>
+				</sassOptions>
+				<sassSourceDirectory>${project.basedir}/src/main/resources/scss</sassSourceDirectory>
+				<destination>${project.basedir}/src/main/resources/static/css</destination>
+			    </configuration>
+			</execution>
+		    </executions>
+		</plugin>
+
          </plugins>
     </build>
 </project>
