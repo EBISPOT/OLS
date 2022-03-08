@@ -204,16 +204,24 @@ public class Individual {
 
         Map<String, Object> res = new TreeMap<>();
 
-        if (lang.equals("en") && annotation != null) {
+        if ( (lang.equals("en") || lang.startsWith("en-")) && annotation != null) {
             res.putAll(annotation.asMap());
         }
 
         for (String k : localizedAnnotations.keySet()) {
-            if (k.indexOf(lang + "-") == 0) {
-                res.put(k.substring(lang.length() + 1), localizedAnnotations.get(k));
-            }
+
+		int n = lang.lastIndexOf('-');
+
+		if(n != -1) {
+			String annoLang = lang.substring(0, n);
+
+			if (annoLang.equalsIgnoreCase(lang)) {
+				res.put(k.substring(n + 1), localizedAnnotations.get(k));
+			}
+		}
         }
 
         return res;
     }
+
 }

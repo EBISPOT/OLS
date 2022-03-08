@@ -231,7 +231,7 @@ public class OlsApiTester {
 		Pair<JsonElement, JsonElement> results = getBoth(path);
 
 		JsonElement result1 = results.getLeft();
-		JsonElement result2 = results.getLeft();
+		JsonElement result2 = results.getRight();
 
 		String result1Json = gson.toJson(result1);
 		String result2Json = gson.toJson(result2);
@@ -240,7 +240,7 @@ public class OlsApiTester {
 		save(filenameToSave + "_2.json", result2Json);
 
 		if(!result1Json.equals(result2Json)) {
-			System.out.println("⚠️ Response did not match");
+			System.out.println("❌ Response did not match");
 		} else {
 			System.out.println("✅ Response matched");
 		}
@@ -260,7 +260,11 @@ public class OlsApiTester {
 
 	public JsonElement get(String baseUrl, String path) throws IOException, MalformedURLException {
 
-		URLConnection conn = new URL(baseUrl + path).openConnection();
+		String finalUrl = baseUrl + path;
+
+		System.out.println("GET " + finalUrl);
+
+		URLConnection conn = new URL(finalUrl).openConnection();
 		InputStream is = conn.getInputStream();
 		Reader reader = new InputStreamReader(is, "UTF-8");
 		JsonElement result = JsonParser.parseReader(reader);

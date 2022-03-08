@@ -16,7 +16,7 @@ public class LocalizedStrings {
 
     public LocalizedStrings(Map<String,String> strings) {
         for(String lang : strings.keySet()) {
-            addString(lang, strings.get(lang));
+            addString(lang, strings.get(lang.toLowerCase()));
         }
     }
 
@@ -27,19 +27,22 @@ public class LocalizedStrings {
     public Set<String> getNonEnLanguages() {
 	Set<String> langs = new HashSet<>();
 	for(String lang : localizations.keySet()) {
-		if(lang.compareTo("en") != 0 && lang.compareTo("") != 0) {
+		if(lang.compareTo("en") != 0 && (!lang.startsWith("en-")) && lang.compareTo("") != 0) {
 			langs.add(lang);
 		}
 	}
 	return langs;
     }
 
-    public List<String> getStrings(String language) {
+    public List<String> getStrings(String... languages) {
 
-        List<String> strings = localizations.get(language);
+	for(String lang : languages) {
 
-        if(strings != null) {
-            return strings;
+		List<String> strings = localizations.get(lang.toLowerCase());
+
+		if(strings != null) {
+			return strings;
+		}
 	}
 
 	List<String> defaults = localizations.get("");
@@ -59,12 +62,15 @@ public class LocalizedStrings {
         return localizations;
     }
 
-    public String getFirstString(String language) {
+    public String getFirstString(String... languages) {
 
-        List<String> strings = localizations.get(language);
+	for(String lang : languages) {
 
-        if(strings != null && strings.size() > 0) {
-            return strings.get(0);
+		List<String> strings = localizations.get(lang.toLowerCase());
+
+		if(strings != null && strings.size() > 0) {
+			return strings.get(0);
+		}
 	}
 
 	List<String> defaults = localizations.get("");
@@ -78,11 +84,11 @@ public class LocalizedStrings {
 
     public void addString(String language, String value) {
 
-        List<String> strings = localizations.get(language);
+        List<String> strings = localizations.get(language.toLowerCase());
 
         if(strings == null) {
             strings = new ArrayList<>();
-            localizations.put(language, strings);
+            localizations.put(language.toLowerCase(), strings);
         }
 
         if(!strings.contains(value)) {

@@ -184,16 +184,19 @@ class NodeCreator {
 		    for (IRI property : annotations.keySet()) {
 		        LocalizedStrings annotationLabels = loader.getTermLabels().get(property);
 		        LocalizedStrings annotationValues = annotations.get(property);
-				List<String> enValues = annotationValues.getStrings("en");
-				if(enValues != null) {
-					String label = annotationLabels.getFirstString("en");
-					String[] values = enValues.toArray(new String[0]);
+				List<String> defaultValues = annotationValues.getStrings("en", "en-US");
+				if(defaultValues != null) {
+					String label = annotationLabels.getFirstString("en", "en-US");
+					String[] values = defaultValues.toArray(new String[0]);
 					nodeProperties.put(ANNOTATION_DESIGNATION + label, values);
 				}
-				for (String language : annotationLabels.getNonEnLanguages()) {
+				for (String language : annotationLabels.getLanguages()) {
+					if(language.equals("")) {
+						continue;
+					}
 					List<String> localizedValues = annotationValues.getStrings(language);
 					if(localizedValues == null || localizedValues.size() == 0) {
-						localizedValues = annotationValues.getStrings("en");
+						localizedValues = annotationValues.getStrings("en", "en-US");
 					}
 					if (localizedValues != null) {
 						String label = annotationLabels.getFirstString(language);
