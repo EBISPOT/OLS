@@ -32,6 +32,7 @@ public class LocalizedIndividual {
 	    lt.shortForm = individual.getShortForm();
 	    lt.oboId = individual.getOboId();
 	    lt.annotation = individual.getAnnotationByLang(lang);
+	    lt.isLocal = individual.isLocal();
 
 	    lt.type = individual.getType().stream().map(
 		    term -> LocalizedTerm.fromTerm(lang, term)).toArray(LocalizedTerm[]::new);
