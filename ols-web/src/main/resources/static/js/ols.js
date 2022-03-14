@@ -21,7 +21,7 @@ function goTo (url) {
 
 $(function() {
     $('p.annotation-value').each(function(i, el) {
-        $(el).html($(el).html().replace(/((http|https|ftp):\/\/[^\s,]+)/g, function(url) {
+        $(el).html($(el).html().replace(/((http|https|ftp):\/\/[^\s,\[\]]+)/g, function(url) {
 		console.log("Replacing URL with link: " + url);
 		return "<a href=\"$1\">" + escapeHtml(url) + "</a>";
 	}))
