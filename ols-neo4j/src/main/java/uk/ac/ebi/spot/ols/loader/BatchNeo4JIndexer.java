@@ -1,21 +1,6 @@
 package uk.ac.ebi.spot.ols.loader;
 
-import static uk.ac.ebi.spot.ols.loader.Neo4JIndexerConstants.*;
-import static uk.ac.ebi.spot.ols.config.OntologyDefaults.THING;
-
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
-import org.neo4j.graphdb.DynamicLabel;
-import org.neo4j.graphdb.GraphDatabaseService;
-import org.neo4j.graphdb.Label;
-import org.neo4j.graphdb.Result;
-import org.neo4j.graphdb.Transaction;
+import org.neo4j.graphdb.*;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.neo4j.graphdb.index.IndexHits;
 import org.neo4j.graphdb.schema.IndexDefinition;
@@ -30,11 +15,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import uk.ac.ebi.spot.ols.config.OlsNeo4jConfiguration;
 import uk.ac.ebi.spot.ols.exception.IndexingException;
 import uk.ac.ebi.spot.ols.model.OntologyIndexer;
 import uk.ac.ebi.spot.ols.util.LocalizedStrings;
+
+import java.util.*;
+import java.util.concurrent.TimeUnit;
+
+import static uk.ac.ebi.spot.ols.config.OntologyDefaults.THING;
+import static uk.ac.ebi.spot.ols.loader.Neo4JIndexerConstants.*;
 
 /**
  * @author Simon Jupp
@@ -110,7 +100,7 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
                     }
                 }
 
-		properties.put("label", labels.getFirstString("en"));
+                properties.put("label", labels.getFirstString("en"));
 
                 Long hit = inserter.createNode(properties, nodeLabel);
                 index.add(hit, properties);
@@ -220,6 +210,11 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
 
         for (IRI individualIri : loader.getAllIndividualIRIs()) {
 
+            // avoid duplicating individuals already related to a class
+            if (classNodeMap.containsKey(individualIri.toString())) {
+                nodeMap.put(individualIri.toString(), classNodeMap.get(individualIri.toString()));
+            }
+
             Long node = NodeCreator.getOrCreateNode(inserter, nodeMap, loader, individualIri,
                     new LinkedList<Label>(Arrays.asList(instanceLabel, _instanceLabel,
                             nodeOntologyLabel)));
@@ -250,13 +245,18 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
             }
 
             // add relations
-            indexRelations(node, loader.getRelatedIndividuals(individualIri),
-                    inserter, loader, nodeMap,
-                    new LinkedList<Label>(Arrays.asList(instanceLabel, nodeOntologyLabel, _instanceLabel)));
-
             indexRelations(node, loader.getRelatedClassesToIndividual(individualIri),
                     inserter, loader, classNodeMap,
                     new LinkedList<Label>(Arrays.asList(nodeLabel, nodeOntologyLabel, _nodeLabel)));
+        }
+
+        // add related individuals only after indexing all individuals to avoid duplication
+        for (IRI individualIri : loader.getAllIndividualIRIs()) {
+            if (loader.getRelatedIndividuals(individualIri).size() > 0) {
+                indexRelations(nodeMap.get(individualIri.toString()), loader.getRelatedIndividuals(individualIri),
+                        inserter, loader, nodeMap,
+                        new LinkedList<Label>(Arrays.asList(instanceLabel, nodeOntologyLabel, _instanceLabel)));
+            }
         }
     }
 
@@ -429,7 +429,7 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
 
         properties.put(propertyName, localizedStrings.getFirstString("en"));
 
-        for(String language : localizedStrings.getLanguages()) {
+        for (String language : localizedStrings.getLanguages()) {
             properties.put(propertyName + "_" + language, localizedStrings.getFirstString(language));
         }
     }
@@ -449,7 +449,7 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
         for (OntologyLoader loader : loaders) {
 
             BatchInserter inserter = getBatchIndexer(loader.getOntologyName());
-            
+
             setOntologyLabel(loader.getOntologyName());
             // index classes
             indexClasses(inserter, loader, classNodeMap, mergedNodeMap);
@@ -492,27 +492,24 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
                     } catch (IllegalStateException e) {
                         throw new IndexingException("Building Neo4j index failed as the schema index didn't finish in time", e);
                     }
-                }
-                else if (state.equals(Schema.IndexState.FAILED)) {
+                } else if (state.equals(Schema.IndexState.FAILED)) {
                     throw new Exception("Index failed: " + indexDefinition.getLabel().name());
                 }
             }
 
             tx.success();
-        }
-        catch (Exception e) {
-        	logger.debug(e.getMessage(), e);
+        } catch (Exception e) {
+            logger.debug(e.getMessage(), e);
             tx.failure();
             throw new IndexingException("Building Neo4j index failed as the schema index creation failed", e);
-        }
-        finally {
+        } finally {
             tx.close();
             db.shutdown();
         }
     }
 
-    protected GraphDatabaseService getGraphDatabase () {
-   		return new GraphDatabaseFactory().newEmbeddedDatabase(neo4jConfiguration.getNeo4JPath());
+    protected GraphDatabaseService getGraphDatabase() {
+        return new GraphDatabaseFactory().newEmbeddedDatabase(neo4jConfiguration.getNeo4JPath());
     }
 
     public void dropIndex(OntologyLoader loader) throws IndexingException {
@@ -538,14 +535,14 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
         int count = getNodeCount(
                 "match (n:" + ontologyName.toUpperCase() + ")-[r]->() return count(r) as count", ontologyName);
 
-        for (int x = 0; x < count ; x +=DELETE_SIZE) {
+        for (int x = 0; x < count; x += DELETE_SIZE) {
 
             Transaction tx = db.beginTx();
 
             try {
                 String cypherDelete =
-                        "match (n:" + ontologyName.toUpperCase() + ")-[r]->() with r limit " + 
-                        		DELETE_SIZE + " delete r";
+                        "match (n:" + ontologyName.toUpperCase() + ")-[r]->() with r limit " +
+                                DELETE_SIZE + " delete r";
                 getLogger().info("executing delete: " + cypherDelete);
                 Result result = db.execute(cypherDelete);
                 getLogger().info(result.resultAsString());
@@ -561,7 +558,7 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
         count = getNodeCount(
                 "match (n:" + ontologyName.toUpperCase() + ") return count(n) as count", ontologyName
         );
-        for (int x = 0; x < count ; x +=DELETE_SIZE) {
+        for (int x = 0; x < count; x += DELETE_SIZE) {
 
             Transaction tx = db.beginTx();
 
@@ -593,12 +590,10 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
             count = (Long) result.next().get("count");
             getLogger().debug("query count " + count);
             tx.success();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             tx.failure();
             throw new IndexingException("Couldn't count: " + ontologyName, e);
-        }
-        finally {
+        } finally {
             tx.close();
         }
         return count.intValue();

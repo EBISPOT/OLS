@@ -1,54 +1,47 @@
 package uk.ac.ebi.spot.ols.loader;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.neo4j.graphdb.Label;
 import org.neo4j.unsafe.batchinsert.BatchInserter;
 import org.semanticweb.owlapi.model.IRI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
+import uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants;
 import uk.ac.ebi.spot.ols.util.LocalizedStrings;
 import uk.ac.ebi.spot.ols.util.OBODefinitionCitation;
 import uk.ac.ebi.spot.ols.util.OBOSynonym;
 import uk.ac.ebi.spot.ols.util.OBOXref;
 
-import static uk.ac.ebi.spot.ols.loader.Neo4JIndexerConstants.*;
+import java.util.*;
+
 import static uk.ac.ebi.spot.ols.config.OntologyDefaults.*;
+import static uk.ac.ebi.spot.ols.loader.Neo4JIndexerConstants.*;
 import static uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants.*;
-import uk.ac.ebi.spot.ols.neo4j.model.Neo4JNodePropertyNameConstants;
 
 /**
- * 
  * @author Henriette Harmse
  * @date 2019-05-10
- *
- * Samples, Phenotypes and Ontologies Team 
+ * <p>
+ * Samples, Phenotypes and Ontologies Team
  * EMBL-EBI
  */
 class NodeCreator {
-	
-	protected static Logger logger = LoggerFactory.getLogger(NodeCreator.class);
-	
-	protected NodeCreator() {
-	}
 
-    static Long getOrCreateNode(BatchInserter inserter, Map<String, Long> nodeMap, 
-    		OntologyLoader loader, IRI classIri, Collection<Label> nodeLabels) {
-    	
+    protected static Logger logger = LoggerFactory.getLogger(NodeCreator.class);
+
+    protected NodeCreator() {
+    }
+
+    static Long getOrCreateNode(BatchInserter inserter, Map<String, Long> nodeMap,
+                                OntologyLoader loader, IRI classIri, Collection<Label> nodeLabels) {
+
         if (!nodeMap.containsKey(classIri.toString())) {
             Map<String, Object> nodeProperties = new HashMap<>();
-            
+
             nodeProperties.put(OLS_ID, generateOlsId(loader.getOntologyName(), classIri));
             nodeProperties.put(Neo4JNodePropertyNameConstants.IRI, classIri.toString());
-            
+
             if (!addPropertiesForTopLevelTerms(classIri, nodeProperties)) {
                 addAppropriateLabelProperty(loader, classIri, nodeProperties);
             }
@@ -61,9 +54,9 @@ class NodeCreator {
 
             addAppropriateHasChildrenProperty(loader, classIri, nodeLabels, nodeProperties);
 
-            addAppropriateIsRootProperty(loader, classIri, nodeProperties);          
+            addAppropriateIsRootProperty(loader, classIri, nodeProperties);
             addPreferredRootPropertyConditionally(loader, classIri, nodeLabels, nodeProperties);
-            
+
             addShortFormPropertyConditionally(loader, classIri, nodeProperties);
             addOboIdPropertyConditionally(loader, classIri, nodeProperties);
             addSynonymsPropertyConditionally(loader, classIri, nodeProperties);
@@ -71,307 +64,310 @@ class NodeCreator {
             addDescriptionPropertyConditionally(loader, classIri, nodeProperties);
             addSuperClassDescriptionPropertyConditionally(loader, classIri, nodeProperties);
             addEquivalentClassDescriptionPropertyConditionally(loader, classIri, nodeProperties);
+            addAnonymousTypeDescriptionPropertyConditionally(loader, classIri, nodeProperties);
             addAnnotationPropertiesConditionally(loader, classIri, nodeProperties);
             addTermReplacedByPropertyConditionally(loader, classIri, nodeProperties);
             addOboRelatedPropertiesConditionally(loader, classIri, nodeProperties);
             addObsoleteLabelConditionally(loader, classIri, nodeLabels);
-            
-        	Label labelArray[] = nodeLabels.toArray(new Label[nodeLabels.size()]);
-        	logger.debug("classIri = " + classIri);
-        	logger.debug("nodeLabels = " + nodeLabels);
-        	logger.debug("inserter = " + inserter);
 
-			long classNode = 0;
-        	try {
-				classNode = inserter.createNode(nodeProperties, labelArray);
-			} catch (Throwable t) {
-        		logger.error(t.getMessage(), t);
-			}
+            Label labelArray[] = nodeLabels.toArray(new Label[nodeLabels.size()]);
+            logger.debug("classIri = " + classIri);
+            logger.debug("nodeLabels = " + nodeLabels);
+            logger.debug("inserter = " + inserter);
+
+            long classNode = 0;
+            try {
+                classNode = inserter.createNode(nodeProperties, labelArray);
+            } catch (Throwable t) {
+                logger.error(t.getMessage(), t);
+            }
 
             nodeMap.put(classIri.toString(), classNode);
         }
         return nodeMap.get(classIri.toString());
     }
 
-	protected static void addPreferredRootPropertyConditionally(OntologyLoader loader, IRI classIri,
-			Collection<Label> nodeLabels, Map<String, Object> nodeProperties) {
-		if (loader.getPreferredRootTerms().contains(classIri)) {
-			nodeProperties.put("is_preferred_root", loader.getPreferredRootTerms().contains(classIri));
-			logger.debug("About to add preferredRootTermLabel");
-			nodeLabels.add(preferredRootTermLabel);
-		}
-	}
+    protected static void addPreferredRootPropertyConditionally(OntologyLoader loader, IRI classIri,
+                                                                Collection<Label> nodeLabels, Map<String, Object> nodeProperties) {
+        if (loader.getPreferredRootTerms().contains(classIri)) {
+            nodeProperties.put("is_preferred_root", loader.getPreferredRootTerms().contains(classIri));
+            logger.debug("About to add preferredRootTermLabel");
+            nodeLabels.add(preferredRootTermLabel);
+        }
+    }
 
-	protected static Collection<Label> addObsoleteLabelConditionally(OntologyLoader loader, IRI classIri,
-			Collection<Label> nodeLabels) {
-		if (loader.isObsoleteTerm(classIri)) {
-			logger.debug("About to add obsolete label");
-			nodeLabels.add(obsoleteLabel);
-		}
-		return nodeLabels;
-	}
+    protected static Collection<Label> addObsoleteLabelConditionally(OntologyLoader loader, IRI classIri,
+                                                                     Collection<Label> nodeLabels) {
+        if (loader.isObsoleteTerm(classIri)) {
+            logger.debug("About to add obsolete label");
+            nodeLabels.add(obsoleteLabel);
+        }
+        return nodeLabels;
+    }
 
-	protected static void addOboRelatedPropertiesConditionally(OntologyLoader loader, IRI classIri,
-			Map<String, Object> nodeProperties) {
-		ObjectMapper mapper = new ObjectMapper();            
-		addOboDefinitionCitationPropertyConditionally(mapper, loader, classIri, nodeProperties);
-		addOboSynonymsPropertyConditionally(mapper, loader, classIri, nodeProperties);
-		addOboXRefsConditionally(mapper, loader, classIri, nodeProperties);
-	}
+    protected static void addOboRelatedPropertiesConditionally(OntologyLoader loader, IRI classIri,
+                                                               Map<String, Object> nodeProperties) {
+        ObjectMapper mapper = new ObjectMapper();
+        addOboDefinitionCitationPropertyConditionally(mapper, loader, classIri, nodeProperties);
+        addOboSynonymsPropertyConditionally(mapper, loader, classIri, nodeProperties);
+        addOboXRefsConditionally(mapper, loader, classIri, nodeProperties);
+    }
 
-	protected static void addOboXRefsConditionally(ObjectMapper mapper, OntologyLoader loader, 
-			IRI classIri, Map<String, Object> nodeProperties) {
-		Collection<OBOXref> xrefs = loader.getOBOXrefs(classIri);
-		if (!xrefs.isEmpty()) {
-		    List<String> refs = new ArrayList<>();
-		    for (OBOXref xref : xrefs) {
-		        try {
-		            refs.add(mapper.writeValueAsString(xref));
-		        } catch (JsonProcessingException e) {
-		        }
-		    }
-		    nodeProperties.put(OBO_XREF, refs.toArray(new String [refs.size()]));
-		}
-	}
+    protected static void addOboXRefsConditionally(ObjectMapper mapper, OntologyLoader loader,
+                                                   IRI classIri, Map<String, Object> nodeProperties) {
+        Collection<OBOXref> xrefs = loader.getOBOXrefs(classIri);
+        if (!xrefs.isEmpty()) {
+            List<String> refs = new ArrayList<>();
+            for (OBOXref xref : xrefs) {
+                try {
+                    refs.add(mapper.writeValueAsString(xref));
+                } catch (JsonProcessingException e) {
+                }
+            }
+            nodeProperties.put(OBO_XREF, refs.toArray(new String[refs.size()]));
+        }
+    }
 
-	protected static void addOboSynonymsPropertyConditionally(ObjectMapper mapper, OntologyLoader loader,
-			IRI classIri, Map<String, Object> nodeProperties) {
-		
-		Collection<OBOSynonym> oboSynonyms = loader.getOBOSynonyms(classIri);
-		if (!oboSynonyms.isEmpty()) {
-		    List<String> syns = new ArrayList<>();
-		    for (OBOSynonym synonym : oboSynonyms) {
-		        try {
-		            syns.add(mapper.writeValueAsString(synonym));
-		        } catch (JsonProcessingException e) {
-		        }
-		    }
-		    nodeProperties.put(OBO_SYNONYM, syns.toArray(new String [syns.size()]));
-		}
-	}
+    protected static void addOboSynonymsPropertyConditionally(ObjectMapper mapper, OntologyLoader loader,
+                                                              IRI classIri, Map<String, Object> nodeProperties) {
 
-	protected static void addOboDefinitionCitationPropertyConditionally(ObjectMapper mapper, 
-			OntologyLoader loader, IRI classIri, Map<String, Object> nodeProperties) {
-		
-		Collection<OBODefinitionCitation> definitionCitations = loader.getOBODefinitionCitations(classIri);
-		if (!definitionCitations.isEmpty()) {
-		    List<String> mappedToStringDefinitionCitations = new ArrayList<>();
-		    for (OBODefinitionCitation citation : definitionCitations) {
-		        try {
-		            mappedToStringDefinitionCitations.add(mapper.writeValueAsString(citation));
-		        } catch (JsonProcessingException e) {
-		        	logger.debug("Citation '" + citation + "' could not be mapped to String.");
-		        }
-		    }
-		    nodeProperties.put(OBO_DEFINITION_CITATION,  mappedToStringDefinitionCitations.toArray(
-		    		new String [mappedToStringDefinitionCitations.size()]));
-		}
-	}
+        Collection<OBOSynonym> oboSynonyms = loader.getOBOSynonyms(classIri);
+        if (!oboSynonyms.isEmpty()) {
+            List<String> syns = new ArrayList<>();
+            for (OBOSynonym synonym : oboSynonyms) {
+                try {
+                    syns.add(mapper.writeValueAsString(synonym));
+                } catch (JsonProcessingException e) {
+                }
+            }
+            nodeProperties.put(OBO_SYNONYM, syns.toArray(new String[syns.size()]));
+        }
+    }
 
+    protected static void addOboDefinitionCitationPropertyConditionally(ObjectMapper mapper,
+                                                                        OntologyLoader loader, IRI classIri, Map<String, Object> nodeProperties) {
 
-	protected static void addTermReplacedByPropertyConditionally(OntologyLoader loader, IRI classIri,
-			Map<String, Object> nodeProperties) {
-		if (loader.getTermReplacedBy(classIri) != null) {
-		    nodeProperties.put(TERM_REPLACED_BY, loader.getTermReplacedBy(classIri).toString());
-		}
-	}
+        Collection<OBODefinitionCitation> definitionCitations = loader.getOBODefinitionCitations(classIri);
+        if (!definitionCitations.isEmpty()) {
+            List<String> mappedToStringDefinitionCitations = new ArrayList<>();
+            for (OBODefinitionCitation citation : definitionCitations) {
+                try {
+                    mappedToStringDefinitionCitations.add(mapper.writeValueAsString(citation));
+                } catch (JsonProcessingException e) {
+                    logger.debug("Citation '" + citation + "' could not be mapped to String.");
+                }
+            }
+            nodeProperties.put(OBO_DEFINITION_CITATION, mappedToStringDefinitionCitations.toArray(
+                    new String[mappedToStringDefinitionCitations.size()]));
+        }
+    }
 
 
-	protected static void addAnnotationPropertiesConditionally(OntologyLoader loader, IRI classIri,
-			Map<String, Object> nodeProperties) {
-		Map<IRI, LocalizedStrings> annotations = loader.getAnnotations(classIri);
-		if (!annotations.isEmpty()) {
-		    for (IRI property : annotations.keySet()) {
-		        LocalizedStrings annotationLabels = loader.getTermLabels().get(property);
-		        LocalizedStrings annotationValues = annotations.get(property);
-				List<String> defaultValues = annotationValues.getStrings("en", "en-US");
-				if(defaultValues != null) {
-					String label = annotationLabels.getFirstString("en", "en-US");
-					String[] values = defaultValues.toArray(new String[0]);
-					nodeProperties.put(ANNOTATION_DESIGNATION + label, values);
-				}
-				for (String language : annotationLabels.getLanguages()) {
-					if(language.equals("")) {
-						continue;
-					}
-					List<String> localizedValues = annotationValues.getStrings(language);
-					if(localizedValues == null || localizedValues.size() == 0) {
-						localizedValues = annotationValues.getStrings("en", "en-US");
-					}
-					if (localizedValues != null) {
-						String label = annotationLabels.getFirstString(language);
-						String[] values = localizedValues.toArray(new String[0]);
-						nodeProperties.put(LOCALIZED_ANNOTATION_DESIGNATION + language
-								+ "-" + label, values);
-					}
-				}
-		    }
-		}
-	}
-
-	protected static void addEquivalentClassDescriptionPropertyConditionally(OntologyLoader loader, 
-			IRI classIri, Map<String, Object> nodeProperties) {
-		if (loader.getLogicalEquivalentClassDescriptions().containsKey(classIri)) {
-		    String [] descriptions = loader.getLogicalEquivalentClassDescriptions()
-		    		.get(classIri).toArray(new String 
-		    				[loader.getLogicalEquivalentClassDescriptions().get(classIri).size()]);
-		    nodeProperties.put(EQUIVALENT_CLASS_DESCRIPTION, descriptions);
-		}
-	}
+    protected static void addTermReplacedByPropertyConditionally(OntologyLoader loader, IRI classIri,
+                                                                 Map<String, Object> nodeProperties) {
+        if (loader.getTermReplacedBy(classIri) != null) {
+            nodeProperties.put(TERM_REPLACED_BY, loader.getTermReplacedBy(classIri).toString());
+        }
+    }
 
 
-	protected static void addSuperClassDescriptionPropertyConditionally(OntologyLoader loader, IRI classIri,
-			Map<String, Object> nodeProperties) {
-		if (loader.getLogicalSuperClassDescriptions().containsKey(classIri)) {
-		    String [] descriptions = loader.getLogicalSuperClassDescriptions().get(classIri)
-		    		.toArray(new String [loader.getLogicalSuperClassDescriptions().get(classIri).size()]);
-		    nodeProperties.put(SUPER_CLASS_DESCRIPTION, descriptions);
-		}
-	}
+    protected static void addAnnotationPropertiesConditionally(OntologyLoader loader, IRI classIri,
+                                                               Map<String, Object> nodeProperties) {
+        Map<IRI, LocalizedStrings> annotations = loader.getAnnotations(classIri);
+        if (!annotations.isEmpty()) {
+            for (IRI property : annotations.keySet()) {
+                LocalizedStrings annotationLabels = loader.getTermLabels().get(property);
+                LocalizedStrings annotationValues = annotations.get(property);
+                List<String> enValues = annotationValues.getStrings("en");
+                if (enValues != null) {
+                    String label = annotationLabels.getFirstString("en");
+                    String[] values = enValues.toArray(new String[0]);
+                    nodeProperties.put(ANNOTATION_DESIGNATION + label, values);
+                }
+                for (String language : annotationLabels.getNonEnLanguages()) {
+                    List<String> localizedValues = annotationValues.getStrings(language);
+                    if (localizedValues == null || localizedValues.size() == 0) {
+                        localizedValues = annotationValues.getStrings("en");
+                    }
+                    if (localizedValues != null) {
+                        String label = annotationLabels.getFirstString(language);
+                        String[] values = localizedValues.toArray(new String[0]);
+                        nodeProperties.put(LOCALIZED_ANNOTATION_DESIGNATION + language
+                                + "-" + label, values);
+                    }
+                }
+            }
+        }
+    }
 
-	protected static void addDescriptionPropertyConditionally(OntologyLoader loader, IRI classIri,
-			Map<String, Object> nodeProperties) {
-		if (loader.getTermDefinitions().containsKey(classIri)) {
-			LocalizedStrings definitions = loader.getTermDefinitions().get(classIri);
+    protected static void addEquivalentClassDescriptionPropertyConditionally(OntologyLoader loader,
+                                                                             IRI classIri, Map<String, Object> nodeProperties) {
+        if (loader.getLogicalEquivalentClassDescriptions().containsKey(classIri)) {
+            String[] descriptions = loader.getLogicalEquivalentClassDescriptions()
+                    .get(classIri).toArray(new String
+                            [loader.getLogicalEquivalentClassDescriptions().get(classIri).size()]);
+            nodeProperties.put(EQUIVALENT_CLASS_DESCRIPTION, descriptions);
+        }
+    }
 
-			nodeProperties.put(DESCRIPTION, definitions.getStrings("en").toArray(new String[0]));
+    protected static void addSuperClassDescriptionPropertyConditionally(OntologyLoader loader, IRI classIri,
+                                                                        Map<String, Object> nodeProperties) {
+        if (loader.getLogicalSuperClassDescriptions().containsKey(classIri)) {
+            String[] descriptions = loader.getLogicalSuperClassDescriptions().get(classIri)
+                    .toArray(new String[loader.getLogicalSuperClassDescriptions().get(classIri).size()]);
+            nodeProperties.put(SUPER_CLASS_DESCRIPTION, descriptions);
+        }
+    }
 
-			for (String language : definitions.getNonEnLanguages()) {
-				Collection<String> values = definitions.getStrings(language);
-				nodeProperties.put(LOCALIZED_DESCRIPTIONS + "-" + language, values.toArray(new String[0]));
-			}
-		}
-	}
+    protected static void addAnonymousTypeDescriptionPropertyConditionally(OntologyLoader loader, IRI classIri,
+                                                                           Map<String, Object> nodeProperties) {
+        if (loader.getAnonymousTypes().containsKey(classIri)) {
+            String[] descriptions = loader.getAnonymousTypes().get(classIri)
+                    .toArray(new String[loader.getAnonymousTypes().get(classIri).size()]);
+            nodeProperties.put(ANONYMOUS_TYPE, descriptions);
+        }
+    }
 
-	protected static void addSubsetsPropertyConditionally(OntologyLoader loader, IRI classIri,
-			Map<String, Object> nodeProperties) {
-		if (!loader.getSubsets(classIri).isEmpty()) {
-		    String [] subsets = loader.getSubsets(classIri).toArray(
-		    		new String [loader.getSubsets(classIri).size()]);
-		    nodeProperties.put(IN_SUBSET, subsets);
-		}
-	}
+    protected static void addDescriptionPropertyConditionally(OntologyLoader loader, IRI classIri,
+                                                              Map<String, Object> nodeProperties) {
+        if (loader.getTermDefinitions().containsKey(classIri)) {
+            LocalizedStrings definitions = loader.getTermDefinitions().get(classIri);
 
-	protected static void addSynonymsPropertyConditionally(OntologyLoader loader, IRI classIri,
-			Map<String, Object> nodeProperties) {
-		if (loader.getTermSynonyms().containsKey(classIri)) {
-			LocalizedStrings synonyms = loader.getTermSynonyms().get(classIri);
+            nodeProperties.put(DESCRIPTION, definitions.getStrings("en").toArray(new String[0]));
 
-			nodeProperties.put(SYNONYM, synonyms.getStrings("en").toArray(new String[0]));
+            for (String language : definitions.getNonEnLanguages()) {
+                Collection<String> values = definitions.getStrings(language);
+                nodeProperties.put(LOCALIZED_DESCRIPTIONS + "-" + language, values.toArray(new String[0]));
+            }
+        }
+    }
 
-			for (String language : synonyms.getNonEnLanguages()) {
-				String[] values = synonyms.getStrings(language).toArray(new String[0]);
-				nodeProperties.put(LOCALIZED_SYNONYMS + "-" + language, values);
-			}
-		}
-	}
+    protected static void addSubsetsPropertyConditionally(OntologyLoader loader, IRI classIri,
+                                                          Map<String, Object> nodeProperties) {
+        if (!loader.getSubsets(classIri).isEmpty()) {
+            String[] subsets = loader.getSubsets(classIri).toArray(
+                    new String[loader.getSubsets(classIri).size()]);
+            nodeProperties.put(IN_SUBSET, subsets);
+        }
+    }
 
-	protected static void addOboIdPropertyConditionally(OntologyLoader loader, IRI classIri,
-			Map<String, Object> nodeProperties) {
-		if (loader.getOboId(classIri) != null) {
-		    nodeProperties.put(OBO_ID, loader.getOboId(classIri));
-		}
-	}
+    protected static void addSynonymsPropertyConditionally(OntologyLoader loader, IRI classIri,
+                                                           Map<String, Object> nodeProperties) {
+        if (loader.getTermSynonyms().containsKey(classIri)) {
+            LocalizedStrings synonyms = loader.getTermSynonyms().get(classIri);
 
-	protected static void addShortFormPropertyConditionally(OntologyLoader loader, IRI classIri,
-			Map<String, Object> nodeProperties) {
-		if (loader.getShortForm(classIri) != null) {
-		    nodeProperties.put(SHORT_FORM, loader.getShortForm(classIri));
-		}
-	}
+            nodeProperties.put(SYNONYM, synonyms.getStrings("en").toArray(new String[0]));
+
+            for (String language : synonyms.getNonEnLanguages()) {
+                String[] values = synonyms.getStrings(language).toArray(new String[0]);
+                nodeProperties.put(LOCALIZED_SYNONYMS + "-" + language, values);
+            }
+        }
+    }
+
+    protected static void addOboIdPropertyConditionally(OntologyLoader loader, IRI classIri,
+                                                        Map<String, Object> nodeProperties) {
+        if (loader.getOboId(classIri) != null) {
+            nodeProperties.put(OBO_ID, loader.getOboId(classIri));
+        }
+    }
+
+    protected static void addShortFormPropertyConditionally(OntologyLoader loader, IRI classIri,
+                                                            Map<String, Object> nodeProperties) {
+        if (loader.getShortForm(classIri) != null) {
+            nodeProperties.put(SHORT_FORM, loader.getShortForm(classIri));
+        }
+    }
 
 
-	protected static void addAppropriateIsRootProperty(OntologyLoader loader, IRI classIri,
-			Map<String, Object> nodeProperties) {
-		
-		nodeProperties.put(IS_ROOT, 
-				loader.getDirectParentTerms(classIri).isEmpty() && 
-					loader.getRelatedParentTerms(classIri).isEmpty());
-	}
+    protected static void addAppropriateIsRootProperty(OntologyLoader loader, IRI classIri,
+                                                       Map<String, Object> nodeProperties) {
+
+        nodeProperties.put(IS_ROOT,
+                loader.getDirectParentTerms(classIri).isEmpty() &&
+                        loader.getRelatedParentTerms(classIri).isEmpty());
+    }
 
 
     /**
-     * Sets {@link Neo4JNodePropertyNameConstants#HAS_CHILDREN} property to true for terms that has 
-     * direct children or terms that are considered to be child-like relations (e.g. part-of, 
-     * develops-from etc.). For terms that are labelled as instances 
+     * Sets {@link Neo4JNodePropertyNameConstants#HAS_CHILDREN} property to true for terms that has
+     * direct children or terms that are considered to be child-like relations (e.g. part-of,
+     * develops-from etc.). For terms that are labelled as instances
      * {@link Neo4JNodePropertyNameConstants#HAS_CHILDREN} is set to false.
-     * 
+     *
      * @param loader
      * @param classIri
      * @param nodeLabels
      * @param nodeProperties
      */
-	protected static void addAppropriateHasChildrenProperty(OntologyLoader loader, IRI classIri,
-			Collection<Label> nodeLabels, Map<String, Object> nodeProperties) {
-		if (nodeLabels.contains(instanceLabel)) {
-		    nodeProperties.put(HAS_CHILDREN, false );
-		}
-		else  {
-		    nodeProperties.put(HAS_CHILDREN, (!loader.getDirectChildTerms(classIri).isEmpty() || 
-		    		!loader.getRelatedChildTerms(classIri).isEmpty()) );
-		}
-	}
+    protected static void addAppropriateHasChildrenProperty(OntologyLoader loader, IRI classIri,
+                                                            Collection<Label> nodeLabels, Map<String, Object> nodeProperties) {
+        if (nodeLabels.contains(instanceLabel)) {
+            nodeProperties.put(HAS_CHILDREN, false);
+        } else {
+            nodeProperties.put(HAS_CHILDREN, (!loader.getDirectChildTerms(classIri).isEmpty() ||
+                    !loader.getRelatedChildTerms(classIri).isEmpty()));
+        }
+    }
 
     /**
-     * Adds a {@link Neo4JNodePropertyNameConstants#LABEL} property for the node. Ontology designers 
-     * can define custom terms that they use for labelling their terms. This method only uses the 
+     * Adds a {@link Neo4JNodePropertyNameConstants#LABEL} property for the node. Ontology designers
+     * can define custom terms that they use for labelling their terms. This method only uses the
      * short form of classIri if no custom label terms have been defined for this classIri.
-     * 
+     *
      * @param loader
      * @param classIri
      * @param nodeProperties
      */
-	protected static void addAppropriateLabelProperty(OntologyLoader loader, IRI classIri,
-			Map<String, Object> nodeProperties) {
+    protected static void addAppropriateLabelProperty(OntologyLoader loader, IRI classIri,
+                                                      Map<String, Object> nodeProperties) {
 
-		LocalizedStrings labels = loader.getTermLabels().get(classIri);
+        LocalizedStrings labels = loader.getTermLabels().get(classIri);
 
-		for (String lang : labels.getNonEnLanguages()) {
-			nodeProperties.put(Neo4JNodePropertyNameConstants.LOCALIZED_LABELS + "-" + lang,
-					labels.getStrings(lang).toArray(new String[0]));
-		}
+        for (String lang : labels.getNonEnLanguages()) {
+            nodeProperties.put(Neo4JNodePropertyNameConstants.LOCALIZED_LABELS + "-" + lang,
+                    labels.getStrings(lang).toArray(new String[0]));
+        }
 
-		if(labels.getFirstString("en") != null) {
-			nodeProperties.put(Neo4JNodePropertyNameConstants.LABEL,
-					labels.getFirstString("en"));
-		} else {
-			nodeProperties.put(Neo4JNodePropertyNameConstants.LABEL,
-					loader.getShortForm(classIri));
-		}
+        if (labels.getFirstString("en") != null) {
+            nodeProperties.put(Neo4JNodePropertyNameConstants.LABEL,
+                    labels.getFirstString("en"));
+        } else {
+            nodeProperties.put(Neo4JNodePropertyNameConstants.LABEL,
+                    loader.getShortForm(classIri));
+        }
 
-	}
+    }
 
-	protected static String generateOlsId(String ontologyName, IRI classIri) {
-		return ontologyName.toLowerCase() + ":" + classIri.toString();
-	}
-	
-	/**
-	 * Deals with the top level OWL class or OWL object property. Note that OWL data properties are 
-	 * not considered.
-	 * 
-	 * @param classIri
-	 * @param nodeProperties
-	 * @return true if classIri represents a top-level OWL class or OWL object property, else false.
-	 *  
-	 */
-	protected static boolean addPropertiesForTopLevelTerms(IRI classIri, 
-			Map<String, Object> nodeProperties) {
-		
-		boolean isTopLevelTerm = false;
-		
+    protected static String generateOlsId(String ontologyName, IRI classIri) {
+        return ontologyName.toLowerCase() + ":" + classIri.toString();
+    }
+
+    /**
+     * Deals with the top level OWL class or OWL object property. Note that OWL data properties are
+     * not considered.
+     *
+     * @param classIri
+     * @param nodeProperties
+     * @return true if classIri represents a top-level OWL class or OWL object property, else false.
+     */
+    protected static boolean addPropertiesForTopLevelTerms(IRI classIri,
+                                                           Map<String, Object> nodeProperties) {
+
+        boolean isTopLevelTerm = false;
+
         if (classIri.toString().equals(THING)) {
-        	isTopLevelTerm = true;
+            isTopLevelTerm = true;
             nodeProperties.put(Neo4JNodePropertyNameConstants.LABEL, SHORT_THING);
             nodeProperties.put(HAS_CHILDREN, isTopLevelTerm);
-            
-        }
-        else if (classIri.toString().equals(TOP_OBJECT_PROPERTY)) {
-        	isTopLevelTerm = true;
+
+        } else if (classIri.toString().equals(TOP_OBJECT_PROPERTY)) {
+            isTopLevelTerm = true;
             nodeProperties.put(Neo4JNodePropertyNameConstants.LABEL, SHORT_TOP_OBJECT_PROPERTY);
             nodeProperties.put(HAS_CHILDREN, isTopLevelTerm);
-        }		
+        }
         return isTopLevelTerm;
-	}
+    }
 
 //    static Long getOrCreateNodeDeprecated(BatchInserter inserter, Map<String, Long> nodeMap, 
 //    		OntologyLoader loader, IRI classIri, Collection<Label> nodeLabels) {
@@ -532,5 +528,5 @@ class NodeCreator {
 //        }
 //        return nodeMap.get(classIri.toString());
 //    }
-    
+
 }

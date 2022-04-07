@@ -28,6 +28,7 @@ public class Neo4JNodePropertyNameConstants {
 	
 	public final static String SUPER_CLASS_DESCRIPTION = "superClassDescription";
 	public final static String EQUIVALENT_CLASS_DESCRIPTION = "equivalentClassDescription";
+	public final static String ANONYMOUS_TYPE = "anonymousType";
 	public final static String ANNOTATION_DESIGNATION = "annotation-";
 	public final static String LOCALIZED_ANNOTATION_DESIGNATION = "localizedAnnotation-";
 }

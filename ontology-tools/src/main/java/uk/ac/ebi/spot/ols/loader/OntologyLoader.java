@@ -8,7 +8,6 @@ package uk.ac.ebi.spot.ols.loader;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.springframework.core.io.Resource;
-
 import uk.ac.ebi.spot.ols.util.LocalizedStrings;
 import uk.ac.ebi.spot.ols.util.OBODefinitionCitation;
 import uk.ac.ebi.spot.ols.util.OBOSynonym;
@@ -35,18 +34,21 @@ public interface OntologyLoader {
 
     /**
      * override where the ontology is loaded from
+     *
      * @param ontologyResource
      */
     void setOntologyResource(Resource ontologyResource);
 
     /**
      * override where the ontology imports are loaded from
+     *
      * @param ontologyImportMappings
      */
-     void setOntologyImportMappings(Map<IRI, IRI> ontologyImportMappings);
+    void setOntologyImportMappings(Map<IRI, IRI> ontologyImportMappings);
 
     /**
      * Get the IRIs of the property used to indicate a term or class definition
+     *
      * @return definitionProperty A collection of definition IRIs used in the ontology
      */
     Collection<IRI> getDefinitionIRIs();
@@ -85,13 +87,17 @@ public interface OntologyLoader {
 
 
     Collection<IRI> getAllClasses();
+
     Collection<IRI> getAllObjectPropertyIRIs();
+
     Collection<IRI> getAllDataPropertyIRIs();
+
     Collection<IRI> getAllIndividualIRIs();
+
     Collection<IRI> getAllAnnotationPropertyIRIs();
 
     /**
-     * Returns a mapping between the IRIs that identify classes in the loaded ontology and the 
+     * Returns a mapping between the IRIs that identify classes in the loaded ontology and the
      * corresponding class rdfs:label.
      *
      * @return the class labels in this ontology, indexed by class IRI and then language
@@ -137,72 +143,90 @@ public interface OntologyLoader {
 
     /**
      * Get a map of IRI definitions
+     *
      * @return definitionProperty A collection of definition IRIs used in the ontology
      */
     Map<IRI, LocalizedStrings> getTermDefinitions();
 
     Map<IRI, Collection<IRI>> getDirectParentTerms();
+
     Collection<IRI> getDirectParentTerms(IRI iri);
+
     Map<IRI, Collection<IRI>> getAllParentTerms();
 
     /**
      * Get direct type for owl individuals
+     *
      * @return
      */
     Map<IRI, Collection<IRI>> getDirectTypes();
 
-    Collection<String> getInternalMetadataProperties ();
+    Collection<String> getInternalMetadataProperties();
 
-    Map<String,String> getLocalizedTitles();
-    Map<String,String> getLocalizedDescriptions();
+    Map<String, String> getLocalizedTitles();
+
+    Map<String, String> getLocalizedDescriptions();
 
     /**
      * Get a map of the ontology annotation in the form Map<language, Map<key, List<value>>>
+     *
      * @return
      */
     Map<String, Map<String, List<String>>> getOntologyAnnotations();
 
     /**
      * Get the ontology homepage
+     *
      * @return
      */
     String getHomePage();
 
     /**
      * Get a mailing list associated with this ontology
+     *
      * @return
      */
     String getMailingList();
 
     /**
      * Get an issue tracker associated with this ontology
+     *
      * @return
      */
     String getTracker();
 
     /**
      * Get a logo associated with this ontology
+     *
      * @return
      */
     String getLogo();
 
     /**
      * Get a version number for the ontology
+     *
      * @return
      */
     String getVersionNumber();
+
     Collection<String> getCreators();
 
     Map<IRI, Collection<IRI>> getDirectChildTerms();
+
     Collection<IRI> getDirectChildTerms(IRI iri);
+
     Map<IRI, Collection<IRI>> getAllChildTerms();
 
     Map<IRI, Collection<String>> getLogicalSuperClassDescriptions();
+
     Map<IRI, Collection<String>> getLogicalEquivalentClassDescriptions();
+
+    Map<IRI, Collection<String>> getAnonymousTypes();
 
     Map<IRI, Collection<IRI>> getEquivalentTerms();
 
     boolean isObsoleteTerm(IRI entityIRI);
+
     boolean isLocalTerm(IRI entityIRI);
 
     /**
@@ -214,7 +238,7 @@ public interface OntologyLoader {
     Map<IRI, Collection<IRI>> getRelatedTerms(IRI entityIRI);
 
     /**
-     * Returns all related terms that can be considered parents. Any relations that are considered 
+     * Returns all related terms that can be considered parents. Any relations that are considered
      * hierarchical in nature (e.g. part-of, develops-from etc..). Excludes supeclass/is-a parents
      *
      * @return the relationship IRI and the set of related terms
@@ -222,8 +246,8 @@ public interface OntologyLoader {
     Map<IRI, Collection<IRI>> getRelatedParentTerms(IRI entityIRI);
 
     /**
-     * Returns all transitive related terms that can be considered parents. Any relations that are 
-     * considered hierarchical in nature (e.g. part-of, develops-from etc..). This includes super 
+     * Returns all transitive related terms that can be considered parents. Any relations that are
+     * considered hierarchical in nature (e.g. part-of, develops-from etc..). This includes super
      * classes.
      *
      * @return the relationship IRI and the set of related terms
@@ -232,7 +256,7 @@ public interface OntologyLoader {
 
 
     /**
-     * Returns all related terms that can be considered children. Any relations that are considered 
+     * Returns all related terms that can be considered children. Any relations that are considered
      * hierarchical in nature (e.g. part-of, develops-from etc..)
      *
      * @return the relationship IRI and the set of related terms
@@ -265,7 +289,7 @@ public interface OntologyLoader {
 
     /**
      * Returns the terms that the ontology designers deem to be the roots of their ontology.
-     * 
+     *
      * @return a list of terms that are considered to be the preferred roots of the ontology.
      */
     Collection<IRI> getPreferredRootTerms();
