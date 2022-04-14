@@ -102,6 +102,7 @@ public class LocalizedStrings {
 
     }
 
+
     public int size() {
         int n = 0;
         for(List<String> values : this.localizations.values()) {
@@ -117,6 +118,12 @@ public class LocalizedStrings {
                 addString(lang, string);
             }
         }
+
+    }
+
+    public void setStrings(String language, List<String> strings) {
+
+	localizations.put(language, new ArrayList<String>(strings));
 
     }
     

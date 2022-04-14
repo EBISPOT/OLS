@@ -178,7 +178,7 @@ ontologies:
     license:
       label: GPL-3.0
       url: https://www.gnu.org/licenses/gpl-3.0.en.html
-    ontology_purl: https://github.com/scdodev/scdo-ontology/blob/master/scdo_fr-t-en.owl
+    ontology_purl: https://raw.githubusercontent.com/scdodev/scdo-ontology/master/scdo_fr-t-en.owl
     preferredPrefix: SCDO
     products:
     - id: scdo.owl

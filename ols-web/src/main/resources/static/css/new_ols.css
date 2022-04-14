@@ -450,7 +450,6 @@ button.list-group-item:hover, button.list-group-item:focus {
   height: 16px;
   float: left;
   margin: 3px 4px 0 1px; }
-
 .jstree-anchor.type:before {
   background: url("../img/instance_of.png") no-repeat;
   background-size: 16px;
