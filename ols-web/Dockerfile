@@ -9,4 +9,4 @@ FROM openjdk:8-jre-alpine
 RUN apk add bash
 COPY --from=build /opt/ols/ols-web/target/ols-boot.war /opt/ols-boot.war
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/opt/ols-boot.war"]
+ENTRYPOINT ["java", "-XX:+UseCompressedOops", "-jar", "/opt/ols-boot.war"]
