@@ -62,29 +62,7 @@ more information http://www.ebi.ac.uk/ols/docs/installation-guide
 
 The preferred method of deployment for OLS is using Docker. If you would like to deploy **the entire OntoTools stack** (OLS, OxO, and ZOOMA), check out the [OntoTools Docker Config](https://github.com/EBISPOT/ontotools-docker-config) repository. If you would like to deploy **OLS only**, read on.
 
-First, create the necessary volumes:
-
-    docker volume create --name=ols-neo4j-data
-    docker volume create --name=ols-mongo-data
-    docker volume create --name=ols-solr-data
-    docker volume create --name=ols-downloads
-
-Then, start solr and mongodb only:
-
-    docker-compose up -d solr mongo
-
-Then, adjust the configuration YAML files in the `config` directory as required,
-and load the configuration into the Mongo database using the config loader:
-
-    docker run --net=host -v $(pwd)/config:/config ebispot/ols-config-importer:stable
-
-Then, run the indexer:
-
-    docker run --net=host -v ols-neo4j-data:/mnt/neo4j -v ols-downloads:/mnt/downloads ebispot/ols-indexer:stable
-
-Finally, start the OLS webserver:
-
-    docker-compose up -d ols-web
+    docker-compose up
 
 You should now be able to access a populated OLS instance at `http://localhost:8080`.
 
@@ -96,7 +74,7 @@ built using the Dockerfiles in this repository.
 
     docker build -f ols-apps/ols-config-importer/Dockerfile -t ols-config-importer .
     docker build -f ols-apps/ols-indexer/Dockerfile -t ols-indexer .
-  
+
 
 
 ## Building OLS manually
