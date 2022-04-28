@@ -313,6 +313,25 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         OWLAPIInitialized = true;
     }
 
+    private void populateOntologyLanguages(Collection<OWLEntity> allEntities) {
+
+        for (OWLEntity owlEntity: allEntities) {
+        for (OWLOntology anOntology : getManager().ontologies().collect(Collectors.toSet())){
+            EntitySearcher.getAnnotationAssertionAxioms(owlEntity, anOntology).forEach(annotationAssertionAxiom -> {
+
+                OWLAnnotationValue value = annotationAssertionAxiom.getValue();
+
+                if(value.isLiteral()) {
+                    if(((OWLLiteral) value).hasLang()) {
+                            ontologyLanguages.add( ((OWLLiteral) value).getLang() );
+                    }
+                }
+
+            });
+        }
+        }
+    }
+
     private void initializeVocabularyToIgnore() throws OntologyLoadingException {
         if (!OWLAPIInitialized) {
             initializeOWLAPIWithoutReasoner();
@@ -435,6 +454,8 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
             }
             ResourceUsage.logUsage(getLogger(), "#### Monitoring ", getOntologyName() +
                     ":After copying of entities", ":");
+
+            populateOntologyLanguages(allEntities);
 
             indexTerms(allEntities);
             ResourceUsage.logUsage(getLogger(), "#### Monitoring ", getOntologyName() +
@@ -1250,7 +1271,22 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         Collection<OBOSynonym> oboSynonyms = new HashSet<>();
         Collection<OBOXref> oboEntityXrefs = new HashSet<>();
 
-        // loop through other annotations in the imports closure
+        Set<IRI> annotationProperties = new HashSet<>();
+
+        // pass 1: populate the set of all annotation properties used
+        for (OWLOntology anOntology : getManager().ontologies().collect(Collectors.toSet())){
+                    EntitySearcher.getAnnotationAssertionAxioms(owlEntity, anOntology).forEach(annotationAssertionAxiom -> {
+
+                OWLAnnotationProperty annotationProperty = annotationAssertionAxiom.getProperty();
+                IRI annotationPropertyIRI = annotationProperty.getIRI();
+
+                annotationProperties.add(annotationPropertyIRI);
+            });
+        }
+   
+   
+        // pass 2: read the annotations
+
         for (OWLOntology anOntology : getManager().ontologies().collect(Collectors.toSet())) {
             EntitySearcher.getAnnotationAssertionAxioms(owlEntity, anOntology).forEach(annotationAssertionAxiom -> {
                 OWLAnnotationProperty annotationProperty = annotationAssertionAxiom.getProperty();
@@ -1264,7 +1300,6 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                 if (value.isLiteral()) {
                     if (((OWLLiteral) value).hasLang()) {
                         lang = ((OWLLiteral) value).getLang();
-                        ontologyLanguages.add(lang);
                     }
                 }
 
@@ -1374,6 +1409,35 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                     oboEntityXrefs.add(oboXrefs);
                 }
             });
+        }
+
+        // cross reference the set of all ontologies properties with the set of
+        // languages in the ontology.  Any missing languages are added with the English strings.
+        // Otherwise, if you switch language in the webapp to a language into which the ontology
+        // is not localised, the annotations will not appear!
+        //
+        if (termAnnotations.containsKey(owlEntityIRI)) {
+
+            Map<IRI, LocalizedStrings> annotations = termAnnotations.get(owlEntityIRI);
+
+            for(IRI annotationPropertyIri : annotations.keySet()) {
+
+                LocalizedStrings annos = annotations.get(annotationPropertyIri);
+
+                for(String ontologyLang : ontologyLanguages) {
+
+                    if(!annos.getLanguages().contains(ontologyLang)) {
+                        annos.setStrings(ontologyLang, annos.getStrings("", "en", "en-US"));
+                    }
+                }
+
+            }
+        }
+
+        for (String ontologyLang : ontologyLanguages) {
+            if (!classLabels.getLanguages().contains(ontologyLang)) {
+                classLabels.setStrings(ontologyLang, classLabels.getStrings("", "en", "en-US"));
+            }
         }
 
         setClassLabels(owlEntityIRI, classLabels);

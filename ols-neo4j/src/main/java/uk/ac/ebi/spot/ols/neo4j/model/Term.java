@@ -292,10 +292,10 @@ public class Term {
 
         for (String k : localizedAnnotations.keySet()) {
 
-		int n = lang.lastIndexOf('-');
+		int n = k.lastIndexOf('-');
 
 		if(n != -1) {
-			String annoLang = lang.substring(0, n);
+			String annoLang = k.substring(0, n);
 
 			if (annoLang.equalsIgnoreCase(lang)) {
 				res.put(k.substring(n + 1), localizedAnnotations.get(k));
