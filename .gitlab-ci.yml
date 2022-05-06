@@ -3,8 +3,9 @@ build:
   image: docker:18-git
   stage: build
   only:
-    - main
-    - stable
+    - /^v[0-9]+\.[0-9]+\.[0-9]+.*$/
+  except:
+    - branches
   services:
     - docker:18-dind
   script:

@@ -87,6 +87,7 @@ public class YamlLoader implements CommandLineRunner {
             try {
                 OntologyResourceConfig ontologyResourceConfig = loadingService.getConfiguration();
                 OntologyDocument mongoOntologyDocument = ontologyRepositoryService.get(ontologyResourceConfig.getNamespace());
+                getLog().info("Have ontology config for: " + ontologyResourceConfig.getId());
                 if (mongoOntologyDocument == null) {
                     getLog().info("New ontology document to load found " + ontologyResourceConfig.getNamespace());
                     if (ontologyResourceConfig.getFileLocation() != null) {
@@ -99,7 +100,7 @@ public class YamlLoader implements CommandLineRunner {
                         getLog().warn("Not loading " + ontologyResourceConfig.getNamespace() + " as no location specified");
                     }
                 } else {
-
+                    getLog().info("Updating ontology " + ontologyResourceConfig.getId());
                     mongoOntologyDocument = DocumentUpdater.updateFields(mongoOntologyDocument, ontologyResourceConfig);
                     ontologyRepositoryService.update(mongoOntologyDocument);
                 }

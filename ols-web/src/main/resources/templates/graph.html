@@ -49,7 +49,7 @@
                     <div class="small-12 columnx">
                         <div class="grid_24 clearfix">
                             <span style="font-size: small; color: grey; padding: 9px;"
-                                  th:text="${'Visualized term: '+ontologyTerm.getLabel()+' ('+ontologyTerm.getIri()+')'}">http://www.example.com/onto/id</span>
+                                  th:text="${'Visualized term: '+ontologyTerm.getLabelByLang(lang)+' ('+ontologyTerm.getIri()+')'}">http://www.example.com/onto/id</span>
                             <a id="dataElement"
                                th:data="${ontologyTerm.getIri()}"
                                th:href="@{${ontologyTerm.getIri()}}"

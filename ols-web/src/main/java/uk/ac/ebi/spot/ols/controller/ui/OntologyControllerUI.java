@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import uk.ac.ebi.spot.ols.model.OntologyDocument;
 import uk.ac.ebi.spot.ols.neo4j.model.Individual;
@@ -58,8 +59,12 @@ public class OntologyControllerUI {
     private String downloadsFolder;
 
     @RequestMapping(path = "", method = RequestMethod.GET)
-    String getAll(Model model) {
+    String getAll(
+            @RequestParam(value = "lang", required = false, defaultValue = "en") String lang,
+            Model model) {
+
         List list = repositoryService.getAllDocuments(new Sort(new Sort.Order(Sort.Direction.ASC, "ontologyId")));
+        model.addAttribute("lang", lang);
         model.addAttribute("all_ontologies", list);
         customisationProperties.setCustomisationModelAttributes(model);
         return "browse";
@@ -68,6 +73,7 @@ public class OntologyControllerUI {
     @RequestMapping(path = "/{onto}", method = RequestMethod.GET)
     String getTerm(
             @PathVariable("onto") String ontologyId,
+            @RequestParam(value = "lang", required = false, defaultValue = "en") String lang,
             @PageableDefault(size = Integer.MAX_VALUE, page = 0) Pageable pageable,
             Model model) throws ResourceNotFoundException {
 
@@ -85,6 +91,9 @@ public class OntologyControllerUI {
             } catch (Exception e) {
                 // only thrown if not valid e-mail, so contact must be URL of some sort
             }
+            model.addAttribute("lang", lang);
+	    model.addAttribute("ontologyLanguages", document.getConfig().getLanguages());
+            model.addAttribute("contact", contact);
 
             if (pageable.getSort() == null) {
                 pageable = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), new Sort(new Sort.Order(Sort.Direction.ASC, "n.label")));

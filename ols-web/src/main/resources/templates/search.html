@@ -111,8 +111,8 @@
                             <option
                                     th:value="${{onto.getConfig().getNamespace()}}"
                                     th:each="onto : ${all_ontologies}"
-                                    th:text="${{onto.getConfig().getTitle()}} + ' (' + ${{onto.getConfig().getPreferredPrefix()}} + ')'"
-                                    th:attr="data-ontology-title=${{onto.getConfig().getTitle()}}"
+                                    th:text="${{onto.getConfig().getLocalizedTitle(lang)}} + ' (' + ${{onto.getConfig().getPreferredPrefix()}} + ')'"
+                                    th:attr="data-ontology-title=${{onto.getConfig().getLocalizedTitle(lang)}}"
                                     th:with="ontologies=${searchOptions.getOntologies()}"
                                     th:selected="${#sets.contains(ontologies , onto.getConfig().getNamespace())}"
                             >

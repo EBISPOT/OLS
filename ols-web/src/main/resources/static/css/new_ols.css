@@ -2,9 +2,15 @@
   --ols_orange: #ffac1b;
   --ols_green: #00827c; }
 
+#main-content-area {
+  min-height: 75vh; }
+  #main-content-area .row {
+    max-width: 80rem; }
+  #main-content-area h2 {
+    color: var(--ols_green); }
+
 #mainpageSearchBox {
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin: 30px 15px 30px 15px;
   background: #F0F0F0;
   padding: 35px 35px 35px 35px;
   border-radius: 5px; }
@@ -54,8 +60,10 @@ a.pagingButton {
 #ontologiesTable_paginate .paginate_button .current {
   background: transparent; }
 
-#ontologiesTable td {
-  vertical-align: top !important; }
+#ontologiesTable {
+  width: 100%; }
+  #ontologiesTable td {
+    vertical-align: top !important; }
 
 /* Search Page */
 #filterBox {
@@ -442,7 +450,6 @@ button.list-group-item:hover, button.list-group-item:focus {
   height: 16px;
   float: left;
   margin: 3px 4px 0 1px; }
-
 .jstree-anchor.type:before {
   background: url("../img/instance_of.png") no-repeat;
   background-size: 16px;
@@ -470,10 +477,6 @@ button.list-group-item:hover, button.list-group-item:focus {
 [type="search"], [type="search"]:focus {
   box-shadow: none;
   transition: none; }
-
-div.row {
-  padding-top: 13px;
-  padding-left: 13px; }
 
 [type="text"]:focus {
   border: 1px solid #00827c;
@@ -684,5 +687,39 @@ a + a > .ontology-source-valign {
 
 #docs-content h1 {
   color: black !important; }
+
+/* header */
+#masthead .row {
+  max-width: 80rem; }
+
+/* footer */
+footer {
+  padding: 1rem 0 1rem; }
+  footer .footer-link-list .link-list {
+    padding: 0;
+    list-style: none;
+    text-align: center;
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 0; }
+    footer .footer-link-list .link-list .link-list-item {
+      padding: 0 10px;
+      display: inline-block; }
+      footer .footer-link-list .link-list .link-list-item a {
+        border: none;
+        text-decoration: none; }
+  footer .ols-logo {
+    text-align: center; }
+    footer .ols-logo a {
+      border: none; }
+      footer .ols-logo a img {
+        height: 50px;
+        padding: 0.3rem;
+        border-radius: 0.2rem;
+        background-color: #004443; }
+    footer .ols-logo .ols-version {
+      color: #777;
+      font-size: small;
+      font-family: monospace; }
 
 /*# sourceMappingURL=new_ols.css.map */

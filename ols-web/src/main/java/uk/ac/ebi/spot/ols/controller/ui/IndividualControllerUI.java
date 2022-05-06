@@ -41,52 +41,58 @@ public class IndividualControllerUI {
     @RequestMapping(path = "/{onto}/individuals", method = RequestMethod.GET)
     String getIndividuals(
             @PathVariable("onto") String ontologyId,
-            @RequestParam(value = "iri", required = false) String termIri,
+            @RequestParam(value = "iri", required = false) String individualIri,
             @RequestParam(value = "short_form", required = false) String shortForm,
+            @RequestParam(value = "lang", required = false, defaultValue = "en") String lang,
             @RequestParam(value = "obo_id", required = false) String oboId,
             Pageable pageable,
             Model model) throws ResourceNotFoundException {
 
         ontologyId = ontologyId.toLowerCase();
 
-        Individual term = null;
+        Individual individual = null;
 
-        if (termIri != null) {
-            term = ontologyIndividualService.findByOntologyAndIri(ontologyId, termIri);
+        model.addAttribute("lang", lang);
+
+        OntologyDocument document = repositoryService.get(ontologyId);
+        model.addAttribute("ontologyLanguages", document.getConfig().getLanguages());
+
+        if (individualIri != null) {
+            individual = ontologyIndividualService.findByOntologyAndIri(ontologyId, individualIri);
         } else if (shortForm != null) {
-            term = ontologyIndividualService.findByOntologyAndShortForm(ontologyId, shortForm);
+            individual = ontologyIndividualService.findByOntologyAndShortForm(ontologyId, shortForm);
         } else if (oboId != null) {
-            term = ontologyIndividualService.findByOntologyAndOboId(ontologyId, oboId);
+            individual = ontologyIndividualService.findByOntologyAndOboId(ontologyId, oboId);
         }
 
-        if (termIri == null & shortForm == null & oboId == null) {
+        if (individualIri == null & shortForm == null & oboId == null) {
 
             if (pageable.getSort() == null) {
                 pageable = new PageRequest(pageable.getPageNumber(), pageable.getPageSize(), new Sort(new Sort.Order(Sort.Direction.ASC, "n.label")));
             }
 
-            Page<Individual> termsPage = ontologyIndividualService.findAllByOntology(ontologyId, pageable);
+            Page<Individual> individualsPage = ontologyIndividualService.findAllByOntology(ontologyId, pageable);
 
-            OntologyDocument document = repositoryService.get(ontologyId);
             model.addAttribute("ontologyName", document.getOntologyId());
-            model.addAttribute("ontologyTitle", document.getConfig().getTitle());
+            model.addAttribute("ontologyTitle", document.getConfig().getLocalizedTitle(lang));
             model.addAttribute("ontologyPrefix", document.getConfig().getPreferredPrefix());
             model.addAttribute("pageable", pageable);
-            model.addAttribute("allindividuals", termsPage);
-            model.addAttribute("allindividualssize", termsPage.getTotalElements());
+            model.addAttribute("allindividuals", individualsPage);
+            model.addAttribute("allindividualssize", individualsPage.getTotalElements());
             customisationProperties.setCustomisationModelAttributes(model);
             return "allindividuals";
         }
 
 
-        if (term == null) {
+        if (individual == null) {
             throw new ResourceNotFoundException("Can't find any individual with that id");
         }
 
-        model.addAttribute("ontologyIndividual", term);
-        model.addAttribute("indvidualTypes", ontologyIndividualService.getDirectTypes(ontologyId, term.getIri(), new PageRequest(0, 10)));
+        model.addAttribute("ontologyIndividual", individual);
+        model.addAttribute("individualTypes", ontologyIndividualService.getDirectTypes(ontologyId, individual.getIri(), new PageRequest(0, 10)));
+        model.addAttribute("individualAnonymousTypes", individual.getAnonymousType());
 
-        String title = repositoryService.get(ontologyId).getConfig().getTitle();
+        String title = repositoryService.get(ontologyId).getConfig().getLocalizedTitle(lang);
         model.addAttribute("ontologyName", title);
         customisationProperties.setCustomisationModelAttributes(model);
         return "individual";

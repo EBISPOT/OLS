@@ -33,6 +33,8 @@ import org.springframework.web.util.UriUtils;
 import uk.ac.ebi.spot.ols.neo4j.model.Term;
 import uk.ac.ebi.spot.ols.neo4j.service.OntologyTermGraphService;
 
+import uk.ac.ebi.spot.ols.controller.api.localization.LocalizedTerm;
+
 /**
  * @author Simon Jupp
  * @date 23/06/2015
@@ -50,7 +52,8 @@ public class TermController implements
     @Autowired TermAssembler termAssembler;
 
     @RequestMapping(path = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE}, method = RequestMethod.GET)
-    private HttpEntity<PagedResources<Term>> getTermsByIri( @PathVariable("id") String termId,
+    private HttpEntity<PagedResources<LocalizedTerm>> getTermsByIri( @PathVariable("id") String termId,
+            @RequestParam(value = "lang", defaultValue = "en", required = false) String lang,
                                                     Pageable pageable,
                                                     PagedResourcesAssembler assembler
     ) throws ResourceNotFoundException {
@@ -62,12 +65,13 @@ public class TermController implements
         } catch (UnsupportedEncodingException e) {
             throw new ResourceNotFoundException("Can't decode IRI: " + termId);
         }
-        return getTerms(decoded, null, null,null, pageable, assembler);
+        return getTerms(decoded, lang, null, null,null, pageable, assembler);
     }
 
     @RequestMapping(path = "", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE}, method = RequestMethod.GET)
-    private HttpEntity<PagedResources<Term>> getTerms(
+    private HttpEntity<PagedResources<LocalizedTerm>> getTerms(
             @RequestParam(value = "iri", required = false) String iri,
+            @RequestParam(value = "lang", defaultValue = "en", required = false) String lang,
             @RequestParam(value = "short_form", required = false) String shortForm,
             @RequestParam(value = "obo_id", required = false) String oboId,
             @RequestParam(value = "id", required = false) String id,
@@ -99,11 +103,14 @@ public class TermController implements
             if (terms == null) throw new ResourceNotFoundException("Ontology not found");
         }
 
-        return new ResponseEntity<>( assembler.toResource(terms, termAssembler), HttpStatus.OK);
+	Page<LocalizedTerm> localized = terms.map(term -> LocalizedTerm.fromTerm(lang, term));
+
+        return new ResponseEntity<>( assembler.toResource(localized, termAssembler), HttpStatus.OK);
     }
     
     @RequestMapping(path = "/findByIdAndIsDefiningOntology/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE}, method = RequestMethod.GET)
-    private HttpEntity<PagedResources<Term>> getTermsByIdAndIsDefiningOntology( @PathVariable("id") String termId,
+    private HttpEntity<PagedResources<LocalizedTerm>> getTermsByIdAndIsDefiningOntology( @PathVariable("id") String termId,
+            @RequestParam(value = "lang", defaultValue = "en", required = false) String lang,
                                                     Pageable pageable,
                                                     PagedResourcesAssembler assembler
     ) throws ResourceNotFoundException {
@@ -114,12 +121,13 @@ public class TermController implements
         } catch (UnsupportedEncodingException e) {
             throw new ResourceNotFoundException("Can't decode IRI: " + termId);
         }
-        return getTermsByIdAndIsDefiningOntology(decoded, null, null,null, pageable, assembler);
+        return getTermsByIdAndIsDefiningOntology(decoded, lang, null, null,null, pageable, assembler);
     }    
 
     @RequestMapping(path = "/findByIdAndIsDefiningOntology", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE}, method = RequestMethod.GET)
-    private HttpEntity<PagedResources<Term>> getTermsByIdAndIsDefiningOntology(
+    private HttpEntity<PagedResources<LocalizedTerm>> getTermsByIdAndIsDefiningOntology(
             @RequestParam(value = "iri", required = false) String iri,
+            @RequestParam(value = "lang", defaultValue = "en", required = false) String lang,
             @RequestParam(value = "short_form", required = false) String shortForm,
             @RequestParam(value = "obo_id", required = false) String oboId,
             @RequestParam(value = "id", required = false) String id,
@@ -150,7 +158,10 @@ public class TermController implements
         	terms = ontologyTermGraphService.findAllByIsDefiningOntology(pageable);
         	if (terms == null) throw new ResourceNotFoundException("Ontology not found");
         }
-        return new ResponseEntity<>( assembler.toResource(terms, termAssembler), HttpStatus.OK);
+
+	Page<LocalizedTerm> localized = terms.map(term -> LocalizedTerm.fromTerm(lang, term));
+
+        return new ResponseEntity<>( assembler.toResource(localized, termAssembler), HttpStatus.OK);
     }
     
     

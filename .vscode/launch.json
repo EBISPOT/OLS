@@ -1,0 +1,79 @@
+{
+	// Use IntelliSense to learn about possible attributes.
+	// Hover to view descriptions of existing attributes.
+	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "java",
+			"name": "Launch Current File",
+			"request": "launch",
+			"mainClass": "${file}"
+		},
+		{
+			"type": "java",
+			"name": "Launch YamlLoader",
+			"request": "launch",
+			"mainClass": "uk.ac.ebi.spot.ols.YamlLoader",
+			"projectName": "ols-config-importer"
+		},
+		{
+			"type": "java",
+			"name": "Launch LoadingApplication",
+			"request": "launch",
+			"mainClass": "uk.ac.ebi.spot.ols.LoadingApplication",
+			"projectName": "ols-indexer",
+			"args": "-f clo"
+		},
+		{
+			"type": "java",
+			"name": "Launch GraphLoaderApplication",
+			"request": "launch",
+			"mainClass": "uk.ac.ebi.spot.ols.GraphLoaderApplication",
+			"projectName": "ols-neo4j-app"
+		},
+		{
+			"type": "java",
+			"name": "Launch OntologySolrApplication",
+			"request": "launch",
+			"mainClass": "uk.ac.ebi.spot.ols.OntologySolrApplication",
+			"projectName": "ols-solr-app"
+		},
+		{
+			"type": "java",
+			"name": "Launch OlsWebApp",
+			"request": "launch",
+			"mainClass": "uk.ac.ebi.spot.ols.OlsWebApp",
+			"projectName": "ols-web",
+			"shortenCommandLine": "jarmanifest"
+		},
+		{
+			"type": "java",
+			"name": "Launch NoReasonerLoaderTest",
+			"request": "launch",
+			"mainClass": "uk.ac.ebi.spot.ols.NoReasonerLoaderTest",
+			"projectName": "ontology-tools"
+		},
+		{
+			"type": "java",
+			"name": "Launch OWLOntologyLoaderDUOTest",
+			"request": "launch",
+			"mainClass": "uk.ac.ebi.spot.ols.OWLOntologyLoaderDUOTest",
+			"projectName": "ontology-tools"
+		},
+		{
+			"type": "java",
+			"name": "Launch OWLOntologyLoaderEFOTest",
+			"request": "launch",
+			"mainClass": "uk.ac.ebi.spot.ols.OWLOntologyLoaderEFOTest",
+			"projectName": "ontology-tools"
+		},
+		{
+			"type": "java",
+			"name": "Launch OWLOntologyLoaderTest",
+			"request": "launch",
+			"mainClass": "uk.ac.ebi.spot.ols.OWLOntologyLoaderTest",
+			"projectName": "ontology-tools"
+		}
+	]
+}

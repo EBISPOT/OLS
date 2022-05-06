@@ -21,7 +21,10 @@ function goTo (url) {
 
 $(function() {
     $('p.annotation-value').each(function(i, el) {
-        $(el).html($(el).html().replace(/((http|https|ftp):\/\/[^\s,]+)/g, "<a href=\"$1\">$1</a>"))
+        $(el).html($(el).html().replace(/((http|https|ftp):\/\/[^\s,\[\]]+)/g, function(url) {
+		console.log("Replacing URL with link: " + url);
+		return "<a href=\"$1\">" + escapeHtml(url) + "</a>";
+	}))
     })
 
     $('.panel-heading').each(function(i, heading) {
@@ -54,3 +57,47 @@ $(function() {
         })
     )
 })
+
+
+
+
+
+
+$(function() {
+
+	if(!window['ontologyLanguages']) {
+		console.log('multilang: no languages available')
+		return
+	}
+
+	var picker = $('<select/>')
+	
+	for(var l of ontologyLanguages) {
+		picker.append(
+			$('<option/>').val(l).text(l).prop('selected', lang === l)
+		)
+	}
+
+	$('body').append(picker)
+	
+	picker.css('position', 'fixed')
+	picker.css('right', '20px')
+	picker.css('top', '40px')
+	picker.css('width', '100px')
+
+	picker.change(function(e) {
+		var searchParams = new URLSearchParams(window.location.search);
+		searchParams.set("lang", e.target.value)
+		window.location.search = searchParams.toString();
+	})
+})
+
+function escapeHtml(unsafe)
+{
+    return unsafe
+         .replace(/&/g, "&amp;")
+         .replace(/</g, "&lt;")
+         .replace(/>/g, "&gt;")
+         .replace(/"/g, "&quot;")
+         .replace(/'/g, "&#039;");
+ }

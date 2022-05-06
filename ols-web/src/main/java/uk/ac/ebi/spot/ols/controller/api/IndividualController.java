@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.util.UriUtils;
 
+import uk.ac.ebi.spot.ols.controller.api.localization.LocalizedIndividual;
 import uk.ac.ebi.spot.ols.neo4j.model.Individual;
 import uk.ac.ebi.spot.ols.neo4j.service.JsTreeBuilder;
 import uk.ac.ebi.spot.ols.neo4j.service.OntologyIndividualService;
@@ -55,8 +56,9 @@ public class IndividualController implements
     }
 
     @RequestMapping(path = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE}, method = RequestMethod.GET)
-    HttpEntity<PagedResources<Individual>> getAllIndividuals(
+    HttpEntity<PagedResources<LocalizedIndividual>> getAllIndividuals(
             @PathVariable("id") String termId,
+            @RequestParam(value = "lang", defaultValue = "en", required = false) String lang,
             Pageable pageable,
             PagedResourcesAssembler assembler) {
         String decoded = null;
@@ -65,15 +67,16 @@ public class IndividualController implements
         } catch (UnsupportedEncodingException e) {
             throw new ResourceNotFoundException("Can't decode IRI: " + termId);
         }
-        return getAllIndividuals(decoded, null, null, pageable, assembler);
+        return getAllIndividuals(decoded, null, null, lang, pageable, assembler);
 
     }
 
     @RequestMapping(path = "", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE}, method = RequestMethod.GET)
-    HttpEntity<PagedResources<Individual>> getAllIndividuals(
+    HttpEntity<PagedResources<LocalizedIndividual>> getAllIndividuals(
             @RequestParam(value = "iri", required = false) String iri,
             @RequestParam(value = "short_form", required = false) String shortForm,
             @RequestParam(value = "obo_id", required = false) String oboId,
+            @RequestParam(value = "lang", defaultValue = "en", required = false) String lang,
             Pageable pageable,
             PagedResourcesAssembler assembler) {
 
@@ -89,12 +92,15 @@ public class IndividualController implements
             terms = ontologyIndividualRepository.findAll(pageable);
         }
 
-        return new ResponseEntity<>(assembler.toResource(terms, individualAssembler), HttpStatus.OK);
+	Page<LocalizedIndividual> localized = terms.map(term -> LocalizedIndividual.fromIndividual(lang, term));
+
+        return new ResponseEntity<>(assembler.toResource(localized, individualAssembler), HttpStatus.OK);
     }
     
     @RequestMapping(path = "/findByIdAndIsDefiningOntology/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE}, method = RequestMethod.GET)
-    HttpEntity<PagedResources<Individual>> getAllIndividualsByIdAndIsDefiningOntology(
+    HttpEntity<PagedResources<LocalizedIndividual>> getAllIndividualsByIdAndIsDefiningOntology(
             @PathVariable("id") String termId,
+            @RequestParam(value = "lang", defaultValue = "en", required = false) String lang,
             Pageable pageable,
             PagedResourcesAssembler assembler) {
         String decoded = null;
@@ -103,7 +109,7 @@ public class IndividualController implements
         } catch (UnsupportedEncodingException e) {
             throw new ResourceNotFoundException("Can't decode IRI: " + termId);
         }
-        return getAllIndividualsByIdAndIsDefiningOntology(decoded, null, null, pageable, assembler);
+        return getAllIndividualsByIdAndIsDefiningOntology(decoded, null, null, lang, pageable, assembler);
 
     }    
     
@@ -111,10 +117,11 @@ public class IndividualController implements
     @RequestMapping(path = "/findByIdAndIsDefiningOntology", 
     		produces = {MediaType.APPLICATION_JSON_VALUE, MediaTypes.HAL_JSON_VALUE}, 
     		method = RequestMethod.GET)
-    HttpEntity<PagedResources<Individual>> getAllIndividualsByIdAndIsDefiningOntology(
+    HttpEntity<PagedResources<LocalizedIndividual>> getAllIndividualsByIdAndIsDefiningOntology(
             @RequestParam(value = "iri", required = false) String iri,
             @RequestParam(value = "short_form", required = false) String shortForm,
             @RequestParam(value = "obo_id", required = false) String oboId,
+            @RequestParam(value = "lang", defaultValue = "en", required = false) String lang,
             Pageable pageable,
             PagedResourcesAssembler assembler) {
 
@@ -130,7 +137,9 @@ public class IndividualController implements
             terms = ontologyIndividualRepository.findAllByIsDefiningOntology(pageable);
         }
 
-        return new ResponseEntity<>(assembler.toResource(terms, individualAssembler), HttpStatus.OK);
+	Page<LocalizedIndividual> localized = terms.map(term -> LocalizedIndividual.fromIndividual(lang, term));
+
+        return new ResponseEntity<>(assembler.toResource(localized, individualAssembler), HttpStatus.OK);
     }
     
 

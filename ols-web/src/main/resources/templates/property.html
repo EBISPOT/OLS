@@ -12,7 +12,7 @@
 
 <head>
     <div th:replace="fragments/head :: head(olscss=true, proton=true)"></div>
-    <title id="pageTitle" th:text="${ontologyProperty.getLabel()}">Property</title>
+    <title id="pageTitle" th:text="${ontologyProperty.getLabelByLang(lang)}">Property</title>
     <!-- A few keywords that relate to the content of THIS PAGE (not the whole project)
     <meta name="keywords" content="biosamples, europe, EBI" />
     <!- - Describe what this page is about - ->
@@ -21,6 +21,10 @@
     <!- - The last time the content was reviewed - ->
     <meta name="ebi:expiry" content="2017-12-20" />
     <!- - When this content is no longer relevant -->
+    <script type="text/javascript" th:inline="javascript">
+        ontologyLanguages = [[${ontologyLanguages}]]
+        lang = [[${lang}]]
+    </script>
 </head>
 
 <body>
@@ -71,8 +75,9 @@
         </div>
 
         <div class="row">
-            <div class="small-8 column">
-                <h2 property="name" style="margin-bottom: 0;" th:text="${ontologyProperty.getLabel()}">Property
+            <div class="small-8 columns">
+                <h2 property="name" style="margin-bottom: 0;" th:text="${ontologyProperty.getLabelByLang(lang)}">
+                    Property
                     label</h2>
                 <a data-x-style="padding: 9px; border-bottom: none;"
                    style="padding-left: 3px; border-bottom:none;"
@@ -231,7 +236,7 @@
                             </div>
 
                             <p th:unless="${definitionCitations}"
-                               th:each="description : ${ontologyProperty.getDescription()}"
+                               th:each="description : ${ontologyProperty.getDescriptionsByLang(lang)}"
                                th:text="${description}">
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.
                                 Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at
@@ -248,13 +253,14 @@
                             </p>
                         </div>
 
-                        <div th:if="${ontologyProperty.getSynonyms() !=null}">
+                        <div th:if="${ontologyProperty.getSynonymsByLang(lang) != null && ontologyProperty.getSynonymsByLang(lang).length > 0}">
                             <p><b>Synonyms:</b>
                                 <span property="alternateName" class="label synonym"
-                                      th:each="synonym : ${ontologyProperty.getSynonyms()}"
+                                      th:each="synonym : ${ontologyProperty.getSynonymsByLang(lang)}"
                                       th:text="${synonym}">NCBI_9606</span>
                             </p>
                         </div>
+
                         <!--div>
                             <span>Short id: </span>
                             <p th:text="${ontologyProperty.getShortForm()}">NCBI_9606</p>
@@ -311,7 +317,7 @@
                             </div>
                         </div>
 
-                        <div th:each="annotations: ${ontologyProperty.getAnnotation()}">
+                        <div th:each="annotations: ${ontologyProperty.getAnnotationByLang(lang)}">
                             <div th:unless="${annotations.key} eq 'database_cross_reference'">
                                 <b><a href="#"
                                       th:href="@{../../search(q=${annotations.key},exact='true', type=property, ontology=${ontologyProperty.ontologyName})}"
