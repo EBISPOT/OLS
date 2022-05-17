@@ -128,31 +128,31 @@
                 <div th:if="${ontologyTerm.isObsolete()}">
                     <div class="obsolete">This term is obsolete</div>
 
-                    <div th:if="${ontologyTerm.getAnnotation().containsKey('reason_for_obsolescence')}">
+                    <div th:if="${ontologyTerm.getAnnotationByLang(lang).containsKey('reason_for_obsolescence')}">
                         <b>Reason for obsolescence</b>
                         <p style="margin-left: 9px;"
-                           th:text="${#strings.setJoin(ontologyTerm.getAnnotation().get('reason_for_obsolescence'), ',')}">
+                           th:text="${#strings.setJoin(ontologyTerm.getAnnotationByLang(lang).get('reason_for_obsolescence'), ',')}">
                             NCBI_9606</p>
                     </div>
 
-                    <div th:if="${ontologyTerm.getAnnotation().containsKey('replacedBy')}">
+                    <div th:if="${ontologyTerm.getAnnotationByLang(lang).containsKey('replacedBy')}">
                         <b>Replaced by</b>
                         <p style="margin-left: 9px;"
-                           th:text="${#strings.setJoin(ontologyTerm.getAnnotation().get('replacedBy'), ',')}">
+                           th:text="${#strings.setJoin(ontologyTerm.getAnnotationByLang(lang).get('replacedBy'), ',')}">
                             NCBI_9606</p>
                     </div>
 
-                    <div th:if="${ontologyTerm.getAnnotation().containsKey('term replaced by')}">
+                    <div th:if="${ontologyTerm.getAnnotationByLang(lang).containsKey('term replaced by')}">
                         <b>Replaced by</b>
                         <p style="margin-left: 9px;"
-                           th:text="${#strings.setJoin(ontologyTerm.getAnnotation().get('term replaced by'), ',')}">
+                           th:text="${#strings.setJoin(ontologyTerm.getAnnotationByLang(lang).get('term replaced by'), ',')}">
                             NCBI_9606</p>
                     </div>
 
-                    <div th:if="${ontologyTerm.getAnnotation().containsKey('consider')}">
+                    <div th:if="${ontologyTerm.getAnnotationByLang(lang).containsKey('consider')}">
                         <b>Consider</b>
                         <p style="margin-left: 9px;"
-                           th:text="${#strings.setJoin(ontologyTerm.getAnnotation().get('consider'), ',')}">
+                           th:text="${#strings.setJoin(ontologyTerm.getAnnotationByLang(lang).get('consider'), ',')}">
                             NCBI_9606</p>
                     </div>
                 </div>
