@@ -1271,18 +1271,18 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
         Collection<OBOSynonym> oboSynonyms = new HashSet<>();
         Collection<OBOXref> oboEntityXrefs = new HashSet<>();
 
-        Set<IRI> annotationProperties = new HashSet<>();
+//        Set<IRI> annotationProperties = new HashSet<>();
 
-        // pass 1: populate the set of all annotation properties used
-        for (OWLOntology anOntology : getManager().ontologies().collect(Collectors.toSet())){
-                    EntitySearcher.getAnnotationAssertionAxioms(owlEntity, anOntology).forEach(annotationAssertionAxiom -> {
-
-                OWLAnnotationProperty annotationProperty = annotationAssertionAxiom.getProperty();
-                IRI annotationPropertyIRI = annotationProperty.getIRI();
-
-                annotationProperties.add(annotationPropertyIRI);
-            });
-        }
+//        // pass 1: populate the set of all annotation properties used
+//        for (OWLOntology anOntology : getManager().ontologies().collect(Collectors.toSet())){
+//                    EntitySearcher.getAnnotationAssertionAxioms(owlEntity, anOntology).forEach(annotationAssertionAxiom -> {
+//
+//                OWLAnnotationProperty annotationProperty = annotationAssertionAxiom.getProperty();
+//                IRI annotationPropertyIRI = annotationProperty.getIRI();
+//
+//                annotationProperties.add(annotationPropertyIRI);
+//            });
+//        }
    
    
         // pass 2: read the annotations
@@ -1378,7 +1378,7 @@ AbstractOWLOntologyLoader extends Initializable implements OntologyLoader {
                         for (OWLAnnotation annotationAxiomAnnotation : annotationAssertionAxiom.getAnnotations()) {
                             if (annotationAxiomAnnotation.getProperty().getIRI().toString().equals(OboDefaults.SYNONYM_TYPE)) {
                                 OWLAnnotationValue annoValue = annotationAxiomAnnotation.getValue();
-                                if (value instanceof IRI) {
+                                if (annoValue instanceof IRI) {
                                     OWLAnnotationProperty owlAnnotationProperty = factory.getOWLAnnotationProperty((IRI) annoValue);
                                     EntitySearcher.getAnnotations(owlAnnotationProperty, ontology).forEach(valueAnnotation -> {
                                         if (valueAnnotation.getProperty().getIRI().equals(OWLRDFVocabulary.RDFS_LABEL.getIRI())) {
