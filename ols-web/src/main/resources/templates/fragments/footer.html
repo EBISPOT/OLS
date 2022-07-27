@@ -47,7 +47,7 @@
         </div>
 
         <div class="row">
-            <div class="ols-logo">
+            <div th:if="${ebiInfo} == false" class="ols-logo">
                 <a th:href="@{${web}}"
                    th:title="'Go to ' + ${org} + ' homepage'">
                     <img th:src="@{${logo}}" style=""/>

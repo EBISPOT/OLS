@@ -8,6 +8,7 @@ ols-loader/src/test/resources/tmp
 ols-solr/src/main/resources/solr-conf/ontology/data
 ols-mongo/src/main/resources/mongodb
 ols-web/src/main/resources/static/documents/*
+ols-web/src/main/resources/application.properties
 properties
 .classpath
 .settings
