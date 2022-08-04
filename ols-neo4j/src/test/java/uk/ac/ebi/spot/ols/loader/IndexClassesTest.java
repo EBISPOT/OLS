@@ -105,59 +105,14 @@ public class IndexClassesTest {
         
         Map<String, Long> classNodeMap = new HashMap<>();
         Map<String, Long> mergedNodeMap = new HashMap<>();
+		Map<String, Long> referencedIndividualNodeMap = new HashMap<>();
         
-        batchNeo4JIndexer.indexClasses(batchInserter, ontologyLoader, classNodeMap, mergedNodeMap);
+        batchNeo4JIndexer.indexClasses(batchInserter, ontologyLoader, classNodeMap, mergedNodeMap, referencedIndividualNodeMap);
         
         batchInserterIndexProvider.shutdown();
         batchInserter.shutdown();
 	}
 
-	@Disabled
-	@Order(2)
-	@ParameterizedTest
-	@MethodSource("provideOntologies")
-	void testIndexClassesDeprecated(String ontologyIRI, String namespace, String ontologyToIndex, 
-			String baseUri, String neo4JDir) {
-		
-		BatchInserter batchInserter = OLSBatchIndexerCreatorTestHelper
-				.createBatchInserter(null, INDEX_CLASSES_TEST_DEPRECATED_NEO4J_DIR);
-		
-        OntologyResourceConfig.OntologyResourceConfigBuilder builder =
-                new OntologyResourceConfig.OntologyResourceConfigBuilder(ontologyIRI, 
-                		namespace, (new File(BASE_DIR_FOR_TEST_RESOURCES + ontologyToIndex).toURI()));
-        
-        builder.setBaseUris(Collections.singleton(baseUri));
-
-        OntologyResourceConfig config = builder.build();
-        
-        OntologyLoader ontologyLoader = null;
-        try {
-            ontologyLoader = new HermitOWLOntologyLoader(config);
-        } catch (OntologyLoadingException e) {
-            logger.error(e.getMessage(), e);
-        }
-        
-        BatchInserterIndexProvider batchInserterIndexProvider =
-                    new LuceneBatchInserterIndexProvider(batchInserter);
-        BatchInserterIndex batchInserterIndex = OLSBatchIndexerCreatorTestHelper
-        		.createBatchInserterIndex(batchInserterIndexProvider);
-        
-        BatchNeo4JIndexer batchNeo4JIndexer = new BatchNeo4JIndexerHelper(
-        		ontologyLoader.getOntologyName(), batchInserterIndex, batchInserterIndexProvider,
-        		batchInserter, neo4JDir);
-        
-        Map<String, Long> classNodeMap = new HashMap<>();
-        Map<String, Long> mergedNodeMap = new HashMap<>();
-        
-        batchNeo4JIndexer.indexClassesDeprecated(batchInserter, ontologyLoader, classNodeMap, 
-        		mergedNodeMap);
-        
-        
-        batchInserterIndexProvider.shutdown();
-        batchInserter.shutdown();
-	}
-	
-	
 	/**
 	 * For now we just do a few naive checks.
 	 * 

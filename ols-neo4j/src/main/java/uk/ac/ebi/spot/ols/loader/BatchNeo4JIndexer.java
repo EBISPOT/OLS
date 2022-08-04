@@ -204,15 +204,16 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
     }
 
     private void indexIndividuals(BatchInserter inserter, OntologyLoader loader,
-                                  Map<String, Long> nodeMap, Map<String, Long> mergedNodeMap, Map<String, Long> classNodeMap) {
+                                  Map<String, Long> nodeMap, Map<String, Long> mergedNodeMap, Map<String, Long> classNodeMap,
+                                  Map<String, Long> relatedIndividualNodeMap) {
 
         getLogger().debug("Creating Neo4j index for " + loader.getAllIndividualIRIs().size() + " individuals");
 
         for (IRI individualIri : loader.getAllIndividualIRIs()) {
 
             // avoid duplicating individuals already related to a class
-            if (classNodeMap.containsKey(individualIri.toString())) {
-                nodeMap.put(individualIri.toString(), classNodeMap.get(individualIri.toString()));
+            if (relatedIndividualNodeMap.containsKey(individualIri.toString())) {
+                nodeMap.put(individualIri.toString(), relatedIndividualNodeMap.get(individualIri.toString()));
             }
 
             Long node = NodeCreator.getOrCreateNode(inserter, nodeMap, loader, individualIri,
@@ -293,7 +294,7 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
      */
     private void indexRelatedIndividuals(Long node, Map<IRI, Collection<IRI>> relatedIndividuals,
                                          BatchInserter inserter, OntologyLoader loader, Map<String, Long> nodeMap,
-                                         Collection<Label> nodeLabels) {
+                                         Collection<Label> nodeLabels, Map<String, Long> relatedIndividualNodeMap) {
 
         for (IRI relation : relatedIndividuals.keySet()) {
             Map<String, Object> relatedProperties = new HashMap<>();
@@ -306,6 +307,7 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
                 //TODO review right parameters
                 Long relatedNode = NodeCreator.getOrCreateNode(inserter, nodeMap, loader,
                         relatedTerm, nodeLabels);
+                relatedIndividualNodeMap.put(relatedTerm.toString(), relatedNode);
                 inserter.createRelationship(node, relatedNode, relatedIndividual, relatedProperties);
             }
 
@@ -313,7 +315,7 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
     }
 
     void indexClasses(BatchInserter inserter, OntologyLoader loader, Map<String, Long> nodeMap,
-                      Map<String, Long> mergedNodeMap) {
+                      Map<String, Long> mergedNodeMap, Map<String, Long> relatedIndividualNodeMap) {
         getLogger().debug("Creating Neo4j index for " + loader.getAllClasses().size() + " classes");
 
         for (IRI classIri : loader.getAllClasses()) {
@@ -334,11 +336,11 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
 
             Long node = nodeMap.get(classIri.toString());
 
-            indexRelatedNodes(inserter, loader, nodeMap, classIri, node);
+            indexRelatedNodes(inserter, loader, nodeMap, classIri, node, relatedIndividualNodeMap);
 
             indexRelatedIndividuals(node, loader.getRelatedIndividualsToClass(classIri), inserter,
                     loader, nodeMap, new LinkedList<Label>(Arrays.asList(
-                            instanceLabel, nodeOntologyLabel, _instanceLabel)));
+                            instanceLabel, nodeOntologyLabel, _instanceLabel)), relatedIndividualNodeMap);
         }
     }
 
@@ -360,36 +362,9 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
         }
     }
 
-    void indexClassesDeprecated(BatchInserter inserter, OntologyLoader loader, Map<String, Long> nodeMap,
-                                Map<String, Long> mergedNodeMap) {
-
-        getLogger().debug("Creating Neo4j index for " + loader.getAllClasses().size() + " classes");
-
-        for (IRI classIri : loader.getAllClasses()) {
-
-            Long node = NodeCreator.getOrCreateNode(inserter, nodeMap, loader, classIri,
-                    new LinkedList<Label>(Arrays.asList(nodeLabel, nodeOntologyLabel, _nodeLabel)));
-
-            Long mergedNode = getOrCreateMergedNode(inserter, mergedNodeMap, loader, classIri,
-                    mergedClassLabel);
-
-            // add refers link
-            inserter.createRelationship(node, mergedNode, refersTo, null);
-
-            addParentAndRelatedParentNodesWithRelationships(inserter, loader, nodeMap, classIri, node);
-
-
-            indexRelatedNodes(inserter, loader, nodeMap, classIri, node);
-
-            indexRelatedIndividuals(node, loader.getRelatedIndividualsToClass(classIri), inserter,
-                    loader, nodeMap, new LinkedList<Label>(Arrays.asList(
-                            instanceLabel, nodeOntologyLabel, _instanceLabel)));
-        }
-
-    }
-
     private void indexRelatedNodes(BatchInserter inserter, OntologyLoader loader,
-                                   Map<String, Long> nodeMap, IRI classIri, Long node) {
+                                   Map<String, Long> nodeMap, IRI classIri, Long node,
+                                   Map<String, Long>  relatedIndividualNodeMap) {
 
         Map<IRI, Collection<IRI>> relatedterms = loader.getRelatedTerms(classIri);
 
@@ -419,8 +394,8 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
                                 relatedTreeProperties);
                     }
                 }
+                relatedIndividualNodeMap.put(relatedTerm.toString(), relatedNode);
             }
-
         }
     }
 
@@ -441,6 +416,7 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
         Map<String, Long> classNodeMap = new HashMap<>();
         Map<String, Long> propertyNodeMap = new HashMap<>();
         Map<String, Long> individualNodeMap = new HashMap<>();
+        Map<String, Long> relatedIndividualNodeMap = new HashMap<>();
 
         // store a local cache of merged term nodes
         Map<String, Long> mergedNodeMap = new HashMap<>();
@@ -452,7 +428,7 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
 
             setOntologyLabel(loader.getOntologyName());
             // index classes
-            indexClasses(inserter, loader, classNodeMap, mergedNodeMap);
+            indexClasses(inserter, loader, classNodeMap, mergedNodeMap, relatedIndividualNodeMap);
             // index properties
             indexProperties(inserter, loader, propertyNodeMap, mergedNodeMap);
             // index individuals
@@ -460,7 +436,7 @@ public class BatchNeo4JIndexer implements OntologyIndexer {
             if (classNodeMap.containsKey("http://www.w3.org/2002/07/owl#Thing")) {
                 individualNodeMap.put("http://www.w3.org/2002/07/owl#Thing", classNodeMap.get("http://www.w3.org/2002/07/owl#Thing"));
             }
-            indexIndividuals(inserter, loader, individualNodeMap, mergedNodeMap, classNodeMap);
+            indexIndividuals(inserter, loader, individualNodeMap, mergedNodeMap, classNodeMap, relatedIndividualNodeMap);
 
             OLSBatchIndexerCreator.createSchemaIndexes(inserter);
 
