@@ -326,9 +326,7 @@ public class SolrIndexer implements OntologyIndexer {
         }
 
         if (loader.getTermSynonyms().containsKey(termIRI)) {
-            LocalizedStrings languageToSynonyms = loader.getTermSynonyms().get(termIRI);
-
-            //builder.setSynonyms(loader.getTermSynonyms().get(termIRI));
+            builder.setSynonyms(loader.getTermSynonyms().get(termIRI));
         }
 
         if (loader.getTermDefinitions().containsKey(termIRI)) {
