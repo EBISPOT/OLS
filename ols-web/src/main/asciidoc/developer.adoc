@@ -10,6 +10,7 @@
 === OLS community
 * Java client to OLS developed by the EMBL-EBI PRIDE team https://github.com/PRIDE-Utilities/ols-client
 * R client to the OLS https://github.com/lgatto/rols/
+* Python client to the OLS https://github.com/ahida-development/ols-py
 
 === OLS javascript widgets
 * OLS autocomplete https://www.npmjs.com/package/ols-autocomplete
