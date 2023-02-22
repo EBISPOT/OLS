@@ -1,6 +1,11 @@
-# OLS
+# We are currently developing a new version of OLS
 
-Ontology Lookup Service from SPOT at EBI.
+Check out https://github.com/EBISPOT/ols4 for updates!
+
+
+---
+
+Legacy Ontology Lookup Service from SPOT at EBI.
 
 * OLS is currently live at the EBI here http://www.ebi.ac.uk/ols
 * A REST API for OLS is described here http://www.ebi.ac.uk/ols/docs/api
