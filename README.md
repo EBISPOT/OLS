@@ -1,6 +1,6 @@
-# We are currently developing a new version of OLS
+# We are currently developing a new version of OLS. This repository is no longer maintained.
 
-Check out https://github.com/EBISPOT/ols4 for updates!
+Check out https://github.com/EBISPOT/ols4 for updates on the new version!
 
 
 ---
