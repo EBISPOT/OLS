@@ -30,7 +30,7 @@ jobs:
           mvn -B release:update-versions -DreleaseVersion=${{ steps.versionNumber.outputs.value }} -DdevelopmentVersion=${{ steps.versionNumber.outputs.value }}-SNAPSHOT
           mvn versions:set -DremoveSnapshot -DgenerateBackupPoms=false -DprocessAllModules=true
       - name: Build OLS
-        run: mvn clean package -DskipTests
+        run: mvn -B clean package -DskipTests
       - name: Create archive
         run: |
           mkdir ols_jars_${{ github.ref_name }}
