@@ -18,13 +18,37 @@ services:
           - ols-mongo-data:/data/db
       command:
           - mongod
+    ols-config-importer:
+      build:
+          context: .
+          dockerfile: ./ols-apps/ols-config-importer/Dockerfile
+      environment:
+        - spring.data.mongodb.host=mongo
+      volumes:
+        - ./config:/config
+      depends_on: ["mongo"]
+      restart: on-failure:2
+
+    ols-indexer:
+      build:
+          context: .
+          dockerfile: ./ols-apps/ols-indexer/Dockerfile
+      environment:
+        - spring.data.solr.host=http://solr:8983/solr
+        - spring.data.mongodb.host=mongo
+      volumes:
+        - ols-neo4j-data:/mnt/neo4j
+        - ols-downloads:/mnt/downloads
+      depends_on:
+        ols-config-importer:
+          condition: service_completed_successfully
     ols-web:
       build:
           context: .
           dockerfile: ols-web/Dockerfile
       depends_on:
-        - solr
-        - mongo
+        ols-indexer:
+          condition: service_completed_successfully
       links:
         - solr
         - mongo
@@ -44,16 +68,11 @@ services:
         - OLS_HOME=/mnt/
       volumes:
         - ols-neo4j-data:/mnt/neo4j
-        - ols-downloads:/mnt/downloads        
+        - ols-downloads:/mnt/downloads
       ports:
       - 8080:8080
 volumes:
     ols-solr-data:
-        external: true
     ols-mongo-data:
-        external: true
     ols-neo4j-data:
-        external: true
     ols-downloads:
-        external: true
-
